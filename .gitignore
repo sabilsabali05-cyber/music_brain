@@ -17,6 +17,12 @@ samples/*.wav
 samples/*.mp3
 samples/*.flac
 samples/*.m4a
+samples/input/
+samples/clips/
+benchmark_reports/
+!samples/input/.gitkeep
+!samples/clips/.gitkeep
+!benchmark_reports/.gitkeep
 
 # OS/editor
 .DS_Store

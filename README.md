@@ -47,6 +47,8 @@ scripts\dev.cmd smoke-modal-fake
 scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
+scripts\dev.cmd make-clip samples\input\my_song.wav 30
+scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
 scripts\dev.cmd validate-latest
 scripts\dev.cmd validate-track library\trk_20260521T103733Z_e3513afc22
 scripts\dev.cmd commit-checkpoint
@@ -210,3 +212,47 @@ Validation checks include:
 - `original/normalized.wav` exists
 - `midi/full_mix.mid` exists and is non-empty
 - MIDI parses with `mido` and reports track/message counts
+
+## Testing YourMT3 on a real clip
+
+Use only audio you own or have rights to process.
+
+1. Put your file in `samples/input/` (this folder is git-ignored).
+2. Make a short clip (default 30s):
+
+```powershell
+python scripts/make_clip.py samples/input/my_song.wav --seconds 30
+```
+
+Or via dev runner:
+
+```powershell
+scripts\dev.cmd make-clip samples/input/my_song.wav 30
+```
+
+3. Transcribe the clip with YourMT3:
+
+```powershell
+$env:MUSIC_BRAIN_PROVIDER="yourmt3"
+$env:MUSIC_BRAIN_BACKEND="modal"
+python submit_track.py samples/clips/my_song_clip_0s_30s.wav
+```
+
+4. Validate the resulting track folder:
+
+```powershell
+scripts\dev.cmd validate-track library/<track_id>
+```
+
+5. Benchmark the resulting track folder:
+
+```powershell
+python scripts/benchmark_track.py library/<track_id>
+scripts\dev.cmd benchmark-track library/<track_id>
+```
+
+`benchmark_track.py` prints:
+
+- `track_id`, `status`, `provider_used`, `backend`
+- audio duration and transcription/total latency
+- MIDI file size, track/message counts, and `note_on` count

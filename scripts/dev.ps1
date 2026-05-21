@@ -41,6 +41,8 @@ function Show-Usage {
     Write-Host "  smoke-yourmt3"
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
+    Write-Host "  make-clip <audio-path> [seconds]"
+    Write-Host "  benchmark-track <track-folder>"
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
     Write-Host "  commit-checkpoint [commit message]"
@@ -253,6 +255,23 @@ switch ($Task) {
         $env:MUSIC_BRAIN_MODAL_GPU = "T4"
         Show-MusicBrainEnv
         Invoke-Step -Label "Running preflight for yourmt3/modal" -Command @("python", "submit_track.py", "--preflight")
+    }
+    "make-clip" {
+        Ensure-FfmpegPath
+        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
+            throw "Usage: scripts\dev.cmd make-clip <audio-path> [seconds]"
+        }
+        $clipCommand = @("python", "scripts/make_clip.py", $CommitMessage)
+        if ($args.Count -ge 1 -and -not [string]::IsNullOrWhiteSpace($args[0])) {
+            $clipCommand += @("--seconds", "$($args[0])")
+        }
+        Invoke-Step -Label "Creating short clip" -Command $clipCommand
+    }
+    "benchmark-track" {
+        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
+            throw "Usage: scripts\dev.cmd benchmark-track <track-folder>"
+        }
+        Invoke-Step -Label "Benchmarking track" -Command @("python", "scripts/benchmark_track.py", $CommitMessage)
     }
     "validate-latest" {
         $libraryRoot = Join-Path (Get-Location) "library"
