@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments / secrets
+.env
+.venv/
+venv/
+
+# Generated audio/database artifacts
+library/
+samples/*.wav
+samples/*.mp3
+samples/*.flac
+samples/*.m4a
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
