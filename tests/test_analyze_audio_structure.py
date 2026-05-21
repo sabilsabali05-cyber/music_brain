@@ -31,6 +31,8 @@ def test_fuse_boundary_candidates_accepts_obvious_peaks() -> None:
     assert diagnostics["candidate_boundary_count"] >= 1
     assert diagnostics["accepted_boundary_count"] >= 1
     assert any(float(c["confidence"]) >= 0.55 for c in candidates)
+    assert all(c.get("candidate_source") in {"audio_structure", "fixed_coverage"} for c in candidates)
+    assert all("eligible_for_phrase_boundary" in c for c in candidates)
 
 
 def test_analyze_audio_structure_writes_expected_schema(tmp_path: Path, monkeypatch) -> None:
@@ -61,6 +63,9 @@ def test_analyze_audio_structure_writes_expected_schema(tmp_path: Path, monkeypa
     assert "chroma_change" in payload["features"]
     assert "timbre_change" in payload["features"]
     assert "novelty_combined" in payload["features"]
+    assert payload["boundary_candidates"]
+    assert "candidate_source" in payload["boundary_candidates"][0]
+    assert "eligible_for_phrase_boundary" in payload["boundary_candidates"][0]
 
 
 def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch) -> None:
@@ -121,6 +126,8 @@ def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch
     assert "chroma_change" in payload["features"]
     assert "timbre_change" in payload["features"]
     assert payload["diagnostics"]["available_features"]
+    assert payload["boundary_candidates"][0]["candidate_source"] == "audio_structure"
+    assert payload["boundary_candidates"][0]["eligible_for_phrase_boundary"] is True
 
 
 def test_audio_analysis_diagnostics_reports_modal_lookup(monkeypatch) -> None:

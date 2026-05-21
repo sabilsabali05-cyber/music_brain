@@ -272,6 +272,8 @@ def fuse_boundary_candidates(
                 "time_seconds": round(time_seconds, 6),
                 "confidence": round(float(evidence["combined_novelty"]), 3),
                 "reason": dominant,
+                "candidate_source": "audio_structure",
+                "eligible_for_phrase_boundary": True,
                 "feature_evidence": evidence,
             }
         )
@@ -305,6 +307,8 @@ def fuse_boundary_candidates(
                 "time_seconds": round(fixed_time, 6),
                 "confidence": 0.2,
                 "reason": "fixed_interval_fallback",
+                "candidate_source": "fixed_coverage",
+                "eligible_for_phrase_boundary": False,
                 "feature_evidence": {
                     "energy_change": 0.0,
                     "onset_change": 0.0,
@@ -423,6 +427,17 @@ def analyze_audio_structure_modal(
         payload["features"] = {}
     if not isinstance(payload.get("boundary_candidates"), list):
         payload["boundary_candidates"] = []
+    normalized_candidates: list[dict[str, object]] = []
+    for candidate in payload["boundary_candidates"]:
+        if not isinstance(candidate, dict):
+            continue
+        normalized = dict(candidate)
+        source = str(normalized.get("candidate_source", "audio_structure"))
+        normalized["candidate_source"] = source
+        if "eligible_for_phrase_boundary" not in normalized:
+            normalized["eligible_for_phrase_boundary"] = source == "audio_structure"
+        normalized_candidates.append(normalized)
+    payload["boundary_candidates"] = normalized_candidates
     diagnostics = payload.get("diagnostics", {})
     if not isinstance(diagnostics, dict):
         diagnostics = {}

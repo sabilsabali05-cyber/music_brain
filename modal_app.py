@@ -243,6 +243,8 @@ def analyze_audio_structure_modal(
                 "time_seconds": round(float(time_seconds), 6),
                 "confidence": round(float(evidence["combined_novelty"]), 3),
                 "reason": reason,
+                "candidate_source": "audio_structure",
+                "eligible_for_phrase_boundary": True,
                 "feature_evidence": evidence,
             }
         )
@@ -274,6 +276,8 @@ def analyze_audio_structure_modal(
                 "time_seconds": round(float(fallback_time), 6),
                 "confidence": 0.2,
                 "reason": "fixed_interval_fallback",
+                "candidate_source": "fixed_coverage",
+                "eligible_for_phrase_boundary": False,
                 "feature_evidence": {
                     "energy_change": 0.0,
                     "onset_change": 0.0,

@@ -238,6 +238,7 @@ def build_audio_structure_core_intervals(
     onset_weight: float,
     chroma_weight: float,
     timbre_weight: float,
+    allow_fixed_candidates: bool,
 ) -> tuple[
     list[tuple[float, float]],
     list[str],
@@ -273,6 +274,13 @@ def build_audio_structure_core_intervals(
         confidence = tuned_score(candidate)
         updated = dict(candidate)
         updated["tuned_confidence"] = round(confidence, 6)
+        candidate_source = str(candidate.get("candidate_source", "audio_structure"))
+        eligible_for_phrase_boundary = bool(candidate.get("eligible_for_phrase_boundary", True))
+        if candidate_source in {"fixed_coverage", "max_window_split"}:
+            eligible_for_phrase_boundary = False
+        if allow_fixed_candidates and candidate_source == "fixed_coverage":
+            eligible_for_phrase_boundary = True
+
         evaluation = {
             "time_seconds": round(time_seconds, 6),
             "confidence": round(float(candidate.get("confidence", 0.0) or 0.0), 6),
@@ -280,11 +288,15 @@ def build_audio_structure_core_intervals(
             "accepted": False,
             "rejection_reason": "unknown",
             "boundary_reason": str(candidate.get("reason", "unknown")),
+            "candidate_source": candidate_source,
+            "eligible_for_phrase_boundary": eligible_for_phrase_boundary,
             "feature_evidence": candidate.get("feature_evidence", {}),
             "nearest_segment_distance": None,
         }
-        if str(candidate.get("reason", "")) == "fixed_interval_fallback":
+        if str(candidate.get("reason", "")) == "fixed_interval_fallback" and not allow_fixed_candidates:
             evaluation["rejection_reason"] = "fixed_interval_candidate"
+        elif not eligible_for_phrase_boundary:
+            evaluation["rejection_reason"] = "unused_candidate"
         elif time_seconds < min_segment_seconds or time_seconds > duration_seconds - min_segment_seconds:
             evaluation["rejection_reason"] = "violates_min_segment_seconds"
         elif confidence < boundary_threshold:
@@ -310,7 +322,7 @@ def build_audio_structure_core_intervals(
             intervals.append((start, duration_seconds))
             reasons.append("combined_audio_novelty")
             confidences.append(0.6 if accepted_count > 0 else 0.2)
-            sources.append("audio_structure_v1" if accepted_count > 0 else "fixed")
+            sources.append("audio_structure" if accepted_count > 0 else "fixed_coverage")
             evidences.append({})
             break
 
@@ -335,7 +347,7 @@ def build_audio_structure_core_intervals(
             intervals.append((start, end))
             reasons.append(reason)
             confidences.append(confidence)
-            sources.append("audio_structure_v1")
+            sources.append(str(chosen.get("candidate_source", "audio_structure")))
             evidences.append(evidence if isinstance(evidence, dict) else {})
             start = end
             continue
@@ -344,7 +356,7 @@ def build_audio_structure_core_intervals(
         intervals.append((start, end))
         reasons.append("fixed_interval_fallback")
         confidences.append(0.2)
-        sources.append("fixed")
+        sources.append("fixed_coverage")
         evidences.append({})
         start = end
 
@@ -430,6 +442,7 @@ def segment_audio(
     timbre_weight: float = 0.25,
     onset_weight: float = 0.30,
     rms_weight: float = 0.20,
+    allow_fixed_candidates: bool = False,
 ) -> Path:
     if not source_path.exists():
         raise FileNotFoundError(f"Audio file does not exist: {source_path}")
@@ -459,6 +472,7 @@ def segment_audio(
         "onset_weight": float(onset_weight),
         "chroma_weight": float(chroma_weight),
         "timbre_weight": float(timbre_weight),
+        "allow_fixed_candidates": bool(allow_fixed_candidates),
     }
 
     duration_seconds = probe_duration_seconds(source_path)
@@ -546,6 +560,7 @@ def segment_audio(
                     onset_weight=onset_weight,
                     chroma_weight=chroma_weight,
                     timbre_weight=timbre_weight,
+                    allow_fixed_candidates=allow_fixed_candidates,
                 )
                 available_features = diagnostics.get("available_features", [])
                 missing_features = diagnostics.get("missing_features", [])
@@ -741,6 +756,7 @@ def main() -> int:
     parser.add_argument("--timbre-weight", type=float, default=0.25)
     parser.add_argument("--onset-weight", type=float, default=0.30)
     parser.add_argument("--rms-weight", type=float, default=0.20)
+    parser.add_argument("--allow-fixed-candidates", action="store_true")
     args = parser.parse_args()
 
     manifest_path = segment_audio(
@@ -756,6 +772,7 @@ def main() -> int:
         timbre_weight=args.timbre_weight,
         onset_weight=args.onset_weight,
         rms_weight=args.rms_weight,
+        allow_fixed_candidates=args.allow_fixed_candidates,
     )
     print(f"MANIFEST_PATH={manifest_path.as_posix()}")
     return 0

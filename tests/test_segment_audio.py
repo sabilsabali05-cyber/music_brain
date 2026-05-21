@@ -214,7 +214,7 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
     assert manifest["segmentation_diagnostics"]["candidate_boundary_count"] == 1
     assert manifest["segmentation_diagnostics"]["analysis_backend"] == "modal_librosa"
     assert manifest["segmentation_diagnostics"]["candidate_evaluations"][0]["rejection_reason"] == "accepted"
-    assert first_seg["boundary_source"] in {"audio_structure_v1", "fixed"}
+    assert first_seg["boundary_source"] in {"audio_structure", "fixed_coverage"}
     assert "feature_evidence" in first_seg
 
 
@@ -339,3 +339,95 @@ def test_audio_structure_lower_threshold_accepts_more_boundaries(tmp_path: Path,
 
     assert high_threshold_manifest["segmentation_diagnostics"]["accepted_boundary_count"] == 0
     assert low_threshold_manifest["segmentation_diagnostics"]["accepted_boundary_count"] >= 1
+
+
+def test_audio_structure_excludes_fixed_candidates_by_default(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "performance.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 130.0)
+    monkeypatch.setattr(
+        "scripts.segment_audio.extract_window_audio",
+        lambda source_path, output_path, start, end: output_path.parent.mkdir(parents=True, exist_ok=True)
+        or output_path.write_bytes(b"x"),
+    )
+    analysis_root = tmp_path / "samples" / "analysis" / "performance"
+    analysis_root.mkdir(parents=True, exist_ok=True)
+    analysis_payload = {
+        "analysis_version": "audio_structure_v1",
+        "analysis_backend": "local_light",
+        "boundary_candidates": [
+            {
+                "time_seconds": 62.0,
+                "confidence": 0.9,
+                "reason": "fixed_interval_fallback",
+                "candidate_source": "fixed_coverage",
+                "eligible_for_phrase_boundary": False,
+                "feature_evidence": {},
+            }
+        ],
+        "diagnostics": {"available_features": ["rms"]},
+    }
+    (analysis_root / "structure_analysis.json").write_text(json.dumps(analysis_payload), encoding="utf-8")
+
+    manifest = json.loads(
+        segment_audio(
+            source,
+            strategy="audio_structure",
+            target_window_seconds=60.0,
+            max_window_seconds=90.0,
+            context_seconds=5.0,
+            boundary_threshold=0.25,
+        ).read_text(encoding="utf-8")
+    )
+    assert manifest["strategy_used"] == "fixed_with_context"
+    evaluations = manifest["segmentation_diagnostics"]["candidate_evaluations"]
+    assert evaluations[0]["candidate_source"] == "fixed_coverage"
+    assert evaluations[0]["eligible_for_phrase_boundary"] is False
+    assert evaluations[0]["rejection_reason"] == "fixed_interval_candidate"
+
+
+def test_audio_structure_allow_fixed_candidates_override(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "performance.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 130.0)
+    monkeypatch.setattr(
+        "scripts.segment_audio.extract_window_audio",
+        lambda source_path, output_path, start, end: output_path.parent.mkdir(parents=True, exist_ok=True)
+        or output_path.write_bytes(b"x"),
+    )
+    analysis_root = tmp_path / "samples" / "analysis" / "performance"
+    analysis_root.mkdir(parents=True, exist_ok=True)
+    analysis_payload = {
+        "analysis_version": "audio_structure_v1",
+        "analysis_backend": "local_light",
+        "boundary_candidates": [
+            {
+                "time_seconds": 62.0,
+                "confidence": 0.9,
+                "reason": "fixed_interval_fallback",
+                "candidate_source": "fixed_coverage",
+                "eligible_for_phrase_boundary": False,
+                "feature_evidence": {},
+            }
+        ],
+        "diagnostics": {"available_features": ["rms"]},
+    }
+    (analysis_root / "structure_analysis.json").write_text(json.dumps(analysis_payload), encoding="utf-8")
+
+    manifest = json.loads(
+        segment_audio(
+            source,
+            strategy="audio_structure",
+            target_window_seconds=60.0,
+            max_window_seconds=90.0,
+            context_seconds=5.0,
+            boundary_threshold=0.25,
+            allow_fixed_candidates=True,
+        ).read_text(encoding="utf-8")
+    )
+    assert manifest["strategy_used"] == "audio_structure_v1"
+    evaluations = manifest["segmentation_diagnostics"]["candidate_evaluations"]
+    assert evaluations[0]["accepted"] is True
+    assert evaluations[0]["candidate_source"] == "fixed_coverage"
