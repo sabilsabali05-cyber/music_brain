@@ -54,11 +54,11 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     harmony_records = harmony_payload.get("records", [])
     tag_records = tags_payload.get("tags", [])
 
-    harmony_by_window: dict[str | None, dict[str, object]] = {}
+    harmony_by_window: dict[str | None, list[dict[str, object]]] = {}
     if isinstance(harmony_records, list):
         for record in harmony_records:
             if isinstance(record, dict):
-                harmony_by_window[str(record.get("window_id"))] = record
+                harmony_by_window.setdefault(str(record.get("window_id")), []).append(record)
 
     tags_by_window: dict[str | None, list[dict[str, object]]] = {}
     if isinstance(tag_records, list):
@@ -69,26 +69,72 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
             tags_by_window.setdefault(key, []).append(record)
 
     output_records: list[dict[str, object]] = []
+
+    def _top_tags_for(
+        *,
+        key: str,
+        granularity: str,
+        start_seconds: float | None,
+        end_seconds: float | None,
+    ) -> list[dict[str, object]]:
+        local = []
+        for tag in tags_by_window.get(key, []):
+            if not isinstance(tag, dict):
+                continue
+            if granularity and str(tag.get("granularity", "")) != granularity:
+                continue
+            tag_start = tag.get("start_seconds")
+            tag_end = tag.get("end_seconds")
+            if (
+                start_seconds is not None
+                and end_seconds is not None
+                and tag_start is not None
+                and tag_end is not None
+            ):
+                try:
+                    if float(tag_end) < float(start_seconds) or float(tag_start) > float(end_seconds):
+                        continue
+                except Exception:  # noqa: BLE001
+                    pass
+            local.append(
+                {
+                    "tag": str(tag.get("tag", "")),
+                    "confidence": float(tag.get("confidence", 0.0) or 0.0),
+                }
+            )
+        return sorted(local, key=lambda item: item["confidence"], reverse=True)[:5]
     if isinstance(rhythm_records, list):
         for rhythm_record in rhythm_records:
             if not isinstance(rhythm_record, dict):
                 continue
             window_id_value = rhythm_record.get("window_id")
             key = str(window_id_value)
-            harmony_record = harmony_by_window.get(key, {})
-            tags_for_window = tags_by_window.get(key, [])
-            top_tags = sorted(
-                [
-                    {
-                        "tag": str(tag.get("tag", "")),
-                        "confidence": float(tag.get("confidence", 0.0) or 0.0),
-                    }
-                    for tag in tags_for_window
-                    if isinstance(tag, dict)
-                ],
-                key=lambda item: item["confidence"],
-                reverse=True,
-            )[:5]
+            granularity = str(rhythm_record.get("granularity", "window"))
+            start_seconds = (
+                float(rhythm_record.get("start_seconds", 0.0))
+                if rhythm_record.get("start_seconds") is not None
+                else None
+            )
+            end_seconds = (
+                float(rhythm_record.get("end_seconds", 0.0))
+                if rhythm_record.get("end_seconds") is not None
+                else None
+            )
+            harmony_candidates = harmony_by_window.get(key, [])
+            harmony_record = next(
+                (
+                    item
+                    for item in harmony_candidates
+                    if str(item.get("granularity", "window")) == granularity
+                ),
+                harmony_candidates[0] if harmony_candidates else {},
+            )
+            top_tags = _top_tags_for(
+                key=key,
+                granularity=granularity,
+                start_seconds=start_seconds,
+                end_seconds=end_seconds,
+            )
 
             rhythm_features = rhythm_record.get("features", {}) if isinstance(rhythm_record.get("features"), dict) else {}
             harmony_features = (
@@ -122,16 +168,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 source_name=source_name,
                 segment_run_id=segment_run_id,
                 window_id=str(window_id_value) if window_id_value is not None else None,
-                start_seconds=(
-                    float(rhythm_record.get("start_seconds", 0.0))
-                    if rhythm_record.get("start_seconds") is not None
-                    else None
-                ),
-                end_seconds=(
-                    float(rhythm_record.get("end_seconds", 0.0))
-                    if rhythm_record.get("end_seconds") is not None
-                    else None
-                ),
+                start_seconds=start_seconds,
+                end_seconds=end_seconds,
                 duration_seconds=(
                     float(rhythm_record.get("duration_seconds", 0.0))
                     if rhythm_record.get("duration_seconds") is not None
@@ -152,10 +190,82 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 input_features=input_features,
             )
             record["record_id"] = f"{performance_id}:{segment_run_id}:{record.get('window_id') or 'global'}:{len(output_records):04d}"
-            record["granularity"] = "window"
+            record["granularity"] = granularity
             record["text_summary"] = (
                 f"window={record.get('window_id')} bpm={input_features['rhythm_excerpt'].get('estimated_bpm')} "
                 f"key={input_features['harmony_excerpt'].get('estimated_key')} "
+                f"tags={[item['tag'] for item in top_tags]}"
+            )
+            record["feature_refs"] = {
+                "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                "harmony_features_path": harmony_path.resolve().as_posix(),
+                "tags_path": tags_path.resolve().as_posix(),
+            }
+            output_records.append(record)
+
+    # Add chord-region specific records from harmony output.
+    if isinstance(harmony_records, list):
+        for harmony_record in harmony_records:
+            if not isinstance(harmony_record, dict):
+                continue
+            if str(harmony_record.get("granularity", "")) != "chord_region":
+                continue
+            key = str(harmony_record.get("window_id"))
+            start_seconds = (
+                float(harmony_record.get("start_seconds", 0.0))
+                if harmony_record.get("start_seconds") is not None
+                else None
+            )
+            end_seconds = (
+                float(harmony_record.get("end_seconds", 0.0))
+                if harmony_record.get("end_seconds") is not None
+                else None
+            )
+            top_tags = _top_tags_for(
+                key=key,
+                granularity="chord_region",
+                start_seconds=start_seconds,
+                end_seconds=end_seconds,
+            )
+            harmony_features = harmony_record.get("features", {}) if isinstance(harmony_record.get("features"), dict) else {}
+            record = ai_training_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=str(harmony_record.get("window_id")) if harmony_record.get("window_id") is not None else None,
+                start_seconds=start_seconds,
+                end_seconds=end_seconds,
+                duration_seconds=(
+                    float(harmony_record.get("duration_seconds", 0.0))
+                    if harmony_record.get("duration_seconds") is not None
+                    else None
+                ),
+                source_artifact_paths={
+                    "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
+                    "analysis_path": analysis_path.resolve().as_posix() if analysis_path else None,
+                    "segments_manifest_path": segments_manifest_path.resolve().as_posix(),
+                    "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
+                    "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                    "harmony_features_path": harmony_path.resolve().as_posix(),
+                    "tags_path": tags_path.resolve().as_posix(),
+                },
+                confidence=float(harmony_record.get("confidence", 0.0) or 0.0),
+                limitations=[str(item) for item in harmony_record.get("limitations", [])] if isinstance(harmony_record.get("limitations"), list) else [],
+                label="feature_ready",
+                input_features={
+                    "harmony_excerpt": {
+                        "estimated_key_candidates": harmony_features.get("estimated_key_candidates"),
+                        "chord_change_count": harmony_features.get("chord_change_count"),
+                        "root_motion_intervals": harmony_features.get("root_motion_intervals"),
+                    },
+                    "top_tags": top_tags,
+                },
+            )
+            record["record_id"] = f"{performance_id}:{segment_run_id}:chord_region:{len(output_records):04d}"
+            record["granularity"] = "chord_region"
+            record["text_summary"] = (
+                f"chord_region start={start_seconds} end={end_seconds} "
+                f"changes={harmony_features.get('chord_change_count')} "
                 f"tags={[item['tag'] for item in top_tags]}"
             )
             record["feature_refs"] = {

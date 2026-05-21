@@ -53,8 +53,29 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
     harmony_payload = load_json(harmony_path)
     tags_payload = load_json(tags_path)
     ai_record_count = 0
+    ai_records_by_granularity: dict[str, int] = {}
     if ai_records_path.exists():
-        ai_record_count = len([line for line in ai_records_path.read_text(encoding="utf-8").splitlines() if line.strip()])
+        ai_records = []
+        for line in ai_records_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                ai_records.append(json.loads(line))
+            except Exception:  # noqa: BLE001
+                continue
+        ai_record_count = len(ai_records)
+        for record in ai_records:
+            if not isinstance(record, dict):
+                continue
+            granularity = str(record.get("granularity", "unknown"))
+            ai_records_by_granularity[granularity] = ai_records_by_granularity.get(granularity, 0) + 1
+
+    rhythm_by_granularity = rhythm_payload.get("summary", {}).get("record_count_by_granularity", {})
+    if not isinstance(rhythm_by_granularity, dict):
+        rhythm_by_granularity = {}
+    harmony_by_granularity = harmony_payload.get("summary", {}).get("record_count_by_granularity", {})
+    if not isinstance(harmony_by_granularity, dict):
+        harmony_by_granularity = {}
 
     top_tags: list[tuple[str, float]] = []
     tags = tags_payload.get("tags", [])
@@ -87,6 +108,9 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         "",
         f"- rhythm_summary: `{json.dumps(rhythm_payload.get('summary', {}), ensure_ascii=True)}`",
         f"- harmony_summary: `{json.dumps(harmony_payload.get('summary', {}), ensure_ascii=True)}`",
+        f"- rhythm_record_count_by_granularity: `{json.dumps(rhythm_by_granularity, ensure_ascii=True)}`",
+        f"- harmony_record_count_by_granularity: `{json.dumps(harmony_by_granularity, ensure_ascii=True)}`",
+        f"- ai_record_count_by_granularity: `{json.dumps(ai_records_by_granularity, ensure_ascii=True)}`",
         f"- tag_count: `{tags_payload.get('tag_count', 0)}`",
         f"- ai_training_record_count: `{ai_record_count}`",
         "",
@@ -103,6 +127,70 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
             summary_lines.append(f"- {limitation}")
     else:
         summary_lines.append("- none reported")
+    summary_lines.extend(
+        [
+            "",
+            "## Top Rhythm Regions By Density",
+        ]
+    )
+    rhythm_records = rhythm_payload.get("records", [])
+    rhythm_regions: list[dict[str, object]] = []
+    if isinstance(rhythm_records, list):
+        for item in rhythm_records:
+            if isinstance(item, dict) and str(item.get("granularity", "")) == "rhythm_region":
+                rhythm_regions.append(item)
+    densest = sorted(
+        rhythm_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("note_on_density_per_second", 0.0) or 0.0),
+        reverse=True,
+    )[:5]
+    sparsest = sorted(
+        rhythm_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("note_on_density_per_second", 0.0) or 0.0),
+    )[:5]
+    if densest:
+        for item in densest:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- dense `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"density=`{features.get('note_on_density_per_second')}`"
+            )
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Sparsest Rhythm Regions"])
+    if sparsest:
+        for item in sparsest:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- sparse `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"density=`{features.get('note_on_density_per_second')}`"
+            )
+    else:
+        summary_lines.append("- none")
+
+    harmony_records = harmony_payload.get("records", [])
+    chord_regions: list[dict[str, object]] = []
+    if isinstance(harmony_records, list):
+        for item in harmony_records:
+            if isinstance(item, dict) and str(item.get("granularity", "")) == "chord_region":
+                chord_regions.append(item)
+    top_movement = sorted(
+        chord_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("chord_change_count", 0.0) or 0.0),
+        reverse=True,
+    )[:5]
+    summary_lines.extend(["", "## Top Chord Movement Regions"])
+    if top_movement:
+        for item in top_movement:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"changes=`{features.get('chord_change_count')}` "
+                f"stepwise=`{features.get('stepwise_root_motion_score')}` chromatic=`{features.get('chromatic_motion_score')}`"
+            )
+    else:
+        summary_lines.append("- none")
+
     summary_lines.extend(
         [
             "",

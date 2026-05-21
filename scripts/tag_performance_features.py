@@ -91,9 +91,15 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
             harmony_record = harmony_by_window.get(str(window_id))
             harmony_features = harmony_record.get("features", {}) if isinstance(harmony_record, dict) else {}
             estimated_bpm = float((rhythm_features or {}).get("estimated_bpm", 0.0) or 0.0)
-            note_density = float((rhythm_features or {}).get("note_density_per_second", 0.0) or 0.0)
+            note_density = float((rhythm_features or {}).get("note_on_density_per_second", 0.0) or 0.0)
             mode = str((harmony_features or {}).get("estimated_mode", "unknown"))
             triad_score = float((harmony_features or {}).get("triad_match_score", 0.0) or 0.0)
+            granularity = str(rhythm_record.get("granularity", "window"))
+            record_limitations = (
+                [str(item) for item in rhythm_record.get("limitations", [])]
+                if isinstance(rhythm_record.get("limitations"), list)
+                else []
+            )
             for tag_name, confidence, evidence in _tag_candidates(
                 estimated_bpm=estimated_bpm,
                 note_density=note_density,
@@ -129,11 +135,111 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                         "harmony_features_path": harmony_path.resolve().as_posix(),
                     },
                     confidence=confidence,
-                    limitations=[],
+                    limitations=record_limitations,
                     tag=tag_name,
                     evidence=evidence,
                 )
+                tag_entry["granularity"] = granularity
+                tag_entry["source_features"] = {
+                    "rhythm_record_granularity": granularity,
+                    "rhythm_feature_keys": sorted((rhythm_features or {}).keys()) if isinstance(rhythm_features, dict) else [],
+                    "harmony_feature_keys": sorted((harmony_features or {}).keys()) if isinstance(harmony_features, dict) else [],
+                }
                 tags.append(tag_entry)
+
+            # Local region-level evidence tags
+            if note_density >= 6.0:
+                dense_tag = tag_record(
+                    performance_id=performance_id,
+                    source_name=source_name,
+                    segment_run_id=segment_run_id,
+                    window_id=str(window_id) if window_id is not None else None,
+                    start_seconds=float(rhythm_record.get("start_seconds", 0.0) or 0.0),
+                    end_seconds=float(rhythm_record.get("end_seconds", 0.0) or 0.0),
+                    duration_seconds=float(rhythm_record.get("duration_seconds", 0.0) or 0.0),
+                    source_artifact_paths={
+                        "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
+                        "analysis_path": analysis_path.resolve().as_posix() if analysis_path else None,
+                        "segments_manifest_path": segments_manifest_path.resolve().as_posix(),
+                        "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
+                        "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                        "harmony_features_path": harmony_path.resolve().as_posix(),
+                    },
+                    confidence=min(0.95, note_density / 10.0),
+                    limitations=record_limitations,
+                    tag="dense_region",
+                    evidence={"note_on_density_per_second": note_density},
+                )
+                dense_tag["granularity"] = granularity
+                dense_tag["source_features"] = {"metric": "note_on_density_per_second"}
+                tags.append(dense_tag)
+            if note_density <= 1.0:
+                sparse_tag = tag_record(
+                    performance_id=performance_id,
+                    source_name=source_name,
+                    segment_run_id=segment_run_id,
+                    window_id=str(window_id) if window_id is not None else None,
+                    start_seconds=float(rhythm_record.get("start_seconds", 0.0) or 0.0),
+                    end_seconds=float(rhythm_record.get("end_seconds", 0.0) or 0.0),
+                    duration_seconds=float(rhythm_record.get("duration_seconds", 0.0) or 0.0),
+                    source_artifact_paths={
+                        "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
+                        "analysis_path": analysis_path.resolve().as_posix() if analysis_path else None,
+                        "segments_manifest_path": segments_manifest_path.resolve().as_posix(),
+                        "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
+                        "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                        "harmony_features_path": harmony_path.resolve().as_posix(),
+                    },
+                    confidence=min(0.9, max(0.2, 1.0 - note_density)),
+                    limitations=record_limitations,
+                    tag="sparse_region",
+                    evidence={"note_on_density_per_second": note_density},
+                )
+                sparse_tag["granularity"] = granularity
+                sparse_tag["source_features"] = {"metric": "note_on_density_per_second"}
+                tags.append(sparse_tag)
+
+    # Harmony-driven local tags
+    if isinstance(harmony_records, list):
+        for harmony_record in harmony_records:
+            if not isinstance(harmony_record, dict):
+                continue
+            harmony_features = harmony_record.get("features", {})
+            if not isinstance(harmony_features, dict):
+                continue
+            granularity = str(harmony_record.get("granularity", "window"))
+            start_seconds = float(harmony_record.get("start_seconds", 0.0) or 0.0)
+            end_seconds = float(harmony_record.get("end_seconds", 0.0) or 0.0)
+            limitations = (
+                [str(item) for item in harmony_record.get("limitations", [])]
+                if isinstance(harmony_record.get("limitations"), list)
+                else []
+            )
+            repeated = float(harmony_features.get("repeated_chord_score", 0.0) or 0.0)
+            if repeated >= 0.5:
+                vamp_tag = tag_record(
+                    performance_id=performance_id,
+                    source_name=source_name,
+                    segment_run_id=segment_run_id,
+                    window_id=str(harmony_record.get("window_id")) if harmony_record.get("window_id") is not None else None,
+                    start_seconds=start_seconds,
+                    end_seconds=end_seconds,
+                    duration_seconds=max(0.0, end_seconds - start_seconds),
+                    source_artifact_paths={
+                        "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
+                        "analysis_path": analysis_path.resolve().as_posix() if analysis_path else None,
+                        "segments_manifest_path": segments_manifest_path.resolve().as_posix(),
+                        "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
+                        "harmony_features_path": harmony_path.resolve().as_posix(),
+                    },
+                    confidence=min(0.95, repeated),
+                    limitations=limitations,
+                    tag="repeated_chord_vamp_candidate",
+                    evidence={"repeated_chord_score": repeated},
+                )
+                vamp_tag["granularity"] = granularity
+                vamp_tag["source_features"] = {"metric": "repeated_chord_score"}
+                tags.append(vamp_tag)
 
     tags.sort(key=lambda item: float(item.get("confidence", 0.0)), reverse=True)
     output_payload = {

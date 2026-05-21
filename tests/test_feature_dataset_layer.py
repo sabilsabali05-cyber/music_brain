@@ -113,7 +113,7 @@ def test_extractors_prefer_merged_midi(tmp_path: Path, monkeypatch) -> None:
     harmony_payload = json.loads(harmony_path.read_text(encoding="utf-8"))
     assert rhythm_payload["summary"]["source_mode"] == "merged"
     assert harmony_payload["summary"]["source_mode"] == "merged"
-    assert rhythm_payload["records"][0]["source_artifact_paths"]["midi_source_path"] == merged_path.as_posix()
+    assert rhythm_payload["records"][0]["source_artifact_paths"]["merged_midi_path"] == merged_path.as_posix()
 
 
 def test_extractors_fallback_to_windows_and_capture_low_confidence(tmp_path: Path, monkeypatch) -> None:
@@ -133,7 +133,7 @@ def test_extractors_fallback_to_windows_and_capture_low_confidence(tmp_path: Pat
     assert harmony_payload["summary"]["source_mode"] == "window_fallback"
     assert rhythm_payload["summary"]["low_confidence_record_count"] >= 1
     assert harmony_payload["summary"]["low_confidence_record_count"] >= 1
-    assert any("fall" in str(note).lower() for note in rhythm_payload["limitations"])
+    assert any("merged midi unavailable" in str(note).lower() for note in rhythm_payload["limitations"])
 
 
 def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Path, monkeypatch) -> None:
@@ -154,6 +154,16 @@ def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Pa
     ]
     for candidate in expected_paths:
         assert candidate.exists()
+    rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
+    harmony_payload = json.loads((feature_dir / "harmony_features.json").read_text(encoding="utf-8"))
+    assert rhythm_payload["summary"]["record_count_by_granularity"]["segment"] >= 1
+    assert rhythm_payload["summary"]["record_count_by_granularity"]["window"] >= 1
+    assert rhythm_payload["summary"]["record_count_by_granularity"]["rhythm_region"] >= 1
+    assert harmony_payload["summary"]["record_count_by_granularity"]["chord_region"] >= 1
+    summary_text = (feature_dir / "feature_summary.md").read_text(encoding="utf-8")
+    assert "rhythm_record_count_by_granularity" in summary_text
+    assert "harmony_record_count_by_granularity" in summary_text
+    assert "ai_record_count_by_granularity" in summary_text
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "success"
     assert summary["tag_count"] > 0
@@ -184,6 +194,9 @@ def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypat
     assert len(ai_records) >= 1
     assert all(isinstance(record, dict) for record in ai_records)
     assert all("record_id" in record for record in ai_records)
+    assert all("start_seconds" in tag and "end_seconds" in tag for tag in tags_payload["tags"])
+    granularities = {record.get("granularity") for record in ai_records}
+    assert {"performance", "segment", "window", "rhythm_region", "chord_region"}.issubset(granularities)
 
 
 def test_validator_rejects_missing_feature_summary(tmp_path: Path, monkeypatch) -> None:
@@ -202,5 +215,56 @@ def test_validator_rejects_legacy_json_only_ai_records(tmp_path: Path, monkeypat
     jsonl_path = feature_dir / "ai_training_records.jsonl"
     jsonl_path.unlink()
     (feature_dir / "ai_training_records.json").write_text("{}", encoding="utf-8")
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_validator_rejects_single_record_only_pack(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, segments_manifest, _ = _write_manifests(
+        tmp_path,
+        include_merged=True,
+        include_window_midis=True,
+    )
+    # Create intentionally coarse output pack with one AI record.
+    pack_dir = (
+        tmp_path
+        / "features"
+        / "performances"
+        / "perf_1"
+        / "run_123"
+    )
+    pack_dir.mkdir(parents=True, exist_ok=True)
+    (pack_dir / "rhythm_features.json").write_text(
+        json.dumps({"records": [{"granularity": "performance", "start_seconds": 0, "end_seconds": 30}], "summary": {}}),
+        encoding="utf-8",
+    )
+    (pack_dir / "harmony_features.json").write_text(
+        json.dumps({"records": [{"granularity": "performance", "start_seconds": 0, "end_seconds": 30}], "summary": {}}),
+        encoding="utf-8",
+    )
+    (pack_dir / "tags.json").write_text(
+        json.dumps({"tags": [{"tag": "x", "confidence": 0.5, "evidence": {}, "start_seconds": 0, "end_seconds": 30}]}),
+        encoding="utf-8",
+    )
+    (pack_dir / "ai_training_records.jsonl").write_text(
+        json.dumps(
+            {
+                "record_id": "r1",
+                "performance_id": "perf_1",
+                "granularity": "performance",
+                "start_seconds": 0,
+                "end_seconds": 30,
+                "limitations": [],
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (pack_dir / "feature_summary.md").write_text("missing granularity details", encoding="utf-8")
+    (pack_dir / "feature_pack_manifest.json").write_text(
+        json.dumps({"performance_manifest_path": performance_manifest.as_posix(), "segments_manifest_path": segments_manifest.as_posix()}),
+        encoding="utf-8",
+    )
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "failed"

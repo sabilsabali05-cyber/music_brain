@@ -140,6 +140,29 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
     if invalid_time_ranges:
         warnings.append(f"invalid time ranges: {invalid_time_ranges}")
 
+    ai_granularity: dict[str, int] = {}
+    for record in ai_training_records:
+        granularity = str(record.get("granularity", "unknown"))
+        ai_granularity[granularity] = ai_granularity.get(granularity, 0) + 1
+
+    windows_total = len(rhythm_records) if isinstance(rhythm_records, list) else 0
+    if windows_total > 3 and len(ai_training_records) <= 1:
+        warnings.append("expected multiple AI records when segment/window records exist")
+    required_granularities = {"performance", "segment", "window", "rhythm_region", "chord_region"}
+    missing_granularities = sorted(required_granularities - set(ai_granularity.keys()))
+    if missing_granularities:
+        warnings.append(f"missing AI granularities: {', '.join(missing_granularities)}")
+
+    summary_text = required_files["feature_summary"].read_text(encoding="utf-8")
+    required_summary_tokens = [
+        "rhythm_record_count_by_granularity",
+        "harmony_record_count_by_granularity",
+        "ai_record_count_by_granularity",
+    ]
+    for token in required_summary_tokens:
+        if token not in summary_text:
+            warnings.append(f"feature_summary.md missing token: {token}")
+
     status = "success" if not missing and not warnings else "failed"
     return {
         "status": status,
@@ -149,6 +172,7 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "harmony_record_count": len(harmony_records) if isinstance(harmony_records, list) else 0,
         "tag_count": len(tag_records) if isinstance(tag_records, list) else 0,
         "ai_training_record_count": len(ai_training_records),
+        "ai_record_count_by_granularity": ai_granularity,
         "warnings": warnings,
     }
 
