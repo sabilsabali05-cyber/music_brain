@@ -4,6 +4,7 @@ import os
 import subprocess
 import tempfile
 import time
+import math
 from io import BytesIO
 from pathlib import Path
 
@@ -32,6 +33,17 @@ yourmt3_image = (
     )
     .run_commands("git lfs install --system")
     .env({"MT3_CHECKPOINT_DIR": MT3_CHECKPOINT_DIR})
+)
+
+audio_structure_image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .apt_install("ffmpeg", "libsndfile1")
+    .pip_install(
+        "numpy>=1.26",
+        "scipy>=1.11",
+        "librosa>=0.10",
+        "soundfile>=0.12",
+    )
 )
 
 
@@ -97,6 +109,209 @@ def _is_transformers_model_parallel_error(message: str) -> bool:
         "no module named 'transformers.utils.model_parallel_utils'" in lowered
         or "model_parallel_utils" in lowered
     )
+
+
+@app.function(image=audio_structure_image, timeout=300)
+def analyze_audio_structure_modal(
+    audio_bytes: bytes, source_name: str, options: dict[str, object] | None = None
+) -> dict[str, object]:
+    import librosa
+    import numpy as np
+    import soundfile as sf
+
+    if not audio_bytes:
+        raise ValueError("audio_bytes is empty")
+
+    opts = options or {}
+    frame_hop_seconds = float(opts.get("frame_hop_seconds", 0.25))
+    target_window_seconds = float(opts.get("target_window_seconds", 60.0))
+    max_window_seconds = float(opts.get("max_window_seconds", 90.0))
+    min_segment_seconds = float(opts.get("min_segment_seconds", 12.0))
+    confidence_threshold = float(opts.get("confidence_threshold", 0.55))
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        source_path = Path(tmp_dir) / "source_audio"
+        source_path.write_bytes(audio_bytes)
+        analysis_wav = Path(tmp_dir) / "analysis.wav"
+        command = [
+            "ffmpeg",
+            "-y",
+            "-i",
+            str(source_path),
+            "-ac",
+            "1",
+            "-ar",
+            "22050",
+            "-vn",
+            str(analysis_wav),
+        ]
+        result = subprocess.run(command, capture_output=True, text=True, check=False)
+        if result.returncode != 0:
+            raise RuntimeError(f"ffmpeg wav conversion failed: {(result.stderr or '').strip()}")
+        samples, sample_rate = sf.read(str(analysis_wav), always_2d=False)
+        if getattr(samples, "ndim", 1) == 2:
+            samples = np.mean(samples, axis=1)
+
+    y = np.asarray(samples, dtype=np.float32)
+    duration_seconds = float(len(y) / max(1, sample_rate))
+    hop_length = max(256, int(sample_rate * frame_hop_seconds))
+    n_fft = max(1024, hop_length * 2)
+
+    def _norm(values: list[float]) -> list[float]:
+        if not values:
+            return []
+        low = min(values)
+        high = max(values)
+        if high - low <= 1e-9:
+            return [0.0 for _ in values]
+        return [float((v - low) / (high - low)) for v in values]
+
+    def _deriv(values: list[float]) -> list[float]:
+        if not values:
+            return []
+        return [0.0] + [abs(values[i] - values[i - 1]) for i in range(1, len(values))]
+
+    def _val(values: list[float], idx: int) -> float:
+        if not values:
+            return 0.0
+        if idx < 0:
+            return float(values[0])
+        if idx >= len(values):
+            return float(values[-1])
+        return float(values[idx])
+
+    rms = librosa.feature.rms(y=y, frame_length=n_fft, hop_length=hop_length)[0].astype(float).tolist()
+    onset = librosa.onset.onset_strength(y=y, sr=sample_rate, hop_length=hop_length).astype(float).tolist()
+    chroma = librosa.feature.chroma_stft(y=y, sr=sample_rate, hop_length=hop_length, n_fft=n_fft)
+    chroma_change = [0.0]
+    for idx in range(1, chroma.shape[1]):
+        chroma_change.append(float(np.mean(np.abs(chroma[:, idx] - chroma[:, idx - 1]))))
+    mfcc = librosa.feature.mfcc(y=y, sr=sample_rate, n_mfcc=13, hop_length=hop_length, n_fft=n_fft)
+    timbre_change = [0.0]
+    for idx in range(1, mfcc.shape[1]):
+        timbre_change.append(float(np.mean(np.abs(mfcc[:, idx] - mfcc[:, idx - 1]))))
+
+    rms_n = _norm(rms)
+    onset_n = _norm(onset if onset else _deriv(rms_n))
+    chroma_n = _norm(chroma_change)
+    timbre_n = _norm(timbre_change)
+    length = max(len(rms_n), len(onset_n), len(chroma_n), len(timbre_n))
+    novelty = _norm(
+        [
+            0.25 * _val(rms_n, i)
+            + 0.30 * _val(onset_n, i)
+            + 0.25 * _val(chroma_n, i)
+            + 0.20 * _val(timbre_n, i)
+            for i in range(length)
+        ]
+    )
+
+    min_distance_frames = max(1, int(min_segment_seconds / frame_hop_seconds))
+    raw_peak_indices: list[int] = []
+    last_peak = -min_distance_frames
+    for idx in range(1, len(novelty) - 1):
+        if idx - last_peak < min_distance_frames:
+            continue
+        if novelty[idx] < confidence_threshold:
+            continue
+        if novelty[idx] >= novelty[idx - 1] and novelty[idx] >= novelty[idx + 1]:
+            raw_peak_indices.append(idx)
+            last_peak = idx
+
+    raw_candidates: list[dict[str, object]] = []
+    for idx in raw_peak_indices:
+        time_seconds = min(duration_seconds, idx * frame_hop_seconds)
+        evidence = {
+            "energy_change": round(_val(rms_n, idx), 6),
+            "onset_change": round(_val(onset_n, idx), 6),
+            "chroma_change": round(_val(chroma_n, idx), 6),
+            "timbre_change": round(_val(timbre_n, idx), 6),
+            "combined_novelty": round(_val(novelty, idx), 6),
+        }
+        reason = max(
+            [
+                ("harmonic_chroma_change", evidence["chroma_change"]),
+                ("timbre_change", evidence["timbre_change"]),
+                ("onset_density_change", evidence["onset_change"]),
+                ("combined_audio_novelty", evidence["combined_novelty"]),
+            ],
+            key=lambda item: item[1],
+        )[0]
+        raw_candidates.append(
+            {
+                "time_seconds": round(float(time_seconds), 6),
+                "confidence": round(float(evidence["combined_novelty"]), 3),
+                "reason": reason,
+                "feature_evidence": evidence,
+            }
+        )
+
+    accepted: list[dict[str, object]] = []
+    accepted_raw_count = 0
+    start = 0.0
+    while start < duration_seconds:
+        remaining = duration_seconds - start
+        if remaining <= max_window_seconds:
+            break
+        lower = start + min_segment_seconds
+        upper = min(duration_seconds, start + max_window_seconds)
+        local = [c for c in raw_candidates if lower <= float(c["time_seconds"]) <= upper]
+        if local:
+            target = start + target_window_seconds
+            chosen = max(
+                local,
+                key=lambda c: float(c["confidence"])
+                - (abs(float(c["time_seconds"]) - target) / max(1.0, target_window_seconds)),
+            )
+            accepted.append(chosen)
+            accepted_raw_count += 1
+            start = float(chosen["time_seconds"])
+            continue
+        fallback_time = min(duration_seconds, start + target_window_seconds)
+        accepted.append(
+            {
+                "time_seconds": round(float(fallback_time), 6),
+                "confidence": 0.2,
+                "reason": "fixed_interval_fallback",
+                "feature_evidence": {
+                    "energy_change": 0.0,
+                    "onset_change": 0.0,
+                    "chroma_change": 0.0,
+                    "timbre_change": 0.0,
+                    "combined_novelty": 0.2,
+                },
+            }
+        )
+        start = fallback_time
+
+    return {
+        "source_name": source_name,
+        "duration_seconds": round(duration_seconds, 6),
+        "analysis_backend": "modal_librosa",
+        "analysis_version": "audio_structure_modal_librosa_v1",
+        "frame_hop_seconds": frame_hop_seconds,
+        "features": {
+            "rms": rms_n,
+            "onset_strength": onset_n,
+            "chroma_change": chroma_n,
+            "timbre_change": timbre_n,
+            "novelty_combined": novelty,
+        },
+        "boundary_candidates": accepted,
+        "diagnostics": {
+            "fallback_recommended": accepted_raw_count == 0,
+            "candidate_boundary_count": len(accepted),
+            "accepted_boundary_count": accepted_raw_count,
+            "rejected_boundary_count": max(0, len(raw_candidates) - accepted_raw_count),
+            "available_features": ["rms", "onset_strength", "chroma_change", "timbre_change", "novelty_combined"],
+            "missing_features": [],
+            "notes": [
+                "Computed on Modal CPU librosa image.",
+                "Boundary candidates are conservative cues, not guaranteed phrase truth.",
+            ],
+            "modal_cpu_only": True,
+        },
+    }
 
 
 @app.function(image=yourmt3_image, volumes={MT3_CACHE_MOUNT: mt3_cache_volume})

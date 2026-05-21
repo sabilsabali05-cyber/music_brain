@@ -373,6 +373,8 @@ def segment_audio(
         "available_features": [],
         "missing_features": [],
         "analysis_path": None,
+        "analysis_backend": None,
+        "analysis_version": None,
         "fallback_used": False,
         "notes": "",
     }
@@ -435,6 +437,8 @@ def segment_audio(
                 available_features = diagnostics.get("available_features", [])
                 missing_features = diagnostics.get("missing_features", [])
                 segmentation_diagnostics["analysis_path"] = analysis_path_value
+                segmentation_diagnostics["analysis_backend"] = analysis_payload.get("analysis_backend")
+                segmentation_diagnostics["analysis_version"] = analysis_payload.get("analysis_version")
                 segmentation_diagnostics["candidate_boundary_count"] = candidate_count
                 segmentation_diagnostics["detected_boundary_count"] = candidate_count
                 segmentation_diagnostics["accepted_boundary_count"] = accepted

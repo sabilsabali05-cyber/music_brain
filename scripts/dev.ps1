@@ -42,7 +42,10 @@ function Show-Usage {
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
     Write-Host "  make-clip <audio-path> [seconds]"
-    Write-Host "  analyze-structure <audio-path>"
+    Write-Host "  analyze-structure <audio-path> (legacy alias for analyze-structure-local)"
+    Write-Host "  analyze-structure-local <audio-path>"
+    Write-Host "  analyze-structure-modal <audio-path>"
+    Write-Host "  audio-analysis-diagnostics"
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
     Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
     Write-Host "  inspect-segments <manifest-path>"
@@ -360,12 +363,40 @@ switch ($Task) {
         Ensure-FfmpegPath
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd analyze-structure <audio-path>"
         $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure" -Command @(
-            "python", "scripts/analyze_audio_structure.py", $audioPath
+            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "local_light"
         )
         $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
         if ($analysisLine) {
             Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
         }
+    }
+    "analyze-structure-local" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd analyze-structure-local <audio-path>"
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (local_light)" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "local_light"
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+    }
+    "analyze-structure-modal" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd analyze-structure-modal <audio-path>"
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa)" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa"
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+    }
+    "audio-analysis-diagnostics" {
+        Ensure-FfmpegPath
+        Invoke-Step -Label "Audio analysis diagnostics (local + Modal lookup)" -Command @(
+            "python", "scripts/analyze_audio_structure.py", "--diagnostics"
+        )
     }
     "segment-audio" {
         Ensure-FfmpegPath
@@ -397,14 +428,6 @@ switch ($Task) {
         Ensure-FfmpegPath
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure <audio-path> [target-window-seconds]"
         $targetWindow = Get-TaskArg -Index 1
-
-        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure" -Command @(
-            "python", "scripts/analyze_audio_structure.py", $audioPath
-        )
-        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
-        if ($analysisLine) {
-            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
-        }
 
         $segmentCommand = @(
             "python",

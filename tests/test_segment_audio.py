@@ -170,7 +170,8 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
     analysis_root = tmp_path / "samples" / "analysis" / "performance"
     analysis_root.mkdir(parents=True, exist_ok=True)
     analysis_payload = {
-        "analysis_version": "audio_structure_v1",
+        "analysis_backend": "modal_librosa",
+        "analysis_version": "audio_structure_modal_librosa_v1",
         "boundary_candidates": [
             {
                 "time_seconds": 62.0,
@@ -208,6 +209,7 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
     first_seg = manifest["musical_segments"][0]
     assert manifest["strategy_requested"] == "audio_structure"
     assert manifest["segmentation_diagnostics"]["candidate_boundary_count"] == 1
+    assert manifest["segmentation_diagnostics"]["analysis_backend"] == "modal_librosa"
     assert first_seg["boundary_source"] in {"audio_structure_v1", "fixed"}
     assert "feature_evidence" in first_seg
 

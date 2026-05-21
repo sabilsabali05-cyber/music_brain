@@ -3,11 +3,13 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 import subprocess
 import wave
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Callable
 
 
 def safe_source_name(path: Path) -> str:
@@ -358,6 +360,7 @@ def analyze_audio_structure(source_path: Path) -> Path:
         "source_name": source_path.name,
         "duration_seconds": round(duration_seconds, 6),
         "analysis_version": "audio_structure_v1",
+        "analysis_backend": "local_light",
         "frame_hop_seconds": frame_hop_seconds,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "features": features,
@@ -376,11 +379,115 @@ def analyze_audio_structure(source_path: Path) -> Path:
     return analysis_path.resolve()
 
 
+def _invoke_modal_librosa_analysis(
+    audio_bytes: bytes, source_name: str, options: dict[str, object]
+) -> dict[str, object]:
+    try:
+        import modal  # type: ignore[import-not-found]
+    except ImportError as exc:
+        raise RuntimeError(
+            "modal package is required for backend=modal_librosa. Install dependencies and run `modal setup`."
+        ) from exc
+    function = modal.Function.from_name("music-brain-v2", "analyze_audio_structure_modal")
+    payload = function.remote(audio_bytes, source_name, options)
+    if not isinstance(payload, dict):
+        raise RuntimeError("Modal librosa analysis returned invalid payload type.")
+    return payload
+
+
+def analyze_audio_structure_modal(
+    source_path: Path,
+    *,
+    options: dict[str, object] | None = None,
+    remote_call: Callable[[bytes, str, dict[str, object]], dict[str, object]] | None = None,
+) -> Path:
+    if not source_path.exists():
+        raise FileNotFoundError(f"Audio file does not exist: {source_path}")
+
+    source_safe = safe_source_name(source_path)
+    analysis_root = Path("samples") / "analysis" / source_safe
+    analysis_root.mkdir(parents=True, exist_ok=True)
+    analysis_path = analysis_root / "structure_analysis.json"
+    duration_seconds = probe_duration_seconds(source_path)
+
+    call = remote_call or _invoke_modal_librosa_analysis
+    payload = call(source_path.read_bytes(), source_path.name, options or {})
+    payload = dict(payload)
+    payload["source_path"] = source_path.resolve().as_posix()
+    payload["source_name"] = source_path.name
+    payload["duration_seconds"] = round(float(payload.get("duration_seconds", duration_seconds)), 6)
+    payload["analysis_backend"] = "modal_librosa"
+    payload["analysis_version"] = str(payload.get("analysis_version", "audio_structure_modal_librosa_v1"))
+    payload["created_at"] = datetime.now(timezone.utc).isoformat()
+    if not isinstance(payload.get("features"), dict):
+        payload["features"] = {}
+    if not isinstance(payload.get("boundary_candidates"), list):
+        payload["boundary_candidates"] = []
+    diagnostics = payload.get("diagnostics", {})
+    if not isinstance(diagnostics, dict):
+        diagnostics = {}
+    diagnostics.setdefault("available_features", ["rms", "onset_strength", "chroma_change", "timbre_change"])
+    diagnostics.setdefault("missing_features", [])
+    diagnostics.setdefault("fallback_recommended", False)
+    diagnostics.setdefault("notes", ["Computed on Modal CPU librosa backend."])
+    payload["diagnostics"] = diagnostics
+    analysis_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return analysis_path.resolve()
+
+
+def audio_analysis_diagnostics() -> dict[str, object]:
+    diagnostics: dict[str, object] = {
+        "modal_auth_configured": False,
+        "modal_librosa_function_lookup_ok": False,
+        "local_light_available": False,
+        "modal_librosa_cpu_only": True,
+        "notes": [],
+    }
+    has_env_auth = bool(
+        (os.getenv("MODAL_TOKEN_ID") or "").strip() and (os.getenv("MODAL_TOKEN_SECRET") or "").strip()
+    )
+    has_file_auth = (Path.home() / ".modal.toml").exists()
+    diagnostics["modal_auth_configured"] = has_env_auth or has_file_auth
+
+    try:
+        import modal  # type: ignore[import-not-found]
+
+        modal.Function.from_name("music-brain-v2", "analyze_audio_structure_modal")
+        diagnostics["modal_librosa_function_lookup_ok"] = True
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["notes"].append(f"Modal function lookup failed: {exc.__class__.__name__}: {exc}")
+
+    try:
+        import numpy  # type: ignore
+
+        diagnostics["local_light_available"] = True
+        diagnostics["notes"].append("Local analyzer has numpy available for lightweight feature extraction.")
+    except Exception:
+        diagnostics["local_light_available"] = True
+        diagnostics["notes"].append("Local analyzer will run without numpy using minimal RMS/onset fallback.")
+
+    diagnostics["notes"].append("Modal librosa analyzer runs on CPU image and does not require GPU.")
+    return diagnostics
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze pre-MIDI audio structure and boundary candidates.")
-    parser.add_argument("source_path", help="Path to input audio.")
+    parser.add_argument("source_path", nargs="?", help="Path to input audio.")
+    parser.add_argument("--backend", choices=["local_light", "modal_librosa"], default="local_light")
+    parser.add_argument("--diagnostics", action="store_true")
     args = parser.parse_args()
-    analysis_path = analyze_audio_structure(Path(args.source_path))
+
+    if args.diagnostics:
+        print(json.dumps(audio_analysis_diagnostics(), indent=2))
+        return 0
+
+    if not args.source_path:
+        raise SystemExit("source_path is required unless --diagnostics is provided")
+
+    if args.backend == "modal_librosa":
+        analysis_path = analyze_audio_structure_modal(Path(args.source_path))
+    else:
+        analysis_path = analyze_audio_structure(Path(args.source_path))
     print(f"ANALYSIS_PATH={analysis_path.as_posix()}")
     return 0
 

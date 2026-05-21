@@ -21,6 +21,8 @@ def build_inspection_lines(manifest: dict[str, object]) -> list[str]:
     diagnostics = manifest.get("segmentation_diagnostics", {})
     if isinstance(diagnostics, dict):
         lines.append(f"analysis_path: {diagnostics.get('analysis_path')}")
+        lines.append(f"analysis_backend: {diagnostics.get('analysis_backend')}")
+        lines.append(f"analysis_version: {diagnostics.get('analysis_version')}")
         lines.append(f"candidate_boundary_count: {diagnostics.get('candidate_boundary_count')}")
         lines.append(f"accepted_boundary_count: {diagnostics.get('accepted_boundary_count')}")
         lines.append(f"rejected_boundary_count: {diagnostics.get('rejected_boundary_count')}")

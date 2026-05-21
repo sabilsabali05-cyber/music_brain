@@ -48,7 +48,9 @@ scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
-scripts\dev.cmd analyze-structure "samples/input/my_song.wav"
+scripts\dev.cmd analyze-structure-local "samples/input/my_song.wav"
+scripts\dev.cmd analyze-structure-modal "samples/input/my_song.wav"
+scripts\dev.cmd audio-analysis-diagnostics
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
 scripts\dev.cmd inspect-latest-segments
@@ -371,3 +373,27 @@ Notes:
 - Fallback to fixed windows is expected on ambiguous ambient material.
 - `audio_structure` uses conservative evidence from available features before transcription.
 - Future improvements can add beat/bar snapping, chroma recurrence structure, and learned MERT/CLAP-style embeddings.
+
+## Richer pre-MIDI analysis with Modal/librosa
+
+Use two analysis backends:
+
+- `local_light`: dependency-safe local analyzer, limited but robust on Windows Python 3.14.
+- `modal_librosa`: richer CPU-only analyzer on Modal image (no GPU), with chroma/timbre/novelty features.
+
+This does not change YourMT3 model logic and does not require transcription to run.
+
+Preferred flow:
+
+```powershell
+scripts\dev.cmd analyze-structure-modal "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3"
+scripts\dev.cmd segment-audio-structure "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd inspect-latest-segments
+scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
+```
+
+Guidance:
+
+- run `analyze-structure-local` when Modal is unavailable
+- run `analyze-structure-modal` when you want richer harmonic/timbral cues
+- boundaries remain candidate evidence, not ground truth phrase labels
