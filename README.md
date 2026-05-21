@@ -154,6 +154,7 @@ Expected failure behavior:
 - The Modal YourMT3 runner uses `mt3-infer` inside the Modal image (not your local Windows Python env).
 - The Modal image must include `git-lfs` because `mt3-infer` checkpoint download pulls LFS-tracked assets.
 - If Modal logs show `No module named 'pytorch_lightning'`, pin and include `pytorch-lightning==2.6.1` in the Modal image.
+- If Modal logs show `No module named 'transformers.utils.model_parallel_utils'`, pin `transformers==4.41.2` in the Modal image.
 - First run may be slow because model checkpoints may download.
 - A Modal Volume caches checkpoints at `MT3_CHECKPOINT_DIR=/models/mt3_checkpoints`.
 - Later runs should be faster as cache warms.

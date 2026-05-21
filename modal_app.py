@@ -27,6 +27,7 @@ yourmt3_image = (
         "pretty_midi>=0.2",
         "mido>=1.3",
         "pytorch-lightning==2.6.1",
+        "transformers==4.41.2",
         "mt3-infer[torch]",
     )
     .run_commands("git lfs install --system")
@@ -90,6 +91,14 @@ def _is_pytorch_lightning_missing_error(message: str) -> bool:
     return "no module named 'pytorch_lightning'" in lowered or "pytorch_lightning" in lowered
 
 
+def _is_transformers_model_parallel_error(message: str) -> bool:
+    lowered = message.lower()
+    return (
+        "no module named 'transformers.utils.model_parallel_utils'" in lowered
+        or "model_parallel_utils" in lowered
+    )
+
+
 @app.function(image=yourmt3_image, volumes={MT3_CACHE_MOUNT: mt3_cache_volume})
 def yourmt3_diagnostics() -> dict[str, object]:
     diagnostics: dict[str, object] = {
@@ -104,6 +113,9 @@ def yourmt3_diagnostics() -> dict[str, object]:
         "pytorch_lightning_import_ok": False,
         "pytorch_lightning_version": None,
         "pytorch_lightning_error": None,
+        "transformers_import_ok": False,
+        "transformers_version": None,
+        "transformers_error": None,
     }
     try:
         git_version = subprocess.run(["git", "--version"], capture_output=True, text=True, check=False)
@@ -140,6 +152,14 @@ def yourmt3_diagnostics() -> dict[str, object]:
         diagnostics["pytorch_lightning_version"] = getattr(pl, "__version__", "unknown")
     except Exception as exc:  # noqa: BLE001
         diagnostics["pytorch_lightning_error"] = f"{exc.__class__.__name__}: {exc}"
+
+    try:
+        import transformers
+
+        diagnostics["transformers_import_ok"] = True
+        diagnostics["transformers_version"] = getattr(transformers, "__version__", "unknown")
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["transformers_error"] = f"{exc.__class__.__name__}: {exc}"
 
     try:
         from mt3_infer import __version__ as mt3_infer_version
@@ -191,6 +211,11 @@ class YourMT3ModalRunner:
             if _is_pytorch_lightning_missing_error(detailed):
                 raise RuntimeError(
                     "YourMT3 model failed to load inside Modal because pytorch-lightning is missing: "
+                    f"{detailed}"
+                ) from exc
+            if _is_transformers_model_parallel_error(detailed):
+                raise RuntimeError(
+                    "YourMT3 model failed to load inside Modal because transformers version is incompatible: "
                     f"{detailed}"
                 ) from exc
             raise RuntimeError(f"YourMT3 model failed to load inside Modal: {detailed}") from exc

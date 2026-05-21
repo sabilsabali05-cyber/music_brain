@@ -1,4 +1,8 @@
-from modal_app import _git_lfs_available_from_outputs, _is_pytorch_lightning_missing_error
+from modal_app import (
+    _git_lfs_available_from_outputs,
+    _is_pytorch_lightning_missing_error,
+    _is_transformers_model_parallel_error,
+)
 
 
 def test_git_lfs_available_true_when_version_contains_git_lfs() -> None:
@@ -18,3 +22,13 @@ def test_pytorch_lightning_missing_error_detection_true() -> None:
 def test_pytorch_lightning_missing_error_detection_false() -> None:
     msg = "RuntimeError: CUDA out of memory"
     assert _is_pytorch_lightning_missing_error(msg) is False
+
+
+def test_transformers_model_parallel_error_detection_true() -> None:
+    msg = "No module named 'transformers.utils.model_parallel_utils'"
+    assert _is_transformers_model_parallel_error(msg) is True
+
+
+def test_transformers_model_parallel_error_detection_false() -> None:
+    msg = "No module named 'pytorch_lightning'"
+    assert _is_transformers_model_parallel_error(msg) is False
