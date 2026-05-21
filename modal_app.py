@@ -43,6 +43,7 @@ audio_structure_image = (
         "scipy>=1.11",
         "librosa>=0.10",
         "soundfile>=0.12",
+        "mido>=1.3",
     )
 )
 
