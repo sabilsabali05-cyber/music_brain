@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 try:
     from scripts.feature_dataset_common import (
@@ -30,7 +36,8 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "rhythm_features": feature_dir / "rhythm_features.json",
         "harmony_features": feature_dir / "harmony_features.json",
         "tags": feature_dir / "tags.json",
-        "ai_training_records": feature_dir / "ai_training_records.json",
+        "ai_training_records": feature_dir / "ai_training_records.jsonl",
+        "feature_summary": feature_dir / "feature_summary.md",
     }
     missing = [name for name, path in required_files.items() if not path.exists()]
     if missing:
@@ -44,12 +51,23 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
     rhythm = load_json(required_files["rhythm_features"])
     harmony = load_json(required_files["harmony_features"])
     tags = load_json(required_files["tags"])
-    ai_records = load_json(required_files["ai_training_records"])
+    ai_lines = [line for line in required_files["ai_training_records"].read_text(encoding="utf-8").splitlines() if line.strip()]
+    ai_training_records: list[dict[str, object]] = []
+    jsonl_parse_errors = 0
+    for line in ai_lines:
+        try:
+            parsed = json.loads(line)
+        except Exception:  # noqa: BLE001
+            jsonl_parse_errors += 1
+            continue
+        if isinstance(parsed, dict):
+            ai_training_records.append(parsed)
+        else:
+            jsonl_parse_errors += 1
 
     rhythm_records = rhythm.get("records", [])
     harmony_records = harmony.get("records", [])
     tag_records = tags.get("tags", [])
-    training_records = ai_records.get("records", [])
 
     warnings: list[str] = []
     if not isinstance(rhythm_records, list) or len(rhythm_records) == 0:
@@ -58,11 +76,11 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         warnings.append("harmony records are empty")
     if not isinstance(tag_records, list):
         warnings.append("tags payload malformed")
-    if not isinstance(training_records, list):
-        warnings.append("ai training payload malformed")
+    if jsonl_parse_errors:
+        warnings.append(f"ai training jsonl parse errors: {jsonl_parse_errors}")
 
     confidence_issues = 0
-    for collection in [rhythm_records, harmony_records, tag_records, training_records]:
+    for collection in [rhythm_records, harmony_records, tag_records, ai_training_records]:
         if not isinstance(collection, list):
             continue
         for item in collection:
@@ -80,7 +98,49 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
     if confidence_issues:
         warnings.append(f"confidence out of range entries: {confidence_issues}")
 
-    status = "success" if not missing else "failed"
+    old_json_path = feature_dir / "ai_training_records.json"
+    if old_json_path.exists():
+        warnings.append("legacy ai_training_records.json exists; expected JSONL contract only")
+
+    invalid_tag_entries = 0
+    if isinstance(tag_records, list):
+        for tag in tag_records:
+            if not isinstance(tag, dict):
+                invalid_tag_entries += 1
+                continue
+            if "confidence" not in tag or "evidence" not in tag:
+                invalid_tag_entries += 1
+    if invalid_tag_entries:
+        warnings.append(f"tag entries missing confidence/evidence: {invalid_tag_entries}")
+
+    invalid_time_ranges = 0
+    def _check_time_range(item: dict[str, object]) -> None:
+        nonlocal invalid_time_ranges
+        start = item.get("start_seconds")
+        end = item.get("end_seconds")
+        if start is None or end is None:
+            return
+        try:
+            if float(end) < float(start):
+                invalid_time_ranges += 1
+        except Exception:  # noqa: BLE001
+            invalid_time_ranges += 1
+
+    if isinstance(tag_records, list):
+        for item in tag_records:
+            if isinstance(item, dict):
+                _check_time_range(item)
+    for item in ai_training_records:
+        _check_time_range(item)
+        required_ai_fields = ["record_id", "performance_id", "granularity", "start_seconds", "end_seconds", "limitations"]
+        for field in required_ai_fields:
+            if field not in item:
+                warnings.append(f"ai record missing field: {field}")
+                break
+    if invalid_time_ranges:
+        warnings.append(f"invalid time ranges: {invalid_time_ranges}")
+
+    status = "success" if not missing and not warnings else "failed"
     return {
         "status": status,
         "performance_id": performance_id,
@@ -88,7 +148,7 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "rhythm_record_count": len(rhythm_records) if isinstance(rhythm_records, list) else 0,
         "harmony_record_count": len(harmony_records) if isinstance(harmony_records, list) else 0,
         "tag_count": len(tag_records) if isinstance(tag_records, list) else 0,
-        "ai_training_record_count": len(training_records) if isinstance(training_records, list) else 0,
+        "ai_training_record_count": len(ai_training_records),
         "warnings": warnings,
     }
 

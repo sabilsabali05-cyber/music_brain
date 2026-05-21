@@ -149,13 +149,15 @@ def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Pa
         feature_dir / "rhythm_features.json",
         feature_dir / "harmony_features.json",
         feature_dir / "tags.json",
-        feature_dir / "ai_training_records.json",
+        feature_dir / "ai_training_records.jsonl",
+        feature_dir / "feature_summary.md",
     ]
     for candidate in expected_paths:
         assert candidate.exists()
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "success"
     assert summary["tag_count"] > 0
+    assert "features/performances/perf_1/run_123" in feature_dir.as_posix()
 
 
 def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypatch) -> None:
@@ -173,9 +175,32 @@ def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypat
     rhythm_payload = json.loads(rhythm_path.read_text(encoding="utf-8"))
     harmony_payload = json.loads(harmony_path.read_text(encoding="utf-8"))
     tags_payload = json.loads(tags_path.read_text(encoding="utf-8"))
-    ai_payload = json.loads(ai_path.read_text(encoding="utf-8"))
+    ai_lines = [line for line in ai_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    ai_records = [json.loads(line) for line in ai_lines]
 
     assert len(rhythm_payload["records"]) >= 1
     assert len(harmony_payload["records"]) >= 1
     assert tags_payload["tag_count"] == len(tags_payload["tags"])
-    assert ai_payload["record_count"] == len(ai_payload["records"])
+    assert len(ai_records) >= 1
+    assert all(isinstance(record, dict) for record in ai_records)
+    assert all("record_id" in record for record in ai_records)
+
+
+def test_validator_rejects_missing_feature_summary(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    (feature_dir / "feature_summary.md").unlink()
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_validator_rejects_legacy_json_only_ai_records(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    jsonl_path = feature_dir / "ai_training_records.jsonl"
+    jsonl_path.unlink()
+    (feature_dir / "ai_training_records.json").write_text("{}", encoding="utf-8")
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"

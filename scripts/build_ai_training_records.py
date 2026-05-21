@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import json
+import sys
 from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 try:
     from features.schema import ai_training_record
@@ -15,7 +21,6 @@ try:
         load_json,
         now_iso,
         performance_metadata,
-        save_json,
     )
 except ModuleNotFoundError:  # pragma: no cover
     from feature_dataset_common import (  # type: ignore
@@ -24,7 +29,6 @@ except ModuleNotFoundError:  # pragma: no cover
         load_json,
         now_iso,
         performance_metadata,
-        save_json,
     )
 
 
@@ -86,9 +90,23 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 reverse=True,
             )[:5]
 
+            rhythm_features = rhythm_record.get("features", {}) if isinstance(rhythm_record.get("features"), dict) else {}
+            harmony_features = (
+                harmony_record.get("features", {})
+                if isinstance(harmony_record, dict) and isinstance(harmony_record.get("features"), dict)
+                else {}
+            )
             input_features = {
-                "rhythm": rhythm_record.get("features", {}),
-                "harmony": harmony_record.get("features", {}) if isinstance(harmony_record, dict) else {},
+                "rhythm_excerpt": {
+                    "estimated_bpm": rhythm_features.get("estimated_bpm"),
+                    "note_density_per_second": rhythm_features.get("note_density_per_second"),
+                    "note_on_count": rhythm_features.get("note_on_count"),
+                },
+                "harmony_excerpt": {
+                    "estimated_key": harmony_features.get("estimated_key"),
+                    "estimated_mode": harmony_features.get("estimated_mode"),
+                    "triad_match_score": harmony_features.get("triad_match_score"),
+                },
                 "top_tags": top_tags,
             }
             label = "needs_review" if any(t["confidence"] < 0.45 for t in top_tags) else "feature_ready"
@@ -133,20 +151,24 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 label=label,
                 input_features=input_features,
             )
+            record["record_id"] = f"{performance_id}:{segment_run_id}:{record.get('window_id') or 'global'}:{len(output_records):04d}"
+            record["granularity"] = "window"
+            record["text_summary"] = (
+                f"window={record.get('window_id')} bpm={input_features['rhythm_excerpt'].get('estimated_bpm')} "
+                f"key={input_features['harmony_excerpt'].get('estimated_key')} "
+                f"tags={[item['tag'] for item in top_tags]}"
+            )
+            record["feature_refs"] = {
+                "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                "harmony_features_path": harmony_path.resolve().as_posix(),
+                "tags_path": tags_path.resolve().as_posix(),
+            }
             output_records.append(record)
 
-    output_payload = {
-        "performance_id": performance_id,
-        "source_name": source_name,
-        "segment_run_id": segment_run_id,
-        "feature_version": "ai_training_v1",
-        "extractor_name": "ai_training_record_builder_v1",
-        "created_at": now_iso(),
-        "record_count": len(output_records),
-        "records": output_records,
-    }
-    output_path = target_dir / "ai_training_records.json"
-    save_json(output_path, output_payload)
+    output_path = target_dir / "ai_training_records.jsonl"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [json.dumps(record, ensure_ascii=True) for record in output_records]
+    output_path.write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
     return output_path.resolve()
 
 

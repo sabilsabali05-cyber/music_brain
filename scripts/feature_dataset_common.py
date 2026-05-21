@@ -68,7 +68,7 @@ def performance_metadata(performance_manifest: dict[str, object], segments_manif
 
 
 def default_feature_dir(performance_id: str, segment_run_id: str) -> Path:
-    return Path("features") / "performance_feature_packs" / performance_id / segment_run_id
+    return Path("features") / "performances" / performance_id / segment_run_id
 
 
 def summarize_window_counts(segments_manifest: dict[str, object]) -> dict[str, int]:

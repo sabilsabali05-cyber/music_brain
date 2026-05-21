@@ -598,7 +598,7 @@ Constraints for this layer:
 
 Core outputs are written under:
 
-`features/performance_feature_packs/<performance_id>/<segment_run_id>/`
+`features/performances/<performance_id>/<segment_run_id>/`
 
 Commands:
 
@@ -611,4 +611,13 @@ scripts\dev.cmd extract-feature-pack "performances/library/<performance_id>/perf
 scripts\dev.cmd validate-feature-pack "performances/library/<performance_id>/performance_manifest.json"
 ```
 
-`extract-feature-pack` orchestrates the full pipeline (`rhythm -> harmony -> tags -> ai records`) and writes `feature_pack_manifest.json`.
+`extract-feature-pack` orchestrates the full pipeline (`rhythm -> harmony -> tags -> ai records`) and writes:
+
+- `rhythm_features.json`
+- `harmony_features.json`
+- `tags.json`
+- `ai_training_records.jsonl`
+- `feature_summary.md`
+- `feature_pack_manifest.json`
+
+`ai_training_records.jsonl` is AI-ready dataset output for future training workflows. It stores one JSON record per line and references feature files for larger vectors instead of duplicating large arrays in every record.
