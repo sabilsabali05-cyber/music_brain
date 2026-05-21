@@ -6,6 +6,21 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from scripts.performance_runs import (
+        archive_active_run,
+        ensure_run_tracking_fields,
+        infer_analysis_path_from_segments_manifest,
+        set_active_run,
+    )
+except ModuleNotFoundError:  # pragma: no cover - direct script execution fallback
+    from performance_runs import (  # type: ignore
+        archive_active_run,
+        ensure_run_tracking_fields,
+        infer_analysis_path_from_segments_manifest,
+        set_active_run,
+    )
+
 
 def _load_manifest(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -53,6 +68,16 @@ def _step_status(manifest: dict[str, object], step: str) -> str | None:
     return str(value) if value is not None else None
 
 
+def _source_reason(*, resume: bool, force_analysis: bool, force_segmentation: bool) -> str:
+    if force_analysis:
+        return "force_analysis"
+    if force_segmentation:
+        return "force_segmentation"
+    if resume:
+        return "resume"
+    return "initial"
+
+
 def process_performance_manifest(
     manifest_path: Path,
     *,
@@ -64,16 +89,27 @@ def process_performance_manifest(
     allow_partial_stitch: bool = False,
 ) -> dict[str, object]:
     manifest = _load_manifest(manifest_path)
+    ensure_run_tracking_fields(manifest)
     source_path = Path(str(manifest.get("source_path", "")))
     if not source_path.exists():
         raise FileNotFoundError(f"Source audio missing: {source_path}")
 
-    analysis_value = str(manifest.get("analysis_path", "") or "").strip()
-    segments_value = str(manifest.get("segments_manifest_path", "") or "").strip()
+    analysis_value = str(manifest.get("active_analysis_path", "") or "").strip()
+    segments_value = str(manifest.get("active_segments_manifest_path", "") or "").strip()
     analysis_path_existing = Path(analysis_value) if analysis_value else None
     segments_manifest_existing = Path(segments_value) if segments_value else None
-    analysis_done = bool(analysis_path_existing and analysis_path_existing.exists())
-    segmentation_done = bool(segments_manifest_existing and segments_manifest_existing.exists())
+    if analysis_value and not (analysis_path_existing and analysis_path_existing.exists()):
+        raise FileNotFoundError(f"Active analysis path missing: {analysis_value}")
+    if segments_value and not (segments_manifest_existing and segments_manifest_existing.exists()):
+        raise FileNotFoundError(f"Active segments manifest missing: {segments_value}")
+    analysis_done = bool(analysis_path_existing)
+    segmentation_done = bool(segments_manifest_existing)
+
+    run_reason = _source_reason(
+        resume=resume,
+        force_analysis=force_analysis,
+        force_segmentation=force_segmentation,
+    )
 
     current_stage = "analysis"
     try:
@@ -99,6 +135,7 @@ def process_performance_manifest(
             analysis_path = _parse_prefixed_line(lines, "ANALYSIS_PATH=")
             if not analysis_path:
                 raise RuntimeError("ANALYSIS_PATH not found in analysis output.")
+            manifest["active_analysis_path"] = analysis_path
             manifest["analysis_path"] = analysis_path
             _update_step(manifest, "analysis", "success")
             _save_manifest(manifest_path, manifest)
@@ -106,7 +143,8 @@ def process_performance_manifest(
             print(f"REUSING_ANALYSIS_PATH={analysis_path_existing.as_posix()}")
 
         current_stage = "segmentation"
-        if force_segmentation or not segmentation_done:
+        regenerate_segmentation = force_segmentation or not segmentation_done
+        if regenerate_segmentation:
             print(f"GENERATING_NEW_SEGMENTATION={source_path.as_posix()}")
             lines = _run_command(
                 [
@@ -126,13 +164,28 @@ def process_performance_manifest(
             segments_manifest_path = _parse_prefixed_line(lines, "MANIFEST_PATH=")
             if not segments_manifest_path:
                 raise RuntimeError("MANIFEST_PATH not found in segmentation output.")
-            manifest["segments_manifest_path"] = segments_manifest_path
+
+            inferred_analysis = infer_analysis_path_from_segments_manifest(segments_manifest_path)
+            expected_analysis = str(manifest.get("active_analysis_path", "") or "").strip()
+            if inferred_analysis and expected_analysis and inferred_analysis != expected_analysis:
+                raise RuntimeError(
+                    "New segmentation run points to a different analysis_path than active_analysis_path; "
+                    "refusing silent run switch."
+                )
+
+            archive_active_run(manifest, source_reason=run_reason)
+            set_active_run(
+                manifest,
+                segments_manifest_path=segments_manifest_path,
+                source_reason=run_reason,
+                preserve_previous_as_history=False,
+            )
             _update_step(manifest, "segmentation", "success")
             _save_manifest(manifest_path, manifest)
         else:
             print(f"REUSING_SEGMENTS_MANIFEST_PATH={segments_manifest_existing.as_posix()}")
 
-        segments_manifest_path = Path(str(manifest.get("segments_manifest_path", "")))
+        segments_manifest_path = Path(str(manifest.get("active_segments_manifest_path", "")))
         if not segments_manifest_path.exists():
             raise FileNotFoundError(f"Segments manifest missing: {segments_manifest_path}")
 
@@ -184,6 +237,7 @@ def process_performance_manifest(
                 if isinstance(window, dict) and str(window.get("status", "pending")) != "success"
             ]
             if pending and not allow_partial_stitch:
+                manifest["active_merged_midi_path"] = None
                 manifest["merged_midi_path"] = None
                 _update_step(
                     manifest,
@@ -198,11 +252,19 @@ def process_performance_manifest(
                 stitch_lines = _run_command(stitch_command)
                 merged_midi_path = _parse_prefixed_line(stitch_lines, "MERGED_MIDI_PATH=")
                 if merged_midi_path:
+                    manifest["active_merged_midi_path"] = merged_midi_path
                     manifest["merged_midi_path"] = merged_midi_path
                 _update_step(manifest, "stitch", "success")
         elif no_stitch:
             _update_step(manifest, "stitch", "skipped_no_stitch")
 
+        # Keep canonical active run reflected in history with current status and counts.
+        set_active_run(
+            manifest,
+            segments_manifest_path=segments_manifest_path.as_posix(),
+            source_reason=run_reason,
+            preserve_previous_as_history=False,
+        )
         manifest["status"] = "processed"
         _save_manifest(manifest_path, manifest)
         return manifest
@@ -235,8 +297,8 @@ def main() -> int:
         allow_partial_stitch=args.allow_partial_stitch,
     )
     print(f"PERFORMANCE_STATUS={manifest.get('status')}")
-    print(f"SEGMENTS_MANIFEST_PATH={manifest.get('segments_manifest_path')}")
-    print(f"MERGED_MIDI_PATH={manifest.get('merged_midi_path')}")
+    print(f"SEGMENTS_MANIFEST_PATH={manifest.get('active_segments_manifest_path')}")
+    print(f"MERGED_MIDI_PATH={manifest.get('active_merged_midi_path')}")
     return 0
 
 

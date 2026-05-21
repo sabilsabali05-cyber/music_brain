@@ -68,6 +68,8 @@ scripts\dev.cmd ingest-performance "performances/inbox/service_2026-05-21.mp3"
 scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
 scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3 --allow-partial-stitch
 scripts\dev.cmd batch-performances "performances/inbox" 1 3
+scripts\dev.cmd list-performance-runs "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd set-active-performance-run "performances/library/<performance_id>/performance_manifest.json" "samples/segments/<source>/<run>/segments_manifest.json"
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
@@ -553,4 +555,26 @@ Safe 10-minute first pass command sequence:
 ```powershell
 scripts\dev.cmd ingest-performance "performances/inbox/church_10min_test.mp3"
 scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
+```
+
+## Active performance runs
+
+A single performance may accumulate multiple analysis/segmentation attempts over time (resume runs, forced reruns, or manual attachments). The manifest now tracks one canonical active run:
+
+- `active_analysis_path`
+- `active_segments_manifest_path`
+- `active_merged_midi_path`
+- `run_history` with per-run status and window counts
+
+Behavior:
+
+- batch and staged processing use active paths
+- legacy fields (`analysis_path`, `segments_manifest_path`, `merged_midi_path`) are synced to active paths for backward compatibility
+- switching active runs is explicit
+
+Commands:
+
+```powershell
+scripts\dev.cmd list-performance-runs "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd set-active-performance-run "performances/library/<performance_id>/performance_manifest.json" "samples/segments/<source>/<run>/segments_manifest.json"
 ```

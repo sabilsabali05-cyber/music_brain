@@ -67,6 +67,8 @@ function Show-Usage {
     Write-Host "  ingest-performance <audio-path>"
     Write-Host "  process-performance <performance-manifest> [max-windows] [--allow-partial-stitch]"
     Write-Host "  batch-performances <inbox-folder> [max-performances] [max-windows]"
+    Write-Host "  list-performance-runs <performance-manifest>"
+    Write-Host "  set-active-performance-run <performance-manifest> <segments-manifest>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -710,6 +712,19 @@ switch ($Task) {
             $command += @("--max-windows", $maxWindows)
         }
         Invoke-Step -Label "Batch ingest/process performances" -Command $command
+    }
+    "list-performance-runs" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd list-performance-runs <performance-manifest>"
+        Invoke-Step -Label "Listing canonical and historical performance runs" -Command @(
+            "python", "scripts/list_performance_runs.py", $manifestPath
+        )
+    }
+    "set-active-performance-run" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd set-active-performance-run <performance-manifest> <segments-manifest>"
+        $segmentsManifest = Get-TaskArgOrThrow -Index 1 -Usage "Usage: scripts\dev.cmd set-active-performance-run <performance-manifest> <segments-manifest>"
+        Invoke-Step -Label "Setting canonical active performance run" -Command @(
+            "python", "scripts/set_active_performance_run.py", $manifestPath, $segmentsManifest
+        )
     }
     "transcribe-yourmt3" {
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"

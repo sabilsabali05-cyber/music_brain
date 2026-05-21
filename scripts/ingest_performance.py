@@ -69,6 +69,10 @@ def ingest_performance(source_path: Path) -> Path:
         "analysis_path": None,
         "segments_manifest_path": None,
         "merged_midi_path": None,
+        "active_analysis_path": None,
+        "active_segments_manifest_path": None,
+        "active_merged_midi_path": None,
+        "run_history": [],
         "reports": {
             "review_report_path": None,
             "benchmark_summary": None,
