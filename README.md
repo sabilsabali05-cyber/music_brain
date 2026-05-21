@@ -48,6 +48,9 @@ scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
+scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
+scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
@@ -281,3 +284,28 @@ scripts\dev.cmd benchmark-track library/<track_id>
 - `track_id`, `status`, `provider_used`, `backend`
 - audio duration and transcription/total latency
 - MIDI file size, track/message counts, and `note_on` count
+
+## Phrase-aware long performances
+
+Hour-long performances should not be sent as one transcription request. The long-audio scaffold separates:
+
+- `musical_segment`: musically meaningful phrase/section/gesture concept
+- `transcription_window`: practical context-padded audio window sent to YourMT3
+
+Important behavior:
+
+- Fixed chunks are the fallback baseline, not the end goal.
+- The hybrid mode is currently a scaffold and records this explicitly in the manifest strategy.
+- Every segment stores previous/next links for timeline context.
+- Every window stores core interval plus context-padded interval.
+- Future database retrieval should fetch: target segment + neighbor segments + parent performance context.
+
+Safe first run for long audio:
+
+```powershell
+scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
+scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
+```
+
+This keeps GPU usage bounded while proving manifest + context + resume behavior.

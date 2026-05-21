@@ -42,3 +42,15 @@ def test_dev_runner_commit_message_with_spaces_is_single_argument() -> None:
     assert "TASK_ARG_COUNT=2" in output
     assert "TASK_ARG_0=commit-checkpoint" in output
     assert "TASK_ARG_1=Fix dev runner argument parsing" in output
+
+
+def test_dev_runner_segment_audio_quoted_windows_path() -> None:
+    output = _run_debug_args(
+        "segment-audio",
+        r"C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3",
+        "60",
+    )
+    assert "TASK_ARG_COUNT=3" in output
+    assert "TASK_ARG_0=segment-audio" in output
+    assert "TASK_ARG_1=C:\\Users\\izzyo\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
+    assert "TASK_ARG_2=60" in output

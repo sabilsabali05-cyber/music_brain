@@ -19,6 +19,7 @@ samples/*.flac
 samples/*.m4a
 samples/input/
 samples/clips/
+samples/segments/
 benchmark_reports/
 !samples/input/.gitkeep
 !samples/clips/.gitkeep

@@ -42,6 +42,9 @@ function Show-Usage {
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
     Write-Host "  make-clip <audio-path> [seconds]"
+    Write-Host "  segment-audio <audio-path> [target-window-seconds]"
+    Write-Host "  transcribe-windows <manifest-path> [max-windows]"
+    Write-Host "  benchmark-segments <manifest-path>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -347,6 +350,40 @@ switch ($Task) {
             $clipCommand += @("--seconds", $seconds)
         }
         Invoke-Step -Label "Creating short clip" -Command $clipCommand
+    }
+    "segment-audio" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio <audio-path> [target-window-seconds]"
+        $targetWindow = Get-TaskArg -Index 1
+        $segmentCommand = @(
+            "python",
+            "scripts/segment_audio.py",
+            $audioPath,
+            "--strategy",
+            "hybrid",
+            "--target-window-seconds"
+        )
+        if (-not [string]::IsNullOrWhiteSpace($targetWindow)) {
+            $segmentCommand += $targetWindow
+        }
+        else {
+            $segmentCommand += "60"
+        }
+        $segmentCommand += @("--max-window-seconds", "90", "--context-seconds", "5")
+        Invoke-Step -Label "Creating segment manifest and windows" -Command $segmentCommand
+    }
+    "transcribe-windows" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-windows <manifest-path> [max-windows]"
+        $maxWindows = Get-TaskArg -Index 1
+        $command = @("python", "scripts/transcribe_windows.py", $manifestPath)
+        if (-not [string]::IsNullOrWhiteSpace($maxWindows)) {
+            $command += @("--max-windows", $maxWindows)
+        }
+        Invoke-Step -Label "Transcribing windows from manifest" -Command $command
+    }
+    "benchmark-segments" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd benchmark-segments <manifest-path>"
+        Invoke-Step -Label "Benchmarking segment manifest" -Command @("python", "scripts/benchmark_segments.py", $manifestPath)
     }
     "transcribe-yourmt3" {
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
