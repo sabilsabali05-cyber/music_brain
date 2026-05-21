@@ -14,6 +14,10 @@ def build_inspection_lines(manifest: dict[str, object]) -> list[str]:
     lines.append(f"source_name: {manifest.get('source_name')}")
     lines.append(f"duration_seconds: {manifest.get('duration_seconds')}")
     lines.append(f"segmentation_strategy: {manifest.get('segmentation_strategy')}")
+    lines.append(f"strategy_requested: {manifest.get('strategy_requested')}")
+    lines.append(f"strategy_used: {manifest.get('strategy_used')}")
+    lines.append(f"fallback_used: {manifest.get('fallback_used')}")
+    lines.append(f"segmentation_run_id: {manifest.get('segmentation_run_id')}")
     lines.append(f"musical_segments_count: {len(musical_segments) if isinstance(musical_segments, list) else 0}")
     lines.append(f"transcription_windows_count: {len(windows) if isinstance(windows, list) else 0}")
 

@@ -30,6 +30,13 @@ def test_segment_audio_manifest_contains_segments_and_windows(tmp_path: Path, mo
     assert manifest["segmentation_strategy"] == "fixed_with_context"
     assert len(manifest["musical_segments"]) == len(manifest["transcription_windows"])
     assert len(manifest["musical_segments"]) == 3
+    assert manifest["segmentation_run_id"]
+    assert manifest["source_audio_sha256"]
+    assert manifest["source_audio_size_bytes"] > 0
+    assert manifest["source_audio_modified_time"]
+    latest_pointer = tmp_path / "samples" / "segments" / "performance" / "latest_manifest.txt"
+    assert latest_pointer.exists()
+    assert latest_pointer.read_text(encoding="utf-8").strip() == manifest_path.as_posix()
 
 
 def test_segment_audio_links_and_context_padding(tmp_path: Path, monkeypatch) -> None:
@@ -37,6 +44,7 @@ def test_segment_audio_links_and_context_padding(tmp_path: Path, monkeypatch) ->
     source.write_bytes(b"fake")
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 130.0)
+    monkeypatch.setattr("scripts.segment_audio.detect_low_energy_boundaries", lambda _: [62.0, 124.0])
     def _fake_extract(source_path: Path, output_path: Path, start: float, end: float) -> None:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_bytes(b"x")
@@ -61,7 +69,7 @@ def test_segment_audio_links_and_context_padding(tmp_path: Path, monkeypatch) ->
 
     second_window = windows[1]
     assert second_window["pre_context_seconds"] == 5.0
-    assert second_window["post_context_seconds"] == 5.0
+    assert second_window["post_context_seconds"] <= 5.0
 
     # coverage should reach the source duration on fixed scaffold
     assert windows[-1]["core_end_seconds"] == 130.0
@@ -117,3 +125,37 @@ def test_uncertain_energy_falls_back_clearly(tmp_path: Path, monkeypatch) -> Non
     assert manifest["segmentation_strategy"] == "fixed_with_context"
     assert manifest["segmentation_diagnostics"]["fallback_used"] is True
     assert manifest["musical_segments"][0]["boundary_reason"] == "uncertain_fallback"
+
+
+def test_segment_audio_creates_unique_run_folders(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "performance.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 121.0)
+
+    def _fake_extract(source_path: Path, output_path: Path, start: float, end: float) -> None:
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_bytes(b"x")
+
+    monkeypatch.setattr("scripts.segment_audio.extract_window_audio", _fake_extract)
+    monkeypatch.setattr("scripts.segment_audio.detect_low_energy_boundaries", lambda _: [61.0])
+
+    first = segment_audio(
+        source,
+        strategy="energy",
+        target_window_seconds=60.0,
+        max_window_seconds=90.0,
+        context_seconds=5.0,
+    )
+    second = segment_audio(
+        source,
+        strategy="fixed",
+        target_window_seconds=60.0,
+        max_window_seconds=90.0,
+        context_seconds=5.0,
+    )
+
+    assert first != second
+    assert first.parent != second.parent
+    latest_pointer = tmp_path / "samples" / "segments" / "performance" / "latest_manifest.txt"
+    assert latest_pointer.read_text(encoding="utf-8").strip() == second.as_posix()

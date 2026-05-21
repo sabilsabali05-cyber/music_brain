@@ -4,6 +4,7 @@ import argparse
 import json
 import re
 import subprocess
+from hashlib import sha256
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -30,6 +31,14 @@ def probe_duration_seconds(source_path: Path) -> float:
         return float((result.stdout or "").strip())
     except ValueError as exc:
         raise RuntimeError("Could not parse duration from ffprobe output") from exc
+
+
+def checksum_sha256(path: Path) -> str:
+    digest = sha256()
+    with path.open("rb") as file_obj:
+        for chunk in iter(lambda: file_obj.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def detect_low_energy_boundaries(
@@ -236,9 +245,8 @@ def segment_audio(
 
     duration_seconds = probe_duration_seconds(source_path)
     source_name_safe = safe_source_name(source_path)
-    segment_root = Path("samples") / "segments" / source_name_safe
-    windows_root = segment_root / "windows"
-    segment_root.mkdir(parents=True, exist_ok=True)
+    source_root = Path("samples") / "segments" / source_name_safe
+    source_root.mkdir(parents=True, exist_ok=True)
 
     segmentation_diagnostics: dict[str, object] = {
         "algorithm_version": "energy_v1",
@@ -282,10 +290,21 @@ def segment_audio(
                 "Energy boundary detector did not produce confident boundaries; "
                 "used fixed interval fallback with context."
             )
-            manifest_strategy = "fixed_with_context" if strategy == "energy" else "hybrid_scaffold_with_energy_boundaries"
+            manifest_strategy = "fixed_with_context"
         else:
             manifest_strategy = "energy_v1" if strategy == "energy" else "hybrid_scaffold_with_energy_boundaries"
             segmentation_diagnostics["notes"] = "Energy boundary candidates accepted conservatively."
+
+    fallback_used = bool(segmentation_diagnostics.get("fallback_used"))
+    strategy_requested = strategy
+    strategy_used = manifest_strategy
+
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
+    strategy_slug = re.sub(r"[^a-zA-Z0-9._-]+", "_", strategy_used)
+    run_id = f"{timestamp}_{strategy_slug}"
+    run_root = source_root / run_id
+    windows_root = run_root / "windows"
+    run_root.mkdir(parents=True, exist_ok=True)
 
     musical_segments, transcription_windows, adjacency = build_manifest_graph(
         duration_seconds=duration_seconds,
@@ -306,12 +325,23 @@ def segment_audio(
         )
         window["chunk_audio_path"] = chunk_path.resolve().as_posix()
 
+    source_stat = source_path.stat()
     manifest = {
         "performance_id": f"perf_{source_name_safe}",
         "source_path": source_path.resolve().as_posix(),
         "source_name": source_path.name,
+        "source_audio_sha256": checksum_sha256(source_path),
+        "source_audio_size_bytes": int(source_stat.st_size),
+        "source_audio_modified_time": datetime.fromtimestamp(
+            source_stat.st_mtime, tz=timezone.utc
+        ).isoformat(),
         "duration_seconds": round(duration_seconds, 6),
-        "segmentation_strategy": manifest_strategy,
+        "segmentation_strategy": strategy_used,
+        "strategy_requested": strategy_requested,
+        "strategy_used": strategy_used,
+        "fallback_used": fallback_used,
+        "segmentation_run_id": run_id,
+        "segmentation_run_dir": run_root.resolve().as_posix(),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "segmentation_diagnostics": segmentation_diagnostics,
         "musical_segments": musical_segments,
@@ -319,8 +349,10 @@ def segment_audio(
         "context_graph": {"adjacency": adjacency},
     }
 
-    manifest_path = segment_root / "segments_manifest.json"
+    manifest_path = run_root / "segments_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    latest_pointer = source_root / "latest_manifest.txt"
+    latest_pointer.write_text(manifest_path.resolve().as_posix(), encoding="utf-8")
     return manifest_path.resolve()
 
 
@@ -340,7 +372,7 @@ def main() -> int:
         max_window_seconds=args.max_window_seconds,
         context_seconds=args.context_seconds,
     )
-    print(manifest_path.as_posix())
+    print(f"MANIFEST_PATH={manifest_path.as_posix()}")
     return 0
 
 

@@ -44,6 +44,8 @@ function Show-Usage {
     Write-Host "  make-clip <audio-path> [seconds]"
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
     Write-Host "  inspect-segments <manifest-path>"
+    Write-Host "  inspect-latest-segments [source-folder]"
+    Write-Host "  compare-segmentations <segments-source-folder>"
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
     Write-Host "  benchmark-segments <manifest-path>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
@@ -372,11 +374,40 @@ switch ($Task) {
             $segmentCommand += "60"
         }
         $segmentCommand += @("--max-window-seconds", "90", "--context-seconds", "5")
-        Invoke-Step -Label "Creating segment manifest and windows" -Command $segmentCommand
+        $segmentOutput = Invoke-CommandCapture -Label "Creating segment manifest and windows" -Command $segmentCommand
+        $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
+        if ($manifestLine) {
+            Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
+        }
     }
     "inspect-segments" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd inspect-segments <manifest-path>"
         Invoke-Step -Label "Inspecting segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
+    }
+    "inspect-latest-segments" {
+        $sourceFolder = Get-TaskArg -Index 0
+        $latestFile = $null
+        if (-not [string]::IsNullOrWhiteSpace($sourceFolder)) {
+            $candidate = Join-Path $sourceFolder "latest_manifest.txt"
+            if (-not (Test-Path $candidate)) {
+                $candidate = Join-Path (Join-Path "samples\segments" $sourceFolder) "latest_manifest.txt"
+            }
+            if (Test-Path $candidate) { $latestFile = Get-Item $candidate }
+        }
+        if ($null -eq $latestFile) {
+            $latestFile = Get-ChildItem -Path "samples\segments" -Filter "latest_manifest.txt" -Recurse -File |
+                Sort-Object LastWriteTime -Descending |
+                Select-Object -First 1
+        }
+        if ($null -eq $latestFile) { throw "No latest_manifest.txt found under samples/segments." }
+        $manifestPath = (Get-Content -Path $latestFile.FullName -Raw).Trim()
+        if ([string]::IsNullOrWhiteSpace($manifestPath)) { throw "latest_manifest.txt is empty: $($latestFile.FullName)" }
+        Write-Host "Using latest manifest pointer: $($latestFile.FullName)"
+        Invoke-Step -Label "Inspecting latest segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
+    }
+    "compare-segmentations" {
+        $segmentsRoot = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-segmentations <segments-source-folder>"
+        Invoke-Step -Label "Comparing segmentation runs" -Command @("python", "scripts/compare_segmentations.py", $segmentsRoot)
     }
     "transcribe-windows" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-windows <manifest-path> [max-windows]"

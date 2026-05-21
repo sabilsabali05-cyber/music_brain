@@ -326,3 +326,26 @@ scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/s
 ```
 
 This keeps GPU usage bounded while proving manifest + context + resume behavior.
+
+## Comparing segmentation strategies
+
+Every segmentation run is saved separately under:
+
+`samples/segments/<safe_source_name>/<timestamp>_<strategy_used>/`
+
+Each run contains its own `segments_manifest.json` and `windows/` directory, so old runs are not overwritten.
+This matters because window transcriptions are expensive and should stay reproducible.
+
+Convenience pointers and comparison:
+
+- `latest_manifest.txt` is a convenience pointer only.
+- Use `inspect-segments` or `inspect-latest-segments` to inspect one run.
+- Use `compare-segmentations` to compare fixed/energy/hybrid runs side-by-side.
+
+Example:
+
+```powershell
+scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 energy
+scripts\dev.cmd inspect-latest-segments
+scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
+```
