@@ -1,0 +1,31 @@
+{
+  "track_id": "trk_20260521T060505Z_1b9d237cd1",
+  "input_filename": "test_tone.wav",
+  "checksum": "86701a90be8f967c3f7adf88e9cbc48b3112e5ae25dd5bcbc0a1fee918e6f6ac",
+  "duration_seconds": 0.0,
+  "provider_requested": "fake",
+  "provider_used": "none",
+  "fallback_used": false,
+  "fallback_reason": null,
+  "model_version": "",
+  "backend": "local_fake",
+  "status": "failed",
+  "latency_seconds": {
+    "checksum": 0.009536900004604831,
+    "copy_input": 0.00161339997430332,
+    "ffmpeg_convert": 0.0036343999963719398,
+    "transcription": 0.0,
+    "total": 0.01840749999973923
+  },
+  "artifacts": {
+    "input_audio": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T060505Z_1b9d237cd1/original/test_tone.wav",
+    "normalized_audio": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T060505Z_1b9d237cd1/original/normalized.wav",
+    "full_mix_midi": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T060505Z_1b9d237cd1/midi/full_mix.mid",
+    "job_report": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T060505Z_1b9d237cd1/analysis/job_report.json"
+  },
+  "error": {
+    "stage": "ffmpeg_convert",
+    "message": "ffmpeg binary was not found. Install ffmpeg and make sure it is on PATH.",
+    "exception_type": "AudioProcessingError"
+  }
+}
