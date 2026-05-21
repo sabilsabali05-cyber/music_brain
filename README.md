@@ -543,3 +543,10 @@ Recommended rollout:
 2. process one full performance with `max-windows` capped
 3. run small batch processing with reports enabled
 4. do not process multi-hour sets without resume mode and batch reports
+
+Safe 10-minute first pass command sequence:
+
+```powershell
+scripts\dev.cmd ingest-performance "performances/inbox/church_10min_test.mp3"
+scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
+```
