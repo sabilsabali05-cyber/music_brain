@@ -122,6 +122,7 @@ Expected failure behavior:
 ### Fixing/using the real mt3-infer YourMT3 backend
 
 - The Modal YourMT3 runner uses `mt3-infer` inside the Modal image (not your local Windows Python env).
+- The Modal image must include `git-lfs` because `mt3-infer` checkpoint download pulls LFS-tracked assets.
 - First run may be slow because model checkpoints may download.
 - A Modal Volume caches checkpoints at `MT3_CHECKPOINT_DIR=/models/mt3_checkpoints`.
 - Later runs should be faster as cache warms.

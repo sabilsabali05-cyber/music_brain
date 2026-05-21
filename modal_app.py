@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import subprocess
 import tempfile
 import time
 from io import BytesIO
@@ -18,7 +19,7 @@ YOURMT3_DEFAULT_MODEL = "yourmt3"
 
 yourmt3_image = (
     modal.Image.debian_slim(python_version="3.11")
-    .apt_install("ffmpeg", "git", "libsndfile1")
+    .apt_install("git", "git-lfs", "ffmpeg", "libsndfile1")
     .pip_install(
         "numpy>=1.26",
         "librosa>=0.10",
@@ -27,6 +28,7 @@ yourmt3_image = (
         "mido>=1.3",
         "mt3-infer[torch]",
     )
+    .run_commands("git lfs install --system")
     .env({"MT3_CHECKPOINT_DIR": MT3_CHECKPOINT_DIR})
 )
 
@@ -64,6 +66,24 @@ def _resolve_modal_gpu() -> str:
     return os.getenv("MUSIC_BRAIN_MODAL_GPU", "T4")
 
 
+def _git_lfs_available_from_outputs(git_lfs_version: str | None, git_lfs_error: str | None) -> bool:
+    if git_lfs_version and "git-lfs" in git_lfs_version.lower():
+        return True
+    if git_lfs_error and "is not a git command" in git_lfs_error.lower():
+        return False
+    return bool(git_lfs_version)
+
+
+def _is_git_lfs_missing_error(message: str) -> bool:
+    lowered = message.lower()
+    return (
+        "git: 'lfs' is not a git command" in lowered
+        or "git lfs" in lowered
+        or "checkpointdownloaderror" in lowered
+        or "failed to clone repository" in lowered
+    )
+
+
 @app.function(image=yourmt3_image, volumes={MT3_CACHE_MOUNT: mt3_cache_volume})
 def yourmt3_diagnostics() -> dict[str, object]:
     diagnostics: dict[str, object] = {
@@ -72,7 +92,31 @@ def yourmt3_diagnostics() -> dict[str, object]:
         "mt3_infer_import": False,
         "available_models": None,
         "torch_cuda_available": False,
+        "git_version": None,
+        "git_lfs_version": None,
+        "git_lfs_available": False,
     }
+    try:
+        git_version = subprocess.run(["git", "--version"], capture_output=True, text=True, check=False)
+        diagnostics["git_version"] = (git_version.stdout or git_version.stderr).strip()
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["git_error"] = f"{exc.__class__.__name__}: {exc}"
+
+    git_lfs_error: str | None = None
+    try:
+        git_lfs_version = subprocess.run(["git", "lfs", "version"], capture_output=True, text=True, check=False)
+        git_lfs_text = (git_lfs_version.stdout or git_lfs_version.stderr).strip()
+        diagnostics["git_lfs_version"] = git_lfs_text
+        if git_lfs_version.returncode != 0:
+            git_lfs_error = git_lfs_text
+    except Exception as exc:  # noqa: BLE001
+        git_lfs_error = f"{exc.__class__.__name__}: {exc}"
+        diagnostics["git_lfs_error"] = git_lfs_error
+
+    diagnostics["git_lfs_available"] = _git_lfs_available_from_outputs(
+        diagnostics["git_lfs_version"], git_lfs_error
+    )
+
     try:
         import torch
 
@@ -121,9 +165,13 @@ class YourMT3ModalRunner:
         try:
             self.model = load_model(self.model_name, device="cuda")
         except Exception as exc:  # noqa: BLE001
-            raise RuntimeError(
-                f"YourMT3 model failed to load inside Modal: {exc.__class__.__name__}: {exc}"
-            ) from exc
+            detailed = f"{exc.__class__.__name__}: {exc}"
+            if _is_git_lfs_missing_error(detailed):
+                raise RuntimeError(
+                    "YourMT3 model failed to load inside Modal because git-lfs is missing or unavailable: "
+                    f"{detailed}"
+                ) from exc
+            raise RuntimeError(f"YourMT3 model failed to load inside Modal: {detailed}") from exc
 
     @modal.method()
     def transcribe(self, normalized_audio_bytes: bytes) -> dict[str, object]:
