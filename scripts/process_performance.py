@@ -68,12 +68,17 @@ def process_performance_manifest(
     if not source_path.exists():
         raise FileNotFoundError(f"Source audio missing: {source_path}")
 
-    analysis_done = bool(manifest.get("analysis_path"))
-    segmentation_done = bool(manifest.get("segments_manifest_path"))
+    analysis_value = str(manifest.get("analysis_path", "") or "").strip()
+    segments_value = str(manifest.get("segments_manifest_path", "") or "").strip()
+    analysis_path_existing = Path(analysis_value) if analysis_value else None
+    segments_manifest_existing = Path(segments_value) if segments_value else None
+    analysis_done = bool(analysis_path_existing and analysis_path_existing.exists())
+    segmentation_done = bool(segments_manifest_existing and segments_manifest_existing.exists())
 
     current_stage = "analysis"
     try:
-        if force_analysis or not (resume and analysis_done):
+        if force_analysis or not analysis_done:
+            print(f"GENERATING_NEW_ANALYSIS={source_path.as_posix()}")
             lines = _run_command(
                 [
                     "python",
@@ -97,9 +102,12 @@ def process_performance_manifest(
             manifest["analysis_path"] = analysis_path
             _update_step(manifest, "analysis", "success")
             _save_manifest(manifest_path, manifest)
+        else:
+            print(f"REUSING_ANALYSIS_PATH={analysis_path_existing.as_posix()}")
 
         current_stage = "segmentation"
-        if force_segmentation or not (resume and segmentation_done):
+        if force_segmentation or not segmentation_done:
+            print(f"GENERATING_NEW_SEGMENTATION={source_path.as_posix()}")
             lines = _run_command(
                 [
                     "python",
@@ -121,6 +129,8 @@ def process_performance_manifest(
             manifest["segments_manifest_path"] = segments_manifest_path
             _update_step(manifest, "segmentation", "success")
             _save_manifest(manifest_path, manifest)
+        else:
+            print(f"REUSING_SEGMENTS_MANIFEST_PATH={segments_manifest_existing.as_posix()}")
 
         segments_manifest_path = Path(str(manifest.get("segments_manifest_path", "")))
         if not segments_manifest_path.exists():

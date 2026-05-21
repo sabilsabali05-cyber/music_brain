@@ -184,6 +184,7 @@ def test_process_resume_skips_successful_steps(tmp_path: Path, monkeypatch) -> N
     monkeypatch.chdir(tmp_path)
     source = tmp_path / "perf.mp3"
     source.write_bytes(b"sound")
+    (tmp_path / "analysis.json").write_text("{}", encoding="utf-8")
     seg_manifest = tmp_path / "segments_manifest.json"
     seg_manifest.write_text(json.dumps({"transcription_windows": [{"status": "success"}]}), encoding="utf-8")
     perf_manifest = tmp_path / "performance_manifest.json"
@@ -224,6 +225,135 @@ def test_process_resume_skips_successful_steps(tmp_path: Path, monkeypatch) -> N
     assert "scripts/analyze_audio_structure.py" not in seen
     assert "scripts/segment_audio.py" not in seen
     assert "scripts/transcribe_windows.py" not in seen
+
+
+def test_process_reuses_existing_analysis_and_segments_without_resume_flag(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "perf.mp3"
+    source.write_bytes(b"sound")
+    analysis = tmp_path / "analysis.json"
+    analysis.write_text("{}", encoding="utf-8")
+    seg_manifest = tmp_path / "segments_manifest.json"
+    seg_manifest.write_text(json.dumps({"transcription_windows": [{"status": "success"}]}), encoding="utf-8")
+    perf_manifest = tmp_path / "performance_manifest.json"
+    perf_manifest.write_text(
+        json.dumps(
+            {
+                "source_path": source.as_posix(),
+                "status": "ingested",
+                "analysis_path": analysis.as_posix(),
+                "segments_manifest_path": seg_manifest.as_posix(),
+                "merged_midi_path": None,
+                "reports": {},
+                "steps": {},
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    seen: list[str] = []
+
+    def _fake_run(command: list[str]) -> list[str]:
+        command_text = " ".join(command)
+        seen.append(command_text)
+        if "benchmark_segments.py" in command_text:
+            return ["successful_windows: 1", "failed_windows: 0"]
+        if "review_segments.py" in command_text:
+            return [f"REVIEW_REPORT_PATH={(tmp_path / 'review.md').as_posix()}"]
+        return []
+
+    monkeypatch.setattr("scripts.process_performance._run_command", _fake_run)
+    process_performance_manifest(perf_manifest, max_windows=3, no_stitch=True)
+    assert not any("analyze_audio_structure.py" in cmd for cmd in seen)
+    assert not any("segment_audio.py" in cmd for cmd in seen)
+
+
+def test_process_force_analysis_regenerates(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "perf.mp3"
+    source.write_bytes(b"sound")
+    analysis = tmp_path / "analysis.json"
+    analysis.write_text("{}", encoding="utf-8")
+    seg_manifest = tmp_path / "segments_manifest.json"
+    seg_manifest.write_text(json.dumps({"transcription_windows": [{"status": "success"}]}), encoding="utf-8")
+    perf_manifest = tmp_path / "performance_manifest.json"
+    perf_manifest.write_text(
+        json.dumps(
+            {
+                "source_path": source.as_posix(),
+                "status": "ingested",
+                "analysis_path": analysis.as_posix(),
+                "segments_manifest_path": seg_manifest.as_posix(),
+                "merged_midi_path": None,
+                "reports": {},
+                "steps": {},
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    seen: list[str] = []
+
+    def _fake_run(command: list[str]) -> list[str]:
+        command_text = " ".join(command)
+        seen.append(command_text)
+        if "analyze_audio_structure.py" in command_text:
+            return [f"ANALYSIS_PATH={(tmp_path / 'analysis_new.json').as_posix()}"]
+        if "benchmark_segments.py" in command_text:
+            return ["successful_windows: 1", "failed_windows: 0"]
+        if "review_segments.py" in command_text:
+            return [f"REVIEW_REPORT_PATH={(tmp_path / 'review.md').as_posix()}"]
+        return []
+
+    monkeypatch.setattr("scripts.process_performance._run_command", _fake_run)
+    payload = process_performance_manifest(perf_manifest, max_windows=3, no_stitch=True, force_analysis=True)
+    assert any("analyze_audio_structure.py" in cmd for cmd in seen)
+    assert payload["analysis_path"] == (tmp_path / "analysis_new.json").as_posix()
+
+
+def test_process_force_segmentation_regenerates(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "perf.mp3"
+    source.write_bytes(b"sound")
+    analysis = tmp_path / "analysis.json"
+    analysis.write_text("{}", encoding="utf-8")
+    seg_manifest = tmp_path / "segments_manifest.json"
+    seg_manifest.write_text(json.dumps({"transcription_windows": [{"status": "success"}]}), encoding="utf-8")
+    perf_manifest = tmp_path / "performance_manifest.json"
+    perf_manifest.write_text(
+        json.dumps(
+            {
+                "source_path": source.as_posix(),
+                "status": "ingested",
+                "analysis_path": analysis.as_posix(),
+                "segments_manifest_path": seg_manifest.as_posix(),
+                "merged_midi_path": None,
+                "reports": {},
+                "steps": {},
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    seen: list[str] = []
+
+    def _fake_run(command: list[str]) -> list[str]:
+        command_text = " ".join(command)
+        seen.append(command_text)
+        if "segment_audio.py" in command_text:
+            new_manifest = tmp_path / "segments_new.json"
+            new_manifest.write_text(json.dumps({"transcription_windows": [{"status": "success"}]}), encoding="utf-8")
+            return [f"MANIFEST_PATH={new_manifest.as_posix()}"]
+        if "benchmark_segments.py" in command_text:
+            return ["successful_windows: 1", "failed_windows: 0"]
+        if "review_segments.py" in command_text:
+            return [f"REVIEW_REPORT_PATH={(tmp_path / 'review.md').as_posix()}"]
+        return []
+
+    monkeypatch.setattr("scripts.process_performance._run_command", _fake_run)
+    payload = process_performance_manifest(perf_manifest, max_windows=3, no_stitch=True, force_segmentation=True)
+    assert any("segment_audio.py" in cmd for cmd in seen)
+    assert payload["segments_manifest_path"] == (tmp_path / "segments_new.json").as_posix()
 
 
 def test_process_records_failed_step(tmp_path: Path, monkeypatch) -> None:

@@ -1,7 +1,7 @@
 # Segmentation Review: Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3
 
-- manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json`
-- run_id: `20260521T204750163461_audio_structure_v1`
+- manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T205541287412_audio_structure_v1/segments_manifest.json`
+- run_id: `20260521T205541287412_audio_structure_v1`
 - source_name: `Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3`
 - duration_seconds: `751.420952`
 - strategy_requested: `audio_structure`
@@ -14,7 +14,7 @@
 - candidate_density: `dense`
 - fused_candidate_count: `269`
 - returned_candidate_count: `43`
-- analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json`
+- analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T205505179412_modal_librosa_dense/structure_analysis.json`
 - segmentation_parameters: `{'boundary_threshold': 0.55, 'min_segment_seconds': 30.0, 'max_segment_seconds': 90.0, 'rms_weight': 0.2, 'onset_weight': 0.3, 'chroma_weight': 0.25, 'timbre_weight': 0.25, 'allow_fixed_candidates': False}`
 
 ## Accepted Musical Segments
