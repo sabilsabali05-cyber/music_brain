@@ -118,3 +118,12 @@ Expected failure behavior:
 - no silent fallback to fake or any other model
 
 `local_fake` and `modal_fake` remain the stable control-plane test paths. They are for plumbing validation only and must not be silently used when `provider=yourmt3` is requested.
+
+### Fixing/using the real mt3-infer YourMT3 backend
+
+- The Modal YourMT3 runner uses `mt3-infer` inside the Modal image (not your local Windows Python env).
+- First run may be slow because model checkpoints may download.
+- A Modal Volume caches checkpoints at `MT3_CHECKPOINT_DIR=/models/mt3_checkpoints`.
+- Later runs should be faster as cache warms.
+- If `mt3-infer` import/model load/transcription fails, the job fails honestly and writes `job_report.json` with error details.
+- There is no silent fallback to fake or Basic Pitch.

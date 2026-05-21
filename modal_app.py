@@ -11,17 +11,23 @@ from mido import Message, MetaMessage, MidiFile, MidiTrack
 
 app = modal.App("music-brain-v2")
 image = modal.Image.debian_slim(python_version="3.11").pip_install("mido>=1.3")
+mt3_cache_volume = modal.Volume.from_name("music-brain-mt3-cache", create_if_missing=True)
+MT3_CACHE_MOUNT = "/models"
+MT3_CHECKPOINT_DIR = f"{MT3_CACHE_MOUNT}/mt3_checkpoints"
+YOURMT3_DEFAULT_MODEL = "yourmt3"
+
 yourmt3_image = (
     modal.Image.debian_slim(python_version="3.11")
-    .apt_install("ffmpeg", "git")
+    .apt_install("ffmpeg", "git", "libsndfile1")
     .pip_install(
-        "mido>=1.3",
         "numpy>=1.26",
         "librosa>=0.10",
+        "soundfile>=0.12",
         "pretty_midi>=0.2",
-        "note-seq>=0.0.5",
-        "git+https://github.com/magenta/mt3.git",
+        "mido>=1.3",
+        "mt3-infer[torch]",
     )
+    .env({"MT3_CHECKPOINT_DIR": MT3_CHECKPOINT_DIR})
 )
 
 
@@ -58,38 +64,81 @@ def _resolve_modal_gpu() -> str:
     return os.getenv("MUSIC_BRAIN_MODAL_GPU", "T4")
 
 
-@app.cls(image=yourmt3_image, gpu=_resolve_modal_gpu(), timeout=600)
+@app.function(image=yourmt3_image, volumes={MT3_CACHE_MOUNT: mt3_cache_volume})
+def yourmt3_diagnostics() -> dict[str, object]:
+    diagnostics: dict[str, object] = {
+        "checkpoint_dir": os.getenv("MT3_CHECKPOINT_DIR", MT3_CHECKPOINT_DIR),
+        "selected_model": os.getenv("MUSIC_BRAIN_MT3_MODEL", YOURMT3_DEFAULT_MODEL),
+        "mt3_infer_import": False,
+        "available_models": None,
+        "torch_cuda_available": False,
+    }
+    try:
+        import torch
+
+        diagnostics["torch_cuda_available"] = bool(torch.cuda.is_available())
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["torch_error"] = f"{exc.__class__.__name__}: {exc}"
+
+    try:
+        from mt3_infer import __version__ as mt3_infer_version
+
+        diagnostics["mt3_infer_import"] = True
+        diagnostics["mt3_infer_version"] = mt3_infer_version
+        try:
+            from mt3_infer import list_models  # type: ignore[attr-defined]
+
+            diagnostics["available_models"] = list_models()
+        except Exception:
+            diagnostics["available_models"] = None
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["mt3_infer_error"] = f"{exc.__class__.__name__}: {exc}"
+
+    return diagnostics
+
+
+@app.cls(
+    image=yourmt3_image,
+    gpu=_resolve_modal_gpu(),
+    timeout=600,
+    volumes={MT3_CACHE_MOUNT: mt3_cache_volume},
+)
 class YourMT3ModalRunner:
     """Experimental YourMT3 runner with warm-loaded model state."""
 
     @modal.enter()
     def load_model(self) -> None:
-        self.model_version = os.getenv("MUSIC_BRAIN_YOURMT3_MODEL_VERSION", "yourmt3-modal-experimental-v0")
-        self._model = None
-        self._model_error: str | None = None
+        self.model_name = os.getenv("MUSIC_BRAIN_MT3_MODEL", YOURMT3_DEFAULT_MODEL)
+        self.model_version = f"{self.model_name}-modal-experimental-v1"
 
         try:
-            # TODO: replace this placeholder import path with the finalized
-            # YourMT3 inference wrapper used by production containers.
-            import mt3  # type: ignore[import-not-found]  # noqa: F401
-            self._model = "loaded"
+            from mt3_infer import load_model
         except Exception as exc:  # noqa: BLE001
-            self._model_error = f"YourMT3 load failed: {exc.__class__.__name__}: {exc}"
+            raise RuntimeError(
+                f"mt3-infer is not installed inside the Modal image: {exc.__class__.__name__}: {exc}"
+            ) from exc
+
+        try:
+            self.model = load_model(self.model_name, device="cuda")
+        except Exception as exc:  # noqa: BLE001
+            raise RuntimeError(
+                f"YourMT3 model failed to load inside Modal: {exc.__class__.__name__}: {exc}"
+            ) from exc
 
     @modal.method()
     def transcribe(self, normalized_audio_bytes: bytes) -> dict[str, object]:
         if not normalized_audio_bytes:
             raise ValueError("normalized_audio_bytes is empty")
-        if self._model is None:
-            raise RuntimeError(self._model_error or "YourMT3 model is not loaded")
 
         started = time.perf_counter()
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            wav_path = Path(tmp_dir) / "input.wav"
-            midi_path = Path(tmp_dir) / "output.mid"
-            wav_path.write_bytes(normalized_audio_bytes)
-            self._run_experimental_yourmt3(wav_path=wav_path, midi_path=midi_path)
-            midi_bytes = midi_path.read_bytes()
+        try:
+            audio, sample_rate = self._decode_audio(normalized_audio_bytes)
+            midi_result = self.model.transcribe(audio, sr=sample_rate)
+            midi_bytes = self._midi_to_bytes(midi_result)
+        except Exception as exc:  # noqa: BLE001
+            raise RuntimeError(
+                f"YourMT3 transcription failed inside Modal: {exc.__class__.__name__}: {exc}"
+            ) from exc
 
         return {
             "midi_bytes": midi_bytes,
@@ -99,22 +148,37 @@ class YourMT3ModalRunner:
             "timing": {"transcription_seconds": time.perf_counter() - started},
         }
 
-    def _run_experimental_yourmt3(self, *, wav_path: Path, midi_path: Path) -> None:
-        try:
-            import mt3  # type: ignore[import-not-found]
-        except Exception as exc:  # noqa: BLE001
-            raise RuntimeError(f"YourMT3 import failed at inference stage: {exc}") from exc
+    def _decode_audio(self, normalized_audio_bytes: bytes) -> tuple[object, int]:
+        import librosa
+        import numpy as np
+        import soundfile as sf
 
-        # Experimental feasibility probe: look for a callable wrapper exported by
-        # the installed mt3 package. If no known callable is exposed, fail loudly.
-        if hasattr(mt3, "transcribe_audio_to_midi"):
-            mt3.transcribe_audio_to_midi(str(wav_path), str(midi_path))
-            return
-        if hasattr(mt3, "run_inference"):
-            mt3.run_inference(str(wav_path), str(midi_path))
-            return
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            wav_path = Path(tmp_dir) / "input.wav"
+            wav_path.write_bytes(normalized_audio_bytes)
+            audio, sample_rate = sf.read(str(wav_path), always_2d=False)
 
-        raise RuntimeError(
-            "YourMT3 inference entrypoint not found in installed mt3 package. "
-            "This experimental spike requires wiring the exact inference wrapper."
-        )
+        if hasattr(audio, "ndim") and getattr(audio, "ndim") == 2:
+            audio = np.mean(audio, axis=1)
+
+        target_sr = 16000
+        if sample_rate != target_sr:
+            audio = librosa.resample(audio, orig_sr=sample_rate, target_sr=target_sr)
+            sample_rate = target_sr
+
+        return audio, sample_rate
+
+    def _midi_to_bytes(self, midi_result: object) -> bytes:
+        if isinstance(midi_result, (bytes, bytearray)):
+            return bytes(midi_result)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            midi_path = Path(tmp_dir) / "output.mid"
+            if hasattr(midi_result, "write"):
+                midi_result.write(str(midi_path))
+                return midi_path.read_bytes()
+            if isinstance(midi_result, MidiFile):
+                midi_result.save(str(midi_path))
+                return midi_path.read_bytes()
+
+        raise RuntimeError(f"Unsupported MIDI output type from mt3-infer: {type(midi_result).__name__}")

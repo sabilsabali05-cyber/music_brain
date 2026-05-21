@@ -177,6 +177,24 @@ def run_preflight() -> PreflightReport:
                             message=f"Could not look up Modal YourMT3 runner: {exc.__class__.__name__}: {exc}",
                         )
                     )
+                try:
+                    import modal  # type: ignore[import-not-found]
+                    modal.Function.from_name("music-brain-v2", "yourmt3_diagnostics")
+                    checks.append(
+                        PreflightCheck(
+                            name="modal_yourmt3_diagnostics_lookup",
+                            ok=True,
+                            message="Found Modal diagnostics function music-brain-v2.yourmt3_diagnostics",
+                        )
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    checks.append(
+                        PreflightCheck(
+                            name="modal_yourmt3_diagnostics_lookup",
+                            ok=False,
+                            message=f"Could not look up Modal diagnostics function: {exc.__class__.__name__}: {exc}",
+                        )
+                    )
 
         try:
             configured_transcriber = create_transcriber(
