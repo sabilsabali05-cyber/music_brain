@@ -10,6 +10,7 @@ from mido import Message, MetaMessage, MidiFile, MidiTrack, second2tick
 
 @dataclass
 class WindowSummary:
+    window_id: str
     index: int
     status: str
     core_start: float
@@ -30,6 +31,7 @@ def _window_summaries(manifest: dict[str, object]) -> list[WindowSummary]:
         summaries.append(
             WindowSummary(
                 index=int(raw.get("index", 0) or 0),
+                window_id=str(raw.get("window_id", f"win_{int(raw.get('index', 0) or 0):04d}")),
                 status=str(raw.get("status", "unknown")),
                 core_start=float(raw.get("core_start_seconds", 0.0) or 0.0),
                 core_end=float(raw.get("core_end_seconds", 0.0) or 0.0),
@@ -132,7 +134,7 @@ def build_dry_run_lines(manifest_path: Path) -> list[str]:
     return lines
 
 
-def stitch_manifest(manifest_path: Path) -> tuple[Path, Path, dict[str, object]]:
+def stitch_manifest(manifest_path: Path, *, allow_partial: bool = False) -> tuple[Path, Path, dict[str, object]]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     windows = _window_summaries(manifest)
     output_midi_path, report_path = _build_merge_paths(manifest_path, manifest)
@@ -143,6 +145,9 @@ def stitch_manifest(manifest_path: Path) -> tuple[Path, Path, dict[str, object]]
         "windows_total": len(windows),
         "windows_used": 0,
         "windows_skipped": 0,
+        "skipped_window_ids": [],
+        "partial_stitch": False,
+        "warning": None,
         "events_read": 0,
         "events_kept": 0,
         "events_discarded_context": 0,
@@ -156,11 +161,25 @@ def stitch_manifest(manifest_path: Path) -> tuple[Path, Path, dict[str, object]]
         "status": "failed",
     }
     try:
+        incomplete_windows = [window for window in windows if window.status != "success"]
+        is_partial = len(incomplete_windows) > 0
+        report["partial_stitch"] = is_partial
+        if is_partial:
+            report["warning"] = "partial stitch: merged MIDI does not represent full performance"
+            if not allow_partial:
+                skipped_ids = [window.window_id for window in incomplete_windows]
+                report["windows_skipped"] = len(skipped_ids)
+                report["skipped_window_ids"] = skipped_ids
+                raise RuntimeError(
+                    "Manifest has pending or failed windows. Re-run when complete or pass --allow-partial."
+                )
         kept_events: list[tuple[float, Message | MetaMessage]] = []
         for window in windows:
             midi_path = Path(window.midi_path) if window.midi_path else None
             if window.status != "success" or midi_path is None or not midi_path.exists():
                 report["windows_skipped"] = int(report["windows_skipped"]) + 1
+                if isinstance(report["skipped_window_ids"], list):
+                    report["skipped_window_ids"].append(window.window_id)
                 continue
             report["windows_used"] = int(report["windows_used"]) + 1
             midi = MidiFile(str(midi_path))
@@ -211,13 +230,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Stitch per-window MIDI for segmented transcriptions.")
     parser.add_argument("manifest_path", help="Path to segments_manifest.json")
     parser.add_argument("--dry-run", action="store_true", help="Print stitching plan without modifying files.")
+    parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="Allow stitching even when some manifest windows are pending/failed.",
+    )
     args = parser.parse_args()
     manifest_path = Path(args.manifest_path)
     if args.dry_run:
         for line in build_dry_run_lines(manifest_path):
             print(line)
         return 0
-    output_path, report_path, report = stitch_manifest(manifest_path)
+    output_path, report_path, report = stitch_manifest(manifest_path, allow_partial=args.allow_partial)
     print(f"MERGED_MIDI_PATH={output_path.as_posix()}")
     print(f"MERGE_REPORT_PATH={report_path.as_posix()}")
     print(f"MERGE_STATUS={report.get('status')}")

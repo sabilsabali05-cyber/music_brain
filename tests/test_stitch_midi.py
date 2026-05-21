@@ -105,7 +105,7 @@ def test_stitch_manifest_writes_outputs_and_discards_context(tmp_path: Path) -> 
     }
     manifest_path = tmp_path / "segments_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    output_midi, report_path, report = stitch_manifest(manifest_path)
+    output_midi, report_path, report = stitch_manifest(manifest_path, allow_partial=True)
     assert output_midi.exists()
     assert report_path.exists()
     assert report["status"] == "success"
@@ -115,5 +115,86 @@ def test_stitch_manifest_writes_outputs_and_discards_context(tmp_path: Path) -> 
     assert report["events_discarded_context"] > 0
     assert report["events_kept"] > 0
     assert report["note_on_count"] > 0
+    assert report["partial_stitch"] is True
+    assert report["warning"] == "partial stitch: merged MIDI does not represent full performance"
+    assert report["skipped_window_ids"] == ["win_0002"]
     validation = validate_merged_midi(output_midi)
     assert validation["status"] == "success"
+
+
+def test_stitch_manifest_requires_flag_for_partial_merges(tmp_path: Path) -> None:
+    win0 = tmp_path / "win0.mid"
+    _write_simple_midi(win0, notes=[60])
+    manifest = {
+        "segmentation_run_id": "run_partial_guard",
+        "duration_seconds": 20.0,
+        "transcription_windows": [
+            {
+                "window_id": "win_0000",
+                "index": 0,
+                "status": "success",
+                "global_start_seconds": 0.0,
+                "global_end_seconds": 8.0,
+                "core_start_seconds": 0.0,
+                "core_end_seconds": 8.0,
+                "midi_path": win0.as_posix(),
+            },
+            {
+                "window_id": "win_0001",
+                "index": 1,
+                "status": "pending",
+                "global_start_seconds": 8.0,
+                "global_end_seconds": 20.0,
+                "core_start_seconds": 8.0,
+                "core_end_seconds": 20.0,
+                "midi_path": None,
+            },
+        ],
+    }
+    manifest_path = tmp_path / "segments_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    try:
+        stitch_manifest(manifest_path)
+    except RuntimeError as exc:
+        assert "Manifest has pending or failed windows" in str(exc)
+    else:
+        raise AssertionError("Expected stitch_manifest to block partial merge without allow_partial.")
+
+
+def test_stitch_manifest_marks_complete_merges_as_not_partial(tmp_path: Path) -> None:
+    win0 = tmp_path / "win0.mid"
+    win1 = tmp_path / "win1.mid"
+    _write_simple_midi(win0, notes=[60])
+    _write_simple_midi(win1, notes=[64])
+    manifest = {
+        "segmentation_run_id": "run_complete",
+        "duration_seconds": 30.0,
+        "transcription_windows": [
+            {
+                "window_id": "win_0000",
+                "index": 0,
+                "status": "success",
+                "global_start_seconds": 0.0,
+                "global_end_seconds": 15.0,
+                "core_start_seconds": 0.0,
+                "core_end_seconds": 15.0,
+                "midi_path": win0.as_posix(),
+            },
+            {
+                "window_id": "win_0001",
+                "index": 1,
+                "status": "success",
+                "global_start_seconds": 15.0,
+                "global_end_seconds": 30.0,
+                "core_start_seconds": 15.0,
+                "core_end_seconds": 30.0,
+                "midi_path": win1.as_posix(),
+            },
+        ],
+    }
+    manifest_path = tmp_path / "segments_manifest.json"
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    _, _, report = stitch_manifest(manifest_path)
+    assert report["status"] == "success"
+    assert report["partial_stitch"] is False
+    assert report["warning"] is None

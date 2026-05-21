@@ -67,6 +67,119 @@ def test_process_updates_staged_status(tmp_path: Path, monkeypatch) -> None:
     assert payload["steps"]["stitch"]["status"] == "success"
 
 
+def test_process_skips_stitch_when_manifest_incomplete_by_default(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "perf.mp3"
+    source.write_bytes(b"sound")
+    seg_manifest = tmp_path / "segments_manifest.json"
+    seg_manifest.write_text(
+        json.dumps(
+            {
+                "transcription_windows": [
+                    {"window_id": "win_0000", "status": "success"},
+                    {"window_id": "win_0001", "status": "pending"},
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    perf_manifest = tmp_path / "performance_manifest.json"
+    perf_manifest.write_text(
+        json.dumps(
+            {
+                "source_path": source.as_posix(),
+                "status": "ingested",
+                "analysis_path": None,
+                "segments_manifest_path": None,
+                "merged_midi_path": "stale.mid",
+                "reports": {},
+                "steps": {},
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    seen_commands: list[str] = []
+
+    def _fake_run(command: list[str]) -> list[str]:
+        command_text = " ".join(command)
+        seen_commands.append(command_text)
+        if "analyze_audio_structure.py" in command_text:
+            return [f"ANALYSIS_PATH={(tmp_path / 'analysis.json').as_posix()}"]
+        if "segment_audio.py" in command_text:
+            return [f"MANIFEST_PATH={seg_manifest.as_posix()}"]
+        if "review_segments.py" in command_text:
+            return [f"REVIEW_REPORT_PATH={(tmp_path / 'review.md').as_posix()}"]
+        if "benchmark_segments.py" in command_text:
+            return ["successful_windows: 1", "failed_windows: 0"]
+        if "stitch_midi.py" in command_text:
+            return [f"MERGED_MIDI_PATH={(tmp_path / 'merged.mid').as_posix()}"]
+        return []
+
+    monkeypatch.setattr("scripts.process_performance._run_command", _fake_run)
+    payload = process_performance_manifest(perf_manifest, max_windows=3)
+    assert payload["steps"]["stitch"]["status"] == "skipped_incomplete_manifest"
+    assert payload["steps"]["stitch"]["reason"] == "manifest has pending or failed windows"
+    assert payload["merged_midi_path"] is None
+    assert not any("stitch_midi.py" in cmd for cmd in seen_commands)
+
+
+def test_process_allows_partial_stitch_only_with_flag(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    source = tmp_path / "perf.mp3"
+    source.write_bytes(b"sound")
+    seg_manifest = tmp_path / "segments_manifest.json"
+    seg_manifest.write_text(
+        json.dumps(
+            {
+                "transcription_windows": [
+                    {"window_id": "win_0000", "status": "success"},
+                    {"window_id": "win_0001", "status": "pending"},
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    perf_manifest = tmp_path / "performance_manifest.json"
+    perf_manifest.write_text(
+        json.dumps(
+            {
+                "source_path": source.as_posix(),
+                "status": "ingested",
+                "analysis_path": None,
+                "segments_manifest_path": None,
+                "merged_midi_path": None,
+                "reports": {},
+                "steps": {},
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    seen_commands: list[str] = []
+
+    def _fake_run(command: list[str]) -> list[str]:
+        command_text = " ".join(command)
+        seen_commands.append(command_text)
+        if "analyze_audio_structure.py" in command_text:
+            return [f"ANALYSIS_PATH={(tmp_path / 'analysis.json').as_posix()}"]
+        if "segment_audio.py" in command_text:
+            return [f"MANIFEST_PATH={seg_manifest.as_posix()}"]
+        if "review_segments.py" in command_text:
+            return [f"REVIEW_REPORT_PATH={(tmp_path / 'review.md').as_posix()}"]
+        if "benchmark_segments.py" in command_text:
+            return ["successful_windows: 1", "failed_windows: 0"]
+        if "stitch_midi.py" in command_text:
+            return [f"MERGED_MIDI_PATH={(tmp_path / 'merged.mid').as_posix()}"]
+        return []
+
+    monkeypatch.setattr("scripts.process_performance._run_command", _fake_run)
+    payload = process_performance_manifest(perf_manifest, max_windows=3, allow_partial_stitch=True)
+    assert payload["steps"]["stitch"]["status"] == "success"
+    assert payload["merged_midi_path"] == (tmp_path / "merged.mid").as_posix()
+    assert any("stitch_midi.py" in cmd and "--allow-partial" in cmd for cmd in seen_commands)
+
+
 def test_process_resume_skips_successful_steps(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.chdir(tmp_path)
     source = tmp_path / "perf.mp3"

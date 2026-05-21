@@ -65,7 +65,7 @@ function Show-Usage {
     Write-Host "  stitch-midi <manifest-path>"
     Write-Host "  validate-merged-midi <merged-midi-path>"
     Write-Host "  ingest-performance <audio-path>"
-    Write-Host "  process-performance <performance-manifest> [max-windows]"
+    Write-Host "  process-performance <performance-manifest> [max-windows] [--allow-partial-stitch]"
     Write-Host "  batch-performances <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
@@ -685,11 +685,15 @@ switch ($Task) {
     }
     "process-performance" {
         Ensure-FfmpegPath
-        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd process-performance <performance-manifest> [max-windows]"
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd process-performance <performance-manifest> [max-windows] [--allow-partial-stitch]"
         $maxWindows = Get-TaskArg -Index 1
+        $allowPartial = Get-TaskArg -Index 2
         $command = @("python", "scripts/process_performance.py", $manifestPath)
         if (-not [string]::IsNullOrWhiteSpace($maxWindows)) {
             $command += @("--max-windows", $maxWindows)
+        }
+        if ($allowPartial -eq "--allow-partial-stitch") {
+            $command += @("--allow-partial-stitch")
         }
         Invoke-Step -Label "Processing performance through staged pipeline" -Command $command
     }

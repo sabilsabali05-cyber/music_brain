@@ -30,13 +30,16 @@ def _parse_prefixed_line(lines: list[str], prefix: str) -> str | None:
     return None
 
 
-def _update_step(manifest: dict[str, object], step: str, status: str) -> None:
+def _update_step(manifest: dict[str, object], step: str, status: str, *, reason: str | None = None) -> None:
     steps = manifest.get("steps", {})
     if not isinstance(steps, dict):
         steps = {}
         manifest["steps"] = steps
     now = datetime.now(timezone.utc).isoformat()
-    steps[step] = {"status": status, "updated_at": now}
+    payload: dict[str, object] = {"status": status, "updated_at": now}
+    if reason:
+        payload["reason"] = reason
+    steps[step] = payload
 
 
 def _step_status(manifest: dict[str, object], step: str) -> str | None:
@@ -58,6 +61,7 @@ def process_performance_manifest(
     force_analysis: bool = False,
     force_segmentation: bool = False,
     no_stitch: bool = False,
+    allow_partial_stitch: bool = False,
 ) -> dict[str, object]:
     manifest = _load_manifest(manifest_path)
     source_path = Path(str(manifest.get("source_path", "")))
@@ -164,15 +168,24 @@ def process_performance_manifest(
         current_stage = "stitch"
         if not no_stitch and not (resume and _step_status(manifest, "stitch") == "success"):
             windows_payload = _load_manifest(segments_manifest_path).get("transcription_windows", [])
-            failed = [
+            pending = [
                 window
                 for window in windows_payload
-                if isinstance(window, dict) and str(window.get("status", "pending")) == "failed"
+                if isinstance(window, dict) and str(window.get("status", "pending")) != "success"
             ]
-            if failed:
-                _update_step(manifest, "stitch", "skipped_failed_windows")
+            if pending and not allow_partial_stitch:
+                manifest["merged_midi_path"] = None
+                _update_step(
+                    manifest,
+                    "stitch",
+                    "skipped_incomplete_manifest",
+                    reason="manifest has pending or failed windows",
+                )
             else:
-                stitch_lines = _run_command(["python", "scripts/stitch_midi.py", segments_manifest_path.as_posix()])
+                stitch_command = ["python", "scripts/stitch_midi.py", segments_manifest_path.as_posix()]
+                if allow_partial_stitch:
+                    stitch_command.append("--allow-partial")
+                stitch_lines = _run_command(stitch_command)
                 merged_midi_path = _parse_prefixed_line(stitch_lines, "MERGED_MIDI_PATH=")
                 if merged_midi_path:
                     manifest["merged_midi_path"] = merged_midi_path
@@ -199,6 +212,7 @@ def main() -> int:
     parser.add_argument("--force-analysis", action="store_true")
     parser.add_argument("--force-segmentation", action="store_true")
     parser.add_argument("--no-stitch", action="store_true")
+    parser.add_argument("--allow-partial-stitch", action="store_true")
     args = parser.parse_args()
 
     manifest = process_performance_manifest(
@@ -208,6 +222,7 @@ def main() -> int:
         force_analysis=args.force_analysis,
         force_segmentation=args.force_segmentation,
         no_stitch=args.no_stitch,
+        allow_partial_stitch=args.allow_partial_stitch,
     )
     print(f"PERFORMANCE_STATUS={manifest.get('status')}")
     print(f"SEGMENTS_MANIFEST_PATH={manifest.get('segments_manifest_path')}")

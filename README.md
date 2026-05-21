@@ -66,6 +66,7 @@ scripts\dev.cmd stitch-midi "<manifest_path>"
 scripts\dev.cmd validate-merged-midi "<merged-midi-path>"
 scripts\dev.cmd ingest-performance "performances/inbox/service_2026-05-21.mp3"
 scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
+scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3 --allow-partial-stitch
 scripts\dev.cmd batch-performances "performances/inbox" 1 3
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
@@ -513,6 +514,9 @@ Behavior in v1:
 - pre/post context MIDI is discarded to avoid overlap duplicates
 - merged MIDI is written to `<run>/merged/merged_performance.mid`
 - merge stats are written to `<run>/merged/merge_report.json`
+- default `process_performance.py` behavior stitches only when all windows are successful
+- partial stitching requires explicit opt-in (`--allow-partial-stitch` in `process_performance.py`, `--allow-partial` in `stitch_midi.py`)
+- partial merged MIDI is preview-only and should not be treated as final dataset output
 
 Future improvements:
 
