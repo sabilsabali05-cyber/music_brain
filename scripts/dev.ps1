@@ -73,7 +73,10 @@ function Invoke-CommandCapture {
     Write-Host ""
     Write-Host "==> $Label"
     Write-Host "    $commandText"
+    $previousErrorPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     $output = if ($Command.Length -eq 1) { & $Command[0] 2>&1 } else { & $Command[0] $Command[1..($Command.Length - 1)] 2>&1 }
+    $ErrorActionPreference = $previousErrorPreference
     $exitCode = $LASTEXITCODE
     foreach ($line in $output) { Write-Host $line }
     if ($exitCode -ne 0) { throw "Command failed ($exitCode): $commandText" }
