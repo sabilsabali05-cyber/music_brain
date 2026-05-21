@@ -42,6 +42,8 @@ function Show-Usage {
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
     Write-Host "  make-clip <audio-path> [seconds]"
+    Write-Host "  transcribe-yourmt3 <audio-path>"
+    Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  benchmark-track <track-folder>"
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
@@ -59,6 +61,66 @@ function Invoke-Step {
     Write-Host "    $commandText"
     if ($Command.Length -eq 1) { & $Command[0] } else { & $Command[0] $Command[1..($Command.Length - 1)] }
     if ($LASTEXITCODE -ne 0) { throw "Command failed ($LASTEXITCODE): $commandText" }
+}
+
+function Invoke-CommandCapture {
+    param(
+        [Parameter(Mandatory = $true)][string]$Label,
+        [Parameter(Mandatory = $true)][string[]]$Command
+    )
+    $commandText = $Command -join " "
+    Write-Host ""
+    Write-Host "==> $Label"
+    Write-Host "    $commandText"
+    $output = if ($Command.Length -eq 1) { & $Command[0] 2>&1 } else { & $Command[0] $Command[1..($Command.Length - 1)] 2>&1 }
+    $exitCode = $LASTEXITCODE
+    foreach ($line in $output) { Write-Host $line }
+    if ($exitCode -ne 0) { throw "Command failed ($exitCode): $commandText" }
+    return @($output | ForEach-Object { "$_" })
+}
+
+function Invoke-YourMt3TranscriptionWorkflow {
+    param([Parameter(Mandatory = $true)][string]$AudioPath)
+
+    Ensure-FfmpegPath
+    $env:MUSIC_BRAIN_PROVIDER = "yourmt3"
+    $env:MUSIC_BRAIN_BACKEND = "modal"
+    $env:MUSIC_BRAIN_MT3_MODEL = "yourmt3"
+    $env:MUSIC_BRAIN_MODAL_GPU = "T4"
+    Show-MusicBrainEnv
+
+    $submissionOutput = Invoke-CommandCapture -Label "Running yourmt3/modal transcription" -Command @(
+        "python", "submit_track.py", $AudioPath, "--print-track-dir"
+    )
+    $trackDirLine = $submissionOutput | Where-Object { $_ -like "TRACK_DIR=*" } | Select-Object -Last 1
+    $jobReportLine = $submissionOutput | Where-Object { $_ -like "JOB_REPORT=*" } | Select-Object -Last 1
+    $midiPathLine = $submissionOutput | Where-Object { $_ -like "MIDI_PATH=*" } | Select-Object -Last 1
+    if (-not $trackDirLine) { throw "Could not find TRACK_DIR in submit output." }
+
+    $trackDir = $trackDirLine.Substring("TRACK_DIR=".Length)
+    $jobReportPath = if ($jobReportLine) { $jobReportLine.Substring("JOB_REPORT=".Length) } else { Join-Path $trackDir "analysis\job_report.json" }
+    $midiPath = if ($midiPathLine) { $midiPathLine.Substring("MIDI_PATH=".Length) } else { Join-Path $trackDir "midi\full_mix.mid" }
+
+    $validationOutput = Invoke-CommandCapture -Label "Validating transcribed track" -Command @(
+        "python", "scripts/validate_track.py", $trackDir
+    )
+    $validationResultLine = $validationOutput | Where-Object { $_ -like "Validation result:*" } | Select-Object -Last 1
+    $validationResult = if ($validationResultLine) { $validationResultLine } else { "Validation result: UNKNOWN" }
+
+    $benchmarkOutput = Invoke-CommandCapture -Label "Benchmarking transcribed track" -Command @(
+        "python", "scripts/benchmark_track.py", $trackDir
+    )
+
+    Write-Host ""
+    Write-Host "==> Final summary"
+    Write-Host "  track folder: $trackDir"
+    Write-Host "  job_report path: $jobReportPath"
+    Write-Host "  MIDI path: $midiPath"
+    Write-Host "  validation result: $validationResult"
+    Write-Host "  benchmark summary:"
+    foreach ($line in $benchmarkOutput) {
+        if (-not [string]::IsNullOrWhiteSpace($line)) { Write-Host "    $line" }
+    }
 }
 
 function Find-ToolPathFromCommand {
@@ -266,6 +328,27 @@ switch ($Task) {
             $clipCommand += @("--seconds", "$($args[0])")
         }
         Invoke-Step -Label "Creating short clip" -Command $clipCommand
+    }
+    "transcribe-yourmt3" {
+        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
+            throw "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
+        }
+        Invoke-YourMt3TranscriptionWorkflow -AudioPath $CommitMessage
+    }
+    "clip-and-transcribe-yourmt3" {
+        Ensure-FfmpegPath
+        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
+            throw "Usage: scripts\dev.cmd clip-and-transcribe-yourmt3 <audio-path> [seconds]"
+        }
+
+        $clipCommand = @("python", "scripts/make_clip.py", $CommitMessage)
+        if ($args.Count -ge 1 -and -not [string]::IsNullOrWhiteSpace($args[0])) {
+            $clipCommand += @("--seconds", "$($args[0])")
+        }
+        $clipOutput = Invoke-CommandCapture -Label "Creating short clip" -Command $clipCommand
+        $clipPath = $clipOutput | Select-Object -Last 1
+        if ([string]::IsNullOrWhiteSpace($clipPath)) { throw "Could not determine clip output path." }
+        Invoke-YourMt3TranscriptionWorkflow -AudioPath $clipPath
     }
     "benchmark-track" {
         if ([string]::IsNullOrWhiteSpace($CommitMessage)) {

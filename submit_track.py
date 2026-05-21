@@ -19,6 +19,10 @@ def _path_text(path: Path) -> str:
     return path.resolve().as_posix()
 
 
+def track_dir_from_report(report: JobReport) -> Path:
+    return Path(report.artifacts.job_report).resolve().parent.parent
+
+
 def run_submission(input_audio: Path) -> JobReport:
     config = load_config()
     timer = StageTimer()
@@ -170,6 +174,11 @@ def main() -> None:
         action="store_true",
         help="Run environment and backend readiness checks without submitting audio.",
     )
+    parser.add_argument(
+        "--print-track-dir",
+        action="store_true",
+        help="Print machine-readable TRACK_DIR/JOB_REPORT/MIDI_PATH lines for automation.",
+    )
     args = parser.parse_args()
 
     if args.preflight:
@@ -187,6 +196,10 @@ def main() -> None:
         print(format_failure_output(report))
         print("\nFull report JSON:")
         print(json.dumps(report.model_dump(), indent=2))
+    if args.print_track_dir:
+        print(f"TRACK_DIR={track_dir_from_report(report).as_posix()}")
+        print(f"JOB_REPORT={report.artifacts.job_report}")
+        print(f"MIDI_PATH={report.artifacts.full_mix_midi}")
     if report.status == "failed":
         raise SystemExit(1)
 

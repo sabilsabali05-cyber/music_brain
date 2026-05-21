@@ -44,3 +44,28 @@ def test_cli_failure_output_contains_stage_and_report(monkeypatch, tmp_path: Pat
     assert "status: failed" in output
     assert "failing_stage: init" in output
     assert "job_report:" in output
+
+
+def test_cli_print_track_dir_flag_outputs_machine_readable_paths(
+    monkeypatch, tmp_path: Path, capsys
+) -> None:
+    input_wav = tmp_path / "sample.wav"
+    create_test_tone(input_wav, duration_seconds=0.2)
+
+    library_root = tmp_path / "library"
+    monkeypatch.setenv("MUSIC_BRAIN_LIBRARY_ROOT", str(library_root))
+    monkeypatch.setenv("MUSIC_BRAIN_PROVIDER", "fake")
+    monkeypatch.setenv("MUSIC_BRAIN_BACKEND", "local_fake")
+
+    def fake_convert_to_wav(input_path: Path, output_path: Path) -> None:
+        output_path.write_bytes(input_path.read_bytes())
+
+    monkeypatch.setattr("submit_track.convert_to_normalized_wav", fake_convert_to_wav)
+    monkeypatch.setattr("sys.argv", ["submit_track.py", str(input_wav), "--print-track-dir"])
+
+    submit_track.main()
+
+    output = capsys.readouterr().out
+    assert "TRACK_DIR=" in output
+    assert "JOB_REPORT=" in output
+    assert "MIDI_PATH=" in output

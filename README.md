@@ -48,6 +48,8 @@ scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
+scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
+scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
 scripts\dev.cmd validate-latest
 scripts\dev.cmd validate-track library\trk_20260521T103733Z_e3513afc22
@@ -216,6 +218,23 @@ Validation checks include:
 ## Testing YourMT3 on a real clip
 
 Use only audio you own or have rights to process.
+
+Preferred one-command flow:
+
+```powershell
+scripts\dev.cmd clip-and-transcribe-yourmt3 "samples/input/my_song.wav" 30
+```
+
+This command:
+
+- creates a short clip under `samples/clips/`
+- runs `submit_track.py` with `yourmt3/modal` config
+- auto-detects the produced track folder from machine-readable output
+- runs `validate_track.py`
+- runs `benchmark_track.py`
+- prints a final summary with track folder, report path, MIDI path, validation result, and benchmark metrics
+
+Manual step-by-step flow (if you want to run each stage separately):
 
 1. Put your file in `samples/input/` (this folder is git-ignored).
 2. Make a short clip (default 30s):
