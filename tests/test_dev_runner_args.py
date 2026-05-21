@@ -54,3 +54,13 @@ def test_dev_runner_segment_audio_quoted_windows_path() -> None:
     assert "TASK_ARG_0=segment-audio" in output
     assert "TASK_ARG_1=C:\\Users\\izzyo\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
     assert "TASK_ARG_2=60" in output
+
+
+def test_dev_runner_inspect_segments_with_spaced_manifest_path() -> None:
+    output = _run_debug_args(
+        "inspect-segments",
+        r"samples\segments\Varud - Sigur Ros\segments_manifest.json",
+    )
+    assert "TASK_ARG_COUNT=2" in output
+    assert "TASK_ARG_0=inspect-segments" in output
+    assert "TASK_ARG_1=samples\\segments\\Varud - Sigur Ros\\segments_manifest.json" in output

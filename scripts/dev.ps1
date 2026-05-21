@@ -42,7 +42,8 @@ function Show-Usage {
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
     Write-Host "  make-clip <audio-path> [seconds]"
-    Write-Host "  segment-audio <audio-path> [target-window-seconds]"
+    Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
+    Write-Host "  inspect-segments <manifest-path>"
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
     Write-Host "  benchmark-segments <manifest-path>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
@@ -353,14 +354,15 @@ switch ($Task) {
     }
     "segment-audio" {
         Ensure-FfmpegPath
-        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio <audio-path> [target-window-seconds]"
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio <audio-path> [target-window-seconds] [strategy]"
         $targetWindow = Get-TaskArg -Index 1
+        $strategy = Get-TaskArg -Index 2
         $segmentCommand = @(
             "python",
             "scripts/segment_audio.py",
             $audioPath,
             "--strategy",
-            "hybrid",
+            $(if (-not [string]::IsNullOrWhiteSpace($strategy)) { $strategy } else { "hybrid" }),
             "--target-window-seconds"
         )
         if (-not [string]::IsNullOrWhiteSpace($targetWindow)) {
@@ -371,6 +373,10 @@ switch ($Task) {
         }
         $segmentCommand += @("--max-window-seconds", "90", "--context-seconds", "5")
         Invoke-Step -Label "Creating segment manifest and windows" -Command $segmentCommand
+    }
+    "inspect-segments" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd inspect-segments <manifest-path>"
+        Invoke-Step -Label "Inspecting segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
     }
     "transcribe-windows" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-windows <manifest-path> [max-windows]"

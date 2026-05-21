@@ -49,6 +49,7 @@ scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd inspect-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
 scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
 scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
@@ -300,10 +301,26 @@ Important behavior:
 - Every window stores core interval plus context-padded interval.
 - Future database retrieval should fetch: target segment + neighbor segments + parent performance context.
 
+### Segmentation strategies
+
+- `fixed`: stable baseline fallback (`fixed_with_context`).
+- `energy`: conservative `energy_v1` low-energy boundary candidates.
+- `hybrid`: current scaffold (`hybrid_scaffold_with_energy_boundaries`) that can still fall back when uncertain.
+
+Boundary labels are candidate signals, not ground truth. Current reasons include:
+
+- `fixed_interval_fallback`
+- `low_energy_boundary`
+- `max_window_split`
+- `uncertain_fallback`
+
+Future improvements can layer in beat/bar grid, chroma/harmonic shifts, recurrence or self-similarity novelty, and motif/section detectors.
+
 Safe first run for long audio:
 
 ```powershell
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd inspect-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
 scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
 scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
 ```
