@@ -160,3 +160,25 @@ Expected failure behavior:
 - Later runs should be faster as cache warms.
 - If `mt3-infer` import/model load/transcription fails, the job fails honestly and writes `job_report.json` with error details.
 - There is no silent fallback to fake or Basic Pitch.
+
+Known-good smoke command:
+
+```powershell
+scripts\dev.cmd smoke-yourmt3
+```
+
+Expected success fields in `job_report.json`:
+
+- `provider_requested = "yourmt3"`
+- `provider_used = "yourmt3"`
+- `backend = "modal"`
+- `status = "success"`
+- `fallback_used = false`
+- `fallback_reason = null`
+- `model_version = "yourmt3-modal-experimental-v1"` (or another non-empty Modal model version)
+
+Recent successful run reference:
+
+- `job_report`: `library/trk_20260521T103733Z_e3513afc22/analysis/job_report.json`
+- `latency_seconds.total`: `20.0215` seconds
+- `latency_seconds.transcription`: `19.8068` seconds
