@@ -53,6 +53,7 @@ scripts\dev.cmd analyze-structure-modal "samples/input/my_song.wav"
 scripts\dev.cmd audio-analysis-diagnostics
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
+scripts\dev.cmd segment-audio-structure-tuned "samples/input/my_song.wav" 60 0.45
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 scripts\dev.cmd transcribe-windows "<manifest_path>" 2
@@ -418,3 +419,11 @@ Guidance:
 - run `analyze-structure-local` when Modal is unavailable
 - run `analyze-structure-modal` when you want richer harmonic/timbral cues
 - boundaries remain candidate evidence, not ground truth phrase labels
+
+Tuning experiment helper:
+
+```powershell
+scripts\dev.cmd segment-audio-structure-tuned "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 0.45
+```
+
+This keeps prior runs intact and records tuning values in `segmentation_parameters` inside each manifest.

@@ -21,6 +21,9 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     windows = manifest.get("transcription_windows", [])
     diagnostics = manifest.get("segmentation_diagnostics", {}) if isinstance(manifest, dict) else {}
+    params = manifest.get("segmentation_parameters", {}) if isinstance(manifest, dict) else {}
+    if not isinstance(params, dict):
+        params = {}
     successful = 0
     failed = 0
     note_on_total = 0
@@ -41,6 +44,13 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
         "strategy_requested": manifest.get("strategy_requested"),
         "strategy_used": manifest.get("strategy_used", manifest.get("segmentation_strategy")),
         "fallback_used": manifest.get("fallback_used", diagnostics.get("fallback_used")),
+        "boundary_threshold": params.get("boundary_threshold"),
+        "min_segment_seconds": params.get("min_segment_seconds"),
+        "max_segment_seconds": params.get("max_segment_seconds"),
+        "rms_weight": params.get("rms_weight"),
+        "onset_weight": params.get("onset_weight"),
+        "chroma_weight": params.get("chroma_weight"),
+        "timbre_weight": params.get("timbre_weight"),
         "musical_segments": len(manifest.get("musical_segments", [])),
         "transcription_windows": len(windows) if isinstance(windows, list) else 0,
         "candidate_boundary_count": diagnostics.get(
@@ -92,6 +102,13 @@ def main() -> int:
         "strategy_requested",
         "strategy_used",
         "fallback_used",
+        "boundary_threshold",
+        "min_segment_seconds",
+        "max_segment_seconds",
+        "rms_weight",
+        "onset_weight",
+        "chroma_weight",
+        "timbre_weight",
         "musical_segments",
         "transcription_windows",
         "candidate_boundary_count",

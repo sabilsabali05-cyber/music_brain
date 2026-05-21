@@ -36,6 +36,15 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
         "strategy_used": "audio_structure_v1",
         "fallback_used": False,
         "segmentation_run_id": "20260101T000000_audio_structure_v1",
+        "segmentation_parameters": {
+            "boundary_threshold": 0.55,
+            "min_segment_seconds": 30.0,
+            "max_segment_seconds": 90.0,
+            "rms_weight": 0.2,
+            "onset_weight": 0.3,
+            "chroma_weight": 0.25,
+            "timbre_weight": 0.25,
+        },
         "segmentation_diagnostics": {
             "analysis_path": analysis_path.as_posix(),
             "available_features": ["rms", "onset_strength", "chroma_change", "timbre_change"],
@@ -95,6 +104,8 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
     assert "Segmentation Review: song.mp3" in text
     assert "accepted" in text
     assert "Review Questions" in text
+    assert "segmentation_parameters" in text
+    assert "boundary_threshold" in text
     assert "Should beat/bar snapping be added?" in text
 
 

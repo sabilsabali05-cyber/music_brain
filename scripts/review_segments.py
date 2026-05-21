@@ -75,6 +75,9 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     diagnostics = manifest.get("segmentation_diagnostics", {})
     if not isinstance(diagnostics, dict):
         diagnostics = {}
+    segmentation_parameters = manifest.get("segmentation_parameters", {})
+    if not isinstance(segmentation_parameters, dict):
+        segmentation_parameters = {}
 
     available_features = diagnostics.get("available_features", [])
     missing_features = diagnostics.get("missing_features", [])
@@ -97,6 +100,7 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     lines.append(f"- candidate_boundary_count: `{candidate_boundary_count}`")
     lines.append(f"- accepted_boundary_count: `{accepted_boundary_count}`")
     lines.append(f"- analysis_path: `{analysis_path}`")
+    lines.append(f"- segmentation_parameters: `{segmentation_parameters}`")
     lines.append("")
 
     lines.append("## Accepted Musical Segments")

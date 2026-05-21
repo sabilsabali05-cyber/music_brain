@@ -48,6 +48,7 @@ function Show-Usage {
     Write-Host "  audio-analysis-diagnostics"
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
     Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
+    Write-Host "  segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
     Write-Host "  inspect-segments <manifest-path>"
     Write-Host "  review-segments <manifest-path>"
     Write-Host "  inspect-latest-segments [source-folder]"
@@ -444,6 +445,50 @@ switch ($Task) {
             "5"
         )
         $segmentOutput = Invoke-CommandCapture -Label "Creating audio-structure segment manifest and windows" -Command $segmentCommand
+        $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
+        if ($manifestLine) {
+            Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
+        }
+    }
+    "segment-audio-structure-tuned" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
+        $targetWindow = Get-TaskArgOrThrow -Index 1 -Usage "Usage: scripts\dev.cmd segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
+        $boundaryThreshold = Get-TaskArgOrThrow -Index 2 -Usage "Usage: scripts\dev.cmd segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
+
+        $sourceStem = [System.IO.Path]::GetFileNameWithoutExtension($audioPath)
+        $safeSource = (($sourceStem -replace "[^a-zA-Z0-9._-]+", "_").Trim("_"))
+        if ([string]::IsNullOrWhiteSpace($safeSource)) { $safeSource = "performance" }
+        $analysisPath = Join-Path (Join-Path "samples\analysis" $safeSource) "structure_analysis.json"
+        if (Test-Path $analysisPath) {
+            Write-Host "Reusing existing modal_librosa analysis: $analysisPath"
+        }
+        else {
+            $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa)" -Command @(
+                "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa"
+            )
+            $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+            if ($analysisLine) {
+                Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+            }
+        }
+
+        $segmentCommand = @(
+            "python",
+            "scripts/segment_audio.py",
+            $audioPath,
+            "--strategy",
+            "audio_structure",
+            "--target-window-seconds",
+            $targetWindow,
+            "--max-window-seconds",
+            "90",
+            "--context-seconds",
+            "5",
+            "--boundary-threshold",
+            $boundaryThreshold
+        )
+        $segmentOutput = Invoke-CommandCapture -Label "Creating tuned audio-structure segment manifest and windows" -Command $segmentCommand
         $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
         if ($manifestLine) {
             Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"

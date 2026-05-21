@@ -26,6 +26,15 @@ def _write_run(folder: Path, run_id: str, strategy_used: str, fallback_used: boo
         "strategy_used": strategy_used,
         "fallback_used": fallback_used,
         "musical_segments": [{}, {}],
+        "segmentation_parameters": {
+            "boundary_threshold": 0.55,
+            "min_segment_seconds": 30.0,
+            "max_segment_seconds": 90.0,
+            "rms_weight": 0.2,
+            "onset_weight": 0.3,
+            "chroma_weight": 0.25,
+            "timbre_weight": 0.25,
+        },
         "segmentation_diagnostics": {
             "candidate_boundary_count": 3,
             "detected_boundary_count": 3,
@@ -58,6 +67,8 @@ def test_compare_segmentations_summarizes_multiple_runs(tmp_path: Path) -> None:
     assert energy_row["total_note_on_count"] == 1
     assert energy_row["candidate_boundary_count"] == 3
     assert energy_row["available_features"] == "rms,onset_strength"
+    assert energy_row["boundary_threshold"] == 0.55
+    assert energy_row["min_segment_seconds"] == 30.0
 
 
 def test_compare_segmentations_includes_legacy_and_run_folders(tmp_path: Path) -> None:

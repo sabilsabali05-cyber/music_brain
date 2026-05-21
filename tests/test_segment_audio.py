@@ -34,6 +34,9 @@ def test_segment_audio_manifest_contains_segments_and_windows(tmp_path: Path, mo
     assert manifest["source_audio_sha256"]
     assert manifest["source_audio_size_bytes"] > 0
     assert manifest["source_audio_modified_time"]
+    assert manifest["segmentation_parameters"]["boundary_threshold"] == 0.55
+    assert manifest["segmentation_parameters"]["min_segment_seconds"] == 30.0
+    assert manifest["segmentation_parameters"]["max_segment_seconds"] == 90.0
     latest_pointer = tmp_path / "samples" / "segments" / "performance" / "latest_manifest.txt"
     assert latest_pointer.exists()
     assert latest_pointer.read_text(encoding="utf-8").strip() == manifest_path.as_posix()
@@ -258,3 +261,74 @@ def test_audio_structure_weak_candidates_fallback_to_fixed(tmp_path: Path, monke
     assert manifest["strategy_used"] == "fixed_with_context"
     assert manifest["fallback_used"] is True
     assert manifest["musical_segments"][0]["boundary_reason"] == "uncertain_audio_structure_fallback"
+
+
+def test_audio_structure_lower_threshold_accepts_more_boundaries(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "performance.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 190.0)
+    monkeypatch.setattr(
+        "scripts.segment_audio.extract_window_audio",
+        lambda source_path, output_path, start, end: output_path.parent.mkdir(parents=True, exist_ok=True)
+        or output_path.write_bytes(b"x"),
+    )
+
+    analysis_root = tmp_path / "samples" / "analysis" / "performance"
+    analysis_root.mkdir(parents=True, exist_ok=True)
+    analysis_payload = {
+        "analysis_version": "audio_structure_v1",
+        "analysis_backend": "modal_librosa",
+        "boundary_candidates": [
+            {
+                "time_seconds": 60.0,
+                "confidence": 0.50,
+                "reason": "onset_density_change",
+                "feature_evidence": {
+                    "energy_change": 0.2,
+                    "onset_change": 0.5,
+                    "chroma_change": 0.4,
+                    "timbre_change": 0.4,
+                    "combined_novelty": 0.5,
+                },
+            },
+            {
+                "time_seconds": 120.0,
+                "confidence": 0.42,
+                "reason": "timbre_change",
+                "feature_evidence": {
+                    "energy_change": 0.1,
+                    "onset_change": 0.35,
+                    "chroma_change": 0.3,
+                    "timbre_change": 0.5,
+                    "combined_novelty": 0.42,
+                },
+            },
+        ],
+        "diagnostics": {"available_features": ["rms", "onset_strength", "chroma_change", "timbre_change"]},
+    }
+    (analysis_root / "structure_analysis.json").write_text(json.dumps(analysis_payload), encoding="utf-8")
+
+    high_threshold_manifest = json.loads(
+        segment_audio(
+            source,
+            strategy="audio_structure",
+            target_window_seconds=60.0,
+            max_window_seconds=90.0,
+            context_seconds=5.0,
+            boundary_threshold=0.55,
+        ).read_text(encoding="utf-8")
+    )
+    low_threshold_manifest = json.loads(
+        segment_audio(
+            source,
+            strategy="audio_structure",
+            target_window_seconds=60.0,
+            max_window_seconds=90.0,
+            context_seconds=5.0,
+            boundary_threshold=0.35,
+        ).read_text(encoding="utf-8")
+    )
+
+    assert high_threshold_manifest["segmentation_diagnostics"]["accepted_boundary_count"] == 0
+    assert low_threshold_manifest["segmentation_diagnostics"]["accepted_boundary_count"] >= 1

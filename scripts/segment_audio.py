@@ -231,9 +231,13 @@ def build_audio_structure_core_intervals(
     duration_seconds: float,
     boundary_candidates: list[dict[str, object]],
     target_window_seconds: float,
-    max_window_seconds: float,
+    max_segment_seconds: float,
     min_segment_seconds: float,
-    confidence_threshold: float,
+    boundary_threshold: float,
+    rms_weight: float,
+    onset_weight: float,
+    chroma_weight: float,
+    timbre_weight: float,
 ) -> tuple[
     list[tuple[float, float]],
     list[str],
@@ -243,17 +247,35 @@ def build_audio_structure_core_intervals(
     int,
     int,
 ]:
+    def tuned_score(candidate: dict[str, object]) -> float:
+        confidence = float(candidate.get("confidence", 0.0) or 0.0)
+        evidence_obj = candidate.get("feature_evidence", {})
+        if not isinstance(evidence_obj, dict):
+            evidence_obj = {}
+        weight_sum = max(0.0, rms_weight) + max(0.0, onset_weight) + max(0.0, chroma_weight) + max(0.0, timbre_weight)
+        if weight_sum <= 1e-9:
+            return confidence
+        evidence_score = (
+            max(0.0, rms_weight) * float(evidence_obj.get("energy_change", 0.0) or 0.0)
+            + max(0.0, onset_weight) * float(evidence_obj.get("onset_change", 0.0) or 0.0)
+            + max(0.0, chroma_weight) * float(evidence_obj.get("chroma_change", 0.0) or 0.0)
+            + max(0.0, timbre_weight) * float(evidence_obj.get("timbre_change", 0.0) or 0.0)
+        ) / weight_sum
+        return max(0.0, min(1.0, 0.8 * confidence + 0.2 * evidence_score))
+
     filtered_candidates: list[dict[str, object]] = []
     for candidate in boundary_candidates:
         if not isinstance(candidate, dict):
             continue
         time_seconds = float(candidate.get("time_seconds", -1))
-        confidence = float(candidate.get("confidence", 0))
+        confidence = tuned_score(candidate)
         if time_seconds < min_segment_seconds or time_seconds > duration_seconds - min_segment_seconds:
             continue
-        if confidence < confidence_threshold:
+        if confidence < boundary_threshold:
             continue
-        filtered_candidates.append(candidate)
+        updated = dict(candidate)
+        updated["tuned_confidence"] = round(confidence, 6)
+        filtered_candidates.append(updated)
 
     candidate_count = len(boundary_candidates)
     accepted_count = 0
@@ -266,7 +288,7 @@ def build_audio_structure_core_intervals(
     start = 0.0
     while start < duration_seconds:
         remaining = duration_seconds - start
-        if remaining <= max_window_seconds:
+        if remaining <= max_segment_seconds:
             intervals.append((start, duration_seconds))
             reasons.append("combined_audio_novelty")
             confidences.append(0.6 if accepted_count > 0 else 0.2)
@@ -275,7 +297,7 @@ def build_audio_structure_core_intervals(
             break
 
         lower = start + min_segment_seconds
-        upper = min(duration_seconds, start + max_window_seconds)
+        upper = min(duration_seconds, start + max_segment_seconds)
         local_candidates = [
             c for c in filtered_candidates if lower <= float(c.get("time_seconds", -1)) <= upper
         ]
@@ -289,7 +311,7 @@ def build_audio_structure_core_intervals(
             end = float(chosen.get("time_seconds"))
             accepted_count += 1
             reason = str(chosen.get("reason", "combined_audio_novelty"))
-            confidence = float(chosen.get("confidence", 0.6))
+            confidence = float(chosen.get("tuned_confidence", chosen.get("confidence", 0.6)))
             evidence = chosen.get("feature_evidence", {})
             intervals.append((start, end))
             reasons.append(reason)
@@ -351,6 +373,13 @@ def segment_audio(
     target_window_seconds: float,
     max_window_seconds: float,
     context_seconds: float,
+    boundary_threshold: float = 0.55,
+    min_segment_seconds: float | None = None,
+    max_segment_seconds: float | None = None,
+    chroma_weight: float = 0.25,
+    timbre_weight: float = 0.25,
+    onset_weight: float = 0.30,
+    rms_weight: float = 0.20,
 ) -> Path:
     if not source_path.exists():
         raise FileNotFoundError(f"Audio file does not exist: {source_path}")
@@ -358,6 +387,29 @@ def segment_audio(
         raise ValueError("target_window_seconds must be > 0")
     if max_window_seconds < target_window_seconds:
         raise ValueError("max_window_seconds must be >= target_window_seconds")
+    if boundary_threshold < 0:
+        raise ValueError("boundary_threshold must be >= 0")
+
+    min_segment_seconds_value = (
+        float(min_segment_seconds) if min_segment_seconds is not None else max(10.0, target_window_seconds * 0.5)
+    )
+    max_segment_seconds_value = (
+        float(max_segment_seconds) if max_segment_seconds is not None else float(max_window_seconds)
+    )
+    if min_segment_seconds_value <= 0:
+        raise ValueError("min_segment_seconds must be > 0")
+    if max_segment_seconds_value < min_segment_seconds_value:
+        raise ValueError("max_segment_seconds must be >= min_segment_seconds")
+
+    segmentation_parameters = {
+        "boundary_threshold": float(boundary_threshold),
+        "min_segment_seconds": float(min_segment_seconds_value),
+        "max_segment_seconds": float(max_segment_seconds_value),
+        "rms_weight": float(rms_weight),
+        "onset_weight": float(onset_weight),
+        "chroma_weight": float(chroma_weight),
+        "timbre_weight": float(timbre_weight),
+    }
 
     duration_seconds = probe_duration_seconds(source_path)
     source_name_safe = safe_source_name(source_path)
@@ -417,7 +469,6 @@ def segment_audio(
                     diagnostics = {}
                 if not isinstance(boundary_candidates, list):
                     boundary_candidates = []
-                min_segment_seconds = max(10.0, target_window_seconds * 0.5)
                 (
                     intervals,
                     reasons,
@@ -430,9 +481,13 @@ def segment_audio(
                     duration_seconds=duration_seconds,
                     boundary_candidates=boundary_candidates,
                     target_window_seconds=target_window_seconds,
-                    max_window_seconds=max_window_seconds,
-                    min_segment_seconds=min_segment_seconds,
-                    confidence_threshold=0.55,
+                    max_segment_seconds=max_segment_seconds_value,
+                    min_segment_seconds=min_segment_seconds_value,
+                    boundary_threshold=boundary_threshold,
+                    rms_weight=rms_weight,
+                    onset_weight=onset_weight,
+                    chroma_weight=chroma_weight,
+                    timbre_weight=timbre_weight,
                 )
                 available_features = diagnostics.get("available_features", [])
                 missing_features = diagnostics.get("missing_features", [])
@@ -486,13 +541,12 @@ def segment_audio(
                     )
         else:
             candidates = detect_low_energy_boundaries(source_path)
-            min_segment_seconds = max(10.0, target_window_seconds * 0.5)
             intervals, reasons, confidences, detected, accepted = build_energy_core_intervals(
                 duration_seconds=duration_seconds,
                 candidate_boundaries=candidates,
                 target_window_seconds=target_window_seconds,
                 max_window_seconds=max_window_seconds,
-                min_segment_seconds=min_segment_seconds,
+                min_segment_seconds=min_segment_seconds_value,
             )
             boundary_sources = ["energy_v1"] * len(intervals)
             feature_evidences = [{} for _ in intervals]
@@ -574,6 +628,7 @@ def segment_audio(
         "segmentation_run_id": run_id,
         "segmentation_run_dir": run_root.resolve().as_posix(),
         "created_at": datetime.now(timezone.utc).isoformat(),
+        "segmentation_parameters": segmentation_parameters,
         "segmentation_diagnostics": segmentation_diagnostics,
         "musical_segments": musical_segments,
         "transcription_windows": transcription_windows,
@@ -594,6 +649,13 @@ def main() -> int:
     parser.add_argument("--target-window-seconds", type=float, default=60.0)
     parser.add_argument("--max-window-seconds", type=float, default=90.0)
     parser.add_argument("--context-seconds", type=float, default=5.0)
+    parser.add_argument("--boundary-threshold", type=float, default=0.55)
+    parser.add_argument("--min-segment-seconds", type=float, default=None)
+    parser.add_argument("--max-segment-seconds", type=float, default=None)
+    parser.add_argument("--chroma-weight", type=float, default=0.25)
+    parser.add_argument("--timbre-weight", type=float, default=0.25)
+    parser.add_argument("--onset-weight", type=float, default=0.30)
+    parser.add_argument("--rms-weight", type=float, default=0.20)
     args = parser.parse_args()
 
     manifest_path = segment_audio(
@@ -602,6 +664,13 @@ def main() -> int:
         target_window_seconds=args.target_window_seconds,
         max_window_seconds=args.max_window_seconds,
         context_seconds=args.context_seconds,
+        boundary_threshold=args.boundary_threshold,
+        min_segment_seconds=args.min_segment_seconds,
+        max_segment_seconds=args.max_segment_seconds,
+        chroma_weight=args.chroma_weight,
+        timbre_weight=args.timbre_weight,
+        onset_weight=args.onset_weight,
+        rms_weight=args.rms_weight,
     )
     print(f"MANIFEST_PATH={manifest_path.as_posix()}")
     return 0
