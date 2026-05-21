@@ -4,8 +4,9 @@ This repo currently supports:
 
 - local fake transcription backend (`provider=fake`, `backend=local_fake`)
 - remote Modal fake transcription backend (`provider=fake`, `backend=modal_fake`)
+- experimental YourMT3 on Modal (`provider=yourmt3`, `backend=modal`)
 
-Real YourMT3/MT3 inference is intentionally not implemented yet.
+The YourMT3 path is an experimental feasibility spike and may fail while dependencies/inference wiring are being resolved.
 
 ## Setup
 
@@ -80,5 +81,40 @@ Expected `job_report.json` highlights:
 
 ## Notes
 
-- `provider=yourmt3` with `backend=modal` is reserved for the next phase and currently returns a clear not-implemented error.
 - The CLI always writes `job_report.json`, including failures.
+
+## Experimental YourMT3 Modal spike
+
+This path is intentionally experimental. It attempts real YourMT3 execution in a Modal GPU container and fails honestly if model loading/inference is not ready.
+
+PowerShell flow:
+
+```powershell
+pip install -r requirements.txt
+modal setup
+modal deploy modal_app.py
+$env:MUSIC_BRAIN_PROVIDER="yourmt3"
+$env:MUSIC_BRAIN_BACKEND="modal"
+python submit_track.py --preflight
+python scripts/create_test_audio.py
+python submit_track.py samples/test_tone.wav
+```
+
+Expected success fields in `job_report.json`:
+
+- `provider_requested = "yourmt3"`
+- `provider_used = "yourmt3"`
+- `backend = "modal"`
+- `model_version = "<non-empty>"`
+- `fallback_used = false`
+- `fallback_reason = null`
+- `status = "success"`
+
+Expected failure behavior:
+
+- job status is `failed`
+- `provider_used` remains `"none"`
+- failure details are present in `error.stage`, `error.message`, and `error.exception_type`
+- no silent fallback to fake or any other model
+
+`local_fake` and `modal_fake` remain the stable control-plane test paths. They are for plumbing validation only and must not be silently used when `provider=yourmt3` is requested.

@@ -12,6 +12,7 @@ from music_brain.schemas import PreflightCheck, PreflightReport
 from music_brain.transcription import create_transcriber
 from music_brain.transcription.fake import FakeTranscriber
 from music_brain.transcription.modal_client import ModalFakeTranscriber
+from music_brain.transcription.yourmt3_modal_client import YourMT3ModalTranscriber
 
 
 def _can_write_to_dir(directory: Path) -> bool:
@@ -123,7 +124,7 @@ def run_preflight() -> PreflightReport:
             )
         )
 
-        if config.backend == "modal_fake":
+        if config.backend in {"modal_fake", "modal"}:
             try:
                 import modal  # type: ignore[import-not-found]  # noqa: F401
                 checks.append(
@@ -157,13 +158,36 @@ def run_preflight() -> PreflightReport:
                 )
             )
 
+            if config.backend == "modal" and config.provider_requested == "yourmt3":
+                try:
+                    import modal  # type: ignore[import-not-found]
+                    modal.Cls.from_name("music-brain-v2", "YourMT3ModalRunner")
+                    checks.append(
+                        PreflightCheck(
+                            name="modal_yourmt3_lookup",
+                            ok=True,
+                            message="Found Modal class reference music-brain-v2.YourMT3ModalRunner",
+                        )
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    checks.append(
+                        PreflightCheck(
+                            name="modal_yourmt3_lookup",
+                            ok=False,
+                            message=f"Could not look up Modal YourMT3 runner: {exc.__class__.__name__}: {exc}",
+                        )
+                    )
+
         try:
             configured_transcriber = create_transcriber(
                 provider_requested=config.provider_requested,
                 backend=config.backend,
                 modal_endpoint=config.modal_endpoint,
             )
-            configured_ok = isinstance(configured_transcriber, (FakeTranscriber, ModalFakeTranscriber))
+            configured_ok = isinstance(
+                configured_transcriber,
+                (FakeTranscriber, ModalFakeTranscriber, YourMT3ModalTranscriber),
+            )
             checks.append(
                 PreflightCheck(
                     name="configured_backend_usable",

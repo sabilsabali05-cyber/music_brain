@@ -3,6 +3,7 @@ from __future__ import annotations
 from .base import BaseTranscriber
 from .fake import FakeTranscriber
 from .modal_client import ModalFakeTranscriber
+from .yourmt3_modal_client import YourMT3ModalTranscriber
 
 
 def create_transcriber(
@@ -18,13 +19,10 @@ def create_transcriber(
         return ModalFakeTranscriber(endpoint=modal_endpoint)
 
     if backend == "modal" and provider_requested == "yourmt3":
-        raise NotImplementedError(
-            "provider=yourmt3 with backend=modal is not implemented yet. "
-            "Use provider=fake and backend=modal_fake to validate remote plumbing."
-        )
+        return YourMT3ModalTranscriber(endpoint=modal_endpoint)
 
     raise ValueError(
         "Unsupported provider/backend combination: "
         f"provider={provider_requested}, backend={backend}. "
-        "Supported now: (fake, local_fake) and (fake, modal_fake)."
+        "Supported: (fake, local_fake), (fake, modal_fake), (yourmt3, modal)."
     )
