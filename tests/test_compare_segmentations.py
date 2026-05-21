@@ -53,3 +53,19 @@ def test_compare_segmentations_summarizes_multiple_runs(tmp_path: Path) -> None:
     assert energy_row["successful_windows"] == 1
     assert energy_row["failed_windows"] == 0
     assert energy_row["total_note_on_count"] == 1
+
+
+def test_compare_segmentations_includes_legacy_and_run_folders(tmp_path: Path) -> None:
+    source_folder = tmp_path / "segments" / "piece"
+    source_folder.mkdir(parents=True, exist_ok=True)
+    legacy_manifest = {
+        "segmentation_strategy": "fixed_with_context",
+        "musical_segments": [],
+        "transcription_windows": [],
+        "segmentation_diagnostics": {},
+    }
+    (source_folder / "segments_manifest.json").write_text(json.dumps(legacy_manifest), encoding="utf-8")
+    _write_run(source_folder, "20260101T000002_energy_v1", "energy_v1", False, "success")
+
+    rows = compare_segmentations(source_folder)
+    assert len(rows) == 2

@@ -54,15 +54,16 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
 
 def compare_segmentations(source_folder: Path) -> list[dict[str, object]]:
     manifests: list[Path] = []
-    if (source_folder / "segments_manifest.json").exists():
-        manifests.append(source_folder / "segments_manifest.json")
-    else:
-        for child in sorted(source_folder.iterdir()):
-            if not child.is_dir():
-                continue
-            manifest_path = child / "segments_manifest.json"
-            if manifest_path.exists():
-                manifests.append(manifest_path)
+    root_manifest = source_folder / "segments_manifest.json"
+    if root_manifest.exists():
+        manifests.append(root_manifest)
+
+    for child in sorted(source_folder.iterdir()):
+        if not child.is_dir():
+            continue
+        manifest_path = child / "segments_manifest.json"
+        if manifest_path.exists():
+            manifests.append(manifest_path)
     summaries = [summarize_manifest(path) for path in manifests]
     return summaries
 
