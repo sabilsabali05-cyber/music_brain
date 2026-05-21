@@ -246,6 +246,7 @@ def build_audio_structure_core_intervals(
     list[dict[str, float]],
     int,
     int,
+    list[dict[str, object]],
 ]:
     def tuned_score(candidate: dict[str, object]) -> float:
         confidence = float(candidate.get("confidence", 0.0) or 0.0)
@@ -263,19 +264,35 @@ def build_audio_structure_core_intervals(
         ) / weight_sum
         return max(0.0, min(1.0, 0.8 * confidence + 0.2 * evidence_score))
 
+    candidate_evaluations: list[dict[str, object]] = []
     filtered_candidates: list[dict[str, object]] = []
     for candidate in boundary_candidates:
         if not isinstance(candidate, dict):
             continue
         time_seconds = float(candidate.get("time_seconds", -1))
         confidence = tuned_score(candidate)
-        if time_seconds < min_segment_seconds or time_seconds > duration_seconds - min_segment_seconds:
-            continue
-        if confidence < boundary_threshold:
-            continue
         updated = dict(candidate)
         updated["tuned_confidence"] = round(confidence, 6)
-        filtered_candidates.append(updated)
+        evaluation = {
+            "time_seconds": round(time_seconds, 6),
+            "confidence": round(float(candidate.get("confidence", 0.0) or 0.0), 6),
+            "tuned_confidence": round(confidence, 6),
+            "accepted": False,
+            "rejection_reason": "unknown",
+            "boundary_reason": str(candidate.get("reason", "unknown")),
+            "feature_evidence": candidate.get("feature_evidence", {}),
+            "nearest_segment_distance": None,
+        }
+        if str(candidate.get("reason", "")) == "fixed_interval_fallback":
+            evaluation["rejection_reason"] = "fixed_interval_candidate"
+        elif time_seconds < min_segment_seconds or time_seconds > duration_seconds - min_segment_seconds:
+            evaluation["rejection_reason"] = "violates_min_segment_seconds"
+        elif confidence < boundary_threshold:
+            evaluation["rejection_reason"] = "below_threshold"
+        else:
+            evaluation["rejection_reason"] = "unused_candidate"
+            filtered_candidates.append(updated)
+        candidate_evaluations.append(evaluation)
 
     candidate_count = len(boundary_candidates)
     accepted_count = 0
@@ -286,6 +303,7 @@ def build_audio_structure_core_intervals(
     evidences: list[dict[str, float]] = []
 
     start = 0.0
+    accepted_times: list[float] = []
     while start < duration_seconds:
         remaining = duration_seconds - start
         if remaining <= max_segment_seconds:
@@ -310,6 +328,7 @@ def build_audio_structure_core_intervals(
             )
             end = float(chosen.get("time_seconds"))
             accepted_count += 1
+            accepted_times.append(end)
             reason = str(chosen.get("reason", "combined_audio_novelty"))
             confidence = float(chosen.get("tuned_confidence", chosen.get("confidence", 0.6)))
             evidence = chosen.get("feature_evidence", {})
@@ -343,7 +362,38 @@ def build_audio_structure_core_intervals(
                 normalized[key] = 0.0
         normalized_evidences.append(normalized)
 
-    return intervals, reasons, confidences, sources, normalized_evidences, candidate_count, accepted_count
+    for evaluation in candidate_evaluations:
+        try:
+            time_seconds = float(evaluation.get("time_seconds", 0.0))
+        except Exception:
+            continue
+        nearest_distance = min((abs(time_seconds - t) for t in accepted_times), default=None)
+        evaluation["nearest_segment_distance"] = (
+            round(float(nearest_distance), 6) if nearest_distance is not None else None
+        )
+        if any(abs(time_seconds - t) <= 1e-6 for t in accepted_times):
+            evaluation["accepted"] = True
+            evaluation["rejection_reason"] = "accepted"
+            continue
+        if evaluation.get("rejection_reason") != "unused_candidate":
+            continue
+        if nearest_distance is not None and nearest_distance < min_segment_seconds:
+            evaluation["rejection_reason"] = "too_close_to_previous_boundary"
+        elif nearest_distance is not None and nearest_distance > max_segment_seconds:
+            evaluation["rejection_reason"] = "exceeds_max_segment_seconds_split"
+        else:
+            evaluation["rejection_reason"] = "unused_candidate"
+
+    return (
+        intervals,
+        reasons,
+        confidences,
+        sources,
+        normalized_evidences,
+        candidate_count,
+        accepted_count,
+        candidate_evaluations,
+    )
 
 
 def extract_window_audio(source_path: Path, output_path: Path, start: float, end: float) -> None:
@@ -427,6 +477,13 @@ def segment_audio(
         "analysis_path": None,
         "analysis_backend": None,
         "analysis_version": None,
+        "candidate_confidence_min": None,
+        "candidate_confidence_max": None,
+        "candidate_confidence_mean": None,
+        "accepted_confidence_min": None,
+        "accepted_confidence_max": None,
+        "rejection_reason_counts": {},
+        "candidate_evaluations": [],
         "fallback_used": False,
         "notes": "",
     }
@@ -477,6 +534,7 @@ def segment_audio(
                     feature_evidences,
                     candidate_count,
                     accepted,
+                    candidate_evaluations,
                 ) = build_audio_structure_core_intervals(
                     duration_seconds=duration_seconds,
                     boundary_candidates=boundary_candidates,
@@ -504,6 +562,33 @@ def segment_audio(
                 segmentation_diagnostics["missing_features"] = (
                     missing_features if isinstance(missing_features, list) else []
                 )
+                segmentation_diagnostics["candidate_evaluations"] = candidate_evaluations
+                tuned_confidences = [
+                    float(c.get("tuned_confidence", 0.0))
+                    for c in candidate_evaluations
+                    if isinstance(c, dict)
+                ]
+                accepted_confidences = [
+                    float(c.get("tuned_confidence", 0.0))
+                    for c in candidate_evaluations
+                    if isinstance(c, dict) and bool(c.get("accepted"))
+                ]
+                if tuned_confidences:
+                    segmentation_diagnostics["candidate_confidence_min"] = round(min(tuned_confidences), 6)
+                    segmentation_diagnostics["candidate_confidence_max"] = round(max(tuned_confidences), 6)
+                    segmentation_diagnostics["candidate_confidence_mean"] = round(
+                        sum(tuned_confidences) / len(tuned_confidences), 6
+                    )
+                if accepted_confidences:
+                    segmentation_diagnostics["accepted_confidence_min"] = round(min(accepted_confidences), 6)
+                    segmentation_diagnostics["accepted_confidence_max"] = round(max(accepted_confidences), 6)
+                reason_counts: dict[str, int] = {}
+                for row in candidate_evaluations:
+                    if not isinstance(row, dict):
+                        continue
+                    key = str(row.get("rejection_reason", "unknown"))
+                    reason_counts[key] = reason_counts.get(key, 0) + 1
+                segmentation_diagnostics["rejection_reason_counts"] = reason_counts
                 if accepted == 0:
                     intervals, reasons, confidences = build_fixed_core_intervals(
                         duration_seconds=duration_seconds,

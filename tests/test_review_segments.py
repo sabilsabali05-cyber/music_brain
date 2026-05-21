@@ -51,6 +51,21 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
             "missing_features": [],
             "candidate_boundary_count": 1,
             "accepted_boundary_count": 1,
+            "candidate_confidence_min": 0.8,
+            "candidate_confidence_max": 0.8,
+            "candidate_confidence_mean": 0.8,
+            "rejection_reason_counts": {"accepted": 1},
+            "candidate_evaluations": [
+                {
+                    "time_seconds": 30.0,
+                    "confidence": 0.8,
+                    "tuned_confidence": 0.8,
+                    "accepted": True,
+                    "rejection_reason": "accepted",
+                    "boundary_reason": "harmonic_chroma_change",
+                    "feature_evidence": {"combined_novelty": 0.8},
+                }
+            ],
         },
         "musical_segments": [
             {
@@ -106,6 +121,7 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
     assert "Review Questions" in text
     assert "segmentation_parameters" in text
     assert "boundary_threshold" in text
+    assert "Boundary Diagnostics" in text
     assert "Should beat/bar snapping be added?" in text
 
 

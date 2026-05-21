@@ -24,6 +24,11 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
     params = manifest.get("segmentation_parameters", {}) if isinstance(manifest, dict) else {}
     if not isinstance(params, dict):
         params = {}
+    reason_counts = diagnostics.get("rejection_reason_counts", {})
+    if isinstance(reason_counts, dict):
+        reason_summary = ",".join(f"{k}:{v}" for k, v in sorted(reason_counts.items()))
+    else:
+        reason_summary = str(reason_counts)
     successful = 0
     failed = 0
     note_on_total = 0
@@ -57,6 +62,10 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
             "candidate_boundary_count", diagnostics.get("detected_boundary_count")
         ),
         "accepted_boundary_count": diagnostics.get("accepted_boundary_count"),
+        "candidate_confidence_min": diagnostics.get("candidate_confidence_min"),
+        "candidate_confidence_max": diagnostics.get("candidate_confidence_max"),
+        "candidate_confidence_mean": diagnostics.get("candidate_confidence_mean"),
+        "rejection_reason_counts": reason_summary,
         "available_features": ",".join(diagnostics.get("available_features", []))
         if isinstance(diagnostics.get("available_features"), list)
         else diagnostics.get("available_features"),
@@ -113,6 +122,10 @@ def main() -> int:
         "transcription_windows",
         "candidate_boundary_count",
         "accepted_boundary_count",
+        "candidate_confidence_min",
+        "candidate_confidence_max",
+        "candidate_confidence_mean",
+        "rejection_reason_counts",
         "available_features",
         "missing_features",
         "successful_windows",

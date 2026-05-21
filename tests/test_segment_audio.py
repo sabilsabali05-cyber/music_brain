@@ -213,6 +213,7 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
     assert manifest["strategy_requested"] == "audio_structure"
     assert manifest["segmentation_diagnostics"]["candidate_boundary_count"] == 1
     assert manifest["segmentation_diagnostics"]["analysis_backend"] == "modal_librosa"
+    assert manifest["segmentation_diagnostics"]["candidate_evaluations"][0]["rejection_reason"] == "accepted"
     assert first_seg["boundary_source"] in {"audio_structure_v1", "fixed"}
     assert "feature_evidence" in first_seg
 
@@ -261,6 +262,12 @@ def test_audio_structure_weak_candidates_fallback_to_fixed(tmp_path: Path, monke
     assert manifest["strategy_used"] == "fixed_with_context"
     assert manifest["fallback_used"] is True
     assert manifest["musical_segments"][0]["boundary_reason"] == "uncertain_audio_structure_fallback"
+    reasons = {
+        row["rejection_reason"]
+        for row in manifest["segmentation_diagnostics"].get("candidate_evaluations", [])
+        if isinstance(row, dict)
+    }
+    assert "below_threshold" in reasons
 
 
 def test_audio_structure_lower_threshold_accepts_more_boundaries(tmp_path: Path, monkeypatch) -> None:

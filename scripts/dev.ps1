@@ -50,6 +50,7 @@ function Show-Usage {
     Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
     Write-Host "  segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
     Write-Host "  inspect-segments <manifest-path>"
+    Write-Host "  diagnose-boundaries <manifest-path>"
     Write-Host "  review-segments <manifest-path>"
     Write-Host "  inspect-latest-segments [source-folder]"
     Write-Host "  compare-segmentations <segments-source-folder>"
@@ -497,6 +498,10 @@ switch ($Task) {
     "inspect-segments" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd inspect-segments <manifest-path>"
         Invoke-Step -Label "Inspecting segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
+    }
+    "diagnose-boundaries" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd diagnose-boundaries <manifest-path>"
+        Invoke-Step -Label "Diagnosing boundary candidates" -Command @("python", "scripts/diagnose_boundaries.py", $manifestPath)
     }
     "review-segments" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd review-segments <manifest-path>"

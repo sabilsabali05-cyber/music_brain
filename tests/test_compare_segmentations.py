@@ -39,6 +39,10 @@ def _write_run(folder: Path, run_id: str, strategy_used: str, fallback_used: boo
             "candidate_boundary_count": 3,
             "detected_boundary_count": 3,
             "accepted_boundary_count": 1,
+            "candidate_confidence_min": 0.4,
+            "candidate_confidence_max": 0.8,
+            "candidate_confidence_mean": 0.6,
+            "rejection_reason_counts": {"accepted": 1, "below_threshold": 2},
             "available_features": ["rms", "onset_strength"],
             "missing_features": ["chroma_change"],
         },
@@ -69,6 +73,8 @@ def test_compare_segmentations_summarizes_multiple_runs(tmp_path: Path) -> None:
     assert energy_row["available_features"] == "rms,onset_strength"
     assert energy_row["boundary_threshold"] == 0.55
     assert energy_row["min_segment_seconds"] == 30.0
+    assert energy_row["candidate_confidence_mean"] == 0.6
+    assert "below_threshold:2" in str(energy_row["rejection_reason_counts"])
 
 
 def test_compare_segmentations_includes_legacy_and_run_folders(tmp_path: Path) -> None:

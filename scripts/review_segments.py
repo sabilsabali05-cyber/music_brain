@@ -84,6 +84,13 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     candidate_boundary_count = diagnostics.get("candidate_boundary_count")
     accepted_boundary_count = diagnostics.get("accepted_boundary_count")
     analysis_path = diagnostics.get("analysis_path")
+    candidate_confidence_min = diagnostics.get("candidate_confidence_min")
+    candidate_confidence_max = diagnostics.get("candidate_confidence_max")
+    candidate_confidence_mean = diagnostics.get("candidate_confidence_mean")
+    rejection_reason_counts = diagnostics.get("rejection_reason_counts")
+    candidate_evaluations = diagnostics.get("candidate_evaluations", [])
+    if not isinstance(candidate_evaluations, list):
+        candidate_evaluations = []
 
     lines: list[str] = []
     lines.append(f"# Segmentation Review: {source_name}")
@@ -155,6 +162,35 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
                 f"{window.get('pre_context_seconds')} | {window.get('post_context_seconds')} | "
                 f"{window.get('source_segment_ids')} | {window.get('status')} |"
             )
+    lines.append("")
+
+    lines.append("## Boundary Diagnostics")
+    lines.append("")
+    lines.append(f"- confidence_range: min=`{candidate_confidence_min}`, max=`{candidate_confidence_max}`")
+    lines.append(f"- confidence_mean: `{candidate_confidence_mean}`")
+    lines.append(f"- rejection_reason_counts: `{rejection_reason_counts}`")
+    lines.append("")
+    lines.append("### Top 10 Rejected Candidates by Confidence")
+    lines.append("")
+    lines.append("| time_seconds | tuned_confidence | rejection_reason | boundary_reason | evidence |")
+    lines.append("|---:|---:|---|---|---|")
+    rejected = [
+        row
+        for row in candidate_evaluations
+        if isinstance(row, dict) and str(row.get("rejection_reason")) != "accepted"
+    ]
+    rejected_sorted = sorted(
+        rejected, key=lambda row: float(row.get("tuned_confidence", row.get("confidence", 0.0)) or 0.0), reverse=True
+    )[:10]
+    if rejected_sorted:
+        for row in rejected_sorted:
+            lines.append(
+                f"| {row.get('time_seconds')} | {row.get('tuned_confidence', row.get('confidence'))} | "
+                f"{row.get('rejection_reason')} | {row.get('boundary_reason')} | "
+                f"{_feature_summary(row.get('feature_evidence'))} |"
+            )
+    else:
+        lines.append("| - | - | no_rejected_candidates | - | - |")
     lines.append("")
 
     lines.append("## Review Questions")
