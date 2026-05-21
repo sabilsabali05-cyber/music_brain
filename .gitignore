@@ -21,11 +21,13 @@ samples/input/
 samples/clips/
 samples/analysis/
 samples/segments/
+performances/inbox/*
 benchmark_reports/
 !samples/input/.gitkeep
 !samples/clips/.gitkeep
 !samples/analysis/.gitkeep
 !benchmark_reports/.gitkeep
+!performances/inbox/.gitkeep
 
 # OS/editor
 .DS_Store

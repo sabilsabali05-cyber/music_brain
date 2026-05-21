@@ -61,6 +61,12 @@ scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 scripts\dev.cmd transcribe-windows "<manifest_path>" 2
 scripts\dev.cmd benchmark-segments "<manifest_path>"
+scripts\dev.cmd stitch-midi-dry-run "<manifest_path>"
+scripts\dev.cmd stitch-midi "<manifest_path>"
+scripts\dev.cmd validate-merged-midi "<merged-midi-path>"
+scripts\dev.cmd ingest-performance "performances/inbox/service_2026-05-21.mp3"
+scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
+scripts\dev.cmd batch-performances "performances/inbox" 1 3
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
@@ -490,3 +496,50 @@ scripts\dev.cmd inspect-analysis "samples/analysis/Varud_-_Sigur_Ros_Valtari/<ru
 - `novelty_combined`
 
 This lets you verify whether dense mode is truly generating more raw candidates before segmentation selection applies musical constraints.
+
+## MIDI stitching
+
+Conservative v1 stitching now supports real merge output:
+
+```powershell
+scripts\dev.cmd stitch-midi "samples/segments/<source>/<run>/segments_manifest.json"
+scripts\dev.cmd validate-merged-midi "samples/segments/<source>/<run>/merged/merged_performance.mid"
+```
+
+Behavior in v1:
+
+- events are mapped from window-local MIDI time to global performance time
+- only events in each window core region are kept
+- pre/post context MIDI is discarded to avoid overlap duplicates
+- merged MIDI is written to `<run>/merged/merged_performance.mid`
+- merge stats are written to `<run>/merged/merge_report.json`
+
+Future improvements:
+
+- de-duplicate overlapping held notes across boundaries
+- preserve instrument/program identity more accurately
+- preserve and reconcile tempo maps
+- add confidence-linked note/event metadata
+
+## Processing long church performances
+
+Batch processing scaffolding is now available for cautious staged runs:
+
+- `performances/inbox/` for incoming audio
+- `performances/library/` for per-performance manifests
+- `performances/reports/` for batch reports
+
+Commands:
+
+```powershell
+scripts\dev.cmd ingest-performance "performances/inbox/church_service.mp3"
+scripts\dev.cmd process-performance "performances/library/<performance_id>/performance_manifest.json" 3
+scripts\dev.cmd batch-performances "performances/inbox" 1 3
+```
+
+Recommended rollout:
+
+1. test with a 5-10 minute clip
+2. process one full performance with `max-windows` capped
+3. run small batch processing with reports enabled
+4. do not process multi-hour sets without resume mode and batch reports

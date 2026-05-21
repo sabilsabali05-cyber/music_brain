@@ -62,6 +62,11 @@ function Show-Usage {
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
     Write-Host "  benchmark-segments <manifest-path>"
     Write-Host "  stitch-midi-dry-run <manifest-path>"
+    Write-Host "  stitch-midi <manifest-path>"
+    Write-Host "  validate-merged-midi <merged-midi-path>"
+    Write-Host "  ingest-performance <audio-path>"
+    Write-Host "  process-performance <performance-manifest> [max-windows]"
+    Write-Host "  batch-performances <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -664,6 +669,43 @@ switch ($Task) {
     "stitch-midi-dry-run" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd stitch-midi-dry-run <manifest-path>"
         Invoke-Step -Label "MIDI stitching dry-run" -Command @("python", "scripts/stitch_midi.py", $manifestPath, "--dry-run")
+    }
+    "stitch-midi" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd stitch-midi <manifest-path>"
+        Invoke-Step -Label "MIDI stitching (core-trim merge)" -Command @("python", "scripts/stitch_midi.py", $manifestPath)
+    }
+    "validate-merged-midi" {
+        $midiPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-merged-midi <merged-midi-path>"
+        Invoke-Step -Label "Validating merged MIDI" -Command @("python", "scripts/validate_merged_midi.py", $midiPath)
+    }
+    "ingest-performance" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd ingest-performance <audio-path>"
+        Invoke-Step -Label "Ingesting performance into library manifest" -Command @("python", "scripts/ingest_performance.py", $audioPath)
+    }
+    "process-performance" {
+        Ensure-FfmpegPath
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd process-performance <performance-manifest> [max-windows]"
+        $maxWindows = Get-TaskArg -Index 1
+        $command = @("python", "scripts/process_performance.py", $manifestPath)
+        if (-not [string]::IsNullOrWhiteSpace($maxWindows)) {
+            $command += @("--max-windows", $maxWindows)
+        }
+        Invoke-Step -Label "Processing performance through staged pipeline" -Command $command
+    }
+    "batch-performances" {
+        Ensure-FfmpegPath
+        $inboxFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd batch-performances <inbox-folder> [max-performances] [max-windows]"
+        $maxPerformances = Get-TaskArg -Index 1
+        $maxWindows = Get-TaskArg -Index 2
+        $command = @("python", "scripts/batch_performances.py", $inboxFolder)
+        if (-not [string]::IsNullOrWhiteSpace($maxPerformances)) {
+            $command += @("--max-performances", $maxPerformances)
+        }
+        if (-not [string]::IsNullOrWhiteSpace($maxWindows)) {
+            $command += @("--max-windows", $maxWindows)
+        }
+        Invoke-Step -Label "Batch ingest/process performances" -Command $command
     }
     "transcribe-yourmt3" {
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
