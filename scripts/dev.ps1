@@ -49,6 +49,7 @@ function Show-Usage {
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
     Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
     Write-Host "  inspect-segments <manifest-path>"
+    Write-Host "  review-segments <manifest-path>"
     Write-Host "  inspect-latest-segments [source-folder]"
     Write-Host "  compare-segmentations <segments-source-folder>"
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
@@ -451,6 +452,16 @@ switch ($Task) {
     "inspect-segments" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd inspect-segments <manifest-path>"
         Invoke-Step -Label "Inspecting segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
+    }
+    "review-segments" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd review-segments <manifest-path>"
+        $reviewOutput = Invoke-CommandCapture -Label "Generating segmentation review report" -Command @(
+            "python", "scripts/review_segments.py", $manifestPath
+        )
+        $reportLine = $reviewOutput | Where-Object { $_ -like "REVIEW_REPORT_PATH=*" } | Select-Object -Last 1
+        if ($reportLine) {
+            Write-Host "REVIEW_REPORT_PATH=$($reportLine.Substring('REVIEW_REPORT_PATH='.Length))"
+        }
     }
     "inspect-latest-segments" {
         $sourceFolder = Get-TaskArg -Index 0

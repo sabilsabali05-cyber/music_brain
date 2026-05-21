@@ -355,6 +355,27 @@ scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 ```
 
+## Reviewing segmentation quality
+
+Before spending more GPU on transcription, generate a human-readable review report:
+
+```powershell
+scripts\dev.cmd review-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T171256329037_audio_structure_v1/segments_manifest.json"
+```
+
+This writes:
+
+`reports/segment_reviews/<safe_source_name>_<run_id>.md`
+
+The report summarizes:
+
+- strategy requested/used and fallback status
+- available/missing analysis features
+- candidate vs accepted boundary counts
+- segment-by-segment boundary evidence and links
+- transcription window coverage and statuses
+- review prompts for threshold tuning and future beat/bar snapping
+
 ## Pre-MIDI audio structure analysis
 
 This flow analyzes audio structure before MIDI transcription:
