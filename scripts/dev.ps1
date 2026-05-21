@@ -41,6 +41,8 @@ function Show-Usage {
     Write-Host "  smoke-yourmt3"
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
+    Write-Host "  validate-latest"
+    Write-Host "  validate-track <track-folder>"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -251,6 +253,22 @@ switch ($Task) {
         $env:MUSIC_BRAIN_MODAL_GPU = "T4"
         Show-MusicBrainEnv
         Invoke-Step -Label "Running preflight for yourmt3/modal" -Command @("python", "submit_track.py", "--preflight")
+    }
+    "validate-latest" {
+        $libraryRoot = Join-Path (Get-Location) "library"
+        if (-not (Test-Path $libraryRoot)) { throw "Library path not found: $libraryRoot" }
+        $latestTrack = Get-ChildItem -Path $libraryRoot -Directory -Filter "trk_*" |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+        if ($null -eq $latestTrack) { throw "No track folders found under $libraryRoot" }
+        Write-Host "Selected latest track: $($latestTrack.FullName)"
+        Invoke-Step -Label "Validating latest track" -Command @("python", "scripts/validate_track.py", $latestTrack.FullName)
+    }
+    "validate-track" {
+        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
+            throw "Usage: scripts\dev.cmd validate-track <track-folder>"
+        }
+        Invoke-Step -Label "Validating track" -Command @("python", "scripts/validate_track.py", $CommitMessage)
     }
     "commit-checkpoint" {
         if (-not $script:ResolvedGitExe) { Show-ToolMissingMessage "git"; throw "Cannot run commit-checkpoint because git is unavailable in this shell." }

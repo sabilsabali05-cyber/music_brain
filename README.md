@@ -47,6 +47,8 @@ scripts\dev.cmd smoke-modal-fake
 scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
+scripts\dev.cmd validate-latest
+scripts\dev.cmd validate-track library\trk_20260521T103733Z_e3513afc22
 scripts\dev.cmd commit-checkpoint
 scripts\dev.cmd commit-checkpoint "My commit message"
 ```
@@ -182,3 +184,29 @@ Recent successful run reference:
 - `job_report`: `library/trk_20260521T103733Z_e3513afc22/analysis/job_report.json`
 - `latency_seconds.total`: `20.0215` seconds
 - `latency_seconds.transcription`: `19.8068` seconds
+
+## Validating a completed track
+
+Validate an explicit track folder:
+
+```powershell
+python scripts/validate_track.py library/trk_20260521T103733Z_e3513afc22
+scripts\dev.cmd validate-track library/trk_20260521T103733Z_e3513afc22
+```
+
+Validate the newest track in `library/`:
+
+```powershell
+scripts\dev.cmd validate-latest
+```
+
+Validation checks include:
+
+- `analysis/job_report.json` exists and parses
+- `status == "success"`
+- `provider_used == "yourmt3"`
+- `backend == "modal"`
+- `fallback_used == false`
+- `original/normalized.wav` exists
+- `midi/full_mix.mid` exists and is non-empty
+- MIDI parses with `mido` and reports track/message counts
