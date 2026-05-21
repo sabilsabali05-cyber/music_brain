@@ -29,6 +29,27 @@ winget install Gyan.FFmpeg
 ffmpeg -version
 ```
 
+## Common commands
+
+Use the task runner to avoid retyping long sequences:
+
+- On Windows, prefer `scripts\dev.cmd` to avoid PowerShell execution policy issues.
+- If Cursor cannot see `git` or `ffmpeg` but normal PowerShell can, restart Cursor or open a new terminal.
+- The dev runner auto-discovers Git and ffmpeg on Windows using common install paths when Cursor's PATH is incomplete.
+
+```powershell
+scripts\dev.cmd doctor
+scripts\dev.cmd test
+scripts\dev.cmd deploy-modal
+scripts\dev.cmd smoke-local-fake
+scripts\dev.cmd smoke-modal-fake
+scripts\dev.cmd smoke-yourmt3
+scripts\dev.cmd logs-modal
+scripts\dev.cmd preflight-yourmt3
+scripts\dev.cmd commit-checkpoint
+scripts\dev.cmd commit-checkpoint "My commit message"
+```
+
 ## Local fake smoke test
 
 ```powershell
