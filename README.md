@@ -456,3 +456,37 @@ Dense Modal analysis convenience command:
 scripts\dev.cmd analyze-structure-modal-dense "samples/input/my_song.wav"
 scripts\dev.cmd segment-audio-structure-dense "samples/input/my_song.wav" 60
 ```
+
+## Analysis run versioning
+
+Audio structure analyses are now stored per run instead of overwriting one file:
+
+`samples/analysis/<safe_source_name>/<timestamp>_<backend>_<density>/structure_analysis.json`
+
+A convenience pointer is still written:
+
+`samples/analysis/<safe_source_name>/latest_analysis.txt`
+
+Use this pointer for quick workflows, but treat it as convenience only. Historical runs remain available for direct comparison.
+
+Compare runs:
+
+```powershell
+scripts\dev.cmd compare-analyses "samples/analysis/Varud_-_Sigur_Ros_Valtari"
+```
+
+Inspect one run:
+
+```powershell
+scripts\dev.cmd inspect-analysis "samples/analysis/Varud_-_Sigur_Ros_Valtari/<run_id>/structure_analysis.json"
+```
+
+`raw_peak_count_by_feature` is a key observability signal. In dense mode, this should show per-feature counts (including zeros) for:
+
+- `rms`
+- `onset_strength`
+- `chroma_change`
+- `timbre_change`
+- `novelty_combined`
+
+This lets you verify whether dense mode is truly generating more raw candidates before segmentation selection applies musical constraints.

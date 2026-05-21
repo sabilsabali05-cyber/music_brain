@@ -217,13 +217,30 @@ def build_manifest_graph(
 
 def load_structure_analysis(source_path: Path) -> tuple[dict[str, object] | None, Path]:
     source_safe = safe_source_name(source_path)
-    analysis_path = Path("samples") / "analysis" / source_safe / "structure_analysis.json"
-    if not analysis_path.exists():
-        return None, analysis_path
-    payload = json.loads(analysis_path.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        return None, analysis_path
-    return payload, analysis_path
+    analysis_root = Path("samples") / "analysis" / source_safe
+    latest_pointer = analysis_root / "latest_analysis.txt"
+    legacy_path = analysis_root / "structure_analysis.json"
+    candidate_paths: list[Path] = []
+    if latest_pointer.exists():
+        pointer_value = latest_pointer.read_text(encoding="utf-8").strip()
+        if pointer_value:
+            candidate_paths.append(Path(pointer_value))
+    if legacy_path.exists():
+        candidate_paths.append(legacy_path)
+    if analysis_root.exists():
+        run_paths = sorted(
+            [path for path in analysis_root.glob("*/structure_analysis.json") if path.is_file()],
+            key=lambda path: path.parent.name,
+            reverse=True,
+        )
+        candidate_paths.extend(run_paths)
+    for analysis_path in candidate_paths:
+        if not analysis_path.exists():
+            continue
+        payload = json.loads(analysis_path.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            return payload, analysis_path
+    return None, latest_pointer
 
 
 def build_audio_structure_core_intervals(

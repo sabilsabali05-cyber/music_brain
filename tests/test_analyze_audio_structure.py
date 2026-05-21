@@ -128,6 +128,32 @@ def test_analyze_audio_structure_writes_expected_schema(tmp_path: Path, monkeypa
     assert "raw_peak_count_by_feature" in payload["diagnostics"]
     assert "fused_candidate_count" in payload["diagnostics"]
     assert "returned_candidate_count" in payload["diagnostics"]
+    assert analysis_path.parent.name.endswith("_local_light_conservative")
+    latest_pointer = tmp_path / "samples" / "analysis" / "song" / "latest_analysis.txt"
+    assert latest_pointer.exists()
+    assert latest_pointer.read_text(encoding="utf-8").strip() == analysis_path.as_posix()
+
+
+def test_analysis_runs_are_versioned_and_latest_points_newest(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "song.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.analyze_audio_structure.probe_duration_seconds", lambda _: 120.0)
+    monkeypatch.setattr(
+        "scripts.analyze_audio_structure.extract_analysis_wav",
+        lambda source_path, output_path: output_path.parent.mkdir(parents=True, exist_ok=True)
+        or output_path.write_bytes(b"wav"),
+    )
+    monkeypatch.setattr(
+        "scripts.analyze_audio_structure._read_wav_samples",
+        lambda wav_path: ([0.01, -0.02, 0.03, -0.03] * 2000, 22050),
+    )
+    first = analyze_audio_structure(source, candidate_density="normal")
+    second = analyze_audio_structure(source, candidate_density="dense")
+    assert first != second
+    assert first.parent != second.parent
+    latest_pointer = tmp_path / "samples" / "analysis" / "song" / "latest_analysis.txt"
+    assert latest_pointer.read_text(encoding="utf-8").strip() == second.as_posix()
 
 
 def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch) -> None:
@@ -181,7 +207,11 @@ def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch
             },
         }
 
-    analysis_path = analyze_audio_structure_modal(source, remote_call=_fake_modal_call)
+    analysis_path = analyze_audio_structure_modal(
+        source,
+        options={"candidate_density": "dense"},
+        remote_call=_fake_modal_call,
+    )
     payload = json.loads(analysis_path.read_text(encoding="utf-8"))
     assert payload["analysis_backend"] == "modal_librosa"
     assert payload["analysis_version"] == "audio_structure_modal_librosa_v1"
@@ -192,6 +222,9 @@ def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch
     assert payload["boundary_candidates"][0]["eligible_for_phrase_boundary"] is True
     assert payload["boundary_candidates"][0]["source_feature"] == "novelty_combined"
     assert payload["boundary_candidates"][0]["contributing_features"] == ["novelty_combined"]
+    raw_counts = payload["diagnostics"]["raw_peak_count_by_feature"]
+    assert set(raw_counts.keys()) == {"rms", "onset_strength", "chroma_change", "timbre_change", "novelty_combined"}
+    assert payload["diagnostics"]["candidate_density"] == "dense"
 
 
 def test_audio_analysis_diagnostics_reports_modal_lookup(monkeypatch) -> None:

@@ -26,6 +26,23 @@ DENSITY_PRESETS: dict[str, dict[str, float]] = {
 }
 
 
+def _analysis_run_paths(source_safe: str, backend: str, density: str) -> tuple[Path, Path, Path]:
+    source_root = Path("samples") / "analysis" / source_safe
+    source_root.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
+    run_id = f"{stamp}_{backend}_{density}"
+    run_root = source_root / run_id
+    run_root.mkdir(parents=True, exist_ok=True)
+    return source_root, run_root, run_root / "structure_analysis.json"
+
+
+def _write_analysis_payload(source_root: Path, analysis_path: Path, payload: dict[str, object]) -> Path:
+    analysis_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    latest_pointer = source_root / "latest_analysis.txt"
+    latest_pointer.write_text(analysis_path.resolve().as_posix(), encoding="utf-8")
+    return analysis_path.resolve()
+
+
 def safe_source_name(path: Path) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", path.stem).strip("_") or "performance"
 
@@ -397,10 +414,11 @@ def analyze_audio_structure(
         raise FileNotFoundError(f"Audio file does not exist: {source_path}")
 
     source_safe = safe_source_name(source_path)
-    analysis_root = Path("samples") / "analysis" / source_safe
-    analysis_root.mkdir(parents=True, exist_ok=True)
-    analysis_path = analysis_root / "structure_analysis.json"
-    wav_path = analysis_root / "analysis_audio.wav"
+    density = str(candidate_density).lower().strip() or "conservative"
+    if density not in DENSITY_PRESETS:
+        density = "conservative"
+    source_root, run_root, analysis_path = _analysis_run_paths(source_safe, "local_light", density)
+    wav_path = run_root / "analysis_audio.wav"
 
     frame_hop_seconds = 0.25
     duration_seconds = probe_duration_seconds(source_path)
@@ -430,6 +448,8 @@ def analyze_audio_structure(
         "duration_seconds": round(duration_seconds, 6),
         "analysis_version": "audio_structure_v1",
         "analysis_backend": "local_light",
+        "analysis_run_id": run_root.name,
+        "analysis_run_dir": run_root.resolve().as_posix(),
         "frame_hop_seconds": frame_hop_seconds,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "features": features,
@@ -451,8 +471,7 @@ def analyze_audio_structure(
             "notes": notes,
         },
     }
-    analysis_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    return analysis_path.resolve()
+    return _write_analysis_payload(source_root, analysis_path, payload)
 
 
 def _invoke_modal_librosa_analysis(
@@ -481,19 +500,23 @@ def analyze_audio_structure_modal(
         raise FileNotFoundError(f"Audio file does not exist: {source_path}")
 
     source_safe = safe_source_name(source_path)
-    analysis_root = Path("samples") / "analysis" / source_safe
-    analysis_root.mkdir(parents=True, exist_ok=True)
-    analysis_path = analysis_root / "structure_analysis.json"
+    opts = options or {}
+    density = str(opts.get("candidate_density", "conservative")).lower().strip() or "conservative"
+    if density not in DENSITY_PRESETS:
+        density = "conservative"
+    source_root, run_root, analysis_path = _analysis_run_paths(source_safe, "modal_librosa", density)
     duration_seconds = probe_duration_seconds(source_path)
 
     call = remote_call or _invoke_modal_librosa_analysis
-    payload = call(source_path.read_bytes(), source_path.name, options or {})
+    payload = call(source_path.read_bytes(), source_path.name, opts)
     payload = dict(payload)
     payload["source_path"] = source_path.resolve().as_posix()
     payload["source_name"] = source_path.name
     payload["duration_seconds"] = round(float(payload.get("duration_seconds", duration_seconds)), 6)
     payload["analysis_backend"] = "modal_librosa"
     payload["analysis_version"] = str(payload.get("analysis_version", "audio_structure_modal_librosa_v1"))
+    payload["analysis_run_id"] = run_root.name
+    payload["analysis_run_dir"] = run_root.resolve().as_posix()
     payload["created_at"] = datetime.now(timezone.utc).isoformat()
     if not isinstance(payload.get("features"), dict):
         payload["features"] = {}
@@ -520,22 +543,39 @@ def analyze_audio_structure_modal(
     diagnostics = payload.get("diagnostics", {})
     if not isinstance(diagnostics, dict):
         diagnostics = {}
-    diagnostics.setdefault("available_features", ["rms", "onset_strength", "chroma_change", "timbre_change"])
+    diagnostics.setdefault(
+        "available_features", ["rms", "onset_strength", "chroma_change", "timbre_change", "novelty_combined"]
+    )
     diagnostics.setdefault("missing_features", [])
     diagnostics.setdefault("fallback_recommended", False)
-    diagnostics.setdefault("candidate_density", (options or {}).get("candidate_density", "conservative"))
-    diagnostics.setdefault("raw_peak_count_by_feature", {})
+    diagnostics.setdefault("candidate_density", opts.get("candidate_density", "conservative"))
+    raw_counts = diagnostics.get("raw_peak_count_by_feature", {})
+    if not isinstance(raw_counts, dict):
+        raw_counts = {}
+    feature_keys = ["rms", "onset_strength", "chroma_change", "timbre_change", "novelty_combined"]
+    inferred_counts: dict[str, int] = {key: 0 for key in feature_keys}
+    for candidate in normalized_candidates:
+        feature_name = str(candidate.get("source_feature", "novelty_combined"))
+        if feature_name in inferred_counts:
+            inferred_counts[feature_name] += 1
+    normalized_raw_counts: dict[str, int] = {}
+    for key in feature_keys:
+        value = raw_counts.get(key, inferred_counts.get(key, 0))
+        try:
+            normalized_raw_counts[key] = int(value)
+        except Exception:
+            normalized_raw_counts[key] = 0
+    diagnostics["raw_peak_count_by_feature"] = normalized_raw_counts
     diagnostics.setdefault("fused_candidate_count", len(normalized_candidates))
     diagnostics.setdefault("returned_candidate_count", len(normalized_candidates))
-    diagnostics.setdefault("peak_pick_threshold", (options or {}).get("peak_pick_threshold", 0.55))
+    diagnostics.setdefault("peak_pick_threshold", opts.get("peak_pick_threshold", 0.55))
     diagnostics.setdefault(
-        "min_boundary_distance_seconds", (options or {}).get("min_boundary_distance_seconds", 12.0)
+        "min_boundary_distance_seconds", opts.get("min_boundary_distance_seconds", 12.0)
     )
-    diagnostics.setdefault("max_candidates", (options or {}).get("max_candidates", 8))
+    diagnostics.setdefault("max_candidates", opts.get("max_candidates", 8))
     diagnostics.setdefault("notes", ["Computed on Modal CPU librosa backend."])
     payload["diagnostics"] = diagnostics
-    analysis_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    return analysis_path.resolve()
+    return _write_analysis_payload(source_root, analysis_path, payload)
 
 
 def audio_analysis_diagnostics() -> dict[str, object]:

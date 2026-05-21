@@ -56,6 +56,8 @@ function Show-Usage {
     Write-Host "  diagnose-boundaries <manifest-path>"
     Write-Host "  review-segments <manifest-path>"
     Write-Host "  inspect-latest-segments [source-folder]"
+    Write-Host "  inspect-analysis <analysis-json-path>"
+    Write-Host "  compare-analyses <analysis-source-folder>"
     Write-Host "  compare-segmentations <segments-source-folder>"
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
     Write-Host "  benchmark-segments <manifest-path>"
@@ -474,16 +476,39 @@ switch ($Task) {
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure-dense <audio-path> [target-window-seconds]"
         $targetWindow = Get-TaskArg -Index 1
         $targetValue = if (-not [string]::IsNullOrWhiteSpace($targetWindow)) { $targetWindow } else { "60" }
-        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa dense)" -Command @(
-            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa",
-            "--candidate-density", "dense",
-            "--peak-pick-threshold", "0.40",
-            "--min-boundary-distance-seconds", "8.0",
-            "--max-candidates", "24"
-        )
-        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
-        if ($analysisLine) {
-            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        $sourceStem = [System.IO.Path]::GetFileNameWithoutExtension($audioPath)
+        $safeSource = (($sourceStem -replace "[^a-zA-Z0-9._-]+", "_").Trim("_"))
+        if ([string]::IsNullOrWhiteSpace($safeSource)) { $safeSource = "performance" }
+        $latestAnalysisPointer = Join-Path (Join-Path "samples\analysis" $safeSource) "latest_analysis.txt"
+        $reuseDense = $false
+        if (Test-Path $latestAnalysisPointer) {
+            $latestPath = (Get-Content -Path $latestAnalysisPointer -Raw).Trim()
+            if (-not [string]::IsNullOrWhiteSpace($latestPath) -and (Test-Path $latestPath)) {
+                try {
+                    $analysisJson = Get-Content -Path $latestPath -Raw | ConvertFrom-Json
+                    if ($analysisJson -and $analysisJson.diagnostics -and $analysisJson.diagnostics.candidate_density -eq "dense") {
+                        Write-Host "Reusing latest dense analysis: $latestPath"
+                        Write-Host "ANALYSIS_PATH=$latestPath"
+                        $reuseDense = $true
+                    }
+                }
+                catch {
+                    $reuseDense = $false
+                }
+            }
+        }
+        if (-not $reuseDense) {
+            $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa dense)" -Command @(
+                "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa",
+                "--candidate-density", "dense",
+                "--peak-pick-threshold", "0.40",
+                "--min-boundary-distance-seconds", "8.0",
+                "--max-candidates", "24"
+            )
+            $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+            if ($analysisLine) {
+                Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+            }
         }
         $segmentOutput = Invoke-CommandCapture -Label "Creating audio-structure segment manifest/windows from dense analysis" -Command @(
             "python", "scripts/segment_audio.py", $audioPath, "--strategy", "audio_structure",
@@ -503,8 +528,15 @@ switch ($Task) {
         $sourceStem = [System.IO.Path]::GetFileNameWithoutExtension($audioPath)
         $safeSource = (($sourceStem -replace "[^a-zA-Z0-9._-]+", "_").Trim("_"))
         if ([string]::IsNullOrWhiteSpace($safeSource)) { $safeSource = "performance" }
-        $analysisPath = Join-Path (Join-Path "samples\analysis" $safeSource) "structure_analysis.json"
-        if (Test-Path $analysisPath) {
+        $latestAnalysisPointer = Join-Path (Join-Path "samples\analysis" $safeSource) "latest_analysis.txt"
+        $analysisPath = $null
+        if (Test-Path $latestAnalysisPointer) {
+            $candidatePath = (Get-Content -Path $latestAnalysisPointer -Raw).Trim()
+            if (-not [string]::IsNullOrWhiteSpace($candidatePath) -and (Test-Path $candidatePath)) {
+                $analysisPath = $candidatePath
+            }
+        }
+        if (-not [string]::IsNullOrWhiteSpace($analysisPath)) {
             Write-Host "Reusing existing modal_librosa analysis: $analysisPath"
         }
         else {
@@ -602,6 +634,14 @@ switch ($Task) {
         if ([string]::IsNullOrWhiteSpace($manifestPath)) { throw "latest_manifest.txt is empty: $($latestFile.FullName)" }
         Write-Host "Using latest manifest pointer: $($latestFile.FullName)"
         Invoke-Step -Label "Inspecting latest segment manifest" -Command @("python", "scripts/inspect_segments.py", $manifestPath)
+    }
+    "inspect-analysis" {
+        $analysisPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd inspect-analysis <analysis-json-path>"
+        Invoke-Step -Label "Inspecting analysis report" -Command @("python", "scripts/inspect_analysis.py", $analysisPath)
+    }
+    "compare-analyses" {
+        $analysisRoot = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-analyses <analysis-source-folder>"
+        Invoke-Step -Label "Comparing analysis runs" -Command @("python", "scripts/compare_analyses.py", $analysisRoot)
     }
     "compare-segmentations" {
         $segmentsRoot = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-segmentations <segments-source-folder>"

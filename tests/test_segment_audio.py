@@ -441,3 +441,64 @@ def test_audio_structure_allow_fixed_candidates_override(tmp_path: Path, monkeyp
     evaluations = manifest["segmentation_diagnostics"]["candidate_evaluations"]
     assert evaluations[0]["accepted"] is True
     assert evaluations[0]["candidate_source"] == "fixed_coverage"
+
+
+def test_audio_structure_uses_latest_analysis_pointer(tmp_path: Path, monkeypatch) -> None:
+    source = tmp_path / "performance.mp3"
+    source.write_bytes(b"fake")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("scripts.segment_audio.probe_duration_seconds", lambda _: 130.0)
+    monkeypatch.setattr(
+        "scripts.segment_audio.extract_window_audio",
+        lambda source_path, output_path, start, end: output_path.parent.mkdir(parents=True, exist_ok=True)
+        or output_path.write_bytes(b"x"),
+    )
+    analysis_root = tmp_path / "samples" / "analysis" / "performance"
+    analysis_run_old = analysis_root / "20260101T000001_modal_librosa_normal"
+    analysis_run_new = analysis_root / "20260101T000002_modal_librosa_dense"
+    analysis_run_old.mkdir(parents=True, exist_ok=True)
+    analysis_run_new.mkdir(parents=True, exist_ok=True)
+    old_payload = {
+        "analysis_backend": "modal_librosa",
+        "analysis_version": "audio_structure_modal_librosa_v1",
+        "boundary_candidates": [],
+        "diagnostics": {"candidate_density": "normal"},
+    }
+    new_payload = {
+        "analysis_backend": "modal_librosa",
+        "analysis_version": "audio_structure_modal_librosa_v1",
+        "boundary_candidates": [
+            {
+                "time_seconds": 62.0,
+                "confidence": 0.8,
+                "reason": "onset_density_change",
+                "source_feature": "onset_strength",
+                "contributing_features": ["onset_strength"],
+                "feature_evidence": {
+                    "energy_change": 0.1,
+                    "onset_change": 0.8,
+                    "chroma_change": 0.1,
+                    "timbre_change": 0.1,
+                    "combined_novelty": 0.6,
+                },
+            }
+        ],
+        "diagnostics": {"candidate_density": "dense", "fused_candidate_count": 1, "returned_candidate_count": 1},
+    }
+    old_path = analysis_run_old / "structure_analysis.json"
+    new_path = analysis_run_new / "structure_analysis.json"
+    old_path.write_text(json.dumps(old_payload), encoding="utf-8")
+    new_path.write_text(json.dumps(new_payload), encoding="utf-8")
+    (analysis_root / "latest_analysis.txt").write_text(new_path.as_posix(), encoding="utf-8")
+
+    manifest = json.loads(
+        segment_audio(
+            source,
+            strategy="audio_structure",
+            target_window_seconds=60.0,
+            max_window_seconds=90.0,
+            context_seconds=5.0,
+        ).read_text(encoding="utf-8")
+    )
+    assert manifest["segmentation_diagnostics"]["analysis_path"] == new_path.resolve().as_posix()
+    assert manifest["segmentation_diagnostics"]["candidate_density"] == "dense"
