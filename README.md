@@ -70,6 +70,12 @@ scripts\dev.cmd process-performance "performances/library/<performance_id>/perfo
 scripts\dev.cmd batch-performances "performances/inbox" 1 3
 scripts\dev.cmd list-performance-runs "performances/library/<performance_id>/performance_manifest.json"
 scripts\dev.cmd set-active-performance-run "performances/library/<performance_id>/performance_manifest.json" "samples/segments/<source>/<run>/segments_manifest.json"
+scripts\dev.cmd extract-rhythm-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd extract-harmony-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd tag-performance-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd build-ai-training-records "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd extract-feature-pack "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd validate-feature-pack "performances/library/<performance_id>/performance_manifest.json"
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
@@ -578,3 +584,31 @@ Commands:
 scripts\dev.cmd list-performance-runs "performances/library/<performance_id>/performance_manifest.json"
 scripts\dev.cmd set-active-performance-run "performances/library/<performance_id>/performance_manifest.json" "samples/segments/<source>/<run>/segments_manifest.json"
 ```
+
+## Feature dataset layer
+
+The feature dataset layer builds evidence-based rhythm/harmony records from existing transcription artifacts without changing YourMT3 logic.
+
+Constraints for this layer:
+
+- merged MIDI is preferred when available
+- successful window MIDIs are used as fallback when merged MIDI is missing
+- low-evidence cases are retained with explicit low-confidence limitations
+- no Demucs, Omnizart, UI, database, embeddings, or model-training steps are introduced
+
+Core outputs are written under:
+
+`features/performance_feature_packs/<performance_id>/<segment_run_id>/`
+
+Commands:
+
+```powershell
+scripts\dev.cmd extract-rhythm-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd extract-harmony-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd tag-performance-features "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd build-ai-training-records "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd extract-feature-pack "performances/library/<performance_id>/performance_manifest.json"
+scripts\dev.cmd validate-feature-pack "performances/library/<performance_id>/performance_manifest.json"
+```
+
+`extract-feature-pack` orchestrates the full pipeline (`rhythm -> harmony -> tags -> ai records`) and writes `feature_pack_manifest.json`.

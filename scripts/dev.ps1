@@ -69,6 +69,12 @@ function Show-Usage {
     Write-Host "  batch-performances <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  list-performance-runs <performance-manifest>"
     Write-Host "  set-active-performance-run <performance-manifest> <segments-manifest>"
+    Write-Host "  extract-rhythm-features <performance-manifest>"
+    Write-Host "  extract-harmony-features <performance-manifest>"
+    Write-Host "  tag-performance-features <performance-manifest>"
+    Write-Host "  build-ai-training-records <performance-manifest>"
+    Write-Host "  extract-feature-pack <performance-manifest>"
+    Write-Host "  validate-feature-pack <performance-manifest>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -724,6 +730,42 @@ switch ($Task) {
         $segmentsManifest = Get-TaskArgOrThrow -Index 1 -Usage "Usage: scripts\dev.cmd set-active-performance-run <performance-manifest> <segments-manifest>"
         Invoke-Step -Label "Setting canonical active performance run" -Command @(
             "python", "scripts/set_active_performance_run.py", $manifestPath, $segmentsManifest
+        )
+    }
+    "extract-rhythm-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-rhythm-features <performance-manifest>"
+        Invoke-Step -Label "Extracting rhythm feature records" -Command @(
+            "python", "scripts/extract_rhythm_features.py", $manifestPath
+        )
+    }
+    "extract-harmony-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-harmony-features <performance-manifest>"
+        Invoke-Step -Label "Extracting harmony feature records" -Command @(
+            "python", "scripts/extract_harmony_features.py", $manifestPath
+        )
+    }
+    "tag-performance-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd tag-performance-features <performance-manifest>"
+        Invoke-Step -Label "Tagging performance feature records" -Command @(
+            "python", "scripts/tag_performance_features.py", $manifestPath
+        )
+    }
+    "build-ai-training-records" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-ai-training-records <performance-manifest>"
+        Invoke-Step -Label "Building AI training records" -Command @(
+            "python", "scripts/build_ai_training_records.py", $manifestPath
+        )
+    }
+    "extract-feature-pack" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-feature-pack <performance-manifest>"
+        Invoke-Step -Label "Extracting full feature pack" -Command @(
+            "python", "scripts/extract_feature_pack.py", $manifestPath
+        )
+    }
+    "validate-feature-pack" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-feature-pack <performance-manifest>"
+        Invoke-Step -Label "Validating feature pack outputs" -Command @(
+            "python", "scripts/validate_feature_pack.py", $manifestPath
         )
     }
     "transcribe-yourmt3" {
