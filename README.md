@@ -57,6 +57,12 @@ scripts\dev.cmd commit-checkpoint
 scripts\dev.cmd commit-checkpoint "My commit message"
 ```
 
+When paths contain spaces on Windows, always quote them, for example:
+
+```powershell
+scripts\dev.cmd clip-and-transcribe-yourmt3 "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 30
+```
+
 Troubleshooting:
 
 - If Modal deploy fails with `'charmap' codec can't encode character`, run:

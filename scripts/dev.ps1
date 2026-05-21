@@ -1,8 +1,8 @@
 ﻿param(
     [Parameter(Position = 0)]
     [string]$Task,
-    [Parameter(Position = 1)]
-    [string]$CommitMessage = "Checkpoint"
+    [Parameter(ValueFromRemainingArguments = $true)]
+    [string[]]$TaskArgs = @()
 )
 
 $ErrorActionPreference = "Stop"
@@ -44,6 +44,7 @@ function Show-Usage {
     Write-Host "  make-clip <audio-path> [seconds]"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
+    Write-Host "  debug-args [any args]"
     Write-Host "  benchmark-track <track-folder>"
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
@@ -121,6 +122,22 @@ function Invoke-YourMt3TranscriptionWorkflow {
     foreach ($line in $benchmarkOutput) {
         if (-not [string]::IsNullOrWhiteSpace($line)) { Write-Host "    $line" }
     }
+}
+
+function Get-TaskArg {
+    param([Parameter(Mandatory = $true)][int]$Index)
+    if ($TaskArgs.Count -le $Index) { return $null }
+    return $TaskArgs[$Index]
+}
+
+function Get-TaskArgOrThrow {
+    param(
+        [Parameter(Mandatory = $true)][int]$Index,
+        [Parameter(Mandatory = $true)][string]$Usage
+    )
+    $value = Get-TaskArg -Index $Index
+    if ([string]::IsNullOrWhiteSpace($value)) { throw $Usage }
+    return $value
 }
 
 function Find-ToolPathFromCommand {
@@ -320,41 +337,42 @@ switch ($Task) {
     }
     "make-clip" {
         Ensure-FfmpegPath
-        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-            throw "Usage: scripts\dev.cmd make-clip <audio-path> [seconds]"
-        }
-        $clipCommand = @("python", "scripts/make_clip.py", $CommitMessage)
-        if ($args.Count -ge 1 -and -not [string]::IsNullOrWhiteSpace($args[0])) {
-            $clipCommand += @("--seconds", "$($args[0])")
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd make-clip <audio-path> [seconds]"
+        $seconds = Get-TaskArg -Index 1
+        $clipCommand = @("python", "scripts/make_clip.py", $audioPath)
+        if (-not [string]::IsNullOrWhiteSpace($seconds)) {
+            $clipCommand += @("--seconds", $seconds)
         }
         Invoke-Step -Label "Creating short clip" -Command $clipCommand
     }
     "transcribe-yourmt3" {
-        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-            throw "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
-        }
-        Invoke-YourMt3TranscriptionWorkflow -AudioPath $CommitMessage
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
+        Invoke-YourMt3TranscriptionWorkflow -AudioPath $audioPath
     }
     "clip-and-transcribe-yourmt3" {
         Ensure-FfmpegPath
-        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-            throw "Usage: scripts\dev.cmd clip-and-transcribe-yourmt3 <audio-path> [seconds]"
-        }
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd clip-and-transcribe-yourmt3 <audio-path> [seconds]"
+        $seconds = Get-TaskArg -Index 1
 
-        $clipCommand = @("python", "scripts/make_clip.py", $CommitMessage)
-        if ($args.Count -ge 1 -and -not [string]::IsNullOrWhiteSpace($args[0])) {
-            $clipCommand += @("--seconds", "$($args[0])")
+        $clipCommand = @("python", "scripts/make_clip.py", $audioPath)
+        if (-not [string]::IsNullOrWhiteSpace($seconds)) {
+            $clipCommand += @("--seconds", $seconds)
         }
         $clipOutput = Invoke-CommandCapture -Label "Creating short clip" -Command $clipCommand
         $clipPath = $clipOutput | Select-Object -Last 1
         if ([string]::IsNullOrWhiteSpace($clipPath)) { throw "Could not determine clip output path." }
         Invoke-YourMt3TranscriptionWorkflow -AudioPath $clipPath
     }
-    "benchmark-track" {
-        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-            throw "Usage: scripts\dev.cmd benchmark-track <track-folder>"
+    "debug-args" {
+        Write-Host "TASK=$Task"
+        Write-Host "TASK_ARG_COUNT=$($TaskArgs.Count)"
+        for ($i = 0; $i -lt $TaskArgs.Count; $i++) {
+            Write-Host "TASK_ARG_$i=$($TaskArgs[$i])"
         }
-        Invoke-Step -Label "Benchmarking track" -Command @("python", "scripts/benchmark_track.py", $CommitMessage)
+    }
+    "benchmark-track" {
+        $trackFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd benchmark-track <track-folder>"
+        Invoke-Step -Label "Benchmarking track" -Command @("python", "scripts/benchmark_track.py", $trackFolder)
     }
     "validate-latest" {
         $libraryRoot = Join-Path (Get-Location) "library"
@@ -367,17 +385,16 @@ switch ($Task) {
         Invoke-Step -Label "Validating latest track" -Command @("python", "scripts/validate_track.py", $latestTrack.FullName)
     }
     "validate-track" {
-        if ([string]::IsNullOrWhiteSpace($CommitMessage)) {
-            throw "Usage: scripts\dev.cmd validate-track <track-folder>"
-        }
-        Invoke-Step -Label "Validating track" -Command @("python", "scripts/validate_track.py", $CommitMessage)
+        $trackFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-track <track-folder>"
+        Invoke-Step -Label "Validating track" -Command @("python", "scripts/validate_track.py", $trackFolder)
     }
     "commit-checkpoint" {
+        $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }
         if (-not $script:ResolvedGitExe) { Show-ToolMissingMessage "git"; throw "Cannot run commit-checkpoint because git is unavailable in this shell." }
         Invoke-Step -Label "Git status" -Command @($script:ResolvedGitExe, "status")
         Invoke-Step -Label "Running tests before commit" -Command @("python", "-m", "pytest", "-q")
         Invoke-Step -Label "Staging all changes" -Command @($script:ResolvedGitExe, "add", ".")
-        Invoke-Step -Label "Creating commit" -Command @($script:ResolvedGitExe, "commit", "-m", $CommitMessage)
+        Invoke-Step -Label "Creating commit" -Command @($script:ResolvedGitExe, "commit", "-m", $commitMessage)
     }
     default { Write-Host "Unknown task: $Task"; Show-Usage; exit 1 }
 }
