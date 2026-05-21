@@ -61,6 +61,7 @@ function Show-Usage {
     Write-Host "  compare-segmentations <segments-source-folder>"
     Write-Host "  transcribe-windows <manifest-path> [max-windows]"
     Write-Host "  benchmark-segments <manifest-path>"
+    Write-Host "  stitch-midi-dry-run <manifest-path>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -659,6 +660,10 @@ switch ($Task) {
     "benchmark-segments" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd benchmark-segments <manifest-path>"
         Invoke-Step -Label "Benchmarking segment manifest" -Command @("python", "scripts/benchmark_segments.py", $manifestPath)
+    }
+    "stitch-midi-dry-run" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd stitch-midi-dry-run <manifest-path>"
+        Invoke-Step -Label "MIDI stitching dry-run" -Command @("python", "scripts/stitch_midi.py", $manifestPath, "--dry-run")
     }
     "transcribe-yourmt3" {
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd transcribe-yourmt3 <audio-path>"
