@@ -36,6 +36,37 @@ A musical segment may map 1:1, 1:many, or many:1 with transcription windows.
 
 This scaffold keeps these as strategy targets and does not overclaim full phrase detection quality yet.
 
+## Pre-MIDI audio structure analysis
+
+Segmentation should happen before MIDI transcription:
+
+- Audio structure cues exist directly in waveform dynamics and spectral change.
+- Pre-MIDI segmentation reduces expensive transcription calls on weak boundaries.
+- Better window boundaries improve downstream MIDI continuity and reduce split-note artifacts.
+
+Energy-only boundaries are useful but insufficient:
+
+- Ambient or sustained passages can have low-energy variation without phrase changes.
+- Real phrase transitions can happen at similar loudness but with harmonic/timbral change.
+- Conservative multi-feature evidence is safer than single-feature thresholding.
+
+Feature families for conservative boundary evidence:
+
+- RMS / loudness change
+- onset strength / onset density change
+- chroma / harmonic change
+- timbre / spectral change
+- self-similarity or recurrence novelty
+- beat/bar alignment later (not in v1)
+- learned audio embeddings later (MERT/CLAP-style), scaffold only for now
+
+Boundary candidates should carry evidence, not just timestamps:
+
+- each candidate stores confidence and dominant reason
+- each candidate stores feature-level evidence values
+- low-confidence candidates are rejected
+- ambiguous material can still trigger an explicit fixed fallback, marked clearly in diagnostics
+
 ## Safe fallback strategy
 
 - Use fixed windows with context when phrase confidence is low or unavailable.

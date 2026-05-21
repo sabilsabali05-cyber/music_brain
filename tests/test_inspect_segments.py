@@ -12,6 +12,14 @@ def test_inspect_segments_prints_expected_structure(tmp_path: Path) -> None:
         "source_name": "song.mp3",
         "duration_seconds": 120.0,
         "segmentation_strategy": "energy_v1",
+        "segmentation_diagnostics": {
+            "analysis_path": "samples/analysis/song/structure_analysis.json",
+            "candidate_boundary_count": 4,
+            "accepted_boundary_count": 2,
+            "rejected_boundary_count": 2,
+            "available_features": ["rms", "onset_strength"],
+            "missing_features": ["chroma_change", "timbre_change"],
+        },
         "musical_segments": [
             {
                 "index": 0,
@@ -22,6 +30,8 @@ def test_inspect_segments_prints_expected_structure(tmp_path: Path) -> None:
                 "next_segment_id": "seg_0001",
                 "boundary_confidence": 0.7,
                 "boundary_reason": "low_energy_boundary",
+                "boundary_source": "audio_structure_v1",
+                "feature_evidence": {"combined_novelty": 0.8},
                 "transcription_window_id": "win_0000",
             }
         ],
@@ -51,4 +61,7 @@ def test_inspect_segments_prints_expected_structure(tmp_path: Path) -> None:
     assert "musical_segments_count: 1" in text
     assert "transcription_windows_count: 1" in text
     assert "boundary_reason=low_energy_boundary" in text
+    assert "boundary_source=audio_structure_v1" in text
+    assert "feature_evidence={'combined_novelty': 0.8}" in text
+    assert "candidate_boundary_count: 4" in text
     assert "track_folder=library/trk_1" in text

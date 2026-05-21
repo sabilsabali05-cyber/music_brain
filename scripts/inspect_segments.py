@@ -18,6 +18,14 @@ def build_inspection_lines(manifest: dict[str, object]) -> list[str]:
     lines.append(f"strategy_used: {manifest.get('strategy_used')}")
     lines.append(f"fallback_used: {manifest.get('fallback_used')}")
     lines.append(f"segmentation_run_id: {manifest.get('segmentation_run_id')}")
+    diagnostics = manifest.get("segmentation_diagnostics", {})
+    if isinstance(diagnostics, dict):
+        lines.append(f"analysis_path: {diagnostics.get('analysis_path')}")
+        lines.append(f"candidate_boundary_count: {diagnostics.get('candidate_boundary_count')}")
+        lines.append(f"accepted_boundary_count: {diagnostics.get('accepted_boundary_count')}")
+        lines.append(f"rejected_boundary_count: {diagnostics.get('rejected_boundary_count')}")
+        lines.append(f"available_features: {diagnostics.get('available_features')}")
+        lines.append(f"missing_features: {diagnostics.get('missing_features')}")
     lines.append(f"musical_segments_count: {len(musical_segments) if isinstance(musical_segments, list) else 0}")
     lines.append(f"transcription_windows_count: {len(windows) if isinstance(windows, list) else 0}")
 
@@ -36,6 +44,8 @@ def build_inspection_lines(manifest: dict[str, object]) -> list[str]:
                 f"next={seg.get('next_segment_id')} "
                 f"boundary_confidence={seg.get('boundary_confidence')} "
                 f"boundary_reason={seg.get('boundary_reason')} "
+                f"boundary_source={seg.get('boundary_source')} "
+                f"feature_evidence={seg.get('feature_evidence')} "
                 f"transcription_window_id={seg.get('transcription_window_id')}"
             )
 

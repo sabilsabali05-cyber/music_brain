@@ -42,7 +42,9 @@ function Show-Usage {
     Write-Host "  logs-modal"
     Write-Host "  preflight-yourmt3"
     Write-Host "  make-clip <audio-path> [seconds]"
+    Write-Host "  analyze-structure <audio-path>"
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
+    Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
     Write-Host "  inspect-segments <manifest-path>"
     Write-Host "  inspect-latest-segments [source-folder]"
     Write-Host "  compare-segmentations <segments-source-folder>"
@@ -354,6 +356,17 @@ switch ($Task) {
         }
         Invoke-Step -Label "Creating short clip" -Command $clipCommand
     }
+    "analyze-structure" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd analyze-structure <audio-path>"
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+    }
     "segment-audio" {
         Ensure-FfmpegPath
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio <audio-path> [target-window-seconds] [strategy]"
@@ -375,6 +388,38 @@ switch ($Task) {
         }
         $segmentCommand += @("--max-window-seconds", "90", "--context-seconds", "5")
         $segmentOutput = Invoke-CommandCapture -Label "Creating segment manifest and windows" -Command $segmentCommand
+        $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
+        if ($manifestLine) {
+            Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
+        }
+    }
+    "segment-audio-structure" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure <audio-path> [target-window-seconds]"
+        $targetWindow = Get-TaskArg -Index 1
+
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+
+        $segmentCommand = @(
+            "python",
+            "scripts/segment_audio.py",
+            $audioPath,
+            "--strategy",
+            "audio_structure",
+            "--target-window-seconds",
+            $(if (-not [string]::IsNullOrWhiteSpace($targetWindow)) { $targetWindow } else { "60" }),
+            "--max-window-seconds",
+            "90",
+            "--context-seconds",
+            "5"
+        )
+        $segmentOutput = Invoke-CommandCapture -Label "Creating audio-structure segment manifest and windows" -Command $segmentCommand
         $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
         if ($manifestLine) {
             Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"

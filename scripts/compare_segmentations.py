@@ -43,8 +43,16 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
         "fallback_used": manifest.get("fallback_used", diagnostics.get("fallback_used")),
         "musical_segments": len(manifest.get("musical_segments", [])),
         "transcription_windows": len(windows) if isinstance(windows, list) else 0,
-        "detected_boundary_count": diagnostics.get("detected_boundary_count"),
+        "candidate_boundary_count": diagnostics.get(
+            "candidate_boundary_count", diagnostics.get("detected_boundary_count")
+        ),
         "accepted_boundary_count": diagnostics.get("accepted_boundary_count"),
+        "available_features": ",".join(diagnostics.get("available_features", []))
+        if isinstance(diagnostics.get("available_features"), list)
+        else diagnostics.get("available_features"),
+        "missing_features": ",".join(diagnostics.get("missing_features", []))
+        if isinstance(diagnostics.get("missing_features"), list)
+        else diagnostics.get("missing_features"),
         "successful_windows": successful,
         "failed_windows": failed,
         "total_note_on_count": note_on_total,
@@ -86,8 +94,10 @@ def main() -> int:
         "fallback_used",
         "musical_segments",
         "transcription_windows",
-        "detected_boundary_count",
+        "candidate_boundary_count",
         "accepted_boundary_count",
+        "available_features",
+        "missing_features",
         "successful_windows",
         "failed_windows",
         "total_note_on_count",

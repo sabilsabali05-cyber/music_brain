@@ -27,8 +27,11 @@ def _write_run(folder: Path, run_id: str, strategy_used: str, fallback_used: boo
         "fallback_used": fallback_used,
         "musical_segments": [{}, {}],
         "segmentation_diagnostics": {
+            "candidate_boundary_count": 3,
             "detected_boundary_count": 3,
             "accepted_boundary_count": 1,
+            "available_features": ["rms", "onset_strength"],
+            "missing_features": ["chroma_change"],
         },
         "transcription_windows": [
             {
@@ -53,6 +56,8 @@ def test_compare_segmentations_summarizes_multiple_runs(tmp_path: Path) -> None:
     assert energy_row["successful_windows"] == 1
     assert energy_row["failed_windows"] == 0
     assert energy_row["total_note_on_count"] == 1
+    assert energy_row["candidate_boundary_count"] == 3
+    assert energy_row["available_features"] == "rms,onset_strength"
 
 
 def test_compare_segmentations_includes_legacy_and_run_folders(tmp_path: Path) -> None:

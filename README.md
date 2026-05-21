@@ -48,10 +48,13 @@ scripts\dev.cmd smoke-yourmt3
 scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
+scripts\dev.cmd analyze-structure "samples/input/my_song.wav"
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
-scripts\dev.cmd inspect-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
-scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
-scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
+scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
+scripts\dev.cmd inspect-latest-segments
+scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
+scripts\dev.cmd transcribe-windows "<manifest_path>" 2
+scripts\dev.cmd benchmark-segments "<manifest_path>"
 scripts\dev.cmd transcribe-yourmt3 samples\clips\my_song_clip_0s_30s.wav
 scripts\dev.cmd clip-and-transcribe-yourmt3 samples\input\my_song.wav 30
 scripts\dev.cmd benchmark-track library\trk_20260521T103733Z_e3513afc22
@@ -320,9 +323,9 @@ Safe first run for long audio:
 
 ```powershell
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
-scripts\dev.cmd inspect-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
-scripts\dev.cmd transcribe-windows "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json" 2
-scripts\dev.cmd benchmark-segments "samples/segments/Varud_-_Sigur_Ros_Valtari/segments_manifest.json"
+scripts\dev.cmd inspect-latest-segments
+scripts\dev.cmd transcribe-windows "<manifest_path>" 2
+scripts\dev.cmd benchmark-segments "<manifest_path>"
 ```
 
 This keeps GPU usage bounded while proving manifest + context + resume behavior.
@@ -349,3 +352,22 @@ scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valta
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 ```
+
+## Pre-MIDI audio structure analysis
+
+This flow analyzes audio structure before MIDI transcription:
+
+```powershell
+scripts\dev.cmd analyze-structure "samples/input/my_song.wav"
+scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
+scripts\dev.cmd inspect-latest-segments
+scripts\dev.cmd transcribe-windows "<manifest_path>" 2
+scripts\dev.cmd benchmark-segments "<manifest_path>"
+```
+
+Notes:
+
+- Boundaries are candidate signals, not guaranteed phrase truth.
+- Fallback to fixed windows is expected on ambiguous ambient material.
+- `audio_structure` uses conservative evidence from available features before transcription.
+- Future improvements can add beat/bar snapping, chroma recurrence structure, and learned MERT/CLAP-style embeddings.
