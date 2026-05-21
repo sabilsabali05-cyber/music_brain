@@ -41,6 +41,7 @@ Use the task runner to avoid retyping long sequences:
 scripts\dev.cmd doctor
 scripts\dev.cmd test
 scripts\dev.cmd deploy-modal
+scripts\dev.cmd deploy-modal-utf8
 scripts\dev.cmd smoke-local-fake
 scripts\dev.cmd smoke-modal-fake
 scripts\dev.cmd smoke-yourmt3
@@ -48,6 +49,14 @@ scripts\dev.cmd logs-modal
 scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd commit-checkpoint
 scripts\dev.cmd commit-checkpoint "My commit message"
+```
+
+Troubleshooting:
+
+- If Modal deploy fails with `'charmap' codec can't encode character`, run:
+
+```powershell
+scripts\dev.cmd deploy-modal-utf8
 ```
 
 ## Local fake smoke test
@@ -144,6 +153,7 @@ Expected failure behavior:
 
 - The Modal YourMT3 runner uses `mt3-infer` inside the Modal image (not your local Windows Python env).
 - The Modal image must include `git-lfs` because `mt3-infer` checkpoint download pulls LFS-tracked assets.
+- If Modal logs show `No module named 'pytorch_lightning'`, pin and include `pytorch-lightning==2.6.1` in the Modal image.
 - First run may be slow because model checkpoints may download.
 - A Modal Volume caches checkpoints at `MT3_CHECKPOINT_DIR=/models/mt3_checkpoints`.
 - Later runs should be faster as cache warms.

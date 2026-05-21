@@ -26,6 +26,7 @@ yourmt3_image = (
         "soundfile>=0.12",
         "pretty_midi>=0.2",
         "mido>=1.3",
+        "pytorch-lightning==2.6.1",
         "mt3-infer[torch]",
     )
     .run_commands("git lfs install --system")
@@ -84,6 +85,11 @@ def _is_git_lfs_missing_error(message: str) -> bool:
     )
 
 
+def _is_pytorch_lightning_missing_error(message: str) -> bool:
+    lowered = message.lower()
+    return "no module named 'pytorch_lightning'" in lowered or "pytorch_lightning" in lowered
+
+
 @app.function(image=yourmt3_image, volumes={MT3_CACHE_MOUNT: mt3_cache_volume})
 def yourmt3_diagnostics() -> dict[str, object]:
     diagnostics: dict[str, object] = {
@@ -95,6 +101,9 @@ def yourmt3_diagnostics() -> dict[str, object]:
         "git_version": None,
         "git_lfs_version": None,
         "git_lfs_available": False,
+        "pytorch_lightning_import_ok": False,
+        "pytorch_lightning_version": None,
+        "pytorch_lightning_error": None,
     }
     try:
         git_version = subprocess.run(["git", "--version"], capture_output=True, text=True, check=False)
@@ -123,6 +132,14 @@ def yourmt3_diagnostics() -> dict[str, object]:
         diagnostics["torch_cuda_available"] = bool(torch.cuda.is_available())
     except Exception as exc:  # noqa: BLE001
         diagnostics["torch_error"] = f"{exc.__class__.__name__}: {exc}"
+
+    try:
+        import pytorch_lightning as pl
+
+        diagnostics["pytorch_lightning_import_ok"] = True
+        diagnostics["pytorch_lightning_version"] = getattr(pl, "__version__", "unknown")
+    except Exception as exc:  # noqa: BLE001
+        diagnostics["pytorch_lightning_error"] = f"{exc.__class__.__name__}: {exc}"
 
     try:
         from mt3_infer import __version__ as mt3_infer_version
@@ -169,6 +186,11 @@ class YourMT3ModalRunner:
             if _is_git_lfs_missing_error(detailed):
                 raise RuntimeError(
                     "YourMT3 model failed to load inside Modal because git-lfs is missing or unavailable: "
+                    f"{detailed}"
+                ) from exc
+            if _is_pytorch_lightning_missing_error(detailed):
+                raise RuntimeError(
+                    "YourMT3 model failed to load inside Modal because pytorch-lightning is missing: "
                     f"{detailed}"
                 ) from exc
             raise RuntimeError(f"YourMT3 model failed to load inside Modal: {detailed}") from exc

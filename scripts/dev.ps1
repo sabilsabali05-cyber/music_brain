@@ -7,6 +7,21 @@
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
+$env:PYTHONUTF8 = "1"
+$env:PYTHONIOENCODING = "utf-8"
+try {
+    [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+    $OutputEncoding = [System.Text.UTF8Encoding]::new()
+}
+catch {
+    Write-Host "Warning: Could not set PowerShell UTF-8 output encoding."
+}
+try {
+    chcp.com 65001 > $null
+}
+catch {
+    Write-Host "Warning: Could not switch terminal code page to UTF-8."
+}
 
 $script:ResolvedGitExe = $null
 $script:ResolvedGitSource = "missing"
@@ -20,6 +35,7 @@ function Show-Usage {
     Write-Host "  doctor"
     Write-Host "  test"
     Write-Host "  deploy-modal"
+    Write-Host "  deploy-modal-utf8"
     Write-Host "  smoke-local-fake"
     Write-Host "  smoke-modal-fake"
     Write-Host "  smoke-yourmt3"
@@ -109,6 +125,14 @@ function Show-ToolMissingMessage {
 function Show-ShellDiagnostics {
     Write-Host "PowerShell process: $((Get-Process -Id $PID).Path)"
     Write-Host "PowerShell version: $($PSVersionTable.PSVersion)"
+    Write-Host "PYTHONUTF8=$env:PYTHONUTF8"
+    Write-Host "PYTHONIOENCODING=$env:PYTHONIOENCODING"
+    try {
+        Write-Host "Console output encoding: $([Console]::OutputEncoding.WebName)"
+    }
+    catch {
+        Write-Host "Console output encoding: unavailable"
+    }
 
     $pythonPath = Find-ToolPathFromCommand "python"
     if ($pythonPath) { Write-Host "python path: $pythonPath"; Invoke-Step -Label "Python version" -Command @("python", "--version") } else { Show-ToolMissingMessage "python" }
@@ -188,6 +212,7 @@ switch ($Task) {
     "doctor" { Run-Doctor }
     "test" { Invoke-Step -Label "Running tests" -Command @("python", "-m", "pytest", "-q") }
     "deploy-modal" { Invoke-Step -Label "Deploying Modal app" -Command @("python", "-m", "modal", "deploy", "modal_app.py") }
+    "deploy-modal-utf8" { Invoke-Step -Label "Deploying Modal app (UTF-8 mode)" -Command @("python", "-m", "modal", "deploy", "modal_app.py") }
     "smoke-local-fake" {
         Ensure-FfmpegPath
         $env:MUSIC_BRAIN_PROVIDER = "fake"
