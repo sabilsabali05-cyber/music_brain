@@ -11,6 +11,20 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
+FEATURE_REASON_MAP: dict[str, str] = {
+    "novelty_combined": "combined_audio_novelty",
+    "chroma_change": "harmonic_chroma_change",
+    "timbre_change": "timbre_change",
+    "onset_strength": "onset_density_change",
+    "rms": "energy_change",
+}
+
+DENSITY_PRESETS: dict[str, dict[str, float]] = {
+    "conservative": {"threshold_offset": 0.05, "distance_scale": 1.2, "max_scale": 0.8},
+    "normal": {"threshold_offset": 0.0, "distance_scale": 1.0, "max_scale": 1.0},
+    "dense": {"threshold_offset": -0.12, "distance_scale": 0.55, "max_scale": 1.8},
+}
+
 
 def safe_source_name(path: Path) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", path.stem).strip("_") or "performance"
@@ -233,105 +247,152 @@ def fuse_boundary_candidates(
     duration_seconds: float,
     target_window_seconds: float = 60.0,
     max_window_seconds: float = 90.0,
-    min_segment_seconds: float = 12.0,
-    confidence_threshold: float = 0.55,
+    candidate_density: str = "conservative",
+    peak_pick_threshold: float = 0.55,
+    min_boundary_distance_seconds: float = 12.0,
+    max_candidates: int = 8,
 ) -> tuple[list[dict[str, object]], dict[str, object]]:
-    combined = feature_curves.get("novelty_combined", [])
-    if not combined:
-        combined = _normalize_curve(
+    _ = target_window_seconds
+    _ = max_window_seconds
+    density = str(candidate_density).lower().strip() or "conservative"
+    if density not in DENSITY_PRESETS:
+        density = "conservative"
+    preset = DENSITY_PRESETS[density]
+    requested_threshold = float(peak_pick_threshold)
+    effective_threshold = max(0.0, min(1.0, requested_threshold + float(preset["threshold_offset"])))
+    requested_min_distance_seconds = max(0.1, float(min_boundary_distance_seconds))
+    effective_min_distance_seconds = max(0.1, requested_min_distance_seconds * float(preset["distance_scale"]))
+    effective_max_candidates = max(1, int(round(max(1, int(max_candidates)) * float(preset["max_scale"]))))
+    min_distance_frames = max(1, int(effective_min_distance_seconds / max(frame_hop_seconds, 1e-6)))
+
+    normalized_curves = {
+        "novelty_combined": feature_curves.get("novelty_combined", []),
+        "chroma_change": feature_curves.get("chroma_change", []),
+        "timbre_change": feature_curves.get("timbre_change", []),
+        "onset_strength": feature_curves.get("onset_strength", []),
+        "rms": feature_curves.get("rms", []),
+    }
+    if not normalized_curves["novelty_combined"]:
+        normalized_curves["novelty_combined"] = _normalize_curve(
             [
-                (_feature_value(feature_curves.get("rms", []), i) + _feature_value(feature_curves.get("onset_strength", []), i))
+                (_feature_value(normalized_curves["rms"], i) + _feature_value(normalized_curves["onset_strength"], i))
                 / 2.0
-                for i in range(max(len(feature_curves.get("rms", [])), len(feature_curves.get("onset_strength", []))))
+                for i in range(max(len(normalized_curves["rms"]), len(normalized_curves["onset_strength"])))
             ]
         )
 
-    min_distance_frames = max(1, int(min_segment_seconds / frame_hop_seconds))
-    raw_peaks = _peak_pick(combined, threshold=confidence_threshold, min_distance_frames=min_distance_frames)
+    raw_peak_count_by_feature: dict[str, int] = {}
     raw_candidates: list[dict[str, object]] = []
-    for peak in raw_peaks:
-        time_seconds = min(duration_seconds, peak * frame_hop_seconds)
-        evidence = {
-            "energy_change": round(_feature_value(feature_curves.get("rms", []), peak), 6),
-            "onset_change": round(_feature_value(feature_curves.get("onset_strength", []), peak), 6),
-            "chroma_change": round(_feature_value(feature_curves.get("chroma_change", []), peak), 6),
-            "timbre_change": round(_feature_value(feature_curves.get("timbre_change", []), peak), 6),
-            "combined_novelty": round(_feature_value(combined, peak), 6),
-        }
-        dominant = max(
-            [
-                ("harmonic_chroma_change", evidence["chroma_change"]),
-                ("timbre_change", evidence["timbre_change"]),
-                ("onset_density_change", evidence["onset_change"]),
-                ("combined_audio_novelty", evidence["combined_novelty"]),
-            ],
-            key=lambda item: item[1],
-        )[0]
-        raw_candidates.append(
-            {
-                "time_seconds": round(time_seconds, 6),
-                "confidence": round(float(evidence["combined_novelty"]), 3),
-                "reason": dominant,
-                "candidate_source": "audio_structure",
-                "eligible_for_phrase_boundary": True,
-                "feature_evidence": evidence,
-            }
-        )
-
-    accepted: list[dict[str, object]] = []
-    accepted_raw_count = 0
-    start = 0.0
-    while start < duration_seconds:
-        remaining = duration_seconds - start
-        if remaining <= max_window_seconds:
-            break
-        lower = start + min_segment_seconds
-        upper = min(duration_seconds, start + max_window_seconds)
-        local = [c for c in raw_candidates if lower <= float(c["time_seconds"]) <= upper]
-        if local:
-            target = start + target_window_seconds
-            chosen = max(
-                local,
-                key=lambda c: (
-                    float(c["confidence"]) - (abs(float(c["time_seconds"]) - target) / max(1.0, target_window_seconds))
-                ),
-            )
-            accepted.append(chosen)
-            accepted_raw_count += 1
-            start = float(chosen["time_seconds"])
+    for source_feature, curve in normalized_curves.items():
+        if not curve:
+            raw_peak_count_by_feature[source_feature] = 0
             continue
-
-        fixed_time = min(duration_seconds, start + target_window_seconds)
-        accepted.append(
-            {
-                "time_seconds": round(fixed_time, 6),
-                "confidence": 0.2,
-                "reason": "fixed_interval_fallback",
-                "candidate_source": "fixed_coverage",
-                "eligible_for_phrase_boundary": False,
-                "feature_evidence": {
-                    "energy_change": 0.0,
-                    "onset_change": 0.0,
-                    "chroma_change": 0.0,
-                    "timbre_change": 0.0,
-                    "combined_novelty": 0.2,
-                },
+        peaks = _peak_pick(curve, threshold=effective_threshold, min_distance_frames=min_distance_frames)
+        raw_peak_count_by_feature[source_feature] = len(peaks)
+        for peak in peaks:
+            time_seconds = min(duration_seconds, peak * frame_hop_seconds)
+            evidence = {
+                "energy_change": round(_feature_value(normalized_curves.get("rms", []), peak), 6),
+                "onset_change": round(_feature_value(normalized_curves.get("onset_strength", []), peak), 6),
+                "chroma_change": round(_feature_value(normalized_curves.get("chroma_change", []), peak), 6),
+                "timbre_change": round(_feature_value(normalized_curves.get("timbre_change", []), peak), 6),
+                "combined_novelty": round(_feature_value(normalized_curves.get("novelty_combined", []), peak), 6),
             }
-        )
-        start = fixed_time
+            base_confidence = float(_feature_value(curve, peak))
+            combined_novelty = float(evidence["combined_novelty"])
+            confidence = max(0.0, min(1.0, 0.65 * base_confidence + 0.35 * combined_novelty))
+            raw_candidates.append(
+                {
+                    "time_seconds": round(float(time_seconds), 6),
+                    "confidence": round(confidence, 6),
+                    "reason": FEATURE_REASON_MAP.get(source_feature, "combined_audio_novelty"),
+                    "source_feature": source_feature,
+                    "candidate_source": "audio_structure",
+                    "eligible_for_phrase_boundary": True,
+                    "feature_evidence": evidence,
+                }
+            )
 
-    fallback_recommended = accepted_raw_count == 0
+    raw_candidates.sort(key=lambda row: float(row.get("time_seconds", 0.0)))
+    duplicate_window_seconds = max(frame_hop_seconds * 2.0, min(2.0, effective_min_distance_seconds * 0.25))
+    grouped: list[list[dict[str, object]]] = []
+    for candidate in raw_candidates:
+        if not grouped:
+            grouped.append([candidate])
+            continue
+        previous_time = float(grouped[-1][-1].get("time_seconds", 0.0))
+        current_time = float(candidate.get("time_seconds", 0.0))
+        if abs(current_time - previous_time) <= duplicate_window_seconds:
+            grouped[-1].append(candidate)
+        else:
+            grouped.append([candidate])
+
+    fused_candidates: list[dict[str, object]] = []
+    for group_index, group in enumerate(grouped, start=1):
+        strongest = max(group, key=lambda row: float(row.get("confidence", 0.0)))
+        contributing_features = sorted(
+            {str(row.get("source_feature", "novelty_combined")) for row in group if isinstance(row, dict)}
+        )
+        multi_feature_bonus = 0.04 * max(0, len(contributing_features) - 1)
+        boosted_confidence = min(1.0, float(strongest.get("confidence", 0.0)) + multi_feature_bonus)
+        merged_evidence = {"energy_change": 0.0, "onset_change": 0.0, "chroma_change": 0.0, "timbre_change": 0.0, "combined_novelty": 0.0}
+        for row in group:
+            evidence_obj = row.get("feature_evidence", {})
+            if not isinstance(evidence_obj, dict):
+                continue
+            for key in merged_evidence:
+                merged_evidence[key] = max(float(merged_evidence[key]), float(evidence_obj.get(key, 0.0) or 0.0))
+        fused = dict(strongest)
+        fused["confidence"] = round(boosted_confidence, 6)
+        fused["duplicate_group_id"] = f"grp_{group_index:04d}"
+        fused["contributing_features"] = contributing_features
+        fused["feature_evidence"] = {key: round(value, 6) for key, value in merged_evidence.items()}
+        fused_candidates.append(fused)
+
+    fused_by_strength = sorted(
+        fused_candidates, key=lambda row: float(row.get("confidence", 0.0)), reverse=True
+    )
+    selected: list[dict[str, object]] = []
+    for row in fused_by_strength:
+        if len(selected) >= effective_max_candidates:
+            break
+        time_seconds = float(row.get("time_seconds", 0.0))
+        if any(abs(time_seconds - float(existing.get("time_seconds", 0.0))) < effective_min_distance_seconds for existing in selected):
+            continue
+        selected.append(row)
+    selected = sorted(selected, key=lambda row: float(row.get("confidence", 0.0)), reverse=True)
+    for index, row in enumerate(selected, start=1):
+        row["rank"] = index
+    returned = sorted(selected, key=lambda row: float(row.get("time_seconds", 0.0)))
+
+    fallback_recommended = len(returned) == 0
     diagnostics = {
-        "raw_peak_count": len(raw_candidates),
-        "candidate_boundary_count": len(accepted),
-        "accepted_boundary_count": accepted_raw_count,
-        "rejected_boundary_count": max(0, len(raw_candidates) - accepted_raw_count),
+        "candidate_density": density,
+        "raw_peak_count_by_feature": raw_peak_count_by_feature,
+        "fused_candidate_count": len(fused_candidates),
+        "returned_candidate_count": len(returned),
+        "peak_pick_threshold": requested_threshold,
+        "effective_peak_pick_threshold": round(effective_threshold, 6),
+        "min_boundary_distance_seconds": requested_min_distance_seconds,
+        "effective_min_boundary_distance_seconds": round(effective_min_distance_seconds, 6),
+        "max_candidates": int(max_candidates),
+        "effective_max_candidates": int(effective_max_candidates),
+        "candidate_boundary_count": len(returned),
+        "accepted_boundary_count": 0,
+        "rejected_boundary_count": max(0, len(raw_candidates) - len(returned)),
         "fallback_recommended": fallback_recommended,
     }
-    return accepted, diagnostics
+    return returned, diagnostics
 
 
-def analyze_audio_structure(source_path: Path) -> Path:
+def analyze_audio_structure(
+    source_path: Path,
+    *,
+    candidate_density: str = "conservative",
+    peak_pick_threshold: float = 0.55,
+    min_boundary_distance_seconds: float = 12.0,
+    max_candidates: int = 8,
+) -> Path:
     if not source_path.exists():
         raise FileNotFoundError(f"Audio file does not exist: {source_path}")
 
@@ -350,6 +411,10 @@ def analyze_audio_structure(source_path: Path) -> Path:
         feature_curves=features,
         frame_hop_seconds=frame_hop_seconds,
         duration_seconds=duration_seconds,
+        candidate_density=candidate_density,
+        peak_pick_threshold=peak_pick_threshold,
+        min_boundary_distance_seconds=min_boundary_distance_seconds,
+        max_candidates=max_candidates,
     )
 
     notes: list[str] = [
@@ -372,6 +437,13 @@ def analyze_audio_structure(source_path: Path) -> Path:
         "diagnostics": {
             "fallback_recommended": bool(fusion["fallback_recommended"]),
             "candidate_boundary_count": int(fusion["candidate_boundary_count"]),
+            "candidate_density": fusion.get("candidate_density"),
+            "raw_peak_count_by_feature": fusion.get("raw_peak_count_by_feature"),
+            "fused_candidate_count": int(fusion.get("fused_candidate_count", 0)),
+            "returned_candidate_count": int(fusion.get("returned_candidate_count", 0)),
+            "peak_pick_threshold": fusion.get("peak_pick_threshold"),
+            "min_boundary_distance_seconds": fusion.get("min_boundary_distance_seconds"),
+            "max_candidates": fusion.get("max_candidates"),
             "accepted_boundary_count": int(fusion["accepted_boundary_count"]),
             "rejected_boundary_count": int(fusion["rejected_boundary_count"]),
             "available_features": available_features,
@@ -436,6 +508,13 @@ def analyze_audio_structure_modal(
         normalized["candidate_source"] = source
         if "eligible_for_phrase_boundary" not in normalized:
             normalized["eligible_for_phrase_boundary"] = source == "audio_structure"
+        normalized["source_feature"] = str(normalized.get("source_feature", "novelty_combined"))
+        contributing = normalized.get("contributing_features", [normalized["source_feature"]])
+        if not isinstance(contributing, list):
+            contributing = [str(contributing)]
+        normalized["contributing_features"] = [str(item) for item in contributing]
+        if "rank" not in normalized:
+            normalized["rank"] = len(normalized_candidates) + 1
         normalized_candidates.append(normalized)
     payload["boundary_candidates"] = normalized_candidates
     diagnostics = payload.get("diagnostics", {})
@@ -444,6 +523,15 @@ def analyze_audio_structure_modal(
     diagnostics.setdefault("available_features", ["rms", "onset_strength", "chroma_change", "timbre_change"])
     diagnostics.setdefault("missing_features", [])
     diagnostics.setdefault("fallback_recommended", False)
+    diagnostics.setdefault("candidate_density", (options or {}).get("candidate_density", "conservative"))
+    diagnostics.setdefault("raw_peak_count_by_feature", {})
+    diagnostics.setdefault("fused_candidate_count", len(normalized_candidates))
+    diagnostics.setdefault("returned_candidate_count", len(normalized_candidates))
+    diagnostics.setdefault("peak_pick_threshold", (options or {}).get("peak_pick_threshold", 0.55))
+    diagnostics.setdefault(
+        "min_boundary_distance_seconds", (options or {}).get("min_boundary_distance_seconds", 12.0)
+    )
+    diagnostics.setdefault("max_candidates", (options or {}).get("max_candidates", 8))
     diagnostics.setdefault("notes", ["Computed on Modal CPU librosa backend."])
     payload["diagnostics"] = diagnostics
     analysis_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
@@ -489,6 +577,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Analyze pre-MIDI audio structure and boundary candidates.")
     parser.add_argument("source_path", nargs="?", help="Path to input audio.")
     parser.add_argument("--backend", choices=["local_light", "modal_librosa"], default="local_light")
+    parser.add_argument("--candidate-density", choices=["conservative", "normal", "dense"], default="conservative")
+    parser.add_argument("--peak-pick-threshold", type=float, default=0.55)
+    parser.add_argument("--min-boundary-distance-seconds", type=float, default=12.0)
+    parser.add_argument("--max-candidates", type=int, default=8)
     parser.add_argument("--diagnostics", action="store_true")
     args = parser.parse_args()
 
@@ -499,10 +591,22 @@ def main() -> int:
     if not args.source_path:
         raise SystemExit("source_path is required unless --diagnostics is provided")
 
+    options = {
+        "candidate_density": args.candidate_density,
+        "peak_pick_threshold": float(args.peak_pick_threshold),
+        "min_boundary_distance_seconds": float(args.min_boundary_distance_seconds),
+        "max_candidates": int(args.max_candidates),
+    }
     if args.backend == "modal_librosa":
-        analysis_path = analyze_audio_structure_modal(Path(args.source_path))
+        analysis_path = analyze_audio_structure_modal(Path(args.source_path), options=options)
     else:
-        analysis_path = analyze_audio_structure(Path(args.source_path))
+        analysis_path = analyze_audio_structure(
+            Path(args.source_path),
+            candidate_density=args.candidate_density,
+            peak_pick_threshold=args.peak_pick_threshold,
+            min_boundary_distance_seconds=args.min_boundary_distance_seconds,
+            max_candidates=args.max_candidates,
+        )
     print(f"ANALYSIS_PATH={analysis_path.as_posix()}")
     return 0
 

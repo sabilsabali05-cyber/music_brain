@@ -50,10 +50,13 @@ scripts\dev.cmd preflight-yourmt3
 scripts\dev.cmd make-clip samples\input\my_song.wav 30
 scripts\dev.cmd analyze-structure-local "samples/input/my_song.wav"
 scripts\dev.cmd analyze-structure-modal "samples/input/my_song.wav"
+scripts\dev.cmd analyze-structure-modal-dense "samples/input/my_song.wav"
 scripts\dev.cmd audio-analysis-diagnostics
 scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
+scripts\dev.cmd segment-audio-structure-dense "samples/input/my_song.wav" 60
 scripts\dev.cmd segment-audio-structure-tuned "samples/input/my_song.wav" 60 0.45
+scripts\dev.cmd sweep-audio-structure-dense "samples/input/my_song.wav" 60
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 scripts\dev.cmd transcribe-windows "<manifest_path>" 2
@@ -427,3 +430,29 @@ scripts\dev.cmd segment-audio-structure-tuned "C:\Users\izzyo\Downloads\Varud - 
 ```
 
 This keeps prior runs intact and records tuning values in `segmentation_parameters` inside each manifest.
+
+## Candidate density and boundary generation
+
+Threshold tuning only helps when candidate generation is rich enough. If the analyzer emits too few audio-derived candidates, segmentation selection cannot invent new phrase boundaries.
+
+Use candidate-generation controls in `scripts/analyze_audio_structure.py`:
+
+- `--candidate-density conservative|normal|dense`
+- `--peak-pick-threshold <float>`
+- `--min-boundary-distance-seconds <float>`
+- `--max-candidates <int>`
+
+Dense analysis generates more candidate boundaries, but does **not** automatically accept them as phrase splits. Selection in `segment_audio.py` still applies musical constraints (thresholds, spacing, duration limits).
+
+Fixed coverage windows remain separate from phrase boundaries:
+
+- fixed coverage candidates keep timeline/window coverage behavior
+- fixed candidates are excluded from phrase-boundary acceptance by default
+- use `--allow-fixed-candidates` in segmentation only when you explicitly want that override
+
+Dense Modal analysis convenience command:
+
+```powershell
+scripts\dev.cmd analyze-structure-modal-dense "samples/input/my_song.wav"
+scripts\dev.cmd segment-audio-structure-dense "samples/input/my_song.wav" 60
+```

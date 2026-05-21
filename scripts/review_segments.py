@@ -53,7 +53,7 @@ def _matched_candidate_times(manifest: dict[str, object]) -> list[float]:
     for seg in segments:
         if not isinstance(seg, dict):
             continue
-        if str(seg.get("boundary_source")) != "audio_structure_v1":
+        if str(seg.get("boundary_source")) not in {"audio_structure_v1", "audio_structure"}:
             continue
         try:
             end_time = float(seg.get("global_end_seconds", 0.0))
@@ -88,6 +88,9 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     candidate_confidence_max = diagnostics.get("candidate_confidence_max")
     candidate_confidence_mean = diagnostics.get("candidate_confidence_mean")
     rejection_reason_counts = diagnostics.get("rejection_reason_counts")
+    candidate_density = diagnostics.get("candidate_density")
+    fused_candidate_count = diagnostics.get("fused_candidate_count")
+    returned_candidate_count = diagnostics.get("returned_candidate_count")
     candidate_evaluations = diagnostics.get("candidate_evaluations", [])
     if not isinstance(candidate_evaluations, list):
         candidate_evaluations = []
@@ -106,6 +109,9 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     lines.append(f"- missing_features: `{missing_features}`")
     lines.append(f"- candidate_boundary_count: `{candidate_boundary_count}`")
     lines.append(f"- accepted_boundary_count: `{accepted_boundary_count}`")
+    lines.append(f"- candidate_density: `{candidate_density}`")
+    lines.append(f"- fused_candidate_count: `{fused_candidate_count}`")
+    lines.append(f"- returned_candidate_count: `{returned_candidate_count}`")
     lines.append(f"- analysis_path: `{analysis_path}`")
     lines.append(f"- segmentation_parameters: `{segmentation_parameters}`")
     lines.append("")
@@ -129,8 +135,8 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
 
     lines.append("## Candidate Boundaries (Accepted vs Rejected)")
     lines.append("")
-    lines.append("| time_seconds | confidence | reason | status | evidence |")
-    lines.append("|---:|---:|---|---|---|")
+    lines.append("| time_seconds | confidence | source_feature | contributing_features | reason | status | evidence |")
+    lines.append("|---:|---:|---|---|---|---|---|")
     candidates, tolerance = _load_analysis_candidates(str(analysis_path) if analysis_path else None)
     matched = _matched_candidate_times(manifest)
     for candidate in candidates:
@@ -140,8 +146,9 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
             time_seconds = 0.0
         status = "accepted" if any(abs(time_seconds - t) <= tolerance for t in matched) else "rejected_or_unused"
         lines.append(
-            f"| {time_seconds:.3f} | {candidate.get('confidence')} | {candidate.get('reason')} | "
-            f"{status} | {_feature_summary(candidate.get('feature_evidence'))} |"
+            f"| {time_seconds:.3f} | {candidate.get('confidence')} | {candidate.get('source_feature')} | "
+            f"{candidate.get('contributing_features')} | {candidate.get('reason')} | {status} | "
+            f"{_feature_summary(candidate.get('feature_evidence'))} |"
         )
     if not candidates:
         lines.append("| - | - | - | unavailable | analysis boundary candidates not available |")
@@ -172,8 +179,10 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
     lines.append("")
     lines.append("### Top 10 Rejected Candidates by Confidence")
     lines.append("")
-    lines.append("| time_seconds | tuned_confidence | rejection_reason | boundary_reason | evidence |")
-    lines.append("|---:|---:|---|---|---|")
+    lines.append(
+        "| time_seconds | tuned_confidence | source_feature | contributing_features | rejection_reason | boundary_reason | evidence |"
+    )
+    lines.append("|---:|---:|---|---|---|---|---|")
     rejected = [
         row
         for row in candidate_evaluations
@@ -186,11 +195,12 @@ def build_review_report(manifest: dict[str, object], manifest_path: Path) -> str
         for row in rejected_sorted:
             lines.append(
                 f"| {row.get('time_seconds')} | {row.get('tuned_confidence', row.get('confidence'))} | "
+                f"{row.get('source_feature')} | {row.get('contributing_features')} | "
                 f"{row.get('rejection_reason')} | {row.get('boundary_reason')} | "
                 f"{_feature_summary(row.get('feature_evidence'))} |"
             )
     else:
-        lines.append("| - | - | no_rejected_candidates | - | - |")
+        lines.append("| - | - | - | - | no_rejected_candidates | - | - |")
     lines.append("")
 
     lines.append("## Review Questions")

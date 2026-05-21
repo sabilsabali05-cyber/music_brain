@@ -17,6 +17,9 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
                 "time_seconds": 30.0,
                 "confidence": 0.8,
                 "reason": "harmonic_chroma_change",
+                "source_feature": "chroma_change",
+                "contributing_features": ["chroma_change", "novelty_combined"],
+                "duplicate_group_id": "grp_0001",
                 "feature_evidence": {
                     "combined_novelty": 0.8,
                     "chroma_change": 0.9,
@@ -51,6 +54,9 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
             "missing_features": [],
             "candidate_boundary_count": 1,
             "accepted_boundary_count": 1,
+            "candidate_density": "dense",
+            "fused_candidate_count": 2,
+            "returned_candidate_count": 1,
             "candidate_confidence_min": 0.8,
             "candidate_confidence_max": 0.8,
             "candidate_confidence_mean": 0.8,
@@ -63,6 +69,8 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
                     "accepted": True,
                     "rejection_reason": "accepted",
                     "boundary_reason": "harmonic_chroma_change",
+                    "source_feature": "chroma_change",
+                    "contributing_features": ["chroma_change", "novelty_combined"],
                     "feature_evidence": {"combined_novelty": 0.8},
                 }
             ],
@@ -122,6 +130,8 @@ def test_review_segments_generates_markdown_report(tmp_path: Path, monkeypatch) 
     assert "segmentation_parameters" in text
     assert "boundary_threshold" in text
     assert "Boundary Diagnostics" in text
+    assert "candidate_density" in text
+    assert "source_feature" in text
     assert "Should beat/bar snapping be added?" in text
 
 

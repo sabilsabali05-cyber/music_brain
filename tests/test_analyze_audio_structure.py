@@ -23,16 +23,73 @@ def test_fuse_boundary_candidates_accepts_obvious_peaks() -> None:
         feature_curves=curves,
         frame_hop_seconds=10.0,
         duration_seconds=90.0,
-        target_window_seconds=30.0,
-        max_window_seconds=45.0,
-        min_segment_seconds=10.0,
-        confidence_threshold=0.55,
+        candidate_density="normal",
+        peak_pick_threshold=0.55,
+        min_boundary_distance_seconds=10.0,
+        max_candidates=8,
     )
     assert diagnostics["candidate_boundary_count"] >= 1
-    assert diagnostics["accepted_boundary_count"] >= 1
+    assert diagnostics["returned_candidate_count"] >= 1
     assert any(float(c["confidence"]) >= 0.55 for c in candidates)
-    assert all(c.get("candidate_source") in {"audio_structure", "fixed_coverage"} for c in candidates)
+    assert all(c.get("candidate_source") == "audio_structure" for c in candidates)
     assert all("eligible_for_phrase_boundary" in c for c in candidates)
+    assert all("source_feature" in c for c in candidates)
+    assert all("contributing_features" in c for c in candidates)
+
+
+def test_dense_generation_returns_more_candidates_than_conservative() -> None:
+    curves = {
+        "rms": [0.1, 0.2, 0.35, 0.2, 0.4, 0.2, 0.5, 0.2, 0.45, 0.2, 0.5, 0.2],
+        "onset_strength": [0.0, 0.4, 0.7, 0.3, 0.65, 0.25, 0.75, 0.2, 0.7, 0.2, 0.72, 0.2],
+        "chroma_change": [0.0, 0.3, 0.65, 0.2, 0.62, 0.2, 0.7, 0.2, 0.66, 0.2, 0.68, 0.2],
+        "timbre_change": [0.0, 0.25, 0.6, 0.2, 0.58, 0.2, 0.67, 0.2, 0.63, 0.2, 0.64, 0.2],
+        "novelty_combined": [0.0, 0.35, 0.72, 0.3, 0.7, 0.28, 0.78, 0.25, 0.74, 0.25, 0.76, 0.25],
+    }
+    conservative, _ = fuse_boundary_candidates(
+        feature_curves=curves,
+        frame_hop_seconds=1.0,
+        duration_seconds=60.0,
+        candidate_density="conservative",
+        peak_pick_threshold=0.55,
+        min_boundary_distance_seconds=6.0,
+        max_candidates=16,
+    )
+    dense, diagnostics = fuse_boundary_candidates(
+        feature_curves=curves,
+        frame_hop_seconds=1.0,
+        duration_seconds=60.0,
+        candidate_density="dense",
+        peak_pick_threshold=0.55,
+        min_boundary_distance_seconds=6.0,
+        max_candidates=16,
+    )
+    assert len(dense) > len(conservative)
+    assert diagnostics["candidate_density"] == "dense"
+    assert diagnostics["fused_candidate_count"] >= diagnostics["returned_candidate_count"]
+
+
+def test_fuse_groups_nearby_multi_feature_peaks() -> None:
+    curves = {
+        "rms": [0.0, 0.2, 0.8, 0.1, 0.0, 0.0],
+        "onset_strength": [0.0, 0.1, 0.7, 0.1, 0.0, 0.0],
+        "chroma_change": [0.0, 0.1, 0.9, 0.1, 0.0, 0.0],
+        "timbre_change": [0.0, 0.1, 0.6, 0.1, 0.0, 0.0],
+        "novelty_combined": [0.0, 0.2, 0.85, 0.2, 0.0, 0.0],
+    }
+    candidates, diagnostics = fuse_boundary_candidates(
+        feature_curves=curves,
+        frame_hop_seconds=1.0,
+        duration_seconds=20.0,
+        candidate_density="dense",
+        peak_pick_threshold=0.4,
+        min_boundary_distance_seconds=2.0,
+        max_candidates=8,
+    )
+    assert diagnostics["raw_peak_count_by_feature"]["novelty_combined"] >= 1
+    assert candidates
+    assert candidates[0]["duplicate_group_id"].startswith("grp_")
+    assert len(candidates[0]["contributing_features"]) >= 2
+    assert isinstance(candidates[0]["rank"], int)
 
 
 def test_analyze_audio_structure_writes_expected_schema(tmp_path: Path, monkeypatch) -> None:
@@ -63,9 +120,14 @@ def test_analyze_audio_structure_writes_expected_schema(tmp_path: Path, monkeypa
     assert "chroma_change" in payload["features"]
     assert "timbre_change" in payload["features"]
     assert "novelty_combined" in payload["features"]
-    assert payload["boundary_candidates"]
-    assert "candidate_source" in payload["boundary_candidates"][0]
-    assert "eligible_for_phrase_boundary" in payload["boundary_candidates"][0]
+    if payload["boundary_candidates"]:
+        assert "candidate_source" in payload["boundary_candidates"][0]
+        assert "eligible_for_phrase_boundary" in payload["boundary_candidates"][0]
+        assert "source_feature" in payload["boundary_candidates"][0]
+        assert "contributing_features" in payload["boundary_candidates"][0]
+    assert "raw_peak_count_by_feature" in payload["diagnostics"]
+    assert "fused_candidate_count" in payload["diagnostics"]
+    assert "returned_candidate_count" in payload["diagnostics"]
 
 
 def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch) -> None:
@@ -128,6 +190,8 @@ def test_modal_librosa_client_writes_expected_schema(tmp_path: Path, monkeypatch
     assert payload["diagnostics"]["available_features"]
     assert payload["boundary_candidates"][0]["candidate_source"] == "audio_structure"
     assert payload["boundary_candidates"][0]["eligible_for_phrase_boundary"] is True
+    assert payload["boundary_candidates"][0]["source_feature"] == "novelty_combined"
+    assert payload["boundary_candidates"][0]["contributing_features"] == ["novelty_combined"]
 
 
 def test_audio_analysis_diagnostics_reports_modal_lookup(monkeypatch) -> None:

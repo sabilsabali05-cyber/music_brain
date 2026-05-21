@@ -125,10 +125,12 @@ def analyze_audio_structure_modal(
 
     opts = options or {}
     frame_hop_seconds = float(opts.get("frame_hop_seconds", 0.25))
-    target_window_seconds = float(opts.get("target_window_seconds", 60.0))
-    max_window_seconds = float(opts.get("max_window_seconds", 90.0))
-    min_segment_seconds = float(opts.get("min_segment_seconds", 12.0))
-    confidence_threshold = float(opts.get("confidence_threshold", 0.55))
+    candidate_density = str(opts.get("candidate_density", "conservative")).lower().strip() or "conservative"
+    if candidate_density not in {"conservative", "normal", "dense"}:
+        candidate_density = "conservative"
+    peak_pick_threshold = float(opts.get("peak_pick_threshold", 0.55))
+    min_boundary_distance_seconds = float(opts.get("min_boundary_distance_seconds", 12.0))
+    max_candidates = max(1, int(opts.get("max_candidates", 8)))
 
     with tempfile.TemporaryDirectory() as tmp_dir:
         source_path = Path(tmp_dir) / "source_audio"
@@ -207,87 +209,122 @@ def analyze_audio_structure_modal(
         ]
     )
 
-    min_distance_frames = max(1, int(min_segment_seconds / frame_hop_seconds))
-    raw_peak_indices: list[int] = []
-    last_peak = -min_distance_frames
-    for idx in range(1, len(novelty) - 1):
-        if idx - last_peak < min_distance_frames:
-            continue
-        if novelty[idx] < confidence_threshold:
-            continue
-        if novelty[idx] >= novelty[idx - 1] and novelty[idx] >= novelty[idx + 1]:
-            raw_peak_indices.append(idx)
-            last_peak = idx
+    presets = {
+        "conservative": {"threshold_offset": 0.05, "distance_scale": 1.2, "max_scale": 0.8},
+        "normal": {"threshold_offset": 0.0, "distance_scale": 1.0, "max_scale": 1.0},
+        "dense": {"threshold_offset": -0.12, "distance_scale": 0.55, "max_scale": 1.8},
+    }
+    preset = presets[candidate_density]
+    requested_threshold = float(peak_pick_threshold)
+    effective_threshold = max(0.0, min(1.0, requested_threshold + float(preset["threshold_offset"])))
+    requested_min_distance_seconds = max(0.1, float(min_boundary_distance_seconds))
+    effective_min_distance_seconds = max(0.1, requested_min_distance_seconds * float(preset["distance_scale"]))
+    effective_max_candidates = max(1, int(round(max_candidates * float(preset["max_scale"]))))
+    min_distance_frames = max(1, int(effective_min_distance_seconds / max(frame_hop_seconds, 1e-6)))
 
+    feature_map = {
+        "novelty_combined": novelty,
+        "chroma_change": chroma_n,
+        "timbre_change": timbre_n,
+        "onset_strength": onset_n,
+        "rms": rms_n,
+    }
+    feature_reason_map = {
+        "novelty_combined": "combined_audio_novelty",
+        "chroma_change": "harmonic_chroma_change",
+        "timbre_change": "timbre_change",
+        "onset_strength": "onset_density_change",
+        "rms": "energy_change",
+    }
+    raw_peak_count_by_feature: dict[str, int] = {}
     raw_candidates: list[dict[str, object]] = []
-    for idx in raw_peak_indices:
-        time_seconds = min(duration_seconds, idx * frame_hop_seconds)
-        evidence = {
-            "energy_change": round(_val(rms_n, idx), 6),
-            "onset_change": round(_val(onset_n, idx), 6),
-            "chroma_change": round(_val(chroma_n, idx), 6),
-            "timbre_change": round(_val(timbre_n, idx), 6),
-            "combined_novelty": round(_val(novelty, idx), 6),
-        }
-        reason = max(
-            [
-                ("harmonic_chroma_change", evidence["chroma_change"]),
-                ("timbre_change", evidence["timbre_change"]),
-                ("onset_density_change", evidence["onset_change"]),
-                ("combined_audio_novelty", evidence["combined_novelty"]),
-            ],
-            key=lambda item: item[1],
-        )[0]
-        raw_candidates.append(
-            {
-                "time_seconds": round(float(time_seconds), 6),
-                "confidence": round(float(evidence["combined_novelty"]), 3),
-                "reason": reason,
-                "candidate_source": "audio_structure",
-                "eligible_for_phrase_boundary": True,
-                "feature_evidence": evidence,
+    for source_feature, curve in feature_map.items():
+        raw_peak_indices: list[int] = []
+        last_peak = -min_distance_frames
+        for idx in range(1, len(curve) - 1):
+            if idx - last_peak < min_distance_frames:
+                continue
+            if curve[idx] < effective_threshold:
+                continue
+            if curve[idx] >= curve[idx - 1] and curve[idx] >= curve[idx + 1]:
+                raw_peak_indices.append(idx)
+                last_peak = idx
+        raw_peak_count_by_feature[source_feature] = len(raw_peak_indices)
+        for idx in raw_peak_indices:
+            time_seconds = min(duration_seconds, idx * frame_hop_seconds)
+            evidence = {
+                "energy_change": round(_val(rms_n, idx), 6),
+                "onset_change": round(_val(onset_n, idx), 6),
+                "chroma_change": round(_val(chroma_n, idx), 6),
+                "timbre_change": round(_val(timbre_n, idx), 6),
+                "combined_novelty": round(_val(novelty, idx), 6),
             }
-        )
-
-    accepted: list[dict[str, object]] = []
-    accepted_raw_count = 0
-    start = 0.0
-    while start < duration_seconds:
-        remaining = duration_seconds - start
-        if remaining <= max_window_seconds:
-            break
-        lower = start + min_segment_seconds
-        upper = min(duration_seconds, start + max_window_seconds)
-        local = [c for c in raw_candidates if lower <= float(c["time_seconds"]) <= upper]
-        if local:
-            target = start + target_window_seconds
-            chosen = max(
-                local,
-                key=lambda c: float(c["confidence"])
-                - (abs(float(c["time_seconds"]) - target) / max(1.0, target_window_seconds)),
+            base_confidence = float(_val(curve, idx))
+            confidence = max(0.0, min(1.0, 0.65 * base_confidence + 0.35 * float(evidence["combined_novelty"])))
+            raw_candidates.append(
+                {
+                    "time_seconds": round(float(time_seconds), 6),
+                    "confidence": round(confidence, 6),
+                    "reason": feature_reason_map[source_feature],
+                    "source_feature": source_feature,
+                    "candidate_source": "audio_structure",
+                    "eligible_for_phrase_boundary": True,
+                    "feature_evidence": evidence,
+                }
             )
-            accepted.append(chosen)
-            accepted_raw_count += 1
-            start = float(chosen["time_seconds"])
+
+    raw_candidates.sort(key=lambda row: float(row.get("time_seconds", 0.0)))
+    duplicate_window_seconds = max(frame_hop_seconds * 2.0, min(2.0, effective_min_distance_seconds * 0.25))
+    grouped: list[list[dict[str, object]]] = []
+    for candidate in raw_candidates:
+        if not grouped:
+            grouped.append([candidate])
             continue
-        fallback_time = min(duration_seconds, start + target_window_seconds)
-        accepted.append(
-            {
-                "time_seconds": round(float(fallback_time), 6),
-                "confidence": 0.2,
-                "reason": "fixed_interval_fallback",
-                "candidate_source": "fixed_coverage",
-                "eligible_for_phrase_boundary": False,
-                "feature_evidence": {
-                    "energy_change": 0.0,
-                    "onset_change": 0.0,
-                    "chroma_change": 0.0,
-                    "timbre_change": 0.0,
-                    "combined_novelty": 0.2,
-                },
-            }
-        )
-        start = fallback_time
+        previous_time = float(grouped[-1][-1].get("time_seconds", 0.0))
+        current_time = float(candidate.get("time_seconds", 0.0))
+        if abs(current_time - previous_time) <= duplicate_window_seconds:
+            grouped[-1].append(candidate)
+        else:
+            grouped.append([candidate])
+
+    fused_candidates: list[dict[str, object]] = []
+    for group_index, group in enumerate(grouped, start=1):
+        strongest = max(group, key=lambda row: float(row.get("confidence", 0.0)))
+        contributing_features = sorted({str(row.get("source_feature", "novelty_combined")) for row in group})
+        confidence = min(1.0, float(strongest.get("confidence", 0.0)) + 0.04 * max(0, len(contributing_features) - 1))
+        merged_evidence = {
+            "energy_change": 0.0,
+            "onset_change": 0.0,
+            "chroma_change": 0.0,
+            "timbre_change": 0.0,
+            "combined_novelty": 0.0,
+        }
+        for row in group:
+            evidence_obj = row.get("feature_evidence", {})
+            if not isinstance(evidence_obj, dict):
+                continue
+            for key in merged_evidence:
+                merged_evidence[key] = max(float(merged_evidence[key]), float(evidence_obj.get(key, 0.0) or 0.0))
+        fused = dict(strongest)
+        fused["confidence"] = round(confidence, 6)
+        fused["duplicate_group_id"] = f"grp_{group_index:04d}"
+        fused["contributing_features"] = contributing_features
+        fused["feature_evidence"] = {key: round(value, 6) for key, value in merged_evidence.items()}
+        fused_candidates.append(fused)
+
+    fused_by_strength = sorted(fused_candidates, key=lambda row: float(row.get("confidence", 0.0)), reverse=True)
+    selected: list[dict[str, object]] = []
+    for row in fused_by_strength:
+        if len(selected) >= effective_max_candidates:
+            break
+        time_seconds = float(row.get("time_seconds", 0.0))
+        if any(abs(time_seconds - float(existing.get("time_seconds", 0.0))) < effective_min_distance_seconds for existing in selected):
+            continue
+        selected.append(row)
+    selected = sorted(selected, key=lambda row: float(row.get("confidence", 0.0)), reverse=True)
+    for rank, row in enumerate(selected, start=1):
+        row["rank"] = rank
+    returned = sorted(selected, key=lambda row: float(row.get("time_seconds", 0.0)))
 
     return {
         "source_name": source_name,
@@ -302,12 +339,19 @@ def analyze_audio_structure_modal(
             "timbre_change": timbre_n,
             "novelty_combined": novelty,
         },
-        "boundary_candidates": accepted,
+        "boundary_candidates": returned,
         "diagnostics": {
-            "fallback_recommended": accepted_raw_count == 0,
-            "candidate_boundary_count": len(accepted),
-            "accepted_boundary_count": accepted_raw_count,
-            "rejected_boundary_count": max(0, len(raw_candidates) - accepted_raw_count),
+            "fallback_recommended": len(returned) == 0,
+            "candidate_boundary_count": len(returned),
+            "accepted_boundary_count": 0,
+            "rejected_boundary_count": max(0, len(raw_candidates) - len(returned)),
+            "candidate_density": candidate_density,
+            "raw_peak_count_by_feature": raw_peak_count_by_feature,
+            "fused_candidate_count": len(fused_candidates),
+            "returned_candidate_count": len(returned),
+            "peak_pick_threshold": requested_threshold,
+            "min_boundary_distance_seconds": requested_min_distance_seconds,
+            "max_candidates": max_candidates,
             "available_features": ["rms", "onset_strength", "chroma_change", "timbre_change", "novelty_combined"],
             "missing_features": [],
             "notes": [

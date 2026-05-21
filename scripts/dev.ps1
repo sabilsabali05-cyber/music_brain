@@ -45,10 +45,13 @@ function Show-Usage {
     Write-Host "  analyze-structure <audio-path> (legacy alias for analyze-structure-local)"
     Write-Host "  analyze-structure-local <audio-path>"
     Write-Host "  analyze-structure-modal <audio-path>"
+    Write-Host "  analyze-structure-modal-dense <audio-path>"
     Write-Host "  audio-analysis-diagnostics"
     Write-Host "  segment-audio <audio-path> [target-window-seconds] [strategy]"
     Write-Host "  segment-audio-structure <audio-path> [target-window-seconds]"
+    Write-Host "  segment-audio-structure-dense <audio-path> [target-window-seconds]"
     Write-Host "  segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
+    Write-Host "  sweep-audio-structure-dense <audio-path> [target-window-seconds]"
     Write-Host "  inspect-segments <manifest-path>"
     Write-Host "  diagnose-boundaries <manifest-path>"
     Write-Host "  review-segments <manifest-path>"
@@ -395,6 +398,21 @@ switch ($Task) {
             Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
         }
     }
+    "analyze-structure-modal-dense" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd analyze-structure-modal-dense <audio-path>"
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa dense)" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa",
+            "--candidate-density", "dense",
+            "--peak-pick-threshold", "0.40",
+            "--min-boundary-distance-seconds", "8.0",
+            "--max-candidates", "24"
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+    }
     "audio-analysis-diagnostics" {
         Ensure-FfmpegPath
         Invoke-Step -Label "Audio analysis diagnostics (local + Modal lookup)" -Command @(
@@ -451,6 +469,31 @@ switch ($Task) {
             Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
         }
     }
+    "segment-audio-structure-dense" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure-dense <audio-path> [target-window-seconds]"
+        $targetWindow = Get-TaskArg -Index 1
+        $targetValue = if (-not [string]::IsNullOrWhiteSpace($targetWindow)) { $targetWindow } else { "60" }
+        $analysisOutput = Invoke-CommandCapture -Label "Analyzing pre-MIDI audio structure (modal_librosa dense)" -Command @(
+            "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa",
+            "--candidate-density", "dense",
+            "--peak-pick-threshold", "0.40",
+            "--min-boundary-distance-seconds", "8.0",
+            "--max-candidates", "24"
+        )
+        $analysisLine = $analysisOutput | Where-Object { $_ -like "ANALYSIS_PATH=*" } | Select-Object -Last 1
+        if ($analysisLine) {
+            Write-Host "ANALYSIS_PATH=$($analysisLine.Substring('ANALYSIS_PATH='.Length))"
+        }
+        $segmentOutput = Invoke-CommandCapture -Label "Creating audio-structure segment manifest/windows from dense analysis" -Command @(
+            "python", "scripts/segment_audio.py", $audioPath, "--strategy", "audio_structure",
+            "--target-window-seconds", $targetValue, "--max-window-seconds", "90", "--context-seconds", "5"
+        )
+        $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
+        if ($manifestLine) {
+            Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
+        }
+    }
     "segment-audio-structure-tuned" {
         Ensure-FfmpegPath
         $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd segment-audio-structure-tuned <audio-path> <target-window-seconds> <boundary-threshold>"
@@ -493,6 +536,32 @@ switch ($Task) {
         $manifestLine = $segmentOutput | Where-Object { $_ -like "MANIFEST_PATH=*" } | Select-Object -Last 1
         if ($manifestLine) {
             Write-Host "MANIFEST_PATH=$($manifestLine.Substring('MANIFEST_PATH='.Length))"
+        }
+    }
+    "sweep-audio-structure-dense" {
+        Ensure-FfmpegPath
+        $audioPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd sweep-audio-structure-dense <audio-path> [target-window-seconds]"
+        $targetWindow = Get-TaskArg -Index 1
+        $targetValue = if (-not [string]::IsNullOrWhiteSpace($targetWindow)) { $targetWindow } else { "60" }
+        $densities = @("normal", "dense")
+        $distances = @("6", "8")
+        $maxCandidatesSet = @("16", "24")
+        foreach ($density in $densities) {
+            foreach ($distance in $distances) {
+                foreach ($maxCandidatesValue in $maxCandidatesSet) {
+                    Invoke-Step -Label "Sweeping analysis density=$density distance=$distance max_candidates=$maxCandidatesValue" -Command @(
+                        "python", "scripts/analyze_audio_structure.py", $audioPath, "--backend", "modal_librosa",
+                        "--candidate-density", $density,
+                        "--peak-pick-threshold", "0.40",
+                        "--min-boundary-distance-seconds", $distance,
+                        "--max-candidates", $maxCandidatesValue
+                    )
+                    Invoke-Step -Label "Sweeping segmentation density=$density distance=$distance max_candidates=$maxCandidatesValue" -Command @(
+                        "python", "scripts/segment_audio.py", $audioPath, "--strategy", "audio_structure",
+                        "--target-window-seconds", $targetValue, "--max-window-seconds", "90", "--context-seconds", "5"
+                    )
+                }
+            }
         }
     }
     "inspect-segments" {

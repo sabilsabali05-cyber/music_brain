@@ -180,6 +180,8 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
                 "time_seconds": 62.0,
                 "confidence": 0.8,
                 "reason": "harmonic_chroma_change",
+                "source_feature": "chroma_change",
+                "contributing_features": ["chroma_change", "novelty_combined"],
                 "feature_evidence": {
                     "energy_change": 0.3,
                     "onset_change": 0.4,
@@ -192,6 +194,9 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
         "diagnostics": {
             "available_features": ["rms", "onset_strength", "chroma_change", "timbre_change"],
             "missing_features": [],
+            "candidate_density": "dense",
+            "fused_candidate_count": 3,
+            "returned_candidate_count": 1,
         },
     }
     (analysis_root / "structure_analysis.json").write_text(json.dumps(analysis_payload), encoding="utf-8")
@@ -214,6 +219,11 @@ def test_audio_structure_strategy_uses_analysis_candidates(tmp_path: Path, monke
     assert manifest["segmentation_diagnostics"]["candidate_boundary_count"] == 1
     assert manifest["segmentation_diagnostics"]["analysis_backend"] == "modal_librosa"
     assert manifest["segmentation_diagnostics"]["candidate_evaluations"][0]["rejection_reason"] == "accepted"
+    assert manifest["segmentation_diagnostics"]["candidate_density"] == "dense"
+    assert manifest["segmentation_diagnostics"]["fused_candidate_count"] == 3
+    assert manifest["segmentation_diagnostics"]["returned_candidate_count"] == 1
+    assert manifest["segmentation_diagnostics"]["candidate_evaluations"][0]["source_feature"] == "chroma_change"
+    assert "chroma_change" in manifest["segmentation_diagnostics"]["candidate_evaluations"][0]["contributing_features"]
     assert first_seg["boundary_source"] in {"audio_structure", "fixed_coverage"}
     assert "feature_evidence" in first_seg
 

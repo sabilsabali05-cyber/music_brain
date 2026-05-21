@@ -290,6 +290,8 @@ def build_audio_structure_core_intervals(
             "boundary_reason": str(candidate.get("reason", "unknown")),
             "candidate_source": candidate_source,
             "eligible_for_phrase_boundary": eligible_for_phrase_boundary,
+            "source_feature": str(candidate.get("source_feature", "unknown")),
+            "contributing_features": candidate.get("contributing_features", []),
             "feature_evidence": candidate.get("feature_evidence", {}),
             "nearest_segment_distance": None,
         }
@@ -491,6 +493,9 @@ def segment_audio(
         "analysis_path": None,
         "analysis_backend": None,
         "analysis_version": None,
+        "candidate_density": None,
+        "fused_candidate_count": None,
+        "returned_candidate_count": None,
         "candidate_confidence_min": None,
         "candidate_confidence_max": None,
         "candidate_confidence_mean": None,
@@ -567,6 +572,9 @@ def segment_audio(
                 segmentation_diagnostics["analysis_path"] = analysis_path_value
                 segmentation_diagnostics["analysis_backend"] = analysis_payload.get("analysis_backend")
                 segmentation_diagnostics["analysis_version"] = analysis_payload.get("analysis_version")
+                segmentation_diagnostics["candidate_density"] = diagnostics.get("candidate_density")
+                segmentation_diagnostics["fused_candidate_count"] = diagnostics.get("fused_candidate_count")
+                segmentation_diagnostics["returned_candidate_count"] = diagnostics.get("returned_candidate_count")
                 segmentation_diagnostics["candidate_boundary_count"] = candidate_count
                 segmentation_diagnostics["detected_boundary_count"] = candidate_count
                 segmentation_diagnostics["accepted_boundary_count"] = accepted

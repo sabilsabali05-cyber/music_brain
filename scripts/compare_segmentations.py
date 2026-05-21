@@ -29,6 +29,20 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
         reason_summary = ",".join(f"{k}:{v}" for k, v in sorted(reason_counts.items()))
     else:
         reason_summary = str(reason_counts)
+    candidate_evaluations = diagnostics.get("candidate_evaluations", [])
+    if isinstance(candidate_evaluations, list):
+        top_rows = sorted(
+            [row for row in candidate_evaluations if isinstance(row, dict)],
+            key=lambda row: float(row.get("tuned_confidence", row.get("confidence", 0.0)) or 0.0),
+            reverse=True,
+        )[:3]
+        top_candidate_features = ",".join(
+            f"{row.get('source_feature', '-')}"
+            f"[{'+'.join(row.get('contributing_features', [])) if isinstance(row.get('contributing_features'), list) else row.get('contributing_features', '-')}]"
+            for row in top_rows
+        )
+    else:
+        top_candidate_features = ""
     successful = 0
     failed = 0
     note_on_total = 0
@@ -61,6 +75,9 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
         "candidate_boundary_count": diagnostics.get(
             "candidate_boundary_count", diagnostics.get("detected_boundary_count")
         ),
+        "candidate_density": diagnostics.get("candidate_density"),
+        "fused_candidate_count": diagnostics.get("fused_candidate_count"),
+        "returned_candidate_count": diagnostics.get("returned_candidate_count"),
         "accepted_boundary_count": diagnostics.get("accepted_boundary_count"),
         "candidate_confidence_min": diagnostics.get("candidate_confidence_min"),
         "candidate_confidence_max": diagnostics.get("candidate_confidence_max"),
@@ -72,6 +89,7 @@ def summarize_manifest(manifest_path: Path) -> dict[str, object]:
         "missing_features": ",".join(diagnostics.get("missing_features", []))
         if isinstance(diagnostics.get("missing_features"), list)
         else diagnostics.get("missing_features"),
+        "top_candidate_features": top_candidate_features,
         "successful_windows": successful,
         "failed_windows": failed,
         "total_note_on_count": note_on_total,
@@ -121,6 +139,9 @@ def main() -> int:
         "musical_segments",
         "transcription_windows",
         "candidate_boundary_count",
+        "candidate_density",
+        "fused_candidate_count",
+        "returned_candidate_count",
         "accepted_boundary_count",
         "candidate_confidence_min",
         "candidate_confidence_max",
@@ -128,6 +149,7 @@ def main() -> int:
         "rejection_reason_counts",
         "available_features",
         "missing_features",
+        "top_candidate_features",
         "successful_windows",
         "failed_windows",
         "total_note_on_count",

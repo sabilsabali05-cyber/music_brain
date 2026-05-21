@@ -39,12 +39,22 @@ def _write_run(folder: Path, run_id: str, strategy_used: str, fallback_used: boo
             "candidate_boundary_count": 3,
             "detected_boundary_count": 3,
             "accepted_boundary_count": 1,
+            "candidate_density": "dense",
+            "fused_candidate_count": 5,
+            "returned_candidate_count": 3,
             "candidate_confidence_min": 0.4,
             "candidate_confidence_max": 0.8,
             "candidate_confidence_mean": 0.6,
             "rejection_reason_counts": {"accepted": 1, "below_threshold": 2},
             "available_features": ["rms", "onset_strength"],
             "missing_features": ["chroma_change"],
+            "candidate_evaluations": [
+                {
+                    "source_feature": "novelty_combined",
+                    "contributing_features": ["novelty_combined", "chroma_change"],
+                    "tuned_confidence": 0.8,
+                }
+            ],
         },
         "transcription_windows": [
             {
@@ -70,11 +80,15 @@ def test_compare_segmentations_summarizes_multiple_runs(tmp_path: Path) -> None:
     assert energy_row["failed_windows"] == 0
     assert energy_row["total_note_on_count"] == 1
     assert energy_row["candidate_boundary_count"] == 3
+    assert energy_row["candidate_density"] == "dense"
+    assert energy_row["fused_candidate_count"] == 5
+    assert energy_row["returned_candidate_count"] == 3
     assert energy_row["available_features"] == "rms,onset_strength"
     assert energy_row["boundary_threshold"] == 0.55
     assert energy_row["min_segment_seconds"] == 30.0
     assert energy_row["candidate_confidence_mean"] == 0.6
     assert "below_threshold:2" in str(energy_row["rejection_reason_counts"])
+    assert "novelty_combined" in str(energy_row["top_candidate_features"])
 
 
 def test_compare_segmentations_includes_legacy_and_run_folders(tmp_path: Path) -> None:
