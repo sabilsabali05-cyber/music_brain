@@ -1,6 +1,6 @@
 {
-  "phase": "github-pr-handoff-loop",
-  "goal": "Implement GitHub-based checkpoint handoff loop for PR audits.",
+  "phase": "Generative calibration and PR handoff loop",
+  "goal": "Prepare GitHub-auditable handoff for generative quality calibration and handoff-loop commits",
   "constraints_followed": [
     "No audio processing performed",
     "Modal not called",
@@ -10,49 +10,58 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    "scripts/dev.ps1",
-    "docs/AGENT_LOOP_PROTOCOL.md",
-    "docs/PROJECT_NORTH_STAR.md",
-    "docs/USER_DECISIONS.md",
-    "reports/agent_handoffs/",
-    "scripts/prepare_pr_handoff.py",
-    "scripts/write_agent_handoff.py"
+    "reports/agent_handoffs/latest_handoff.json",
+    "reports/agent_handoffs/latest_handoff.md",
+    "reports/agent_handoffs/pr_handoff_body.md"
   ],
   "commands_run": [
     "scripts\\dev.cmd test",
-    "scripts\\dev.cmd write-agent-handoff ..."
+    "scripts\\dev.cmd write-agent-handoff",
+    "scripts\\dev.cmd prepare-pr-handoff"
   ],
   "tests_result": [
-    "173 passed, 2 warnings (pytest -q)"
+    "173 passed, 2 warnings"
   ],
   "validation_results": [
-    "No additional validators run"
+    "Ghost Town generative validation: success (88 examples)",
+    "Sunday Service generative validation: success (387 examples)"
   ],
   "generated_artifacts": [
-    "docs/AGENT_LOOP_PROTOCOL.md",
-    "docs/PROJECT_NORTH_STAR.md",
-    "docs/USER_DECISIONS.md",
-    "reports/agent_handoffs/latest_handoff.json",
-    "reports/agent_handoffs/latest_handoff.md",
-    "scripts/write_agent_handoff.py",
-    "scripts/prepare_pr_handoff.py",
-    "scripts/dev.ps1"
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.json",
+    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.json",
+    "reports/dataset_quality/dataset_quality_yield_report.json"
   ],
   "metrics_before": {
-    "pr_handoff_loop": "absent"
+    "total_examples": "282",
+    "train": "0",
+    "validation": "0",
+    "review": "54",
+    "exclude": "228",
+    "average_quality_score": "0.237327",
+    "high_quality_examples_per_minute": "0.0",
+    "missing_task_coverage": "harmony_continuation,motif_transformation"
   },
   "metrics_after": {
-    "pr_handoff_loop": "present"
+    "total_examples": "475",
+    "train": "31",
+    "validation": "95",
+    "review": "347",
+    "exclude": "2",
+    "average_quality_score": "0.586426",
+    "corpus_high_quality_examples_per_minute": "0.4563",
+    "missing_task_coverage": "none",
+    "calibration_commits": "fedaf030de39ce4f7de2770ece67e7c0b399ce23,21cd85cc2a946b9c9bbac2c508061cc621498c80",
+    "handoff_loop_commit": "7ddc37b"
   },
   "risks_concerns": [
-    "Handoff quality depends on manually supplied CLI details each phase."
+    "Sunday Service still heavily review-skewed due to phrase boundary and routing/task-policy mismatch reasons",
+    "Most review rows are quality_below_threshold and need targeted boundary/task extraction tuning"
   ],
   "open_user_decisions": [
-    "Confirm minimum validator scope expected per major phase.",
-    "Confirm preferred audit turnaround expectations."
+    "Prioritize Sunday Service phrase-boundary calibration next phase?"
   ],
-  "recommended_next_step": "Run scripts\\dev.cmd prepare-pr-handoff and paste into PR body, then request ChatGPT audit.",
-  "commit_hash": "21cd85cc2a946b9c9bbac2c508061cc621498c80",
-  "git_status": "## master\n M scripts/dev.ps1\n?? docs/AGENT_LOOP_PROTOCOL.md\n?? docs/PROJECT_NORTH_STAR.md\n?? docs/USER_DECISIONS.md\n?? reports/agent_handoffs/\n?? scripts/prepare_pr_handoff.py\n?? scripts/write_agent_handoff.py",
-  "generated_at_utc": "2026-05-22T19:38:49.061296+00:00"
+  "recommended_next_step": "Request ChatGPT PR audit, then target Sunday Service review reduction without weakening trust policy",
+  "commit_hash": "7ddc37bc1677c1d79bee89ad83e14b464bee8d16",
+  "git_status": "## master\n M reports/agent_handoffs/latest_handoff.json\n M reports/agent_handoffs/latest_handoff.md\n M reports/agent_handoffs/pr_handoff_body.md",
+  "generated_at_utc": "2026-05-22T19:43:14.937995+00:00"
 }
