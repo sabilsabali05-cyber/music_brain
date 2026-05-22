@@ -1,0 +1,383 @@
+{
+  "dataset_folder": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1",
+  "example_count": 76,
+  "split_reason_breakdown": {
+    "train": {
+      "quality_meets_train_threshold": 31
+    },
+    "validation": {
+      "duration_out_of_range": 7,
+      "phrase_boundary_weak": 10,
+      "quality_meets_validation_threshold": 30,
+      "task_policy_failed": 7,
+      "weak_or_missing_task_evidence": 3
+    },
+    "review": {
+      "duration_out_of_range": 1,
+      "phrase_boundary_weak": 2,
+      "quality_below_threshold": 15,
+      "route_state_unsuitable": 13,
+      "task_policy_failed": 14
+    },
+    "exclude": {}
+  },
+  "quality_component_stats": {
+    "transcription_reliability": 0.871711,
+    "route_suitability": 0.8575,
+    "phrase_boundary_quality": 0.842105,
+    "target_density": 0.751316,
+    "musical_completeness": 1.0,
+    "repetition_or_motif_strength": 0.516444,
+    "witness_agreement_score": 0.84,
+    "ambiguity_penalty": 0.16,
+    "review_penalty": 0.0,
+    "final_score": 0.6679
+  },
+  "per_task_stats": {
+    "buildup_to_release": {
+      "count": 4,
+      "average_score": 0.72435,
+      "split_counts": {
+        "review": 1,
+        "train": 3
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 427.75,
+      "average_context_note_count": 1509.25
+    },
+    "call_response": {
+      "count": 10,
+      "average_score": 0.7374,
+      "split_counts": {
+        "train": 8,
+        "validation": 2
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 659.5,
+      "average_context_note_count": 600.3
+    },
+    "continuation": {
+      "count": 12,
+      "average_score": 0.7246,
+      "split_counts": {
+        "train": 10,
+        "validation": 2
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 638.5,
+      "average_context_note_count": 632.75
+    },
+    "groove_continuation": {
+      "count": 11,
+      "average_score": 0.732055,
+      "split_counts": {
+        "train": 9,
+        "validation": 2
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 655.636364,
+      "average_context_note_count": 623.454545
+    },
+    "infill_missing_region": {
+      "count": 11,
+      "average_score": 0.616855,
+      "split_counts": {
+        "review": 2,
+        "validation": 9
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 669.636364,
+      "average_context_note_count": 1927.272727
+    },
+    "melody_continuation": {
+      "count": 1,
+      "average_score": 0.7406,
+      "split_counts": {
+        "train": 1
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 450,
+      "average_context_note_count": 735
+    },
+    "motif_transformation": {
+      "count": 3,
+      "average_score": 0.656925,
+      "split_counts": {
+        "validation": 3
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 937.666667,
+      "average_context_note_count": 431.333333
+    },
+    "phrase_continuation": {
+      "count": 12,
+      "average_score": 0.54835,
+      "split_counts": {
+        "review": 11,
+        "validation": 1
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 638.5,
+      "average_context_note_count": 632.75
+    },
+    "section_transition": {
+      "count": 12,
+      "average_score": 0.638683,
+      "split_counts": {
+        "review": 1,
+        "validation": 11
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 139.833333,
+      "average_context_note_count": 122.666667
+    }
+  },
+  "top_salvage_candidates": [
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:472.25-592.5:592.5-656.5",
+      "task_type": "buildup_to_release",
+      "final_score": 0.6456,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:infill_missing_region:44.75-244.0:116.25-186.75",
+      "task_type": "infill_missing_region",
+      "final_score": 0.5874,
+      "current_split": "review",
+      "blockers": [
+        "duration_out_of_range",
+        "phrase_boundary_weak",
+        "quality_below_threshold",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:infill_missing_region:288.0-472.25:325.0-383.5",
+      "task_type": "infill_missing_region",
+      "final_score": 0.5874,
+      "current_split": "review",
+      "blockers": [
+        "phrase_boundary_weak",
+        "quality_below_threshold"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:0.0-44.75:44.75-116.25",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:44.75-116.25:116.25-186.75",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:116.25-186.75:186.75-244.0",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:186.75-244.0:244.0-288.0",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:244.0-288.0:288.0-325.0",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:288.0-325.0:325.0-383.5",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:325.0-383.5:383.5-472.25",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:383.5-472.25:472.25-531.0",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:472.25-531.0:531.0-592.5",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:592.5-656.5:656.5-712.75",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:656.5-712.75:712.75-751.421",
+      "task_type": "phrase_continuation",
+      "final_score": 0.5396,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    },
+    {
+      "example_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:section_transition:32.75-44.75:44.75-56.75",
+      "task_type": "section_transition",
+      "final_score": 0.5156,
+      "current_split": "review",
+      "blockers": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "what_would_need_to_improve": [
+        "increase final_score into validation/train threshold",
+        "task-policy compatible context/target routing"
+      ]
+    }
+  ],
+  "missing_task_diagnostics": {
+    "harmony_continuation": {
+      "harmonic_or_polyphonic_regions_available": 41,
+      "regions_with_pitch_harmony_refs": 41,
+      "regions_with_target_midi_events": 41,
+      "why_no_examples_were_created": []
+    },
+    "motif_transformation": {
+      "motif_candidates_available": 1047,
+      "repeated_motif_groups": 93,
+      "passing_duration_note_constraints": 93,
+      "why_no_examples_were_created": []
+    }
+  }
+}

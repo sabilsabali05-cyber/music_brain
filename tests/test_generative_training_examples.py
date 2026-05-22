@@ -6,6 +6,7 @@ from pathlib import Path
 from mido import Message, MidiFile, MidiTrack
 
 from scripts.build_generative_training_examples import build_generative_training_examples
+from scripts.diagnose_generative_examples import diagnose_generative_examples
 from scripts.validate_generative_training_examples import validate_generative_training_examples
 
 
@@ -75,7 +76,21 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, str, str]:
     )
     feature_dir = tmp_path / "features" / "performances" / performance_id / run_id
     _write_json(feature_dir / "feature_pack_manifest.json", {"performance_id": performance_id, "segment_run_id": run_id})
-    _write_json(feature_dir / "rhythm_features.json", {"records": [], "rhythm_motifs": {"motifs": []}, "rhythm_motif_groups": [{"motif_group_id": "mg1", "region_ids": ["route_w1", "route_w2"], "rhythm_family_confidence": 0.7}]})
+    _write_json(
+        feature_dir / "rhythm_features.json",
+        {
+            "records": [],
+            "rhythm_motifs": {"motifs": [{"motif_id": "m1"}]},
+            "rhythm_motif_groups": [
+                {
+                    "motif_group_id": "mg1",
+                    "region_ids": ["route_w1", "route_w2"],
+                    "window_ids": ["w1", "w2"],
+                    "rhythm_family_confidence": 0.7,
+                }
+            ],
+        },
+    )
     _write_json(feature_dir / "harmony_features.json", {"records": [], "chord_movement_summary": {}})
     _write_json(feature_dir / "rhythm_time" / "meter_time_features.json", {"confidence": 0.7, "ambiguity": 0.3, "summary": {"subdivision_histogram": {"straight_eighths": 3}, "macro_section_candidates": ["intro", "verse"]}, "beat_meter_hypotheses": [{"meter": "4/4", "confidence": 0.7, "ambiguity": 0.3}]})
     _write_json(
@@ -137,14 +152,20 @@ def test_builder_creates_continuation_infill_and_domain_tasks(tmp_path: Path, mo
     assert "groove_continuation" in tasks
     assert "harmony_continuation" in tasks
     assert "melody_continuation" in tasks
+    assert "motif_transformation" in tasks
     infill = next(row for row in rows if row["task_type"] == "infill_missing_region")
     assert infill["context_start_seconds"] <= infill["target_start_seconds"] <= infill["target_end_seconds"] <= infill["context_end_seconds"]
-    # silence_or_noise should not produce train split examples
+    # silence_or_noise stays excluded rather than promoted.
     silence_rows = [row for row in rows if row["conditioning"]["content_state"] == "silence_or_noise"]
-    assert silence_rows == []
+    assert all(row["split_recommendation"] == "exclude" for row in silence_rows)
     # weak style tags are conditioning-only
     assert "style_tags_weak" in rows[0]["conditioning"]
     assert "style_tags_ground_truth" not in rows[0]["conditioning"]
+    assert "split_reason_codes" in rows[0]
+    assert "quality_component_breakdown" in rows[0]
+    assert isinstance(rows[0]["split_reason_codes"], list)
+    assert isinstance(rows[0]["quality_component_breakdown"], dict)
+    assert any(row["split_recommendation"] in {"review", "validation", "train"} for row in rows)
     out_dir = tmp_path / "datasets" / "generative_training" / performance_id / run_id
     assert out_dir.exists()
 
@@ -158,6 +179,34 @@ def test_quality_score_penalizes_low_reliability(tmp_path: Path, monkeypatch) ->
     high = by_target["10.0-20.0"]["quality_score"]["final_score"]
     low = by_target["30.0-40.0"]["quality_score"]["final_score"] if "30.0-40.0" in by_target else 0.0
     assert high > low
+
+
+def test_missing_external_witness_does_not_force_exclude(tmp_path: Path, monkeypatch) -> None:
+    manifest, performance_id, run_id = _setup_workspace(tmp_path)
+    feature_dir = tmp_path / "features" / "performances" / performance_id / run_id / "external_model_features"
+    for filename in ("essentia_features.json", "music21_features.json", "model_consensus.json", "model_witness_comparison.json"):
+        path = feature_dir / filename
+        if path.exists():
+            path.unlink()
+    monkeypatch.chdir(tmp_path)
+    jsonl_path, _, _ = build_generative_training_examples(manifest)
+    rows = [json.loads(line) for line in jsonl_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert any("missing_external_witness_refs" in row.get("split_reason_codes", []) for row in rows)
+    assert any(row["split_recommendation"] in {"review", "validation", "train"} for row in rows)
+
+
+def test_diagnostics_outputs_split_reasons(tmp_path: Path, monkeypatch) -> None:
+    manifest, performance_id, run_id = _setup_workspace(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    build_generative_training_examples(manifest)
+    dataset_dir = tmp_path / "datasets" / "generative_training" / performance_id / run_id
+    json_path, md_path = diagnose_generative_examples(dataset_dir)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+    assert json_path.exists()
+    assert md_path.exists()
+    assert "split_reason_breakdown" in payload
+    assert "quality_component_stats" in payload
+    assert "per_task_stats" in payload
 
 
 def test_validator_rejects_missing_refs_and_huge_arrays(tmp_path: Path, monkeypatch) -> None:

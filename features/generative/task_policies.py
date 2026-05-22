@@ -5,6 +5,33 @@ from typing import Any
 
 TaskPolicy = dict[str, Any]
 
+SPLIT_THRESHOLDS = {
+    "train": 0.72,
+    "validation": 0.60,
+    "review": 0.35,
+}
+
+CRITICAL_BLOCKERS = {
+    "missing_target_range",
+    "missing_target_midi_ref",
+    "no_target_events",
+    "invalid_timing",
+    "silence_or_noise_target",
+    "malformed_refs",
+}
+
+MAJOR_BLOCKERS = {
+    "task_policy_failed",
+    "low_transcription_reliability",
+}
+
+NON_CRITICAL_WEAKNESSES = {
+    "missing_external_witness_refs",
+    "weak_style_labels",
+    "ambiguous_key_or_chord",
+    "missing_human_verification",
+}
+
 
 def _policy(
     *,

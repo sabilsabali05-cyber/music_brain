@@ -11,10 +11,24 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from features.generative.task_policies import TASK_POLICIES
+from scripts.feature_dataset_common import resolve_artifact_performance_dir
 
 
 VALID_SPLITS = {"train", "validation", "review", "exclude"}
 MAX_ARRAY_LEN = 256
+
+
+def _resolve_dataset_folder(path: Path) -> Path:
+    if path.exists():
+        return path
+    parts = list(path.parts)
+    if len(parts) < 2:
+        return path
+    run_id = parts[-1]
+    perf_id = parts[-2]
+    compact_root = path.parent.parent.parent if len(parts) >= 3 else path.parent
+    compact = resolve_artifact_performance_dir(compact_root, perf_id) / run_id
+    return compact if compact.exists() else path
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -76,6 +90,7 @@ def _scan_large_arrays(value: Any, *, path: str = "root", hits: list[str] | None
 
 
 def validate_generative_training_examples(dataset_folder: Path) -> dict[str, Any]:
+    dataset_folder = _resolve_dataset_folder(dataset_folder)
     errors: list[str] = []
     warnings: list[str] = []
     manifest_path = dataset_folder / "generative_manifest.json"
@@ -125,8 +140,19 @@ def validate_generative_training_examples(dataset_folder: Path) -> dict[str, Any
             final_score = _safe_float(row["quality_score"].get("final_score"), -1.0)
             if final_score < 0:
                 errors.append(f"row {idx}: invalid quality_score.final_score")
-            if final_score < 0.58 and split == "train":
+            if final_score < 0.72 and split == "train":
                 errors.append(f"row {idx}: low-quality example cannot be split=train")
+            if final_score < 0.60 and split == "validation":
+                errors.append(f"row {idx}: low-quality example cannot be split=validation")
+
+        if not isinstance(row.get("split_reason_codes"), list):
+            errors.append(f"row {idx}: missing split_reason_codes")
+        if not isinstance(row.get("failed_policy_checks"), list):
+            errors.append(f"row {idx}: missing failed_policy_checks")
+        if not isinstance(row.get("missing_refs"), list):
+            errors.append(f"row {idx}: missing missing_refs")
+        if not isinstance(row.get("quality_component_breakdown"), dict):
+            errors.append(f"row {idx}: missing quality_component_breakdown")
 
         if not _path_exists(row.get("target_midi_ref")):
             errors.append(f"row {idx}: missing target_midi_ref path")
