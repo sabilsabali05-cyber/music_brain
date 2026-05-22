@@ -1,0 +1,26 @@
+{
+  "total_performances": 1,
+  "total_source_ai_records": 403,
+  "total_accepted_observation_records": 27,
+  "total_weak_label_records": 403,
+  "total_audio_midi_only_records": 0,
+  "total_review_required_records": 376,
+  "total_quarantined_records": 0,
+  "accepted_percentage": 6.6998,
+  "review_required_percentage": 93.3002,
+  "performances_by_dataset_inclusion_decision": {
+    "accepted": 1
+  },
+  "performances_with_zero_accepted_records": [],
+  "performances_with_quarantined_records": [],
+  "top_limitations_or_warnings": [
+    {
+      "message": "Field-level splitting is heuristic and should be periodically recalibrated.",
+      "count": 1
+    },
+    {
+      "message": "Weak and interpretive labels remain non-ground-truth signals.",
+      "count": 1
+    }
+  ]
+}

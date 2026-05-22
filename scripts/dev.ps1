@@ -85,6 +85,7 @@ function Show-Usage {
     Write-Host "  audit-training-data <performance-manifest>"
     Write-Host "  export-training-dataset-splits <performance-manifest>"
     Write-Host "  validate-training-export <export-folder>"
+    Write-Host "  summarize-training-exports [exports-root]"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -836,6 +837,13 @@ switch ($Task) {
         $exportFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-training-export <export-folder>"
         Invoke-Step -Label "Validating exported training dataset splits" -Command @(
             "python", "scripts/validate_training_export.py", $exportFolder
+        )
+    }
+    "summarize-training-exports" {
+        $exportsRoot = Get-TaskArg -Index 0
+        $target = if (-not [string]::IsNullOrWhiteSpace($exportsRoot)) { $exportsRoot } else { "datasets/training_exports" }
+        Invoke-Step -Label "Summarizing training export manifests" -Command @(
+            "python", "scripts/summarize_training_exports.py", $target
         )
     }
     "transcribe-yourmt3" {
