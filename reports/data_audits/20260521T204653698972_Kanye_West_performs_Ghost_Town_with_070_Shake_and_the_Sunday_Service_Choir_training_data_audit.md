@@ -42,6 +42,14 @@
 - decision: `accepted`
 - recommended split: `train`
 
+## Field-Level Training Usability
+- accepted_records may intentionally be observation-only to avoid weak-label contamination.
+- safe fields: `["timing boundaries (start/end/duration)", "note count and note density", "velocity statistics", "pitch-class histograms", "transcription reliability score and recommended weight", "feature/provenance references"]`
+- weak-label fields: `["chord label candidates", "rhythm-family candidates", "motif group references", "interpretive ontology tags"]`
+- review-required fields: `["ambiguous rhythm-family outputs", "low-confidence harmony/rhythm labels", "interpretive philosophical tags", "conflicting model-derived interpretations"]`
+- train on raw timing/MIDI now: `True`
+- semantic/rhythm/harmony labels status: `weak_or_review_only`
+
 ## 8. Recommended next steps
 - Collect human verification for high-impact weak labels.
 - Use accepted/audio_midi_only splits for baseline training first.

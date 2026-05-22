@@ -1,7 +1,7 @@
 {
   "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
   "segment_run_id": "20260521T204750163461_audio_structure_v1",
-  "created_at": "2026-05-22T01:45:30.091335+00:00",
+  "created_at": "2026-05-22T01:57:51.422227+00:00",
   "artifacts": {
     "source_audio_reference": "C:/Users/izzyo/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
     "active_analysis_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\analysis\\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\20260521T204701196539_modal_librosa_dense\\structure_analysis.json",
@@ -69,6 +69,31 @@
       "mean_reliability_score": 0.976923,
       "training_weight_mean": 1.0
     }
+  },
+  "field_level_training_usability": {
+    "observation_only_exports_expected": true,
+    "safe_fields_for_training": [
+      "timing boundaries (start/end/duration)",
+      "note count and note density",
+      "velocity statistics",
+      "pitch-class histograms",
+      "transcription reliability score and recommended weight",
+      "feature/provenance references"
+    ],
+    "weak_label_fields": [
+      "chord label candidates",
+      "rhythm-family candidates",
+      "motif group references",
+      "interpretive ontology tags"
+    ],
+    "review_required_fields": [
+      "ambiguous rhythm-family outputs",
+      "low-confidence harmony/rhythm labels",
+      "interpretive philosophical tags",
+      "conflicting model-derived interpretations"
+    ],
+    "can_train_on_raw_timing_midi_now": true,
+    "semantic_rhythm_harmony_labels_status": "weak_or_review_only"
   },
   "dataset_inclusion_decision": "accepted",
   "recommended_dataset_split": "train",

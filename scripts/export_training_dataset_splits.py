@@ -13,6 +13,13 @@ if str(ROOT_DIR) not in sys.path:
 
 from scripts.feature_dataset_common import now_iso, save_json
 from scripts.trust_common import load_jsonl_records, resolve_performance_context, trust_dir
+from features.trust.field_trust_policy import (
+    POLICY_VERSION,
+    classify_record_for_export,
+    make_accepted_observation_record,
+    make_review_required_record,
+    make_weak_label_record,
+)
 
 
 def _line_dump(record: dict[str, Any]) -> str:
@@ -65,44 +72,87 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         "quarantined_records": [],
     }
 
-    seen_ids: dict[str, str] = {}
-    for record in ai_records:
-        record_id = str(record.get("record_id", ""))
-        if not record_id:
-            split = "quarantined_records"
-            split_records[split].append(record)
+    excluded_field_summary: dict[str, int] = {}
+    for idx, record in enumerate(ai_records):
+        source_record_id = str(record.get("record_id", f"source_{idx:06d}"))
+        classification = classify_record_for_export(record, window_rel, quality_payload if isinstance(quality_payload, dict) else {})
+        split = str(classification.get("split", "review_required_records"))
+        tier = str(classification.get("tier", "low"))
+        weight = float(classification.get("weight", 0.0) or 0.0)
+        reasons = [str(item) for item in classification.get("reasons", [])] if isinstance(classification.get("reasons"), list) else []
+
+        if split == "quarantined_records":
+            export_record = {
+                **record,
+                "export_record_id": f"{source_record_id}:quarantine:0",
+                "source_record_id": source_record_id,
+                "export_split": split,
+                "trust_tier": tier,
+                "training_weight": weight,
+                "inclusion_reason": "; ".join(reasons) if reasons else "quarantine conditions met",
+                "excluded_fields": [],
+            }
+            split_records[split].append(export_record)
             continue
 
-        window_id = str(record.get("window_id", "") or "")
-        rel = window_rel.get(window_id, {})
-        tier = str(rel.get("reliability_tier", "medium" if record.get("granularity") == "performance" else "low"))
-        score = float(rel.get("transcription_reliability_score", 0.5) or 0.5)
-        label_status = str(record.get("label_status", "weak_label"))
-        review_required = bool(record.get("review_required", True))
-        confidence = float(record.get("confidence", 0.0) or 0.0)
-        has_required = all(field in record for field in ["record_id", "performance_id", "granularity", "start_seconds", "end_seconds"])
+        accepted_observation, excluded_fields = make_accepted_observation_record(record, window_rel)
+        for field_name in excluded_fields:
+            excluded_field_summary[field_name] = excluded_field_summary.get(field_name, 0) + 1
 
-        split = "review_required_records"
-        if not has_required or tier in {"failed", "missing"}:
-            split = "quarantined_records"
-        elif label_status in {"raw_observation", "derived_observation"} and tier in {"high", "medium"} and confidence >= 0.55 and not review_required:
-            split = "accepted_records"
-        elif label_status in {"weak_label", "heuristic_estimate", "interpretive_weak_label", "model_prediction"}:
-            split = "weak_label_records" if tier in {"high", "medium"} and confidence >= 0.35 else "review_required_records"
-        elif label_status == "human_verified_label":
-            split = "accepted_records"
-        elif tier in {"high", "medium"} and confidence >= 0.5:
-            split = "audio_midi_only_records"
-        elif tier == "low":
-            split = "review_required_records"
+        weak_label_record = make_weak_label_record(record)
+        review_record = make_review_required_record(record, reasons)
 
-        if overall_status == "quarantined" and split != "quarantined_records":
-            split = "review_required_records" if split != "accepted_records" else "audio_midi_only_records"
+        can_emit_observation = tier in {"high", "medium"} and float(weight) >= 0.6
+        if can_emit_observation:
+            observation_export = {
+                **accepted_observation,
+                "export_record_id": f"{source_record_id}:observation:0",
+                "source_record_id": source_record_id,
+                "export_split": "accepted_records",
+                "trust_tier": tier,
+                "training_weight": weight,
+                "inclusion_reason": "; ".join(reasons) if reasons else "observation fields accepted from reliable source",
+                "excluded_fields": excluded_fields,
+            }
+            split_records["accepted_records"].append(observation_export)
+        elif split == "audio_midi_only_records":
+            observation_export = {
+                **accepted_observation,
+                "export_record_id": f"{source_record_id}:observation:0",
+                "source_record_id": source_record_id,
+                "export_split": "audio_midi_only_records",
+                "trust_tier": tier,
+                "training_weight": weight,
+                "inclusion_reason": "; ".join(reasons) if reasons else "audio/midi context only",
+                "excluded_fields": excluded_fields,
+            }
+            split_records["audio_midi_only_records"].append(observation_export)
 
-        if record_id in seen_ids:
-            split = "quarantined_records"
-        seen_ids[record_id] = split
-        split_records[split].append(record)
+        if str(record.get("label_status", "")) in {"weak_label", "heuristic_estimate", "interpretive_weak_label", "model_prediction"}:
+            weak_export = {
+                **weak_label_record,
+                "export_record_id": f"{source_record_id}:weak_label:0",
+                "source_record_id": source_record_id,
+                "export_split": "weak_label_records",
+                "trust_tier": tier,
+                "training_weight": min(weight, 0.7),
+                "inclusion_reason": "field-level weak label separated from accepted observations",
+                "excluded_fields": [],
+            }
+            split_records["weak_label_records"].append(weak_export)
+
+        if split == "review_required_records":
+            review_export = {
+                **review_record,
+                "export_record_id": f"{source_record_id}:review:0",
+                "source_record_id": source_record_id,
+                "export_split": "review_required_records",
+                "trust_tier": tier,
+                "training_weight": min(weight, 0.4),
+                "inclusion_reason": "; ".join(reasons) if reasons else "review required",
+                "excluded_fields": [],
+            }
+            split_records["review_required_records"].append(review_export)
 
     for split_name, records in split_records.items():
         output_path = export_root / f"{split_name}.jsonl"
@@ -115,17 +165,25 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         "source_feature_pack_path": feature_dir.as_posix(),
         "created_at": now_iso(),
         "pipeline_git_commit": _git_commit(),
+        "source_ai_record_count": len(ai_records),
+        "accepted_observation_count": len(split_records["accepted_records"]),
+        "weak_label_count": len(split_records["weak_label_records"]),
+        "audio_midi_only_count": len(split_records["audio_midi_only_records"]),
+        "review_required_count": len(split_records["review_required_records"]),
+        "quarantined_count": len(split_records["quarantined_records"]),
+        "field_trust_policy_version": POLICY_VERSION,
         "counts_per_split": {name: len(records) for name, records in split_records.items()},
         "inclusion_rules_used": {
-            "accepted": "raw/derived observations with high or medium reliability and adequate confidence.",
-            "weak_label": "heuristic/model weak labels retained separately.",
-            "audio_midi_only": "usable timing/transcription context without safe labels.",
-            "review_required": "ambiguous or low-confidence records needing review.",
-            "quarantined": "missing/failed/malformed records or duplicate IDs.",
+            "accepted": "field-level observation subset derived from reliable source records.",
+            "weak_label": "separate weak-label payloads with evidence/confidence metadata.",
+            "audio_midi_only": "observation-only exports from reliable records without safe labels.",
+            "review_required": "ambiguous/low-confidence/experimental records with review reasons.",
+            "quarantined": "critical schema/provenance/time-range failures.",
         },
+        "excluded_field_summary": excluded_field_summary,
         "limitations": [
-            "Split assignment is heuristic and should be reviewed for production training.",
-            "Quality gate status can down-rank records globally.",
+            "Field-level splitting is heuristic and should be periodically recalibrated.",
+            "Weak and interpretive labels remain non-ground-truth signals.",
         ],
     }
     save_json(export_root / "export_manifest.json", manifest)

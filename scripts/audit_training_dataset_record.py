@@ -88,6 +88,31 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
 
     reliability_summary = reliability_payload.get("summary", {}) if isinstance(reliability_payload.get("summary"), dict) else {}
     label_status_counts = _label_counts(ai_records)
+    field_level_usability = {
+        "observation_only_exports_expected": True,
+        "safe_fields_for_training": [
+            "timing boundaries (start/end/duration)",
+            "note count and note density",
+            "velocity statistics",
+            "pitch-class histograms",
+            "transcription reliability score and recommended weight",
+            "feature/provenance references",
+        ],
+        "weak_label_fields": [
+            "chord label candidates",
+            "rhythm-family candidates",
+            "motif group references",
+            "interpretive ontology tags",
+        ],
+        "review_required_fields": [
+            "ambiguous rhythm-family outputs",
+            "low-confidence harmony/rhythm labels",
+            "interpretive philosophical tags",
+            "conflicting model-derived interpretations",
+        ],
+        "can_train_on_raw_timing_midi_now": True,
+        "semantic_rhythm_harmony_labels_status": "weak_or_review_only",
+    }
 
     audit_json = {
         "performance_id": ctx["performance_id"],
@@ -131,6 +156,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "label_status_counts": label_status_counts,
             "reliability_summary": reliability_summary,
         },
+        "field_level_training_usability": field_level_usability,
         "dataset_inclusion_decision": inclusion_decision,
         "recommended_dataset_split": recommended_split,
         "recommended_next_steps": [
@@ -183,6 +209,14 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "## 7. Dataset inclusion decision",
             f"- decision: `{inclusion_decision}`",
             f"- recommended split: `{recommended_split}`",
+            "",
+            "## Field-Level Training Usability",
+            "- accepted_records may intentionally be observation-only to avoid weak-label contamination.",
+            f"- safe fields: `{json.dumps(field_level_usability['safe_fields_for_training'], ensure_ascii=True)}`",
+            f"- weak-label fields: `{json.dumps(field_level_usability['weak_label_fields'], ensure_ascii=True)}`",
+            f"- review-required fields: `{json.dumps(field_level_usability['review_required_fields'], ensure_ascii=True)}`",
+            f"- train on raw timing/MIDI now: `{field_level_usability['can_train_on_raw_timing_midi_now']}`",
+            f"- semantic/rhythm/harmony labels status: `{field_level_usability['semantic_rhythm_harmony_labels_status']}`",
             "",
             "## 8. Recommended next steps",
         ]

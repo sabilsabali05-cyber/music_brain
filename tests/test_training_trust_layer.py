@@ -6,6 +6,11 @@ from pathlib import Path
 from mido import Message, MidiFile, MidiTrack
 
 from features.trust.failure_taxonomy import make_failure_record
+from features.trust.field_trust_policy import (
+    classify_record_for_export,
+    make_accepted_observation_record,
+    should_quarantine_record,
+)
 from scripts.audit_training_dataset_record import audit_training_dataset_record
 from scripts.compute_transcription_reliability import compute_transcription_reliability
 from scripts.evaluate_training_quality_gates import evaluate_training_quality_gates
@@ -226,9 +231,70 @@ def test_export_splits_and_no_weak_as_accepted(tmp_path: Path, monkeypatch) -> N
     evaluate_training_quality_gates(manifest)
     export_dir = export_training_dataset_splits(manifest)
     accepted = (export_dir / "accepted_records.jsonl").read_text(encoding="utf-8")
-    assert '"record_id": "r2"' not in accepted
+    assert '"source_record_id": "r2"' not in accepted
+    weak_labels = (export_dir / "weak_label_records.jsonl").read_text(encoding="utf-8")
+    assert '"source_record_id": "r2"' in weak_labels
     summary = validate_training_export(export_dir)
     assert summary["status"] == "success"
+
+
+def test_field_policy_high_reliability_mixed_record_yields_observation_and_weak(tmp_path: Path, monkeypatch) -> None:
+    manifest, _ = _setup_workspace(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    compute_transcription_reliability(manifest)
+    gates_path = evaluate_training_quality_gates(manifest)
+    gates = json.loads(gates_path.read_text(encoding="utf-8"))
+    gates["overall_quality_status"] = "accepted"
+    gates["recommended_dataset_split"] = "train"
+    gates_path.write_text(json.dumps(gates, indent=2), encoding="utf-8")
+    export_dir = export_training_dataset_splits(manifest)
+    accepted_records = [json.loads(line) for line in (export_dir / "accepted_records.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    weak_records = [json.loads(line) for line in (export_dir / "weak_label_records.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert any(item.get("source_record_id") == "r1" for item in accepted_records)
+    assert any(item.get("source_record_id") == "r2" for item in weak_records)
+    for item in accepted_records:
+        assert item.get("label_status") in {"raw_observation", "derived_observation", "human_verified_label"}
+        assert "weak_fields" not in item
+
+
+def test_field_policy_classification_helpers() -> None:
+    record = {
+        "record_id": "x1",
+        "performance_id": "perf",
+        "segment_run_id": "run",
+        "granularity": "window",
+        "start_seconds": 0.0,
+        "end_seconds": 2.0,
+        "label_status": "raw_observation",
+        "confidence": 0.8,
+        "feature_version": "ai_training_v1",
+        "source_artifact_paths": {"performance_manifest_path": "a.json"},
+        "input_features": {"rhythm_excerpt": {"note_on_count": 30, "note_density_per_second": 4.0}},
+    }
+    rel_lookup = {"win_0": {"reliability_tier": "high", "transcription_reliability_score": 0.95, "recommended_training_weight": 1.0}}
+    record["window_id"] = "win_0"
+    classification = classify_record_for_export(record, rel_lookup, {"overall_quality_status": "accepted"})
+    assert classification["split"] == "accepted_records"
+    accepted, excluded = make_accepted_observation_record(record, rel_lookup)
+    assert accepted["record_id"] == "x1"
+    assert isinstance(excluded, list)
+    quarantine, reasons = should_quarantine_record(record)
+    assert quarantine is False
+    assert reasons == []
+
+
+def test_malformed_records_go_quarantine(tmp_path: Path, monkeypatch) -> None:
+    manifest, feature_dir = _setup_workspace(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    (feature_dir / "ai_training_records.jsonl").write_text(
+        json.dumps({"performance_id": "perf_1", "start_seconds": 5.0, "end_seconds": 1.0}) + "\n",
+        encoding="utf-8",
+    )
+    compute_transcription_reliability(manifest)
+    evaluate_training_quality_gates(manifest)
+    export_dir = export_training_dataset_splits(manifest)
+    quarantined_records = [json.loads(line) for line in (export_dir / "quarantined_records.jsonl").read_text(encoding="utf-8").splitlines() if line.strip()]
+    assert len(quarantined_records) >= 1
 
 
 def test_validate_training_export_catches_malformed_jsonl(tmp_path: Path) -> None:
@@ -243,6 +309,50 @@ def test_validate_training_export_catches_malformed_jsonl(tmp_path: Path) -> Non
     ]:
         (export_dir / name).write_text("{bad json}\n", encoding="utf-8")
     _write_json(export_dir / "export_manifest.json", {"counts_per_split": {}})
+    summary = validate_training_export(export_dir)
+    assert summary["status"] == "failed"
+
+
+def test_validator_rejects_accepted_with_weak_fields(tmp_path: Path) -> None:
+    export_dir = tmp_path / "datasets" / "training_exports" / "perf_1" / "run_123"
+    export_dir.mkdir(parents=True, exist_ok=True)
+    accepted_record = {
+        "export_record_id": "x",
+        "source_record_id": "r1",
+        "record_id": "r1",
+        "performance_id": "perf_1",
+        "granularity": "window",
+        "start_seconds": 0.0,
+        "end_seconds": 1.0,
+        "label_status": "weak_label",
+        "best_rhythm_family_match": "tresillo_3_3_2",
+        "export_split": "accepted_records",
+    }
+    (export_dir / "accepted_records.jsonl").write_text(json.dumps(accepted_record) + "\n", encoding="utf-8")
+    for name in [
+        "weak_label_records.jsonl",
+        "audio_midi_only_records.jsonl",
+        "review_required_records.jsonl",
+        "quarantined_records.jsonl",
+    ]:
+        (export_dir / name).write_text("", encoding="utf-8")
+    _write_json(
+        export_dir / "export_manifest.json",
+        {
+            "counts_per_split": {
+                "accepted_records": 1,
+                "weak_label_records": 0,
+                "audio_midi_only_records": 0,
+                "review_required_records": 0,
+                "quarantined_records": 0,
+            },
+            "accepted_observation_count": 1,
+            "weak_label_count": 0,
+            "audio_midi_only_count": 0,
+            "review_required_count": 0,
+            "quarantined_count": 0,
+        },
+    )
     summary = validate_training_export(export_dir)
     assert summary["status"] == "failed"
 
