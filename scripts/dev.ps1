@@ -86,6 +86,8 @@ function Show-Usage {
     Write-Host "  export-training-dataset-splits <performance-manifest>"
     Write-Host "  validate-training-export <export-folder>"
     Write-Host "  summarize-training-exports [exports-root]"
+    Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
+    Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -844,6 +846,23 @@ switch ($Task) {
         $target = if (-not [string]::IsNullOrWhiteSpace($exportsRoot)) { $exportsRoot } else { "datasets/training_exports" }
         Invoke-Step -Label "Summarizing training export manifests" -Command @(
             "python", "scripts/summarize_training_exports.py", $target
+        )
+    }
+    "batch-trusted-exports" {
+        $inboxFolder = Get-TaskArg -Index 0
+        $maxPerformances = Get-TaskArg -Index 1
+        $maxWindows = Get-TaskArg -Index 2
+        $inbox = if (-not [string]::IsNullOrWhiteSpace($inboxFolder)) { $inboxFolder } else { "performances/inbox" }
+        $perfCap = if (-not [string]::IsNullOrWhiteSpace($maxPerformances)) { $maxPerformances } else { "1" }
+        $winCap = if (-not [string]::IsNullOrWhiteSpace($maxWindows)) { $maxWindows } else { "3" }
+        Invoke-Step -Label "Running batch trusted exports workflow" -Command @(
+            "python", "scripts/batch_trusted_exports.py", $inbox, "--max-performances", $perfCap, "--max-windows", $winCap
+        )
+    }
+    "validate-batch-report" {
+        $reportPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-batch-report <batch-report-json>"
+        Invoke-Step -Label "Validating batch trusted export report" -Command @(
+            "python", "scripts/validate_batch_report.py", $reportPath
         )
     }
     "transcribe-yourmt3" {
