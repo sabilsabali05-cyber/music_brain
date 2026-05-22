@@ -98,6 +98,31 @@ def _seed_perf(
             "source_feature_pack_path": feature_dir.as_posix(),
         },
     )
+    generative_dir = tmp_path / "datasets" / "generative_training" / performance_id / run_id
+    _write_json(
+        generative_dir / "generative_manifest.json",
+        {
+            "performance_id": performance_id,
+            "segment_run_id": run_id,
+            "generative_examples_count": 1,
+            "split_counts": {"train": 1, "validation": 0, "review": 0, "exclude": 0},
+            "examples_by_task_type": {"continuation": 1},
+            "average_quality_score": 0.72,
+            "examples_per_minute": 0.5,
+            "high_quality_examples_per_minute": 0.5,
+        },
+    )
+    _write_jsonl(
+        generative_dir / "generative_examples.jsonl",
+        [
+            {
+                "example_id": f"{performance_id}:{run_id}:continuation:0",
+                "task_type": "continuation",
+                "split_recommendation": "train",
+                "quality_score": {"final_score": 0.72},
+            }
+        ],
+    )
 
 
 def test_audit_reports_complete_and_incomplete_layers(tmp_path: Path, monkeypatch) -> None:
@@ -133,6 +158,7 @@ def test_audit_reports_complete_and_incomplete_layers(tmp_path: Path, monkeypatc
     assert by_id["perf_complete:run_1"]["layer_completeness"]["training_export_present"] is True
     assert by_id["perf_incomplete:run_9"]["layer_completeness"]["training_export_present"] is False
     assert "missing_external_meter_witness" in by_id["perf_complete:run_1"]["risk_flags"]
+    assert by_id["perf_complete:run_1"]["generative_dataset"]["generative_examples_count"] == 1
 
 
 def test_audit_computes_rates_ratios_and_flags(tmp_path: Path, monkeypatch) -> None:

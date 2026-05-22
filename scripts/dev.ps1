@@ -96,6 +96,8 @@ function Show-Usage {
     Write-Host "  validate-training-export <export-folder>"
     Write-Host "  summarize-training-exports [exports-root]"
     Write-Host "  audit-dataset-quality-yield"
+    Write-Host "  build-generative-examples <performance-manifest>"
+    Write-Host "  validate-generative-examples <generative-dataset-folder>"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
@@ -924,6 +926,18 @@ switch ($Task) {
     "audit-dataset-quality-yield" {
         Invoke-Step -Label "Auditing dataset quality and data yield" -Command @(
             "python", "scripts/audit_dataset_quality_yield.py"
+        )
+    }
+    "build-generative-examples" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-generative-examples <performance-manifest>"
+        Invoke-Step -Label "Building generative training examples" -Command @(
+            "python", "scripts/build_generative_training_examples.py", $manifestPath
+        )
+    }
+    "validate-generative-examples" {
+        $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-generative-examples <generative-dataset-folder>"
+        Invoke-Step -Label "Validating generative training examples" -Command @(
+            "python", "scripts/validate_generative_training_examples.py", $datasetFolder
         )
     }
     "batch-trusted-exports" {

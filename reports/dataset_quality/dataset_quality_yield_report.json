@@ -145,6 +145,7 @@
         "high_review_required_percentage",
         "low_beat_confidence",
         "missing_external_meter_witness",
+        "missing_generative_task_coverage",
         "missing_microtonal_evidence"
       ],
       "recommendations": {
@@ -166,6 +167,33 @@
           "beat_tracker": "unavailable",
           "music21": "success"
         }
+      },
+      "generative_dataset": {
+        "generative_dataset_present": false,
+        "generative_dataset_path": null,
+        "generative_examples_count": 0,
+        "train_recommended_count": 0,
+        "validation_recommended_count": 0,
+        "review_recommended_count": 0,
+        "exclude_recommended_count": 0,
+        "examples_by_task_type": {},
+        "average_quality_score": 0.0,
+        "examples_per_minute": 0.0,
+        "high_quality_examples_per_minute": 0.0,
+        "weakest_task_domains": [],
+        "strongest_task_domains": [],
+        "missing_task_coverage": [
+          "buildup_to_release",
+          "call_response",
+          "continuation",
+          "groove_continuation",
+          "harmony_continuation",
+          "infill_missing_region",
+          "melody_continuation",
+          "motif_transformation",
+          "phrase_continuation",
+          "section_transition"
+        ]
       }
     },
     {
@@ -315,6 +343,7 @@
         "external_witness_disagreement",
         "high_review_required_percentage",
         "missing_external_meter_witness",
+        "missing_generative_task_coverage",
         "missing_microtonal_evidence"
       ],
       "recommendations": {
@@ -336,6 +365,43 @@
           "beat_tracker": "missing",
           "music21": "success"
         }
+      },
+      "generative_dataset": {
+        "generative_dataset_present": true,
+        "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+        "generative_examples_count": 222,
+        "train_recommended_count": 0,
+        "validation_recommended_count": 0,
+        "review_recommended_count": 0,
+        "exclude_recommended_count": 222,
+        "examples_by_task_type": {
+          "buildup_to_release": 11,
+          "call_response": 36,
+          "continuation": 43,
+          "groove_continuation": 37,
+          "infill_missing_region": 43,
+          "melody_continuation": 6,
+          "phrase_continuation": 6,
+          "section_transition": 40
+        },
+        "average_quality_score": 0.192095,
+        "examples_per_minute": 4.006205,
+        "high_quality_examples_per_minute": 0.0,
+        "weakest_task_domains": [
+          "buildup_to_release",
+          "call_response",
+          "continuation",
+          "groove_continuation",
+          "infill_missing_region",
+          "melody_continuation",
+          "phrase_continuation",
+          "section_transition"
+        ],
+        "strongest_task_domains": [],
+        "missing_task_coverage": [
+          "harmony_continuation",
+          "motif_transformation"
+        ]
       }
     },
     {
@@ -462,6 +528,7 @@
       "risk_flags": [
         "high_review_required_percentage",
         "missing_external_meter_witness",
+        "missing_generative_task_coverage",
         "missing_microtonal_evidence"
       ],
       "recommendations": {
@@ -478,6 +545,33 @@
         "essentia_status": "missing",
         "music21_status": "missing",
         "comparison_provider_status": {}
+      },
+      "generative_dataset": {
+        "generative_dataset_present": false,
+        "generative_dataset_path": null,
+        "generative_examples_count": 0,
+        "train_recommended_count": 0,
+        "validation_recommended_count": 0,
+        "review_recommended_count": 0,
+        "exclude_recommended_count": 0,
+        "examples_by_task_type": {},
+        "average_quality_score": 0.0,
+        "examples_per_minute": 0.0,
+        "high_quality_examples_per_minute": 0.0,
+        "weakest_task_domains": [],
+        "strongest_task_domains": [],
+        "missing_task_coverage": [
+          "buildup_to_release",
+          "call_response",
+          "continuation",
+          "groove_continuation",
+          "harmony_continuation",
+          "infill_missing_region",
+          "melody_continuation",
+          "motif_transformation",
+          "phrase_continuation",
+          "section_transition"
+        ]
       }
     },
     {
@@ -604,6 +698,7 @@
       "risk_flags": [
         "high_review_required_percentage",
         "missing_external_meter_witness",
+        "missing_generative_task_coverage",
         "missing_microtonal_evidence"
       ],
       "recommendations": {
@@ -620,6 +715,33 @@
         "essentia_status": "missing",
         "music21_status": "missing",
         "comparison_provider_status": {}
+      },
+      "generative_dataset": {
+        "generative_dataset_present": false,
+        "generative_dataset_path": null,
+        "generative_examples_count": 0,
+        "train_recommended_count": 0,
+        "validation_recommended_count": 0,
+        "review_recommended_count": 0,
+        "exclude_recommended_count": 0,
+        "examples_by_task_type": {},
+        "average_quality_score": 0.0,
+        "examples_per_minute": 0.0,
+        "high_quality_examples_per_minute": 0.0,
+        "weakest_task_domains": [],
+        "strongest_task_domains": [],
+        "missing_task_coverage": [
+          "buildup_to_release",
+          "call_response",
+          "continuation",
+          "groove_continuation",
+          "harmony_continuation",
+          "infill_missing_region",
+          "melody_continuation",
+          "motif_transformation",
+          "phrase_continuation",
+          "section_transition"
+        ]
       }
     }
   ],
@@ -628,6 +750,7 @@
     "high_review_required_percentage": 4,
     "low_beat_confidence": 1,
     "missing_external_meter_witness": 4,
+    "missing_generative_task_coverage": 4,
     "missing_microtonal_evidence": 4
   },
   "dataset_recommendations": {
@@ -641,6 +764,35 @@
     "best_next_analyzer_to_package": "musicnn",
     "expected_data_yield_per_hour": 1934.3849,
     "expected_accepted_observations_per_hour": 123.856,
-    "expected_review_burden_per_hour": 1810.5288
+    "expected_review_burden_per_hour": 1810.5288,
+    "total_generative_examples_count": 222,
+    "total_generative_train_recommended_count": 0,
+    "total_generative_validation_recommended_count": 0,
+    "total_generative_review_recommended_count": 0,
+    "total_generative_exclude_recommended_count": 222,
+    "generative_examples_by_task_type": {
+      "buildup_to_release": 11,
+      "call_response": 36,
+      "continuation": 43,
+      "groove_continuation": 37,
+      "infill_missing_region": 43,
+      "melody_continuation": 6,
+      "phrase_continuation": 6,
+      "section_transition": 40
+    },
+    "average_generative_quality_by_task_type": {
+      "buildup_to_release": 0.222387,
+      "call_response": 0.221529,
+      "continuation": 0.19825,
+      "groove_continuation": 0.209487,
+      "infill_missing_region": 0.19325,
+      "melody_continuation": 0.233486,
+      "phrase_continuation": 0.145286,
+      "section_transition": 0.134143
+    },
+    "missing_generative_task_coverage": [
+      "harmony_continuation",
+      "motif_transformation"
+    ]
   }
 }

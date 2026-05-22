@@ -6,6 +6,19 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+CORE_GENERATIVE_TASKS = {
+    "continuation",
+    "phrase_continuation",
+    "groove_continuation",
+    "harmony_continuation",
+    "melody_continuation",
+    "call_response",
+    "motif_transformation",
+    "section_transition",
+    "buildup_to_release",
+    "infill_missing_region",
+}
+
 
 def _read_json(path: Path) -> dict[str, Any]:
     try:
@@ -185,6 +198,14 @@ def audit_dataset_quality_yield(
     records_per_minute_values: list[float] = []
     accepted_per_minute_values: list[float] = []
     review_per_minute_values: list[float] = []
+    generative_task_counts: Counter[str] = Counter()
+    generative_quality_by_task: defaultdict[str, list[float]] = defaultdict(list)
+    generative_split_counts: Counter[str] = Counter()
+    total_generative_examples = 0
+    total_generative_train = 0
+    total_generative_validation = 0
+    total_generative_review = 0
+    total_generative_exclude = 0
 
     for performance_id, run_id in all_keys:
         export_manifest_path = key_to_export_manifest.get((performance_id, run_id))
@@ -239,6 +260,9 @@ def audit_dataset_quality_yield(
         consensus_payload = _read_json(consensus_path)
         comparison_payload = _read_json(external_dir / "model_witness_comparison.json")
         trust_audit_payload = _read_json(audit_path)
+        generative_dir = (project_root / "datasets" / "generative_training" / performance_id / run_id).resolve()
+        generative_manifest = _read_json(generative_dir / "generative_manifest.json")
+        generative_examples = _read_jsonl(generative_dir / "generative_examples.jsonl")
 
         content_state_counts = routing_payload.get("content_state_counts", {})
         if not isinstance(content_state_counts, dict):
@@ -425,6 +449,15 @@ def audit_dataset_quality_yield(
             risk_flags.append("duplicate_legacy_compact_paths")
         if not export_manifest_path:
             risk_flags.append("missing_exports")
+        task_counts = generative_manifest.get("examples_by_task_type", {})
+        if not isinstance(task_counts, dict):
+            task_counts = {}
+        split_counts = generative_manifest.get("split_counts", {})
+        if not isinstance(split_counts, dict):
+            split_counts = {}
+        missing_generative_task_coverage = sorted(task for task in CORE_GENERATIVE_TASKS if int(task_counts.get(task, 0) or 0) <= 0)
+        if missing_generative_task_coverage:
+            risk_flags.append("missing_generative_task_coverage")
 
         for flag in risk_flags:
             dataset_risk_flags[flag] += 1
@@ -465,6 +498,39 @@ def audit_dataset_quality_yield(
             }:
                 dataset_blockers[blocker] += 1
 
+        average_quality_score = _safe_float(generative_manifest.get("average_quality_score"), 0.0)
+        examples_per_minute = _safe_float(generative_manifest.get("examples_per_minute"), 0.0)
+        high_quality_examples_per_minute = _safe_float(generative_manifest.get("high_quality_examples_per_minute"), 0.0)
+        weakest_task_domains = sorted(
+            {
+                str(example.get("task_type"))
+                for example in generative_examples
+                if isinstance(example, dict) and _safe_float(example.get("quality_score", {}).get("final_score"), 0.0) < 0.45
+            }
+        )
+        strongest_task_domains = sorted(
+            {
+                str(example.get("task_type"))
+                for example in generative_examples
+                if isinstance(example, dict) and _safe_float(example.get("quality_score", {}).get("final_score"), 0.0) >= 0.72
+            }
+        )
+        for task_name, count in task_counts.items():
+            generative_task_counts[str(task_name)] += int(count or 0)
+        for split_name, count in split_counts.items():
+            generative_split_counts[str(split_name)] += int(count or 0)
+        for example in generative_examples:
+            if not isinstance(example, dict):
+                continue
+            task_name = str(example.get("task_type", "unknown"))
+            score = _safe_float(example.get("quality_score", {}).get("final_score"), 0.0)
+            generative_quality_by_task[task_name].append(score)
+        total_generative_examples += int(generative_manifest.get("generative_examples_count", len(generative_examples)) or 0)
+        total_generative_train += int(split_counts.get("train", 0) or 0)
+        total_generative_validation += int(split_counts.get("validation", 0) or 0)
+        total_generative_review += int(split_counts.get("review", 0) or 0)
+        total_generative_exclude += int(split_counts.get("exclude", 0) or 0)
+
         performances.append(
             {
                 "performance_id": performance_id,
@@ -500,6 +566,22 @@ def audit_dataset_quality_yield(
                     "music21_status": music21_status["status"],
                     "comparison_provider_status": comparison_payload.get("provider_status", {}),
                 },
+                "generative_dataset": {
+                    "generative_dataset_present": bool(generative_manifest),
+                    "generative_dataset_path": generative_dir.as_posix() if generative_dir.exists() else None,
+                    "generative_examples_count": int(generative_manifest.get("generative_examples_count", len(generative_examples)) or 0),
+                    "train_recommended_count": int(split_counts.get("train", 0) or 0),
+                    "validation_recommended_count": int(split_counts.get("validation", 0) or 0),
+                    "review_recommended_count": int(split_counts.get("review", 0) or 0),
+                    "exclude_recommended_count": int(split_counts.get("exclude", 0) or 0),
+                    "examples_by_task_type": {str(k): int(v or 0) for k, v in task_counts.items()},
+                    "average_quality_score": average_quality_score,
+                    "examples_per_minute": examples_per_minute,
+                    "high_quality_examples_per_minute": high_quality_examples_per_minute,
+                    "weakest_task_domains": weakest_task_domains,
+                    "strongest_task_domains": strongest_task_domains,
+                    "missing_task_coverage": missing_generative_task_coverage,
+                },
             }
         )
 
@@ -533,6 +615,17 @@ def audit_dataset_quality_yield(
         "expected_data_yield_per_hour": round(avg_records_per_min * 60.0, 4),
         "expected_accepted_observations_per_hour": round(avg_accepted_per_min * 60.0, 4),
         "expected_review_burden_per_hour": round(avg_review_per_min * 60.0, 4),
+        "total_generative_examples_count": total_generative_examples,
+        "total_generative_train_recommended_count": total_generative_train,
+        "total_generative_validation_recommended_count": total_generative_validation,
+        "total_generative_review_recommended_count": total_generative_review,
+        "total_generative_exclude_recommended_count": total_generative_exclude,
+        "generative_examples_by_task_type": dict(sorted(generative_task_counts.items())),
+        "average_generative_quality_by_task_type": {
+            task: round(sum(scores) / max(1, len(scores)), 6)
+            for task, scores in sorted(generative_quality_by_task.items())
+        },
+        "missing_generative_task_coverage": sorted(task for task in CORE_GENERATIVE_TASKS if generative_task_counts.get(task, 0) <= 0),
     }
 
     payload = {
@@ -556,6 +649,9 @@ def audit_dataset_quality_yield(
         f"- expected data yield per hour: `{dataset_recommendations['expected_data_yield_per_hour']}`",
         f"- expected accepted observations per hour: `{dataset_recommendations['expected_accepted_observations_per_hour']}`",
         f"- expected review burden per hour: `{dataset_recommendations['expected_review_burden_per_hour']}`",
+        f"- total generative examples: `{dataset_recommendations['total_generative_examples_count']}`",
+        f"- generative split counts (train/validation/review/exclude): `{[dataset_recommendations['total_generative_train_recommended_count'], dataset_recommendations['total_generative_validation_recommended_count'], dataset_recommendations['total_generative_review_recommended_count'], dataset_recommendations['total_generative_exclude_recommended_count']]}`",
+        f"- missing generative task coverage: `{json.dumps(dataset_recommendations['missing_generative_task_coverage'], ensure_ascii=True)}`",
         "",
         "## Dataset risk flag counts",
     ]
@@ -577,6 +673,7 @@ def audit_dataset_quality_yield(
                 f"- recommendations: `{json.dumps(report['recommendations'], ensure_ascii=True)}`",
                 f"- witness_coverage: `{json.dumps(report['witness_coverage'], ensure_ascii=True)}`",
                 f"- layer_completeness: `{json.dumps(report['layer_completeness'], ensure_ascii=True)}`",
+                f"- generative_dataset: `{json.dumps(report.get('generative_dataset', {}), ensure_ascii=True)}`",
             ]
         )
     md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
