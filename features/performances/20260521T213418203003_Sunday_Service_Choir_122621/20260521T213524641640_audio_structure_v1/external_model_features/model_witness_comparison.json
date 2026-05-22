@@ -1,0 +1,92 @@
+{
+  "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+  "segment_run_id": "20260521T213524641640_audio_structure_v1",
+  "tempo_alignment": {
+    "internal_tempo_bpm": null,
+    "external_tempo_bpm": 123.369255,
+    "delta_bpm": null
+  },
+  "tonal_alignment": {
+    "internal_key_candidate": null,
+    "external_key_candidate": "F",
+    "agreement": false
+  },
+  "tag_alignment": {
+    "internal_top_tags": [
+      "dense_activity",
+      "dense_region",
+      "repeated_chord_vamp_candidate",
+      "repeated_rhythm_motif",
+      "dense_burst_pattern",
+      "sparse_activity",
+      "sparse_region",
+      "steady_grid_candidate",
+      "irregular_groove_candidate",
+      "sparse_call_response_candidate"
+    ],
+    "external_top_tags": [],
+    "overlap": []
+  },
+  "meter_alignment": {
+    "internal_meter_hypotheses": [
+      {
+        "hypothesis_id": "meter_h_0000",
+        "meter": "3/4",
+        "beats_per_bar": 3,
+        "beat_unit": 4,
+        "confidence": 0.564994,
+        "ambiguity": 0.962029,
+        "evidence": {
+          "downbeat_hits": 11771.5,
+          "offbeat_hits": 20826.0,
+          "bar_support": 1.0,
+          "consistency": 0.7521
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      },
+      {
+        "hypothesis_id": "meter_h_0001",
+        "meter": "4/4",
+        "beats_per_bar": 4,
+        "beat_unit": 4,
+        "confidence": 0.527023,
+        "ambiguity": 0.962029,
+        "evidence": {
+          "downbeat_hits": 8521.5,
+          "offbeat_hits": 23826.0,
+          "bar_support": 1.0,
+          "consistency": 0.7504
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      },
+      {
+        "hypothesis_id": "meter_h_0002",
+        "meter": "5/4",
+        "beats_per_bar": 5,
+        "beat_unit": 4,
+        "confidence": 0.51262,
+        "ambiguity": 0.962029,
+        "evidence": {
+          "downbeat_hits": 6986.2,
+          "offbeat_hits": 25243.2,
+          "bar_support": 1.0,
+          "consistency": 0.7509
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      }
+    ],
+    "external_meter_hypotheses": []
+  },
+  "provider_status": {
+    "essentia": "success",
+    "musicnn": "missing",
+    "beat_tracker": "missing",
+    "music21": "success"
+  }
+}

@@ -1,0 +1,646 @@
+{
+  "total_performances_scanned": 4,
+  "performance_reports": [
+    {
+      "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+      "segment_run_id": "20260521T204750163461_audio_structure_v1",
+      "paths": {
+        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
+        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
+        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1",
+        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1"
+      },
+      "basic_yield": {
+        "duration_seconds": 751.420952,
+        "source_ai_record_count": 403,
+        "accepted_observation_count": 27,
+        "weak_label_count": 403,
+        "review_required_count": 376,
+        "quarantined_count": 0,
+        "records_per_minute": 32.179034,
+        "accepted_observations_per_minute": 2.155915,
+        "weak_labels_per_minute": 32.179034,
+        "review_required_percentage": 93.3002
+      },
+      "layer_completeness": {
+        "source_manifest_present": true,
+        "segments_present": true,
+        "merged_midi_present": true,
+        "rhythm_features_present": true,
+        "harmony_features_present": true,
+        "routing_present": true,
+        "meter_time_present": true,
+        "pitch_harmony_present": true,
+        "trust_reports_present": true,
+        "training_export_present": true,
+        "external_witnesses_present": true,
+        "model_consensus_present": true,
+        "audit_report_present": true
+      },
+      "evidence_density": {
+        "average_evidence_refs_per_record": 7.0,
+        "percent_records_with_confidence": 100.0,
+        "percent_records_with_limitations": 5.7072,
+        "percent_records_with_model_source_refs": 0.0,
+        "percent_records_with_theory_source_refs": 0.0,
+        "percent_records_with_content_state": 0.0,
+        "percent_records_with_external_feature_refs": 100.0,
+        "percent_records_with_consensus_refs": 0.0
+      },
+      "trust_quality": {
+        "ratios": {
+          "accepted_ratio_pct": 6.6998,
+          "weak_ratio_pct": 100.0,
+          "review_ratio_pct": 93.3002,
+          "quarantine_ratio_pct": 0.0
+        },
+        "accepted_fields_by_domain": {
+          "rhythm_time": 27,
+          "pitch_harmony": 27,
+          "midi_observations": 27,
+          "routing_content_state": 26,
+          "external_witness_refs": 27
+        },
+        "weak_labels_by_domain": {
+          "rhythm_time": 403,
+          "pitch_harmony": 403,
+          "midi_observations": 403,
+          "routing_content_state": 402,
+          "external_witness_refs": 403
+        },
+        "review_required_labels_by_domain": {
+          "rhythm_time": 376,
+          "pitch_harmony": 376,
+          "midi_observations": 376,
+          "routing_content_state": 376,
+          "external_witness_refs": 376
+        },
+        "labels_suppressed_by_routing": 363,
+        "upgrade_candidates": 13,
+        "downgrade_or_suppress_candidates": 390
+      },
+      "witness_coverage": {
+        "yourmt3_pretty_midi_present": true,
+        "librosa_internal_features_present": true,
+        "essentia": {
+          "present": true,
+          "status": "success"
+        },
+        "music21": {
+          "present": true,
+          "status": "success"
+        },
+        "musicnn": {
+          "present": false,
+          "status": "unavailable"
+        },
+        "beatnet_madmom": {
+          "present": false,
+          "status": "unavailable"
+        },
+        "omnizart": {
+          "present": false,
+          "status": "unavailable"
+        },
+        "consensus_status": "supportive",
+        "unresolved_conflicts": [
+          "missing_external_meter_hypotheses"
+        ],
+        "low_confidence_warnings": [
+          "semantic_tag_mismatch"
+        ]
+      },
+      "musical_coverage": {
+        "content_state_counts": {
+          "unknown": 231,
+          "rhythm_dominant": 101,
+          "percussive_only": 1,
+          "melodic_lead": 28,
+          "harmonic_dominant": 41
+        },
+        "meter_time_hypothesis_coverage": 4,
+        "pitch_harmony_hypothesis_coverage": 1212,
+        "rhythm_cycle_phrase_macro_features_present": true,
+        "interval_melody_counterpoint_tuning_present": {
+          "interval_analysis": true,
+          "melody_contour": true,
+          "counterpoint": true,
+          "tuning_system": true
+        },
+        "microtonal_analysis_availability": false,
+        "microtonal_limitations": [
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required."
+        ],
+        "experimental_ambiguous_harmony_handling": false
+      },
+      "risk_flags": [
+        "high_review_required_percentage",
+        "low_beat_confidence",
+        "missing_external_meter_witness",
+        "missing_microtonal_evidence"
+      ],
+      "recommendations": {
+        "ready_for_training_observation_only": false,
+        "needs_review": true,
+        "needs_external_witness": false,
+        "needs_routing_calibration": false,
+        "needs_meter_calibration": true,
+        "needs_pitch_harmony_calibration": false,
+        "needs_manual_review": true,
+        "good_candidate_for_mass_ingestion_template": false
+      },
+      "witness_summary": {
+        "essentia_status": "success",
+        "music21_status": "success",
+        "comparison_provider_status": {
+          "essentia": "success",
+          "musicnn": "unavailable",
+          "beat_tracker": "unavailable",
+          "music21": "success"
+        }
+      }
+    },
+    {
+      "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+      "segment_run_id": "20260521T213524641640_audio_structure_v1",
+      "paths": {
+        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json",
+        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
+        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+      },
+      "basic_yield": {
+        "duration_seconds": 3324.842086,
+        "source_ai_record_count": 1773,
+        "accepted_observation_count": 109,
+        "weak_label_count": 1773,
+        "review_required_count": 1664,
+        "quarantined_count": 0,
+        "records_per_minute": 31.995505,
+        "accepted_observations_per_minute": 1.967011,
+        "weak_labels_per_minute": 31.995505,
+        "review_required_percentage": 93.8522
+      },
+      "layer_completeness": {
+        "source_manifest_present": true,
+        "segments_present": true,
+        "merged_midi_present": true,
+        "rhythm_features_present": true,
+        "harmony_features_present": true,
+        "routing_present": true,
+        "meter_time_present": true,
+        "pitch_harmony_present": true,
+        "trust_reports_present": true,
+        "training_export_present": true,
+        "external_witnesses_present": true,
+        "model_consensus_present": true,
+        "audit_report_present": true
+      },
+      "evidence_density": {
+        "average_evidence_refs_per_record": 7.0,
+        "percent_records_with_confidence": 100.0,
+        "percent_records_with_limitations": 30.4569,
+        "percent_records_with_model_source_refs": 0.0,
+        "percent_records_with_theory_source_refs": 0.0,
+        "percent_records_with_content_state": 0.0,
+        "percent_records_with_external_feature_refs": 0.0,
+        "percent_records_with_consensus_refs": 0.0
+      },
+      "trust_quality": {
+        "ratios": {
+          "accepted_ratio_pct": 6.1478,
+          "weak_ratio_pct": 100.0,
+          "review_ratio_pct": 93.8522,
+          "quarantine_ratio_pct": 0.0
+        },
+        "accepted_fields_by_domain": {
+          "rhythm_time": 109,
+          "pitch_harmony": 109,
+          "midi_observations": 109,
+          "routing_content_state": 108,
+          "external_witness_refs": 109
+        },
+        "weak_labels_by_domain": {
+          "rhythm_time": 1773,
+          "pitch_harmony": 1773,
+          "midi_observations": 1773,
+          "routing_content_state": 1772,
+          "external_witness_refs": 1773
+        },
+        "review_required_labels_by_domain": {
+          "rhythm_time": 1664,
+          "pitch_harmony": 1664,
+          "midi_observations": 1664,
+          "routing_content_state": 1664,
+          "external_witness_refs": 1664
+        },
+        "labels_suppressed_by_routing": 1835,
+        "upgrade_candidates": 51,
+        "downgrade_or_suppress_candidates": 1719
+      },
+      "witness_coverage": {
+        "yourmt3_pretty_midi_present": true,
+        "librosa_internal_features_present": true,
+        "essentia": {
+          "present": true,
+          "status": "success"
+        },
+        "music21": {
+          "present": true,
+          "status": "success"
+        },
+        "musicnn": {
+          "present": false,
+          "status": "missing"
+        },
+        "beatnet_madmom": {
+          "present": false,
+          "status": "missing"
+        },
+        "omnizart": {
+          "present": false,
+          "status": "missing"
+        },
+        "consensus_status": "conflicted",
+        "unresolved_conflicts": [
+          "missing_external_meter_hypotheses",
+          "tonal_center_conflict"
+        ],
+        "low_confidence_warnings": [
+          "semantic_tag_mismatch",
+          "tonal_conflict"
+        ]
+      },
+      "musical_coverage": {
+        "content_state_counts": {
+          "unknown": 1094,
+          "ambient_low_information": 90,
+          "percussive_only": 1,
+          "rhythm_dominant": 355,
+          "melodic_lead": 113,
+          "harmonic_dominant": 119
+        },
+        "meter_time_hypothesis_coverage": 4,
+        "pitch_harmony_hypothesis_coverage": 5322,
+        "rhythm_cycle_phrase_macro_features_present": true,
+        "interval_melody_counterpoint_tuning_present": {
+          "interval_analysis": true,
+          "melody_contour": true,
+          "counterpoint": true,
+          "tuning_system": true
+        },
+        "microtonal_analysis_availability": false,
+        "microtonal_limitations": [
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required.",
+          "No direct non-12TET evidence in symbolic MIDI; audio tuning estimator required."
+        ],
+        "experimental_ambiguous_harmony_handling": false
+      },
+      "risk_flags": [
+        "external_witness_disagreement",
+        "high_review_required_percentage",
+        "missing_external_meter_witness",
+        "missing_microtonal_evidence"
+      ],
+      "recommendations": {
+        "ready_for_training_observation_only": false,
+        "needs_review": true,
+        "needs_external_witness": false,
+        "needs_routing_calibration": false,
+        "needs_meter_calibration": false,
+        "needs_pitch_harmony_calibration": true,
+        "needs_manual_review": true,
+        "good_candidate_for_mass_ingestion_template": false
+      },
+      "witness_summary": {
+        "essentia_status": "success",
+        "music21_status": "success",
+        "comparison_provider_status": {
+          "essentia": "success",
+          "musicnn": "missing",
+          "beat_tracker": "missing",
+          "music21": "success"
+        }
+      }
+    },
+    {
+      "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
+      "segment_run_id": "20260522T150054174749_audio_structure_v1",
+      "paths": {
+        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
+        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
+        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
+      },
+      "basic_yield": {
+        "duration_seconds": 281.849025,
+        "source_ai_record_count": 151,
+        "accepted_observation_count": 9,
+        "weak_label_count": 151,
+        "review_required_count": 142,
+        "quarantined_count": 0,
+        "records_per_minute": 32.144869,
+        "accepted_observations_per_minute": 1.915919,
+        "weak_labels_per_minute": 32.144869,
+        "review_required_percentage": 94.0397
+      },
+      "layer_completeness": {
+        "source_manifest_present": true,
+        "segments_present": true,
+        "merged_midi_present": true,
+        "rhythm_features_present": true,
+        "harmony_features_present": true,
+        "routing_present": false,
+        "meter_time_present": false,
+        "pitch_harmony_present": false,
+        "trust_reports_present": true,
+        "training_export_present": true,
+        "external_witnesses_present": false,
+        "model_consensus_present": false,
+        "audit_report_present": true
+      },
+      "evidence_density": {
+        "average_evidence_refs_per_record": 7.0,
+        "percent_records_with_confidence": 100.0,
+        "percent_records_with_limitations": 32.4503,
+        "percent_records_with_model_source_refs": 0.0,
+        "percent_records_with_theory_source_refs": 0.0,
+        "percent_records_with_content_state": 0.0,
+        "percent_records_with_external_feature_refs": 0.0,
+        "percent_records_with_consensus_refs": 0.0
+      },
+      "trust_quality": {
+        "ratios": {
+          "accepted_ratio_pct": 5.9603,
+          "weak_ratio_pct": 100.0,
+          "review_ratio_pct": 94.0397,
+          "quarantine_ratio_pct": 0.0
+        },
+        "accepted_fields_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 9,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "weak_labels_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 151,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "review_required_labels_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 142,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "labels_suppressed_by_routing": 0,
+        "upgrade_candidates": 0,
+        "downgrade_or_suppress_candidates": 0
+      },
+      "witness_coverage": {
+        "yourmt3_pretty_midi_present": true,
+        "librosa_internal_features_present": true,
+        "essentia": {
+          "present": false,
+          "status": "missing"
+        },
+        "music21": {
+          "present": false,
+          "status": "missing"
+        },
+        "musicnn": {
+          "present": false,
+          "status": "missing"
+        },
+        "beatnet_madmom": {
+          "present": false,
+          "status": "missing"
+        },
+        "omnizart": {
+          "present": false,
+          "status": "missing"
+        },
+        "consensus_status": "missing",
+        "unresolved_conflicts": [],
+        "low_confidence_warnings": []
+      },
+      "musical_coverage": {
+        "content_state_counts": {},
+        "meter_time_hypothesis_coverage": 0,
+        "pitch_harmony_hypothesis_coverage": 0,
+        "rhythm_cycle_phrase_macro_features_present": false,
+        "interval_melody_counterpoint_tuning_present": {
+          "interval_analysis": false,
+          "melody_contour": false,
+          "counterpoint": false,
+          "tuning_system": false
+        },
+        "microtonal_analysis_availability": false,
+        "microtonal_limitations": [],
+        "experimental_ambiguous_harmony_handling": false
+      },
+      "risk_flags": [
+        "high_review_required_percentage",
+        "missing_external_meter_witness",
+        "missing_microtonal_evidence"
+      ],
+      "recommendations": {
+        "ready_for_training_observation_only": false,
+        "needs_review": true,
+        "needs_external_witness": true,
+        "needs_routing_calibration": false,
+        "needs_meter_calibration": true,
+        "needs_pitch_harmony_calibration": true,
+        "needs_manual_review": true,
+        "good_candidate_for_mass_ingestion_template": false
+      },
+      "witness_summary": {
+        "essentia_status": "missing",
+        "music21_status": "missing",
+        "comparison_provider_status": {}
+      }
+    },
+    {
+      "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+      "segment_run_id": "20260522T150322987308_audio_structure_v1",
+      "paths": {
+        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json",
+        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
+        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1",
+        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1"
+      },
+      "basic_yield": {
+        "duration_seconds": 189.340658,
+        "source_ai_record_count": 103,
+        "accepted_observation_count": 7,
+        "weak_label_count": 103,
+        "review_required_count": 96,
+        "quarantined_count": 0,
+        "records_per_minute": 32.639582,
+        "accepted_observations_per_minute": 2.218224,
+        "weak_labels_per_minute": 32.639582,
+        "review_required_percentage": 93.2039
+      },
+      "layer_completeness": {
+        "source_manifest_present": true,
+        "segments_present": true,
+        "merged_midi_present": true,
+        "rhythm_features_present": true,
+        "harmony_features_present": true,
+        "routing_present": false,
+        "meter_time_present": false,
+        "pitch_harmony_present": false,
+        "trust_reports_present": true,
+        "training_export_present": true,
+        "external_witnesses_present": false,
+        "model_consensus_present": false,
+        "audit_report_present": true
+      },
+      "evidence_density": {
+        "average_evidence_refs_per_record": 7.0,
+        "percent_records_with_confidence": 100.0,
+        "percent_records_with_limitations": 14.5631,
+        "percent_records_with_model_source_refs": 0.0,
+        "percent_records_with_theory_source_refs": 0.0,
+        "percent_records_with_content_state": 0.0,
+        "percent_records_with_external_feature_refs": 0.0,
+        "percent_records_with_consensus_refs": 0.0
+      },
+      "trust_quality": {
+        "ratios": {
+          "accepted_ratio_pct": 6.7961,
+          "weak_ratio_pct": 100.0,
+          "review_ratio_pct": 93.2039,
+          "quarantine_ratio_pct": 0.0
+        },
+        "accepted_fields_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 7,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "weak_labels_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 103,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "review_required_labels_by_domain": {
+          "rhythm_time": 0,
+          "pitch_harmony": 0,
+          "midi_observations": 96,
+          "routing_content_state": 0,
+          "external_witness_refs": 0
+        },
+        "labels_suppressed_by_routing": 0,
+        "upgrade_candidates": 0,
+        "downgrade_or_suppress_candidates": 0
+      },
+      "witness_coverage": {
+        "yourmt3_pretty_midi_present": true,
+        "librosa_internal_features_present": true,
+        "essentia": {
+          "present": false,
+          "status": "missing"
+        },
+        "music21": {
+          "present": false,
+          "status": "missing"
+        },
+        "musicnn": {
+          "present": false,
+          "status": "missing"
+        },
+        "beatnet_madmom": {
+          "present": false,
+          "status": "missing"
+        },
+        "omnizart": {
+          "present": false,
+          "status": "missing"
+        },
+        "consensus_status": "missing",
+        "unresolved_conflicts": [],
+        "low_confidence_warnings": []
+      },
+      "musical_coverage": {
+        "content_state_counts": {},
+        "meter_time_hypothesis_coverage": 0,
+        "pitch_harmony_hypothesis_coverage": 0,
+        "rhythm_cycle_phrase_macro_features_present": false,
+        "interval_melody_counterpoint_tuning_present": {
+          "interval_analysis": false,
+          "melody_contour": false,
+          "counterpoint": false,
+          "tuning_system": false
+        },
+        "microtonal_analysis_availability": false,
+        "microtonal_limitations": [],
+        "experimental_ambiguous_harmony_handling": false
+      },
+      "risk_flags": [
+        "high_review_required_percentage",
+        "missing_external_meter_witness",
+        "missing_microtonal_evidence"
+      ],
+      "recommendations": {
+        "ready_for_training_observation_only": false,
+        "needs_review": true,
+        "needs_external_witness": true,
+        "needs_routing_calibration": false,
+        "needs_meter_calibration": true,
+        "needs_pitch_harmony_calibration": true,
+        "needs_manual_review": true,
+        "good_candidate_for_mass_ingestion_template": false
+      },
+      "witness_summary": {
+        "essentia_status": "missing",
+        "music21_status": "missing",
+        "comparison_provider_status": {}
+      }
+    }
+  ],
+  "dataset_risk_flag_counts": {
+    "external_witness_disagreement": 1,
+    "high_review_required_percentage": 4,
+    "low_beat_confidence": 1,
+    "missing_external_meter_witness": 4,
+    "missing_microtonal_evidence": 4
+  },
+  "dataset_recommendations": {
+    "corpus_ready_for_mass_ingestion": false,
+    "minimum_blockers_before_mass_input": [
+      "needs_manual_review",
+      "needs_meter_calibration",
+      "needs_pitch_harmony_calibration",
+      "needs_external_witness"
+    ],
+    "best_next_analyzer_to_package": "musicnn",
+    "expected_data_yield_per_hour": 1934.3849,
+    "expected_accepted_observations_per_hour": 123.856,
+    "expected_review_burden_per_hour": 1810.5288
+  }
+}

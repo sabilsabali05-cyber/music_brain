@@ -8,5 +8,13 @@
   "harmony_features_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json",
   "tags_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json",
   "ai_training_records_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl",
-  "feature_summary_path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_summary.md"
+  "feature_summary_path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_summary.md",
+  "external_model_feature_refs": {
+    "essentia_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/external_model_features/essentia_features.json",
+    "music21_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/external_model_features/music21_features.json"
+  },
+  "external_feature_refs": {
+    "essentia_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/external_model_features/essentia_features.json",
+    "music21_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/external_model_features/music21_features.json"
+  }
 }

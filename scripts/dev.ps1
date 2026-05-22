@@ -95,6 +95,7 @@ function Show-Usage {
     Write-Host "  export-training-dataset-splits <performance-manifest>"
     Write-Host "  validate-training-export <export-folder>"
     Write-Host "  summarize-training-exports [exports-root]"
+    Write-Host "  audit-dataset-quality-yield"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
@@ -918,6 +919,11 @@ switch ($Task) {
         $target = if (-not [string]::IsNullOrWhiteSpace($exportsRoot)) { $exportsRoot } else { "datasets/training_exports" }
         Invoke-Step -Label "Summarizing training export manifests" -Command @(
             "python", "scripts/summarize_training_exports.py", $target
+        )
+    }
+    "audit-dataset-quality-yield" {
+        Invoke-Step -Label "Auditing dataset quality and data yield" -Command @(
+            "python", "scripts/audit_dataset_quality_yield.py"
         )
     }
     "batch-trusted-exports" {

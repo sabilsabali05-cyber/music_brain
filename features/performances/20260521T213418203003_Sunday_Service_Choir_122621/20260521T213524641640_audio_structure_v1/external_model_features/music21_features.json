@@ -1,0 +1,129 @@
+{
+  "provider_name": "music21",
+  "status": "success",
+  "warnings": [],
+  "limitations": [
+    "derived from YourMT3 MIDI; not ground truth"
+  ],
+  "created_at": "2026-05-22T17:42:11.330664+00:00",
+  "source_artifacts": {
+    "source_name": "Sunday Service Choir 122621.mp3"
+  },
+  "symbolic_descriptors": {
+    "note_count": 4353,
+    "pitch_class_histogram": {
+      "0": 364,
+      "1": 124,
+      "2": 248,
+      "3": 386,
+      "4": 286,
+      "5": 643,
+      "6": 273,
+      "7": 662,
+      "8": 327,
+      "9": 410,
+      "10": 493,
+      "11": 137
+    }
+  },
+  "key_candidates": [
+    {
+      "key": "F",
+      "mode": "minor",
+      "correlation": 0.7047920860677842
+    }
+  ],
+  "chord_candidates": [
+    {
+      "label": "note",
+      "count": 3456
+    },
+    {
+      "label": "major triad",
+      "count": 774
+    },
+    {
+      "label": "enharmonic equivalent to major triad",
+      "count": 342
+    },
+    {
+      "label": "quartal trichord",
+      "count": 329
+    },
+    {
+      "label": "Major Second",
+      "count": 275
+    },
+    {
+      "label": "Perfect Octave",
+      "count": 266
+    },
+    {
+      "label": "incomplete dominant-seventh chord",
+      "count": 265
+    },
+    {
+      "label": "incomplete minor-seventh chord",
+      "count": 225
+    },
+    {
+      "label": "Perfect Fourth with octave doublings",
+      "count": 220
+    },
+    {
+      "label": "incomplete major-seventh chord",
+      "count": 217
+    },
+    {
+      "label": "minor triad",
+      "count": 182
+    },
+    {
+      "label": "Perfect Fifth with octave doublings",
+      "count": 163
+    },
+    {
+      "label": "enharmonic equivalent to minor triad",
+      "count": 148
+    },
+    {
+      "label": "Minor Second",
+      "count": 141
+    },
+    {
+      "label": "major-second major tetrachord",
+      "count": 134
+    },
+    {
+      "label": "multiple octaves",
+      "count": 128
+    },
+    {
+      "label": "Perfect Fifth",
+      "count": 104
+    },
+    {
+      "label": "enharmonic equivalent to minor seventh chord",
+      "count": 102
+    },
+    {
+      "label": "Major Third with octave doublings",
+      "count": 102
+    },
+    {
+      "label": "minor seventh chord",
+      "count": 96
+    }
+  ],
+  "interval_summary": {
+    "interval_count": 4352,
+    "mean_semitones": 4.131893382352941,
+    "step_ratio": 0.6079963235294118,
+    "leap_ratio": 0.26608455882352944
+  },
+  "voice_leading_summary": {
+    "step_motion_count": 2646,
+    "leap_motion_count": 1158,
+    "motion_balance": "step_dominant"
+  }
+}

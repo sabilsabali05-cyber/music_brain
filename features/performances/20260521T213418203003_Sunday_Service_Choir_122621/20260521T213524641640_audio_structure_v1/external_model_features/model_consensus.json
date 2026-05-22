@@ -1,0 +1,32 @@
+{
+  "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+  "segment_run_id": "20260521T213524641640_audio_structure_v1",
+  "agreements": [
+    "Symbolic key witness is present for key hypothesis comparison."
+  ],
+  "disagreements": [
+    "Tonal-center disagreement: internal=None external=F."
+  ],
+  "confidence_boosts": [],
+  "confidence_penalties": [
+    "semantic_tag_mismatch",
+    "tonal_conflict"
+  ],
+  "unresolved_conflicts": [
+    "missing_external_meter_hypotheses",
+    "tonal_center_conflict"
+  ],
+  "provider_limitations": {
+    "essentia": [],
+    "musicnn": [],
+    "beat_tracker": [],
+    "music21": [
+      "derived from YourMT3 MIDI; not ground truth"
+    ]
+  },
+  "recommended_review_items": [
+    "Beat witness unavailable; review rhythm family confidence manually."
+  ],
+  "consensus_status": "conflicted",
+  "consensus_is_not_ground_truth": true
+}
