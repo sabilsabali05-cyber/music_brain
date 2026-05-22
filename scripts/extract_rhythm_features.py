@@ -20,6 +20,11 @@ except ModuleNotFoundError:  # pragma: no cover
     from rhythm_ontology import annotate_feature_record_with_rhythm_concepts, concept_count, philosophy_count  # type: ignore
 
 try:
+    from features.rhythm_lexicon import classify_rhythm_pattern
+except ModuleNotFoundError:  # pragma: no cover
+    from rhythm_lexicon import classify_rhythm_pattern  # type: ignore
+
+try:
     from scripts.feature_dataset_common import (
         build_time_bins,
         collect_global_events,
@@ -438,6 +443,50 @@ def extract_rhythm_features(
         key=lambda item: (int(item.get("group_repeat_count", 0)), int(item.get("occurrence_count", 0))),
         reverse=True,
     )
+    rhythm_family_counts: dict[str, int] = {}
+    top_family_matches: list[dict[str, object]] = []
+    unknown_high_information_patterns: list[dict[str, object]] = []
+    for motif in motif_candidates:
+        classification = classify_rhythm_pattern(motif)
+        motif["rhythm_lexicon_matches"] = [classification] if classification else []
+        motif["best_rhythm_family_match"] = classification.get("matched_family")
+        motif["rhythm_family_confidence"] = classification.get("confidence", 0.0)
+    for group in motif_group_list:
+        classification = classify_rhythm_pattern(
+            {
+                "token_pattern": group.get("representative_pattern", ""),
+                "accent_pattern": group.get("representative_pattern", ""),
+                "normalized_ratio_pattern": [],
+            }
+        )
+        group["rhythm_lexicon_matches"] = [classification] if classification else []
+        group["best_rhythm_family_match"] = classification.get("matched_family")
+        group["rhythm_family_confidence"] = classification.get("confidence", 0.0)
+        family = str(classification.get("matched_family", "unknown"))
+        if float(classification.get("confidence", 0.0) or 0.0) >= 0.58 and family and family != "unknown":
+            rhythm_family_counts[family] = rhythm_family_counts.get(family, 0) + int(group.get("group_repeat_count", 0) or 0)
+            if len(top_family_matches) < 24:
+                top_family_matches.append(
+                    {
+                        "motif_group_id": group.get("motif_group_id"),
+                        "matched_family": family,
+                        "matched_pattern_id": classification.get("matched_pattern_id"),
+                        "confidence": classification.get("confidence"),
+                        "representative_pattern": group.get("representative_pattern"),
+                        "occurrence_count": group.get("occurrence_count"),
+                    }
+                )
+        info_score = int(group.get("group_repeat_count", 0) or 0) + int(group.get("occurrence_count", 0) or 0)
+        if float(classification.get("confidence", 0.0) or 0.0) < 0.5 and info_score >= 8:
+            unknown_high_information_patterns.append(
+                {
+                    "motif_group_id": group.get("motif_group_id"),
+                    "representative_pattern": group.get("representative_pattern"),
+                    "information_score": info_score,
+                    "best_candidate_family": classification.get("matched_family"),
+                    "best_candidate_confidence": classification.get("confidence"),
+                }
+            )
 
     rhythm_pattern_index = {
         "motif_count": len(motif_candidates),
@@ -462,6 +511,13 @@ def extract_rhythm_features(
         "irregular_regions": irregular_region_count,
         "straight_grid_candidates": straight_grid_count,
         "triplet_grid_candidates": triplet_grid_count,
+        "rhythm_family_counts": rhythm_family_counts,
+        "top_rhythm_family_matches": sorted(top_family_matches, key=lambda item: float(item.get("confidence", 0.0) or 0.0), reverse=True)[:20],
+        "unknown_high_information_patterns": sorted(
+            unknown_high_information_patterns,
+            key=lambda item: int(item.get("information_score", 0) or 0),
+            reverse=True,
+        )[:20],
         "concept_counts": concept_count([record for record in records if isinstance(record, dict)]),
         "philosophy_source_counts": philosophy_count([record for record in records if isinstance(record, dict)]),
     }

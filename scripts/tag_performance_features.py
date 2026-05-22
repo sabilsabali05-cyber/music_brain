@@ -254,6 +254,17 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 tags.append(vamp_tag)
 
     if isinstance(rhythm_motif_groups, list):
+        region_time_by_id: dict[str, tuple[float | None, float | None]] = {}
+        if isinstance(rhythm_records, list):
+            for record in rhythm_records:
+                if not isinstance(record, dict):
+                    continue
+                region_id = record.get("region_id")
+                if region_id:
+                    region_time_by_id[str(region_id)] = (
+                        float(record.get("start_seconds", 0.0)) if record.get("start_seconds") is not None else None,
+                        float(record.get("end_seconds", 0.0)) if record.get("end_seconds") is not None else None,
+                    )
         for group in rhythm_motif_groups[:20]:
             if not isinstance(group, dict):
                 continue
@@ -262,14 +273,26 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 continue
             pattern = str(group.get("representative_pattern", ""))
             group_id = str(group.get("motif_group_id", ""))
+            family = str(group.get("best_rhythm_family_match", "unknown"))
+            matched_pattern_id = None
+            matches = group.get("rhythm_lexicon_matches", [])
+            if isinstance(matches, list) and matches and isinstance(matches[0], dict):
+                matched_pattern_id = matches[0].get("matched_pattern_id")
+            region_ids = [str(item) for item in group.get("region_ids", []) if item]
+            start_seconds = None
+            end_seconds = None
+            for region_id in region_ids:
+                if region_id in region_time_by_id:
+                    start_seconds, end_seconds = region_time_by_id[region_id]
+                    break
             confidence = min(0.95, 0.35 + (group_repeat / 12.0))
             new_tag = tag_record(
                 performance_id=performance_id,
                 source_name=source_name,
                 segment_run_id=segment_run_id,
                 window_id=None,
-                start_seconds=None,
-                end_seconds=None,
+                start_seconds=start_seconds,
+                end_seconds=end_seconds,
                 duration_seconds=None,
                 source_artifact_paths={
                     "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
@@ -281,7 +304,13 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 confidence=confidence,
                 limitations=["heuristic motif group tag from token/ratio pattern index."],
                 tag="repeated_rhythm_motif",
-                evidence={"motif_group_id": group_id, "representative_pattern": pattern, "group_repeat_count": group_repeat},
+                evidence={
+                    "motif_group_id": group_id,
+                    "representative_pattern": pattern,
+                    "group_repeat_count": group_repeat,
+                    "matched_pattern_id": matched_pattern_id,
+                    "matched_family": family,
+                },
             )
             new_tag["granularity"] = "performance"
             new_tag["motif_group_id"] = group_id
@@ -298,6 +327,44 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 burst_tag["tag"] = "dense_burst_pattern"
                 annotate_tag_with_rhythm_concepts(burst_tag)
                 tags.append(burst_tag)
+            if family and family != "unknown" and float(group.get("rhythm_family_confidence", 0.0) or 0.0) >= 0.65:
+                family_tag_name = {
+                    "tresillo_3_3_2": "rhythm_family_tresillo_candidate",
+                    "clave": "rhythm_family_clave_candidate",
+                    "backbeat": "rhythm_family_backbeat_candidate",
+                    "shuffle": "rhythm_family_shuffle_candidate",
+                    "twelve_eight_gospel": "rhythm_family_twelve_eight_gospel_candidate",
+                    "dembow_like": "rhythm_family_dembow_candidate",
+                    "boom_bap_backbeat": "rhythm_family_boom_bap_candidate",
+                    "trap_subdivision": "rhythm_family_trap_subdivision_candidate",
+                    "generic_vamp_cycle": "rhythm_family_vamp_cycle_candidate",
+                }.get(family)
+                if family_tag_name:
+                    family_tag = tag_record(
+                        performance_id=performance_id,
+                        source_name=source_name,
+                        segment_run_id=segment_run_id,
+                        window_id=None,
+                        start_seconds=start_seconds,
+                        end_seconds=end_seconds,
+                        duration_seconds=None,
+                        source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                        confidence=min(0.95, float(group.get("rhythm_family_confidence", 0.0) or 0.0)),
+                        limitations=["family classification is heuristic and candidate-level only."],
+                        tag=family_tag_name,
+                        evidence={
+                            "motif_group_id": group_id,
+                            "matched_pattern_id": matched_pattern_id,
+                            "matched_family": family,
+                            "similarity": matches[0].get("similarity_breakdown") if isinstance(matches, list) and matches and isinstance(matches[0], dict) else {},
+                        },
+                    )
+                    family_tag["matched_pattern_id"] = matched_pattern_id
+                    family_tag["matched_family"] = family
+                    family_tag["motif_group_id"] = group_id
+                    family_tag["granularity"] = "rhythm_region"
+                    annotate_tag_with_rhythm_concepts(family_tag)
+                    tags.append(family_tag)
 
     if isinstance(rhythm_pattern_index, dict):
         if int(rhythm_pattern_index.get("steady_pulse_regions", 0) or 0) > 0:
@@ -390,6 +457,52 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
             tag_obj["granularity"] = "performance"
             annotate_tag_with_rhythm_concepts(tag_obj)
             tags.append(tag_obj)
+        top_matches = rhythm_pattern_index.get("top_rhythm_family_matches", [])
+        if isinstance(top_matches, list):
+            for item in top_matches[:20]:
+                if not isinstance(item, dict):
+                    continue
+                family = str(item.get("matched_family", "unknown"))
+                family_tag_name = {
+                    "tresillo_3_3_2": "rhythm_family_tresillo_candidate",
+                    "clave": "rhythm_family_clave_candidate",
+                    "backbeat": "rhythm_family_backbeat_candidate",
+                    "shuffle": "rhythm_family_shuffle_candidate",
+                    "twelve_eight_gospel": "rhythm_family_twelve_eight_gospel_candidate",
+                    "dembow_like": "rhythm_family_dembow_candidate",
+                    "boom_bap_backbeat": "rhythm_family_boom_bap_candidate",
+                    "trap_subdivision": "rhythm_family_trap_subdivision_candidate",
+                    "generic_vamp_cycle": "rhythm_family_vamp_cycle_candidate",
+                }.get(family)
+                if not family_tag_name:
+                    continue
+                confidence = float(item.get("confidence", 0.0) or 0.0)
+                if confidence < 0.6:
+                    continue
+                family_tag = tag_record(
+                    performance_id=performance_id,
+                    source_name=source_name,
+                    segment_run_id=segment_run_id,
+                    window_id=None,
+                    start_seconds=None,
+                    end_seconds=None,
+                    duration_seconds=None,
+                    source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                    confidence=min(0.95, confidence),
+                    limitations=["rhythm family classification from lexicon match is candidate-level."],
+                    tag=family_tag_name,
+                    evidence={
+                        "motif_group_id": item.get("motif_group_id"),
+                        "matched_pattern_id": item.get("matched_pattern_id"),
+                        "matched_family": family,
+                    },
+                )
+                family_tag["matched_pattern_id"] = item.get("matched_pattern_id")
+                family_tag["matched_family"] = family
+                family_tag["motif_group_id"] = item.get("motif_group_id")
+                family_tag["granularity"] = "rhythm_region"
+                annotate_tag_with_rhythm_concepts(family_tag)
+                tags.append(family_tag)
 
     if isinstance(harmony_pattern_index, dict):
         loop_candidates = harmony_pattern_index.get("chord_loop_candidates", [])

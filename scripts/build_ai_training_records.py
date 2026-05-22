@@ -232,6 +232,26 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     for item in rhythm_motif_groups
                     if isinstance(item, dict) and str(rhythm_record.get("region_id")) in [str(x) for x in item.get("region_ids", [])]
                 ][:10]
+                family_matches = [
+                    item
+                    for item in rhythm_motif_groups
+                    if isinstance(item, dict)
+                    and str(rhythm_record.get("region_id")) in [str(x) for x in item.get("region_ids", [])]
+                    and item.get("best_rhythm_family_match") not in {None, "", "unknown"}
+                ]
+                record["rhythm_family_match_refs"] = [
+                    {
+                        "motif_group_id": str(item.get("motif_group_id")),
+                        "matched_family": item.get("best_rhythm_family_match"),
+                        "confidence": item.get("rhythm_family_confidence"),
+                    }
+                    for item in family_matches[:8]
+                ]
+                if family_matches:
+                    record["best_rhythm_family_match"] = family_matches[0].get("best_rhythm_family_match")
+                else:
+                    record["best_rhythm_family_match"] = "unknown"
+                record["unknown_pattern"] = bool(record.get("motif_group_refs")) and not bool(family_matches)
                 pattern = str(rhythm_features.get("token_pattern", ""))
                 record["token_pattern_compact"] = pattern[:48] if len(pattern) <= 48 else pattern[:48] + "..."
             if granularity in {"window", "segment"}:
@@ -257,6 +277,14 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 )
                 record["rhythm_concepts_summary"] = rhythm_pattern_index.get("concept_counts", {})
                 record["rhythm_philosophy_summary"] = rhythm_pattern_index.get("philosophy_source_counts", {})
+                record["rhythm_family_match_refs"] = rhythm_pattern_index.get("top_rhythm_family_matches", [])[:8]
+                record["best_rhythm_family_match"] = (
+                    rhythm_pattern_index.get("top_rhythm_family_matches", [{}])[0].get("matched_family")
+                    if isinstance(rhythm_pattern_index.get("top_rhythm_family_matches"), list) and rhythm_pattern_index.get("top_rhythm_family_matches")
+                    else "unknown"
+                )
+                unknown_list = rhythm_pattern_index.get("unknown_high_information_patterns", [])
+                record["unknown_pattern"] = bool(unknown_list) if isinstance(unknown_list, list) else False
             output_records.append(record)
 
     # Add chord-region specific records from harmony output.

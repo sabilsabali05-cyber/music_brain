@@ -96,6 +96,15 @@ TAG_TO_CONCEPT_MAP: dict[str, list[str]] = {
     "sparse_call_response_candidate": ["call_response", "density", "hierarchy"],
     "triplet_grid_candidate": ["meter", "timeline", "geometry"],
     "straight_grid_candidate": ["meter", "pulse", "eurhythmia"],
+    "rhythm_family_tresillo_candidate": ["timeline", "cycle", "motif"],
+    "rhythm_family_clave_candidate": ["timeline", "cycle", "return"],
+    "rhythm_family_backbeat_candidate": ["meter", "groove", "entrainment"],
+    "rhythm_family_shuffle_candidate": ["meter", "groove", "gesture"],
+    "rhythm_family_twelve_eight_gospel_candidate": ["meter", "social_ritual", "groove"],
+    "rhythm_family_dembow_candidate": ["timeline", "cycle", "social_ritual"],
+    "rhythm_family_boom_bap_candidate": ["groove", "meter", "gesture"],
+    "rhythm_family_trap_subdivision_candidate": ["density", "gesture", "groove"],
+    "rhythm_family_vamp_cycle_candidate": ["cycle", "repetition", "harmonic_rhythm", "return"],
 }
 
 CONCEPT_TO_PHILOSOPHY: dict[str, list[str]] = {

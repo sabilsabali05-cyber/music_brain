@@ -14,20 +14,20 @@
 - rhythm_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "rhythm_region": 188}`
 - harmony_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "chord_region": 188}`
 - ai_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "rhythm_region": 188, "chord_region": 188}`
-- tag_count: `668`
+- tag_count: `676`
 - ai_training_record_count: `403`
 
 ## Top Unique Tags
 - `dense_activity`: max=`0.95` mean=`0.79356` count=`170` example=`0.0-751.420952`
 - `dense_region`: max=`0.95` mean=`0.869968` count=`136` example=`0.0-751.420952`
 - `repeated_chord_vamp_candidate`: max=`0.95` mean=`0.877679` count=`66` example=`20.0-24.0`
-- `repeated_rhythm_motif`: max=`0.95` mean=`0.95` count=`20` example=`None-None`
-- `dense_burst_pattern`: max=`0.95` mean=`0.95` count=`8` example=`None-None`
+- `repeated_rhythm_motif`: max=`0.95` mean=`0.95` count=`20` example=`20.0-24.0`
+- `dense_burst_pattern`: max=`0.95` mean=`0.95` count=`8` example=`108.0-112.0`
 - `sparse_activity`: max=`0.9` mean=`0.657692` count=`45` example=`184.0-188.0`
 - `steady_grid_candidate`: max=`0.72` mean=`0.72` count=`1` example=`None-None`
 - `irregular_groove_candidate`: max=`0.7` mean=`0.7` count=`1` example=`None-None`
+- `rhythm_family_tresillo_candidate`: max=`0.65` mean=`0.65` count=`8` example=`None-None`
 - `sparse_call_response_candidate`: max=`0.62` mean=`0.62` count=`1` example=`None-None`
-- `ambiguous_harmony`: max=`0.6` mean=`0.6` count=`215` example=`0.0-751.420952`
 
 ## Most Frequent Tags
 - `ambiguous_harmony` count=`215` max=`0.6`
@@ -37,9 +37,9 @@
 - `sparse_activity` count=`45` max=`0.9`
 - `repeated_rhythm_motif` count=`20` max=`0.95`
 - `dense_burst_pattern` count=`8` max=`0.95`
+- `rhythm_family_tresillo_candidate` count=`8` max=`0.65`
 - `sparse_region` count=`3` max=`0.25`
 - `steady_grid_candidate` count=`1` max=`0.72`
-- `irregular_groove_candidate` count=`1` max=`0.7`
 
 ## Highest Confidence Local Tags
 - `dense_activity` `0.0-751.420952` granularity=`performance` confidence=`0.95`
@@ -116,6 +116,30 @@
 - `motif_0007` repeat_count=`55` region=`None` window=`None` confidence=`0.95`
 - `motif_0008` repeat_count=`54` region=`None` window=`None` confidence=`0.95`
 - `motif_0009` repeat_count=`53` region=`None` window=`None` confidence=`0.95`
+
+## Standard Rhythm Family Matches
+- family `tresillo_3_3_2` count=`915`
+- family `sparse_call_response` count=`795`
+- family `cinquillo` count=`613`
+- family `shuffle` count=`81`
+- family `habanera` count=`8`
+- family `twelve_eight_gospel` count=`4`
+- representative matches:
+  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0157`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.65` group=`motif_group_0013`
+  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0158`
+  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0159`
+  - `tresillo_3_3_2` pattern=`tresillo_3_3_2` confidence=`0.65` group=`motif_group_0261`
+  - `tresillo_3_3_2` pattern=`tresillo_3_3_2` confidence=`0.65` group=`motif_group_0320`
+  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0160`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.65` group=`motif_group_0315`
+- unknown high-information patterns: `20`
+  - group=`motif_group_0000` pattern=`xxx` info_score=`1958`
+  - group=`motif_group_0001` pattern=`xxxx` info_score=`1635`
+  - group=`motif_group_0002` pattern=`xxxxx` info_score=`1434`
+  - group=`motif_group_0020` pattern=`x.x` info_score=`1308`
+  - group=`motif_group_0003` pattern=`xxxxxx` info_score=`1296`
+- limitations: lexicon classification is candidate-level and may conflate related timeline families.
 
 ## Top Rhythm Motif Groups
 - `motif_group_0000` pattern=`xxx` repeat_count=`1859` occurrence_count=`99`

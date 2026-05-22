@@ -310,6 +310,34 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
             )
     else:
         summary_lines.append("- none")
+    summary_lines.extend(["", "## Standard Rhythm Family Matches"])
+    family_counts = rhythm_pattern_index.get("rhythm_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    top_family_matches = rhythm_pattern_index.get("top_rhythm_family_matches", []) if isinstance(rhythm_pattern_index, dict) else []
+    unknown_high_info = rhythm_pattern_index.get("unknown_high_information_patterns", []) if isinstance(rhythm_pattern_index, dict) else []
+    if isinstance(family_counts, dict) and family_counts:
+        for name, count in sorted(((str(k), int(v)) for k, v in family_counts.items()), key=lambda item: item[1], reverse=True)[:10]:
+            summary_lines.append(f"- family `{name}` count=`{count}`")
+    else:
+        summary_lines.append("- no confident family matches")
+    if isinstance(top_family_matches, list) and top_family_matches:
+        summary_lines.append("- representative matches:")
+        for item in top_family_matches[:8]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"  - `{item.get('matched_family')}` pattern=`{item.get('matched_pattern_id')}` "
+                f"confidence=`{item.get('confidence')}` group=`{item.get('motif_group_id')}`"
+            )
+    if isinstance(unknown_high_info, list):
+        summary_lines.append(f"- unknown high-information patterns: `{len(unknown_high_info)}`")
+        for item in unknown_high_info[:5]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"  - group=`{item.get('motif_group_id')}` pattern=`{item.get('representative_pattern')}` "
+                f"info_score=`{item.get('information_score')}`"
+            )
+    summary_lines.append("- limitations: lexicon classification is candidate-level and may conflate related timeline families.")
     summary_lines.extend(["", "## Top Rhythm Motif Groups"])
     if motif_groups:
         for item in motif_groups[:10]:

@@ -9,6 +9,7 @@ from features.rhythm_ontology import (
     TAG_TO_CONCEPT_MAP,
     annotate_tag_with_rhythm_concepts,
 )
+from features.rhythm_lexicon import classify_rhythm_pattern
 from scripts.build_ai_training_records import build_ai_training_records
 from scripts.extract_feature_pack import extract_feature_pack
 from scripts.extract_harmony_features import extract_harmony_features
@@ -171,6 +172,7 @@ def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Pa
     assert "Top Rhythm Motif Groups" in summary_text
     assert "Harmony Pattern Index" in summary_text
     assert "Rhythm Philosophy Interpretation" in summary_text
+    assert "Standard Rhythm Family Matches" in summary_text
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "success"
     assert summary["tag_count"] > 0
@@ -360,5 +362,65 @@ def test_validator_rejects_tags_missing_rhythm_concepts(tmp_path: Path, monkeypa
         if isinstance(tags_payload["tags"][0], dict):
             tags_payload["tags"][0].pop("rhythm_concepts", None)
     (feature_dir / "tags.json").write_text(json.dumps(tags_payload), encoding="utf-8")
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_tresillo_token_matches_tresillo_family() -> None:
+    result = classify_rhythm_pattern({"token_pattern": "x..x..x.", "accent_pattern": "X..x..x.", "normalized_ratio_pattern": [1.5, 1.5, 1.0]})
+    assert result["matched_pattern_id"] == "tresillo_3_3_2"
+    assert float(result["confidence"]) >= 0.65
+
+
+def test_son_clave_pattern_matches_clave_family() -> None:
+    result = classify_rhythm_pattern({"token_pattern": "x..x...x..x.x...", "accent_pattern": "X..x...X..x.x..."})
+    assert result["matched_family"] == "clave"
+    assert float(result["confidence"]) >= 0.55
+
+
+def test_all_onset_pattern_not_high_confidence_clave_or_tresillo() -> None:
+    result = classify_rhythm_pattern({"token_pattern": "xxxx", "accent_pattern": "XXXX"})
+    if result["matched_family"] in {"clave", "tresillo_3_3_2"}:
+        assert float(result["confidence"]) < 0.7
+
+
+def test_rotation_invariant_matching_works_for_tresillo() -> None:
+    result = classify_rhythm_pattern({"token_pattern": "..x..x.x", "accent_pattern": "..X..x.x"})
+    assert result["matched_pattern_id"] == "tresillo_3_3_2"
+
+
+def test_rhythm_family_counts_generated(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
+    index = rhythm_payload.get("rhythm_pattern_index", {})
+    assert isinstance(index, dict)
+    assert isinstance(index.get("rhythm_family_counts"), dict)
+
+
+def test_rhythm_family_tags_include_matched_pattern_id(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    extract_feature_pack(performance_manifest)
+    tags_payload = json.loads((Path("features") / "performances" / "perf_1" / "run_123" / "tags.json").read_text(encoding="utf-8"))
+    family_tags = [
+        item
+        for item in tags_payload.get("tags", [])
+        if isinstance(item, dict) and str(item.get("tag", "")).startswith("rhythm_family_")
+    ]
+    for item in family_tags:
+        assert "matched_pattern_id" in item
+        assert "matched_family" in item
+
+
+def test_validator_rejects_missing_rhythm_family_counts(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
+    if isinstance(rhythm_payload.get("rhythm_pattern_index"), dict):
+        rhythm_payload["rhythm_pattern_index"].pop("rhythm_family_counts", None)
+    (feature_dir / "rhythm_features.json").write_text(json.dumps(rhythm_payload), encoding="utf-8")
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "failed"

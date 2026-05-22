@@ -95,10 +95,21 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         warnings.append("rhythm_motif_groups missing or malformed")
     if not isinstance(rhythm_pattern_index, dict):
         warnings.append("rhythm_pattern_index missing or malformed")
+    elif "rhythm_family_counts" not in rhythm_pattern_index or not isinstance(rhythm_pattern_index.get("rhythm_family_counts"), dict):
+        warnings.append("rhythm_pattern_index missing rhythm_family_counts")
     if not isinstance(chord_movement_summary, dict):
         warnings.append("chord_movement_summary missing or malformed")
     if not isinstance(harmony_pattern_index, dict):
         warnings.append("harmony_pattern_index missing or malformed")
+    if isinstance(rhythm_motif_groups, list):
+        missing_matches = 0
+        for group in rhythm_motif_groups:
+            if not isinstance(group, dict):
+                continue
+            if "rhythm_lexicon_matches" not in group:
+                missing_matches += 1
+        if missing_matches:
+            warnings.append(f"rhythm motif groups missing rhythm_lexicon_matches: {missing_matches}")
     if jsonl_parse_errors:
         warnings.append(f"ai training jsonl parse errors: {jsonl_parse_errors}")
 
@@ -138,6 +149,10 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
                 if required not in tag:
                     invalid_tag_entries += 1
                     break
+            tag_name = str(tag.get("tag", ""))
+            if tag_name.startswith("rhythm_family_"):
+                if "matched_pattern_id" not in tag or "matched_family" not in tag:
+                    invalid_tag_entries += 1
     if invalid_tag_entries:
         warnings.append(f"tag entries missing confidence/evidence: {invalid_tag_entries}")
 
@@ -195,6 +210,7 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "Top Rhythm Motif Groups",
         "Harmony Pattern Index",
         "Rhythm Philosophy Interpretation",
+        "Standard Rhythm Family Matches",
     ]
     for token in required_summary_tokens:
         if token not in summary_text:

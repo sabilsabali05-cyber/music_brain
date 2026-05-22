@@ -61,6 +61,18 @@ def extract_harmony_features(
     performance_id, source_name, segment_run_id = performance_metadata(performance_manifest, segments_manifest_path)
     target_dir = output_dir or default_feature_dir(performance_id, segment_run_id)
     target_dir.mkdir(parents=True, exist_ok=True)
+    rhythm_features_path = target_dir / "rhythm_features.json"
+    rhythm_family_counts: dict[str, int] = {}
+    if rhythm_features_path.exists():
+        try:
+            rhythm_payload = load_json(rhythm_features_path)
+            rhythm_pattern_index = rhythm_payload.get("rhythm_pattern_index", {})
+            if isinstance(rhythm_pattern_index, dict):
+                counts = rhythm_pattern_index.get("rhythm_family_counts", {})
+                if isinstance(counts, dict):
+                    rhythm_family_counts = {str(key): int(value) for key, value in counts.items()}
+        except Exception:  # noqa: BLE001
+            rhythm_family_counts = {}
 
     global_events, source_mode, source_limitations = collect_global_events(
         segments_manifest=segments_manifest,
@@ -305,6 +317,19 @@ def extract_harmony_features(
         "section_level_harmonic_profiles": section_profiles[:24],
         "concept_counts": concept_count([record for record in records if isinstance(record, dict)]),
         "philosophy_source_counts": philosophy_count([record for record in records if isinstance(record, dict)]),
+        "rhythm_linked_cycle_candidates": [
+            {"family": "generic_vamp_cycle", "count": rhythm_family_counts.get("generic_vamp_cycle", 0), "confidence": "candidate"}
+        ]
+        + (
+            [{"family": "twelve_eight_gospel", "count": rhythm_family_counts.get("twelve_eight_gospel", 0), "confidence": "candidate"}]
+            if rhythm_family_counts.get("twelve_eight_gospel", 0) > 0
+            else []
+        )
+        + (
+            [{"family": "gospel_clap_backbeat", "count": rhythm_family_counts.get("gospel_clap_backbeat", 0), "confidence": "candidate"}]
+            if rhythm_family_counts.get("gospel_clap_backbeat", 0) > 0
+            else []
+        ),
     }
     output_path = target_dir / "harmony_features.json"
     save_json(output_path, payload)
