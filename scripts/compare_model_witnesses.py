@@ -88,6 +88,10 @@ def compare_model_witnesses(performance_manifest_path: Path) -> dict[str, Any]:
         k = music21["features"].get("key_candidates", [])
         if isinstance(k, list) and k and isinstance(k[0], dict):
             external_key = k[0].get("key")
+    if external_key is None and isinstance(music21.get("key_candidates"), list):
+        k = music21.get("key_candidates", [])
+        if isinstance(k, list) and k and isinstance(k[0], dict):
+            external_key = k[0].get("key")
     if external_key is None and isinstance(essentia.get("tonal_descriptors"), dict):
         for key in ["tonal.key_key", "estimated_key", "key"]:
             if key in essentia["tonal_descriptors"]:

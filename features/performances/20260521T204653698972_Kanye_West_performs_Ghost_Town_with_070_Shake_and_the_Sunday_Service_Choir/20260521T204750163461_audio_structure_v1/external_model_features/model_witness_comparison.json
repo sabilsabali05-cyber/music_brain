@@ -3,12 +3,12 @@
   "segment_run_id": "20260521T204750163461_audio_structure_v1",
   "tempo_alignment": {
     "internal_tempo_bpm": null,
-    "external_tempo_bpm": null,
+    "external_tempo_bpm": 164.14621,
     "delta_bpm": null
   },
   "tonal_alignment": {
     "internal_key_candidate": null,
-    "external_key_candidate": null,
+    "external_key_candidate": "F",
     "agreement": false
   },
   "tag_alignment": {
@@ -84,9 +84,9 @@
     "external_meter_hypotheses": []
   },
   "provider_status": {
-    "essentia": "unavailable",
+    "essentia": "success",
     "musicnn": "unavailable",
     "beat_tracker": "unavailable",
-    "music21": "unavailable"
+    "music21": "success"
   }
 }

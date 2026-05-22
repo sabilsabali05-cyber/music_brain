@@ -211,6 +211,19 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         "omnizart_availability": (external_dir / "omnizart_availability.json").resolve().as_posix() if (external_dir / "omnizart_availability.json").exists() else None,
     }
     model_consensus_ref = (external_dir / "model_consensus.json").resolve().as_posix() if (external_dir / "model_consensus.json").exists() else None
+    model_consensus_payload = {}
+    if model_consensus_ref:
+        try:
+            model_consensus_payload = json.loads((external_dir / "model_consensus.json").read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            model_consensus_payload = {}
+    witness_agreement_summary = model_consensus_payload.get("agreements", []) if isinstance(model_consensus_payload.get("agreements"), list) else []
+    witness_conflict_warnings = model_consensus_payload.get("disagreements", []) if isinstance(model_consensus_payload.get("disagreements"), list) else []
+    witness_review_recommendations = (
+        model_consensus_payload.get("recommended_review_items", [])
+        if isinstance(model_consensus_payload.get("recommended_review_items"), list)
+        else []
+    )
     model_source_refs = [str(item.get("provider_id")) for item in MODEL_SOURCES if str(item.get("implementation_status")) in {"existing", "optional_adapter", "planned", "dataset_reference"}]
     theory_source_refs = [str(item.get("source_id")) for item in THEORY_SOURCES]
     available_external_witnesses = sorted([name for name, path in external_feature_refs.items() if path])
@@ -326,6 +339,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             export_record["model_source_refs"] = model_source_refs
             export_record["theory_source_refs"] = theory_source_refs
             export_record["external_feature_refs"] = external_feature_refs
+            export_record["witness_agreement_summary"] = witness_agreement_summary[:8]
+            export_record["witness_conflict_warnings"] = witness_conflict_warnings[:8]
+            export_record["review_recommendations"] = witness_review_recommendations[:8]
             if model_consensus_ref:
                 export_record["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             if upgrade_candidates:
@@ -376,6 +392,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             observation_export["model_source_refs"] = model_source_refs
             observation_export["theory_source_refs"] = theory_source_refs
             observation_export["external_feature_refs"] = external_feature_refs
+            observation_export["witness_agreement_summary"] = witness_agreement_summary[:8]
+            observation_export["witness_conflict_warnings"] = witness_conflict_warnings[:8]
+            observation_export["review_recommendations"] = witness_review_recommendations[:8]
             if model_consensus_ref:
                 observation_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(observation_export)
@@ -405,6 +424,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             observation_export["model_source_refs"] = model_source_refs
             observation_export["theory_source_refs"] = theory_source_refs
             observation_export["external_feature_refs"] = external_feature_refs
+            observation_export["witness_agreement_summary"] = witness_agreement_summary[:8]
+            observation_export["witness_conflict_warnings"] = witness_conflict_warnings[:8]
+            observation_export["review_recommendations"] = witness_review_recommendations[:8]
             if model_consensus_ref:
                 observation_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(observation_export)
@@ -439,6 +461,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             weak_export["model_source_refs"] = model_source_refs
             weak_export["theory_source_refs"] = theory_source_refs
             weak_export["external_feature_refs"] = external_feature_refs
+            weak_export["witness_agreement_summary"] = witness_agreement_summary[:8]
+            weak_export["witness_conflict_warnings"] = witness_conflict_warnings[:8]
+            weak_export["review_recommendations"] = witness_review_recommendations[:8]
             if model_consensus_ref:
                 weak_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(weak_export)
@@ -477,6 +502,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             review_export["model_source_refs"] = model_source_refs
             review_export["theory_source_refs"] = theory_source_refs
             review_export["external_feature_refs"] = external_feature_refs
+            review_export["witness_agreement_summary"] = witness_agreement_summary[:8]
+            review_export["witness_conflict_warnings"] = witness_conflict_warnings[:8]
+            review_export["review_recommendations"] = witness_review_recommendations[:8]
             if model_consensus_ref:
                 review_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(review_export)
@@ -528,6 +556,9 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         "external_witnesses_missing": missing_external_witnesses,
         "consensus_status": "available" if model_consensus_ref else "missing",
         "model_consensus_ref": model_consensus_ref,
+        "witness_agreement_summary": witness_agreement_summary,
+        "witness_conflict_warnings": witness_conflict_warnings,
+        "review_recommendations": witness_review_recommendations,
     }
     save_json(export_root / "export_manifest.json", manifest)
     return export_root.resolve()

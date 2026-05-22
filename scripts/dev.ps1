@@ -82,6 +82,7 @@ function Show-Usage {
     Write-Host "  check-model-sources"
     Write-Host "  check-external-analyzers"
     Write-Host "  run-external-witnesses <performance-manifest> [providers]"
+    Write-Host "  run-modal-external-witnesses <performance-manifest> [providers]"
     Write-Host "  compare-model-witnesses <performance-manifest>"
     Write-Host "  build-model-consensus <performance-manifest>"
     Write-Host "  run-external-analyzers <performance-manifest> [providers]"
@@ -835,6 +836,14 @@ switch ($Task) {
         $providerValue = if (-not [string]::IsNullOrWhiteSpace($providers)) { $providers } else { "essentia,musicnn,beat_tracker,music21,omnizart" }
         Invoke-Step -Label "Running external witness analyzers" -Command @(
             "python", "scripts/run_external_witnesses.py", $manifestPath, $providerValue
+        )
+    }
+    "run-modal-external-witnesses" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-modal-external-witnesses <performance-manifest> [providers]"
+        $providers = Get-TaskArg -Index 1
+        $providerValue = if (-not [string]::IsNullOrWhiteSpace($providers)) { $providers } else { "essentia,music21" }
+        Invoke-Step -Label "Running Modal external witness analyzers" -Command @(
+            "python", "scripts/run_modal_external_witnesses.py", $manifestPath, "--providers", $providerValue
         )
     }
     "compare-model-witnesses" {

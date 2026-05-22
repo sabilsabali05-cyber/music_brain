@@ -1,31 +1,129 @@
 {
   "provider_name": "music21",
-  "status": "unavailable",
-  "warnings": [
-    "Provider dependencies are missing."
-  ],
+  "status": "success",
+  "warnings": [],
   "limitations": [
-    "Symbolic interpretations are weak labels unless human-verified."
+    "derived from YourMT3 MIDI; not ground truth"
   ],
-  "created_at": "2026-05-22T17:13:01.836643+00:00",
+  "created_at": "2026-05-22T17:31:11.866419+00:00",
   "source_artifacts": {
-    "audio_path": "C:/Users/izzyo/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
-    "context": {
-      "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
-      "segment_run_id": "20260521T204750163461_audio_structure_v1",
-      "performance_manifest_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\performances\\library\\20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\performance_manifest.json",
-      "analysis_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\analysis\\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\20260521T204701196539_modal_librosa_dense\\structure_analysis.json",
-      "segments_manifest_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\segments\\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\20260521T204750163461_audio_structure_v1\\segments_manifest.json",
-      "merged_midi_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\segments\\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\20260521T204750163461_audio_structure_v1\\merged\\merged_performance.mid"
+    "source_name": "Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3"
+  },
+  "symbolic_descriptors": {
+    "note_count": 1778,
+    "pitch_class_histogram": {
+      "0": 223,
+      "1": 44,
+      "2": 144,
+      "3": 71,
+      "4": 175,
+      "5": 236,
+      "6": 94,
+      "7": 254,
+      "8": 53,
+      "9": 337,
+      "10": 104,
+      "11": 43
     }
   },
-  "dependency_info": {
-    "music21": false,
-    "music21_version": null,
-    "install_notes": [
-      "Install music21 for symbolic theory witness outputs."
-    ]
+  "key_candidates": [
+    {
+      "key": "F",
+      "mode": "major",
+      "correlation": 0.7396939238387478
+    }
+  ],
+  "chord_candidates": [
+    {
+      "label": "note",
+      "count": 1031
+    },
+    {
+      "label": "major triad",
+      "count": 328
+    },
+    {
+      "label": "minor seventh chord",
+      "count": 200
+    },
+    {
+      "label": "Perfect Octave",
+      "count": 111
+    },
+    {
+      "label": "minor triad",
+      "count": 86
+    },
+    {
+      "label": "Perfect Fourth",
+      "count": 75
+    },
+    {
+      "label": "incomplete dominant-seventh chord",
+      "count": 73
+    },
+    {
+      "label": "Major Second",
+      "count": 59
+    },
+    {
+      "label": "major-second major tetrachord",
+      "count": 57
+    },
+    {
+      "label": "Major Third with octave doublings",
+      "count": 53
+    },
+    {
+      "label": "dominant seventh chord",
+      "count": 52
+    },
+    {
+      "label": "Perfect Fifth",
+      "count": 51
+    },
+    {
+      "label": "major seventh chord",
+      "count": 48
+    },
+    {
+      "label": "quartal trichord",
+      "count": 47
+    },
+    {
+      "label": "multiple octaves",
+      "count": 45
+    },
+    {
+      "label": "all-interval tetrachord",
+      "count": 43
+    },
+    {
+      "label": "incomplete major-seventh chord",
+      "count": 40
+    },
+    {
+      "label": "Minor Second",
+      "count": 40
+    },
+    {
+      "label": "whole-tone trichord",
+      "count": 39
+    },
+    {
+      "label": "Major Sixth with octave doublings",
+      "count": 37
+    }
+  ],
+  "interval_summary": {
+    "interval_count": 1777,
+    "mean_semitones": 5.986494091164885,
+    "step_ratio": 0.44119302194710186,
+    "leap_ratio": 0.4124929656724817
   },
-  "model_source_ref": "music21",
-  "trust_policy": "weak_label"
+  "voice_leading_summary": {
+    "step_motion_count": 784,
+    "leap_motion_count": 733,
+    "motion_balance": "step_dominant"
+  }
 }

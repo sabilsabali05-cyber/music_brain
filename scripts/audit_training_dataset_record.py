@@ -236,6 +236,9 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
         "consensus_status": "available" if external_refs["model_consensus_ref"] else "missing",
         "what_became_more_trusted": model_consensus_payload.get("confidence_boosts", []),
         "what_remains_weak_or_review_only": model_consensus_payload.get("unresolved_conflicts", []),
+        "witness_agreement_summary": model_consensus_payload.get("agreements", []),
+        "witness_conflict_warnings": model_consensus_payload.get("disagreements", []),
+        "review_recommendations": model_consensus_payload.get("recommended_review_items", []),
     }
 
     audit_json = {
@@ -407,6 +410,9 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             f"- consensus_status: `{source_coverage['consensus_status']}`",
             f"- what_became_more_trusted: `{json.dumps(source_coverage['what_became_more_trusted'], ensure_ascii=True)}`",
             f"- what_remains_weak_or_review_only: `{json.dumps(source_coverage['what_remains_weak_or_review_only'], ensure_ascii=True)}`",
+            f"- witness_agreement_summary: `{json.dumps(source_coverage['witness_agreement_summary'], ensure_ascii=True)}`",
+            f"- witness_conflict_warnings: `{json.dumps(source_coverage['witness_conflict_warnings'], ensure_ascii=True)}`",
+            f"- review_recommendations: `{json.dumps(source_coverage['review_recommendations'], ensure_ascii=True)}`",
         ]
     )
     audit_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

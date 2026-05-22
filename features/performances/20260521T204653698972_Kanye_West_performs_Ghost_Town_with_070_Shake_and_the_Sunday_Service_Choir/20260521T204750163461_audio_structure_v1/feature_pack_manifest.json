@@ -11,9 +11,10 @@
   "feature_summary_path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_summary.md",
   "external_feature_refs": {
     "essentia_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/essentia_features.json",
-    "musicnn_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/musicnn_features.json",
-    "beat_tracker_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/beat_tracker_features.json",
-    "music21_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/music21_features.json",
-    "omnizart_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/omnizart_availability.json"
+    "music21_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/music21_features.json"
+  },
+  "external_model_feature_refs": {
+    "essentia_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/essentia_features.json",
+    "music21_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/music21_features.json"
   }
 }

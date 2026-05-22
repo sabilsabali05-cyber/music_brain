@@ -88,6 +88,8 @@ def build_model_consensus(performance_manifest_path: Path) -> dict[str, Any]:
 
     key_hyp = pitch_harmony.get("macro_record", {}).get("key_hypotheses", []) if isinstance(pitch_harmony.get("macro_record"), dict) else []
     music21_keys = music21.get("features", {}).get("key_candidates", []) if isinstance(music21.get("features"), dict) else []
+    if not music21_keys and isinstance(music21.get("key_candidates"), list):
+        music21_keys = music21.get("key_candidates", [])
     if key_hyp and music21_keys:
         agreements.append("Symbolic key witness is present for key hypothesis comparison.")
 

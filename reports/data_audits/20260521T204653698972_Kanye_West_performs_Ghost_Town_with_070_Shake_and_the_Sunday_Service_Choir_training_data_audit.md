@@ -30,7 +30,6 @@
 
 ## 5. Missing data
 - human verification labels
-- beat/downbeat external witness
 
 ## 6. AI-readiness assessment
 - Is ai_training_records.jsonl usable? `True`
@@ -90,3 +89,15 @@
 - needs_human_review_candidates: `0`
 - routing_improves_training_safety: `True`
 - recommended_routing_calibration_status: `needs_recalibration`
+
+## Theory and Model Source Coverage
+- theory_sources_represented: `["agawu_representing_african_music", "aldwell_schachter_voice_leading", "arom_african_polyphony", "berliner_thinking_in_jazz", "chernoff_african_sensibility", "cohn_audacious_euphony", "cooper_meyer_rhythmic_structure", "cowell_new_musical_resources", "forte_structure_atonal", "fux_gradus_ad_parnassum", "hasty_meter_as_rhythm", "hindemith_craft_composition", "iyer_microtiming_embodied", "keil_feld_groove", "kubik_theory_african_music", "lefebvre_rhythmanalysis", "lewin_gmIt", "london_hearing_in_time", "messiaen_technique_language", "partch_genesis_music", "persichetti_twentieth_century_harmony", "russell_lydian_chromatic", "schoenberg_theory_harmony", "straus_post_tonal", "toussaint_geometry_rhythm", "tymoczko_geometry_music", "xenakis_formalized_music"]`
+- model_sources_represented: `["beat_tracker", "beatnet", "essentia", "essentia_tf", "groove_midi_dataset", "librosa", "madmom", "music21", "musicnn", "omnizart", "pretty_midi", "yourmt3"]`
+- available_external_witnesses: `["beat_tracker_features", "essentia_features", "music21_features", "musicnn_features", "omnizart_availability"]`
+- unavailable_external_witnesses: `[]`
+- consensus_status: `available`
+- what_became_more_trusted: `[]`
+- what_remains_weak_or_review_only: `["missing_external_meter_hypotheses"]`
+- witness_agreement_summary: `["Symbolic key witness is present for key hypothesis comparison."]`
+- witness_conflict_warnings: `[]`
+- review_recommendations: `["Beat witness unavailable; review rhythm family confidence manually."]`
