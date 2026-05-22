@@ -1,0 +1,59 @@
+{
+  "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+  "segment_run_id": "20260521T213524641640_audio_structure_v1",
+  "source_feature_pack_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+  "created_at": "2026-05-22T02:19:39.430258+00:00",
+  "pipeline_git_commit": "2e34485665e63bb014c05484fa1a83798eacc37b",
+  "source_ai_record_count": 1773,
+  "accepted_observation_count": 109,
+  "weak_label_count": 1773,
+  "audio_midi_only_count": 0,
+  "review_required_count": 1664,
+  "quarantined_count": 0,
+  "field_trust_policy_version": "field_trust_policy_v1",
+  "counts_per_split": {
+    "accepted_records": 109,
+    "weak_label_records": 1773,
+    "audio_midi_only_records": 0,
+    "review_required_records": 1664,
+    "quarantined_records": 0
+  },
+  "inclusion_rules_used": {
+    "accepted": "field-level observation subset derived from reliable source records.",
+    "weak_label": "separate weak-label payloads with evidence/confidence metadata.",
+    "audio_midi_only": "observation-only exports from reliable records without safe labels.",
+    "review_required": "ambiguous/low-confidence/experimental records with review reasons.",
+    "quarantined": "critical schema/provenance/time-range failures."
+  },
+  "excluded_field_summary": {
+    "created_at": 1773,
+    "evidence_refs": 1773,
+    "extractor_name": 1773,
+    "feature_version": 1773,
+    "input_features": 1773,
+    "label": 1773,
+    "record_type": 1773,
+    "review_required": 1773,
+    "source_artifact_paths": 1773,
+    "source_name": 1773,
+    "text_summary": 1773,
+    "verified_by": 1773,
+    "best_rhythm_family_match": 940,
+    "chord_movement_count": 108,
+    "motif_count": 108,
+    "rhythm_concepts_summary": 108,
+    "rhythm_family_match_refs": 940,
+    "rhythm_philosophy_summary": 108,
+    "unknown_pattern": 940,
+    "motif_group_refs": 832,
+    "motif_refs": 832,
+    "token_pattern_compact": 832,
+    "chord_movement_refs": 832,
+    "harmony_pattern_index_refs": 832,
+    "vamp_refs": 832
+  },
+  "limitations": [
+    "Field-level splitting is heuristic and should be periodically recalibrated.",
+    "Weak and interpretive labels remain non-ground-truth signals."
+  ]
+}

@@ -1,17 +1,17 @@
 # Training Exports Summary
 
-- total performances: `1`
-- total source AI records: `403`
-- total accepted observation records: `27`
-- total weak label records: `403`
+- total performances: `2`
+- total source AI records: `2176`
+- total accepted observation records: `136`
+- total weak label records: `2176`
 - total audio_midi_only records: `0`
-- total review_required records: `376`
+- total review_required records: `2040`
 - total quarantined records: `0`
-- accepted percentage: `6.6998`
-- review_required percentage: `93.3002`
+- accepted percentage: `6.25`
+- review_required percentage: `93.75`
 
 ## Performances by dataset inclusion decision
-- accepted: `1`
+- accepted: `2`
 
 ## Performances with zero accepted records
 - none
@@ -20,5 +20,5 @@
 - none
 
 ## Top limitations/warnings
-- Field-level splitting is heuristic and should be periodically recalibrated. (`1`)
-- Weak and interpretive labels remain non-ground-truth signals. (`1`)
+- Field-level splitting is heuristic and should be periodically recalibrated. (`2`)
+- Weak and interpretive labels remain non-ground-truth signals. (`2`)
