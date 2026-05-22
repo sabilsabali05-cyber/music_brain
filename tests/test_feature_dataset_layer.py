@@ -10,6 +10,7 @@ from features.rhythm_ontology import (
     annotate_tag_with_rhythm_concepts,
 )
 from features.rhythm_lexicon import classify_rhythm_pattern
+from features import rhythm_lexicon_config as lexicon_config
 from features.rhythm_standard_fixtures import STANDARD_RHYTHM_FIXTURES
 from scripts.evaluate_rhythm_lexicon import main as evaluate_rhythm_lexicon_main
 from scripts.build_ai_training_records import build_ai_training_records
@@ -386,6 +387,22 @@ def test_all_onset_pattern_not_high_confidence_clave_or_tresillo() -> None:
     if result["matched_family"] in {"clave", "tresillo_3_3_2"}:
         assert float(result["confidence"]) < 0.7
     assert result["match_strength"] in {"weak", "ambiguous"}
+
+
+def test_all_onset_penalty_config_affects_confidence() -> None:
+    original_penalty = lexicon_config.DEFAULT_LEXICON_THRESHOLD.get("all_onset_penalty", 0.45)
+    try:
+        baseline = classify_rhythm_pattern({"token_pattern": "xxxx", "accent_pattern": "XXXX"})
+        lexicon_config.DEFAULT_LEXICON_THRESHOLD["all_onset_penalty"] = 0.10
+        penalized = classify_rhythm_pattern({"token_pattern": "xxxx", "accent_pattern": "XXXX"})
+    finally:
+        lexicon_config.DEFAULT_LEXICON_THRESHOLD["all_onset_penalty"] = original_penalty
+    assert float(penalized.get("confidence", 0.0)) <= float(baseline.get("confidence", 0.0))
+
+
+def test_lexicon_config_uses_family_required_evidence_key() -> None:
+    assert "family_required_evidence" in lexicon_config.DEFAULT_LEXICON_THRESHOLD
+    assert "required_evidence_fields" not in lexicon_config.DEFAULT_LEXICON_THRESHOLD
 
 
 def test_rotation_invariant_matching_works_for_tresillo() -> None:

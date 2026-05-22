@@ -595,14 +595,15 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
         penalties = thresholds.get("negative_control_penalties", {})
         if isinstance(penalties, dict):
             if any("all-onset token pattern" in reason for reason in mismatch_reasons):
-                confidence *= float(penalties.get("all_onset", 0.45))
+                all_onset_penalty = float(thresholds.get("all_onset_penalty", penalties.get("all_onset", 0.45)))
+                confidence *= all_onset_penalty
             if any("low information pattern" in reason for reason in mismatch_reasons):
                 confidence *= float(penalties.get("low_information", 0.65))
             if repeat_count <= 1:
                 confidence *= float(penalties.get("insufficient_repetition", 0.85))
         confidence *= max(0.1, (1.0 - min(0.5, 0.07 * len(set(mismatch_reasons)))))
         specificity_score = min(1.0, (0.6 * token_score) + (0.25 * ratio_score) + (0.15 * information_score))
-        required_fields = thresholds.get("required_evidence_fields", [])
+        required_fields = thresholds.get("family_required_evidence", [])
         if isinstance(required_fields, list):
             for field in required_fields:
                 field_name = str(field)
@@ -669,14 +670,16 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
     if second is not None:
         delta = float(best.get("confidence", 0.0)) - float(second.get("confidence", 0.0))
         ambiguity_score = max(0.0, min(1.0, 1.0 - (delta / 0.12)))
-        cutoff = float(best.get("confidence", 0.0)) - 0.03
+        ambiguity_margin = float(_family_thresholds(str(best.get("matched_family") or "")).get("ambiguity_margin", 0.03))
+        cutoff = float(best.get("confidence", 0.0)) - ambiguity_margin
         ambiguous_candidates = [str(item.get("matched_family")) for item in ranked if float(item.get("confidence", 0.0)) >= cutoff][:5]
     else:
         ambiguity_score = 0.0
+    ambiguity_margin = float(_family_thresholds(str(best.get("matched_family") or "")).get("ambiguity_margin", 0.03))
     family_ambiguous = bool(
         second is not None
         and float(best.get("confidence", 0.0)) >= 0.60
-        and (float(best.get("confidence", 0.0)) - float(second.get("confidence", 0.0)) < 0.03)
+        and (float(best.get("confidence", 0.0)) - float(second.get("confidence", 0.0)) < ambiguity_margin)
     )
     if family_ambiguous:
         best_family = None
