@@ -436,23 +436,31 @@ def _key_candidates_from_histogram(histogram: list[int]) -> list[dict[str, objec
 def _chord_candidate(histogram: list[int]) -> tuple[str, str, int, float]:
     key_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     total = max(1, sum(histogram))
-    best_label = "N"
-    best_quality = "unknown"
+    best_label = "no_clear_chord"
+    best_quality = "cluster_or_ambiguous"
     best_root = 0
     best_score = 0.0
     for root in range(12):
         major = histogram[root] + histogram[(root + 4) % 12] + histogram[(root + 7) % 12]
         minor = histogram[root] + histogram[(root + 3) % 12] + histogram[(root + 7) % 12]
+        sus_open = histogram[root] + histogram[(root + 5) % 12] + histogram[(root + 7) % 12]
         if major >= minor and major > best_score:
             best_score = float(major)
-            best_label = f"{key_names[root]}:maj"
+            best_label = "estimated_major_triad_candidate"
             best_quality = "major"
             best_root = root
         if minor > major and minor > best_score:
             best_score = float(minor)
-            best_label = f"{key_names[root]}:min"
+            best_label = "estimated_minor_triad_candidate"
             best_quality = "minor"
             best_root = root
+        if sus_open > best_score:
+            best_score = float(sus_open)
+            best_label = "suspended_or_open_candidate"
+            best_quality = "suspended_or_open"
+            best_root = root
+    if best_score <= 0:
+        return "no_clear_chord", "cluster_or_ambiguous", 0, 0.0
     return best_label, best_quality, best_root, round(best_score / total, 6)
 
 
@@ -522,6 +530,11 @@ def harmony_feature_vector(
     change_count = sum(1 for a, b in zip(roots, roots[1:]) if a != b)
     harmonic_rhythm = duration / max(1, change_count) if duration > 0 else 0.0
     intervals = [((b - a) % 12) for a, b in zip(roots, roots[1:])]
+    interval_class = [min(value, 12 - value) for value in intervals]
+    semitone_motion = sum(1 for value in intervals if value in {1, 11}) / max(1, len(intervals))
+    diatonic_step = sum(1 for value in intervals if value in {1, 2, 10, 11}) / max(1, len(intervals))
+    fifth_motion = sum(1 for value in intervals if value in {5, 7}) / max(1, len(intervals))
+    repeated_root = sum(1 for value in intervals if value == 0) / max(1, len(intervals))
     repeated = sum(1 for value in intervals if value == 0) / max(1, len(intervals))
     stepwise = sum(1 for value in intervals if value in {1, 11, 2, 10}) / max(1, len(intervals))
     chromatic = sum(1 for value in intervals if value in {1, 11}) / max(1, len(intervals))
@@ -543,6 +556,11 @@ def harmony_feature_vector(
         "chord_change_count": change_count,
         "harmonic_rhythm_seconds_per_change": round(float(harmonic_rhythm), 6),
         "root_motion_intervals": intervals,
+        "interval_class": interval_class,
+        "semitone_motion": round(float(semitone_motion), 6),
+        "diatonic_step_proxy": round(float(diatonic_step), 6),
+        "fifth_motion_proxy": round(float(fifth_motion), 6),
+        "repeated_root": round(float(repeated_root), 6),
         "repeated_chord_score": round(float(repeated), 6),
         "stepwise_root_motion_score": round(float(stepwise), 6),
         "chromatic_motion_score": round(float(chromatic), 6),

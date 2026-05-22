@@ -68,6 +68,12 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
     rhythm_records = rhythm.get("records", [])
     harmony_records = harmony.get("records", [])
     tag_records = tags.get("tags", [])
+    has_grouped_tags = "grouped_tags" in tags
+    has_top_unique_tags = "top_unique_tags" in tags
+    grouped_tags = tags.get("grouped_tags", [])
+    top_unique_tags = tags.get("top_unique_tags", [])
+    rhythm_motifs = rhythm.get("rhythm_motifs", {})
+    chord_movement_summary = harmony.get("chord_movement_summary", {})
 
     warnings: list[str] = []
     if not isinstance(rhythm_records, list) or len(rhythm_records) == 0:
@@ -76,6 +82,14 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         warnings.append("harmony records are empty")
     if not isinstance(tag_records, list):
         warnings.append("tags payload malformed")
+    if not has_grouped_tags or not isinstance(grouped_tags, list):
+        warnings.append("grouped_tags missing or malformed")
+    if not has_top_unique_tags or not isinstance(top_unique_tags, list):
+        warnings.append("top_unique_tags missing or malformed")
+    if not isinstance(rhythm_motifs, dict):
+        warnings.append("rhythm_motifs section missing or malformed")
+    if not isinstance(chord_movement_summary, dict):
+        warnings.append("chord_movement_summary missing or malformed")
     if jsonl_parse_errors:
         warnings.append(f"ai training jsonl parse errors: {jsonl_parse_errors}")
 
@@ -158,6 +172,8 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "rhythm_record_count_by_granularity",
         "harmony_record_count_by_granularity",
         "ai_record_count_by_granularity",
+        "Top Unique Tags",
+        "Rhythm Motif Candidates",
     ]
     for token in required_summary_tokens:
         if token not in summary_text:

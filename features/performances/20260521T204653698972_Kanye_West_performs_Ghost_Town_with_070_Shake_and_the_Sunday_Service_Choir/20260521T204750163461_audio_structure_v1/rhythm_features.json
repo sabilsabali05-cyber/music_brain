@@ -16,7 +16,7 @@
   "extractor_name": "rhythm_feature_extractor_v1",
   "confidence": 0.669767,
   "limitations": [],
-  "created_at": "2026-05-21T23:50:04.633806+00:00",
+  "created_at": "2026-05-22T00:03:36.048414+00:00",
   "summary": {
     "record_count": 215,
     "source_mode": "merged",
@@ -48,7 +48,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.544133+00:00",
+      "created_at": "2026-05-22T00:03:35.980259+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 7783,
@@ -297,7 +297,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.544759+00:00",
+      "created_at": "2026-05-22T00:03:35.980856+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 227,
@@ -451,7 +451,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.546172+00:00",
+      "created_at": "2026-05-22T00:03:35.982216+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 709,
@@ -610,7 +610,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.549500+00:00",
+      "created_at": "2026-05-22T00:03:35.984404+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 1356,
@@ -755,7 +755,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.551223+00:00",
+      "created_at": "2026-05-22T00:03:35.985110+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 345,
@@ -910,7 +910,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.552053+00:00",
+      "created_at": "2026-05-22T00:03:35.985723+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 308,
@@ -1061,7 +1061,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.553106+00:00",
+      "created_at": "2026-05-22T00:03:35.986514+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 483,
@@ -1200,7 +1200,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.555390+00:00",
+      "created_at": "2026-05-22T00:03:35.988353+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 1203,
@@ -1341,7 +1341,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.557195+00:00",
+      "created_at": "2026-05-22T00:03:35.989578+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 600,
@@ -1519,7 +1519,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.558542+00:00",
+      "created_at": "2026-05-22T00:03:35.990630+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 632,
@@ -1672,7 +1672,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.560064+00:00",
+      "created_at": "2026-05-22T00:03:35.991843+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 725,
@@ -1829,7 +1829,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.561044+00:00",
+      "created_at": "2026-05-22T00:03:35.992674+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 443,
@@ -1992,7 +1992,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.562193+00:00",
+      "created_at": "2026-05-22T00:03:35.993502+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 458,
@@ -2152,7 +2152,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.562922+00:00",
+      "created_at": "2026-05-22T00:03:35.994071+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 294,
@@ -2305,7 +2305,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.563509+00:00",
+      "created_at": "2026-05-22T00:03:35.994579+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 227,
@@ -2458,7 +2458,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.565049+00:00",
+      "created_at": "2026-05-22T00:03:35.995827+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 709,
@@ -2616,7 +2616,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.568087+00:00",
+      "created_at": "2026-05-22T00:03:35.997904+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 1356,
@@ -2760,7 +2760,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.569053+00:00",
+      "created_at": "2026-05-22T00:03:35.998638+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 345,
@@ -2914,7 +2914,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.569905+00:00",
+      "created_at": "2026-05-22T00:03:35.999257+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 308,
@@ -3064,7 +3064,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.570917+00:00",
+      "created_at": "2026-05-22T00:03:36.000093+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 483,
@@ -3202,7 +3202,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.573023+00:00",
+      "created_at": "2026-05-22T00:03:36.001927+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 1203,
@@ -3342,7 +3342,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.574767+00:00",
+      "created_at": "2026-05-22T00:03:36.003120+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 600,
@@ -3519,7 +3519,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.576140+00:00",
+      "created_at": "2026-05-22T00:03:36.004180+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 632,
@@ -3671,7 +3671,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.577577+00:00",
+      "created_at": "2026-05-22T00:03:36.005478+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 725,
@@ -3827,7 +3827,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.578550+00:00",
+      "created_at": "2026-05-22T00:03:36.006372+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 443,
@@ -3989,7 +3989,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.579784+00:00",
+      "created_at": "2026-05-22T00:03:36.007268+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 458,
@@ -4148,7 +4148,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.581093+00:00",
+      "created_at": "2026-05-22T00:03:36.007884+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 294,
@@ -4302,7 +4302,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.581342+00:00",
+      "created_at": "2026-05-22T00:03:36.008086+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 5,
@@ -4378,7 +4378,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.581545+00:00",
+      "created_at": "2026-05-22T00:03:36.008275+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -4457,7 +4457,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.581758+00:00",
+      "created_at": "2026-05-22T00:03:36.008478+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -4540,7 +4540,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.582081+00:00",
+      "created_at": "2026-05-22T00:03:36.008678+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -4623,7 +4623,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.583333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.582357+00:00",
+      "created_at": "2026-05-22T00:03:36.008900+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 28,
@@ -4719,7 +4719,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.758333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.582673+00:00",
+      "created_at": "2026-05-22T00:03:36.009137+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 49,
@@ -4814,7 +4814,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.558333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.583290+00:00",
+      "created_at": "2026-05-22T00:03:36.009345+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 25,
@@ -4903,7 +4903,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.683333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.583866+00:00",
+      "created_at": "2026-05-22T00:03:36.009578+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 40,
@@ -4995,7 +4995,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.584132+00:00",
+      "created_at": "2026-05-22T00:03:36.009768+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -5083,7 +5083,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.584364+00:00",
+      "created_at": "2026-05-22T00:03:36.009949+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 10,
@@ -5170,7 +5170,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.508333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.584653+00:00",
+      "created_at": "2026-05-22T00:03:36.010147+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 19,
@@ -5262,7 +5262,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.458333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.585277+00:00",
+      "created_at": "2026-05-22T00:03:36.010332+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 13,
@@ -5349,7 +5349,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.516667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.585528+00:00",
+      "created_at": "2026-05-22T00:03:36.010534+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 20,
@@ -5439,7 +5439,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.585757+00:00",
+      "created_at": "2026-05-22T00:03:36.010731+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -5527,7 +5527,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.585983+00:00",
+      "created_at": "2026-05-22T00:03:36.010914+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -5615,7 +5615,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.586231+00:00",
+      "created_at": "2026-05-22T00:03:36.011126+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 30,
@@ -5708,7 +5708,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.758333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.586493+00:00",
+      "created_at": "2026-05-22T00:03:36.011339+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 49,
@@ -5802,7 +5802,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.725,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.586731+00:00",
+      "created_at": "2026-05-22T00:03:36.011558+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 45,
@@ -5889,7 +5889,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.583333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.586962+00:00",
+      "created_at": "2026-05-22T00:03:36.011753+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 28,
@@ -5976,7 +5976,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.587175+00:00",
+      "created_at": "2026-05-22T00:03:36.011931+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -6062,7 +6062,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.55,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.587392+00:00",
+      "created_at": "2026-05-22T00:03:36.012131+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 24,
@@ -6151,7 +6151,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.541667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.587607+00:00",
+      "created_at": "2026-05-22T00:03:36.012332+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 23,
@@ -6244,7 +6244,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.575,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.587852+00:00",
+      "created_at": "2026-05-22T00:03:36.012555+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 27,
@@ -6341,7 +6341,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.7,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.588137+00:00",
+      "created_at": "2026-05-22T00:03:36.012773+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 42,
@@ -6433,7 +6433,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.588602+00:00",
+      "created_at": "2026-05-22T00:03:36.013061+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 123,
@@ -6527,7 +6527,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.825,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.589173+00:00",
+      "created_at": "2026-05-22T00:03:36.013298+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 57,
@@ -6624,7 +6624,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.658333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.589708+00:00",
+      "created_at": "2026-05-22T00:03:36.013510+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 37,
@@ -6715,7 +6715,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.590051+00:00",
+      "created_at": "2026-05-22T00:03:36.013756+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 69,
@@ -6806,7 +6806,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.590344+00:00",
+      "created_at": "2026-05-22T00:03:36.014005+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 77,
@@ -6902,7 +6902,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.590664+00:00",
+      "created_at": "2026-05-22T00:03:36.014298+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 133,
@@ -6998,7 +6998,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.591005+00:00",
+      "created_at": "2026-05-22T00:03:36.014614+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 157,
@@ -7094,7 +7094,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.591526+00:00",
+      "created_at": "2026-05-22T00:03:36.014976+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 243,
@@ -7189,7 +7189,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.783333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.591801+00:00",
+      "created_at": "2026-05-22T00:03:36.015206+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 52,
@@ -7284,7 +7284,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.508333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.592010+00:00",
+      "created_at": "2026-05-22T00:03:36.015395+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 19,
@@ -7374,7 +7374,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.592331+00:00",
+      "created_at": "2026-05-22T00:03:36.015707+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 131,
@@ -7470,7 +7470,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.85,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.592580+00:00",
+      "created_at": "2026-05-22T00:03:36.015954+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 60,
@@ -7559,7 +7559,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.858333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.592830+00:00",
+      "created_at": "2026-05-22T00:03:36.016176+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 61,
@@ -7647,7 +7647,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.616667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.593055+00:00",
+      "created_at": "2026-05-22T00:03:36.016382+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 32,
@@ -7743,7 +7743,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.593361+00:00",
+      "created_at": "2026-05-22T00:03:36.016573+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -7833,7 +7833,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.593691+00:00",
+      "created_at": "2026-05-22T00:03:36.016842+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 113,
@@ -7926,7 +7926,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.594037+00:00",
+      "created_at": "2026-05-22T00:03:36.017125+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 115,
@@ -8016,7 +8016,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.594401+00:00",
+      "created_at": "2026-05-22T00:03:36.017368+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 89,
@@ -8110,7 +8110,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.883333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.594772+00:00",
+      "created_at": "2026-05-22T00:03:36.017625+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 64,
@@ -8201,7 +8201,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.641667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.595065+00:00",
+      "created_at": "2026-05-22T00:03:36.017866+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 35,
@@ -8292,7 +8292,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.595373+00:00",
+      "created_at": "2026-05-22T00:03:36.018079+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -8380,7 +8380,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.595841+00:00",
+      "created_at": "2026-05-22T00:03:36.018290+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -8469,7 +8469,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.596158+00:00",
+      "created_at": "2026-05-22T00:03:36.018477+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 3,
@@ -8548,7 +8548,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.596377+00:00",
+      "created_at": "2026-05-22T00:03:36.018674+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -8636,7 +8636,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.596546+00:00",
+      "created_at": "2026-05-22T00:03:36.018843+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 3,
@@ -8715,7 +8715,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.558333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.596840+00:00",
+      "created_at": "2026-05-22T00:03:36.019054+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 25,
@@ -8808,7 +8808,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.597149+00:00",
+      "created_at": "2026-05-22T00:03:36.019252+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -8897,7 +8897,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.566667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.597419+00:00",
+      "created_at": "2026-05-22T00:03:36.019473+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 26,
@@ -8990,7 +8990,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.858333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.597701+00:00",
+      "created_at": "2026-05-22T00:03:36.019721+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 61,
@@ -9082,7 +9082,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.597970+00:00",
+      "created_at": "2026-05-22T00:03:36.019908+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -9169,7 +9169,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.55,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.598298+00:00",
+      "created_at": "2026-05-22T00:03:36.020110+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 24,
@@ -9263,7 +9263,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.775,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.598542+00:00",
+      "created_at": "2026-05-22T00:03:36.020340+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 51,
@@ -9360,7 +9360,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.841667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.598791+00:00",
+      "created_at": "2026-05-22T00:03:36.020583+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 59,
@@ -9449,7 +9449,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.598995+00:00",
+      "created_at": "2026-05-22T00:03:36.020792+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -9537,7 +9537,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.599213+00:00",
+      "created_at": "2026-05-22T00:03:36.020996+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 22,
@@ -9632,7 +9632,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.599414+00:00",
+      "created_at": "2026-05-22T00:03:36.021170+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 5,
@@ -9717,7 +9717,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.599623+00:00",
+      "created_at": "2026-05-22T00:03:36.021349+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 7,
@@ -9801,7 +9801,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.600022+00:00",
+      "created_at": "2026-05-22T00:03:36.021551+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -9890,7 +9890,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.600597+00:00",
+      "created_at": "2026-05-22T00:03:36.021743+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -9975,7 +9975,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.591667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.600984+00:00",
+      "created_at": "2026-05-22T00:03:36.021954+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 29,
@@ -10072,7 +10072,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.601234+00:00",
+      "created_at": "2026-05-22T00:03:36.022146+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 18,
@@ -10157,7 +10157,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.716667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.601486+00:00",
+      "created_at": "2026-05-22T00:03:36.022372+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 44,
@@ -10255,7 +10255,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.601703+00:00",
+      "created_at": "2026-05-22T00:03:36.022575+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -10344,7 +10344,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.601900+00:00",
+      "created_at": "2026-05-22T00:03:36.022769+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -10430,7 +10430,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.575,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.602114+00:00",
+      "created_at": "2026-05-22T00:03:36.022971+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 27,
@@ -10520,7 +10520,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.7,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.602351+00:00",
+      "created_at": "2026-05-22T00:03:36.023197+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 42,
@@ -10617,7 +10617,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.641667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.602600+00:00",
+      "created_at": "2026-05-22T00:03:36.023424+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 35,
@@ -10716,7 +10716,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.602860+00:00",
+      "created_at": "2026-05-22T00:03:36.023686+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 67,
@@ -10809,7 +10809,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.716667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.603119+00:00",
+      "created_at": "2026-05-22T00:03:36.023913+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 44,
@@ -10902,7 +10902,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.541667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.603343+00:00",
+      "created_at": "2026-05-22T00:03:36.024100+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 23,
@@ -10990,7 +10990,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.603589+00:00",
+      "created_at": "2026-05-22T00:03:36.024288+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -11079,7 +11079,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.666667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.603824+00:00",
+      "created_at": "2026-05-22T00:03:36.024501+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 38,
@@ -11167,7 +11167,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.55,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.604033+00:00",
+      "created_at": "2026-05-22T00:03:36.024699+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 24,
@@ -11255,7 +11255,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.75,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.604270+00:00",
+      "created_at": "2026-05-22T00:03:36.024917+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 48,
@@ -11352,7 +11352,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.775,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.604505+00:00",
+      "created_at": "2026-05-22T00:03:36.025128+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 51,
@@ -11443,7 +11443,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.604744+00:00",
+      "created_at": "2026-05-22T00:03:36.025355+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 70,
@@ -11535,7 +11535,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.605013+00:00",
+      "created_at": "2026-05-22T00:03:36.025627+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 100,
@@ -11631,7 +11631,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.605329+00:00",
+      "created_at": "2026-05-22T00:03:36.025934+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 129,
@@ -11725,7 +11725,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.605635+00:00",
+      "created_at": "2026-05-22T00:03:36.026202+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 111,
@@ -11820,7 +11820,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.708333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.605862+00:00",
+      "created_at": "2026-05-22T00:03:36.026421+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 43,
@@ -11917,7 +11917,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.606033+00:00",
+      "created_at": "2026-05-22T00:03:36.026594+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 4,
@@ -11996,7 +11996,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.666667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.606255+00:00",
+      "created_at": "2026-05-22T00:03:36.026804+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 38,
@@ -12083,7 +12083,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.606727+00:00",
+      "created_at": "2026-05-22T00:03:36.027127+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 172,
@@ -12174,7 +12174,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.607016+00:00",
+      "created_at": "2026-05-22T00:03:36.027370+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 85,
@@ -12265,7 +12265,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.741667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.607259+00:00",
+      "created_at": "2026-05-22T00:03:36.027605+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 47,
@@ -12363,7 +12363,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.607528+00:00",
+      "created_at": "2026-05-22T00:03:36.027846+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 76,
@@ -12458,7 +12458,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.607907+00:00",
+      "created_at": "2026-05-22T00:03:36.028199+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 208,
@@ -12555,7 +12555,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.608281+00:00",
+      "created_at": "2026-05-22T00:03:36.028459+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 97,
@@ -12646,7 +12646,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.608772+00:00",
+      "created_at": "2026-05-22T00:03:36.028802+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 134,
@@ -12741,7 +12741,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.609027+00:00",
+      "created_at": "2026-05-22T00:03:36.029042+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 72,
@@ -12838,7 +12838,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.75,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.609253+00:00",
+      "created_at": "2026-05-22T00:03:36.029254+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 48,
@@ -12931,7 +12931,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.609462+00:00",
+      "created_at": "2026-05-22T00:03:36.029420+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 5,
@@ -13014,7 +13014,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.55,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.609716+00:00",
+      "created_at": "2026-05-22T00:03:36.029617+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 24,
@@ -13106,7 +13106,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.609927+00:00",
+      "created_at": "2026-05-22T00:03:36.029794+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -13194,7 +13194,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.610177+00:00",
+      "created_at": "2026-05-22T00:03:36.030020+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 69,
@@ -13288,7 +13288,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.610352+00:00",
+      "created_at": "2026-05-22T00:03:36.030189+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -13370,7 +13370,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.558333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.610543+00:00",
+      "created_at": "2026-05-22T00:03:36.030373+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 25,
@@ -13457,7 +13457,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.708333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.610962+00:00",
+      "created_at": "2026-05-22T00:03:36.030585+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 43,
@@ -13543,7 +13543,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.611243+00:00",
+      "created_at": "2026-05-22T00:03:36.030763+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -13628,7 +13628,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.611465+00:00",
+      "created_at": "2026-05-22T00:03:36.030950+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 30,
@@ -13720,7 +13720,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.775,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.611694+00:00",
+      "created_at": "2026-05-22T00:03:36.031164+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 51,
@@ -13815,7 +13815,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.611871+00:00",
+      "created_at": "2026-05-22T00:03:36.031332+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -13902,7 +13902,7 @@
       "limitations": [
         "low event count; rhythm estimates are low confidence."
       ],
-      "created_at": "2026-05-21T23:50:04.612041+00:00",
+      "created_at": "2026-05-22T00:03:36.031511+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 6,
@@ -13985,7 +13985,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.612231+00:00",
+      "created_at": "2026-05-22T00:03:36.031709+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -14078,7 +14078,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.612453+00:00",
+      "created_at": "2026-05-22T00:03:36.031892+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 22,
@@ -14168,7 +14168,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.758333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.612698+00:00",
+      "created_at": "2026-05-22T00:03:36.032112+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 49,
@@ -14264,7 +14264,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.613033+00:00",
+      "created_at": "2026-05-22T00:03:36.032283+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -14352,7 +14352,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.613321+00:00",
+      "created_at": "2026-05-22T00:03:36.032474+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 18,
@@ -14447,7 +14447,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.85,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.613550+00:00",
+      "created_at": "2026-05-22T00:03:36.032705+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 60,
@@ -14537,7 +14537,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.613725+00:00",
+      "created_at": "2026-05-22T00:03:36.032874+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 10,
@@ -14623,7 +14623,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.613904+00:00",
+      "created_at": "2026-05-22T00:03:36.033053+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -14713,7 +14713,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.858333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.614124+00:00",
+      "created_at": "2026-05-22T00:03:36.033265+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 61,
@@ -14801,7 +14801,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.614324+00:00",
+      "created_at": "2026-05-22T00:03:36.033464+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 30,
@@ -14895,7 +14895,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.614507+00:00",
+      "created_at": "2026-05-22T00:03:36.033657+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -14978,7 +14978,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.691667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.614714+00:00",
+      "created_at": "2026-05-22T00:03:36.033865+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 41,
@@ -15069,7 +15069,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.614888+00:00",
+      "created_at": "2026-05-22T00:03:36.034034+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 18,
@@ -15148,7 +15148,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.516667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.615072+00:00",
+      "created_at": "2026-05-22T00:03:36.034220+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 20,
@@ -15238,7 +15238,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.615338+00:00",
+      "created_at": "2026-05-22T00:03:36.034470+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 79,
@@ -15329,7 +15329,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.483333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.616119+00:00",
+      "created_at": "2026-05-22T00:03:36.034664+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 16,
@@ -15419,7 +15419,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.475,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.616858+00:00",
+      "created_at": "2026-05-22T00:03:36.034834+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 15,
@@ -15507,7 +15507,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.617374+00:00",
+      "created_at": "2026-05-22T00:03:36.035055+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 77,
@@ -15598,7 +15598,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.691667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.617664+00:00",
+      "created_at": "2026-05-22T00:03:36.035262+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 41,
@@ -15697,7 +15697,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.617943+00:00",
+      "created_at": "2026-05-22T00:03:36.035516+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 80,
@@ -15790,7 +15790,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.816667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.618402+00:00",
+      "created_at": "2026-05-22T00:03:36.035750+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 56,
@@ -15889,7 +15889,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.618669+00:00",
+      "created_at": "2026-05-22T00:03:36.035915+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -15976,7 +15976,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.725,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.618996+00:00",
+      "created_at": "2026-05-22T00:03:36.036119+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 45,
@@ -16067,7 +16067,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.508333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.619235+00:00",
+      "created_at": "2026-05-22T00:03:36.036289+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 19,
@@ -16150,7 +16150,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.619534+00:00",
+      "created_at": "2026-05-22T00:03:36.036535+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 73,
@@ -16241,7 +16241,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.858333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.619766+00:00",
+      "created_at": "2026-05-22T00:03:36.036764+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 61,
@@ -16336,7 +16336,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.541667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.619959+00:00",
+      "created_at": "2026-05-22T00:03:36.036959+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 23,
@@ -16428,7 +16428,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.620199+00:00",
+      "created_at": "2026-05-22T00:03:36.037180+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 67,
@@ -16526,7 +16526,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.758333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.620463+00:00",
+      "created_at": "2026-05-22T00:03:36.037397+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 49,
@@ -16618,7 +16618,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.620659+00:00",
+      "created_at": "2026-05-22T00:03:36.037581+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -16703,7 +16703,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.458333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.620846+00:00",
+      "created_at": "2026-05-22T00:03:36.037774+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 13,
@@ -16790,7 +16790,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.621082+00:00",
+      "created_at": "2026-05-22T00:03:36.038014+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 70,
@@ -16883,7 +16883,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.621374+00:00",
+      "created_at": "2026-05-22T00:03:36.038297+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 126,
@@ -16980,7 +16980,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.708333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.621624+00:00",
+      "created_at": "2026-05-22T00:03:36.038525+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 43,
@@ -17078,7 +17078,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.621890+00:00",
+      "created_at": "2026-05-22T00:03:36.038765+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 89,
@@ -17173,7 +17173,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.616667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.622082+00:00",
+      "created_at": "2026-05-22T00:03:36.038956+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 32,
@@ -17264,7 +17264,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.65,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.622292+00:00",
+      "created_at": "2026-05-22T00:03:36.039154+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 36,
@@ -17359,7 +17359,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.633333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.622492+00:00",
+      "created_at": "2026-05-22T00:03:36.039341+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 34,
@@ -17446,7 +17446,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.725,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.622714+00:00",
+      "created_at": "2026-05-22T00:03:36.039554+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 45,
@@ -17537,7 +17537,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.483333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.622905+00:00",
+      "created_at": "2026-05-22T00:03:36.039734+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 16,
@@ -17622,7 +17622,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.683333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.623131+00:00",
+      "created_at": "2026-05-22T00:03:36.039933+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 40,
@@ -17716,7 +17716,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.575,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.623347+00:00",
+      "created_at": "2026-05-22T00:03:36.040136+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 27,
@@ -17813,7 +17813,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.623529+00:00",
+      "created_at": "2026-05-22T00:03:36.040306+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 10,
@@ -17892,7 +17892,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.623716+00:00",
+      "created_at": "2026-05-22T00:03:36.040483+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -17980,7 +17980,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.623898+00:00",
+      "created_at": "2026-05-22T00:03:36.040663+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 18,
@@ -18071,7 +18071,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.475,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.624076+00:00",
+      "created_at": "2026-05-22T00:03:36.040835+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 15,
@@ -18159,7 +18159,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.624261+00:00",
+      "created_at": "2026-05-22T00:03:36.041011+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 18,
@@ -18250,7 +18250,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.624592+00:00",
+      "created_at": "2026-05-22T00:03:36.041236+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 67,
@@ -18346,7 +18346,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.65,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.625138+00:00",
+      "created_at": "2026-05-22T00:03:36.041432+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 36,
@@ -18442,7 +18442,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.566667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.625417+00:00",
+      "created_at": "2026-05-22T00:03:36.041623+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 26,
@@ -18533,7 +18533,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.625643+00:00",
+      "created_at": "2026-05-22T00:03:36.041799+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -18624,7 +18624,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.55,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.625873+00:00",
+      "created_at": "2026-05-22T00:03:36.041979+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 24,
@@ -18715,7 +18715,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.626203+00:00",
+      "created_at": "2026-05-22T00:03:36.042247+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 108,
@@ -18809,7 +18809,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.525,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.626434+00:00",
+      "created_at": "2026-05-22T00:03:36.042449+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 21,
@@ -18901,7 +18901,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.475,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.626652+00:00",
+      "created_at": "2026-05-22T00:03:36.042628+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 15,
@@ -18993,7 +18993,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.626870+00:00",
+      "created_at": "2026-05-22T00:03:36.042797+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -19081,7 +19081,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.627078+00:00",
+      "created_at": "2026-05-22T00:03:36.042965+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 14,
@@ -19167,7 +19167,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.627316+00:00",
+      "created_at": "2026-05-22T00:03:36.043159+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 30,
@@ -19260,7 +19260,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.516667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.627628+00:00",
+      "created_at": "2026-05-22T00:03:36.043337+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 20,
@@ -19352,7 +19352,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.575,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.627876+00:00",
+      "created_at": "2026-05-22T00:03:36.043523+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 27,
@@ -19446,7 +19446,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.641667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.628087+00:00",
+      "created_at": "2026-05-22T00:03:36.043718+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 35,
@@ -19538,7 +19538,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.641667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.628298+00:00",
+      "created_at": "2026-05-22T00:03:36.043909+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 35,
@@ -19630,7 +19630,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.583333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.628491+00:00",
+      "created_at": "2026-05-22T00:03:36.044092+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 28,
@@ -19722,7 +19722,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.841667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.628717+00:00",
+      "created_at": "2026-05-22T00:03:36.044308+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 59,
@@ -19821,7 +19821,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.45,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.628900+00:00",
+      "created_at": "2026-05-22T00:03:36.044475+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 12,
@@ -19908,7 +19908,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.783333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.629116+00:00",
+      "created_at": "2026-05-22T00:03:36.044681+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 52,
@@ -19996,7 +19996,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.508333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.629454+00:00",
+      "created_at": "2026-05-22T00:03:36.044855+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 19,
@@ -20085,7 +20085,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.566667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.629719+00:00",
+      "created_at": "2026-05-22T00:03:36.045042+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 26,
@@ -20179,7 +20179,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.575,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.629948+00:00",
+      "created_at": "2026-05-22T00:03:36.045228+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 27,
@@ -20274,7 +20274,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.491667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.630150+00:00",
+      "created_at": "2026-05-22T00:03:36.045402+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 17,
@@ -20364,7 +20364,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.630415+00:00",
+      "created_at": "2026-05-22T00:03:36.045618+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 69,
@@ -20456,7 +20456,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.508333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.630704+00:00",
+      "created_at": "2026-05-22T00:03:36.045795+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 19,
@@ -20548,7 +20548,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.483333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.630899+00:00",
+      "created_at": "2026-05-22T00:03:36.045967+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 16,
@@ -20637,7 +20637,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.631147+00:00",
+      "created_at": "2026-05-22T00:03:36.046195+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 72,
@@ -20733,7 +20733,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.483333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.631327+00:00",
+      "created_at": "2026-05-22T00:03:36.046362+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 16,
@@ -20818,7 +20818,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.441667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.631505+00:00",
+      "created_at": "2026-05-22T00:03:36.046531+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 11,
@@ -20907,7 +20907,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.516667,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.631691+00:00",
+      "created_at": "2026-05-22T00:03:36.046720+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 20,
@@ -21000,7 +21000,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.9,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.631938+00:00",
+      "created_at": "2026-05-22T00:03:36.046960+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 74,
@@ -21089,7 +21089,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.65,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.632228+00:00",
+      "created_at": "2026-05-22T00:03:36.047153+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 36,
@@ -21183,7 +21183,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.558333,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.632494+00:00",
+      "created_at": "2026-05-22T00:03:36.047335+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 25,
@@ -21272,7 +21272,7 @@
       "extractor_name": "rhythm_feature_extractor_v1",
       "confidence": 0.425,
       "limitations": [],
-      "created_at": "2026-05-21T23:50:04.632662+00:00",
+      "created_at": "2026-05-22T00:03:36.047497+00:00",
       "record_type": "rhythm_feature_record",
       "features": {
         "note_on_count": 9,
@@ -21338,5 +21338,36 @@
       "region_id": "rhythm_region_0187"
     }
   ],
-  "generated_at": "2026-05-21T23:50:04.633817+00:00"
+  "generated_at": "2026-05-22T00:03:36.048419+00:00",
+  "rhythm_motifs": {
+    "motif_count": 1,
+    "motifs": [
+      {
+        "motif_id": "motif_0000",
+        "region_id": "rhythm_region_0092",
+        "window_id": null,
+        "start_seconds": 368.0,
+        "end_seconds": 372.0,
+        "ioi_pattern_seconds": [
+          0.01,
+          0.06,
+          0.1
+        ],
+        "normalized_ratio_pattern": [
+          0.166,
+          0.993,
+          1.655
+        ],
+        "repeat_count": 2,
+        "confidence": 0.516667,
+        "evidence": {
+          "pattern_key": "0.166|0.993|1.655",
+          "granularity": "rhythm_region"
+        },
+        "limitations": [
+          "heuristic IOI motif match from common ratio patterns."
+        ]
+      }
+    ]
+  }
 }

@@ -242,6 +242,44 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 tags.append(vamp_tag)
 
     tags.sort(key=lambda item: float(item.get("confidence", 0.0)), reverse=True)
+    grouped_tags: dict[str, dict[str, object]] = {}
+    for tag in tags:
+        name = str(tag.get("tag", ""))
+        confidence = float(tag.get("confidence", 0.0) or 0.0)
+        group = grouped_tags.get(name)
+        if group is None:
+            grouped_tags[name] = {
+                "tag": name,
+                "count": 1,
+                "confidence_max": confidence,
+                "confidence_sum": confidence,
+                "example_start_seconds": tag.get("start_seconds"),
+                "example_end_seconds": tag.get("end_seconds"),
+                "best_representative": tag,
+            }
+            continue
+        group["count"] = int(group.get("count", 0)) + 1
+        group["confidence_sum"] = float(group.get("confidence_sum", 0.0) or 0.0) + confidence
+        if confidence >= float(group.get("confidence_max", 0.0) or 0.0):
+            group["confidence_max"] = confidence
+            group["best_representative"] = tag
+
+    grouped_list = []
+    for name, group in grouped_tags.items():
+        count = int(group.get("count", 0))
+        grouped_list.append(
+            {
+                "tag": name,
+                "count": count,
+                "confidence_max": round(float(group.get("confidence_max", 0.0) or 0.0), 6),
+                "confidence_mean": round((float(group.get("confidence_sum", 0.0) or 0.0) / max(1, count)), 6),
+                "example_start_seconds": group.get("example_start_seconds"),
+                "example_end_seconds": group.get("example_end_seconds"),
+                "best_representative": group.get("best_representative"),
+            }
+        )
+    grouped_list.sort(key=lambda item: (float(item.get("confidence_max", 0.0)), int(item.get("count", 0))), reverse=True)
+
     output_payload = {
         "performance_id": performance_id,
         "source_name": source_name,
@@ -250,6 +288,9 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
         "extractor_name": "feature_tagger_v1",
         "created_at": now_iso(),
         "tag_count": len(tags),
+        "tag_counts": {item["tag"]: item["count"] for item in grouped_list},
+        "grouped_tags": grouped_list,
+        "top_unique_tags": grouped_list[:10],
         "tags": tags,
     }
     output_path = target_dir / "tags.json"

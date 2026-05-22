@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import defaultdict
 import sys
 from pathlib import Path
 
@@ -175,6 +176,57 @@ def extract_rhythm_features(
         "record_count_by_granularity": by_granularity,
         "bin_seconds": float(bin_seconds),
     }
+
+    # Motif candidates from region/window IOI ratio patterns.
+    motif_counts: dict[str, int] = defaultdict(int)
+    motif_examples: dict[str, dict[str, object]] = {}
+    motif_candidates: list[dict[str, object]] = []
+    for record in records:
+        granularity = str(record.get("granularity", ""))
+        if granularity not in {"window", "rhythm_region"}:
+            continue
+        features = record.get("features", {})
+        if not isinstance(features, dict):
+            continue
+        ratios = features.get("common_ioi_ratios", [])
+        if not isinstance(ratios, list) or len(ratios) < 3:
+            continue
+        pattern = tuple(float(value) for value in ratios[: min(5, len(ratios))])
+        key = "|".join(f"{value:.3f}" for value in pattern)
+        motif_counts[key] += 1
+        motif_examples.setdefault(
+            key,
+            {
+                "region_id": record.get("region_id"),
+                "window_id": record.get("window_id"),
+                "start_seconds": record.get("start_seconds"),
+                "end_seconds": record.get("end_seconds"),
+                "normalized_ratio_pattern": list(pattern),
+                "ioi_pattern_seconds": features.get("common_ioi_seconds", []),
+                "granularity": granularity,
+            },
+        )
+    for index, (key, repeat_count) in enumerate(sorted(motif_counts.items(), key=lambda item: item[1], reverse=True)):
+        if repeat_count < 2:
+            continue
+        example = motif_examples[key]
+        confidence = min(0.95, 0.35 + (repeat_count / 12.0))
+        motif_candidates.append(
+            {
+                "motif_id": f"motif_{index:04d}",
+                "region_id": example.get("region_id"),
+                "window_id": example.get("window_id"),
+                "start_seconds": example.get("start_seconds"),
+                "end_seconds": example.get("end_seconds"),
+                "ioi_pattern_seconds": example.get("ioi_pattern_seconds"),
+                "normalized_ratio_pattern": example.get("normalized_ratio_pattern"),
+                "repeat_count": repeat_count,
+                "confidence": round(confidence, 6),
+                "evidence": {"pattern_key": key, "granularity": example.get("granularity")},
+                "limitations": ["heuristic IOI motif match from common ratio patterns."],
+            }
+        )
+
     payload = performance_feature_pack(
         performance_id=performance_id,
         source_name=source_name,
@@ -193,6 +245,10 @@ def extract_rhythm_features(
         records=records,
     )
     payload["generated_at"] = now_iso()
+    payload["rhythm_motifs"] = {
+        "motif_count": len(motif_candidates),
+        "motifs": motif_candidates,
+    }
     output_path = target_dir / "rhythm_features.json"
     save_json(output_path, payload)
     return output_path.resolve()

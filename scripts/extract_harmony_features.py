@@ -192,6 +192,64 @@ def extract_harmony_features(
         records=records,
     )
     payload["generated_at"] = now_iso()
+
+    chord_regions = [item for item in records if str(item.get("granularity", "")) == "chord_region"]
+    active_regions = sorted(
+        chord_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("chord_change_count", 0.0) or 0.0),
+        reverse=True,
+    )[:10]
+    static_regions = sorted(
+        chord_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("chord_change_count", 0.0) or 0.0),
+    )[:10]
+    vamp_candidates = [
+        {
+            "region_id": item.get("region_id"),
+            "start_seconds": item.get("start_seconds"),
+            "end_seconds": item.get("end_seconds"),
+            "repeated_chord_score": (item.get("features", {}) or {}).get("repeated_chord_score"),
+            "confidence": item.get("confidence"),
+        }
+        for item in chord_regions
+        if float((item.get("features", {}) or {}).get("repeated_chord_score", 0.0) or 0.0) >= 0.5
+    ]
+    root_intervals: list[int] = []
+    for item in chord_regions:
+        root_intervals.extend((item.get("features", {}) or {}).get("root_motion_intervals", []))
+    interval_hist: dict[str, int] = {}
+    for value in root_intervals:
+        key = str(int(value))
+        interval_hist[key] = interval_hist.get(key, 0) + 1
+
+    payload["chord_movement_summary"] = {
+        "root_motion_summary": {
+            "interval_histogram": interval_hist,
+            "most_common_intervals": sorted(interval_hist.items(), key=lambda pair: pair[1], reverse=True)[:5],
+        },
+        "repeated_chord_vamp_candidates": vamp_candidates[:20],
+        "static_harmony_regions": [
+            {
+                "region_id": item.get("region_id"),
+                "start_seconds": item.get("start_seconds"),
+                "end_seconds": item.get("end_seconds"),
+                "chord_change_count": (item.get("features", {}) or {}).get("chord_change_count"),
+            }
+            for item in static_regions
+        ],
+        "active_harmonic_motion_regions": [
+            {
+                "region_id": item.get("region_id"),
+                "start_seconds": item.get("start_seconds"),
+                "end_seconds": item.get("end_seconds"),
+                "chord_change_count": (item.get("features", {}) or {}).get("chord_change_count"),
+                "stepwise_root_motion_score": (item.get("features", {}) or {}).get("stepwise_root_motion_score"),
+                "chromatic_motion_score": (item.get("features", {}) or {}).get("chromatic_motion_score"),
+                "circle_motion_score": (item.get("features", {}) or {}).get("circle_motion_score"),
+            }
+            for item in active_regions
+        ],
+    }
     output_path = target_dir / "harmony_features.json"
     save_json(output_path, payload)
     return output_path.resolve()

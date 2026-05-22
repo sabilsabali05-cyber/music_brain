@@ -77,15 +77,20 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
     if not isinstance(harmony_by_granularity, dict):
         harmony_by_granularity = {}
 
-    top_tags: list[tuple[str, float]] = []
     tags = tags_payload.get("tags", [])
-    if isinstance(tags, list):
-        parsed: list[tuple[str, float]] = []
-        for item in tags:
-            if not isinstance(item, dict):
-                continue
-            parsed.append((str(item.get("tag", "")), float(item.get("confidence", 0.0) or 0.0)))
-        top_tags = sorted(parsed, key=lambda pair: pair[1], reverse=True)[:10]
+    if not isinstance(tags, list):
+        tags = []
+    grouped_tags = tags_payload.get("grouped_tags", [])
+    if not isinstance(grouped_tags, list):
+        grouped_tags = []
+    top_unique_tags = tags_payload.get("top_unique_tags", [])
+    if not isinstance(top_unique_tags, list):
+        top_unique_tags = []
+    highest_conf_local = sorted(
+        [item for item in tags if isinstance(item, dict)],
+        key=lambda item: float(item.get("confidence", 0.0) or 0.0),
+        reverse=True,
+    )[:10]
 
     limitations: list[str] = []
     for payload in [rhythm_payload, harmony_payload]:
@@ -114,11 +119,37 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         f"- tag_count: `{tags_payload.get('tag_count', 0)}`",
         f"- ai_training_record_count: `{ai_record_count}`",
         "",
-        "## Top Tags",
+        "## Top Unique Tags",
     ]
-    if top_tags:
-        for tag_name, confidence in top_tags:
-            summary_lines.append(f"- `{tag_name}`: `{round(confidence, 6)}`")
+    if top_unique_tags:
+        for item in top_unique_tags:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"- `{item.get('tag')}`: max=`{item.get('confidence_max')}` "
+                f"mean=`{item.get('confidence_mean')}` count=`{item.get('count')}` "
+                f"example=`{item.get('example_start_seconds')}-{item.get('example_end_seconds')}`"
+            )
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Most Frequent Tags"])
+    if grouped_tags:
+        for item in sorted(
+            [value for value in grouped_tags if isinstance(value, dict)],
+            key=lambda value: int(value.get("count", 0)),
+            reverse=True,
+        )[:10]:
+            summary_lines.append(f"- `{item.get('tag')}` count=`{item.get('count')}` max=`{item.get('confidence_max')}`")
+    else:
+        summary_lines.append("- none")
+
+    summary_lines.extend(["", "## Highest Confidence Local Tags"])
+    if highest_conf_local:
+        for item in highest_conf_local:
+            summary_lines.append(
+                f"- `{item.get('tag')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"granularity=`{item.get('granularity')}` confidence=`{item.get('confidence')}`"
+            )
     else:
         summary_lines.append("- none")
     summary_lines.extend(["", "## Limitations"])
@@ -168,6 +199,36 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
     else:
         summary_lines.append("- none")
 
+    stable_pulse = sorted(
+        rhythm_regions,
+        key=lambda item: abs(float((item.get("features", {}) or {}).get("syncopation_proxy_score", 0.0) or 0.0)),
+    )[:5]
+    irregular_pulse = sorted(
+        rhythm_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("syncopation_proxy_score", 0.0) or 0.0),
+        reverse=True,
+    )[:5]
+    summary_lines.extend(["", "## Most Stable Pulse Regions"])
+    if stable_pulse:
+        for item in stable_pulse:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"syncopation=`{features.get('syncopation_proxy_score')}`"
+            )
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Most Irregular Rhythm Regions"])
+    if irregular_pulse:
+        for item in irregular_pulse:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"syncopation=`{features.get('syncopation_proxy_score')}`"
+            )
+    else:
+        summary_lines.append("- none")
+
     harmony_records = harmony_payload.get("records", [])
     chord_regions: list[dict[str, object]] = []
     if isinstance(harmony_records, list):
@@ -179,14 +240,64 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         key=lambda item: float((item.get("features", {}) or {}).get("chord_change_count", 0.0) or 0.0),
         reverse=True,
     )[:5]
-    summary_lines.extend(["", "## Top Chord Movement Regions"])
+    summary_lines.extend(["", "## Most Active Chord-Change Regions"])
     if top_movement:
         for item in top_movement:
             features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
             summary_lines.append(
                 f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
                 f"changes=`{features.get('chord_change_count')}` "
-                f"stepwise=`{features.get('stepwise_root_motion_score')}` chromatic=`{features.get('chromatic_motion_score')}`"
+                f"stepwise=`{features.get('stepwise_root_motion_score')}` "
+                f"chromatic=`{features.get('chromatic_motion_score')}` "
+                f"semitone_motion=`{features.get('semitone_motion')}` "
+                f"(chromatic semitone steps are a subset of stepwise motion)"
+            )
+    else:
+        summary_lines.append("- none")
+
+    static_harmony = sorted(
+        chord_regions,
+        key=lambda item: float((item.get("features", {}) or {}).get("chord_change_count", 0.0) or 0.0),
+    )[:5]
+    summary_lines.extend(["", "## Most Static Harmony Regions"])
+    if static_harmony:
+        for item in static_harmony:
+            features = item.get("features", {}) if isinstance(item.get("features"), dict) else {}
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"changes=`{features.get('chord_change_count')}` repeated_root=`{features.get('repeated_root')}`"
+            )
+    else:
+        summary_lines.append("- none")
+
+    movement_summary = harmony_payload.get("chord_movement_summary", {})
+    repeated_vamps = movement_summary.get("repeated_chord_vamp_candidates", []) if isinstance(movement_summary, dict) else []
+    if not isinstance(repeated_vamps, list):
+        repeated_vamps = []
+    summary_lines.extend(["", "## Repeated/Vamp Candidates"])
+    if repeated_vamps:
+        for item in repeated_vamps[:5]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"score=`{item.get('repeated_chord_score')}` confidence=`{item.get('confidence')}`"
+            )
+    else:
+        summary_lines.append("- none")
+
+    motifs_payload = rhythm_payload.get("rhythm_motifs", {})
+    motifs = motifs_payload.get("motifs", []) if isinstance(motifs_payload, dict) else []
+    if not isinstance(motifs, list):
+        motifs = []
+    summary_lines.extend(["", "## Rhythm Motif Candidates"])
+    if motifs:
+        for item in motifs[:10]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"- `{item.get('motif_id')}` repeat_count=`{item.get('repeat_count')}` "
+                f"region=`{item.get('region_id')}` window=`{item.get('window_id')}` confidence=`{item.get('confidence')}`"
             )
     else:
         summary_lines.append("- none")

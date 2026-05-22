@@ -197,6 +197,13 @@ def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypat
     assert all("start_seconds" in tag and "end_seconds" in tag for tag in tags_payload["tags"])
     granularities = {record.get("granularity") for record in ai_records}
     assert {"performance", "segment", "window", "rhythm_region", "chord_region"}.issubset(granularities)
+    assert isinstance(tags_payload.get("grouped_tags"), list)
+    assert isinstance(tags_payload.get("top_unique_tags"), list)
+    top_unique = tags_payload.get("top_unique_tags", [])
+    names = [item.get("tag") for item in top_unique if isinstance(item, dict)]
+    assert len(names) == len(set(names))
+    assert isinstance(rhythm_payload.get("rhythm_motifs"), dict)
+    assert isinstance(harmony_payload.get("chord_movement_summary"), dict)
 
 
 def test_validator_rejects_missing_feature_summary(tmp_path: Path, monkeypatch) -> None:
@@ -244,7 +251,13 @@ def test_validator_rejects_single_record_only_pack(tmp_path: Path, monkeypatch) 
         encoding="utf-8",
     )
     (pack_dir / "tags.json").write_text(
-        json.dumps({"tags": [{"tag": "x", "confidence": 0.5, "evidence": {}, "start_seconds": 0, "end_seconds": 30}]}),
+        json.dumps(
+            {
+                "tags": [{"tag": "x", "confidence": 0.5, "evidence": {}, "start_seconds": 0, "end_seconds": 30}],
+                "grouped_tags": [{"tag": "x", "count": 1, "confidence_max": 0.5, "confidence_mean": 0.5}],
+                "top_unique_tags": [{"tag": "x", "count": 1, "confidence_max": 0.5, "confidence_mean": 0.5}],
+            }
+        ),
         encoding="utf-8",
     )
     (pack_dir / "ai_training_records.jsonl").write_text(
@@ -266,5 +279,16 @@ def test_validator_rejects_single_record_only_pack(tmp_path: Path, monkeypatch) 
         json.dumps({"performance_manifest_path": performance_manifest.as_posix(), "segments_manifest_path": segments_manifest.as_posix()}),
         encoding="utf-8",
     )
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_validator_rejects_missing_grouped_tag_section(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    tags_payload = json.loads((feature_dir / "tags.json").read_text(encoding="utf-8"))
+    tags_payload.pop("grouped_tags", None)
+    (feature_dir / "tags.json").write_text(json.dumps(tags_payload), encoding="utf-8")
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "failed"
