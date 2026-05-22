@@ -97,6 +97,11 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         warnings.append("rhythm_pattern_index missing or malformed")
     elif "rhythm_family_counts" not in rhythm_pattern_index or not isinstance(rhythm_pattern_index.get("rhythm_family_counts"), dict):
         warnings.append("rhythm_pattern_index missing rhythm_family_counts")
+    elif not all(
+        key in rhythm_pattern_index and isinstance(rhythm_pattern_index.get(key), dict)
+        for key in ["strong_rhythm_family_counts", "moderate_rhythm_family_counts", "weak_rhythm_family_counts"]
+    ):
+        warnings.append("rhythm_pattern_index missing strong/moderate/weak family counts")
     if not isinstance(chord_movement_summary, dict):
         warnings.append("chord_movement_summary missing or malformed")
     if not isinstance(harmony_pattern_index, dict):
@@ -151,7 +156,12 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
                     break
             tag_name = str(tag.get("tag", ""))
             if tag_name.startswith("rhythm_family_"):
-                if "matched_pattern_id" not in tag or "matched_family" not in tag:
+                if (
+                    "matched_pattern_id" not in tag
+                    or "matched_family" not in tag
+                    or "match_strength" not in tag
+                    or "ambiguity_score" not in tag
+                ):
                     invalid_tag_entries += 1
     if invalid_tag_entries:
         warnings.append(f"tag entries missing confidence/evidence: {invalid_tag_entries}")
@@ -211,6 +221,7 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "Harmony Pattern Index",
         "Rhythm Philosophy Interpretation",
         "Standard Rhythm Family Matches",
+        "Rhythm Family Classification Quality",
     ]
     for token in required_summary_tokens:
         if token not in summary_text:

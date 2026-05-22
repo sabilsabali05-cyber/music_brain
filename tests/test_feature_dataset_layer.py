@@ -382,11 +382,37 @@ def test_all_onset_pattern_not_high_confidence_clave_or_tresillo() -> None:
     result = classify_rhythm_pattern({"token_pattern": "xxxx", "accent_pattern": "XXXX"})
     if result["matched_family"] in {"clave", "tresillo_3_3_2"}:
         assert float(result["confidence"]) < 0.7
+    assert result["match_strength"] in {"weak", "ambiguous"}
 
 
 def test_rotation_invariant_matching_works_for_tresillo() -> None:
     result = classify_rhythm_pattern({"token_pattern": "..x..x.x", "accent_pattern": "..X..x.x"})
     assert result["matched_pattern_id"] == "tresillo_3_3_2"
+
+
+def test_negative_controls_do_not_overmatch_strong_families() -> None:
+    controls = [
+        "xxxx",
+        "xxxxx",
+        "xxx",
+        "x.x.x.x.",
+        "x....x",
+        "........",
+        "xxxxxxxxxxxx",
+        "x...x....",
+    ]
+    for pattern in controls:
+        result = classify_rhythm_pattern({"token_pattern": pattern, "accent_pattern": pattern.replace("x", "X"), "repeat_count": 1})
+        assert result["match_strength"] in {"weak", "ambiguous", "moderate"}
+        if result["matched_family"] in {"clave", "tresillo_3_3_2", "cinquillo"}:
+            assert result["match_strength"] != "strong"
+
+
+def test_ambiguous_match_sets_null_best_family() -> None:
+    result = classify_rhythm_pattern({"token_pattern": "x..x..x..", "accent_pattern": "X..x..x..", "repeat_count": 3})
+    if result.get("rhythm_family_ambiguous"):
+        assert result.get("matched_family") is None
+        assert isinstance(result.get("ambiguous_family_candidates"), list)
 
 
 def test_rhythm_family_counts_generated(tmp_path: Path, monkeypatch) -> None:
@@ -397,6 +423,9 @@ def test_rhythm_family_counts_generated(tmp_path: Path, monkeypatch) -> None:
     index = rhythm_payload.get("rhythm_pattern_index", {})
     assert isinstance(index, dict)
     assert isinstance(index.get("rhythm_family_counts"), dict)
+    assert isinstance(index.get("strong_rhythm_family_counts"), dict)
+    assert isinstance(index.get("moderate_rhythm_family_counts"), dict)
+    assert isinstance(index.get("weak_rhythm_family_counts"), dict)
 
 
 def test_rhythm_family_tags_include_matched_pattern_id(tmp_path: Path, monkeypatch) -> None:
@@ -412,6 +441,8 @@ def test_rhythm_family_tags_include_matched_pattern_id(tmp_path: Path, monkeypat
     for item in family_tags:
         assert "matched_pattern_id" in item
         assert "matched_family" in item
+        assert "match_strength" in item
+        assert "ambiguity_score" in item
 
 
 def test_validator_rejects_missing_rhythm_family_counts(tmp_path: Path, monkeypatch) -> None:

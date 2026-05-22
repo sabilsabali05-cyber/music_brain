@@ -14,7 +14,7 @@
 - rhythm_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "rhythm_region": 188}`
 - harmony_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "chord_region": 188}`
 - ai_record_count_by_granularity: `{"performance": 1, "segment": 13, "window": 13, "rhythm_region": 188, "chord_region": 188}`
-- tag_count: `676`
+- tag_count: `668`
 - ai_training_record_count: `403`
 
 ## Top Unique Tags
@@ -26,8 +26,8 @@
 - `sparse_activity`: max=`0.9` mean=`0.657692` count=`45` example=`184.0-188.0`
 - `steady_grid_candidate`: max=`0.72` mean=`0.72` count=`1` example=`None-None`
 - `irregular_groove_candidate`: max=`0.7` mean=`0.7` count=`1` example=`None-None`
-- `rhythm_family_tresillo_candidate`: max=`0.65` mean=`0.65` count=`8` example=`None-None`
 - `sparse_call_response_candidate`: max=`0.62` mean=`0.62` count=`1` example=`None-None`
+- `ambiguous_harmony`: max=`0.6` mean=`0.6` count=`215` example=`0.0-751.420952`
 
 ## Most Frequent Tags
 - `ambiguous_harmony` count=`215` max=`0.6`
@@ -37,9 +37,9 @@
 - `sparse_activity` count=`45` max=`0.9`
 - `repeated_rhythm_motif` count=`20` max=`0.95`
 - `dense_burst_pattern` count=`8` max=`0.95`
-- `rhythm_family_tresillo_candidate` count=`8` max=`0.65`
 - `sparse_region` count=`3` max=`0.25`
 - `steady_grid_candidate` count=`1` max=`0.72`
+- `irregular_groove_candidate` count=`1` max=`0.7`
 
 ## Highest Confidence Local Tags
 - `dense_activity` `0.0-751.420952` granularity=`performance` confidence=`0.95`
@@ -118,28 +118,40 @@
 - `motif_0009` repeat_count=`53` region=`None` window=`None` confidence=`0.95`
 
 ## Standard Rhythm Family Matches
-- family `tresillo_3_3_2` count=`915`
-- family `sparse_call_response` count=`795`
-- family `cinquillo` count=`613`
-- family `shuffle` count=`81`
-- family `habanera` count=`8`
-- family `twelve_eight_gospel` count=`4`
+- family `tresillo_3_3_2` count=`8432`
+- family `habanera` count=`6589`
+- family `waltz_3_4` count=`6190`
+- family `trap_subdivision` count=`4744`
+- family `twelve_eight_gospel` count=`3405`
+- family `cinquillo` count=`2839`
+- family `sparse_call_response` count=`1379`
+- family `gospel_clap_backbeat` count=`127`
+- family `generic_vamp_cycle` count=`73`
+- family `samba_like` count=`63`
 - representative matches:
-  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0157`
-  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.65` group=`motif_group_0013`
-  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0158`
-  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0159`
-  - `tresillo_3_3_2` pattern=`tresillo_3_3_2` confidence=`0.65` group=`motif_group_0261`
-  - `tresillo_3_3_2` pattern=`tresillo_3_3_2` confidence=`0.65` group=`motif_group_0320`
-  - `cinquillo` pattern=`cinquillo` confidence=`0.65` group=`motif_group_0160`
-  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.65` group=`motif_group_0315`
-- unknown high-information patterns: `20`
-  - group=`motif_group_0000` pattern=`xxx` info_score=`1958`
-  - group=`motif_group_0001` pattern=`xxxx` info_score=`1635`
-  - group=`motif_group_0002` pattern=`xxxxx` info_score=`1434`
-  - group=`motif_group_0020` pattern=`x.x` info_score=`1308`
-  - group=`motif_group_0003` pattern=`xxxxxx` info_score=`1296`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0013`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0315`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0311`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0346`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0348`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0347`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0350`
+  - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0353`
+- unknown high-information patterns: `19`
+  - group=`motif_group_0157` pattern=`x.x.x.x` info_score=`180`
+  - group=`motif_group_0158` pattern=`.x.x.x.x` info_score=`142`
+  - group=`motif_group_0159` pattern=`x.x.x.x.` info_score=`134`
+  - group=`motif_group_0160` pattern=`.x.x.x.x.` info_score=`107`
+  - group=`motif_group_0268` pattern=`x..x..x` info_score=`86`
 - limitations: lexicon classification is candidate-level and may conflate related timeline families.
+
+## Rhythm Family Classification Quality
+- strong family matches: 
+- moderate family matches: `sparse_call_response` (795), `tresillo_3_3_2` (608), `cinquillo` (177), `habanera` (8), `twelve_eight_gospel` (4)
+- weak matches ignored for tags: `tresillo_3_3_2` (7824), `habanera` (6581), `waltz_3_4` (6190), `trap_subdivision` (4744), `twelve_eight_gospel` (3401), `cinquillo` (2662), `sparse_call_response` (584), `gospel_clap_backbeat` (127)
+- ambiguous family matches: `21`
+- overmatch warnings: `{"all_onset_groups": 10, "ambiguous_groups": 21, "weak_high_frequency_groups": 285}`
+- lexicon matches are candidates, not ground truth.
 
 ## Top Rhythm Motif Groups
 - `motif_group_0000` pattern=`xxx` repeat_count=`1859` occurrence_count=`99`

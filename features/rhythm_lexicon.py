@@ -448,13 +448,102 @@ def _best_token_similarity(candidate: str, lex_item: dict[str, Any]) -> tuple[fl
     return best, best_pattern
 
 
+def _pattern_information(token_pattern: str, repeat_count: int) -> tuple[float, list[str]]:
+    mismatch: list[str] = []
+    if not token_pattern:
+        return 0.0, ["empty token pattern"]
+    length = len(token_pattern)
+    onset_count = sum(1 for ch in token_pattern if ch == "x")
+    rest_count = sum(1 for ch in token_pattern if ch == ".")
+    transitions = sum(1 for idx in range(1, length) if token_pattern[idx] != token_pattern[idx - 1])
+    info = (0.25 * min(1.0, length / 12.0)) + (0.35 * min(1.0, transitions / max(1, length - 1))) + (0.2 * min(1.0, rest_count / max(1, length))) + (0.2 * min(1.0, repeat_count / 8.0))
+    if onset_count <= 1:
+        mismatch.append("insufficient onset count")
+    if rest_count == 0:
+        mismatch.append("all-onset low-contrast pattern")
+    if transitions <= 1:
+        mismatch.append("low transition complexity")
+    return round(info, 6), mismatch
+
+
+def _triplet_evidence(pattern: str, ratio_pattern: list[float]) -> bool:
+    if "..x..x" in pattern or "x..x..x" in pattern:
+        return True
+    for value in ratio_pattern:
+        if 0.62 <= float(value) <= 0.70 or 1.9 <= float(value) <= 2.1:
+            return True
+    return False
+
+
+def _family_requirements(
+    family: str,
+    *,
+    token_pattern: str,
+    ratio_pattern: list[float],
+    accent_pattern: str,
+    repeat_count: int,
+    information_score: float,
+) -> list[str]:
+    reasons: list[str] = []
+    onset_count = sum(1 for ch in token_pattern if ch == "x")
+    rest_count = sum(1 for ch in token_pattern if ch == ".")
+    if family == "tresillo_3_3_2":
+        if onset_count < 3:
+            reasons.append("requires three onset groups")
+        if rest_count < 2:
+            reasons.append("requires rest spacing")
+        if not ("x..x..x" in token_pattern or any(abs(float(v) - t) < 0.2 for v, t in zip(ratio_pattern[:3], [1.5, 1.5, 1.0]))):
+            reasons.append("missing 3:3:2 skeleton evidence")
+    if family == "clave":
+        if onset_count < 5:
+            reasons.append("requires five-hit clave skeleton")
+        if len(token_pattern) < 12:
+            reasons.append("requires longer asymmetric phrase length")
+    if family in {"shuffle", "twelve_eight_gospel"}:
+        if not _triplet_evidence(token_pattern, ratio_pattern):
+            reasons.append("requires triplet/12-8 subdivision evidence")
+    if family == "sparse_call_response":
+        if rest_count < onset_count:
+            reasons.append("requires sparse spacing and rests")
+        if repeat_count < 2:
+            reasons.append("requires repeated response-like contour")
+    if family == "backbeat":
+        if accent_pattern.count("X") < 1:
+            reasons.append("requires accent evidence")
+    if set(token_pattern) == {"x"}:
+        reasons.append("all-onset token pattern")
+    if information_score < 0.25:
+        reasons.append("low information pattern")
+    return reasons
+
+
+def _strength(confidence: float, specificity: float, ambiguity: float, mismatch_reasons: list[str]) -> str:
+    if ambiguity >= 0.75:
+        return "ambiguous"
+    if confidence < 0.55:
+        return "weak"
+    if any("all-onset token pattern" in reason for reason in mismatch_reasons):
+        return "weak"
+    if confidence < 0.70:
+        if ambiguity <= 0.45 and specificity >= 0.35 and len(mismatch_reasons) <= 2:
+            return "moderate"
+        return "weak"
+    if confidence >= 0.82 and specificity >= 0.55 and ambiguity <= 0.3 and len(mismatch_reasons) <= 1:
+        return "strong"
+    if confidence >= 0.70:
+        return "moderate"
+    return "weak"
+
+
 def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
     token_pattern = normalize_token_pattern(str(motif_or_region.get("token_pattern", "")))
     accent_pattern = str(motif_or_region.get("accent_pattern", ""))
     ratio_pattern = motif_or_region.get("normalized_ratio_pattern", [])
     if not isinstance(ratio_pattern, list):
         ratio_pattern = []
-    best: dict[str, Any] | None = None
+    repeat_count = int(motif_or_region.get("repeat_count", 0) or 0)
+    information_score, info_mismatch = _pattern_information(token_pattern, repeat_count)
+    raw_matches: list[dict[str, Any]] = []
     for item in RHYTHM_LEXICON:
         token_score, matched_pattern = _best_token_similarity(token_pattern, item)
         accent_score = 0.0
@@ -465,13 +554,28 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
         ratios = item.get("interval_ratios", [])
         if isinstance(ratios, list) and ratios and ratio_pattern:
             ratio_score = max(ratio_similarity([float(v) for v in ratio_pattern], [float(x) for x in value]) for value in ratios if isinstance(value, list))
-        confidence = (0.65 * token_score) + (0.2 * accent_score) + (0.15 * ratio_score)
-        if token_pattern and set(token_pattern) == {"x"} and item["family"] in {"clave", "tresillo_3_3_2"}:
-            confidence *= 0.55
+        confidence = (0.6 * token_score) + (0.22 * accent_score) + (0.18 * ratio_score)
+        mismatch_reasons = list(info_mismatch)
+        mismatch_reasons.extend(
+            _family_requirements(
+                str(item.get("family", "")),
+                token_pattern=token_pattern,
+                ratio_pattern=[float(v) for v in ratio_pattern],
+                accent_pattern=accent_pattern,
+                repeat_count=repeat_count,
+                information_score=information_score,
+            )
+        )
+        confidence *= max(0.1, (1.0 - min(0.5, 0.07 * len(set(mismatch_reasons)))))
+        specificity_score = min(1.0, (0.6 * token_score) + (0.25 * ratio_score) + (0.15 * information_score))
         result = {
             "matched_pattern_id": item["pattern_id"],
             "matched_family": item["family"],
             "confidence": round(float(confidence), 6),
+            "specificity_score": round(float(specificity_score), 6),
+            "ambiguity_score": 0.0,
+            "matched_evidence_count": int(sum(1 for score in [token_score, accent_score, ratio_score] if score >= 0.5)),
+            "mismatch_reasons": sorted(set(mismatch_reasons)),
             "similarity_breakdown": {
                 "token_similarity": round(float(token_score), 6),
                 "accent_similarity": round(float(accent_score), 6),
@@ -487,21 +591,69 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
             "detection_targets": list(item.get("detection_targets", [])),
             "limitations": [str(item.get("limitations", "")), "lexicon matching is heuristic and symbolic."],
         }
-        if best is None or float(result["confidence"]) > float(best["confidence"]):
-            best = result
-    if best is None:
+        raw_matches.append(result)
+    if not raw_matches:
         return {
-            "matched_pattern_id": "unclassified",
-            "matched_family": "unknown",
+            "matched_pattern_id": None,
+            "matched_family": None,
             "confidence": 0.0,
+            "match_strength": "weak",
+            "specificity_score": 0.0,
+            "ambiguity_score": 1.0,
+            "matched_evidence_count": 0,
+            "mismatch_reasons": ["no lexicon candidates"],
             "similarity_breakdown": {"token_similarity": 0.0, "accent_similarity": 0.0, "ratio_similarity": 0.0},
             "evidence": {"token_pattern": token_pattern},
             "rhythm_concepts": ["motif"],
             "philosophy_sources": ["geometry"],
             "detection_targets": ["token_pattern"],
             "limitations": ["no lexicon candidates available for comparison."],
+            "raw_matches": [],
+            "rhythm_family_ambiguous": False,
+            "ambiguous_family_candidates": [],
         }
-    return best
+    ranked = sorted(raw_matches, key=lambda item: float(item.get("confidence", 0.0) or 0.0), reverse=True)
+    best = ranked[0]
+    second = ranked[1] if len(ranked) > 1 else None
+    ambiguity_score = 1.0
+    ambiguous_candidates: list[str] = []
+    if second is not None:
+        delta = float(best.get("confidence", 0.0)) - float(second.get("confidence", 0.0))
+        ambiguity_score = max(0.0, min(1.0, 1.0 - (delta / 0.12)))
+        cutoff = float(best.get("confidence", 0.0)) - 0.03
+        ambiguous_candidates = [str(item.get("matched_family")) for item in ranked if float(item.get("confidence", 0.0)) >= cutoff][:5]
+    else:
+        ambiguity_score = 0.0
+    family_ambiguous = bool(
+        second is not None
+        and float(best.get("confidence", 0.0)) >= 0.60
+        and (float(best.get("confidence", 0.0)) - float(second.get("confidence", 0.0)) < 0.03)
+    )
+    if family_ambiguous:
+        best_family = None
+        best_pattern_id = None
+    else:
+        best_family = best.get("matched_family")
+        best_pattern_id = best.get("matched_pattern_id")
+    strength = _strength(
+        float(best.get("confidence", 0.0) or 0.0),
+        float(best.get("specificity_score", 0.0) or 0.0),
+        float(ambiguity_score),
+        list(best.get("mismatch_reasons", [])),
+    )
+    if family_ambiguous:
+        strength = "ambiguous"
+    best["ambiguity_score"] = round(float(ambiguity_score), 6)
+    best["match_strength"] = strength
+    output = {
+        **best,
+        "matched_pattern_id": best_pattern_id,
+        "matched_family": best_family,
+        "raw_matches": ranked[:6],
+        "rhythm_family_ambiguous": family_ambiguous,
+        "ambiguous_family_candidates": ambiguous_candidates if family_ambiguous else [],
+    }
+    return output
 
 
 def classify_rhythm_patterns(motifs_or_regions: list[dict[str, Any]]) -> list[dict[str, Any]]:

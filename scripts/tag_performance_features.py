@@ -327,44 +327,7 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 burst_tag["tag"] = "dense_burst_pattern"
                 annotate_tag_with_rhythm_concepts(burst_tag)
                 tags.append(burst_tag)
-            if family and family != "unknown" and float(group.get("rhythm_family_confidence", 0.0) or 0.0) >= 0.65:
-                family_tag_name = {
-                    "tresillo_3_3_2": "rhythm_family_tresillo_candidate",
-                    "clave": "rhythm_family_clave_candidate",
-                    "backbeat": "rhythm_family_backbeat_candidate",
-                    "shuffle": "rhythm_family_shuffle_candidate",
-                    "twelve_eight_gospel": "rhythm_family_twelve_eight_gospel_candidate",
-                    "dembow_like": "rhythm_family_dembow_candidate",
-                    "boom_bap_backbeat": "rhythm_family_boom_bap_candidate",
-                    "trap_subdivision": "rhythm_family_trap_subdivision_candidate",
-                    "generic_vamp_cycle": "rhythm_family_vamp_cycle_candidate",
-                }.get(family)
-                if family_tag_name:
-                    family_tag = tag_record(
-                        performance_id=performance_id,
-                        source_name=source_name,
-                        segment_run_id=segment_run_id,
-                        window_id=None,
-                        start_seconds=start_seconds,
-                        end_seconds=end_seconds,
-                        duration_seconds=None,
-                        source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
-                        confidence=min(0.95, float(group.get("rhythm_family_confidence", 0.0) or 0.0)),
-                        limitations=["family classification is heuristic and candidate-level only."],
-                        tag=family_tag_name,
-                        evidence={
-                            "motif_group_id": group_id,
-                            "matched_pattern_id": matched_pattern_id,
-                            "matched_family": family,
-                            "similarity": matches[0].get("similarity_breakdown") if isinstance(matches, list) and matches and isinstance(matches[0], dict) else {},
-                        },
-                    )
-                    family_tag["matched_pattern_id"] = matched_pattern_id
-                    family_tag["matched_family"] = family
-                    family_tag["motif_group_id"] = group_id
-                    family_tag["granularity"] = "rhythm_region"
-                    annotate_tag_with_rhythm_concepts(family_tag)
-                    tags.append(family_tag)
+            # Family tags are emitted later from calibrated top-rhythm-family matches.
 
     if isinstance(rhythm_pattern_index, dict):
         if int(rhythm_pattern_index.get("steady_pulse_regions", 0) or 0) > 0:
@@ -458,6 +421,7 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
             annotate_tag_with_rhythm_concepts(tag_obj)
             tags.append(tag_obj)
         top_matches = rhythm_pattern_index.get("top_rhythm_family_matches", [])
+        generated_family_keys: set[tuple[str, str]] = set()
         if isinstance(top_matches, list):
             for item in top_matches[:20]:
                 if not isinstance(item, dict):
@@ -477,8 +441,18 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 if not family_tag_name:
                     continue
                 confidence = float(item.get("confidence", 0.0) or 0.0)
-                if confidence < 0.6:
+                match_strength = str(item.get("match_strength", "weak"))
+                ambiguity_score = float(item.get("ambiguity_score", 1.0) or 1.0)
+                information_score = int(item.get("occurrence_count", 0) or 0)
+                is_taggable = match_strength == "strong" or (
+                    match_strength == "moderate" and information_score >= 10 and ambiguity_score <= 0.3
+                )
+                if not is_taggable:
                     continue
+                key = (str(item.get("motif_group_id")), family_tag_name)
+                if key in generated_family_keys:
+                    continue
+                generated_family_keys.add(key)
                 family_tag = tag_record(
                     performance_id=performance_id,
                     source_name=source_name,
@@ -495,11 +469,21 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                         "motif_group_id": item.get("motif_group_id"),
                         "matched_pattern_id": item.get("matched_pattern_id"),
                         "matched_family": family,
+                        "match_strength": match_strength,
+                        "ambiguity_score": ambiguity_score,
+                        "specificity_score": item.get("specificity_score"),
+                        "matched_evidence_count": item.get("matched_evidence_count"),
+                        "mismatch_reasons": item.get("mismatch_reasons", []),
                     },
                 )
                 family_tag["matched_pattern_id"] = item.get("matched_pattern_id")
                 family_tag["matched_family"] = family
                 family_tag["motif_group_id"] = item.get("motif_group_id")
+                family_tag["match_strength"] = match_strength
+                family_tag["ambiguity_score"] = ambiguity_score
+                family_tag["specificity_score"] = item.get("specificity_score")
+                family_tag["matched_evidence_count"] = item.get("matched_evidence_count")
+                family_tag["mismatch_reasons"] = item.get("mismatch_reasons", [])
                 family_tag["granularity"] = "rhythm_region"
                 annotate_tag_with_rhythm_concepts(family_tag)
                 tags.append(family_tag)

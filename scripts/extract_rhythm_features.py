@@ -444,46 +444,101 @@ def extract_rhythm_features(
         reverse=True,
     )
     rhythm_family_counts: dict[str, int] = {}
+    strong_rhythm_family_counts: dict[str, int] = {}
+    moderate_rhythm_family_counts: dict[str, int] = {}
+    weak_rhythm_family_counts: dict[str, int] = {}
+    ambiguous_rhythm_family_count = 0
+    rhythm_family_taggable_counts: dict[str, int] = {}
     top_family_matches: list[dict[str, object]] = []
     unknown_high_information_patterns: list[dict[str, object]] = []
+    overmatch_diagnostics = {
+        "all_onset_groups": 0,
+        "ambiguous_groups": 0,
+        "weak_high_frequency_groups": 0,
+    }
     for motif in motif_candidates:
         classification = classify_rhythm_pattern(motif)
-        motif["rhythm_lexicon_matches"] = [classification] if classification else []
+        motif["rhythm_lexicon_matches"] = classification.get("raw_matches", []) if isinstance(classification, dict) else []
         motif["best_rhythm_family_match"] = classification.get("matched_family")
         motif["rhythm_family_confidence"] = classification.get("confidence", 0.0)
+        motif["match_strength"] = classification.get("match_strength")
+        motif["specificity_score"] = classification.get("specificity_score")
+        motif["ambiguity_score"] = classification.get("ambiguity_score")
+        motif["matched_evidence_count"] = classification.get("matched_evidence_count")
+        motif["mismatch_reasons"] = classification.get("mismatch_reasons", [])
+        motif["rhythm_family_ambiguous"] = classification.get("rhythm_family_ambiguous", False)
+        motif["ambiguous_family_candidates"] = classification.get("ambiguous_family_candidates", [])
     for group in motif_group_list:
         classification = classify_rhythm_pattern(
             {
                 "token_pattern": group.get("representative_pattern", ""),
                 "accent_pattern": group.get("representative_pattern", ""),
                 "normalized_ratio_pattern": [],
+                "repeat_count": group.get("group_repeat_count", 0),
             }
         )
-        group["rhythm_lexicon_matches"] = [classification] if classification else []
+        group["rhythm_lexicon_matches"] = classification.get("raw_matches", []) if isinstance(classification, dict) else []
         group["best_rhythm_family_match"] = classification.get("matched_family")
         group["rhythm_family_confidence"] = classification.get("confidence", 0.0)
-        family = str(classification.get("matched_family", "unknown"))
-        if float(classification.get("confidence", 0.0) or 0.0) >= 0.58 and family and family != "unknown":
-            rhythm_family_counts[family] = rhythm_family_counts.get(family, 0) + int(group.get("group_repeat_count", 0) or 0)
-            if len(top_family_matches) < 24:
+        group["match_strength"] = classification.get("match_strength")
+        group["specificity_score"] = classification.get("specificity_score")
+        group["ambiguity_score"] = classification.get("ambiguity_score")
+        group["matched_evidence_count"] = classification.get("matched_evidence_count")
+        group["mismatch_reasons"] = classification.get("mismatch_reasons", [])
+        group["rhythm_family_ambiguous"] = classification.get("rhythm_family_ambiguous", False)
+        group["ambiguous_family_candidates"] = classification.get("ambiguous_family_candidates", [])
+        family_value = classification.get("matched_family")
+        family = str(family_value) if family_value not in {None, "", "unknown"} else "unknown"
+        strength = str(classification.get("match_strength", "weak"))
+        repeat_weight = int(group.get("group_repeat_count", 0) or 0)
+        if set(str(group.get("representative_pattern", ""))) == {"x"}:
+            overmatch_diagnostics["all_onset_groups"] = int(overmatch_diagnostics.get("all_onset_groups", 0)) + 1
+        if bool(classification.get("rhythm_family_ambiguous", False)):
+            ambiguous_rhythm_family_count += 1
+            overmatch_diagnostics["ambiguous_groups"] = int(overmatch_diagnostics.get("ambiguous_groups", 0)) + 1
+        if family != "unknown":
+            rhythm_family_counts[family] = rhythm_family_counts.get(family, 0) + repeat_weight
+            if strength == "strong":
+                strong_rhythm_family_counts[family] = strong_rhythm_family_counts.get(family, 0) + repeat_weight
+            elif strength == "moderate":
+                moderate_rhythm_family_counts[family] = moderate_rhythm_family_counts.get(family, 0) + repeat_weight
+            else:
+                weak_rhythm_family_counts[family] = weak_rhythm_family_counts.get(family, 0) + repeat_weight
+            info_score = repeat_weight + int(group.get("occurrence_count", 0) or 0)
+            taggable = strength == "strong" or (strength == "moderate" and info_score >= 10 and float(classification.get("ambiguity_score", 1.0) or 1.0) <= 0.3)
+            if taggable:
+                rhythm_family_taggable_counts[family] = rhythm_family_taggable_counts.get(family, 0) + repeat_weight
+            if strength in {"strong", "moderate"}:
                 top_family_matches.append(
                     {
                         "motif_group_id": group.get("motif_group_id"),
                         "matched_family": family,
                         "matched_pattern_id": classification.get("matched_pattern_id"),
                         "confidence": classification.get("confidence"),
+                        "match_strength": strength,
+                        "specificity_score": classification.get("specificity_score"),
+                        "ambiguity_score": classification.get("ambiguity_score"),
+                        "matched_evidence_count": classification.get("matched_evidence_count"),
+                        "mismatch_reasons": classification.get("mismatch_reasons"),
                         "representative_pattern": group.get("representative_pattern"),
                         "occurrence_count": group.get("occurrence_count"),
                     }
                 )
+            elif info_score >= 15:
+                overmatch_diagnostics["weak_high_frequency_groups"] = int(overmatch_diagnostics.get("weak_high_frequency_groups", 0)) + 1
         info_score = int(group.get("group_repeat_count", 0) or 0) + int(group.get("occurrence_count", 0) or 0)
-        if float(classification.get("confidence", 0.0) or 0.0) < 0.5 and info_score >= 8:
+        if family == "unknown" and info_score >= 8:
             unknown_high_information_patterns.append(
                 {
                     "motif_group_id": group.get("motif_group_id"),
                     "representative_pattern": group.get("representative_pattern"),
                     "information_score": info_score,
-                    "best_candidate_family": classification.get("matched_family"),
+                    "best_candidate_family": (
+                        classification.get("ambiguous_family_candidates", [None])[0]
+                        if isinstance(classification.get("ambiguous_family_candidates"), list)
+                        and classification.get("ambiguous_family_candidates")
+                        else classification.get("matched_family")
+                    ),
                     "best_candidate_confidence": classification.get("confidence"),
                 }
             )
@@ -512,12 +567,25 @@ def extract_rhythm_features(
         "straight_grid_candidates": straight_grid_count,
         "triplet_grid_candidates": triplet_grid_count,
         "rhythm_family_counts": rhythm_family_counts,
-        "top_rhythm_family_matches": sorted(top_family_matches, key=lambda item: float(item.get("confidence", 0.0) or 0.0), reverse=True)[:20],
+        "strong_rhythm_family_counts": strong_rhythm_family_counts,
+        "moderate_rhythm_family_counts": moderate_rhythm_family_counts,
+        "weak_rhythm_family_counts": weak_rhythm_family_counts,
+        "ambiguous_rhythm_family_count": ambiguous_rhythm_family_count,
+        "rhythm_family_taggable_counts": rhythm_family_taggable_counts,
+        "top_rhythm_family_matches": sorted(
+            top_family_matches,
+            key=lambda item: (
+                1 if str(item.get("match_strength", "")) == "strong" else 0,
+                float(item.get("confidence", 0.0) or 0.0),
+            ),
+            reverse=True,
+        )[:20],
         "unknown_high_information_patterns": sorted(
             unknown_high_information_patterns,
             key=lambda item: int(item.get("information_score", 0) or 0),
             reverse=True,
         )[:20],
+        "overmatch_diagnostics": overmatch_diagnostics,
         "concept_counts": concept_count([record for record in records if isinstance(record, dict)]),
         "philosophy_source_counts": philosophy_count([record for record in records if isinstance(record, dict)]),
     }
