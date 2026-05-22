@@ -1,24 +1,24 @@
 # Generative Quality Diagnostics - 20260521T213524641640_audio_structure_v1
 
-- example_count: `334`
+- example_count: `387`
 
 ## Split reason breakdown
 - train: `{}`
 - validation: `{"quality_meets_validation_threshold": 53}`
-- review: `{"duration_out_of_range": 18, "phrase_boundary_weak": 67, "quality_below_threshold": 279, "route_state_unsuitable": 91, "task_policy_failed": 108, "weak_or_missing_task_evidence": 16}`
+- review: `{"duration_out_of_range": 18, "phrase_boundary_weak": 67, "quality_below_threshold": 332, "route_state_unsuitable": 91, "task_policy_failed": 108, "weak_or_missing_task_evidence": 16}`
 - exclude: `{"phrase_boundary_weak": 2, "quality_below_threshold": 2, "route_state_unsuitable": 2, "task_policy_failed": 2}`
 
 ## Quality component averages
-- transcription_reliability: `0.883084`
-- route_suitability: `0.748533`
-- phrase_boundary_quality: `0.793413`
-- target_density: `0.760778`
+- transcription_reliability: `0.897933`
+- route_suitability: `0.67509`
+- phrase_boundary_quality: `0.821705`
+- target_density: `0.760853`
 - musical_completeness: `1.0`
-- repetition_or_motif_strength: `0.51188`
+- repetition_or_motif_strength: `0.523948`
 - witness_agreement_score: `0.42`
 - ambiguity_penalty: `0.24`
 - review_penalty: `0.0`
-- final_score: `0.512573`
+- final_score: `0.509901`
 
 ## Missing task diagnostics
 - harmony_continuation: `{"harmonic_or_polyphonic_regions_available": 119, "regions_with_pitch_harmony_refs": 119, "regions_with_target_midi_events": 119, "why_no_examples_were_created": []}`

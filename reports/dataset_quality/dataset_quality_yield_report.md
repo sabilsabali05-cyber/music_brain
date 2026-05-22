@@ -7,16 +7,16 @@
 - expected data yield per hour: `1934.3849`
 - expected accepted observations per hour: `123.856`
 - expected review burden per hour: `1810.5288`
-- total generative examples: `334`
-- generative split counts (train/validation/review/exclude): `[0, 53, 279, 2]`
-- missing generative task coverage: `["harmony_continuation"]`
+- total generative examples: `387`
+- generative split counts (train/validation/review/exclude): `[0, 53, 332, 2]`
+- missing generative task coverage: `[]`
 
 ## Dataset risk flag counts
 - external_witness_disagreement: `1`
 - high_review_required_percentage: `4`
 - low_beat_confidence: `1`
 - missing_external_meter_witness: `4`
-- missing_generative_task_coverage: `4`
+- missing_generative_task_coverage: `3`
 - missing_microtonal_evidence: `4`
 
 ## 20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir / 20260521T204750163461_audio_structure_v1
@@ -33,11 +33,11 @@
 - records_per_minute: `31.995505`
 - accepted_observations_per_minute: `1.967011`
 - review_required_percentage: `93.8522`
-- risk_flags: `["external_witness_disagreement", "high_review_required_percentage", "missing_external_meter_witness", "missing_generative_task_coverage", "missing_microtonal_evidence"]`
+- risk_flags: `["external_witness_disagreement", "high_review_required_percentage", "missing_external_meter_witness", "missing_microtonal_evidence"]`
 - recommendations: `{"ready_for_training_observation_only": false, "needs_review": true, "needs_external_witness": false, "needs_routing_calibration": false, "needs_meter_calibration": false, "needs_pitch_harmony_calibration": true, "needs_manual_review": true, "good_candidate_for_mass_ingestion_template": false}`
 - witness_coverage: `{"yourmt3_pretty_midi_present": true, "librosa_internal_features_present": true, "essentia": {"present": true, "status": "success"}, "music21": {"present": true, "status": "success"}, "musicnn": {"present": false, "status": "missing"}, "beatnet_madmom": {"present": false, "status": "missing"}, "omnizart": {"present": false, "status": "missing"}, "consensus_status": "conflicted", "unresolved_conflicts": ["missing_external_meter_hypotheses", "tonal_center_conflict"], "low_confidence_warnings": ["semantic_tag_mismatch", "tonal_conflict"]}`
 - layer_completeness: `{"source_manifest_present": true, "segments_present": true, "merged_midi_present": true, "rhythm_features_present": true, "harmony_features_present": true, "routing_present": true, "meter_time_present": true, "pitch_harmony_present": true, "trust_reports_present": true, "training_export_present": true, "external_witnesses_present": true, "model_consensus_present": true, "audit_report_present": true}`
-- generative_dataset: `{"generative_dataset_present": true, "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1", "generative_examples_count": 334, "train_recommended_count": 0, "validation_recommended_count": 53, "review_recommended_count": 279, "exclude_recommended_count": 2, "examples_by_task_type": {"buildup_to_release": 19, "call_response": 39, "continuation": 53, "groove_continuation": 37, "infill_missing_region": 52, "melody_continuation": 6, "motif_transformation": 22, "phrase_continuation": 53, "section_transition": 53}, "average_quality_score": 0.512573, "examples_per_minute": 6.027354, "high_quality_examples_per_minute": 0.0, "weakest_task_domains": ["continuation", "infill_missing_region", "motif_transformation", "phrase_continuation", "section_transition"], "strongest_task_domains": [], "missing_task_coverage": ["harmony_continuation"]}`
+- generative_dataset: `{"generative_dataset_present": true, "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1", "generative_examples_count": 387, "train_recommended_count": 0, "validation_recommended_count": 53, "review_recommended_count": 332, "exclude_recommended_count": 2, "examples_by_task_type": {"buildup_to_release": 19, "call_response": 39, "continuation": 53, "groove_continuation": 37, "harmony_continuation": 53, "infill_missing_region": 52, "melody_continuation": 6, "motif_transformation": 22, "phrase_continuation": 53, "section_transition": 53}, "average_quality_score": 0.509901, "examples_per_minute": 6.98379, "high_quality_examples_per_minute": 0.0, "weakest_task_domains": ["continuation", "infill_missing_region", "motif_transformation", "phrase_continuation", "section_transition"], "strongest_task_domains": [], "missing_task_coverage": []}`
 
 ## 20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send / 20260522T150054174749_audio_structure_v1
 - records_per_minute: `32.144869`

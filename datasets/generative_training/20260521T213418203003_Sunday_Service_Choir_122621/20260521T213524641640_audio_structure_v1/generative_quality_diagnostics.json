@@ -1,6 +1,6 @@
 {
   "dataset_folder": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
-  "example_count": 334,
+  "example_count": 387,
   "split_reason_breakdown": {
     "train": {},
     "validation": {
@@ -9,7 +9,7 @@
     "review": {
       "duration_out_of_range": 18,
       "phrase_boundary_weak": 67,
-      "quality_below_threshold": 279,
+      "quality_below_threshold": 332,
       "route_state_unsuitable": 91,
       "task_policy_failed": 108,
       "weak_or_missing_task_evidence": 16
@@ -22,16 +22,16 @@
     }
   },
   "quality_component_stats": {
-    "transcription_reliability": 0.883084,
-    "route_suitability": 0.748533,
-    "phrase_boundary_quality": 0.793413,
-    "target_density": 0.760778,
+    "transcription_reliability": 0.897933,
+    "route_suitability": 0.67509,
+    "phrase_boundary_quality": 0.821705,
+    "target_density": 0.760853,
     "musical_completeness": 1.0,
-    "repetition_or_motif_strength": 0.51188,
+    "repetition_or_motif_strength": 0.523948,
     "witness_agreement_score": 0.42,
     "ambiguity_penalty": 0.24,
     "review_penalty": 0.0,
-    "final_score": 0.512573
+    "final_score": 0.509901
   },
   "per_task_stats": {
     "buildup_to_release": {
@@ -81,6 +81,17 @@
       "missing_required_refs": {},
       "average_target_note_count": 647.567568,
       "average_context_note_count": 552.081081
+    },
+    "harmony_continuation": {
+      "count": 53,
+      "average_score": 0.493064,
+      "split_counts": {
+        "review": 53
+      },
+      "top_exclusion_reason": null,
+      "missing_required_refs": {},
+      "average_target_note_count": 517.924528,
+      "average_context_note_count": 516.698113
     },
     "infill_missing_region": {
       "count": 52,

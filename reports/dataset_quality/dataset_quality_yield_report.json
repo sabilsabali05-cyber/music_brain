@@ -343,7 +343,6 @@
         "external_witness_disagreement",
         "high_review_required_percentage",
         "missing_external_meter_witness",
-        "missing_generative_task_coverage",
         "missing_microtonal_evidence"
       ],
       "recommendations": {
@@ -369,24 +368,25 @@
       "generative_dataset": {
         "generative_dataset_present": true,
         "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
-        "generative_examples_count": 334,
+        "generative_examples_count": 387,
         "train_recommended_count": 0,
         "validation_recommended_count": 53,
-        "review_recommended_count": 279,
+        "review_recommended_count": 332,
         "exclude_recommended_count": 2,
         "examples_by_task_type": {
           "buildup_to_release": 19,
           "call_response": 39,
           "continuation": 53,
           "groove_continuation": 37,
+          "harmony_continuation": 53,
           "infill_missing_region": 52,
           "melody_continuation": 6,
           "motif_transformation": 22,
           "phrase_continuation": 53,
           "section_transition": 53
         },
-        "average_quality_score": 0.512573,
-        "examples_per_minute": 6.027354,
+        "average_quality_score": 0.509901,
+        "examples_per_minute": 6.98379,
         "high_quality_examples_per_minute": 0.0,
         "weakest_task_domains": [
           "continuation",
@@ -396,9 +396,7 @@
           "section_transition"
         ],
         "strongest_task_domains": [],
-        "missing_task_coverage": [
-          "harmony_continuation"
-        ]
+        "missing_task_coverage": []
       }
     },
     {
@@ -747,7 +745,7 @@
     "high_review_required_percentage": 4,
     "low_beat_confidence": 1,
     "missing_external_meter_witness": 4,
-    "missing_generative_task_coverage": 4,
+    "missing_generative_task_coverage": 3,
     "missing_microtonal_evidence": 4
   },
   "dataset_recommendations": {
@@ -762,16 +760,17 @@
     "expected_data_yield_per_hour": 1934.3849,
     "expected_accepted_observations_per_hour": 123.856,
     "expected_review_burden_per_hour": 1810.5288,
-    "total_generative_examples_count": 334,
+    "total_generative_examples_count": 387,
     "total_generative_train_recommended_count": 0,
     "total_generative_validation_recommended_count": 53,
-    "total_generative_review_recommended_count": 279,
+    "total_generative_review_recommended_count": 332,
     "total_generative_exclude_recommended_count": 2,
     "generative_examples_by_task_type": {
       "buildup_to_release": 19,
       "call_response": 39,
       "continuation": 53,
       "groove_continuation": 37,
+      "harmony_continuation": 53,
       "infill_missing_region": 52,
       "melody_continuation": 6,
       "motif_transformation": 22,
@@ -783,14 +782,13 @@
       "call_response": 0.5928,
       "continuation": 0.566253,
       "groove_continuation": 0.597638,
+      "harmony_continuation": 0.493064,
       "infill_missing_region": 0.462788,
       "melody_continuation": 0.6018,
       "motif_transformation": 0.481518,
       "phrase_continuation": 0.408989,
       "section_transition": 0.479291
     },
-    "missing_generative_task_coverage": [
-      "harmony_continuation"
-    ]
+    "missing_generative_task_coverage": []
   }
 }

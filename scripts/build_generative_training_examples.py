@@ -852,6 +852,19 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         curr = windows[i]
         nxt = windows[i + 1]
         target_state, _ = _dominant_content_state(float(nxt["start_seconds"]), float(nxt["end_seconds"]), route_rows)
+        target_start = float(nxt["start_seconds"])
+        target_end = float(nxt["end_seconds"])
+        harmony_overlap = any(
+            isinstance(row, dict)
+            and _safe_float(row.get("start_seconds"), target_start) <= target_end
+            and _safe_float(row.get("end_seconds"), target_end) >= target_start
+            for row in pitch_payload.get("harmony_sonority", [])
+        ) or any(
+            isinstance(row, dict)
+            and _safe_float(row.get("start_seconds"), target_start) <= target_end
+            and _safe_float(row.get("end_seconds"), target_end) >= target_start
+            for row in pitch_payload.get("chord_movement", [])
+        )
         if target_state in {"rhythm_dominant", "percussive_only", "polyphonic_full_mix"}:
             make_example(
                 task_type="groove_continuation",
@@ -865,8 +878,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
                 context_window_id=str(curr["window_id"]),
                 target_window_id=str(nxt["window_id"]),
             )
-        has_harmony_evidence = target_state in {"harmonic_dominant", "polyphonic_full_mix"}
-        if has_harmony_evidence:
+        if target_state in {"harmonic_dominant", "polyphonic_full_mix"} or harmony_overlap:
             make_example(
                 task_type="harmony_continuation",
                 context_start_seconds=float(curr["start_seconds"]),
@@ -879,6 +891,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
                 context_window_id=str(curr["window_id"]),
                 target_window_id=str(nxt["window_id"]),
                 force_harmony_allow=True,
+                extraction_notes=["harmony_evidence_overlap" if harmony_overlap else "harmony_state_overlap"],
             )
         if target_state in {"melodic_lead", "vocal_dominant", "rap_vocal_dominant", "polyphonic_full_mix"}:
             make_example(
