@@ -20,6 +20,18 @@ def _load_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _require_non_negative_int(container: dict[str, Any], field: str, errors: list[str], *, prefix: str) -> int:
+    value = container.get(field, 0)
+    try:
+        parsed = int(value)
+    except Exception:  # noqa: BLE001
+        errors.append(f"{prefix} field is not int-like: {field}")
+        return 0
+    if parsed < 0:
+        errors.append(f"{prefix} count is negative: {field}")
+    return parsed
+
+
 def validate_batch_report(report_path: Path) -> dict[str, Any]:
     errors: list[str] = []
     if not report_path.exists():
@@ -48,35 +60,120 @@ def validate_batch_report(report_path: Path) -> dict[str, Any]:
     if not isinstance(summary, dict):
         errors.append("summary must be an object")
         summary = {}
-    count_fields = [
+    common_summary_count_fields = [
         "files_discovered",
         "performances_ingested",
         "performances_processed",
         "completed_performances",
         "incomplete_performances",
         "failed_performances",
-        "windows_processed",
-        "successful_windows",
-        "failed_windows",
         "accepted_observation_count",
         "weak_label_count",
         "review_required_count",
         "quarantined_count",
     ]
-    for field in count_fields:
-        value = summary.get(field, 0)
-        try:
-            parsed = int(value)
-        except Exception:  # noqa: BLE001
-            errors.append(f"summary field is not int-like: {field}")
-            continue
-        if parsed < 0:
-            errors.append(f"summary count is negative: {field}")
+    for field in common_summary_count_fields:
+        _require_non_negative_int(summary, field, errors, prefix="summary")
+
+    has_new_summary_metrics = all(
+        field in summary
+        for field in (
+            "windows_total_after",
+            "successful_windows_after",
+            "failed_windows_after",
+            "remaining_windows_after",
+            "newly_successful_windows",
+            "newly_failed_windows",
+            "windows_processed_this_run",
+        )
+    )
+    has_legacy_summary_metrics = all(
+        field in summary for field in ("windows_processed", "successful_windows", "failed_windows")
+    )
 
     performance_results = payload.get("performance_results", [])
     if not isinstance(performance_results, list):
         errors.append("performance_results must be a list")
         performance_results = []
+    if has_new_summary_metrics:
+        summary_fields = (
+            "windows_total_after",
+            "successful_windows_after",
+            "failed_windows_after",
+            "remaining_windows_after",
+            "newly_successful_windows",
+            "newly_failed_windows",
+            "windows_processed_this_run",
+        )
+        for field in summary_fields:
+            _require_non_negative_int(summary, field, errors, prefix="summary")
+
+        per_perf_required_fields = (
+            "windows_total_before",
+            "successful_windows_before",
+            "failed_windows_before",
+            "remaining_windows_before",
+            "windows_total_after",
+            "successful_windows_after",
+            "failed_windows_after",
+            "remaining_windows_after",
+            "newly_successful_windows",
+            "newly_failed_windows",
+            "windows_processed_this_run",
+        )
+        per_perf_sums = {field: 0 for field in summary_fields}
+        for index, item in enumerate(performance_results):
+            if not isinstance(item, dict):
+                continue
+            prefix = f"performance_results[{index}]"
+            for field in per_perf_required_fields:
+                if field not in item:
+                    errors.append(f"{prefix} missing field: {field}")
+            for field in per_perf_required_fields:
+                _require_non_negative_int(item, field, errors, prefix=prefix)
+
+            successful_before = _require_non_negative_int(item, "successful_windows_before", errors, prefix=prefix)
+            successful_after = _require_non_negative_int(item, "successful_windows_after", errors, prefix=prefix)
+            failed_before = _require_non_negative_int(item, "failed_windows_before", errors, prefix=prefix)
+            failed_after = _require_non_negative_int(item, "failed_windows_after", errors, prefix=prefix)
+            newly_successful = _require_non_negative_int(item, "newly_successful_windows", errors, prefix=prefix)
+            newly_failed = _require_non_negative_int(item, "newly_failed_windows", errors, prefix=prefix)
+            processed_this_run = _require_non_negative_int(item, "windows_processed_this_run", errors, prefix=prefix)
+
+            if newly_successful != successful_after - successful_before:
+                errors.append(
+                    f"{prefix} newly_successful_windows mismatch: {newly_successful} != "
+                    f"{successful_after} - {successful_before}"
+                )
+            if newly_failed != failed_after - failed_before:
+                errors.append(f"{prefix} newly_failed_windows mismatch: {newly_failed} != {failed_after} - {failed_before}")
+            if processed_this_run != newly_successful + newly_failed:
+                errors.append(
+                    f"{prefix} windows_processed_this_run mismatch: {processed_this_run} != "
+                    f"{newly_successful} + {newly_failed}"
+                )
+            for field in summary_fields:
+                per_perf_sums[field] += _require_non_negative_int(item, field, errors, prefix=prefix)
+
+        for field in summary_fields:
+            summary_value = _require_non_negative_int(summary, field, errors, prefix="summary")
+            if summary_value != per_perf_sums[field]:
+                errors.append(
+                    f"summary {field} mismatch: {summary_value} != "
+                    f"per-performance total {per_perf_sums[field]}"
+                )
+        summary_newly_successful = _require_non_negative_int(summary, "newly_successful_windows", errors, prefix="summary")
+        summary_newly_failed = _require_non_negative_int(summary, "newly_failed_windows", errors, prefix="summary")
+        summary_processed = _require_non_negative_int(summary, "windows_processed_this_run", errors, prefix="summary")
+        if summary_processed != summary_newly_successful + summary_newly_failed:
+            errors.append(
+                "summary windows_processed_this_run mismatch: "
+                f"{summary_processed} != {summary_newly_successful} + {summary_newly_failed}"
+            )
+    elif has_legacy_summary_metrics:
+        for field in ("windows_processed", "successful_windows", "failed_windows"):
+            _require_non_negative_int(summary, field, errors, prefix="summary")
+
     for item in performance_results:
         if not isinstance(item, dict):
             errors.append("performance_results entries must be objects")

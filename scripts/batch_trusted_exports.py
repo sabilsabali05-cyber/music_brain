@@ -161,6 +161,9 @@ def _result_md(result: dict[str, Any]) -> str:
         f"  - source_audio: `{result.get('source_audio_path')}`",
         f"  - windows_before: `{json.dumps(result.get('windows_before', {}), ensure_ascii=True)}`",
         f"  - windows_after: `{json.dumps(result.get('windows_after', {}), ensure_ascii=True)}`",
+        f"  - windows_processed_this_run: `{result.get('windows_processed_this_run', 0)}`",
+        f"  - newly_successful_windows: `{result.get('newly_successful_windows', 0)}`",
+        f"  - newly_failed_windows: `{result.get('newly_failed_windows', 0)}`",
     ]
     if result.get("export_folder"):
         lines.append(f"  - export_folder: `{result.get('export_folder')}`")
@@ -193,9 +196,13 @@ def batch_trusted_exports(inbox_folder: Path, config: BatchConfig) -> dict[str, 
 
     results: list[dict[str, Any]] = []
     ingested_count = 0
-    total_windows_processed = 0
-    total_successful_windows = 0
-    total_failed_windows = 0
+    total_windows_after = 0
+    total_successful_windows_after = 0
+    total_failed_windows_after = 0
+    total_remaining_windows_after = 0
+    total_newly_successful_windows = 0
+    total_newly_failed_windows = 0
+    total_windows_processed_this_run = 0
     total_accepted = 0
     total_weak = 0
     total_review = 0
@@ -247,9 +254,35 @@ def batch_trusted_exports(inbox_folder: Path, config: BatchConfig) -> dict[str, 
             after_segments = Path(str(after_payload.get("active_segments_manifest_path") or "")).resolve() if str(after_payload.get("active_segments_manifest_path") or "").strip() else None
             after_counts = _window_counts(after_segments)
             result["windows_after"] = after_counts
-            total_windows_processed += max(0, int(after_counts.get("successful_windows", 0)) - int(before_counts.get("successful_windows", 0)))
-            total_successful_windows += int(after_counts.get("successful_windows", 0))
-            total_failed_windows += int(after_counts.get("failed_windows", 0))
+            windows_total_before = int(before_counts.get("total_windows", 0))
+            successful_windows_before = int(before_counts.get("successful_windows", 0))
+            failed_windows_before = int(before_counts.get("failed_windows", 0))
+            remaining_windows_before = int(before_counts.get("remaining_windows", 0))
+            windows_total_after = int(after_counts.get("total_windows", 0))
+            successful_windows_after = int(after_counts.get("successful_windows", 0))
+            failed_windows_after = int(after_counts.get("failed_windows", 0))
+            remaining_windows_after = int(after_counts.get("remaining_windows", 0))
+            newly_successful_windows = successful_windows_after - successful_windows_before
+            newly_failed_windows = failed_windows_after - failed_windows_before
+            windows_processed_this_run = newly_successful_windows + newly_failed_windows
+            result["windows_total_before"] = windows_total_before
+            result["successful_windows_before"] = successful_windows_before
+            result["failed_windows_before"] = failed_windows_before
+            result["remaining_windows_before"] = remaining_windows_before
+            result["windows_total_after"] = windows_total_after
+            result["successful_windows_after"] = successful_windows_after
+            result["failed_windows_after"] = failed_windows_after
+            result["remaining_windows_after"] = remaining_windows_after
+            result["newly_successful_windows"] = newly_successful_windows
+            result["newly_failed_windows"] = newly_failed_windows
+            result["windows_processed_this_run"] = windows_processed_this_run
+            total_windows_after += windows_total_after
+            total_successful_windows_after += successful_windows_after
+            total_failed_windows_after += failed_windows_after
+            total_remaining_windows_after += remaining_windows_after
+            total_newly_successful_windows += newly_successful_windows
+            total_newly_failed_windows += newly_failed_windows
+            total_windows_processed_this_run += windows_processed_this_run
             remaining_after = int(after_counts.get("remaining_windows", 0))
 
             is_complete = remaining_after == 0
@@ -322,9 +355,13 @@ def batch_trusted_exports(inbox_folder: Path, config: BatchConfig) -> dict[str, 
         "completed_performances": completed_count,
         "incomplete_performances": incomplete_count,
         "failed_performances": failed_count,
-        "windows_processed": total_windows_processed,
-        "successful_windows": total_successful_windows,
-        "failed_windows": total_failed_windows,
+        "windows_total_after": total_windows_after,
+        "successful_windows_after": total_successful_windows_after,
+        "failed_windows_after": total_failed_windows_after,
+        "remaining_windows_after": total_remaining_windows_after,
+        "newly_successful_windows": total_newly_successful_windows,
+        "newly_failed_windows": total_newly_failed_windows,
+        "windows_processed_this_run": total_windows_processed_this_run,
         "accepted_observation_count": total_accepted,
         "weak_label_count": total_weak,
         "review_required_count": total_review,
@@ -366,9 +403,13 @@ def batch_trusted_exports(inbox_folder: Path, config: BatchConfig) -> dict[str, 
         f"- completed_performances: `{summary_payload['completed_performances']}`",
         f"- incomplete_performances: `{summary_payload['incomplete_performances']}`",
         f"- failed_performances: `{summary_payload['failed_performances']}`",
-        f"- windows_processed: `{summary_payload['windows_processed']}`",
-        f"- successful_windows: `{summary_payload['successful_windows']}`",
-        f"- failed_windows: `{summary_payload['failed_windows']}`",
+        f"- windows_total_after: `{summary_payload['windows_total_after']}`",
+        f"- successful_windows_after: `{summary_payload['successful_windows_after']}`",
+        f"- failed_windows_after: `{summary_payload['failed_windows_after']}`",
+        f"- remaining_windows_after: `{summary_payload['remaining_windows_after']}`",
+        f"- newly_successful_windows: `{summary_payload['newly_successful_windows']}`",
+        f"- newly_failed_windows: `{summary_payload['newly_failed_windows']}`",
+        f"- windows_processed_this_run: `{summary_payload['windows_processed_this_run']}`",
         f"- accepted_observation_count: `{summary_payload['accepted_observation_count']}`",
         f"- weak_label_count: `{summary_payload['weak_label_count']}`",
         f"- review_required_count: `{summary_payload['review_required_count']}`",

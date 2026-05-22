@@ -17,13 +17,18 @@ def _make_audio(path: Path) -> None:
     path.write_bytes(b"fake-audio")
 
 
-def _make_manifest(repo_root: Path, name: str, source_path: Path, *, total: int, success: int) -> Path:
+def _make_manifest(repo_root: Path, name: str, source_path: Path, *, total: int, success: int, failed: int = 0) -> Path:
     perf_dir = repo_root / "performances" / "library" / name
     seg_dir = repo_root / "samples" / "segments" / name / "run_1"
     seg_manifest = seg_dir / "segments_manifest.json"
     windows = []
     for idx in range(total):
-        status = "success" if idx < success else "pending"
+        if idx < success:
+            status = "success"
+        elif idx < success + failed:
+            status = "failed"
+        else:
+            status = "pending"
         windows.append({"window_id": f"win_{idx:04d}", "status": status})
     _write_json(seg_manifest, {"transcription_windows": windows, "duration_seconds": float(total * 10)})
     manifest = perf_dir / "performance_manifest.json"
@@ -60,6 +65,22 @@ def _process_stub(manifest_path: Path, *, max_windows: int, **_: object) -> dict
         payload["active_merged_midi_path"] = merged.resolve().as_posix()
     seg_path.write_text(json.dumps(seg, indent=2), encoding="utf-8")
     manifest_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    return payload
+
+
+def _process_fail_one_stub(manifest_path: Path, *, max_windows: int, **_: object) -> dict:
+    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    seg_path = Path(str(payload.get("active_segments_manifest_path")))
+    seg = json.loads(seg_path.read_text(encoding="utf-8"))
+    windows = seg.get("transcription_windows", [])
+    if max_windows > 0:
+        for window in windows:
+            if not isinstance(window, dict):
+                continue
+            if str(window.get("status", "pending")) == "pending":
+                window["status"] = "failed"
+                break
+    seg_path.write_text(json.dumps(seg, indent=2), encoding="utf-8")
     return payload
 
 
@@ -103,8 +124,13 @@ def test_batch_respects_max_windows(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.setattr("scripts.batch_trusted_exports.summarize_training_exports", _summary_stub)
     report = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=3))
     first = report["performance_results"][0]
-    assert first["windows_after"]["successful_windows"] == 3
-    assert report["summary"]["windows_processed"] == 3
+    assert first["windows_total_before"] == 7
+    assert first["successful_windows_before"] == 0
+    assert first["successful_windows_after"] == 3
+    assert first["newly_successful_windows"] == 3
+    assert first["newly_failed_windows"] == 0
+    assert first["windows_processed_this_run"] == 3
+    assert report["summary"]["windows_processed_this_run"] == 3
 
 
 def test_batch_does_not_duplicate_existing_ingested_performance(tmp_path: Path, monkeypatch) -> None:
@@ -129,11 +155,14 @@ def test_batch_reuses_active_runs_on_resume(tmp_path: Path, monkeypatch) -> None
     manifest = _make_manifest(tmp_path, "perf_resume", src, total=5, success=2)
     monkeypatch.setattr("scripts.batch_trusted_exports._find_existing_manifest", lambda *_: manifest)
     monkeypatch.setattr("scripts.batch_trusted_exports.process_performance_manifest", _process_stub)
+    monkeypatch.setattr("scripts.batch_trusted_exports._run_completed_pipeline", lambda *args, **kwargs: {})
     monkeypatch.setattr("scripts.batch_trusted_exports.summarize_training_exports", _summary_stub)
     first = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=2, allow_full_completion=True))
     second = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=2, allow_full_completion=True))
-    assert first["performance_results"][0]["windows_after"]["successful_windows"] == 4
-    assert second["performance_results"][0]["windows_after"]["successful_windows"] == 5
+    assert first["performance_results"][0]["successful_windows_after"] == 4
+    assert first["performance_results"][0]["windows_processed_this_run"] == 2
+    assert second["performance_results"][0]["successful_windows_after"] == 5
+    assert second["performance_results"][0]["windows_processed_this_run"] == 1
 
 
 def test_incomplete_cap_is_marked(tmp_path: Path, monkeypatch) -> None:
@@ -178,6 +207,64 @@ def test_complete_run_triggers_downstream_pipeline(tmp_path: Path, monkeypatch) 
     assert called["value"] == 1
 
 
+def test_metrics_resume_run_counts_single_processed_window(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    inbox = tmp_path / "performances" / "inbox"
+    src = inbox / "resume_single.mp3"
+    _make_audio(src)
+    manifest = _make_manifest(tmp_path, "perf_resume_single", src, total=4, success=3)
+    monkeypatch.setattr("scripts.batch_trusted_exports._find_existing_manifest", lambda *_: manifest)
+    monkeypatch.setattr("scripts.batch_trusted_exports.process_performance_manifest", _process_stub)
+    monkeypatch.setattr("scripts.batch_trusted_exports._run_completed_pipeline", lambda *args, **kwargs: {})
+    monkeypatch.setattr("scripts.batch_trusted_exports.summarize_training_exports", _summary_stub)
+    report = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=1, allow_full_completion=True))
+    item = report["performance_results"][0]
+    assert item["successful_windows_before"] == 3
+    assert item["successful_windows_after"] == 4
+    assert item["newly_successful_windows"] == 1
+    assert item["newly_failed_windows"] == 0
+    assert item["windows_processed_this_run"] == 1
+
+
+def test_metrics_noop_run_counts_zero_processed_windows(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    inbox = tmp_path / "performances" / "inbox"
+    src = inbox / "noop.mp3"
+    _make_audio(src)
+    manifest = _make_manifest(tmp_path, "perf_noop", src, total=4, success=4)
+    monkeypatch.setattr("scripts.batch_trusted_exports._find_existing_manifest", lambda *_: manifest)
+    monkeypatch.setattr("scripts.batch_trusted_exports.process_performance_manifest", _process_stub)
+    monkeypatch.setattr("scripts.batch_trusted_exports._run_completed_pipeline", lambda *args, **kwargs: {})
+    monkeypatch.setattr("scripts.batch_trusted_exports.summarize_training_exports", _summary_stub)
+    report = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=1, allow_full_completion=True))
+    item = report["performance_results"][0]
+    assert item["successful_windows_before"] == 4
+    assert item["successful_windows_after"] == 4
+    assert item["newly_successful_windows"] == 0
+    assert item["newly_failed_windows"] == 0
+    assert item["windows_processed_this_run"] == 0
+
+
+def test_metrics_failure_run_tracks_new_failed_windows(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    inbox = tmp_path / "performances" / "inbox"
+    src = inbox / "fail_one.mp3"
+    _make_audio(src)
+    manifest = _make_manifest(tmp_path, "perf_fail_one", src, total=5, success=2)
+    monkeypatch.setattr("scripts.batch_trusted_exports._find_existing_manifest", lambda *_: manifest)
+    monkeypatch.setattr("scripts.batch_trusted_exports.process_performance_manifest", _process_fail_one_stub)
+    monkeypatch.setattr("scripts.batch_trusted_exports.summarize_training_exports", _summary_stub)
+    report = batch_trusted_exports(inbox, BatchConfig(max_performances=1, max_windows=1, allow_full_completion=False))
+    item = report["performance_results"][0]
+    assert item["successful_windows_before"] == 2
+    assert item["failed_windows_before"] == 0
+    assert item["successful_windows_after"] == 2
+    assert item["failed_windows_after"] == 1
+    assert item["newly_successful_windows"] == 0
+    assert item["newly_failed_windows"] == 1
+    assert item["windows_processed_this_run"] == 1
+
+
 def test_failed_step_records_failure_taxonomy(tmp_path: Path, monkeypatch) -> None:
     monkeypatch.chdir(tmp_path)
     inbox = tmp_path / "performances" / "inbox"
@@ -193,8 +280,56 @@ def test_failed_step_records_failure_taxonomy(tmp_path: Path, monkeypatch) -> No
     assert isinstance(item.get("failure_records"), list) and item["failure_records"]
 
 
-def test_batch_report_files_written_and_validator_detects_malformed(tmp_path: Path) -> None:
-    bad = tmp_path / "reports" / "batches" / "bad.json"
-    _write_json(bad, {"summary": {"files_discovered": -1}})
+def test_validator_rejects_aggregate_and_performance_metric_mismatch(tmp_path: Path) -> None:
+    bad = tmp_path / "reports" / "batches" / "mismatch.json"
+    _write_json(
+        bad,
+        {
+            "created_at": "20260522T000000000000",
+            "inbox_folder": "performances/inbox",
+            "config": {},
+            "files_discovered": [],
+            "performances_planned": [],
+            "performance_results": [
+                {
+                    "status": "incomplete_cap_reached",
+                    "windows_total_before": 10,
+                    "successful_windows_before": 0,
+                    "failed_windows_before": 0,
+                    "remaining_windows_before": 10,
+                    "windows_total_after": 10,
+                    "successful_windows_after": 3,
+                    "failed_windows_after": 0,
+                    "remaining_windows_after": 7,
+                    "newly_successful_windows": 3,
+                    "newly_failed_windows": 0,
+                    "windows_processed_this_run": 3,
+                }
+            ],
+            "summary": {
+                "files_discovered": 1,
+                "performances_ingested": 0,
+                "performances_processed": 1,
+                "completed_performances": 0,
+                "incomplete_performances": 1,
+                "failed_performances": 0,
+                "windows_total_after": 10,
+                "successful_windows_after": 3,
+                "failed_windows_after": 0,
+                "remaining_windows_after": 7,
+                "newly_successful_windows": 3,
+                "newly_failed_windows": 0,
+                "windows_processed_this_run": 2,
+                "accepted_observation_count": 0,
+                "weak_label_count": 0,
+                "review_required_count": 0,
+                "quarantined_count": 0,
+                "export_folders": [],
+            },
+            "dataset_summary_json_path": "datasets/training_exports/training_exports_summary.json",
+            "dataset_summary_md_path": "datasets/training_exports/training_exports_summary.md",
+        },
+    )
     result = validate_batch_report(bad)
     assert result["status"] == "failed"
+    assert any("windows_processed_this_run mismatch" in err for err in result["errors"])
