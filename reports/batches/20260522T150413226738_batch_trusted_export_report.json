@@ -1,0 +1,154 @@
+{
+  "created_at": "20260522T150413224473",
+  "inbox_folder": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox",
+  "config": {
+    "max_performances": 2,
+    "max_windows": 3,
+    "allow_full_completion": false,
+    "stop_on_failure": true,
+    "force_analysis": false,
+    "force_segmentation": false,
+    "force_feature_pack": false,
+    "force_export": false,
+    "allow_partial_export": false
+  },
+  "files_discovered": [
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 03 Hildings!.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 04 The Water Tower.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 05 You Don't Come Up.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 06 He Was A Carpenter.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 07 This Town Isn't Quiant.mp3"
+  ],
+  "performances_planned": [
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3"
+  ],
+  "performance_results": [
+    {
+      "source_audio_path": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+      "failure_records": [],
+      "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
+      "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
+      "windows_before": {
+        "total_windows": 0,
+        "successful_windows": 0,
+        "failed_windows": 0,
+        "remaining_windows": 0
+      },
+      "windows_budget": 3,
+      "conservative_blocked_completion": false,
+      "windows_after": {
+        "total_windows": 4,
+        "successful_windows": 3,
+        "failed_windows": 0,
+        "remaining_windows": 1
+      },
+      "status": "incomplete_cap_reached"
+    },
+    {
+      "source_audio_path": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+      "failure_records": [],
+      "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json",
+      "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+      "windows_before": {
+        "total_windows": 0,
+        "successful_windows": 0,
+        "failed_windows": 0,
+        "remaining_windows": 0
+      },
+      "windows_budget": 3,
+      "conservative_blocked_completion": false,
+      "windows_after": {
+        "total_windows": 3,
+        "successful_windows": 3,
+        "failed_windows": 0,
+        "remaining_windows": 0
+      },
+      "benchmark_summary": {
+        "total_musical_segments": 3,
+        "total_transcription_windows": 3,
+        "successful_windows": 3,
+        "failed_windows": 0,
+        "represented_audio_duration_seconds": 189.340658,
+        "total_transcription_latency_seconds": 37.90116,
+        "average_transcription_latency_seconds": 12.63372,
+        "total_midi_bytes": 13148,
+        "total_note_on_count": 1588,
+        "segment_window_coverage_ratio": 1.0,
+        "segment_window_coverage_percent": 100.0
+      },
+      "review_report_path": "C:/Users/izzyo/ai-composer/music_brain/reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_20260522T150322987308_audio_structure_v1.md",
+      "merged_midi_validation": {
+        "merged_midi_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/merged/merged_performance.mid",
+        "tracks": 1,
+        "messages": 2844,
+        "note_on_count": 1417,
+        "status": "success"
+      },
+      "feature_pack_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1",
+      "feature_pack_validation": {
+        "status": "success",
+        "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+        "feature_pack_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1",
+        "rhythm_record_count": 55,
+        "harmony_record_count": 55,
+        "tag_count": 204,
+        "ai_training_record_count": 103,
+        "ai_record_count_by_granularity": {
+          "performance": 1,
+          "segment": 3,
+          "window": 3,
+          "rhythm_region": 48,
+          "chord_region": 48
+        },
+        "warnings": []
+      },
+      "transcription_reliability_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/trust/transcription_reliability.json",
+      "quality_gates_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/trust/quality_gates.json",
+      "audit_md_path": "C:/Users/izzyo/ai-composer/music_brain/reports/data_audits/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_training_data_audit.md",
+      "audit_json_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json",
+      "export_folder": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1",
+      "export_validation": {
+        "status": "success",
+        "export_folder": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1",
+        "errors": [],
+        "counts": {
+          "accepted_records.jsonl": 7,
+          "weak_label_records.jsonl": 103,
+          "audio_midi_only_records.jsonl": 0,
+          "review_required_records.jsonl": 96,
+          "quarantined_records.jsonl": 0
+        }
+      },
+      "export_counts": {
+        "accepted_observation_count": 7,
+        "weak_label_count": 103,
+        "review_required_count": 96,
+        "quarantined_count": 0
+      },
+      "status": "completed"
+    }
+  ],
+  "summary": {
+    "files_discovered": 7,
+    "performances_ingested": 2,
+    "performances_processed": 2,
+    "completed_performances": 1,
+    "incomplete_performances": 1,
+    "failed_performances": 0,
+    "windows_processed": 6,
+    "successful_windows": 6,
+    "failed_windows": 0,
+    "accepted_observation_count": 7,
+    "weak_label_count": 103,
+    "review_required_count": 96,
+    "quarantined_count": 0,
+    "export_folders": [
+      "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1"
+    ]
+  },
+  "dataset_summary_json_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.json",
+  "dataset_summary_md_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.md"
+}
