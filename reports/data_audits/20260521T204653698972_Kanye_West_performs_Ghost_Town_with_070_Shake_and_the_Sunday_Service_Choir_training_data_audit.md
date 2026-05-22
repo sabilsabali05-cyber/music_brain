@@ -57,9 +57,15 @@
 
 ## Routing and Label Upgrade Readiness
 - asset_type: `performance_recording`
-- content_state_counts: `{"silence_or_noise": 214, "unknown": 8, "rhythm_dominant": 22, "percussive_only": 158}`
-- labels_suppressed_by_routing: `1146`
-- upgrade_candidates: `0`
+- content_state_counts: `{"unknown": 231, "rhythm_dominant": 101, "percussive_only": 1, "melodic_lead": 28, "harmonic_dominant": 41}`
+- content_state_counts_by_granularity: `{"segment": {"unknown": 13}, "window": {"unknown": 13}, "rhythm_region": {"unknown": 86, "rhythm_dominant": 101, "percussive_only": 1}, "chord_region": {"melodic_lead": 28, "unknown": 119, "harmonic_dominant": 41}}`
+- labels_suppressed_by_routing: `363`
+- likely_false_suppressions: `29`
+- harmonic_evidence_regions_suppressed: `100`
+- upgrade_candidates: `13`
+- upgrade_candidates_by_label_family: `{"semantic": 13}`
 - downgrade_or_suppress_candidates: `390`
+- downgrade_or_suppress_candidates_by_label_family: `{"semantic": 247, "rhythm": 102, "harmony": 41}`
 - needs_human_review_candidates: `0`
 - routing_improves_training_safety: `True`
+- recommended_routing_calibration_status: `needs_recalibration`

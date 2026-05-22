@@ -1,7 +1,7 @@
 {
   "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
   "segment_run_id": "20260521T204750163461_audio_structure_v1",
-  "created_at": "2026-05-22T16:00:39.549940+00:00",
+  "created_at": "2026-05-22T16:22:40.428014+00:00",
   "artifacts": {
     "source_audio_reference": "C:/Users/izzyo/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
     "active_analysis_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\analysis\\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\\20260521T204701196539_modal_librosa_dense\\structure_analysis.json",
@@ -99,16 +99,46 @@
     "asset_type": "performance_recording",
     "asset_confidence": 0.8,
     "content_state_counts": {
-      "silence_or_noise": 214,
-      "unknown": 8,
-      "rhythm_dominant": 22,
-      "percussive_only": 158
+      "unknown": 231,
+      "rhythm_dominant": 101,
+      "percussive_only": 1,
+      "melodic_lead": 28,
+      "harmonic_dominant": 41
     },
-    "labels_suppressed_by_routing": 1146,
-    "upgrade_candidates": 0,
+    "content_state_counts_by_granularity": {
+      "segment": {
+        "unknown": 13
+      },
+      "window": {
+        "unknown": 13
+      },
+      "rhythm_region": {
+        "unknown": 86,
+        "rhythm_dominant": 101,
+        "percussive_only": 1
+      },
+      "chord_region": {
+        "melodic_lead": 28,
+        "unknown": 119,
+        "harmonic_dominant": 41
+      }
+    },
+    "labels_suppressed_by_routing": 363,
+    "likely_false_suppressions": 29,
+    "harmonic_evidence_regions_suppressed": 100,
+    "upgrade_candidates": 13,
+    "upgrade_candidates_by_label_family": {
+      "semantic": 13
+    },
     "downgrade_or_suppress_candidates": 390,
+    "downgrade_or_suppress_candidates_by_label_family": {
+      "semantic": 247,
+      "rhythm": 102,
+      "harmony": 41
+    },
     "needs_human_review_candidates": 0,
-    "routing_improves_training_safety": true
+    "routing_improves_training_safety": true,
+    "recommended_routing_calibration_status": "needs_recalibration"
   },
   "dataset_inclusion_decision": "accepted",
   "recommended_dataset_split": "train",

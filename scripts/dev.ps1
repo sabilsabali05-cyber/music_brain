@@ -92,6 +92,7 @@ function Show-Usage {
     Write-Host "  classify-content-regions <performance-manifest>"
     Write-Host "  apply-analysis-routing <performance-manifest>"
     Write-Host "  evaluate-label-upgrades <performance-manifest>"
+    Write-Host "  diagnose-content-routing <performance-manifest>"
     Write-Host "  route-performance-analysis <performance-manifest>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
@@ -892,6 +893,12 @@ switch ($Task) {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd evaluate-label-upgrades <performance-manifest>"
         Invoke-Step -Label "Evaluating weak-label upgrade candidates" -Command @(
             "python", "scripts/evaluate_label_upgrade_candidates.py", $manifestPath
+        )
+    }
+    "diagnose-content-routing" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd diagnose-content-routing <performance-manifest>"
+        Invoke-Step -Label "Diagnosing content routing calibration quality" -Command @(
+            "python", "scripts/diagnose_content_routing.py", $manifestPath
         )
     }
     "route-performance-analysis" {

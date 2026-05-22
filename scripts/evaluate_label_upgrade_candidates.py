@@ -38,6 +38,30 @@ def _state_for_record(record: dict[str, Any], routes: list[dict[str, Any]]) -> d
     return {}
 
 
+def _label_family(label: str) -> str:
+    lowered = label.lower()
+    if any(token in lowered for token in ["chord", "harmony", "key", "root_motion", "vamp"]):
+        return "harmony"
+    if any(token in lowered for token in ["rhythm", "motif", "syncop", "groove", "density", "tempo"]):
+        return "rhythm"
+    if any(token in lowered for token in ["vocal", "rap", "speech", "flow"]):
+        return "vocal_flow"
+    return "semantic"
+
+
+def _family_supported_by_route(family: str, route: dict[str, Any]) -> bool:
+    allowed_families = route.get("allowed_feature_families", [])
+    if not isinstance(allowed_families, list):
+        return False
+    if family == "harmony":
+        return any(name in allowed_families for name in ["harmony", "chord_movement"])
+    if family == "rhythm":
+        return "rhythm" in allowed_families
+    if family == "vocal_flow":
+        return "vocal_flow" in allowed_families
+    return "semantic" in allowed_families
+
+
 def evaluate_label_upgrade_candidates(performance_manifest_path: Path) -> Path:
     ctx = resolve_performance_context(performance_manifest_path)
     feature_dir = ctx["feature_dir"]
@@ -84,7 +108,22 @@ def evaluate_label_upgrade_candidates(performance_manifest_path: Path) -> Path:
         allowed_labels = route.get("allowed_labels", []) if isinstance(route.get("allowed_labels"), list) else []
         suppressed_labels = route.get("suppressed_labels", []) if isinstance(route.get("suppressed_labels"), list) else []
         label = str(record.get("label") or record.get("tag") or record.get("best_rhythm_family_match") or "")
-        family = "harmony" if "chord" in label or "key" in label else ("rhythm" if "rhythm" in label or "motif" in label else "semantic")
+        family = _label_family(label)
+        route_evidence = route.get("evidence", {}) if isinstance(route.get("evidence"), dict) else {}
+        rhythm_score = _safe_float(route_evidence.get("rhythm_score"), 0.0)
+        harmony_score = _safe_float(route_evidence.get("harmony_score"), 0.0)
+        if family == "semantic" and label == "feature_ready":
+            if content_state in {"harmonic_dominant", "polyphonic_full_mix"} and harmony_score >= 0.58:
+                family = "harmony"
+            elif content_state in {"rhythm_dominant", "percussive_only", "polyphonic_full_mix"} and rhythm_score >= 0.58:
+                family = "rhythm"
+        evidence_refs = record.get("evidence_refs", [])
+        evidence_refs_present = isinstance(evidence_refs, list) and len(evidence_refs) > 0
+        rel_tier = str(rel.get("reliability_tier", "")).lower()
+        reliability_ok = rel_tier in {"high", "medium"} or rel_score >= 0.65
+        route_supports_family = _family_supported_by_route(family, route)
+        ambiguity_low = ambiguity <= 0.35
+        confidence_ok = confidence >= 0.58
 
         recommended_label_status = "keep_weak"
         upgrade_reason = None
@@ -94,14 +133,38 @@ def evaluate_label_upgrade_candidates(performance_manifest_path: Path) -> Path:
             recommended_label_status = "suppress_candidate"
             downgrade_reason = f"Harmony label conflicts with content state `{content_state}`."
             required_additional_evidence.append("strong_chord_evidence")
-        elif content_state in {"rhythm_dominant", "percussive_only"} and family == "rhythm" and rel_score >= 0.75 and confidence >= 0.6 and ambiguity < 0.35:
+        elif (
+            route_supports_family
+            and reliability_ok
+            and confidence_ok
+            and ambiguity_low
+            and evidence_refs_present
+            and family in {"rhythm", "harmony", "semantic"}
+        ):
             recommended_label_status = "upgrade_candidate"
-            upgrade_reason = "Rhythm label aligns with routed state and strong reliability evidence."
+            if family == "rhythm":
+                upgrade_reason = "Rhythm-aligned route (e.g. dense_region family evidence) supports upgrade."
+            elif family == "harmony":
+                upgrade_reason = "Harmony-aligned route (e.g. repeated_chord_vamp evidence) supports upgrade."
+            else:
+                upgrade_reason = "Route, reliability, confidence, ambiguity, and evidence references support upgrade."
+        elif family == "rhythm" and ambiguity >= 0.45:
+            recommended_label_status = "keep_weak"
+            downgrade_reason = "Rhythm-family match remains ambiguous; retain weak/review status."
+            required_additional_evidence.append("disambiguated_rhythm_family")
         elif ambiguity >= 0.55:
             recommended_label_status = "needs_human_review"
             downgrade_reason = "High ambiguity score."
             required_additional_evidence.append("manual_label_review")
-        elif confidence < 0.35 or rel_score < 0.4:
+        elif not route_supports_family:
+            recommended_label_status = "downgrade_candidate"
+            downgrade_reason = "Route suitability does not support label family."
+            required_additional_evidence.append("route_compatible_label_family")
+        elif not evidence_refs_present:
+            recommended_label_status = "downgrade_candidate"
+            downgrade_reason = "Missing evidence_refs for upgrade eligibility."
+            required_additional_evidence.append("evidence_refs")
+        elif confidence < 0.4 or rel_score < 0.45:
             recommended_label_status = "downgrade_candidate"
             downgrade_reason = "Low confidence or transcription reliability."
             required_additional_evidence.append("higher_reliability_window")
@@ -124,7 +187,7 @@ def evaluate_label_upgrade_candidates(performance_manifest_path: Path) -> Path:
                 "upgrade_reason": upgrade_reason,
                 "downgrade_reason": downgrade_reason,
                 "required_additional_evidence": sorted(set(required_additional_evidence)),
-                "evidence_refs": record.get("evidence_refs", []),
+                "evidence_refs": evidence_refs if isinstance(evidence_refs, list) else [],
                 "versioning_note": "Scaffold recommendation only; do not overwrite original labels.",
                 "do_not_overwrite_original": True,
             }

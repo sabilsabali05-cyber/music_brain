@@ -54,6 +54,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     routing_asset_payload = _read_json_if_exists(routing_dir / "asset_classification.json")
     routing_regions_payload = _read_json_if_exists(routing_dir / "content_region_routes.json")
     routing_decisions_payload = _read_json_if_exists(routing_dir / "analysis_routing_decisions.json")
+    routing_diagnostics_payload = _read_json_if_exists(routing_dir / "routing_diagnostics.json")
     upgrade_candidates_payload = _read_json_if_exists(trust_output_dir / "label_upgrade_candidates.json")
 
     quality_status = str(quality_payload.get("overall_quality_status", "review_required"))
@@ -102,16 +103,44 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     )
     upgrade_candidates = upgrade_candidates_payload.get("candidates", []) if isinstance(upgrade_candidates_payload.get("candidates"), list) else []
     upgrade_summary = upgrade_candidates_payload.get("summary", {}) if isinstance(upgrade_candidates_payload.get("summary"), dict) else {}
+    content_state_counts_by_granularity = routing_diagnostics_payload.get("content_state_counts_by_granularity", {})
+    likely_false_suppressions = routing_diagnostics_payload.get("potential_false_suppressions", [])
+    harmonic_evidence_suppressed = routing_diagnostics_payload.get("harmonic_evidence_not_classified_harmonic", [])
+
+    upgrade_by_family: dict[str, int] = {}
+    downgrade_or_suppress_by_family: dict[str, int] = {}
+    for candidate in upgrade_candidates:
+        if not isinstance(candidate, dict):
+            continue
+        family = str(candidate.get("label_family", "unknown"))
+        status = str(candidate.get("recommended_label_status", ""))
+        if status == "upgrade_candidate":
+            upgrade_by_family[family] = upgrade_by_family.get(family, 0) + 1
+        elif status in {"downgrade_candidate", "suppress_candidate"}:
+            downgrade_or_suppress_by_family[family] = downgrade_or_suppress_by_family.get(family, 0) + 1
+
+    calibration_status = "monitor"
+    if len(likely_false_suppressions) == 0 and len(harmonic_evidence_suppressed) <= 3:
+        calibration_status = "healthy"
+    elif len(likely_false_suppressions) >= 20 or len(harmonic_evidence_suppressed) >= 50:
+        calibration_status = "needs_recalibration"
+
     routing_readiness = {
         "asset_type": routing_asset_payload.get("asset_type", "unknown"),
         "asset_confidence": routing_asset_payload.get("confidence", 0.0),
         "content_state_counts": region_counts,
+        "content_state_counts_by_granularity": content_state_counts_by_granularity,
         "labels_suppressed_by_routing": suppressed_labels,
+        "likely_false_suppressions": len(likely_false_suppressions) if isinstance(likely_false_suppressions, list) else 0,
+        "harmonic_evidence_regions_suppressed": len(harmonic_evidence_suppressed) if isinstance(harmonic_evidence_suppressed, list) else 0,
         "upgrade_candidates": int(upgrade_summary.get("upgrade_candidate", 0) or 0),
+        "upgrade_candidates_by_label_family": upgrade_by_family,
         "downgrade_or_suppress_candidates": int(upgrade_summary.get("downgrade_candidate", 0) or 0)
         + int(upgrade_summary.get("suppress_candidate", 0) or 0),
+        "downgrade_or_suppress_candidates_by_label_family": downgrade_or_suppress_by_family,
         "needs_human_review_candidates": int(upgrade_summary.get("needs_human_review", 0) or 0),
         "routing_improves_training_safety": bool(region_counts) or bool(upgrade_candidates),
+        "recommended_routing_calibration_status": calibration_status,
     }
     field_level_usability = {
         "observation_only_exports_expected": True,
@@ -254,11 +283,17 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "## Routing and Label Upgrade Readiness",
             f"- asset_type: `{routing_readiness['asset_type']}`",
             f"- content_state_counts: `{json.dumps(routing_readiness['content_state_counts'], ensure_ascii=True)}`",
+            f"- content_state_counts_by_granularity: `{json.dumps(routing_readiness['content_state_counts_by_granularity'], ensure_ascii=True)}`",
             f"- labels_suppressed_by_routing: `{routing_readiness['labels_suppressed_by_routing']}`",
+            f"- likely_false_suppressions: `{routing_readiness['likely_false_suppressions']}`",
+            f"- harmonic_evidence_regions_suppressed: `{routing_readiness['harmonic_evidence_regions_suppressed']}`",
             f"- upgrade_candidates: `{routing_readiness['upgrade_candidates']}`",
+            f"- upgrade_candidates_by_label_family: `{json.dumps(routing_readiness['upgrade_candidates_by_label_family'], ensure_ascii=True)}`",
             f"- downgrade_or_suppress_candidates: `{routing_readiness['downgrade_or_suppress_candidates']}`",
+            f"- downgrade_or_suppress_candidates_by_label_family: `{json.dumps(routing_readiness['downgrade_or_suppress_candidates_by_label_family'], ensure_ascii=True)}`",
             f"- needs_human_review_candidates: `{routing_readiness['needs_human_review_candidates']}`",
             f"- routing_improves_training_safety: `{routing_readiness['routing_improves_training_safety']}`",
+            f"- recommended_routing_calibration_status: `{routing_readiness['recommended_routing_calibration_status']}`",
         ]
     )
     audit_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

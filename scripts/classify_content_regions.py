@@ -21,7 +21,80 @@ def _safe_float(value: object, fallback: float = 0.0) -> float:
         return fallback
 
 
-def _state_from_evidence(evidence: dict[str, Any]) -> tuple[str, float]:
+def _clamp01(value: float) -> float:
+    return max(0.0, min(1.0, float(value)))
+
+
+def _score_bundle(evidence: dict[str, Any]) -> dict[str, float]:
+    note_on = _safe_float(evidence.get("note_on_count"), 0.0)
+    density = _safe_float(evidence.get("note_on_density_per_second"), 0.0)
+    poly = _safe_float(evidence.get("polyphonic_density"), 0.0)
+    silence = _safe_float(evidence.get("silence_ratio"), _safe_float(evidence.get("silence_ratio_proxy"), 0.0))
+    chord_conf = _safe_float(evidence.get("chord_confidence"), 0.0)
+    pitch_classes = _safe_float(evidence.get("active_pitch_classes_count"), 0.0)
+    harmonic_activity = _safe_float(evidence.get("harmonic_activity"), 0.0)
+    motif_evidence = 1.0 if evidence.get("motif_evidence") else 0.0
+    rhythm_tag_score = _safe_float(evidence.get("rhythm_tag_score"), 0.0)
+    transition_score = _safe_float(evidence.get("transition_score"), 0.0)
+    source_confidence = _safe_float(evidence.get("source_confidence"), 0.0)
+    duration = _safe_float(evidence.get("duration_seconds"), 0.0)
+    missing_feature_penalty = 1.0 if bool(evidence.get("missing_feature_fields")) else 0.0
+    chord_candidates_present = 1.0 if _safe_float(evidence.get("chord_candidates_present"), 0.0) > 0.0 else 0.0
+    pitch_movement = _clamp01(_safe_float(evidence.get("pitch_movement"), 0.0))
+
+    density_norm = _clamp01(density / 3.0)
+    note_norm = _clamp01(note_on / 32.0)
+    poly_norm = _clamp01(poly)
+    pitch_norm = _clamp01(pitch_classes / 7.0)
+    harmonic_activity_norm = _clamp01(harmonic_activity / 3.0)
+    moderate_density = _clamp01(1.0 - abs(density - 1.4) / 1.4)
+    low_confidence = _clamp01(1.0 - source_confidence)
+    tiny_duration = 1.0 if 0.0 < duration <= 1.0 else 0.0
+
+    rhythm_score = _clamp01(
+        (0.34 * density_norm)
+        + (0.22 * note_norm)
+        + (0.18 * motif_evidence)
+        + (0.16 * rhythm_tag_score)
+        + (0.10 * _clamp01(1.0 - silence))
+    )
+    harmony_score = _clamp01(
+        (0.26 * pitch_norm)
+        + (0.29 * _clamp01(chord_conf))
+        + (0.2 * harmonic_activity_norm)
+        + (0.15 * poly_norm)
+        + (0.1 * chord_candidates_present)
+    )
+    melody_score = _clamp01(
+        (0.3 * pitch_norm)
+        + (0.25 * moderate_density)
+        + (0.25 * _clamp01(1.0 - poly_norm))
+        + (0.2 * pitch_movement)
+    )
+    low_information_score = _clamp01(
+        (0.33 * _clamp01(silence))
+        + (0.24 * _clamp01(1.0 - note_norm))
+        + (0.18 * missing_feature_penalty)
+        + (0.15 * low_confidence)
+        + (0.1 * tiny_duration)
+    )
+    polyphonic_full_mix_score = _clamp01(
+        (0.34 * rhythm_score)
+        + (0.34 * harmony_score)
+        + (0.2 * poly_norm)
+        + (0.12 * note_norm)
+    )
+    return {
+        "rhythm_score": rhythm_score,
+        "harmony_score": harmony_score,
+        "melody_score": melody_score,
+        "low_information_score": low_information_score,
+        "polyphonic_full_mix_score": polyphonic_full_mix_score,
+        "transition_score": _clamp01(transition_score),
+    }
+
+
+def classify_evidence_state(evidence: dict[str, Any]) -> dict[str, Any]:
     note_on = _safe_float(evidence.get("note_on_count"), 0.0)
     density = _safe_float(evidence.get("note_on_density_per_second"), 0.0)
     poly = _safe_float(evidence.get("polyphonic_density"), 0.0)
@@ -31,31 +104,90 @@ def _state_from_evidence(evidence: dict[str, Any]) -> tuple[str, float]:
     vocal_score = _safe_float(evidence.get("vocal_score"), 0.0)
     rap_score = _safe_float(evidence.get("rap_score"), 0.0)
     speech_score = _safe_float(evidence.get("speech_score"), 0.0)
-    transition_score = _safe_float(evidence.get("transition_score"), 0.0)
+    scores = _score_bundle(evidence)
+    rhythm_score = scores["rhythm_score"]
+    harmony_score = scores["harmony_score"]
+    melody_score = scores["melody_score"]
+    low_info = scores["low_information_score"]
+    poly_mix = scores["polyphonic_full_mix_score"]
+    transition_score = scores["transition_score"]
 
-    if silence >= 0.92 or note_on <= 1:
-        return "silence_or_noise", 0.82
-    if speech_score >= 0.7 and chord_conf < 0.35:
-        return "speech_like", 0.78
-    if rap_score >= 0.55:
-        return "rap_vocal_dominant", 0.74
-    if vocal_score >= 0.6:
-        return "vocal_dominant", 0.72
-    if transition_score >= 0.6:
-        return "transition_build", 0.68
-    if density >= 3.2 and chord_conf < 0.35 and pitch_classes < 4:
-        return "percussive_only", 0.76
-    if density >= 1.8 and chord_conf < 0.45:
-        return "rhythm_dominant", 0.7
-    if chord_conf >= 0.6 and pitch_classes >= 4 and poly >= 0.12:
-        return "harmonic_dominant", 0.76
-    if chord_conf >= 0.55 and poly >= 0.2 and density >= 1.2:
-        return "polyphonic_full_mix", 0.72
-    if silence >= 0.75 and density < 0.7 and chord_conf < 0.35:
-        return "ambient_low_information", 0.74
-    if pitch_classes >= 5 and density >= 0.8 and chord_conf >= 0.5:
-        return "melodic_lead", 0.64
-    return "unknown", 0.42
+    state = "unknown"
+    confidence = 0.45
+    if low_info >= 0.83 and note_on <= 1 and harmony_score < 0.3 and rhythm_score < 0.42:
+        state = "silence_or_noise"
+        confidence = 0.86
+    elif speech_score >= 0.72 and harmony_score < 0.35:
+        state = "speech_like"
+        confidence = 0.8
+    elif rap_score >= 0.58 and rhythm_score >= 0.45:
+        state = "rap_vocal_dominant"
+        confidence = 0.78
+    elif vocal_score >= 0.62 and rhythm_score >= 0.35:
+        state = "vocal_dominant"
+        confidence = 0.74
+    elif poly_mix >= 0.68:
+        state = "polyphonic_full_mix"
+        confidence = min(0.9, 0.65 + (poly_mix - 0.68))
+    elif harmony_score >= 0.62 and (harmony_score - rhythm_score) >= 0.08:
+        state = "harmonic_dominant"
+        confidence = min(0.88, 0.62 + (harmony_score - 0.62))
+    elif rhythm_score >= 0.62 and harmony_score < 0.52:
+        if pitch_classes <= 3 and chord_conf < 0.45 and poly < 0.18:
+            state = "percussive_only"
+            confidence = min(0.86, 0.66 + (rhythm_score - 0.62))
+        else:
+            state = "rhythm_dominant"
+            confidence = min(0.84, 0.62 + (rhythm_score - 0.62))
+    elif melody_score >= 0.58 and harmony_score >= 0.42:
+        state = "melodic_lead"
+        confidence = min(0.8, 0.58 + (melody_score - 0.58))
+    elif low_info >= 0.5 and note_on <= 10 and silence >= 0.4 and harmony_score < 0.65:
+        state = "ambient_low_information"
+        confidence = min(0.82, 0.58 + (low_info - 0.5))
+    elif transition_score >= 0.64:
+        state = "transition_build"
+        confidence = 0.7
+
+    ranking = sorted(
+        [
+            ("silence_or_noise", low_info),
+            ("polyphonic_full_mix", poly_mix),
+            ("harmonic_dominant", harmony_score),
+            ("rhythm_dominant", rhythm_score),
+            ("melodic_lead", melody_score),
+            ("ambient_low_information", low_info * 0.92),
+            ("percussive_only", rhythm_score * (1.0 - min(1.0, harmony_score + 0.1))),
+            ("speech_like", speech_score),
+            ("vocal_dominant", vocal_score),
+            ("rap_vocal_dominant", rap_score),
+            ("transition_build", transition_score),
+            ("unknown", 0.3),
+        ],
+        key=lambda item: item[1],
+        reverse=True,
+    )
+    top_score = ranking[0][1] if ranking else 0.0
+    second_score = ranking[1][1] if len(ranking) > 1 else 0.0
+    decision_margin = _clamp01(top_score - second_score)
+    alternates = [
+        {"content_state": name, "score": round(score, 6)}
+        for name, score in ranking
+        if name != state
+    ][:3]
+    return {
+        "content_state": state,
+        "confidence": round(float(_clamp01(confidence)), 6),
+        "scores": {
+            "rhythm_score": round(rhythm_score, 6),
+            "harmony_score": round(harmony_score, 6),
+            "melody_score": round(melody_score, 6),
+            "low_information_score": round(low_info, 6),
+            "polyphonic_full_mix_score": round(poly_mix, 6),
+        },
+        "decision_margin": round(decision_margin, 6),
+        "alternate_content_states": alternates,
+    }
 
 
 def _tag_scores_for_range(tags: list[dict[str, Any]], start_seconds: float, end_seconds: float) -> dict[str, float]:
@@ -71,11 +203,13 @@ def _tag_scores_for_range(tags: list[dict[str, Any]], start_seconds: float, end_
             continue
         window_tags.append(str(item.get("tag", "")).lower())
     joined = " ".join(window_tags)
+    rhythm_tag = 1.0 if any(key in joined for key in ["rhythm", "drum", "percuss", "motif", "groove"]) else 0.0
     return {
         "vocal_score": 1.0 if any(key in joined for key in ["vocal", "voice", "singer"]) else 0.0,
         "rap_score": 1.0 if "rap" in joined or "flow" in joined else 0.0,
         "speech_score": 1.0 if "speech" in joined or "spoken" in joined else 0.0,
         "transition_score": 1.0 if "transition" in joined or "build" in joined else 0.0,
+        "rhythm_tag_score": rhythm_tag,
     }
 
 
@@ -134,8 +268,16 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
         evidence: dict[str, Any],
         suffix: str,
     ) -> None:
-        state, confidence = _state_from_evidence(evidence)
-        decision = make_route_decision(content_state=state, confidence=confidence, evidence=evidence, limitations=[])
+        classification = classify_evidence_state(evidence)
+        state = str(classification["content_state"])
+        confidence = float(classification["confidence"])
+        enriched_evidence = {
+            **evidence,
+            **classification["scores"],
+            "decision_margin": classification["decision_margin"],
+            "alternate_content_states": classification["alternate_content_states"],
+        }
+        decision = make_route_decision(content_state=state, confidence=confidence, evidence=enriched_evidence, limitations=[])
         routes.append(
             {
                 "route_id": f"{ctx['performance_id']}:{granularity}:{suffix}",
@@ -143,6 +285,8 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
                 "source_record_id": source_record_id,
                 "start_seconds": round(start_seconds, 6),
                 "end_seconds": round(end_seconds, 6),
+                "decision_margin": classification["decision_margin"],
+                "alternate_content_states": classification["alternate_content_states"],
                 **decision,
             }
         )
@@ -162,6 +306,11 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
                 "silence_ratio": _safe_float(segment.get("silence_ratio"), 0.0),
                 "chord_confidence": _safe_float(segment.get("boundary_confidence"), 0.0),
                 "active_pitch_classes_count": _safe_float(segment.get("active_pitch_classes_count"), 0.0),
+                "duration_seconds": max(0.0, end_seconds - start_seconds),
+                "source_confidence": _safe_float(segment.get("boundary_confidence"), 0.0),
+                "missing_feature_fields": False,
+                "pitch_movement": _safe_float(segment.get("pitch_movement"), 0.0),
+                "chord_candidates_present": 1.0 if _safe_float(segment.get("active_pitch_classes_count"), 0.0) >= 3 else 0.0,
                 **tag_scores,
             }
             add_route(
@@ -193,6 +342,11 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
                 "silence_ratio_proxy": _safe_float(window.get("silence_ratio_proxy"), 0.0),
                 "chord_confidence": _safe_float(window.get("chord_confidence"), 0.0),
                 "active_pitch_classes_count": _safe_float(window.get("active_pitch_classes_count"), 0.0),
+                "duration_seconds": max(0.0, end_seconds - start_seconds),
+                "source_confidence": _safe_float(window.get("confidence"), 0.0),
+                "missing_feature_fields": False,
+                "pitch_movement": _safe_float(window.get("pitch_movement"), 0.0),
+                "chord_candidates_present": 1.0 if _safe_float(window.get("active_pitch_classes_count"), 0.0) >= 3 else 0.0,
                 **tag_scores,
             }
             add_route(
@@ -233,6 +387,11 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
                 "active_pitch_classes_count": len([v for v in pitch_hist if _safe_float(v, 0.0) > 0.0]) if isinstance(pitch_hist, list) else 0,
                 "harmonic_activity": _safe_float(harmony_features.get("chord_change_count"), 0.0),
                 "motif_evidence": bool(region.get("motif_id") or region.get("motif_group_id")),
+                "duration_seconds": max(0.0, end_seconds - start_seconds),
+                "source_confidence": _safe_float(region.get("confidence"), 0.0),
+                "missing_feature_fields": not bool(features),
+                "pitch_movement": _safe_float(features.get("pitch_movement"), 0.0),
+                "chord_candidates_present": 1.0 if _safe_float(harmony_features.get("chord_change_count"), 0.0) > 0 else 0.0,
                 **tag_scores,
             }
             add_route(
@@ -271,6 +430,11 @@ def classify_content_regions(performance_manifest_path: Path) -> Path:
                 "chord_confidence": _safe_float(region.get("confidence"), 0.0),
                 "active_pitch_classes_count": len([v for v in pitch_hist if _safe_float(v, 0.0) > 0.0]) if isinstance(pitch_hist, list) else 0,
                 "harmonic_activity": _safe_float(features.get("chord_change_count"), 0.0),
+                "duration_seconds": max(0.0, end_seconds - start_seconds),
+                "source_confidence": _safe_float(region.get("confidence"), 0.0),
+                "missing_feature_fields": not bool(features),
+                "pitch_movement": _safe_float(features.get("stepwise_root_motion_score"), 0.0),
+                "chord_candidates_present": 1.0 if _safe_float(features.get("chord_change_count"), 0.0) > 0 else 0.0,
                 **tag_scores,
             }
             add_route(

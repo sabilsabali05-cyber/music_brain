@@ -6,7 +6,8 @@ from pathlib import Path
 from scripts.apply_analysis_routing import apply_analysis_routing
 from scripts.audit_training_dataset_record import audit_training_dataset_record
 from scripts.classify_audio_asset import classify_audio_asset
-from scripts.classify_content_regions import classify_content_regions
+from scripts.classify_content_regions import classify_content_regions, classify_evidence_state
+from scripts.diagnose_content_routing import diagnose_content_routing
 from scripts.evaluate_label_upgrade_candidates import evaluate_label_upgrade_candidates
 from scripts.export_training_dataset_splits import export_training_dataset_splits
 from scripts.feature_dataset_common import default_feature_dir
@@ -118,7 +119,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
                     "end_seconds": 16.0,
                     "confidence": 0.88,
                     "features": {
-                        "note_on_count": 30,
+                        "note_on_count": 12,
                         "chord_change_count": 3,
                         "repeated_root": 0.25,
                         "pitch_class_histogram": [5, 0, 2, 0, 6, 1, 0, 4, 0, 1, 0, 3],
@@ -173,7 +174,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
                 "source_artifact_paths": {"performance_manifest_path": manifest_path.resolve().as_posix()},
                 "feature_version": "ai_training_v1",
                 "limitations": [],
-                "evidence_refs": [],
+                "evidence_refs": ["harmony:region_perc"],
                 "confidence_reason": "test",
                 "verification_status": "unverified",
                 "review_required": True,
@@ -192,7 +193,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
                 "source_artifact_paths": {"performance_manifest_path": manifest_path.resolve().as_posix()},
                 "feature_version": "ai_training_v1",
                 "limitations": [],
-                "evidence_refs": [],
+                "evidence_refs": ["rhythm:region_rhythm"],
                 "confidence_reason": "test",
                 "verification_status": "unverified",
                 "review_required": True,
@@ -278,3 +279,118 @@ def test_export_and_audit_include_routing_upgrade_refs(tmp_path: Path, monkeypat
     assert "routing_and_label_upgrade_readiness" in audit_payload
     md_text = audit_md.read_text(encoding="utf-8")
     assert "Routing and Label Upgrade Readiness" in md_text
+
+
+def test_calibration_fixture_classifications() -> None:
+    drum_intro = classify_evidence_state(
+        {
+            "note_on_count": 64,
+            "note_on_density_per_second": 4.8,
+            "polyphonic_density": 0.05,
+            "silence_ratio": 0.06,
+            "chord_confidence": 0.15,
+            "active_pitch_classes_count": 2,
+            "motif_evidence": True,
+            "rhythm_tag_score": 1.0,
+        }
+    )
+    assert drum_intro["content_state"] == "percussive_only"
+
+    guitar_chords = classify_evidence_state(
+        {
+            "note_on_count": 26,
+            "note_on_density_per_second": 1.8,
+            "polyphonic_density": 0.34,
+            "silence_ratio": 0.2,
+            "chord_confidence": 0.83,
+            "active_pitch_classes_count": 6,
+            "harmonic_activity": 2.5,
+            "chord_candidates_present": 1.0,
+        }
+    )
+    assert guitar_chords["content_state"] == "harmonic_dominant"
+
+    full_choir = classify_evidence_state(
+        {
+            "note_on_count": 72,
+            "note_on_density_per_second": 3.7,
+            "polyphonic_density": 0.62,
+            "silence_ratio": 0.08,
+            "chord_confidence": 0.78,
+            "active_pitch_classes_count": 7,
+            "harmonic_activity": 2.8,
+            "motif_evidence": True,
+            "rhythm_tag_score": 0.8,
+        }
+    )
+    assert full_choir["content_state"] == "polyphonic_full_mix"
+
+    ambient_pad = classify_evidence_state(
+        {
+            "note_on_count": 6,
+            "note_on_density_per_second": 0.22,
+            "polyphonic_density": 0.16,
+            "silence_ratio": 0.58,
+            "chord_confidence": 0.56,
+            "active_pitch_classes_count": 5,
+            "harmonic_activity": 0.9,
+        }
+    )
+    assert ambient_pad["content_state"] == "ambient_low_information"
+    assert ambient_pad["content_state"] != "silence_or_noise"
+
+    actual_silence = classify_evidence_state(
+        {
+            "note_on_count": 0,
+            "note_on_density_per_second": 0.0,
+            "polyphonic_density": 0.0,
+            "silence_ratio": 0.99,
+            "chord_confidence": 0.0,
+            "active_pitch_classes_count": 0,
+            "missing_feature_fields": True,
+        }
+    )
+    assert actual_silence["content_state"] == "silence_or_noise"
+
+    rap_proxy = classify_evidence_state(
+        {
+            "note_on_count": 20,
+            "note_on_density_per_second": 1.9,
+            "polyphonic_density": 0.08,
+            "silence_ratio": 0.22,
+            "chord_confidence": 0.22,
+            "active_pitch_classes_count": 2,
+            "rap_score": 0.95,
+            "vocal_score": 0.8,
+            "rhythm_tag_score": 0.7,
+        }
+    )
+    assert rap_proxy["content_state"] in {"rap_vocal_dominant", "vocal_dominant"}
+
+
+def test_harmonic_evidence_prevents_percussive_and_silence() -> None:
+    harmonic = classify_evidence_state(
+        {
+            "note_on_count": 14,
+            "note_on_density_per_second": 0.95,
+            "polyphonic_density": 0.28,
+            "silence_ratio": 0.35,
+            "chord_confidence": 0.74,
+            "active_pitch_classes_count": 6,
+            "harmonic_activity": 1.8,
+            "chord_candidates_present": 1.0,
+        }
+    )
+    assert harmonic["content_state"] not in {"percussive_only", "silence_or_noise"}
+
+
+def test_diagnostics_output_contains_false_suppression_sections(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    manifest_path, feature_dir = _setup_workspace(tmp_path)
+    _run_routing_pipeline(manifest_path)
+    diagnostics_json, diagnostics_md = diagnose_content_routing(manifest_path)
+    payload = json.loads(diagnostics_json.read_text(encoding="utf-8"))
+    assert "content_state_counts_by_granularity" in payload
+    assert "labels_suppressed_by_state" in payload
+    assert diagnostics_md.exists()
+    assert (feature_dir / "routing" / "routing_diagnostics.json").exists()

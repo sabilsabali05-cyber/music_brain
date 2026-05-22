@@ -1,0 +1,2312 @@
+{
+  "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+  "segment_run_id": "20260521T213524641640_audio_structure_v1",
+  "created_at": "2026-05-22T16:22:22.096341+00:00",
+  "content_state_counts_by_granularity": {
+    "segment": {
+      "unknown": 54
+    },
+    "window": {
+      "unknown": 54
+    },
+    "rhythm_region": {
+      "ambient_low_information": 90,
+      "unknown": 386,
+      "percussive_only": 1,
+      "rhythm_dominant": 355
+    },
+    "chord_region": {
+      "unknown": 600,
+      "melodic_lead": 113,
+      "harmonic_dominant": 119
+    }
+  },
+  "average_metrics_by_content_state": {
+    "unknown": {
+      "avg_note_density": 0.96298,
+      "avg_pitch_class_activity": 2.041133,
+      "avg_chord_confidence": 0.259016,
+      "avg_polyphonic_density": 0.251431
+    },
+    "ambient_low_information": {
+      "avg_note_density": 0.0,
+      "avg_pitch_class_activity": 0.0,
+      "avg_chord_confidence": 0.0,
+      "avg_polyphonic_density": 0.0
+    },
+    "percussive_only": {
+      "avg_note_density": 4.0,
+      "avg_pitch_class_activity": 0.0,
+      "avg_chord_confidence": 0.0,
+      "avg_polyphonic_density": 0.0
+    },
+    "rhythm_dominant": {
+      "avg_note_density": 15.619718,
+      "avg_pitch_class_activity": 0.0,
+      "avg_chord_confidence": 0.0,
+      "avg_polyphonic_density": 0.730247
+    },
+    "melodic_lead": {
+      "avg_note_density": 0.0,
+      "avg_pitch_class_activity": 5.840708,
+      "avg_chord_confidence": 0.498112,
+      "avg_polyphonic_density": 0.0
+    },
+    "harmonic_dominant": {
+      "avg_note_density": 0.0,
+      "avg_pitch_class_activity": 7.789916,
+      "avg_chord_confidence": 0.818711,
+      "avg_polyphonic_density": 0.226891
+    }
+  },
+  "silence_or_noise_examples_top_10": [],
+  "percussive_only_examples_top_10": [
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:rhythm_region:rhythm_region_0055",
+      "granularity": "rhythm_region",
+      "start_seconds": 220.0,
+      "end_seconds": 224.0,
+      "confidence": 0.75,
+      "note_on_density_per_second": 4.0,
+      "active_pitch_classes_count": 0,
+      "chord_confidence": 0.0,
+      "polyphonic_density": 0.0,
+      "decision_margin": 0.071
+    }
+  ],
+  "harmonic_evidence_not_classified_harmonic": [
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0702",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.618067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 10.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0763",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.617657,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.786667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0817",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.616133,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 10.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0086",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6142,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0206",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6142,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0383",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6142,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0605",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.613,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.7,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0696",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.612267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0510",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.611067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.693333,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0488",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.610333,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0171",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6084,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0556",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.607581,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0798",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.607581,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0226",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.606467,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.62,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0741",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.606057,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.746667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0797",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.605267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.673333,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0221",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.605267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.673333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0761",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6026,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.606667,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0751",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6026,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.606667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0566",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.6014,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0289",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.600667,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.6,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0170",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.600257,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0749",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.599467,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0757",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.599057,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.78,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0491",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.598733,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.593333,
+      "active_pitch_classes_count": 10.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0292",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.598733,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.593333,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0490",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.598733,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.593333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0392",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.597124,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0791",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.597124,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0709",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5968,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.586667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0157",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5968,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.586667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0205",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5968,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.586667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0232",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5968,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.586667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0443",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.59639,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0493",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.59639,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0691",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5956,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0481",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.593667,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 10.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0117",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.592524,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.7,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0120",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.591733,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0415",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.591324,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.753333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0531",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.591,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.566667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0371",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.591,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.566667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0325",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.590914,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0451",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.590914,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0529",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.590914,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0200",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.59059,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.693333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0214",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.589067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.56,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0359",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.589067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.56,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0465",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.589067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.56,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0641",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.587133,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.553333,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0516",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.584,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.6,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0364",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.583591,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0606",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.583267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.54,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0642",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.583267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.54,
+      "active_pitch_classes_count": 9.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0418",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.583267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.54,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0461",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.582857,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.666667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0361",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.582067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.593333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0363",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.581657,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0560",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.581248,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.846667,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0175",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.580514,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.786667,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0238",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.57899,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0632",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.57899,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0427",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.577467,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.52,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0129",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5736,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.506667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0601",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5736,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.506667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0326",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.57319,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0083",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.571257,
+      "rhythm_score": 0.26,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0163",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.569733,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.493333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0673",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5678,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.486667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0713",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5678,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.486667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0744",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.56739,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.613333,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0105",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.565867,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.48,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0534",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.563933,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.473333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0368",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.562,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.466667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0518",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.562,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.466667,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0112",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.561181,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0450",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.560067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.46,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0279",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.560067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.46,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0624",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.560067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.46,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0160",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.559981,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0476",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.559981,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0554",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.559657,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.586667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0407",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.558867,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.513333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0219",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.557724,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.58,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0517",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5562,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.446667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0710",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5562,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.446667,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0233",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.554591,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0737",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.554181,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.753333,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0148",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.553067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.493333,
+      "active_pitch_classes_count": 12.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0203",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.553067,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.493333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0431",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.552333,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.433333,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0111",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.552333,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.433333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0654",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.552333,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.433333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0355",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.551924,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.56,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0794",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.5492,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.48,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0743",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.548381,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.733333,
+      "active_pitch_classes_count": 5.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0286",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.547267,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.473333,
+      "active_pitch_classes_count": 8.0,
+      "polyphonic_density": 1.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0725",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.546533,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.413333,
+      "active_pitch_classes_count": 7.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0217",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.546124,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.54,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0417",
+      "granularity": "chord_region",
+      "content_state": "unknown",
+      "harmony_score": 0.546124,
+      "rhythm_score": 0.1,
+      "chord_confidence": 0.54,
+      "active_pitch_classes_count": 6.0,
+      "polyphonic_density": 0.0
+    }
+  ],
+  "labels_suppressed_by_state": {
+    "unknown": {
+      "hard_chord_label": 1094
+    },
+    "ambient_low_information": {
+      "hard_chord_label": 90,
+      "hard_tempo_label": 90,
+      "strict_groove_label": 90
+    },
+    "percussive_only": {
+      "hard_chord_label": 1,
+      "key_signature_label": 1,
+      "root_motion_label": 1
+    },
+    "rhythm_dominant": {
+      "hard_chord_label": 355
+    },
+    "melodic_lead": {
+      "hard_chord_label": 113
+    }
+  },
+  "potential_false_suppressions": [
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0003",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.23142,
+      "chord_confidence": 0.798,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0297
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0005",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.2494,
+      "chord_confidence": 0.86,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.039
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0006",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.23693,
+      "chord_confidence": 0.817,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03255
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0009",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22852,
+      "chord_confidence": 0.788,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0282
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0010",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.25085,
+      "chord_confidence": 0.865,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03975
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0011",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.23519,
+      "chord_confidence": 0.811,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03165
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0012",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.25201,
+      "chord_confidence": 0.869,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.04035
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0014",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22562,
+      "chord_confidence": 0.778,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0267
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0016",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.26796,
+      "chord_confidence": 0.924,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03204
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0017",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.24911,
+      "chord_confidence": 0.859,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03885
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0019",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22881,
+      "chord_confidence": 0.789,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.02835
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0027",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.24186,
+      "chord_confidence": 0.834,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0351
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0040",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.26216,
+      "chord_confidence": 0.904,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03784
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0041",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.21402,
+      "chord_confidence": 0.738,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0207
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0042",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.25172,
+      "chord_confidence": 0.868,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0402
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0043",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.25694,
+      "chord_confidence": 0.886,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0429
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0044",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22446,
+      "chord_confidence": 0.774,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.0261
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0045",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22127,
+      "chord_confidence": 0.763,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.02445
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0050",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.22475,
+      "chord_confidence": 0.775,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.02625
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:segment:segment_0052",
+      "content_state": "unknown",
+      "granularity": "segment",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.23867,
+      "chord_confidence": 0.823,
+      "active_pitch_classes_count": 0.0,
+      "decision_margin": 0.03345
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0060",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.332238,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.089191
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0083",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.571257,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.064114
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0086",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6142,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 9,
+      "decision_margin": 0.0642
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0096",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.586724,
+      "chord_confidence": 0.68,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.120419
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0112",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.561181,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.096895
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0114",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.534114,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.130171
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0116",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.607581,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.056705
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0117",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.592524,
+      "chord_confidence": 0.7,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.085381
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0119",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.408457,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.098686
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0120",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.591733,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.156544
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0127",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.551514,
+      "chord_confidence": 0.686667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.112771
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0128",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.379048,
+      "chord_confidence": 0.666667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.085238
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0132",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.556905,
+      "chord_confidence": 0.833333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.064524
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0134",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.575124,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.132019
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0135",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.544514,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.125379
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0145",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.607581,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.056705
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0160",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.559981,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.135587
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0164",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6142,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.1358
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0167",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.522105,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.100676
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0170",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.600257,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.093114
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0171",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6084,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.0584
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0175",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.580514,
+      "chord_confidence": 0.786667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.116229
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0185",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.334171,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.087257
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0188",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.471429,
+      "chord_confidence": 0.666667,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.092857
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0191",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.577057,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.130086
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0200",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.59059,
+      "chord_confidence": 0.693333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.083448
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0201",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.543781,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.079495
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0206",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6142,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.0642
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0221",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.605267,
+      "chord_confidence": 0.673333,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.165476
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0222",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.380981,
+      "chord_confidence": 0.673333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.083305
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0226",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.606467,
+      "chord_confidence": 0.62,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.056467
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0233",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.554591,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.13203
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0235",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.497705,
+      "chord_confidence": 0.686667,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.094485
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0238",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.57899,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.071848
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0248",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.542581,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.124103
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0278",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.392581,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.071705
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0284",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.474095,
+      "chord_confidence": 0.733333,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.078903
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0325",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.590914,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.156003
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0326",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.57319,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.066048
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0327",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.538714,
+      "chord_confidence": 0.7,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.121551
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0328",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.580924,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.126219
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0330",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.539505,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.118076
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0334",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.503505,
+      "chord_confidence": 0.706667,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.098313
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0346",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.456695,
+      "chord_confidence": 0.673333,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.067419
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0353",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.482238,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.084277
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0363",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.581657,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.149894
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0364",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.583591,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.15117
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0380",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.498905,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.077476
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0383",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6142,
+      "chord_confidence": 0.646667,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.0642
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0392",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.597124,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.160102
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0401",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.59639,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.110752
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0404",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.534114,
+      "chord_confidence": 0.626667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.130171
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0413",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.486895,
+      "chord_confidence": 0.72,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.108324
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0414",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.536048,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.128238
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0415",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.591324,
+      "chord_confidence": 0.753333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.156274
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0433",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.610333,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.139667
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0437",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.618067,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.131933
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0441",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.542581,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.124103
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0442",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.365514,
+      "chord_confidence": 0.62,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.098771
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0443",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.59639,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.089248
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0451",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.590914,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.156003
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0454",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.499638,
+      "chord_confidence": 0.693333,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.095761
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0461",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.582857,
+      "chord_confidence": 0.666667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.075714
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0471",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.476029,
+      "chord_confidence": 0.74,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.080179
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0473",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.570438,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 4,
+      "decision_margin": 0.05099
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0476",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.559981,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.135587
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0478",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.537981,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.073695
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0481",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.593667,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 10,
+      "decision_margin": 0.15782
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0488",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.610333,
+      "chord_confidence": 0.633333,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.060333
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0489",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.612267,
+      "chord_confidence": 0.64,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.137733
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0493",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.59639,
+      "chord_confidence": 0.713333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.089248
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0510",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.611067,
+      "chord_confidence": 0.693333,
+      "active_pitch_classes_count": 8,
+      "decision_margin": 0.169304
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0529",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.590914,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.156003
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0533",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.61379,
+      "chord_confidence": 0.773333,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.093352
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0546",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.450895,
+      "chord_confidence": 0.653333,
+      "active_pitch_classes_count": 3,
+      "decision_margin": 0.063591
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0556",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.607581,
+      "chord_confidence": 0.88,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.143295
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0559",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.563114,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.101171
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0560",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.581248,
+      "chord_confidence": 0.846667,
+      "active_pitch_classes_count": 5,
+      "decision_margin": 0.149623
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0563",
+      "content_state": "melodic_lead",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.600257,
+      "chord_confidence": 0.726667,
+      "active_pitch_classes_count": 6,
+      "decision_margin": 0.106886
+    },
+    {
+      "route_id": "20260521T213418203003_Sunday_Service_Choir_122621:chord_region:chord_region_0566",
+      "content_state": "unknown",
+      "granularity": "chord_region",
+      "suppressed_labels": [
+        "hard_chord_label"
+      ],
+      "harmony_score": 0.6014,
+      "chord_confidence": 0.66,
+      "active_pitch_classes_count": 7,
+      "decision_margin": 0.162924
+    }
+  ],
+  "inputs_seen": {
+    "route_count": 1772,
+    "routing_decision_count": 1772,
+    "rhythm_record_count": 941,
+    "harmony_record_count": 941,
+    "tag_count": 2653,
+    "ai_record_count": 1773,
+    "reliability_windows": 54,
+    "upgrade_candidate_count": 1773
+  }
+}
