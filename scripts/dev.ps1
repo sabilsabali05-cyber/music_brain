@@ -75,6 +75,10 @@ function Show-Usage {
     Write-Host "  build-ai-training-records <performance-manifest>"
     Write-Host "  extract-feature-pack <performance-manifest>"
     Write-Host "  validate-feature-pack <performance-manifest>"
+    Write-Host "  check-external-analyzers"
+    Write-Host "  run-external-analyzers <performance-manifest> [providers]"
+    Write-Host "  compare-external-features <performance-manifest>"
+    Write-Host "  build-feature-consensus <performance-manifest>"
     Write-Host "  evaluate-rhythm-lexicon"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
@@ -767,6 +771,31 @@ switch ($Task) {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-feature-pack <performance-manifest>"
         Invoke-Step -Label "Validating feature pack outputs" -Command @(
             "python", "scripts/validate_feature_pack.py", $manifestPath
+        )
+    }
+    "check-external-analyzers" {
+        Invoke-Step -Label "Checking external analyzer availability" -Command @(
+            "python", "scripts/check_external_analyzers.py"
+        )
+    }
+    "run-external-analyzers" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-external-analyzers <performance-manifest> [providers]"
+        $providers = Get-TaskArg -Index 1
+        $providerValue = if (-not [string]::IsNullOrWhiteSpace($providers)) { $providers } else { "essentia,musicnn" }
+        Invoke-Step -Label "Running optional external analyzers" -Command @(
+            "python", "scripts/run_external_analyzers.py", $manifestPath, "--providers", $providerValue
+        )
+    }
+    "compare-external-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-external-features <performance-manifest>"
+        Invoke-Step -Label "Comparing internal and external features" -Command @(
+            "python", "scripts/compare_external_features.py", $manifestPath
+        )
+    }
+    "build-feature-consensus" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-feature-consensus <performance-manifest>"
+        Invoke-Step -Label "Building feature consensus summary" -Command @(
+            "python", "scripts/build_feature_consensus.py", $manifestPath
         )
     }
     "evaluate-rhythm-lexicon" {

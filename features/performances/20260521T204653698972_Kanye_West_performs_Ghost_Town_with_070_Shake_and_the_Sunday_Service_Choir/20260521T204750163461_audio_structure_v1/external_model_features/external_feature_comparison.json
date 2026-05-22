@@ -1,0 +1,32 @@
+{
+  "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+  "segment_run_id": "20260521T204750163461_audio_structure_v1",
+  "internal_summary": {
+    "top_tags": [
+      "dense_activity",
+      "dense_region",
+      "repeated_chord_vamp_candidate",
+      "repeated_rhythm_motif",
+      "dense_burst_pattern",
+      "sparse_activity",
+      "steady_grid_candidate",
+      "irregular_groove_candidate",
+      "sparse_call_response_candidate",
+      "ambiguous_harmony"
+    ],
+    "tempo_bpm": 0.0,
+    "key": null
+  },
+  "external_summary": {
+    "essentia_status": "unavailable",
+    "musicnn_status": "unavailable",
+    "tempo_bpm": null,
+    "key": null,
+    "top_tags": []
+  },
+  "agreements": [],
+  "disagreements": [],
+  "warnings": [
+    "External providers are witness signals and do not override YourMT3-led analysis."
+  ]
+}

@@ -50,6 +50,23 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     rhythm_payload = load_json(rhythm_path)
     harmony_payload = load_json(harmony_path)
     tags_payload = load_json(tags_path)
+    external_dir = target_dir / "external_model_features"
+    essentia_path = external_dir / "essentia_features.json"
+    musicnn_path = external_dir / "musicnn_features.json"
+    consensus_path = external_dir / "feature_consensus.json"
+    external_payloads: dict[str, dict[str, object]] = {}
+    for key, path in [
+        ("essentia", essentia_path),
+        ("musicnn", musicnn_path),
+        ("consensus", consensus_path),
+    ]:
+        if not path.exists():
+            continue
+        try:
+            loaded = load_json(path)
+        except Exception:  # noqa: BLE001
+            continue
+        external_payloads[key] = loaded
     rhythm_records = rhythm_payload.get("records", [])
     harmony_records = harmony_payload.get("records", [])
     tag_records = tags_payload.get("tags", [])
@@ -89,6 +106,67 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
             tags_by_window.setdefault(key, []).append(record)
 
     output_records: list[dict[str, object]] = []
+
+    def _external_tempo_summary() -> dict[str, object]:
+        payload = external_payloads.get("essentia", {})
+        if not isinstance(payload, dict):
+            return {}
+        rhythm = payload.get("rhythm_descriptors", {})
+        if not isinstance(rhythm, dict):
+            return {}
+        for key in ["rhythm.bpm", "rhythm_bpm", "tempo", "bpm"]:
+            if key in rhythm:
+                return {"provider": "essentia", "tempo_bpm": rhythm.get(key)}
+        return {}
+
+    def _external_key_summary() -> dict[str, object]:
+        payload = external_payloads.get("essentia", {})
+        if not isinstance(payload, dict):
+            return {}
+        tonal = payload.get("tonal_descriptors", {})
+        if not isinstance(tonal, dict):
+            return {}
+        for key in ["tonal.key_key", "estimated_key", "key"]:
+            if key in tonal:
+                return {"provider": "essentia", "key": tonal.get(key)}
+        return {}
+
+    def _external_tag_summary() -> dict[str, object]:
+        payload = external_payloads.get("musicnn", {})
+        if not isinstance(payload, dict):
+            return {}
+        top_tags = payload.get("top_tags", [])
+        tag_scores = payload.get("tag_scores", {})
+        compact_scores = {}
+        if isinstance(tag_scores, dict):
+            for name in list(tag_scores.keys())[:8]:
+                compact_scores[str(name)] = tag_scores.get(name)
+        return {
+            "provider": "musicnn",
+            "top_tags": [str(item) for item in top_tags[:8]] if isinstance(top_tags, list) else [],
+            "tag_scores": compact_scores,
+        }
+
+    def _external_conflict_warnings() -> list[str]:
+        payload = external_payloads.get("consensus", {})
+        if not isinstance(payload, dict):
+            return []
+        warnings = payload.get("conflict_warnings", [])
+        if isinstance(warnings, list):
+            return [str(item) for item in warnings[:6]]
+        return []
+
+    external_feature_refs: dict[str, str] = {}
+    if essentia_path.exists():
+        external_feature_refs["essentia_features"] = essentia_path.resolve().as_posix()
+    if musicnn_path.exists():
+        external_feature_refs["musicnn_features"] = musicnn_path.resolve().as_posix()
+    if consensus_path.exists():
+        external_feature_refs["feature_consensus"] = consensus_path.resolve().as_posix()
+    external_tag_summary = _external_tag_summary()
+    external_tempo_summary = _external_tempo_summary()
+    external_key_summary = _external_key_summary()
+    external_conflict_warnings = _external_conflict_warnings()
 
     def _top_tags_for(
         *,
@@ -221,6 +299,12 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 "harmony_features_path": harmony_path.resolve().as_posix(),
                 "tags_path": tags_path.resolve().as_posix(),
             }
+            if external_feature_refs:
+                record["external_feature_refs"] = external_feature_refs
+                record["external_tag_summary"] = external_tag_summary
+                record["external_tempo_summary"] = external_tempo_summary
+                record["external_key_summary"] = external_key_summary
+                record["external_conflict_warnings"] = external_conflict_warnings
             if granularity == "rhythm_region":
                 record["motif_refs"] = [
                     str(item.get("motif_id"))
@@ -357,6 +441,12 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 "harmony_features_path": harmony_path.resolve().as_posix(),
                 "tags_path": tags_path.resolve().as_posix(),
             }
+            if external_feature_refs:
+                record["external_feature_refs"] = external_feature_refs
+                record["external_tag_summary"] = external_tag_summary
+                record["external_tempo_summary"] = external_tempo_summary
+                record["external_key_summary"] = external_key_summary
+                record["external_conflict_warnings"] = external_conflict_warnings
             record["chord_movement_refs"] = [
                 str(item.get("region_id"))
                 for item in active_motion_regions

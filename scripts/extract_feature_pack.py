@@ -11,6 +11,9 @@ if str(ROOT_DIR) not in sys.path:
 
 try:
     from scripts.build_ai_training_records import build_ai_training_records
+    from scripts.compare_external_features import build_external_comparison
+    from scripts.build_feature_consensus import build_consensus
+    from scripts.external_analyzer_common import parse_provider_list, run_and_write_external_analyzers
     from scripts.extract_harmony_features import extract_harmony_features
     from scripts.extract_rhythm_features import extract_rhythm_features
     from scripts.feature_dataset_common import (
@@ -24,6 +27,9 @@ try:
     from scripts.tag_performance_features import tag_performance_features
 except ModuleNotFoundError:  # pragma: no cover
     from build_ai_training_records import build_ai_training_records  # type: ignore
+    from compare_external_features import build_external_comparison  # type: ignore
+    from build_feature_consensus import build_consensus  # type: ignore
+    from external_analyzer_common import parse_provider_list, run_and_write_external_analyzers  # type: ignore
     from extract_harmony_features import extract_harmony_features  # type: ignore
     from extract_rhythm_features import extract_rhythm_features  # type: ignore
     from feature_dataset_common import (  # type: ignore
@@ -37,7 +43,13 @@ except ModuleNotFoundError:  # pragma: no cover
     from tag_performance_features import tag_performance_features  # type: ignore
 
 
-def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | None = None) -> Path:
+def extract_feature_pack(
+    performance_manifest_path: Path,
+    *,
+    output_dir: Path | None = None,
+    include_external_analyzers: bool = False,
+    external_providers: list[str] | None = None,
+) -> Path:
     performance_manifest = load_json(performance_manifest_path)
     segments_manifest_path, analysis_path, merged_midi_path = get_active_paths(performance_manifest)
     performance_id, _, segment_run_id = performance_metadata(performance_manifest, segments_manifest_path)
@@ -48,6 +60,18 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
     harmony_path = extract_harmony_features(performance_manifest_path, output_dir=target_dir)
     tags_path = tag_performance_features(performance_manifest_path, output_dir=target_dir)
     ai_records_path = build_ai_training_records(performance_manifest_path, output_dir=target_dir)
+    external_run_summary: dict[str, object] = {}
+    external_comparison: dict[str, object] = {}
+    external_consensus: dict[str, object] = {}
+    if include_external_analyzers:
+        external_run_summary = run_and_write_external_analyzers(
+            performance_manifest_path,
+            selected_providers=external_providers,
+        )
+        external_comparison = build_external_comparison(performance_manifest_path)
+        external_consensus = build_consensus(performance_manifest_path)
+        # Rebuild AI records so compact external summaries/refs are attached.
+        ai_records_path = build_ai_training_records(performance_manifest_path, output_dir=target_dir)
 
     rhythm_payload = load_json(rhythm_path)
     harmony_payload = load_json(harmony_path)
@@ -501,6 +525,24 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
             "- Calibrate threshold heuristics with human review labels.",
         ]
     )
+    if include_external_analyzers:
+        summary_lines.extend(["", "## External Model Signals"])
+        results = external_run_summary.get("results", {}) if isinstance(external_run_summary, dict) else {}
+        if isinstance(results, dict) and results:
+            for provider_name, info in results.items():
+                status = info.get("status") if isinstance(info, dict) else "unknown"
+                summary_lines.append(f"- `{provider_name}` status=`{status}`")
+        else:
+            summary_lines.append("- none")
+        agreements = external_comparison.get("agreements", []) if isinstance(external_comparison, dict) else []
+        disagreements = external_comparison.get("disagreements", []) if isinstance(external_comparison, dict) else []
+        if isinstance(agreements, list) and agreements:
+            summary_lines.append("- agreements: " + "; ".join(str(item) for item in agreements[:4]))
+        if isinstance(disagreements, list) and disagreements:
+            summary_lines.append("- disagreements: " + "; ".join(str(item) for item in disagreements[:4]))
+        consensus_warnings = external_consensus.get("conflict_warnings", []) if isinstance(external_consensus, dict) else []
+        if isinstance(consensus_warnings, list) and consensus_warnings:
+            summary_lines.append("- consensus_conflict_warnings: " + "; ".join(str(item) for item in consensus_warnings[:4]))
     feature_summary_path = target_dir / "feature_summary.md"
     feature_summary_path.write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
 
@@ -516,6 +558,23 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         "ai_training_records_path": ai_records_path.as_posix(),
         "feature_summary_path": feature_summary_path.as_posix(),
     }
+    if include_external_analyzers and isinstance(external_run_summary, dict):
+        refs = {}
+        results = external_run_summary.get("results", {})
+        if isinstance(results, dict):
+            for provider_name, info in results.items():
+                if not isinstance(info, dict):
+                    continue
+                path = info.get("path")
+                if path:
+                    refs[f"{provider_name}_features"] = path
+        comparison_path = target_dir / "external_model_features" / "external_feature_comparison.json"
+        consensus_path = target_dir / "external_model_features" / "feature_consensus.json"
+        if comparison_path.exists():
+            refs["external_feature_comparison"] = comparison_path.resolve().as_posix()
+        if consensus_path.exists():
+            refs["feature_consensus"] = consensus_path.resolve().as_posix()
+        manifest["external_feature_refs"] = refs
     manifest_path = target_dir / "feature_pack_manifest.json"
     save_json(manifest_path, manifest)
     return target_dir.resolve()
@@ -525,9 +584,24 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Extract full rhythm+harmony feature pack for one performance.")
     parser.add_argument("performance_manifest", help="Path to performance_manifest.json")
     parser.add_argument("--output-dir", default=None, help="Optional output folder for feature files")
+    parser.add_argument(
+        "--include-external-analyzers",
+        action="store_true",
+        help="Run optional external analyzers and write witness signals.",
+    )
+    parser.add_argument(
+        "--external-providers",
+        default="essentia,musicnn",
+        help="Comma-separated provider list for external analyzers.",
+    )
     args = parser.parse_args()
     output_dir = Path(args.output_dir) if args.output_dir else None
-    pack_dir = extract_feature_pack(Path(args.performance_manifest), output_dir=output_dir)
+    pack_dir = extract_feature_pack(
+        Path(args.performance_manifest),
+        output_dir=output_dir,
+        include_external_analyzers=bool(args.include_external_analyzers),
+        external_providers=parse_provider_list(args.external_providers),
+    )
     print(f"FEATURE_PACK_DIR={pack_dir.as_posix()}")
     print(f"FEATURE_PACK_MANIFEST_PATH={(pack_dir / 'feature_pack_manifest.json').as_posix()}")
     return 0

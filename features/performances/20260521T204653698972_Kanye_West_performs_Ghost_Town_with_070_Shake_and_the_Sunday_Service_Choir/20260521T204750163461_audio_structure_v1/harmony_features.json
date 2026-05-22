@@ -16,7 +16,7 @@
   "extractor_name": "harmony_feature_extractor_v1",
   "confidence": 0.588992,
   "limitations": [],
-  "created_at": "2026-05-22T01:13:22.971493+00:00",
+  "created_at": "2026-05-22T01:22:30.809107+00:00",
   "summary": {
     "record_count": 215,
     "source_mode": "merged",
@@ -48,7 +48,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.904623+00:00",
+      "created_at": "2026-05-22T01:22:30.725770+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -6763,7 +6763,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.905092+00:00",
+      "created_at": "2026-05-22T01:22:30.726483+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -7304,7 +7304,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.905852+00:00",
+      "created_at": "2026-05-22T01:22:30.727461+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -8062,7 +8062,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.907127+00:00",
+      "created_at": "2026-05-22T01:22:30.728631+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -8835,7 +8835,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.907677+00:00",
+      "created_at": "2026-05-22T01:22:30.729220+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -9478,7 +9478,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.908123+00:00",
+      "created_at": "2026-05-22T01:22:30.729681+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -10000,7 +10000,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.908591+00:00",
+      "created_at": "2026-05-22T01:22:30.730193+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -10492,7 +10492,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.909454+00:00",
+      "created_at": "2026-05-22T01:22:30.731160+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -11169,7 +11169,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.910233+00:00",
+      "created_at": "2026-05-22T01:22:30.732007+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -12095,7 +12095,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.910832+00:00",
+      "created_at": "2026-05-22T01:22:30.732653+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -12765,7 +12765,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.911487+00:00",
+      "created_at": "2026-05-22T01:22:30.733382+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -13475,7 +13475,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.912033+00:00",
+      "created_at": "2026-05-22T01:22:30.733963+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -14184,7 +14184,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.912544+00:00",
+      "created_at": "2026-05-22T01:22:30.734827+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -14845,7 +14845,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.912903+00:00",
+      "created_at": "2026-05-22T01:22:30.735570+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -15336,7 +15336,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.913296+00:00",
+      "created_at": "2026-05-22T01:22:30.736035+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -15876,7 +15876,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.914150+00:00",
+      "created_at": "2026-05-22T01:22:30.736970+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -16633,7 +16633,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.916267+00:00",
+      "created_at": "2026-05-22T01:22:30.740291+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -17405,7 +17405,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.917312+00:00",
+      "created_at": "2026-05-22T01:22:30.741145+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -18047,7 +18047,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.917818+00:00",
+      "created_at": "2026-05-22T01:22:30.741863+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -18568,7 +18568,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.918341+00:00",
+      "created_at": "2026-05-22T01:22:30.742405+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -19059,7 +19059,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.919314+00:00",
+      "created_at": "2026-05-22T01:22:30.743329+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -19735,7 +19735,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.920093+00:00",
+      "created_at": "2026-05-22T01:22:30.744293+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -20660,7 +20660,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.920747+00:00",
+      "created_at": "2026-05-22T01:22:30.744968+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -21329,7 +21329,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.921397+00:00",
+      "created_at": "2026-05-22T01:22:30.746083+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -22038,7 +22038,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.921911+00:00",
+      "created_at": "2026-05-22T01:22:30.746706+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -22746,7 +22746,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.922606+00:00",
+      "created_at": "2026-05-22T01:22:30.747278+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -23406,7 +23406,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.923024+00:00",
+      "created_at": "2026-05-22T01:22:30.747704+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -23898,7 +23898,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.923310+00:00",
+      "created_at": "2026-05-22T01:22:30.747998+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -24100,7 +24100,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.923554+00:00",
+      "created_at": "2026-05-22T01:22:30.748238+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -24272,7 +24272,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.923837+00:00",
+      "created_at": "2026-05-22T01:22:30.748499+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -24474,7 +24474,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.924070+00:00",
+      "created_at": "2026-05-22T01:22:30.748738+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -24674,7 +24674,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.486667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.924303+00:00",
+      "created_at": "2026-05-22T01:22:30.748986+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -24881,7 +24881,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.626667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.924547+00:00",
+      "created_at": "2026-05-22T01:22:30.749240+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -25088,7 +25088,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.924779+00:00",
+      "created_at": "2026-05-22T01:22:30.749666+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -25295,7 +25295,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.566667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.925021+00:00",
+      "created_at": "2026-05-22T01:22:30.749960+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -25502,7 +25502,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.925255+00:00",
+      "created_at": "2026-05-22T01:22:30.750225+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -25705,7 +25705,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.366667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.925489+00:00",
+      "created_at": "2026-05-22T01:22:30.750475+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -25906,7 +25906,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.426667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.925721+00:00",
+      "created_at": "2026-05-22T01:22:30.750706+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -26110,7 +26110,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.386667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.925967+00:00",
+      "created_at": "2026-05-22T01:22:30.750934+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -26312,7 +26312,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.926200+00:00",
+      "created_at": "2026-05-22T01:22:30.751169+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -26517,7 +26517,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.926431+00:00",
+      "created_at": "2026-05-22T01:22:30.751400+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -26721,7 +26721,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.926661+00:00",
+      "created_at": "2026-05-22T01:22:30.751799+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -26924,7 +26924,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.926892+00:00",
+      "created_at": "2026-05-22T01:22:30.752142+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -27131,7 +27131,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.626667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.927127+00:00",
+      "created_at": "2026-05-22T01:22:30.752452+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -27336,7 +27336,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.927362+00:00",
+      "created_at": "2026-05-22T01:22:30.752717+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -27539,7 +27539,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.486667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.927625+00:00",
+      "created_at": "2026-05-22T01:22:30.752970+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -27742,7 +27742,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.927862+00:00",
+      "created_at": "2026-05-22T01:22:30.753210+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -27945,7 +27945,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.46,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.928095+00:00",
+      "created_at": "2026-05-22T01:22:30.753450+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -28149,7 +28149,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.453333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.928325+00:00",
+      "created_at": "2026-05-22T01:22:30.753806+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -28354,7 +28354,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.48,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.928553+00:00",
+      "created_at": "2026-05-22T01:22:30.756154+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -28559,7 +28559,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.58,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.928783+00:00",
+      "created_at": "2026-05-22T01:22:30.756461+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -28766,7 +28766,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.929033+00:00",
+      "created_at": "2026-05-22T01:22:30.756757+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -28978,7 +28978,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.68,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.929272+00:00",
+      "created_at": "2026-05-22T01:22:30.757031+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -29186,7 +29186,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.546667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.929504+00:00",
+      "created_at": "2026-05-22T01:22:30.757999+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -29387,7 +29387,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.76,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.929745+00:00",
+      "created_at": "2026-05-22T01:22:30.758304+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -29592,7 +29592,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.813333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.930002+00:00",
+      "created_at": "2026-05-22T01:22:30.758580+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -29798,7 +29798,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.930249+00:00",
+      "created_at": "2026-05-22T01:22:30.759256+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -30006,7 +30006,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.930504+00:00",
+      "created_at": "2026-05-22T01:22:30.759625+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -30217,7 +30217,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.930775+00:00",
+      "created_at": "2026-05-22T01:22:30.761582+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -30429,7 +30429,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.646667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.931008+00:00",
+      "created_at": "2026-05-22T01:22:30.761949+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -30635,7 +30635,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.426667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.931236+00:00",
+      "created_at": "2026-05-22T01:22:30.762200+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -30839,7 +30839,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.931486+00:00",
+      "created_at": "2026-05-22T01:22:30.762468+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -31048,7 +31048,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.7,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.932324+00:00",
+      "created_at": "2026-05-22T01:22:30.762719+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -31251,7 +31251,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.706667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.932924+00:00",
+      "created_at": "2026-05-22T01:22:30.762965+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -31459,7 +31459,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.513333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.933427+00:00",
+      "created_at": "2026-05-22T01:22:30.763230+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -31663,7 +31663,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.933717+00:00",
+      "created_at": "2026-05-22T01:22:30.763479+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -31866,7 +31866,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.934112+00:00",
+      "created_at": "2026-05-22T01:22:30.764471+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -32075,7 +32075,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.934401+00:00",
+      "created_at": "2026-05-22T01:22:30.764768+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -32281,7 +32281,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.934668+00:00",
+      "created_at": "2026-05-22T01:22:30.767151+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -32485,7 +32485,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.726667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.934913+00:00",
+      "created_at": "2026-05-22T01:22:30.767430+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -32692,7 +32692,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.935138+00:00",
+      "created_at": "2026-05-22T01:22:30.767899+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -32896,7 +32896,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.935397+00:00",
+      "created_at": "2026-05-22T01:22:30.768189+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -33099,7 +33099,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.935623+00:00",
+      "created_at": "2026-05-22T01:22:30.768428+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -33302,7 +33302,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.935856+00:00",
+      "created_at": "2026-05-22T01:22:30.768970+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -33502,7 +33502,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.936239+00:00",
+      "created_at": "2026-05-22T01:22:30.769400+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -33705,7 +33705,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.936506+00:00",
+      "created_at": "2026-05-22T01:22:30.769917+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -33876,7 +33876,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.936746+00:00",
+      "created_at": "2026-05-22T01:22:30.770249+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -34079,7 +34079,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.936987+00:00",
+      "created_at": "2026-05-22T01:22:30.770519+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -34285,7 +34285,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.473333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.937217+00:00",
+      "created_at": "2026-05-22T01:22:30.770964+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -34488,7 +34488,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.706667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.937485+00:00",
+      "created_at": "2026-05-22T01:22:30.772811+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -34694,7 +34694,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.937703+00:00",
+      "created_at": "2026-05-22T01:22:30.773126+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -34897,7 +34897,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.46,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.937916+00:00",
+      "created_at": "2026-05-22T01:22:30.773602+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -35104,7 +35104,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.64,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.938240+00:00",
+      "created_at": "2026-05-22T01:22:30.774269+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -35313,7 +35313,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.693333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.938502+00:00",
+      "created_at": "2026-05-22T01:22:30.774644+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -35515,7 +35515,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.938724+00:00",
+      "created_at": "2026-05-22T01:22:30.774909+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -35718,7 +35718,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.446667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.938947+00:00",
+      "created_at": "2026-05-22T01:22:30.775150+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -35926,7 +35926,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.939168+00:00",
+      "created_at": "2026-05-22T01:22:30.775385+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -36126,7 +36126,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.939384+00:00",
+      "created_at": "2026-05-22T01:22:30.775660+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -36325,7 +36325,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.939599+00:00",
+      "created_at": "2026-05-22T01:22:30.775900+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -36526,7 +36526,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.939814+00:00",
+      "created_at": "2026-05-22T01:22:30.776133+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -36728,7 +36728,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.493333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.940064+00:00",
+      "created_at": "2026-05-22T01:22:30.776435+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -36933,7 +36933,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.42,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.940281+00:00",
+      "created_at": "2026-05-22T01:22:30.776768+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -37138,7 +37138,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.593333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.940501+00:00",
+      "created_at": "2026-05-22T01:22:30.777055+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -37346,7 +37346,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.940716+00:00",
+      "created_at": "2026-05-22T01:22:30.777305+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -37550,7 +37550,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.940925+00:00",
+      "created_at": "2026-05-22T01:22:30.777543+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -37750,7 +37750,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.48,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.941137+00:00",
+      "created_at": "2026-05-22T01:22:30.777878+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -37952,7 +37952,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.58,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.941375+00:00",
+      "created_at": "2026-05-22T01:22:30.778318+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -38161,7 +38161,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.941591+00:00",
+      "created_at": "2026-05-22T01:22:30.778579+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -38371,7 +38371,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.746667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.941816+00:00",
+      "created_at": "2026-05-22T01:22:30.778814+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -38579,7 +38579,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.593333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.942060+00:00",
+      "created_at": "2026-05-22T01:22:30.779031+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -38786,7 +38786,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.453333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.942270+00:00",
+      "created_at": "2026-05-22T01:22:30.779245+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -38990,7 +38990,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.942481+00:00",
+      "created_at": "2026-05-22T01:22:30.779458+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -39195,7 +39195,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.553333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.942693+00:00",
+      "created_at": "2026-05-22T01:22:30.779701+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -39401,7 +39401,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.46,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.942903+00:00",
+      "created_at": "2026-05-22T01:22:30.779912+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -39605,7 +39605,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.62,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.943117+00:00",
+      "created_at": "2026-05-22T01:22:30.780132+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -39811,7 +39811,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.64,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.943332+00:00",
+      "created_at": "2026-05-22T01:22:30.780348+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -40014,7 +40014,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.766667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.943552+00:00",
+      "created_at": "2026-05-22T01:22:30.780570+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -40221,7 +40221,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.943773+00:00",
+      "created_at": "2026-05-22T01:22:30.780794+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -40430,7 +40430,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.944015+00:00",
+      "created_at": "2026-05-22T01:22:30.781026+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -40639,7 +40639,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.944239+00:00",
+      "created_at": "2026-05-22T01:22:30.781262+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -40851,7 +40851,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.586667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.944453+00:00",
+      "created_at": "2026-05-22T01:22:30.781490+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -41061,7 +41061,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.944660+00:00",
+      "created_at": "2026-05-22T01:22:30.781731+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -41259,7 +41259,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.553333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.944872+00:00",
+      "created_at": "2026-05-22T01:22:30.781955+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -41464,7 +41464,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.945104+00:00",
+      "created_at": "2026-05-22T01:22:30.782201+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -41671,7 +41671,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.866667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.945319+00:00",
+      "created_at": "2026-05-22T01:22:30.782426+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -41880,7 +41880,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.613333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.945530+00:00",
+      "created_at": "2026-05-22T01:22:30.782643+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -42084,7 +42084,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.806667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.945746+00:00",
+      "created_at": "2026-05-22T01:22:30.782862+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -42291,7 +42291,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.946001+00:00",
+      "created_at": "2026-05-22T01:22:30.783112+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -42501,7 +42501,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.946217+00:00",
+      "created_at": "2026-05-22T01:22:30.783333+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -42710,7 +42710,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.946440+00:00",
+      "created_at": "2026-05-22T01:22:30.783564+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -42918,7 +42918,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.78,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.946654+00:00",
+      "created_at": "2026-05-22T01:22:30.783921+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -43123,7 +43123,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.62,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.946863+00:00",
+      "created_at": "2026-05-22T01:22:30.784179+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -43331,7 +43331,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.947064+00:00",
+      "created_at": "2026-05-22T01:22:30.784396+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -43530,7 +43530,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.46,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.947268+00:00",
+      "created_at": "2026-05-22T01:22:30.784607+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -43734,7 +43734,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.947471+00:00",
+      "created_at": "2026-05-22T01:22:30.784815+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -43936,7 +43936,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.76,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.947687+00:00",
+      "created_at": "2026-05-22T01:22:30.785045+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -44150,7 +44150,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.947912+00:00",
+      "created_at": "2026-05-22T01:22:30.785259+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -44352,7 +44352,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.948172+00:00",
+      "created_at": "2026-05-22T01:22:30.785479+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -44556,7 +44556,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.586667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.948957+00:00",
+      "created_at": "2026-05-22T01:22:30.785718+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -44763,7 +44763,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.949894+00:00",
+      "created_at": "2026-05-22T01:22:30.785931+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -44967,7 +44967,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.950214+00:00",
+      "created_at": "2026-05-22T01:22:30.786143+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -45176,7 +45176,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.64,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.950464+00:00",
+      "created_at": "2026-05-22T01:22:30.786353+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -45385,7 +45385,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.950697+00:00",
+      "created_at": "2026-05-22T01:22:30.786554+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -45588,7 +45588,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.950930+00:00",
+      "created_at": "2026-05-22T01:22:30.786760+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -45786,7 +45786,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.951202+00:00",
+      "created_at": "2026-05-22T01:22:30.786967+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -45991,7 +45991,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.446667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.951442+00:00",
+      "created_at": "2026-05-22T01:22:30.787172+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -46197,7 +46197,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.626667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.951687+00:00",
+      "created_at": "2026-05-22T01:22:30.787383+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -46401,7 +46401,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.951922+00:00",
+      "created_at": "2026-05-22T01:22:30.787875+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -46602,7 +46602,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.42,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.952158+00:00",
+      "created_at": "2026-05-22T01:22:30.788689+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -46806,7 +46806,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.7,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.952378+00:00",
+      "created_at": "2026-05-22T01:22:30.789487+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47010,7 +47010,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.366667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.952681+00:00",
+      "created_at": "2026-05-22T01:22:30.789933+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47211,7 +47211,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.952897+00:00",
+      "created_at": "2026-05-22T01:22:30.790192+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47412,7 +47412,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.706667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.953453+00:00",
+      "created_at": "2026-05-22T01:22:30.790436+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47617,7 +47617,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.953727+00:00",
+      "created_at": "2026-05-22T01:22:30.790666+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47822,7 +47822,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.953933+00:00",
+      "created_at": "2026-05-22T01:22:30.790883+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -47997,7 +47997,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.573333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.954146+00:00",
+      "created_at": "2026-05-22T01:22:30.791113+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -48204,7 +48204,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.954344+00:00",
+      "created_at": "2026-05-22T01:22:30.791322+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -48375,7 +48375,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.954551+00:00",
+      "created_at": "2026-05-22T01:22:30.791537+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -48576,7 +48576,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.826667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.954778+00:00",
+      "created_at": "2026-05-22T01:22:30.791781+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -48786,7 +48786,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.406667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.955027+00:00",
+      "created_at": "2026-05-22T01:22:30.791989+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -48992,7 +48992,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.4,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.955235+00:00",
+      "created_at": "2026-05-22T01:22:30.792194+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -49197,7 +49197,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.813333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.955453+00:00",
+      "created_at": "2026-05-22T01:22:30.792408+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -49400,7 +49400,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.573333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.955660+00:00",
+      "created_at": "2026-05-22T01:22:30.792618+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -49613,7 +49613,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.833333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.955871+00:00",
+      "created_at": "2026-05-22T01:22:30.792838+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -49816,7 +49816,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.673333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.956082+00:00",
+      "created_at": "2026-05-22T01:22:30.793050+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -50024,7 +50024,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.956285+00:00",
+      "created_at": "2026-05-22T01:22:30.793284+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -50228,7 +50228,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.956500+00:00",
+      "created_at": "2026-05-22T01:22:30.793492+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -50435,7 +50435,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.426667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.956703+00:00",
+      "created_at": "2026-05-22T01:22:30.793693+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -50636,7 +50636,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.786667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.956941+00:00",
+      "created_at": "2026-05-22T01:22:30.793926+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -50843,7 +50843,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.706667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.957150+00:00",
+      "created_at": "2026-05-22T01:22:30.794136+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -51049,7 +51049,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.453333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.957348+00:00",
+      "created_at": "2026-05-22T01:22:30.794337+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -51257,7 +51257,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.746667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.957558+00:00",
+      "created_at": "2026-05-22T01:22:30.794550+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -51466,7 +51466,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.626667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.957761+00:00",
+      "created_at": "2026-05-22T01:22:30.794757+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -51673,7 +51673,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.957957+00:00",
+      "created_at": "2026-05-22T01:22:30.794956+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -51875,7 +51875,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.386667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.958156+00:00",
+      "created_at": "2026-05-22T01:22:30.795153+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -52077,7 +52077,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.766667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.958367+00:00",
+      "created_at": "2026-05-22T01:22:30.795358+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -52287,7 +52287,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.958587+00:00",
+      "created_at": "2026-05-22T01:22:30.795574+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -52498,7 +52498,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.586667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.958788+00:00",
+      "created_at": "2026-05-22T01:22:30.795801+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -52705,7 +52705,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.959012+00:00",
+      "created_at": "2026-05-22T01:22:30.796010+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -52912,7 +52912,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.513333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.959218+00:00",
+      "created_at": "2026-05-22T01:22:30.796206+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -53117,7 +53117,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.54,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.959421+00:00",
+      "created_at": "2026-05-22T01:22:30.796402+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -53324,7 +53324,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.526667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.959624+00:00",
+      "created_at": "2026-05-22T01:22:30.796600+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -53527,7 +53527,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.6,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.959831+00:00",
+      "created_at": "2026-05-22T01:22:30.796802+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -53741,7 +53741,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.406667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.960033+00:00",
+      "created_at": "2026-05-22T01:22:30.797003+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -53945,7 +53945,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.566667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.960236+00:00",
+      "created_at": "2026-05-22T01:22:30.797202+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -54152,7 +54152,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.48,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.960439+00:00",
+      "created_at": "2026-05-22T01:22:30.797397+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -54355,7 +54355,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.366667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.960637+00:00",
+      "created_at": "2026-05-22T01:22:30.797591+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -54555,7 +54555,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.960839+00:00",
+      "created_at": "2026-05-22T01:22:30.797805+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -54759,7 +54759,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.42,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.961071+00:00",
+      "created_at": "2026-05-22T01:22:30.797998+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -54959,7 +54959,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.4,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.961270+00:00",
+      "created_at": "2026-05-22T01:22:30.798193+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -55162,7 +55162,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.42,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.961473+00:00",
+      "created_at": "2026-05-22T01:22:30.798386+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -55367,7 +55367,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.746667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.961679+00:00",
+      "created_at": "2026-05-22T01:22:30.798589+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -55574,7 +55574,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.54,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.961876+00:00",
+      "created_at": "2026-05-22T01:22:30.798785+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -55783,7 +55783,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.473333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.962073+00:00",
+      "created_at": "2026-05-22T01:22:30.798991+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -55988,7 +55988,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.962271+00:00",
+      "created_at": "2026-05-22T01:22:30.799194+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -56195,7 +56195,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.46,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.962468+00:00",
+      "created_at": "2026-05-22T01:22:30.799398+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -56402,7 +56402,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.88,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.962747+00:00",
+      "created_at": "2026-05-22T01:22:30.799622+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -56612,7 +56612,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.44,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.962967+00:00",
+      "created_at": "2026-05-22T01:22:30.799843+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -56816,7 +56816,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.4,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.963168+00:00",
+      "created_at": "2026-05-22T01:22:30.800046+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -57020,7 +57020,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.963367+00:00",
+      "created_at": "2026-05-22T01:22:30.800246+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -57223,7 +57223,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.393333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.963569+00:00",
+      "created_at": "2026-05-22T01:22:30.800445+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -57428,7 +57428,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.5,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.963767+00:00",
+      "created_at": "2026-05-22T01:22:30.800648+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -57636,7 +57636,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.963969+00:00",
+      "created_at": "2026-05-22T01:22:30.800846+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -57839,7 +57839,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.48,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.964174+00:00",
+      "created_at": "2026-05-22T01:22:30.801045+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -58044,7 +58044,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.964382+00:00",
+      "created_at": "2026-05-22T01:22:30.801244+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -58248,7 +58248,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.533333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.964581+00:00",
+      "created_at": "2026-05-22T01:22:30.801442+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -58454,7 +58454,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.486667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.964775+00:00",
+      "created_at": "2026-05-22T01:22:30.801640+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -58663,7 +58663,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.693333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.965651+00:00",
+      "created_at": "2026-05-22T01:22:30.801855+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -58873,7 +58873,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.38,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.966408+00:00",
+      "created_at": "2026-05-22T01:22:30.802050+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -59075,7 +59075,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.646667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.966728+00:00",
+      "created_at": "2026-05-22T01:22:30.802254+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -59279,7 +59279,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.426667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.966995+00:00",
+      "created_at": "2026-05-22T01:22:30.802451+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -59483,7 +59483,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.473333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.967228+00:00",
+      "created_at": "2026-05-22T01:22:30.802653+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -59690,7 +59690,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.48,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.967467+00:00",
+      "created_at": "2026-05-22T01:22:30.802846+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -59898,7 +59898,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.413333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.967697+00:00",
+      "created_at": "2026-05-22T01:22:30.803038+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -60103,7 +60103,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.76,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.967930+00:00",
+      "created_at": "2026-05-22T01:22:30.803243+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -60307,7 +60307,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.426667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.968134+00:00",
+      "created_at": "2026-05-22T01:22:30.803436+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -60513,7 +60513,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.406667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.968333+00:00",
+      "created_at": "2026-05-22T01:22:30.803634+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -60716,7 +60716,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.78,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.968548+00:00",
+      "created_at": "2026-05-22T01:22:30.803857+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -60928,7 +60928,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.406667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.968763+00:00",
+      "created_at": "2026-05-22T01:22:30.804049+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -61132,7 +61132,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.373333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.969010+00:00",
+      "created_at": "2026-05-22T01:22:30.805393+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -61337,7 +61337,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.433333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.969236+00:00",
+      "created_at": "2026-05-22T01:22:30.805879+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -61543,7 +61543,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.793333,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.969461+00:00",
+      "created_at": "2026-05-22T01:22:30.806172+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -61745,7 +61745,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.54,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.969669+00:00",
+      "created_at": "2026-05-22T01:22:30.806420+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -61950,7 +61950,7 @@
       "extractor_name": "harmony_feature_extractor_v1",
       "confidence": 0.466667,
       "limitations": [],
-      "created_at": "2026-05-22T01:13:22.969872+00:00",
+      "created_at": "2026-05-22T01:22:30.806652+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -62160,7 +62160,7 @@
       "limitations": [
         "limited harmonic evidence; inferred key/mode are low confidence."
       ],
-      "created_at": "2026-05-22T01:13:22.970169+00:00",
+      "created_at": "2026-05-22T01:22:30.806976+00:00",
       "record_type": "harmony_feature_record",
       "features": {
         "pitch_class_histogram": [
@@ -62344,7 +62344,7 @@
       ]
     }
   ],
-  "generated_at": "2026-05-22T01:13:22.971512+00:00",
+  "generated_at": "2026-05-22T01:22:30.809125+00:00",
   "chord_movement_summary": {
     "root_motion_summary": {
       "interval_histogram": {
