@@ -37,6 +37,8 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     rhythm_path = feature_dir / "rhythm_features.json"
     harmony_path = feature_dir / "harmony_features.json"
     tags_path = feature_dir / "tags.json"
+    meter_time_path = feature_dir / "rhythm_time" / "meter_time_features.json"
+    pitch_harmony_path = feature_dir / "pitch_harmony" / "pitch_harmony_features.json"
     ai_path = feature_dir / "ai_training_records.jsonl"
     manifest_path = feature_dir / "feature_pack_manifest.json"
     merge_report_path = ctx["segments_manifest_path"].parent / "merged" / "merge_report.json"
@@ -48,6 +50,8 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     rhythm_payload = _read_json_if_exists(rhythm_path)
     harmony_payload = _read_json_if_exists(harmony_path)
     tags_payload = _read_json_if_exists(tags_path)
+    meter_time_payload = _read_json_if_exists(meter_time_path)
+    pitch_harmony_payload = _read_json_if_exists(pitch_harmony_path)
     ai_records = load_jsonl_records(ai_path)
     reliability_payload = _read_json_if_exists(reliability_path)
     quality_payload = _read_json_if_exists(quality_path)
@@ -167,6 +171,49 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
         "can_train_on_raw_timing_midi_now": True,
         "semantic_rhythm_harmony_labels_status": "weak_or_review_only",
     }
+    pitch_harmony_summary = {
+        "safe_observations": [
+            "pitch range and register distribution",
+            "pitch-class normalized summary",
+            "interval-class histogram summary",
+            "voicing span and note-density/polyphony proxies",
+            "direct-derived voice-count estimate proxies",
+        ],
+        "weak_labels": [
+            "chord/key/mode hypotheses",
+            "cadence/modulation candidates",
+            "sonority family candidates",
+            "counterpoint interpretation labels",
+            "microtonal system hypotheses",
+            "tension-release or experimental harmony labels",
+        ],
+        "external_audio_tuning_limitations": [
+            "symbolic MIDI pitch classes do not directly prove tuning system",
+            "audio-based intonation estimation is required for non-12TET certainty",
+        ],
+        "microtonal_limitations": [
+            "lack of pitch-bend/non-12TET evidence should remain inconclusive",
+            "absence of evidence is not evidence of strict 12TET",
+        ],
+        "experimental_harmony_limitations": [
+            "nonfunctional/cluster-color labels remain candidate-level",
+            "avoid using interpretive harmony labels as hard ground truth",
+        ],
+        "training_usefulness": "safe_stats_high_utility_weak_labels_review_required",
+        "microtonal_analysis_available": pitch_harmony_payload.get("microtonal_analysis_available"),
+        "microtonal_evidence_type": pitch_harmony_payload.get("microtonal_evidence_type"),
+        "microtonal_confidence": pitch_harmony_payload.get("microtonal_confidence"),
+    }
+    meter_summary = meter_time_payload.get("summary", {}) if isinstance(meter_time_payload.get("summary"), dict) else {}
+    meter_hypotheses = meter_time_payload.get("beat_meter_hypotheses", []) if isinstance(meter_time_payload.get("beat_meter_hypotheses"), list) else []
+    top_meter = meter_hypotheses[0] if meter_hypotheses and isinstance(meter_hypotheses[0], dict) else {}
+    meter_confidence = float(meter_time_payload.get("confidence", 0.0) or 0.0)
+    meter_ambiguity = float(meter_time_payload.get("ambiguity", 1.0) or 1.0)
+    meter_usefulness = "weak_or_review_only"
+    if meter_confidence >= 0.65 and meter_ambiguity <= 0.45:
+        meter_usefulness = "safe_for_observation_fields"
+    meter_safe_fields = ["local_tempo_bpm", "grid_confidence", "subdivision_type", "pulse_stability", "meter_time_refs"]
+    meter_weak_fields = ["microtiming_summary", "macro_section_candidate", "meter_hypothesis_candidates", "meter_time_ambiguity"]
 
     audit_json = {
         "performance_id": ctx["performance_id"],
@@ -183,6 +230,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
                 "rhythm_features": rhythm_path.resolve().as_posix() if rhythm_path.exists() else None,
                 "harmony_features": harmony_path.resolve().as_posix() if harmony_path.exists() else None,
                 "tags": tags_path.resolve().as_posix() if tags_path.exists() else None,
+                "meter_time_features": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
                 "feature_pack_manifest": manifest_path.resolve().as_posix() if manifest_path.exists() else None,
             },
             "ai_jsonl_path": ai_path.resolve().as_posix() if ai_path.exists() else None,
@@ -211,6 +259,17 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "reliability_summary": reliability_summary,
         },
         "field_level_training_usability": field_level_usability,
+        "meter_time_intelligence": {
+            "confidence": meter_confidence,
+            "ambiguity": meter_ambiguity,
+            "top_meter_hypothesis": top_meter,
+            "subdivision_histogram": meter_summary.get("subdivision_histogram", {}),
+            "macro_section_candidates": meter_summary.get("macro_section_candidates", []),
+            "usefulness": meter_usefulness,
+            "safe_observation_fields": meter_safe_fields,
+            "weak_or_review_fields": meter_weak_fields,
+        },
+        "pitch_harmony_tuning_intelligence": pitch_harmony_summary,
         "routing_and_label_upgrade_readiness": routing_readiness,
         "dataset_inclusion_decision": inclusion_decision,
         "recommended_dataset_split": recommended_split,
@@ -273,12 +332,33 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             f"- train on raw timing/MIDI now: `{field_level_usability['can_train_on_raw_timing_midi_now']}`",
             f"- semantic/rhythm/harmony labels status: `{field_level_usability['semantic_rhythm_harmony_labels_status']}`",
             "",
+            "## Meter and Time Intelligence",
+            f"- confidence: `{meter_confidence}`",
+            f"- ambiguity: `{meter_ambiguity}`",
+            f"- top meter hypothesis: `{json.dumps(top_meter, ensure_ascii=True)}`",
+            f"- subdivision histogram: `{json.dumps(meter_summary.get('subdivision_histogram', {}), ensure_ascii=True)}`",
+            f"- macro section candidates: `{json.dumps(meter_summary.get('macro_section_candidates', []), ensure_ascii=True)}`",
+            f"- usefulness: `{meter_usefulness}`",
+            f"- safe observation fields: `{json.dumps(meter_safe_fields, ensure_ascii=True)}`",
+            f"- weak/review fields: `{json.dumps(meter_weak_fields, ensure_ascii=True)}`",
+            "",
             "## 8. Recommended next steps",
         ]
     )
     lines.extend(f"- {item}" for item in audit_json["recommended_next_steps"])
     lines.extend(
         [
+            "",
+            "## Pitch, Harmony, and Tuning Intelligence",
+            f"- safe observations: `{json.dumps(pitch_harmony_summary['safe_observations'], ensure_ascii=True)}`",
+            f"- weak labels: `{json.dumps(pitch_harmony_summary['weak_labels'], ensure_ascii=True)}`",
+            f"- external audio/tuning limitations: `{json.dumps(pitch_harmony_summary['external_audio_tuning_limitations'], ensure_ascii=True)}`",
+            f"- microtonal limitations: `{json.dumps(pitch_harmony_summary['microtonal_limitations'], ensure_ascii=True)}`",
+            f"- experimental harmony limitations: `{json.dumps(pitch_harmony_summary['experimental_harmony_limitations'], ensure_ascii=True)}`",
+            f"- training usefulness: `{pitch_harmony_summary['training_usefulness']}`",
+            f"- microtonal analysis available: `{pitch_harmony_summary['microtonal_analysis_available']}`",
+            f"- microtonal evidence type: `{pitch_harmony_summary['microtonal_evidence_type']}`",
+            f"- microtonal confidence: `{pitch_harmony_summary['microtonal_confidence']}`",
             "",
             "## Routing and Label Upgrade Readiness",
             f"- asset_type: `{routing_readiness['asset_type']}`",

@@ -55,6 +55,17 @@
 - Use accepted/audio_midi_only splits for baseline training first.
 - Review quarantined/review records before inclusion.
 
+## Pitch, Harmony, and Tuning Intelligence
+- safe observations: `["pitch range and register distribution", "pitch-class normalized summary", "interval-class histogram summary", "voicing span and note-density/polyphony proxies", "direct-derived voice-count estimate proxies"]`
+- weak labels: `["chord/key/mode hypotheses", "cadence/modulation candidates", "sonority family candidates", "counterpoint interpretation labels", "microtonal system hypotheses", "tension-release or experimental harmony labels"]`
+- external audio/tuning limitations: `["symbolic MIDI pitch classes do not directly prove tuning system", "audio-based intonation estimation is required for non-12TET certainty"]`
+- microtonal limitations: `["lack of pitch-bend/non-12TET evidence should remain inconclusive", "absence of evidence is not evidence of strict 12TET"]`
+- experimental harmony limitations: `["nonfunctional/cluster-color labels remain candidate-level", "avoid using interpretive harmony labels as hard ground truth"]`
+- training usefulness: `safe_stats_high_utility_weak_labels_review_required`
+- microtonal analysis available: `False`
+- microtonal evidence type: `external_analyzer_required`
+- microtonal confidence: `0.15`
+
 ## Routing and Label Upgrade Readiness
 - asset_type: `performance_recording`
 - content_state_counts: `{"unknown": 231, "rhythm_dominant": 101, "percussive_only": 1, "melodic_lead": 28, "harmonic_dominant": 41}`

@@ -39,6 +39,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     target_dir = output_dir or default_feature_dir(performance_id, segment_run_id)
     rhythm_path = target_dir / "rhythm_features.json"
     harmony_path = target_dir / "harmony_features.json"
+    pitch_harmony_path = target_dir / "pitch_harmony" / "pitch_harmony_features.json"
+    meter_time_path = target_dir / "rhythm_time" / "meter_time_features.json"
     tags_path = target_dir / "tags.json"
     if not rhythm_path.exists():
         raise FileNotFoundError(f"Missing rhythm features: {rhythm_path}")
@@ -49,6 +51,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
 
     rhythm_payload = load_json(rhythm_path)
     harmony_payload = load_json(harmony_path)
+    pitch_harmony_payload = load_json(pitch_harmony_path) if pitch_harmony_path.exists() else {}
+    meter_time_payload = load_json(meter_time_path) if meter_time_path.exists() else {}
     tags_payload = load_json(tags_path)
     external_dir = target_dir / "external_model_features"
     essentia_path = external_dir / "essentia_features.json"
@@ -90,6 +94,42 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     harmony_pattern_index = harmony_payload.get("harmony_pattern_index", {})
     if not isinstance(harmony_pattern_index, dict):
         harmony_pattern_index = {}
+    macro_record = pitch_harmony_payload.get("macro_record", {}) if isinstance(pitch_harmony_payload, dict) else {}
+    if not isinstance(macro_record, dict):
+        macro_record = {}
+    pitch_obs = pitch_harmony_payload.get("pitch_observations", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(pitch_obs, list):
+        pitch_obs = []
+    interval_analysis = pitch_harmony_payload.get("interval_analysis", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(interval_analysis, list):
+        interval_analysis = []
+    sonority_records = pitch_harmony_payload.get("harmony_sonority", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(sonority_records, list):
+        sonority_records = []
+    movement_records = pitch_harmony_payload.get("chord_movement", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(movement_records, list):
+        movement_records = []
+    contour_records = pitch_harmony_payload.get("melody_contour", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(contour_records, list):
+        contour_records = []
+    counterpoint_records = pitch_harmony_payload.get("counterpoint", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(counterpoint_records, list):
+        counterpoint_records = []
+    tuning_records = pitch_harmony_payload.get("tuning_system", []) if isinstance(pitch_harmony_payload, dict) else []
+    if not isinstance(tuning_records, list):
+        tuning_records = []
+    meter_micro = meter_time_payload.get("microtiming_records", []) if isinstance(meter_time_payload, dict) else []
+    if not isinstance(meter_micro, list):
+        meter_micro = []
+    meter_grid = meter_time_payload.get("subdivision_grid_records", []) if isinstance(meter_time_payload, dict) else []
+    if not isinstance(meter_grid, list):
+        meter_grid = []
+    meter_macro = meter_time_payload.get("macro_time_records", []) if isinstance(meter_time_payload, dict) else []
+    if not isinstance(meter_macro, list):
+        meter_macro = []
+    meter_hypotheses = meter_time_payload.get("beat_meter_hypotheses", []) if isinstance(meter_time_payload, dict) else []
+    if not isinstance(meter_hypotheses, list):
+        meter_hypotheses = []
 
     harmony_by_window: dict[str | None, list[dict[str, object]]] = {}
     if isinstance(harmony_records, list):
@@ -172,6 +212,122 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
         if isinstance(warnings, list):
             return [str(item) for item in warnings[:6]]
         return []
+
+    def _pick_slice(records: list[dict[str, object]], *, start_seconds: float | None, end_seconds: float | None) -> dict[str, object]:
+        if not records:
+            return {}
+        if start_seconds is None or end_seconds is None:
+            return records[0] if isinstance(records[0], dict) else {}
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            rs = record.get("start_seconds")
+            re = record.get("end_seconds")
+            if rs is None or re is None:
+                continue
+            try:
+                if float(re) >= float(start_seconds) and float(rs) <= float(end_seconds):
+                    return record
+            except Exception:  # noqa: BLE001
+                continue
+        return records[0] if isinstance(records[0], dict) else {}
+
+    def _pitch_harmony_excerpt(start_seconds: float | None, end_seconds: float | None) -> dict[str, object]:
+        obs = _pick_slice([item for item in pitch_obs if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        interval = _pick_slice([item for item in interval_analysis if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        sonority = _pick_slice([item for item in sonority_records if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        movement = _pick_slice([item for item in movement_records if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        contour = _pick_slice([item for item in contour_records if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        counterpoint = _pick_slice([item for item in counterpoint_records if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+        tuning = _pick_slice([item for item in tuning_records if isinstance(item, dict)], start_seconds=start_seconds, end_seconds=end_seconds)
+
+        pitch_range = obs.get("pitch_range", {}) if isinstance(obs, dict) and isinstance(obs.get("pitch_range"), dict) else {}
+        interval_hist = interval.get("interval_class_histogram", {}) if isinstance(interval, dict) and isinstance(interval.get("interval_class_histogram"), dict) else {}
+        register_dist = obs.get("register_distribution", {}) if isinstance(obs, dict) and isinstance(obs.get("register_distribution"), dict) else {}
+        sonority_type = str(sonority.get("sonority_type_candidate", "")) if isinstance(sonority, dict) else ""
+        contour_summary = contour.get("phrase_movement_summary", {}) if isinstance(contour, dict) and isinstance(contour.get("phrase_movement_summary"), dict) else {}
+        voice_leading = movement.get("voice_leading_proxy", {}) if isinstance(movement, dict) and isinstance(movement.get("voice_leading_proxy"), dict) else {}
+        counterpoint_summary = counterpoint.get("motion_proxy_summary", {}) if isinstance(counterpoint, dict) and isinstance(counterpoint.get("motion_proxy_summary"), dict) else {}
+        tuning_summary = {
+            "microtonal_analysis_available": tuning.get("microtonal_analysis_available") if isinstance(tuning, dict) else pitch_harmony_payload.get("microtonal_analysis_available"),
+            "microtonal_evidence_type": tuning.get("microtonal_evidence_type") if isinstance(tuning, dict) else pitch_harmony_payload.get("microtonal_evidence_type"),
+            "microtonal_confidence": tuning.get("microtonal_confidence") if isinstance(tuning, dict) else pitch_harmony_payload.get("microtonal_confidence"),
+        }
+        pc_summary = {}
+        if isinstance(obs, dict):
+            hist = obs.get("pitch_class_histogram", {})
+            if isinstance(hist, dict):
+                normalized = hist.get("normalized", {})
+                if isinstance(normalized, dict):
+                    pc_summary = {str(k): normalized.get(k) for k in list(normalized.keys())[:8]}
+        return {
+            "pitch_range": pitch_range,
+            "pitch_class_summary": pc_summary,
+            "interval_class_summary": {str(k): interval_hist.get(k) for k in list(interval_hist.keys())[:8]},
+            "register_summary": register_dist,
+            "sonority_type_candidate": sonority_type,
+            "contour_summary": contour_summary,
+            "voice_leading_summary": voice_leading,
+            "counterpoint_summary": counterpoint_summary,
+            "tuning_summary": tuning_summary,
+            "macro_key_hypotheses": macro_record.get("key_hypotheses", []) if isinstance(macro_record, dict) else [],
+        }
+
+    def _meter_time_excerpt(start_seconds: float | None, end_seconds: float | None) -> dict[str, object]:
+        def _pick(rows: list[dict[str, object]]) -> dict[str, object]:
+            if not rows:
+                return {}
+            if start_seconds is None or end_seconds is None:
+                return rows[0]
+            best: dict[str, object] = {}
+            best_overlap = -1.0
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                rs = row.get("start_seconds")
+                re = row.get("end_seconds")
+                if rs is None or re is None:
+                    continue
+                try:
+                    overlap = max(0.0, min(float(end_seconds), float(re)) - max(float(start_seconds), float(rs)))
+                except Exception:  # noqa: BLE001
+                    continue
+                if overlap > best_overlap:
+                    best_overlap = overlap
+                    best = row
+            return best if best else (rows[0] if isinstance(rows[0], dict) else {})
+
+        micro = _pick([item for item in meter_micro if isinstance(item, dict)])
+        grid = _pick([item for item in meter_grid if isinstance(item, dict)])
+        macro = _pick([item for item in meter_macro if isinstance(item, dict)])
+        top_hypothesis = meter_hypotheses[0] if meter_hypotheses and isinstance(meter_hypotheses[0], dict) else {}
+        if not any([micro, grid, macro, top_hypothesis]):
+            return {}
+        return {
+            "local_tempo_bpm": micro.get("local_tempo_bpm", grid.get("local_tempo_bpm")),
+            "grid_confidence": grid.get("grid_confidence"),
+            "subdivision_type": grid.get("subdivision_type"),
+            "pulse_stability": micro.get("pulse_stability"),
+            "microtiming_summary": micro.get("microtiming_summary"),
+            "macro_section_candidate": macro.get("macro_section_candidate"),
+            "meter_time_ambiguity": top_hypothesis.get("ambiguity"),
+            "meter_hypothesis_candidates": [
+                {
+                    "meter": item.get("meter"),
+                    "confidence": item.get("confidence"),
+                    "ambiguity": item.get("ambiguity"),
+                }
+                for item in meter_hypotheses[:3]
+                if isinstance(item, dict)
+            ],
+            "meter_time_refs": {
+                "meter_time_features_path": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
+                "micro_record_id": micro.get("record_id"),
+                "grid_record_id": grid.get("record_id"),
+                "macro_record_id": macro.get("macro_id"),
+                "meter_hypothesis_id": top_hypothesis.get("hypothesis_id"),
+            },
+        }
 
     external_feature_refs: dict[str, str] = {}
     if essentia_path.exists():
@@ -268,6 +424,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     "estimated_mode": harmony_features.get("estimated_mode"),
                     "triad_match_score": harmony_features.get("triad_match_score"),
                 },
+                "pitch_harmony_excerpt": _pitch_harmony_excerpt(start_seconds, end_seconds),
+                "meter_time_excerpt": _meter_time_excerpt(start_seconds, end_seconds),
                 "top_tags": top_tags,
             }
             label = "needs_review" if any(t["confidence"] < 0.45 for t in top_tags) else "feature_ready"
@@ -297,6 +455,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
                     "rhythm_features_path": rhythm_path.resolve().as_posix(),
                     "harmony_features_path": harmony_path.resolve().as_posix(),
+                    "pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix() if pitch_harmony_path.exists() else None,
+                    "meter_time_features_path": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
                     "tags_path": tags_path.resolve().as_posix(),
                 },
                 confidence=confidence,
@@ -319,8 +479,33 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
             record["feature_refs"] = {
                 "rhythm_features_path": rhythm_path.resolve().as_posix(),
                 "harmony_features_path": harmony_path.resolve().as_posix(),
+                "pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix() if pitch_harmony_path.exists() else None,
+                "meter_time_features_path": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
                 "tags_path": tags_path.resolve().as_posix(),
             }
+            compact_pitch_harmony = input_features.get("pitch_harmony_excerpt", {}) if isinstance(input_features.get("pitch_harmony_excerpt"), dict) else {}
+            record["pitch_range"] = compact_pitch_harmony.get("pitch_range")
+            record["pitch_class_summary"] = compact_pitch_harmony.get("pitch_class_summary")
+            record["interval_class_summary"] = compact_pitch_harmony.get("interval_class_summary")
+            record["register_summary"] = compact_pitch_harmony.get("register_summary")
+            record["sonority_type_candidate"] = compact_pitch_harmony.get("sonority_type_candidate")
+            record["contour_summary"] = compact_pitch_harmony.get("contour_summary")
+            record["voice_leading_summary"] = compact_pitch_harmony.get("voice_leading_summary")
+            record["counterpoint_summary"] = compact_pitch_harmony.get("counterpoint_summary")
+            record["tuning_summary"] = compact_pitch_harmony.get("tuning_summary")
+            if pitch_harmony_path.exists():
+                record["pitch_harmony_refs"] = {"pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix()}
+            meter_excerpt = input_features.get("meter_time_excerpt", {}) if isinstance(input_features.get("meter_time_excerpt"), dict) else {}
+            if meter_excerpt:
+                record["local_tempo_bpm"] = meter_excerpt.get("local_tempo_bpm")
+                record["grid_confidence"] = meter_excerpt.get("grid_confidence")
+                record["subdivision_type"] = meter_excerpt.get("subdivision_type")
+                record["pulse_stability"] = meter_excerpt.get("pulse_stability")
+                record["microtiming_summary"] = meter_excerpt.get("microtiming_summary")
+                record["macro_section_candidate"] = meter_excerpt.get("macro_section_candidate")
+                record["meter_hypothesis_candidates"] = meter_excerpt.get("meter_hypothesis_candidates")
+                record["meter_time_ambiguity"] = meter_excerpt.get("meter_time_ambiguity")
+                record["meter_time_refs"] = meter_excerpt.get("meter_time_refs")
             if external_feature_refs:
                 record["external_feature_refs"] = external_feature_refs
                 record["external_tag_summary"] = external_tag_summary
@@ -437,6 +622,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
                     "rhythm_features_path": rhythm_path.resolve().as_posix(),
                     "harmony_features_path": harmony_path.resolve().as_posix(),
+                    "pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix() if pitch_harmony_path.exists() else None,
+                    "meter_time_features_path": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
                     "tags_path": tags_path.resolve().as_posix(),
                 },
                 confidence=float(harmony_record.get("confidence", 0.0) or 0.0),
@@ -466,8 +653,33 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
             record["feature_refs"] = {
                 "rhythm_features_path": rhythm_path.resolve().as_posix(),
                 "harmony_features_path": harmony_path.resolve().as_posix(),
+                "pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix() if pitch_harmony_path.exists() else None,
+                "meter_time_features_path": meter_time_path.resolve().as_posix() if meter_time_path.exists() else None,
                 "tags_path": tags_path.resolve().as_posix(),
             }
+            compact_pitch_harmony = _pitch_harmony_excerpt(start_seconds, end_seconds)
+            record["pitch_range"] = compact_pitch_harmony.get("pitch_range")
+            record["pitch_class_summary"] = compact_pitch_harmony.get("pitch_class_summary")
+            record["interval_class_summary"] = compact_pitch_harmony.get("interval_class_summary")
+            record["register_summary"] = compact_pitch_harmony.get("register_summary")
+            record["sonority_type_candidate"] = compact_pitch_harmony.get("sonority_type_candidate")
+            record["contour_summary"] = compact_pitch_harmony.get("contour_summary")
+            record["voice_leading_summary"] = compact_pitch_harmony.get("voice_leading_summary")
+            record["counterpoint_summary"] = compact_pitch_harmony.get("counterpoint_summary")
+            record["tuning_summary"] = compact_pitch_harmony.get("tuning_summary")
+            if pitch_harmony_path.exists():
+                record["pitch_harmony_refs"] = {"pitch_harmony_features_path": pitch_harmony_path.resolve().as_posix()}
+            meter_excerpt = _meter_time_excerpt(start_seconds, end_seconds)
+            if meter_excerpt:
+                record["local_tempo_bpm"] = meter_excerpt.get("local_tempo_bpm")
+                record["grid_confidence"] = meter_excerpt.get("grid_confidence")
+                record["subdivision_type"] = meter_excerpt.get("subdivision_type")
+                record["pulse_stability"] = meter_excerpt.get("pulse_stability")
+                record["microtiming_summary"] = meter_excerpt.get("microtiming_summary")
+                record["macro_section_candidate"] = meter_excerpt.get("macro_section_candidate")
+                record["meter_hypothesis_candidates"] = meter_excerpt.get("meter_hypothesis_candidates")
+                record["meter_time_ambiguity"] = meter_excerpt.get("meter_time_ambiguity")
+                record["meter_time_refs"] = meter_excerpt.get("meter_time_refs")
             if external_feature_refs:
                 record["external_feature_refs"] = external_feature_refs
                 record["external_tag_summary"] = external_tag_summary

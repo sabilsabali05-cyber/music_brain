@@ -94,6 +94,87 @@ def _upgrade_lookup(feature_dir: Path) -> tuple[dict[str, list[dict[str, Any]]],
     return output, trust_path.resolve().as_posix()
 
 
+def _meter_time_lookup(feature_dir: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], str | None]:
+    meter_path = feature_dir / "rhythm_time" / "meter_time_features.json"
+    if not meter_path.exists():
+        return [], [], [], [], None
+    payload = json.loads(meter_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        return [], [], [], [], meter_path.resolve().as_posix()
+    micro = payload.get("microtiming_records", [])
+    grid = payload.get("subdivision_grid_records", [])
+    macro = payload.get("macro_time_records", [])
+    meter = payload.get("beat_meter_hypotheses", [])
+    return (
+        [item for item in micro if isinstance(item, dict)],
+        [item for item in grid if isinstance(item, dict)],
+        [item for item in macro if isinstance(item, dict)],
+        [item for item in meter if isinstance(item, dict)],
+        meter_path.resolve().as_posix(),
+    )
+
+
+def _match_interval(
+    rows: list[dict[str, Any]],
+    *,
+    start_seconds: float,
+    end_seconds: float,
+) -> dict[str, Any]:
+    best: dict[str, Any] = {}
+    best_overlap = -1.0
+    for row in rows:
+        row_start = float(row.get("start_seconds", start_seconds) or start_seconds)
+        row_end = float(row.get("end_seconds", row_start) or row_start)
+        overlap = max(0.0, min(end_seconds, row_end) - max(start_seconds, row_start))
+        if overlap > best_overlap:
+            best_overlap = overlap
+            best = row
+    return best
+
+
+def _meter_time_view(
+    record: dict[str, Any],
+    *,
+    micro_rows: list[dict[str, Any]],
+    grid_rows: list[dict[str, Any]],
+    macro_rows: list[dict[str, Any]],
+    meter_hypotheses: list[dict[str, Any]],
+    meter_path: str | None,
+) -> dict[str, Any]:
+    start_seconds = float(record.get("start_seconds", 0.0) or 0.0)
+    end_seconds = float(record.get("end_seconds", start_seconds) or start_seconds)
+    micro = _match_interval(micro_rows, start_seconds=start_seconds, end_seconds=end_seconds) if micro_rows else {}
+    grid = _match_interval(grid_rows, start_seconds=start_seconds, end_seconds=end_seconds) if grid_rows else {}
+    macro = _match_interval(macro_rows, start_seconds=start_seconds, end_seconds=end_seconds) if macro_rows else {}
+    top_hypothesis = meter_hypotheses[0] if meter_hypotheses else {}
+    if not any([micro, grid, macro, top_hypothesis, meter_path]):
+        return {}
+    return {
+        "local_tempo_bpm": micro.get("local_tempo_bpm", grid.get("local_tempo_bpm")),
+        "grid_confidence": grid.get("grid_confidence"),
+        "subdivision_type": grid.get("subdivision_type"),
+        "pulse_stability": micro.get("pulse_stability"),
+        "microtiming_summary": micro.get("microtiming_summary"),
+        "macro_section_candidate": macro.get("macro_section_candidate"),
+        "meter_time_ambiguity": top_hypothesis.get("ambiguity"),
+        "meter_time_refs": {
+            "meter_time_features_path": meter_path,
+            "micro_record_id": micro.get("record_id"),
+            "grid_record_id": grid.get("record_id"),
+            "macro_record_id": macro.get("macro_id"),
+            "meter_hypothesis_id": top_hypothesis.get("hypothesis_id"),
+        },
+        "meter_hypothesis_candidates": [
+            {
+                "meter": item.get("meter"),
+                "confidence": item.get("confidence"),
+                "ambiguity": item.get("ambiguity"),
+            }
+            for item in meter_hypotheses[:3]
+        ],
+    }
+
+
 def _git_commit() -> str | None:
     try:
         result = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True)
@@ -107,15 +188,18 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     feature_dir = ctx["feature_dir"]
     trust_output_dir = trust_dir(feature_dir)
     ai_path = feature_dir / "ai_training_records.jsonl"
+    pitch_harmony_path = feature_dir / "pitch_harmony" / "pitch_harmony_features.json"
     quality_path = trust_output_dir / "quality_gates.json"
     reliability_path = trust_output_dir / "transcription_reliability.json"
     ai_records = load_jsonl_records(ai_path)
+    pitch_harmony_payload = json.loads(pitch_harmony_path.read_text(encoding="utf-8")) if pitch_harmony_path.exists() else {}
     quality_payload = json.loads(quality_path.read_text(encoding="utf-8")) if quality_path.exists() else {}
     reliability_payload = json.loads(reliability_path.read_text(encoding="utf-8")) if reliability_path.exists() else {}
     window_rel = _window_reliability_map(reliability_payload if isinstance(reliability_payload, dict) else {})
     overall_status = str(quality_payload.get("overall_quality_status", "review_required"))
     routing_by_source, routing_refs = _routing_lookup(feature_dir)
     upgrade_by_source, upgrade_refs_path = _upgrade_lookup(feature_dir)
+    meter_micro_rows, meter_grid_rows, meter_macro_rows, meter_hypotheses, meter_path = _meter_time_lookup(feature_dir)
 
     export_root = resolve_artifact_performance_dir(Path("datasets") / "training_exports", str(ctx["performance_id"])) / ctx["segment_run_id"]
     ensure_windows_safe_artifact_path(
@@ -133,6 +217,69 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     }
 
     excluded_field_summary: dict[str, int] = {}
+    pitch_harmony_ref = pitch_harmony_path.resolve().as_posix() if pitch_harmony_path.exists() else None
+    pitch_observations = pitch_harmony_payload.get("pitch_observations", []) if isinstance(pitch_harmony_payload, dict) else []
+    interval_analysis = pitch_harmony_payload.get("interval_analysis", []) if isinstance(pitch_harmony_payload, dict) else []
+    sonority_records = pitch_harmony_payload.get("harmony_sonority", []) if isinstance(pitch_harmony_payload, dict) else []
+    movement_records = pitch_harmony_payload.get("chord_movement", []) if isinstance(pitch_harmony_payload, dict) else []
+    counterpoint_records = pitch_harmony_payload.get("counterpoint", []) if isinstance(pitch_harmony_payload, dict) else []
+    tuning_records = pitch_harmony_payload.get("tuning_system", []) if isinstance(pitch_harmony_payload, dict) else []
+
+    def _pick_slice(records: list[dict[str, Any]], start_seconds: float | None, end_seconds: float | None) -> dict[str, Any]:
+        if not records:
+            return {}
+        if start_seconds is None or end_seconds is None:
+            return records[0]
+        for record in records:
+            if not isinstance(record, dict):
+                continue
+            rs = record.get("start_seconds")
+            re = record.get("end_seconds")
+            if rs is None or re is None:
+                continue
+            try:
+                if float(re) >= float(start_seconds) and float(rs) <= float(end_seconds):
+                    return record
+            except Exception:  # noqa: BLE001
+                continue
+        return records[0]
+
+    def _attach_pitch_harmony_refs(record: dict[str, Any]) -> None:
+        if not pitch_harmony_ref:
+            return
+        record["pitch_harmony_refs"] = {"pitch_harmony_features_path": pitch_harmony_ref}
+        if isinstance(record.get("feature_refs"), dict):
+            record["feature_refs"]["pitch_harmony_features_path"] = pitch_harmony_ref
+
+    def _attach_pitch_harmony_stats(record: dict[str, Any]) -> None:
+        if not pitch_harmony_ref:
+            return
+        start = record.get("start_seconds")
+        end = record.get("end_seconds")
+        obs = _pick_slice([item for item in pitch_observations if isinstance(item, dict)], start, end)
+        interval = _pick_slice([item for item in interval_analysis if isinstance(item, dict)], start, end)
+        sonority = _pick_slice([item for item in sonority_records if isinstance(item, dict)], start, end)
+        movement = _pick_slice([item for item in movement_records if isinstance(item, dict)], start, end)
+        counterpoint = _pick_slice([item for item in counterpoint_records if isinstance(item, dict)], start, end)
+        tuning = _pick_slice([item for item in tuning_records if isinstance(item, dict)], start, end)
+        if "pitch_range" not in record:
+            record["pitch_range"] = obs.get("pitch_range")
+        if "pitch_class_summary" not in record:
+            hist = obs.get("pitch_class_histogram", {}) if isinstance(obs.get("pitch_class_histogram"), dict) else {}
+            record["pitch_class_summary"] = hist.get("normalized", {})
+        if "interval_class_summary" not in record:
+            record["interval_class_summary"] = interval.get("interval_class_histogram", {})
+        if "register_summary" not in record:
+            record["register_summary"] = obs.get("register_distribution", {})
+        record["sonority_type_candidate"] = sonority.get("sonority_type_candidate")
+        record["voice_leading_summary"] = movement.get("voice_leading_proxy", {})
+        record["counterpoint_summary"] = counterpoint.get("motion_proxy_summary", {})
+        record["tuning_summary"] = {
+            "microtonal_analysis_available": tuning.get("microtonal_analysis_available"),
+            "microtonal_evidence_type": tuning.get("microtonal_evidence_type"),
+            "microtonal_confidence": tuning.get("microtonal_confidence"),
+        }
+
     for idx, record in enumerate(ai_records):
         source_record_id = str(record.get("record_id", f"source_{idx:06d}"))
         route = routing_by_source.get(source_record_id, {})
@@ -160,6 +307,7 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 export_record["content_state"] = route_state
                 export_record["route_confidence"] = route_conf
                 export_record["routing_refs"] = routing_refs
+            _attach_pitch_harmony_refs(export_record)
             if upgrade_candidates:
                 export_record["label_upgrade_candidate_refs"] = upgrade_candidates
             if upgrade_refs_path:
@@ -173,6 +321,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
 
         weak_label_record = make_weak_label_record(record)
         review_record = make_review_required_record(record, reasons)
+        meter_view = _meter_time_view(
+            record,
+            micro_rows=meter_micro_rows,
+            grid_rows=meter_grid_rows,
+            macro_rows=meter_macro_rows,
+            meter_hypotheses=meter_hypotheses,
+            meter_path=meter_path,
+        )
 
         can_emit_observation = tier in {"high", "medium"} and float(weight) >= 0.6
         if can_emit_observation:
@@ -190,6 +346,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 observation_export["content_state"] = route_state
                 observation_export["route_confidence"] = route_conf
                 observation_export["routing_refs"] = routing_refs
+            if meter_view:
+                observation_export["local_tempo_bpm"] = meter_view.get("local_tempo_bpm")
+                observation_export["grid_confidence"] = meter_view.get("grid_confidence")
+                observation_export["subdivision_type"] = meter_view.get("subdivision_type")
+                observation_export["pulse_stability"] = meter_view.get("pulse_stability")
+                observation_export["meter_time_refs"] = meter_view.get("meter_time_refs")
+            _attach_pitch_harmony_refs(observation_export)
+            _attach_pitch_harmony_stats(observation_export)
             split_records["accepted_records"].append(observation_export)
         elif split == "audio_midi_only_records":
             observation_export = {
@@ -206,6 +370,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 observation_export["content_state"] = route_state
                 observation_export["route_confidence"] = route_conf
                 observation_export["routing_refs"] = routing_refs
+            if meter_view:
+                observation_export["local_tempo_bpm"] = meter_view.get("local_tempo_bpm")
+                observation_export["grid_confidence"] = meter_view.get("grid_confidence")
+                observation_export["subdivision_type"] = meter_view.get("subdivision_type")
+                observation_export["pulse_stability"] = meter_view.get("pulse_stability")
+                observation_export["meter_time_refs"] = meter_view.get("meter_time_refs")
+            _attach_pitch_harmony_refs(observation_export)
+            _attach_pitch_harmony_stats(observation_export)
             split_records["audio_midi_only_records"].append(observation_export)
 
         if str(record.get("label_status", "")) in {"weak_label", "heuristic_estimate", "interpretive_weak_label", "model_prediction"}:
@@ -223,6 +395,18 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 weak_export["content_state"] = route_state
                 weak_export["route_confidence"] = route_conf
                 weak_export["routing_refs"] = routing_refs
+            if meter_view:
+                weak_export["local_tempo_bpm"] = meter_view.get("local_tempo_bpm")
+                weak_export["grid_confidence"] = meter_view.get("grid_confidence")
+                weak_export["subdivision_type"] = meter_view.get("subdivision_type")
+                weak_export["pulse_stability"] = meter_view.get("pulse_stability")
+                weak_export["microtiming_summary"] = meter_view.get("microtiming_summary")
+                weak_export["macro_section_candidate"] = meter_view.get("macro_section_candidate")
+                weak_export["meter_time_ambiguity"] = meter_view.get("meter_time_ambiguity")
+                weak_export["meter_hypothesis_candidates"] = meter_view.get("meter_hypothesis_candidates")
+                weak_export["meter_time_refs"] = meter_view.get("meter_time_refs")
+            _attach_pitch_harmony_refs(weak_export)
+            _attach_pitch_harmony_stats(weak_export)
             if upgrade_candidates:
                 weak_export["label_upgrade_candidate_refs"] = upgrade_candidates
             if upgrade_refs_path:
@@ -244,6 +428,18 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 review_export["content_state"] = route_state
                 review_export["route_confidence"] = route_conf
                 review_export["routing_refs"] = routing_refs
+            if meter_view:
+                review_export["local_tempo_bpm"] = meter_view.get("local_tempo_bpm")
+                review_export["grid_confidence"] = meter_view.get("grid_confidence")
+                review_export["subdivision_type"] = meter_view.get("subdivision_type")
+                review_export["pulse_stability"] = meter_view.get("pulse_stability")
+                review_export["microtiming_summary"] = meter_view.get("microtiming_summary")
+                review_export["macro_section_candidate"] = meter_view.get("macro_section_candidate")
+                review_export["meter_time_ambiguity"] = meter_view.get("meter_time_ambiguity")
+                review_export["meter_hypothesis_candidates"] = meter_view.get("meter_hypothesis_candidates")
+                review_export["meter_time_refs"] = meter_view.get("meter_time_refs")
+            _attach_pitch_harmony_refs(review_export)
+            _attach_pitch_harmony_stats(review_export)
             if upgrade_candidates:
                 review_export["label_upgrade_candidate_refs"] = upgrade_candidates
             if upgrade_refs_path:
@@ -283,6 +479,8 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         ],
         "routing_refs": routing_refs,
         "label_upgrade_candidates_path": upgrade_refs_path,
+        "pitch_harmony_features_path": pitch_harmony_ref,
+        "meter_time_features_path": meter_path,
     }
     save_json(export_root / "export_manifest.json", manifest)
     return export_root.resolve()

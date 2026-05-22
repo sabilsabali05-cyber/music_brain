@@ -63,7 +63,17 @@ def validate_training_export(export_folder: Path) -> dict[str, Any]:
                 label_status = str(record.get("label_status", ""))
                 if label_status not in {"raw_observation", "derived_observation", "human_verified_label"}:
                     errors.append("accepted record has non-observation label_status")
-                forbidden_keys = {"label", "weak_fields", "review_reasons", "best_rhythm_family_match", "motif_group_refs"}
+                forbidden_keys = {
+                    "label",
+                    "weak_fields",
+                    "review_reasons",
+                    "best_rhythm_family_match",
+                    "motif_group_refs",
+                    "microtiming_summary",
+                    "macro_section_candidate",
+                    "meter_hypothesis_candidates",
+                    "meter_time_ambiguity",
+                }
                 for key in forbidden_keys:
                     if key in record:
                         errors.append(f"accepted record contains weak/experimental field: {key}")
@@ -73,10 +83,14 @@ def validate_training_export(export_folder: Path) -> dict[str, Any]:
                 label_status = str(record.get("label_status", ""))
                 if label_status not in weak_label_statuses and label_status != "human_verified_label":
                     errors.append("weak label record has invalid label_status")
+                if "meter_time_ambiguity" in record and "meter_time_refs" not in record:
+                    errors.append("weak label record has meter ambiguity without meter_time_refs")
             if name == "review_required_records.jsonl":
                 reasons = record.get("review_reasons")
                 if not isinstance(reasons, list) or not reasons:
                     errors.append("review_required record missing review_reasons")
+                if "meter_time_ambiguity" in record and "meter_time_refs" not in record:
+                    errors.append("review_required record has meter ambiguity without meter_time_refs")
 
     quarantined_ids = {str(record.get("source_record_id")) for record in records_by_split.get("quarantined_records.jsonl", [])}
     accepted_ids = {str(record.get("source_record_id")) for record in records_by_split.get("accepted_records.jsonl", [])}

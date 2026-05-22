@@ -22,6 +22,13 @@ ACCEPTED_OBSERVATION_FIELDS = {
     "velocity_mean",
     "velocity_std",
     "pitch_class_histogram",
+    "pitch_range",
+    "pitch_class_summary",
+    "interval_class_summary",
+    "register_summary",
+    "voicing_span",
+    "note_density_polyphony",
+    "voice_count_estimate",
     "polyphonic_density",
     "silence_ratio_proxy",
     "transcription_reliability_score",
@@ -41,6 +48,14 @@ WEAK_LABEL_FIELDS = {
     "philosophy_sources",
     "label",
     "tag",
+    "sonority_type_candidate",
+    "contour_summary",
+    "voice_leading_summary",
+    "counterpoint_summary",
+    "tuning_summary",
+    "pitch_harmony_refs",
+    "cadence_modulation_candidates",
+    "macro_key_hypotheses",
 }
 
 REVIEW_REQUIRED_FIELDS = {
@@ -152,6 +167,11 @@ def make_accepted_observation_record(record: dict[str, Any], reliability_lookup:
     features = record.get("input_features", {})
     rhythm_excerpt = features.get("rhythm_excerpt", {}) if isinstance(features, dict) and isinstance(features.get("rhythm_excerpt"), dict) else {}
     harmony_excerpt = features.get("harmony_excerpt", {}) if isinstance(features, dict) and isinstance(features.get("harmony_excerpt"), dict) else {}
+    pitch_harmony_excerpt = (
+        features.get("pitch_harmony_excerpt", {})
+        if isinstance(features, dict) and isinstance(features.get("pitch_harmony_excerpt"), dict)
+        else {}
+    )
 
     accepted = {
         "record_id": record.get("record_id"),
@@ -171,6 +191,20 @@ def make_accepted_observation_record(record: dict[str, Any], reliability_lookup:
         "velocity_mean": rhythm_excerpt.get("velocity_mean"),
         "velocity_std": rhythm_excerpt.get("velocity_std"),
         "pitch_class_histogram": harmony_excerpt.get("pitch_class_histogram"),
+        "pitch_range": pitch_harmony_excerpt.get("pitch_range") or record.get("pitch_range"),
+        "pitch_class_summary": pitch_harmony_excerpt.get("pitch_class_summary") or record.get("pitch_class_summary"),
+        "interval_class_summary": pitch_harmony_excerpt.get("interval_class_summary") or record.get("interval_class_summary"),
+        "register_summary": pitch_harmony_excerpt.get("register_summary") or record.get("register_summary"),
+        "voicing_span": (pitch_harmony_excerpt.get("voice_leading_summary", {}) or {}).get("average_abs_melodic_motion")
+        if isinstance(pitch_harmony_excerpt.get("voice_leading_summary"), dict)
+        else None,
+        "note_density_polyphony": {
+            "note_on_density_per_second": rhythm_excerpt.get("note_density_per_second"),
+            "polyphonic_density": rhythm_excerpt.get("polyphonic_density"),
+        },
+        "voice_count_estimate": (record.get("counterpoint_summary", {}) or {}).get("voice_count_estimate")
+        if isinstance(record.get("counterpoint_summary"), dict)
+        else None,
         "polyphonic_density": rhythm_excerpt.get("polyphonic_density"),
         "silence_ratio_proxy": rhythm_excerpt.get("silence_ratio_proxy"),
         "transcription_reliability_score": score,
@@ -182,6 +216,7 @@ def make_accepted_observation_record(record: dict[str, Any], reliability_lookup:
             "source_artifact_paths": source_paths,
         },
         "feature_refs": record.get("feature_refs", {}),
+        "pitch_harmony_refs": record.get("pitch_harmony_refs", {}),
         "label_status": "raw_observation" if str(record.get("label_status", "")) == "raw_observation" else "derived_observation",
         "verification_status": record.get("verification_status", "unverified"),
         "confidence": record.get("confidence"),

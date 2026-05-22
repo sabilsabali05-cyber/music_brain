@@ -70,11 +70,15 @@ function Show-Usage {
     Write-Host "  list-performance-runs <performance-manifest>"
     Write-Host "  set-active-performance-run <performance-manifest> <segments-manifest>"
     Write-Host "  extract-rhythm-features <performance-manifest>"
+    Write-Host "  extract-meter-time-features <performance-manifest>"
     Write-Host "  extract-harmony-features <performance-manifest>"
+    Write-Host "  extract-pitch-harmony-features <performance-manifest>"
+    Write-Host "  validate-pitch-harmony-features <performance-manifest>"
     Write-Host "  tag-performance-features <performance-manifest>"
     Write-Host "  build-ai-training-records <performance-manifest>"
     Write-Host "  extract-feature-pack <performance-manifest>"
     Write-Host "  validate-feature-pack <performance-manifest>"
+    Write-Host "  validate-meter-time-features <performance-manifest>"
     Write-Host "  check-external-analyzers"
     Write-Host "  run-external-analyzers <performance-manifest> [providers]"
     Write-Host "  compare-external-features <performance-manifest>"
@@ -757,10 +761,28 @@ switch ($Task) {
             "python", "scripts/extract_rhythm_features.py", $manifestPath
         )
     }
+    "extract-meter-time-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-meter-time-features <performance-manifest>"
+        Invoke-Step -Label "Extracting hierarchical meter/time features" -Command @(
+            "python", "scripts/extract_meter_time_features.py", $manifestPath
+        )
+    }
     "extract-harmony-features" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-harmony-features <performance-manifest>"
         Invoke-Step -Label "Extracting harmony feature records" -Command @(
             "python", "scripts/extract_harmony_features.py", $manifestPath
+        )
+    }
+    "extract-pitch-harmony-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd extract-pitch-harmony-features <performance-manifest>"
+        Invoke-Step -Label "Extracting pitch/harmony intelligence records" -Command @(
+            "python", "scripts/extract_pitch_harmony_features.py", $manifestPath
+        )
+    }
+    "validate-pitch-harmony-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-pitch-harmony-features <performance-manifest>"
+        Invoke-Step -Label "Validating pitch/harmony intelligence outputs" -Command @(
+            "python", "scripts/validate_pitch_harmony_features.py", $manifestPath
         )
     }
     "tag-performance-features" {
@@ -785,6 +807,12 @@ switch ($Task) {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-feature-pack <performance-manifest>"
         Invoke-Step -Label "Validating feature pack outputs" -Command @(
             "python", "scripts/validate_feature_pack.py", $manifestPath
+        )
+    }
+    "validate-meter-time-features" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-meter-time-features <performance-manifest>"
+        Invoke-Step -Label "Validating meter/time feature outputs" -Command @(
+            "python", "scripts/validate_meter_time_features.py", $manifestPath
         )
     }
     "check-external-analyzers" {
