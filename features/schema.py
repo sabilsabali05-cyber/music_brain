@@ -41,6 +41,29 @@ def _base_feature_fields(
     }
 
 
+def label_evidence_fields(
+    *,
+    label_status: str,
+    evidence_refs: list[str] | None = None,
+    confidence: float | None = None,
+    confidence_reason: str | None = None,
+    limitations: list[str] | None = None,
+    verification_status: str = "unverified",
+    verified_by: str | None = None,
+    review_required: bool = False,
+) -> dict[str, Any]:
+    return {
+        "label_status": label_status,
+        "evidence_refs": list(evidence_refs or []),
+        "confidence": round(float(confidence), 6) if confidence is not None else None,
+        "confidence_reason": confidence_reason,
+        "limitations": list(limitations or []),
+        "verification_status": verification_status,
+        "verified_by": verified_by,
+        "review_required": bool(review_required),
+    }
+
+
 def performance_feature_pack(
     *,
     performance_id: str,
@@ -157,6 +180,9 @@ def rhythm_feature_record(
     features: dict[str, Any],
     feature_version: str = "rhythm_v1",
     extractor_name: str = "rhythm_feature_extractor_v1",
+    label_status: str = "raw_observation",
+    confidence_reason: str = "derived directly from MIDI event statistics.",
+    verification_status: str = "unverified",
 ) -> dict[str, Any]:
     payload = _base_feature_fields(
         performance_id=performance_id,
@@ -174,6 +200,17 @@ def rhythm_feature_record(
     )
     payload["record_type"] = "rhythm_feature_record"
     payload["features"] = features
+    payload.update(
+        label_evidence_fields(
+            label_status=label_status,
+            evidence_refs=[value for value in source_artifact_paths.values() if value],
+            confidence=confidence,
+            confidence_reason=confidence_reason,
+            limitations=limitations,
+            verification_status=verification_status,
+            review_required=False,
+        )
+    )
     return payload
 
 
@@ -192,6 +229,9 @@ def harmony_feature_record(
     features: dict[str, Any],
     feature_version: str = "harmony_v1",
     extractor_name: str = "harmony_feature_extractor_v1",
+    label_status: str = "derived_observation",
+    confidence_reason: str = "heuristic harmonic interpretation from MIDI pitch-class activity.",
+    verification_status: str = "unverified",
 ) -> dict[str, Any]:
     payload = _base_feature_fields(
         performance_id=performance_id,
@@ -209,6 +249,17 @@ def harmony_feature_record(
     )
     payload["record_type"] = "harmony_feature_record"
     payload["features"] = features
+    payload.update(
+        label_evidence_fields(
+            label_status=label_status,
+            evidence_refs=[value for value in source_artifact_paths.values() if value],
+            confidence=confidence,
+            confidence_reason=confidence_reason,
+            limitations=limitations,
+            verification_status=verification_status,
+            review_required=False,
+        )
+    )
     return payload
 
 
@@ -228,6 +279,11 @@ def tag_record(
     evidence: dict[str, Any],
     feature_version: str = "tagging_v1",
     extractor_name: str = "feature_tagger_v1",
+    label_status: str = "heuristic_estimate",
+    confidence_reason: str = "heuristic thresholding over extracted feature values.",
+    verification_status: str = "unverified",
+    verified_by: str | None = None,
+    review_required: bool = True,
 ) -> dict[str, Any]:
     payload = _base_feature_fields(
         performance_id=performance_id,
@@ -246,6 +302,18 @@ def tag_record(
     payload["record_type"] = "tag_record"
     payload["tag"] = tag
     payload["evidence"] = evidence
+    payload.update(
+        label_evidence_fields(
+            label_status=label_status,
+            evidence_refs=[value for value in source_artifact_paths.values() if value],
+            confidence=confidence,
+            confidence_reason=confidence_reason,
+            limitations=limitations,
+            verification_status=verification_status,
+            verified_by=verified_by,
+            review_required=review_required,
+        )
+    )
     return payload
 
 
@@ -265,6 +333,11 @@ def ai_training_record(
     input_features: dict[str, Any],
     feature_version: str = "ai_training_v1",
     extractor_name: str = "ai_training_record_builder_v1",
+    label_status: str = "weak_label",
+    confidence_reason: str = "composed from automated rhythm/harmony/tag extraction.",
+    verification_status: str = "unverified",
+    verified_by: str | None = None,
+    review_required: bool = True,
 ) -> dict[str, Any]:
     payload = _base_feature_fields(
         performance_id=performance_id,
@@ -283,4 +356,16 @@ def ai_training_record(
     payload["record_type"] = "ai_training_record"
     payload["label"] = label
     payload["input_features"] = input_features
+    payload.update(
+        label_evidence_fields(
+            label_status=label_status,
+            evidence_refs=[value for value in source_artifact_paths.values() if value],
+            confidence=confidence,
+            confidence_reason=confidence_reason,
+            limitations=limitations,
+            verification_status=verification_status,
+            verified_by=verified_by,
+            review_required=review_required,
+        )
+    )
     return payload

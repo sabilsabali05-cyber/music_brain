@@ -80,6 +80,11 @@ function Show-Usage {
     Write-Host "  compare-external-features <performance-manifest>"
     Write-Host "  build-feature-consensus <performance-manifest>"
     Write-Host "  evaluate-rhythm-lexicon"
+    Write-Host "  compute-transcription-reliability <performance-manifest>"
+    Write-Host "  evaluate-training-quality-gates <performance-manifest>"
+    Write-Host "  audit-training-data <performance-manifest>"
+    Write-Host "  export-training-dataset-splits <performance-manifest>"
+    Write-Host "  validate-training-export <export-folder>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -801,6 +806,36 @@ switch ($Task) {
     "evaluate-rhythm-lexicon" {
         Invoke-Step -Label "Evaluating rhythm lexicon against standard fixtures" -Command @(
             "python", "scripts/evaluate_rhythm_lexicon.py"
+        )
+    }
+    "compute-transcription-reliability" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compute-transcription-reliability <performance-manifest>"
+        Invoke-Step -Label "Computing per-window transcription reliability" -Command @(
+            "python", "scripts/compute_transcription_reliability.py", $manifestPath
+        )
+    }
+    "evaluate-training-quality-gates" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd evaluate-training-quality-gates <performance-manifest>"
+        Invoke-Step -Label "Evaluating training quality gates" -Command @(
+            "python", "scripts/evaluate_training_quality_gates.py", $manifestPath
+        )
+    }
+    "audit-training-data" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd audit-training-data <performance-manifest>"
+        Invoke-Step -Label "Auditing training dataset readiness" -Command @(
+            "python", "scripts/audit_training_dataset_record.py", $manifestPath
+        )
+    }
+    "export-training-dataset-splits" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd export-training-dataset-splits <performance-manifest>"
+        Invoke-Step -Label "Exporting trusted training dataset splits" -Command @(
+            "python", "scripts/export_training_dataset_splits.py", $manifestPath
+        )
+    }
+    "validate-training-export" {
+        $exportFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-training-export <export-folder>"
+        Invoke-Step -Label "Validating exported training dataset splits" -Command @(
+            "python", "scripts/validate_training_export.py", $exportFolder
         )
     }
     "transcribe-yourmt3" {

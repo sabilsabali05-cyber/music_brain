@@ -64,6 +64,42 @@ def _tag_candidates(
     return tags
 
 
+def _label_status_for_tag(tag_name: str) -> tuple[str, str]:
+    if tag_name.startswith("rhythm_family_"):
+        return ("weak_label", "lexicon family match is a candidate label, not ground truth.")
+    if tag_name in {
+        "repeated_rhythm_motif",
+        "recurring_accent_pattern",
+        "dense_burst_pattern",
+        "sparse_call_response_candidate",
+        "steady_grid_candidate",
+        "irregular_groove_candidate",
+        "triplet_grid_candidate",
+        "straight_grid_candidate",
+    }:
+        return ("heuristic_estimate", "pattern/mining heuristics inferred from symbolic timing features.")
+    if tag_name in {"major_leaning_harmony", "minor_leaning_harmony", "ambiguous_harmony", "dense_region", "sparse_region"}:
+        return ("heuristic_estimate", "rule-based threshold over extracted local statistics.")
+    return ("interpretive_weak_label", "interpretive label derived from ontology/feature heuristics.")
+
+
+def _apply_tag_label_fields(tag: dict[str, object]) -> None:
+    tag_name = str(tag.get("tag", ""))
+    label_status, confidence_reason = _label_status_for_tag(tag_name)
+    tag["label_status"] = label_status
+    tag["confidence_reason"] = confidence_reason
+    tag["verification_status"] = str(tag.get("verification_status") or "unverified")
+    tag["verified_by"] = tag.get("verified_by")
+    tag["review_required"] = True if tag.get("verification_status") != "human_verified" else False
+    source_paths = tag.get("source_artifact_paths", {})
+    evidence_refs: list[str] = []
+    if isinstance(source_paths, dict):
+        for value in source_paths.values():
+            if value:
+                evidence_refs.append(str(value))
+    tag["evidence_refs"] = sorted(set(evidence_refs))
+
+
 def tag_performance_features(performance_manifest_path: Path, *, output_dir: Path | None = None) -> Path:
     performance_manifest = load_json(performance_manifest_path)
     segments_manifest_path, analysis_path, merged_midi_path = get_active_paths(performance_manifest)
@@ -511,6 +547,10 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 tag_obj["granularity"] = "chord_region"
                 annotate_tag_with_rhythm_concepts(tag_obj)
                 tags.append(tag_obj)
+
+    for tag in tags:
+        if isinstance(tag, dict):
+            _apply_tag_label_fields(tag)
 
     tags.sort(key=lambda item: float(item.get("confidence", 0.0)), reverse=True)
     grouped_tags: dict[str, dict[str, object]] = {}

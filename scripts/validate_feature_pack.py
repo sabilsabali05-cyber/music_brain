@@ -159,6 +159,10 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
                 if required not in tag:
                     invalid_tag_entries += 1
                     break
+            for required in ["label_status", "evidence_refs", "confidence_reason", "verification_status", "review_required"]:
+                if required not in tag:
+                    invalid_tag_entries += 1
+                    break
             tag_name = str(tag.get("tag", ""))
             if tag_name.startswith("rhythm_family_"):
                 if (
@@ -194,6 +198,10 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         for field in required_ai_fields:
             if field not in item:
                 warnings.append(f"ai record missing field: {field}")
+                break
+        for field in ["label_status", "evidence_refs", "confidence_reason", "verification_status", "review_required"]:
+            if field not in item:
+                warnings.append(f"ai record missing trust field: {field}")
                 break
         if "motif_group_refs" in item and not isinstance(item.get("motif_group_refs"), list):
             warnings.append("ai record motif_group_refs must be a list")

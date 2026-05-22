@@ -107,6 +107,23 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
 
     output_records: list[dict[str, object]] = []
 
+    def _ai_label_meta(granularity: str, label: str) -> tuple[str, str, bool]:
+        if label == "human_verified_label":
+            return ("human_verified_label", "manually reviewed and verified by a human.", False)
+        if granularity in {"performance", "segment", "window"}:
+            return (
+                "heuristic_estimate",
+                "automated aggregation of extracted observations; suitable as weak supervision.",
+                True,
+            )
+        if granularity in {"rhythm_region", "chord_region"}:
+            return (
+                "weak_label",
+                "region-level symbolic heuristics from transcription-derived features.",
+                True,
+            )
+        return ("weak_label", "automated label without manual verification.", True)
+
     def _external_tempo_summary() -> dict[str, object]:
         payload = external_payloads.get("essentia", {})
         if not isinstance(payload, dict):
@@ -286,6 +303,11 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 limitations=limitations,
                 label=label,
                 input_features=input_features,
+                label_status=_ai_label_meta(granularity, label)[0],
+                confidence_reason=_ai_label_meta(granularity, label)[1],
+                verification_status="unverified",
+                verified_by=None,
+                review_required=_ai_label_meta(granularity, label)[2],
             )
             record["record_id"] = f"{performance_id}:{segment_run_id}:{record.get('window_id') or 'global'}:{len(output_records):04d}"
             record["granularity"] = granularity
@@ -428,6 +450,11 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     },
                     "top_tags": top_tags,
                 },
+                label_status="weak_label",
+                confidence_reason="chord-region heuristic record; treat as weak label until verified.",
+                verification_status="unverified",
+                verified_by=None,
+                review_required=True,
             )
             record["record_id"] = f"{performance_id}:{segment_run_id}:chord_region:{len(output_records):04d}"
             record["granularity"] = "chord_region"
