@@ -7,7 +7,7 @@
 - window MIDI count: `54`
 - merged MIDI path: `C:\Users\izzyo\ai-composer\music_brain\samples\segments\Sunday_Service_Choir_122621\20260521T213524641640_audio_structure_v1\merged\merged_performance.mid`
 - merge report path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merge_report.json`
-- feature pack files: `{"rhythm_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json", "harmony_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json", "tags": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json", "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json"}`
+- feature pack files: `{"rhythm_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json", "harmony_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json", "tags": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json", "meter_time_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json", "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json"}`
 - AI JSONL path: `C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl`
 
 ## 2. Strongly usable data
@@ -53,6 +53,16 @@
 - train on raw timing/MIDI now: `True`
 - semantic/rhythm/harmony labels status: `weak_or_review_only`
 
+## Meter and Time Intelligence
+- confidence: `0.073598`
+- ambiguity: `0.963724`
+- top meter hypothesis: `{"hypothesis_id": "meter_h_0000", "meter": "3/4", "beats_per_bar": 3, "beat_unit": 4, "confidence": 0.564994, "ambiguity": 0.962029, "evidence": {"downbeat_hits": 11771.5, "offbeat_hits": 20826.0, "bar_support": 1.0, "consistency": 0.7521}, "limitations": ["meter is multi-hypothesis and remains probabilistic."]}`
+- subdivision histogram: `{"random": 108}`
+- macro section candidates: `["climactic_peak", "intro_or_prelude", "verse_or_chorus_candidate"]`
+- usefulness: `weak_or_review_only`
+- safe observation fields: `["local_tempo_bpm", "grid_confidence", "subdivision_type", "pulse_stability", "meter_time_refs"]`
+- weak/review fields: `["microtiming_summary", "macro_section_candidate", "meter_hypothesis_candidates", "meter_time_ambiguity"]`
+
 ## 8. Recommended next steps
 - Collect human verification for high-impact weak labels.
 - Use accepted/audio_midi_only splits for baseline training first.
@@ -65,9 +75,9 @@
 - microtonal limitations: `["lack of pitch-bend/non-12TET evidence should remain inconclusive", "absence of evidence is not evidence of strict 12TET"]`
 - experimental harmony limitations: `["nonfunctional/cluster-color labels remain candidate-level", "avoid using interpretive harmony labels as hard ground truth"]`
 - training usefulness: `safe_stats_high_utility_weak_labels_review_required`
-- microtonal analysis available: `None`
-- microtonal evidence type: `None`
-- microtonal confidence: `None`
+- microtonal analysis available: `False`
+- microtonal evidence type: `external_analyzer_required`
+- microtonal confidence: `0.15`
 
 ## Routing and Label Upgrade Readiness
 - asset_type: `performance_recording`

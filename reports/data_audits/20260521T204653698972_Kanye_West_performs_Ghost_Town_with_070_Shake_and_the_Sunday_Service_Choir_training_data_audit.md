@@ -7,7 +7,7 @@
 - window MIDI count: `13`
 - merged MIDI path: `C:\Users\izzyo\ai-composer\music_brain\samples\segments\Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir\20260521T204750163461_audio_structure_v1\merged\merged_performance.mid`
 - merge report path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merge_report.json`
-- feature pack files: `{"rhythm_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json", "harmony_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json", "tags": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json", "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json"}`
+- feature pack files: `{"rhythm_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json", "harmony_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json", "tags": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json", "meter_time_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_time/meter_time_features.json", "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json"}`
 - AI JSONL path: `C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/ai_training_records.jsonl`
 
 ## 2. Strongly usable data
@@ -49,6 +49,16 @@
 - review-required fields: `["ambiguous rhythm-family outputs", "low-confidence harmony/rhythm labels", "interpretive philosophical tags", "conflicting model-derived interpretations"]`
 - train on raw timing/MIDI now: `True`
 - semantic/rhythm/harmony labels status: `weak_or_review_only`
+
+## Meter and Time Intelligence
+- confidence: `0.190786`
+- ambiguity: `0.855685`
+- top meter hypothesis: `{"hypothesis_id": "meter_h_0000", "meter": "3/4", "beats_per_bar": 3, "beat_unit": 4, "confidence": 0.562622, "ambiguity": 0.967614, "evidence": {"downbeat_hits": 3407.3, "offbeat_hits": 6194.4, "bar_support": 1.0, "consistency": 0.7532}, "limitations": ["meter is multi-hypothesis and remains probabilistic."]}`
+- subdivision histogram: `{"random": 26}`
+- macro section candidates: `["climactic_peak", "intro_or_prelude"]`
+- usefulness: `weak_or_review_only`
+- safe observation fields: `["local_tempo_bpm", "grid_confidence", "subdivision_type", "pulse_stability", "meter_time_refs"]`
+- weak/review fields: `["microtiming_summary", "macro_section_candidate", "meter_hypothesis_candidates", "meter_time_ambiguity"]`
 
 ## 8. Recommended next steps
 - Collect human verification for high-impact weak labels.

@@ -132,6 +132,10 @@ def infer_subdivision_type(ioi_values: list[float], pulse_seconds: float) -> dic
         top_name = "random"
         grid_confidence = min(grid_confidence, 0.45)
         ambiguity = max(ambiguity, 0.75)
+    elif randomness > 0.55 and ambiguity > 0.6:
+        top_name = "random"
+        grid_confidence = min(grid_confidence, 0.5)
+        ambiguity = max(ambiguity, 0.7)
 
     return {
         "subdivision_type": top_name,
@@ -191,6 +195,7 @@ def _collect_regions(segments_manifest: dict[str, Any], duration_seconds: float)
             output.append(Region(region_id=f"region_{index:04d}", start_seconds=cursor, end_seconds=nxt, source="fallback"))
             cursor = nxt
             index += 1
+    output.sort(key=lambda item: (item.start_seconds, item.end_seconds, item.region_id))
     return output
 
 
@@ -264,13 +269,17 @@ def _meter_hypotheses(
     ambiguity = _clamp01(1.0 - (top - second))
     output: list[dict[str, Any]] = []
     for idx, item in enumerate(scored[:4]):
+        confidence = _round(float(item.get("confidence", 0.0) or 0.0))
+        meter_name = str(item.get("meter", "undetermined"))
+        if confidence < 0.35:
+            meter_name = "undetermined"
         output.append(
             {
                 "hypothesis_id": f"meter_h_{idx:04d}",
-                "meter": item.get("meter"),
+                "meter": meter_name,
                 "beats_per_bar": int(item.get("beats_per_bar", 0) or 0),
                 "beat_unit": int(item.get("beat_unit", 0) or 0),
-                "confidence": _round(float(item.get("confidence", 0.0) or 0.0)),
+                "confidence": confidence,
                 "ambiguity": _round(ambiguity),
                 "evidence": item.get("evidence", {}),
                 "limitations": ["meter is multi-hypothesis and remains probabilistic."],
@@ -474,6 +483,7 @@ def extract_meter_time_features(
                 "end_seconds": _round(region.end_seconds),
                 "local_tempo_bpm": _round(local_tempo_bpm),
                 "subdivision_type": subdivision_type,
+                "confidence": _round(grid_confidence),
                 "grid_confidence": _round(grid_confidence),
                 "ambiguity": _round(ambiguity),
                 "straightness": _safe_float(subdivision.get("straightness"), 0.0),
@@ -593,6 +603,8 @@ def extract_meter_time_features(
         limitations.append("no MIDI timeline available for meter/time extraction.")
     if overall_conf < 0.45:
         limitations.append("meter/time remains low-confidence; treat as weak evidence.")
+    if not limitations:
+        limitations.append("meter/time signals are heuristic and should be reviewed with context.")
     summary = {
         "source_mode": source_mode,
         "event_count": len(global_events),

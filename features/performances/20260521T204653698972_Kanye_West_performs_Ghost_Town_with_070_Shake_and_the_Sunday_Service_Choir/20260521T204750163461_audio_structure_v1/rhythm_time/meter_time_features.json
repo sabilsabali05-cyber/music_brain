@@ -1,0 +1,1885 @@
+{
+  "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+  "source_name": "Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
+  "segment_run_id": "20260521T204750163461_audio_structure_v1",
+  "source_artifact_paths": {
+    "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
+    "analysis_path": "C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json",
+    "segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json",
+    "merged_midi_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merged_performance.mid",
+    "rhythm_features_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
+    "harmony_features_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
+    "tags_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
+    "routing_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/analysis_routing_decisions.json",
+    "reliability_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json"
+  },
+  "feature_version": "meter_time_v1",
+  "extractor_name": "meter_time_extractor_v1",
+  "confidence": 0.190786,
+  "ambiguity": 0.855685,
+  "limitations": [
+    "meter/time remains low-confidence; treat as weak evidence."
+  ],
+  "summary": {
+    "source_mode": "merged",
+    "event_count": 7783,
+    "region_count": 26,
+    "local_tempo_bpm_median": 543.396226,
+    "pulse_stability_mean": 0.0,
+    "grid_confidence_mean": 0.168261,
+    "subdivision_histogram": {
+      "random": 26
+    },
+    "top_meter_hypothesis": {
+      "hypothesis_id": "meter_h_0000",
+      "meter": "3/4",
+      "beats_per_bar": 3,
+      "beat_unit": 4,
+      "confidence": 0.562622,
+      "ambiguity": 0.967614,
+      "evidence": {
+        "downbeat_hits": 3407.3,
+        "offbeat_hits": 6194.4,
+        "bar_support": 1.0,
+        "consistency": 0.7532
+      },
+      "limitations": [
+        "meter is multi-hypothesis and remains probabilistic."
+      ]
+    },
+    "meter_hypothesis_count": 4,
+    "cycle_length_beats": 2.0,
+    "macro_section_candidates": [
+      "climactic_peak",
+      "intro_or_prelude"
+    ]
+  },
+  "microtiming_records": [
+    {
+      "record_id": "micro_0000",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "local_tempo_bpm": 351.219512,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.986968,
+      "microtiming_jitter_ms": 23.680803,
+      "microtiming_summary": "random feel, jitter 23.7ms, bias +2.0ms, stability 0.00",
+      "confidence": 0.059051,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0001",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "local_tempo_bpm": 351.219512,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.986968,
+      "microtiming_jitter_ms": 23.680803,
+      "microtiming_summary": "random feel, jitter 23.7ms, bias +2.0ms, stability 0.00",
+      "confidence": 0.059051,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0002",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -1.598496,
+      "microtiming_jitter_ms": 19.504417,
+      "microtiming_summary": "random feel, jitter 19.5ms, bias -1.6ms, stability 0.00",
+      "confidence": 0.139163,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0003",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -1.598496,
+      "microtiming_jitter_ms": 19.504417,
+      "microtiming_summary": "random feel, jitter 19.5ms, bias -1.6ms, stability 0.00",
+      "confidence": 0.139163,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0004",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "local_tempo_bpm": 794.482759,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.271363,
+      "microtiming_jitter_ms": 10.835926,
+      "microtiming_summary": "random feel, jitter 10.8ms, bias -0.3ms, stability 0.00",
+      "confidence": 0.079115,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0005",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "local_tempo_bpm": 794.482759,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.271363,
+      "microtiming_jitter_ms": 10.835926,
+      "microtiming_summary": "random feel, jitter 10.8ms, bias -0.3ms, stability 0.00",
+      "confidence": 0.079115,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0006",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.807065,
+      "microtiming_jitter_ms": 18.62723,
+      "microtiming_summary": "random feel, jitter 18.6ms, bias +1.8ms, stability 0.00",
+      "confidence": 0.051862,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0007",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.807065,
+      "microtiming_jitter_ms": 18.62723,
+      "microtiming_summary": "random feel, jitter 18.6ms, bias +1.8ms, stability 0.00",
+      "confidence": 0.051862,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0008",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "local_tempo_bpm": 543.396226,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.227679,
+      "microtiming_jitter_ms": 15.696219,
+      "microtiming_summary": "random feel, jitter 15.7ms, bias +1.2ms, stability 0.00",
+      "confidence": 0.091893,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0009",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "local_tempo_bpm": 543.396226,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.227679,
+      "microtiming_jitter_ms": 15.696219,
+      "microtiming_summary": "random feel, jitter 15.7ms, bias +1.2ms, stability 0.00",
+      "confidence": 0.091893,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0010",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "local_tempo_bpm": 859.701493,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.144496,
+      "microtiming_jitter_ms": 10.499392,
+      "microtiming_summary": "random feel, jitter 10.5ms, bias -0.1ms, stability 0.00",
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0011",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "local_tempo_bpm": 859.701493,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.144496,
+      "microtiming_jitter_ms": 10.499392,
+      "microtiming_summary": "random feel, jitter 10.5ms, bias -0.1ms, stability 0.00",
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0012",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "local_tempo_bpm": 993.103448,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.469313,
+      "microtiming_jitter_ms": 8.494976,
+      "microtiming_summary": "random feel, jitter 8.5ms, bias -0.5ms, stability 0.00",
+      "confidence": 0.075346,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0013",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "local_tempo_bpm": 993.103448,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.469313,
+      "microtiming_jitter_ms": 8.494976,
+      "microtiming_summary": "random feel, jitter 8.5ms, bias -0.5ms, stability 0.00",
+      "confidence": 0.075346,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0014",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.506944,
+      "microtiming_jitter_ms": 19.33608,
+      "microtiming_summary": "random feel, jitter 19.3ms, bias -0.5ms, stability 0.00",
+      "confidence": 0.012051,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0015",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.506944,
+      "microtiming_jitter_ms": 19.33608,
+      "microtiming_summary": "random feel, jitter 19.3ms, bias -0.5ms, stability 0.00",
+      "confidence": 0.012051,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0016",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "local_tempo_bpm": 600.0,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 0.626319,
+      "microtiming_jitter_ms": 14.623278,
+      "microtiming_summary": "random feel, jitter 14.6ms, bias +0.6ms, stability 0.00",
+      "confidence": 0.072507,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0017",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "local_tempo_bpm": 600.0,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 0.626319,
+      "microtiming_jitter_ms": 14.623278,
+      "microtiming_summary": "random feel, jitter 14.6ms, bias +0.6ms, stability 0.00",
+      "confidence": 0.072507,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0018",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "local_tempo_bpm": 748.051948,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -1.451868,
+      "microtiming_jitter_ms": 12.288216,
+      "microtiming_summary": "random feel, jitter 12.3ms, bias -1.5ms, stability 0.00",
+      "confidence": 0.026365,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0019",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "local_tempo_bpm": 748.051948,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -1.451868,
+      "microtiming_jitter_ms": 12.288216,
+      "microtiming_summary": "random feel, jitter 12.3ms, bias -1.5ms, stability 0.00",
+      "confidence": 0.026365,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0020",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 4.499389,
+      "microtiming_jitter_ms": 18.69165,
+      "microtiming_summary": "random feel, jitter 18.7ms, bias +4.5ms, stability 0.00",
+      "confidence": 0.093938,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0021",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 4.499389,
+      "microtiming_jitter_ms": 18.69165,
+      "microtiming_summary": "random feel, jitter 18.7ms, bias +4.5ms, stability 0.00",
+      "confidence": 0.093938,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0022",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "local_tempo_bpm": 374.025974,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.719432,
+      "microtiming_jitter_ms": 23.55022,
+      "microtiming_summary": "random feel, jitter 23.6ms, bias +1.7ms, stability 0.00",
+      "confidence": 0.173664,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0023",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "local_tempo_bpm": 374.025974,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": 1.719432,
+      "microtiming_jitter_ms": 23.55022,
+      "microtiming_summary": "random feel, jitter 23.6ms, bias +1.7ms, stability 0.00",
+      "confidence": 0.173664,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0024",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "local_tempo_bpm": 748.051948,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.673186,
+      "microtiming_jitter_ms": 11.483062,
+      "microtiming_summary": "random feel, jitter 11.5ms, bias -0.7ms, stability 0.00",
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    },
+    {
+      "record_id": "micro_0025",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "local_tempo_bpm": 748.051948,
+      "pulse_stability": 0.0,
+      "microtiming_bias_ms": -0.673186,
+      "microtiming_jitter_ms": 11.483062,
+      "microtiming_summary": "random feel, jitter 11.5ms, bias -0.7ms, stability 0.00",
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "limitations": [
+        "heuristic microtiming estimate from symbolic events."
+      ]
+    }
+  ],
+  "subdivision_grid_records": [
+    {
+      "record_id": "grid_0000",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "local_tempo_bpm": 351.219512,
+      "subdivision_type": "random",
+      "confidence": 0.147627,
+      "grid_confidence": 0.147627,
+      "ambiguity": 0.838195,
+      "straightness": 0.196836,
+      "tripletness": 0.035031,
+      "swingness": 0.035031,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0001",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "local_tempo_bpm": 351.219512,
+      "subdivision_type": "random",
+      "confidence": 0.147627,
+      "grid_confidence": 0.147627,
+      "ambiguity": 0.838195,
+      "straightness": 0.196836,
+      "tripletness": 0.035031,
+      "swingness": 0.035031,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0002",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.347907,
+      "grid_confidence": 0.347907,
+      "ambiguity": 0.914742,
+      "straightness": 0.463877,
+      "tripletness": 0.378619,
+      "swingness": 0.378619,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0003",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.347907,
+      "grid_confidence": 0.347907,
+      "ambiguity": 0.914742,
+      "straightness": 0.463877,
+      "tripletness": 0.378619,
+      "swingness": 0.378619,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0004",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "local_tempo_bpm": 794.482759,
+      "subdivision_type": "random",
+      "confidence": 0.197788,
+      "grid_confidence": 0.197788,
+      "ambiguity": 0.856387,
+      "straightness": 0.263717,
+      "tripletness": 0.120104,
+      "swingness": 0.120104,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0005",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "local_tempo_bpm": 794.482759,
+      "subdivision_type": "random",
+      "confidence": 0.197788,
+      "grid_confidence": 0.197788,
+      "ambiguity": 0.856387,
+      "straightness": 0.263717,
+      "tripletness": 0.120104,
+      "swingness": 0.120104,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0006",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.129655,
+      "grid_confidence": 0.129655,
+      "ambiguity": 0.827127,
+      "straightness": 0.172873,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0007",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.129655,
+      "grid_confidence": 0.129655,
+      "ambiguity": 0.827127,
+      "straightness": 0.172873,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0008",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "local_tempo_bpm": 543.396226,
+      "subdivision_type": "random",
+      "confidence": 0.229733,
+      "grid_confidence": 0.229733,
+      "ambiguity": 0.856638,
+      "straightness": 0.30631,
+      "tripletness": 0.162948,
+      "swingness": 0.162948,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0009",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "local_tempo_bpm": 543.396226,
+      "subdivision_type": "random",
+      "confidence": 0.229733,
+      "grid_confidence": 0.229733,
+      "ambiguity": 0.856638,
+      "straightness": 0.30631,
+      "tripletness": 0.162948,
+      "swingness": 0.162948,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0010",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "local_tempo_bpm": 859.701493,
+      "subdivision_type": "random",
+      "confidence": 0.0,
+      "grid_confidence": 0.0,
+      "ambiguity": 1.0,
+      "straightness": 0.0,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0011",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "local_tempo_bpm": 859.701493,
+      "subdivision_type": "random",
+      "confidence": 0.0,
+      "grid_confidence": 0.0,
+      "ambiguity": 1.0,
+      "straightness": 0.0,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0012",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "local_tempo_bpm": 993.103448,
+      "subdivision_type": "random",
+      "confidence": 0.188365,
+      "grid_confidence": 0.188365,
+      "ambiguity": 0.885259,
+      "straightness": 0.251153,
+      "tripletness": 0.136413,
+      "swingness": 0.136413,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0013",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "local_tempo_bpm": 993.103448,
+      "subdivision_type": "random",
+      "confidence": 0.188365,
+      "grid_confidence": 0.188365,
+      "ambiguity": 0.885259,
+      "straightness": 0.251153,
+      "tripletness": 0.136413,
+      "swingness": 0.136413,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0014",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.030127,
+      "grid_confidence": 0.030127,
+      "ambiguity": 0.95983,
+      "straightness": 0.04017,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0015",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.030127,
+      "grid_confidence": 0.030127,
+      "ambiguity": 0.95983,
+      "straightness": 0.04017,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0016",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "local_tempo_bpm": 600.0,
+      "subdivision_type": "random",
+      "confidence": 0.181268,
+      "grid_confidence": 0.181268,
+      "ambiguity": 0.933579,
+      "straightness": 0.24169,
+      "tripletness": 0.175269,
+      "swingness": 0.175269,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0017",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "local_tempo_bpm": 600.0,
+      "subdivision_type": "random",
+      "confidence": 0.181268,
+      "grid_confidence": 0.181268,
+      "ambiguity": 0.933579,
+      "straightness": 0.24169,
+      "tripletness": 0.175269,
+      "swingness": 0.175269,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0018",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "local_tempo_bpm": 748.051948,
+      "subdivision_type": "random",
+      "confidence": 0.065913,
+      "grid_confidence": 0.065913,
+      "ambiguity": 0.912116,
+      "straightness": 0.087884,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0019",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "local_tempo_bpm": 748.051948,
+      "subdivision_type": "random",
+      "confidence": 0.065913,
+      "grid_confidence": 0.065913,
+      "ambiguity": 0.912116,
+      "straightness": 0.087884,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0020",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.234844,
+      "grid_confidence": 0.234844,
+      "ambiguity": 0.889611,
+      "straightness": 0.313126,
+      "tripletness": 0.202737,
+      "swingness": 0.202737,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0021",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "local_tempo_bpm": 460.8,
+      "subdivision_type": "random",
+      "confidence": 0.234844,
+      "grid_confidence": 0.234844,
+      "ambiguity": 0.889611,
+      "straightness": 0.313126,
+      "tripletness": 0.202737,
+      "swingness": 0.202737,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0022",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "local_tempo_bpm": 374.025974,
+      "subdivision_type": "random",
+      "confidence": 0.434161,
+      "grid_confidence": 0.434161,
+      "ambiguity": 0.904114,
+      "straightness": 0.578881,
+      "tripletness": 0.482996,
+      "swingness": 0.482996,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0023",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "local_tempo_bpm": 374.025974,
+      "subdivision_type": "random",
+      "confidence": 0.434161,
+      "grid_confidence": 0.434161,
+      "ambiguity": 0.904114,
+      "straightness": 0.578881,
+      "tripletness": 0.482996,
+      "swingness": 0.482996,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0024",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "local_tempo_bpm": 748.051948,
+      "subdivision_type": "random",
+      "confidence": 0.0,
+      "grid_confidence": 0.0,
+      "ambiguity": 1.0,
+      "straightness": 0.0,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    },
+    {
+      "record_id": "grid_0025",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "local_tempo_bpm": 748.051948,
+      "subdivision_type": "random",
+      "confidence": 0.0,
+      "grid_confidence": 0.0,
+      "ambiguity": 1.0,
+      "straightness": 0.0,
+      "tripletness": 0.0,
+      "swingness": 0.0,
+      "randomness": 1.0,
+      "limitations": [
+        "subdivision inferred from IOI ratio clustering."
+      ]
+    }
+  ],
+  "beat_meter_hypotheses": [
+    {
+      "hypothesis_id": "meter_h_0000",
+      "meter": "3/4",
+      "beats_per_bar": 3,
+      "beat_unit": 4,
+      "confidence": 0.562622,
+      "ambiguity": 0.967614,
+      "evidence": {
+        "downbeat_hits": 3407.3,
+        "offbeat_hits": 6194.4,
+        "bar_support": 1.0,
+        "consistency": 0.7532
+      },
+      "limitations": [
+        "meter is multi-hypothesis and remains probabilistic."
+      ]
+    },
+    {
+      "hypothesis_id": "meter_h_0001",
+      "meter": "4/4",
+      "beats_per_bar": 4,
+      "beat_unit": 4,
+      "confidence": 0.530236,
+      "ambiguity": 0.967614,
+      "evidence": {
+        "downbeat_hits": 2568.8,
+        "offbeat_hits": 6968.4,
+        "bar_support": 1.0,
+        "consistency": 0.7539
+      },
+      "limitations": [
+        "meter is multi-hypothesis and remains probabilistic."
+      ]
+    },
+    {
+      "hypothesis_id": "meter_h_0002",
+      "meter": "5/4",
+      "beats_per_bar": 5,
+      "beat_unit": 4,
+      "confidence": 0.511293,
+      "ambiguity": 0.967614,
+      "evidence": {
+        "downbeat_hits": 2106.0,
+        "offbeat_hits": 7395.6,
+        "bar_support": 1.0,
+        "consistency": 0.743
+      },
+      "limitations": [
+        "meter is multi-hypothesis and remains probabilistic."
+      ]
+    },
+    {
+      "hypothesis_id": "meter_h_0003",
+      "meter": "6/8",
+      "beats_per_bar": 6,
+      "beat_unit": 8,
+      "confidence": 0.503565,
+      "ambiguity": 0.967614,
+      "evidence": {
+        "downbeat_hits": 1727.7,
+        "offbeat_hits": 7744.8,
+        "bar_support": 1.0,
+        "consistency": 0.7526
+      },
+      "limitations": [
+        "meter is multi-hypothesis and remains probabilistic."
+      ]
+    }
+  ],
+  "cycle_pattern_records": [
+    {
+      "cycle_id": "cycle_0000",
+      "start_seconds": 0.0,
+      "end_seconds": 751.420952,
+      "cycle_length_beats": 2.0,
+      "confidence": 0.468037,
+      "ambiguity": 0.531963,
+      "supporting_subdivision": "random",
+      "evidence": {
+        "autocorrelation_peak": 0.414841,
+        "series_length_beats": 7514
+      },
+      "limitations": [
+        "cycle confidence drops when density changes rapidly across sections."
+      ]
+    }
+  ],
+  "phrase_rhythm_records": [
+    {
+      "phrase_id": "phrase_0000",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "phrase_span_beats": 261.95122,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.073814,
+      "ambiguity": 0.838195,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 227,
+        "first_half_density": 3.486034,
+        "second_half_density": 6.659218
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0001",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "phrase_span_beats": 261.95122,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.073814,
+      "ambiguity": 0.838195,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 227,
+        "first_half_density": 3.486034,
+        "second_half_density": 6.659218
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0002",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "phrase_span_beats": 549.12,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.173954,
+      "ambiguity": 0.914742,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 709,
+        "first_half_density": 6.405594,
+        "second_half_density": 13.426573
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0003",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "phrase_span_beats": 549.12,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.173954,
+      "ambiguity": 0.914742,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 709,
+        "first_half_density": 6.405594,
+        "second_half_density": 13.426573
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0004",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "phrase_span_beats": 933.517241,
+      "phrase_shape": "contracting",
+      "pulse_stability": 0.0,
+      "confidence": 0.098894,
+      "ambiguity": 0.856387,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 1356,
+        "first_half_density": 25.049645,
+        "second_half_density": 13.41844
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0005",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "phrase_span_beats": 933.517241,
+      "phrase_shape": "contracting",
+      "pulse_stability": 0.0,
+      "confidence": 0.098894,
+      "ambiguity": 0.856387,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 1356,
+        "first_half_density": 25.049645,
+        "second_half_density": 13.41844
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0006",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "phrase_span_beats": 439.68,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.064827,
+      "ambiguity": 0.827127,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 345,
+        "first_half_density": 5.519651,
+        "second_half_density": 6.532751
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0007",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "phrase_span_beats": 439.68,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.064827,
+      "ambiguity": 0.827127,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 345,
+        "first_half_density": 5.519651,
+        "second_half_density": 6.532751
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0008",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "phrase_span_beats": 398.490566,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.114866,
+      "ambiguity": 0.856638,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 308,
+        "first_half_density": 5.545455,
+        "second_half_density": 8.454545
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0009",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "phrase_span_beats": 398.490566,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.114866,
+      "ambiguity": 0.856638,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 308,
+        "first_half_density": 5.545455,
+        "second_half_density": 8.454545
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0010",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "phrase_span_beats": 530.149254,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 483,
+        "first_half_density": 7.513514,
+        "second_half_density": 18.594595
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0011",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "phrase_span_beats": 530.149254,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 483,
+        "first_half_density": 7.513514,
+        "second_half_density": 18.594595
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0012",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "phrase_span_beats": 968.275862,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.094183,
+      "ambiguity": 0.885259,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 1203,
+        "first_half_density": 18.324786,
+        "second_half_density": 22.803419
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0013",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "phrase_span_beats": 968.275862,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.094183,
+      "ambiguity": 0.885259,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 1203,
+        "first_half_density": 18.324786,
+        "second_half_density": 22.803419
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0014",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "phrase_span_beats": 681.6,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.015064,
+      "ambiguity": 0.95983,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 600,
+        "first_half_density": 6.535211,
+        "second_half_density": 6.985915
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0015",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "phrase_span_beats": 681.6,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.015064,
+      "ambiguity": 0.95983,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 600,
+        "first_half_density": 6.535211,
+        "second_half_density": 6.985915
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0016",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "phrase_span_beats": 587.5,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.090634,
+      "ambiguity": 0.933579,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 632,
+        "first_half_density": 9.361702,
+        "second_half_density": 12.153191
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0017",
+      "start_seconds": 472.25,
+      "end_seconds": 531.0,
+      "phrase_span_beats": 587.5,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.090634,
+      "ambiguity": 0.933579,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 632,
+        "first_half_density": 9.361702,
+        "second_half_density": 12.153191
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0018",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "phrase_span_beats": 766.753247,
+      "phrase_shape": "contracting",
+      "pulse_stability": 0.0,
+      "confidence": 0.032956,
+      "ambiguity": 0.912116,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 725,
+        "first_half_density": 12.878049,
+        "second_half_density": 10.699187
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0019",
+      "start_seconds": 531.0,
+      "end_seconds": 592.5,
+      "phrase_span_beats": 766.753247,
+      "phrase_shape": "contracting",
+      "pulse_stability": 0.0,
+      "confidence": 0.032956,
+      "ambiguity": 0.912116,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 725,
+        "first_half_density": 12.878049,
+        "second_half_density": 10.699187
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0020",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "phrase_span_beats": 491.52,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.117422,
+      "ambiguity": 0.889611,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 443,
+        "first_half_density": 6.375,
+        "second_half_density": 7.46875
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0021",
+      "start_seconds": 592.5,
+      "end_seconds": 656.5,
+      "phrase_span_beats": 491.52,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.117422,
+      "ambiguity": 0.889611,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 443,
+        "first_half_density": 6.375,
+        "second_half_density": 7.46875
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0022",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "phrase_span_beats": 350.649351,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.217081,
+      "ambiguity": 0.904114,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 458,
+        "first_half_density": 8.32,
+        "second_half_density": 7.964444
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0023",
+      "start_seconds": 656.5,
+      "end_seconds": 712.75,
+      "phrase_span_beats": 350.649351,
+      "phrase_shape": "stable",
+      "pulse_stability": 0.0,
+      "confidence": 0.217081,
+      "ambiguity": 0.904114,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 458,
+        "first_half_density": 8.32,
+        "second_half_density": 7.964444
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0024",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "phrase_span_beats": 482.13135,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "evidence": {
+        "region_source": "segment",
+        "event_count": 294,
+        "first_half_density": 6.723393,
+        "second_half_density": 8.481819
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    },
+    {
+      "phrase_id": "phrase_0025",
+      "start_seconds": 712.75,
+      "end_seconds": 751.420952,
+      "phrase_span_beats": 482.13135,
+      "phrase_shape": "expanding",
+      "pulse_stability": 0.0,
+      "confidence": 0.0,
+      "ambiguity": 1.0,
+      "evidence": {
+        "region_source": "window",
+        "event_count": 294,
+        "first_half_density": 6.723393,
+        "second_half_density": 8.481819
+      },
+      "limitations": [
+        "phrase boundaries are proxy regions from windows/segments."
+      ]
+    }
+  ],
+  "macro_time_records": [
+    {
+      "macro_id": "macro_0000",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "macro_section_candidate": "intro_or_prelude",
+      "local_tempo_bpm": 351.219512,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 5.072626
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0001",
+      "start_seconds": 0.0,
+      "end_seconds": 44.75,
+      "macro_section_candidate": "intro_or_prelude",
+      "local_tempo_bpm": 351.219512,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 5.072626
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0002",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 9.916084
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0003",
+      "start_seconds": 44.75,
+      "end_seconds": 116.25,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 9.916084
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0004",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 794.482759,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 19.234043
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0005",
+      "start_seconds": 116.25,
+      "end_seconds": 186.75,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 794.482759,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 19.234043
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0006",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 6.026201
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0007",
+      "start_seconds": 186.75,
+      "end_seconds": 244.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 6.026201
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0008",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 543.396226,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 7.0
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0009",
+      "start_seconds": 244.0,
+      "end_seconds": 288.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 543.396226,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 7.0
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0010",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 859.701493,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 13.054054
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0011",
+      "start_seconds": 288.0,
+      "end_seconds": 325.0,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 859.701493,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 13.054054
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0012",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 993.103448,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 20.564103
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0013",
+      "start_seconds": 325.0,
+      "end_seconds": 383.5,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 993.103448,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 20.564103
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0014",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 6.760563
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    },
+    {
+      "macro_id": "macro_0015",
+      "start_seconds": 383.5,
+      "end_seconds": 472.25,
+      "macro_section_candidate": "climactic_peak",
+      "local_tempo_bpm": 460.8,
+      "pulse_stability": 0.0,
+      "confidence": 0.5,
+      "ambiguity": 0.45,
+      "evidence": {
+        "tag_refs": [
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region",
+          "dense_activity",
+          "dense_region"
+        ],
+        "event_density": 6.760563
+      },
+      "limitations": [
+        "macro section labels are candidates, not annotated ground truth."
+      ]
+    }
+  ],
+  "generated_at": "2026-05-22T16:41:07.027224+00:00",
+  "routing_snapshot": {
+    "decision_count": 402,
+    "suppressed_label_count": 363,
+    "states_seen": [
+      "harmonic_dominant",
+      "melodic_lead",
+      "percussive_only",
+      "rhythm_dominant",
+      "unknown"
+    ]
+  },
+  "reliability_snapshot": {
+    "high_windows": 13,
+    "medium_windows": 0,
+    "low_windows": 0,
+    "failed_windows": 0,
+    "missing_windows": 0,
+    "window_count": 13,
+    "mean_reliability_score": 0.976923,
+    "training_weight_mean": 1.0
+  }
+}
