@@ -34,6 +34,8 @@ function Show-Usage {
     Write-Host "Tasks:"
     Write-Host "  doctor"
     Write-Host "  test"
+    Write-Host "  write-agent-handoff [handoff args]"
+    Write-Host "  prepare-pr-handoff"
     Write-Host "  deploy-modal"
     Write-Host "  deploy-modal-utf8"
     Write-Host "  smoke-local-fake"
@@ -362,6 +364,16 @@ Show-ShellDiagnostics
 switch ($Task) {
     "doctor" { Run-Doctor }
     "test" { Invoke-Step -Label "Running tests" -Command @("python", "-m", "pytest", "-q") }
+    "write-agent-handoff" {
+        $command = @("python", "scripts/write_agent_handoff.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Writing latest agent handoff reports" -Command $command
+    }
+    "prepare-pr-handoff" {
+        $command = @("python", "scripts/prepare_pr_handoff.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Preparing PR handoff markdown body" -Command $command
+    }
     "deploy-modal" { Invoke-Step -Label "Deploying Modal app" -Command @("python", "-m", "modal", "deploy", "modal_app.py") }
     "deploy-modal-utf8" { Invoke-Step -Label "Deploying Modal app (UTF-8 mode)" -Command @("python", "-m", "modal", "deploy", "modal_app.py") }
     "smoke-local-fake" {
