@@ -1,0 +1,130 @@
+{
+  "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
+  "segment_run_id": "20260522T150054174749_audio_structure_v1",
+  "created_at": "2026-05-22T15:22:42.284117+00:00",
+  "source_artifacts": {
+    "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
+    "segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/segments_manifest.json",
+    "merge_report_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/merged/merge_report.json"
+  },
+  "windows": [
+    {
+      "window_id": "win_0000",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150055Z_a4d32a9cfb/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 2581,
+      "window_duration_seconds": 78.0,
+      "context_trim_loss": 525,
+      "error_messages": [],
+      "note_on_count": 276,
+      "note_on_density_per_second": 3.455624,
+      "average_note_duration_seconds": 0.15628,
+      "polyphonic_density": 0.28,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.111969,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    },
+    {
+      "window_id": "win_0001",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150208Z_d8e01b8171/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 1754,
+      "window_duration_seconds": 63.0,
+      "context_trim_loss": 525,
+      "error_messages": [],
+      "note_on_count": 192,
+      "note_on_density_per_second": 2.648656,
+      "average_note_duration_seconds": 0.15778,
+      "polyphonic_density": 0.424084,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.245902,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    },
+    {
+      "window_id": "win_0002",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150224Z_b78515534e/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 5088,
+      "window_duration_seconds": 54.25,
+      "context_trim_loss": 525,
+      "error_messages": [],
+      "note_on_count": 588,
+      "note_on_density_per_second": 9.160365,
+      "average_note_duration_seconds": 0.070061,
+      "polyphonic_density": 0.335605,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.003802,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    },
+    {
+      "window_id": "win_0003",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T152115Z_7193bfd73f/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 7723,
+      "window_duration_seconds": 86.599025,
+      "context_trim_loss": 525,
+      "error_messages": [],
+      "note_on_count": 962,
+      "note_on_density_per_second": 10.76188,
+      "average_note_duration_seconds": 0.065257,
+      "polyphonic_density": 0.509886,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.013255,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    }
+  ],
+  "summary": {
+    "high_windows": 4,
+    "medium_windows": 0,
+    "low_windows": 0,
+    "failed_windows": 0,
+    "missing_windows": 0,
+    "window_count": 4,
+    "mean_reliability_score": 1.0,
+    "training_weight_mean": 1.0
+  }
+}
