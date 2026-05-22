@@ -14,6 +14,11 @@ except ModuleNotFoundError:  # pragma: no cover
     from schema import harmony_feature_record, performance_feature_pack  # type: ignore
 
 try:
+    from features.rhythm_ontology import annotate_feature_record_with_rhythm_concepts, concept_count, philosophy_count
+except ModuleNotFoundError:  # pragma: no cover
+    from rhythm_ontology import annotate_feature_record_with_rhythm_concepts, concept_count, philosophy_count  # type: ignore
+
+try:
     from scripts.feature_dataset_common import (
         build_time_bins,
         collect_global_events,
@@ -119,10 +124,12 @@ def extract_harmony_features(
             features=feature_values,
         )
         record["granularity"] = granularity
+        record["record_id"] = f"{performance_id}:{segment_run_id}:{granularity}:{len(records):04d}"
         if segment_id is not None:
             record["segment_id"] = segment_id
         if region_id is not None:
             record["region_id"] = region_id
+        annotate_feature_record_with_rhythm_concepts(record)
         records.append(record)
         confidence_scores.append(confidence)
 
@@ -210,6 +217,7 @@ def extract_harmony_features(
             "end_seconds": item.get("end_seconds"),
             "repeated_chord_score": (item.get("features", {}) or {}).get("repeated_chord_score"),
             "confidence": item.get("confidence"),
+            "rhythm_concepts": ["cycle", "harmonic_rhythm", "return"],
         }
         for item in chord_regions
         if float((item.get("features", {}) or {}).get("repeated_chord_score", 0.0) or 0.0) >= 0.5
@@ -234,6 +242,7 @@ def extract_harmony_features(
                 "start_seconds": item.get("start_seconds"),
                 "end_seconds": item.get("end_seconds"),
                 "chord_change_count": (item.get("features", {}) or {}).get("chord_change_count"),
+                "rhythm_concepts": ["cycle", "harmonic_rhythm", "return"],
             }
             for item in static_regions
         ],
@@ -246,9 +255,56 @@ def extract_harmony_features(
                 "stepwise_root_motion_score": (item.get("features", {}) or {}).get("stepwise_root_motion_score"),
                 "chromatic_motion_score": (item.get("features", {}) or {}).get("chromatic_motion_score"),
                 "circle_motion_score": (item.get("features", {}) or {}).get("circle_motion_score"),
+                "rhythm_concepts": ["harmonic_rhythm", "gesture"],
             }
             for item in active_regions
         ],
+    }
+    sequence_counter: dict[str, int] = {}
+    section_profiles: list[dict[str, object]] = []
+    for item in records:
+        if str(item.get("granularity", "")) not in {"segment", "window"}:
+            continue
+        features = item.get("features", {})
+        if not isinstance(features, dict):
+            continue
+        intervals = features.get("root_motion_intervals", [])
+        if isinstance(intervals, list) and intervals:
+            sequence_key = "-".join(str(int(value)) for value in intervals[:4])
+            sequence_counter[sequence_key] = sequence_counter.get(sequence_key, 0) + 1
+        section_profiles.append(
+            {
+                "record_id": item.get("record_id"),
+                "granularity": item.get("granularity"),
+                "start_seconds": item.get("start_seconds"),
+                "end_seconds": item.get("end_seconds"),
+                "chord_change_count": features.get("chord_change_count"),
+                "repeated_chord_score": features.get("repeated_chord_score"),
+            }
+        )
+    payload["harmony_pattern_index"] = {
+        "repeated_chord_sequence_candidates": [
+            {"sequence": key, "count": value}
+            for key, value in sorted(sequence_counter.items(), key=lambda pair: pair[1], reverse=True)
+            if key and value >= 2
+        ][:12],
+        "chord_loop_candidates": vamp_candidates[:12],
+        "static_pedal_regions": [
+            {
+                "region_id": item.get("region_id"),
+                "pedal_tone_candidates": (item.get("features", {}) or {}).get("pedal_tone_candidates"),
+                "repeated_root": (item.get("features", {}) or {}).get("repeated_root"),
+            }
+            for item in static_regions[:12]
+        ],
+        "active_motion_sequences": payload["chord_movement_summary"]["active_harmonic_motion_regions"][:12],
+        "common_root_motion_sequences": [
+            {"interval": key, "count": value}
+            for key, value in sorted(interval_hist.items(), key=lambda pair: pair[1], reverse=True)[:8]
+        ],
+        "section_level_harmonic_profiles": section_profiles[:24],
+        "concept_counts": concept_count([record for record in records if isinstance(record, dict)]),
+        "philosophy_source_counts": philosophy_count([record for record in records if isinstance(record, dict)]),
     }
     output_path = target_dir / "harmony_features.json"
     save_json(output_path, payload)

@@ -14,6 +14,11 @@ except ModuleNotFoundError:  # pragma: no cover
     from schema import tag_record  # type: ignore
 
 try:
+    from features.rhythm_ontology import annotate_tag_with_rhythm_concepts
+except ModuleNotFoundError:  # pragma: no cover
+    from rhythm_ontology import annotate_tag_with_rhythm_concepts  # type: ignore
+
+try:
     from scripts.feature_dataset_common import (
         default_feature_dir,
         get_active_paths,
@@ -75,6 +80,9 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
 
     rhythm_records = rhythm_payload.get("records", [])
     harmony_records = harmony_payload.get("records", [])
+    rhythm_pattern_index = rhythm_payload.get("rhythm_pattern_index", {})
+    rhythm_motif_groups = rhythm_payload.get("rhythm_motif_groups", [])
+    harmony_pattern_index = harmony_payload.get("harmony_pattern_index", {})
     harmony_by_window: dict[str | None, dict[str, object]] = {}
     if isinstance(harmony_records, list):
         for record in harmony_records:
@@ -145,6 +153,7 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                     "rhythm_feature_keys": sorted((rhythm_features or {}).keys()) if isinstance(rhythm_features, dict) else [],
                     "harmony_feature_keys": sorted((harmony_features or {}).keys()) if isinstance(harmony_features, dict) else [],
                 }
+                annotate_tag_with_rhythm_concepts(tag_entry)
                 tags.append(tag_entry)
 
             # Local region-level evidence tags
@@ -172,6 +181,7 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 )
                 dense_tag["granularity"] = granularity
                 dense_tag["source_features"] = {"metric": "note_on_density_per_second"}
+                annotate_tag_with_rhythm_concepts(dense_tag)
                 tags.append(dense_tag)
             if note_density <= 1.0:
                 sparse_tag = tag_record(
@@ -197,6 +207,7 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 )
                 sparse_tag["granularity"] = granularity
                 sparse_tag["source_features"] = {"metric": "note_on_density_per_second"}
+                annotate_tag_with_rhythm_concepts(sparse_tag)
                 tags.append(sparse_tag)
 
     # Harmony-driven local tags
@@ -239,7 +250,170 @@ def tag_performance_features(performance_manifest_path: Path, *, output_dir: Pat
                 )
                 vamp_tag["granularity"] = granularity
                 vamp_tag["source_features"] = {"metric": "repeated_chord_score"}
+                annotate_tag_with_rhythm_concepts(vamp_tag)
                 tags.append(vamp_tag)
+
+    if isinstance(rhythm_motif_groups, list):
+        for group in rhythm_motif_groups[:20]:
+            if not isinstance(group, dict):
+                continue
+            group_repeat = int(group.get("group_repeat_count", 0) or 0)
+            if group_repeat < 2:
+                continue
+            pattern = str(group.get("representative_pattern", ""))
+            group_id = str(group.get("motif_group_id", ""))
+            confidence = min(0.95, 0.35 + (group_repeat / 12.0))
+            new_tag = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={
+                    "performance_manifest_path": performance_manifest_path.resolve().as_posix(),
+                    "analysis_path": analysis_path.resolve().as_posix() if analysis_path else None,
+                    "segments_manifest_path": segments_manifest_path.resolve().as_posix(),
+                    "merged_midi_path": merged_midi_path.resolve().as_posix() if merged_midi_path and merged_midi_path.exists() else None,
+                    "rhythm_features_path": rhythm_path.resolve().as_posix(),
+                },
+                confidence=confidence,
+                limitations=["heuristic motif group tag from token/ratio pattern index."],
+                tag="repeated_rhythm_motif",
+                evidence={"motif_group_id": group_id, "representative_pattern": pattern, "group_repeat_count": group_repeat},
+            )
+            new_tag["granularity"] = "performance"
+            new_tag["motif_group_id"] = group_id
+            new_tag["source_features"] = {"metric": "rhythm_motif_groups"}
+            annotate_tag_with_rhythm_concepts(new_tag)
+            tags.append(new_tag)
+            if "X" in pattern:
+                accent_tag = dict(new_tag)
+                accent_tag["tag"] = "recurring_accent_pattern"
+                annotate_tag_with_rhythm_concepts(accent_tag)
+                tags.append(accent_tag)
+            if pattern.count("x") + pattern.count("X") >= 5:
+                burst_tag = dict(new_tag)
+                burst_tag["tag"] = "dense_burst_pattern"
+                annotate_tag_with_rhythm_concepts(burst_tag)
+                tags.append(burst_tag)
+
+    if isinstance(rhythm_pattern_index, dict):
+        if int(rhythm_pattern_index.get("steady_pulse_regions", 0) or 0) > 0:
+            steady_tag = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                confidence=0.72,
+                limitations=[],
+                tag="steady_grid_candidate",
+                evidence={"steady_pulse_regions": rhythm_pattern_index.get("steady_pulse_regions")},
+            )
+            steady_tag["granularity"] = "performance"
+            annotate_tag_with_rhythm_concepts(steady_tag)
+            tags.append(steady_tag)
+        if int(rhythm_pattern_index.get("irregular_regions", 0) or 0) > 0:
+            irregular_tag = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                confidence=0.7,
+                limitations=[],
+                tag="irregular_groove_candidate",
+                evidence={"irregular_regions": rhythm_pattern_index.get("irregular_regions")},
+            )
+            irregular_tag["granularity"] = "performance"
+            annotate_tag_with_rhythm_concepts(irregular_tag)
+            tags.append(irregular_tag)
+        if int(rhythm_pattern_index.get("triplet_grid_candidates", 0) or 0) > 0:
+            tag_obj = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                confidence=0.6,
+                limitations=[],
+                tag="triplet_grid_candidate",
+                evidence={"triplet_grid_candidates": rhythm_pattern_index.get("triplet_grid_candidates")},
+            )
+            tag_obj["granularity"] = "performance"
+            annotate_tag_with_rhythm_concepts(tag_obj)
+            tags.append(tag_obj)
+        if int(rhythm_pattern_index.get("straight_grid_candidates", 0) or 0) > 0:
+            tag_obj = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                confidence=0.6,
+                limitations=[],
+                tag="straight_grid_candidate",
+                evidence={"straight_grid_candidates": rhythm_pattern_index.get("straight_grid_candidates")},
+            )
+            tag_obj["granularity"] = "performance"
+            annotate_tag_with_rhythm_concepts(tag_obj)
+            tags.append(tag_obj)
+        if isinstance(rhythm_pattern_index.get("sparse_call_response_candidates"), list) and rhythm_pattern_index.get("sparse_call_response_candidates"):
+            tag_obj = tag_record(
+                performance_id=performance_id,
+                source_name=source_name,
+                segment_run_id=segment_run_id,
+                window_id=None,
+                start_seconds=None,
+                end_seconds=None,
+                duration_seconds=None,
+                source_artifact_paths={"rhythm_features_path": rhythm_path.resolve().as_posix()},
+                confidence=0.62,
+                limitations=[],
+                tag="sparse_call_response_candidate",
+                evidence={"candidate_count": len(rhythm_pattern_index.get("sparse_call_response_candidates", []))},
+            )
+            tag_obj["granularity"] = "performance"
+            annotate_tag_with_rhythm_concepts(tag_obj)
+            tags.append(tag_obj)
+
+    if isinstance(harmony_pattern_index, dict):
+        loop_candidates = harmony_pattern_index.get("chord_loop_candidates", [])
+        if isinstance(loop_candidates, list) and loop_candidates:
+            for candidate in loop_candidates[:5]:
+                if not isinstance(candidate, dict):
+                    continue
+                tag_obj = tag_record(
+                    performance_id=performance_id,
+                    source_name=source_name,
+                    segment_run_id=segment_run_id,
+                    window_id=None,
+                    start_seconds=float(candidate.get("start_seconds", 0.0) or 0.0),
+                    end_seconds=float(candidate.get("end_seconds", 0.0) or 0.0),
+                    duration_seconds=None,
+                    source_artifact_paths={"harmony_features_path": harmony_path.resolve().as_posix()},
+                    confidence=min(0.95, float(candidate.get("confidence", 0.6) or 0.6)),
+                    limitations=[],
+                    tag="repeated_chord_vamp_candidate",
+                    evidence={"region_id": candidate.get("region_id"), "source": "harmony_pattern_index"},
+                )
+                tag_obj["granularity"] = "chord_region"
+                annotate_tag_with_rhythm_concepts(tag_obj)
+                tags.append(tag_obj)
 
     tags.sort(key=lambda item: float(item.get("confidence", 0.0)), reverse=True)
     grouped_tags: dict[str, dict[str, object]] = {}

@@ -5,6 +5,10 @@ from pathlib import Path
 
 from mido import Message, MidiFile, MidiTrack
 
+from features.rhythm_ontology import (
+    TAG_TO_CONCEPT_MAP,
+    annotate_tag_with_rhythm_concepts,
+)
 from scripts.build_ai_training_records import build_ai_training_records
 from scripts.extract_feature_pack import extract_feature_pack
 from scripts.extract_harmony_features import extract_harmony_features
@@ -164,6 +168,9 @@ def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Pa
     assert "rhythm_record_count_by_granularity" in summary_text
     assert "harmony_record_count_by_granularity" in summary_text
     assert "ai_record_count_by_granularity" in summary_text
+    assert "Top Rhythm Motif Groups" in summary_text
+    assert "Harmony Pattern Index" in summary_text
+    assert "Rhythm Philosophy Interpretation" in summary_text
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "success"
     assert summary["tag_count"] > 0
@@ -204,6 +211,12 @@ def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypat
     assert len(names) == len(set(names))
     assert isinstance(rhythm_payload.get("rhythm_motifs"), dict)
     assert isinstance(harmony_payload.get("chord_movement_summary"), dict)
+    assert isinstance(rhythm_payload.get("rhythm_motif_groups"), list)
+    assert isinstance(rhythm_payload.get("rhythm_pattern_index"), dict)
+    assert isinstance(harmony_payload.get("harmony_pattern_index"), dict)
+    assert all("rhythm_concepts" in tag for tag in tags_payload["tags"] if isinstance(tag, dict))
+    motif_tags = [tag for tag in tags_payload["tags"] if isinstance(tag, dict) and str(tag.get("tag")) == "repeated_rhythm_motif"]
+    assert all("motif_group_id" in tag for tag in motif_tags)
 
 
 def test_validator_rejects_missing_feature_summary(tmp_path: Path, monkeypatch) -> None:
@@ -289,6 +302,63 @@ def test_validator_rejects_missing_grouped_tag_section(tmp_path: Path, monkeypat
     feature_dir = extract_feature_pack(performance_manifest)
     tags_payload = json.loads((feature_dir / "tags.json").read_text(encoding="utf-8"))
     tags_payload.pop("grouped_tags", None)
+    (feature_dir / "tags.json").write_text(json.dumps(tags_payload), encoding="utf-8")
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_ontology_maps_expected_tags() -> None:
+    assert "density" in TAG_TO_CONCEPT_MAP["dense_region"]
+    assert "gesture" in TAG_TO_CONCEPT_MAP["dense_region"]
+    vamp = TAG_TO_CONCEPT_MAP["repeated_chord_vamp_candidate"]
+    assert {"cycle", "repetition", "harmonic_rhythm"}.issubset(set(vamp))
+
+
+def test_annotate_tag_adds_required_fields() -> None:
+    tagged = annotate_tag_with_rhythm_concepts({"tag": "dense_region", "evidence": {}, "confidence": 0.8})
+    assert "rhythm_concepts" in tagged
+    assert "philosophy_sources" in tagged
+    assert "detection_targets" in tagged
+    assert "density" in tagged["rhythm_concepts"]
+
+
+def test_rhythm_motif_groups_and_accent_patterns_detected(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    rhythm_path = extract_rhythm_features(performance_manifest)
+    payload = json.loads(rhythm_path.read_text(encoding="utf-8"))
+    motif_payload = payload.get("rhythm_motifs", {})
+    assert isinstance(motif_payload, dict)
+    assert int(motif_payload.get("motif_count", 0) or 0) >= 1
+    groups = payload.get("rhythm_motif_groups", [])
+    assert isinstance(groups, list)
+    assert len(groups) >= 1
+    index = payload.get("rhythm_pattern_index", {})
+    assert isinstance(index, dict)
+    repeated_accents = index.get("repeated_accent_patterns", [])
+    assert isinstance(repeated_accents, list)
+    assert len(repeated_accents) >= 1
+
+
+def test_harmony_pattern_index_created(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    harmony_path = extract_harmony_features(performance_manifest)
+    payload = json.loads(harmony_path.read_text(encoding="utf-8"))
+    index = payload.get("harmony_pattern_index", {})
+    assert isinstance(index, dict)
+    assert "repeated_chord_sequence_candidates" in index
+    assert "common_root_motion_sequences" in index
+
+
+def test_validator_rejects_tags_missing_rhythm_concepts(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    tags_payload = json.loads((feature_dir / "tags.json").read_text(encoding="utf-8"))
+    if isinstance(tags_payload.get("tags"), list) and tags_payload["tags"]:
+        if isinstance(tags_payload["tags"][0], dict):
+            tags_payload["tags"][0].pop("rhythm_concepts", None)
     (feature_dir / "tags.json").write_text(json.dumps(tags_payload), encoding="utf-8")
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "failed"

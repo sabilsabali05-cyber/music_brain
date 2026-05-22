@@ -57,6 +57,12 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     rhythm_motifs = rhythm_motifs_payload.get("motifs", []) if isinstance(rhythm_motifs_payload, dict) else []
     if not isinstance(rhythm_motifs, list):
         rhythm_motifs = []
+    rhythm_motif_groups = rhythm_payload.get("rhythm_motif_groups", [])
+    if not isinstance(rhythm_motif_groups, list):
+        rhythm_motif_groups = []
+    rhythm_pattern_index = rhythm_payload.get("rhythm_pattern_index", {})
+    if not isinstance(rhythm_pattern_index, dict):
+        rhythm_pattern_index = {}
     chord_summary = harmony_payload.get("chord_movement_summary", {})
     active_motion_regions = chord_summary.get("active_harmonic_motion_regions", []) if isinstance(chord_summary, dict) else []
     if not isinstance(active_motion_regions, list):
@@ -64,6 +70,9 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     vamp_regions = chord_summary.get("repeated_chord_vamp_candidates", []) if isinstance(chord_summary, dict) else []
     if not isinstance(vamp_regions, list):
         vamp_regions = []
+    harmony_pattern_index = harmony_payload.get("harmony_pattern_index", {})
+    if not isinstance(harmony_pattern_index, dict):
+        harmony_pattern_index = {}
 
     harmony_by_window: dict[str | None, list[dict[str, object]]] = {}
     if isinstance(harmony_records, list):
@@ -218,6 +227,13 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     for item in rhythm_motifs
                     if isinstance(item, dict) and str(item.get("region_id")) == str(rhythm_record.get("region_id"))
                 ]
+                record["motif_group_refs"] = [
+                    str(item.get("motif_group_id"))
+                    for item in rhythm_motif_groups
+                    if isinstance(item, dict) and str(rhythm_record.get("region_id")) in [str(x) for x in item.get("region_ids", [])]
+                ][:10]
+                pattern = str(rhythm_features.get("token_pattern", ""))
+                record["token_pattern_compact"] = pattern[:48] if len(pattern) <= 48 else pattern[:48] + "..."
             if granularity in {"window", "segment"}:
                 start = start_seconds if start_seconds is not None else 0.0
                 end = end_seconds if end_seconds is not None else start
@@ -239,6 +255,8 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                     and float(item.get("end_seconds", 0.0)) >= float(start)
                     and float(item.get("start_seconds", 0.0)) <= float(end)
                 )
+                record["rhythm_concepts_summary"] = rhythm_pattern_index.get("concept_counts", {})
+                record["rhythm_philosophy_summary"] = rhythm_pattern_index.get("philosophy_source_counts", {})
             output_records.append(record)
 
     # Add chord-region specific records from harmony output.
@@ -316,6 +334,11 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 for item in active_motion_regions
                 if isinstance(item, dict) and str(item.get("region_id")) == str(harmony_record.get("region_id"))
             ]
+            record["harmony_pattern_index_refs"] = [
+                str(item.get("sequence"))
+                for item in harmony_pattern_index.get("repeated_chord_sequence_candidates", [])
+                if isinstance(item, dict)
+            ][:8]
             record["vamp_refs"] = [
                 str(item.get("region_id"))
                 for item in vamp_regions

@@ -73,7 +73,10 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
     grouped_tags = tags.get("grouped_tags", [])
     top_unique_tags = tags.get("top_unique_tags", [])
     rhythm_motifs = rhythm.get("rhythm_motifs", {})
+    rhythm_motif_groups = rhythm.get("rhythm_motif_groups", [])
+    rhythm_pattern_index = rhythm.get("rhythm_pattern_index", {})
     chord_movement_summary = harmony.get("chord_movement_summary", {})
+    harmony_pattern_index = harmony.get("harmony_pattern_index", {})
 
     warnings: list[str] = []
     if not isinstance(rhythm_records, list) or len(rhythm_records) == 0:
@@ -88,8 +91,14 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         warnings.append("top_unique_tags missing or malformed")
     if not isinstance(rhythm_motifs, dict):
         warnings.append("rhythm_motifs section missing or malformed")
+    if not isinstance(rhythm_motif_groups, list):
+        warnings.append("rhythm_motif_groups missing or malformed")
+    if not isinstance(rhythm_pattern_index, dict):
+        warnings.append("rhythm_pattern_index missing or malformed")
     if not isinstance(chord_movement_summary, dict):
         warnings.append("chord_movement_summary missing or malformed")
+    if not isinstance(harmony_pattern_index, dict):
+        warnings.append("harmony_pattern_index missing or malformed")
     if jsonl_parse_errors:
         warnings.append(f"ai training jsonl parse errors: {jsonl_parse_errors}")
 
@@ -124,6 +133,11 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
                 continue
             if "confidence" not in tag or "evidence" not in tag:
                 invalid_tag_entries += 1
+                continue
+            for required in ["rhythm_concepts", "philosophy_sources", "detection_targets"]:
+                if required not in tag:
+                    invalid_tag_entries += 1
+                    break
     if invalid_tag_entries:
         warnings.append(f"tag entries missing confidence/evidence: {invalid_tag_entries}")
 
@@ -151,6 +165,10 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
             if field not in item:
                 warnings.append(f"ai record missing field: {field}")
                 break
+        if "motif_group_refs" in item and not isinstance(item.get("motif_group_refs"), list):
+            warnings.append("ai record motif_group_refs must be a list")
+        if "harmony_pattern_index_refs" in item and not isinstance(item.get("harmony_pattern_index_refs"), list):
+            warnings.append("ai record harmony_pattern_index_refs must be a list")
     if invalid_time_ranges:
         warnings.append(f"invalid time ranges: {invalid_time_ranges}")
 
@@ -174,10 +192,16 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "ai_record_count_by_granularity",
         "Top Unique Tags",
         "Rhythm Motif Candidates",
+        "Top Rhythm Motif Groups",
+        "Harmony Pattern Index",
+        "Rhythm Philosophy Interpretation",
     ]
     for token in required_summary_tokens:
         if token not in summary_text:
             warnings.append(f"feature_summary.md missing token: {token}")
+    motif_count = int(rhythm_motifs.get("motif_count", 0) or 0) if isinstance(rhythm_motifs, dict) else 0
+    if "Ghost_Town" in performance_id and motif_count <= 1:
+        warnings.append("motif count is suspiciously low for Ghost Town; inspect quantization/motif mining thresholds")
 
     status = "success" if not missing and not warnings else "failed"
     return {

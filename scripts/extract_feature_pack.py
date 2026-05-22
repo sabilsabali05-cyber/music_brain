@@ -271,6 +271,15 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         summary_lines.append("- none")
 
     movement_summary = harmony_payload.get("chord_movement_summary", {})
+    harmony_pattern_index = harmony_payload.get("harmony_pattern_index", {})
+    rhythm_pattern_index = rhythm_payload.get("rhythm_pattern_index", {})
+    motif_groups = rhythm_payload.get("rhythm_motif_groups", [])
+    if not isinstance(motif_groups, list):
+        motif_groups = []
+    if not isinstance(harmony_pattern_index, dict):
+        harmony_pattern_index = {}
+    if not isinstance(rhythm_pattern_index, dict):
+        rhythm_pattern_index = {}
     repeated_vamps = movement_summary.get("repeated_chord_vamp_candidates", []) if isinstance(movement_summary, dict) else []
     if not isinstance(repeated_vamps, list):
         repeated_vamps = []
@@ -301,6 +310,91 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
             )
     else:
         summary_lines.append("- none")
+    summary_lines.extend(["", "## Top Rhythm Motif Groups"])
+    if motif_groups:
+        for item in motif_groups[:10]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"- `{item.get('motif_group_id')}` pattern=`{item.get('representative_pattern')}` "
+                f"repeat_count=`{item.get('group_repeat_count')}` occurrence_count=`{item.get('occurrence_count')}`"
+            )
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Repeated Accent Patterns"])
+    accent_patterns = rhythm_pattern_index.get("repeated_accent_patterns", []) if isinstance(rhythm_pattern_index, dict) else []
+    if isinstance(accent_patterns, list) and accent_patterns:
+        for item in accent_patterns[:10]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(f"- pattern=`{item.get('pattern')}` count=`{item.get('count')}`")
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Steady Grid Candidates"])
+    summary_lines.append(f"- count=`{rhythm_pattern_index.get('steady_pulse_regions', 0)}`")
+    summary_lines.extend(["", "## Irregular Groove Candidates"])
+    summary_lines.append(f"- count=`{rhythm_pattern_index.get('irregular_regions', 0)}`")
+    summary_lines.extend(["", "## Harmony Pattern Index"])
+    summary_lines.append(
+        f"- repeated_chord_sequence_candidates=`{len(harmony_pattern_index.get('repeated_chord_sequence_candidates', []) if isinstance(harmony_pattern_index.get('repeated_chord_sequence_candidates'), list) else [])}`"
+    )
+    summary_lines.append(
+        f"- chord_loop_candidates=`{len(harmony_pattern_index.get('chord_loop_candidates', []) if isinstance(harmony_pattern_index.get('chord_loop_candidates'), list) else [])}`"
+    )
+    summary_lines.extend(["", "## Repeated Chord Loop Candidates"])
+    chord_loops = harmony_pattern_index.get("chord_loop_candidates", []) if isinstance(harmony_pattern_index, dict) else []
+    if isinstance(chord_loops, list) and chord_loops:
+        for item in chord_loops[:5]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(
+                f"- `{item.get('region_id')}` `{item.get('start_seconds')}-{item.get('end_seconds')}` "
+                f"score=`{item.get('repeated_chord_score')}`"
+            )
+    else:
+        summary_lines.append("- none")
+    summary_lines.extend(["", "## Common Root Motion Sequences"])
+    root_sequences = harmony_pattern_index.get("common_root_motion_sequences", []) if isinstance(harmony_pattern_index, dict) else []
+    if isinstance(root_sequences, list) and root_sequences:
+        for item in root_sequences[:8]:
+            if not isinstance(item, dict):
+                continue
+            summary_lines.append(f"- interval=`{item.get('interval')}` count=`{item.get('count')}`")
+    else:
+        summary_lines.append("- none")
+    concept_counts = rhythm_pattern_index.get("concept_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    philosophy_counts = rhythm_pattern_index.get("philosophy_source_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    if not isinstance(concept_counts, dict):
+        concept_counts = {}
+    if not isinstance(philosophy_counts, dict):
+        philosophy_counts = {}
+    strongest_targets: set[str] = set()
+    for tag_item in tags:
+        if not isinstance(tag_item, dict):
+            continue
+        targets = tag_item.get("detection_targets", [])
+        if not isinstance(targets, list):
+            continue
+        for value in targets[:4]:
+            strongest_targets.add(str(value))
+    summary_lines.extend(["", "## Rhythm Philosophy Interpretation"])
+    summary_lines.append(
+        "- top rhythm concepts represented: "
+        + ", ".join(
+            f"`{name}` ({count})"
+            for name, count in sorted(((str(k), int(v)) for k, v in concept_counts.items()), key=lambda item: item[1], reverse=True)[:8]
+        )
+    )
+    summary_lines.append(
+        "- top philosophy sources represented: "
+        + ", ".join(
+            f"`{name}` ({count})"
+            for name, count in sorted(((str(k), int(v)) for k, v in philosophy_counts.items()), key=lambda item: item[1], reverse=True)[:8]
+        )
+    )
+    summary_lines.append("- strongest detection targets supported by data: " + ", ".join(f"`{item}`" for item in sorted(strongest_targets)[:12]))
+    summary_lines.append("- concepts that remain future work: `polyrhythm`, `rubato`, `social_ritual` at section-level confidence.")
+    summary_lines.append("- limitations: ontology assignments are heuristic and rely on symbolic timing proxies.")
 
     summary_lines.extend(
         [
