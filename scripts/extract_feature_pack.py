@@ -312,16 +312,26 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         summary_lines.append("- none")
     summary_lines.extend(["", "## Standard Rhythm Family Matches"])
     family_counts = rhythm_pattern_index.get("rhythm_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
-    strong_family_counts = rhythm_pattern_index.get("strong_rhythm_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
-    moderate_family_counts = rhythm_pattern_index.get("moderate_rhythm_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
-    weak_family_counts = rhythm_pattern_index.get("weak_rhythm_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    raw_candidate_counts = rhythm_pattern_index.get("raw_candidate_match_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    motif_group_family_counts = rhythm_pattern_index.get("motif_group_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    strong_family_counts = rhythm_pattern_index.get("strong_group_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    moderate_family_counts = rhythm_pattern_index.get("moderate_group_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
+    weak_family_counts = rhythm_pattern_index.get("weak_group_family_counts", {}) if isinstance(rhythm_pattern_index, dict) else {}
     top_family_matches = rhythm_pattern_index.get("top_rhythm_family_matches", []) if isinstance(rhythm_pattern_index, dict) else []
     unknown_high_info = rhythm_pattern_index.get("unknown_high_information_patterns", []) if isinstance(rhythm_pattern_index, dict) else []
-    if isinstance(family_counts, dict) and family_counts:
-        for name, count in sorted(((str(k), int(v)) for k, v in family_counts.items()), key=lambda item: item[1], reverse=True)[:10]:
-            summary_lines.append(f"- family `{name}` count=`{count}`")
+    if isinstance(motif_group_family_counts, dict) and motif_group_family_counts:
+        for name, count in sorted(((str(k), int(v)) for k, v in motif_group_family_counts.items()), key=lambda item: item[1], reverse=True)[:10]:
+            summary_lines.append(f"- group-level family `{name}` count=`{count}`")
     else:
-        summary_lines.append("- no confident family matches")
+        summary_lines.append("- no group-level family matches")
+    if isinstance(raw_candidate_counts, dict) and raw_candidate_counts:
+        summary_lines.append(
+            "- raw candidate counts are diagnostic only: "
+            + ", ".join(
+                f"`{name}` ({count})"
+                for name, count in sorted(((str(k), int(v)) for k, v in raw_candidate_counts.items()), key=lambda item: item[1], reverse=True)[:8]
+            )
+        )
     if isinstance(top_family_matches, list) and top_family_matches:
         summary_lines.append("- representative matches:")
         for item in top_family_matches[:8]:
@@ -341,11 +351,11 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
                 f"  - group=`{item.get('motif_group_id')}` pattern=`{item.get('representative_pattern')}` "
                 f"info_score=`{item.get('information_score')}`"
             )
-    summary_lines.append("- limitations: lexicon classification is candidate-level and may conflate related timeline families.")
+    summary_lines.append("- limitations: candidate-level counts can overstate prevalence; group-level counts are preferred.")
     summary_lines.extend(["", "## Rhythm Family Classification Quality"])
     if isinstance(strong_family_counts, dict):
         summary_lines.append(
-            "- strong family matches: "
+            "- strong group-level family matches: "
             + ", ".join(
                 f"`{name}` ({count})"
                 for name, count in sorted(((str(k), int(v)) for k, v in strong_family_counts.items()), key=lambda item: item[1], reverse=True)[:8]
@@ -353,7 +363,7 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         )
     if isinstance(moderate_family_counts, dict):
         summary_lines.append(
-            "- moderate family matches: "
+            "- moderate group-level family matches: "
             + ", ".join(
                 f"`{name}` ({count})"
                 for name, count in sorted(((str(k), int(v)) for k, v in moderate_family_counts.items()), key=lambda item: item[1], reverse=True)[:8]
@@ -361,7 +371,7 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
         )
     if isinstance(weak_family_counts, dict):
         summary_lines.append(
-            "- weak matches ignored for tags: "
+            "- weak group-level matches ignored for tags: "
             + ", ".join(
                 f"`{name}` ({count})"
                 for name, count in sorted(((str(k), int(v)) for k, v in weak_family_counts.items()), key=lambda item: item[1], reverse=True)[:8]
@@ -371,6 +381,31 @@ def extract_feature_pack(performance_manifest_path: Path, *, output_dir: Path | 
     overmatch = rhythm_pattern_index.get("overmatch_diagnostics", {}) if isinstance(rhythm_pattern_index, dict) else {}
     summary_lines.append(f"- overmatch warnings: `{json.dumps(overmatch, ensure_ascii=True)}`")
     summary_lines.append("- lexicon matches are candidates, not ground truth.")
+    summary_lines.extend(["", "## Standard Rhythm Lexicon Review"])
+    summary_lines.append(
+        "- strong group-level matches: "
+        + ", ".join(
+            f"`{name}` ({count})"
+            for name, count in sorted(((str(k), int(v)) for k, v in strong_family_counts.items()), key=lambda item: item[1], reverse=True)[:8]
+        )
+        if isinstance(strong_family_counts, dict) and strong_family_counts
+        else "- strong group-level matches: none"
+    )
+    summary_lines.append(
+        "- moderate group-level matches: "
+        + ", ".join(
+            f"`{name}` ({count})"
+            for name, count in sorted(((str(k), int(v)) for k, v in moderate_family_counts.items()), key=lambda item: item[1], reverse=True)[:8]
+        )
+        if isinstance(moderate_family_counts, dict) and moderate_family_counts
+        else "- moderate group-level matches: none"
+    )
+    summary_lines.append(f"- ambiguous groups: `{rhythm_pattern_index.get('ambiguous_rhythm_family_count', 0)}`")
+    summary_lines.append(
+        f"- unknown high-information groups: `{len(unknown_high_info) if isinstance(unknown_high_info, list) else 0}`"
+    )
+    if isinstance(strong_family_counts, dict) and not strong_family_counts:
+        summary_lines.append("- warning: no strong lexicon matches; classifier is intentionally refusing to overclaim.")
     summary_lines.extend(["", "## Top Rhythm Motif Groups"])
     if motif_groups:
         for item in motif_groups[:10]:

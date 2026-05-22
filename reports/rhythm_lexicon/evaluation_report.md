@@ -1,0 +1,64 @@
+# Rhythm Lexicon Evaluation Report
+
+- total_fixtures: `30`
+- positive_fixtures: `21`
+- negative_fixtures: `9`
+- exact_family_hits: `17`
+- expected_family_in_top3: `21`
+- false_positive_count: `0`
+- false_negative_count: `0`
+- ambiguous_count: `11`
+- overmatch_count: `2`
+
+## Confusion Summary
+- expected `tresillo_3_3_2` -> `{"tresillo_3_3_2": 1}`
+- expected `habanera` -> `{"habanera": 1}`
+- expected `cinquillo` -> `{"cinquillo": 1}`
+- expected `clave` -> `{"clave": 4}`
+- expected `backbeat` -> `{"none": 1}`
+- expected `four_on_the_floor` -> `{"four_on_the_floor": 1}`
+- expected `waltz_3_4` -> `{"waltz_3_4": 1}`
+- expected `march_duple` -> `{"march_duple": 1}`
+- expected `shuffle` -> `{"shuffle": 1}`
+- expected `twelve_eight_gospel` -> `{"twelve_eight_gospel": 1}`
+- expected `gospel_clap_backbeat` -> `{"none": 1}`
+- expected `boom_bap_backbeat` -> `{"none": 1}`
+- expected `trap_subdivision` -> `{"trap_subdivision": 1}`
+- expected `dembow_like` -> `{"dembow_like": 1}`
+- expected `bossa_like` -> `{"bossa_like": 1}`
+- expected `samba_like` -> `{"samba_like": 1}`
+- expected `generic_vamp_cycle` -> `{"none": 1}`
+- expected `sparse_call_response` -> `{"sparse_call_response": 1}`
+- expected `negative` -> `{"waltz_3_4": 1, "habanera": 1, "tresillo_3_3_2": 3, "cinquillo": 2, "sparse_call_response": 1, "none": 1}`
+
+## Fixture Results
+- `fx_tresillo` expected=`tresillo_3_3_2` predicted=`tresillo_3_3_2` strength=`moderate` confidence=`1.0`
+- `fx_habanera` expected=`habanera` predicted=`habanera` strength=`strong` confidence=`1.0`
+- `fx_cinquillo` expected=`cinquillo` predicted=`cinquillo` strength=`strong` confidence=`1.0`
+- `fx_son_clave_32` expected=`clave` predicted=`clave` strength=`strong` confidence=`1.0`
+- `fx_son_clave_23` expected=`clave` predicted=`clave` strength=`strong` confidence=`1.0`
+- `fx_rumba_clave_32` expected=`clave` predicted=`clave` strength=`strong` confidence=`1.0`
+- `fx_rumba_clave_23` expected=`clave` predicted=`clave` strength=`strong` confidence=`1.0`
+- `fx_backbeat` expected=`backbeat` predicted=`None` strength=`ambiguous` confidence=`1.0`
+- `fx_four_floor` expected=`four_on_the_floor` predicted=`four_on_the_floor` strength=`strong` confidence=`1.0`
+- `fx_waltz` expected=`waltz_3_4` predicted=`waltz_3_4` strength=`moderate` confidence=`1.0`
+- `fx_march` expected=`march_duple` predicted=`march_duple` strength=`strong` confidence=`1.0`
+- `fx_shuffle` expected=`shuffle` predicted=`shuffle` strength=`strong` confidence=`1.0`
+- `fx_128_gospel` expected=`twelve_eight_gospel` predicted=`twelve_eight_gospel` strength=`strong` confidence=`1.0`
+- `fx_gospel_backbeat` expected=`gospel_clap_backbeat` predicted=`None` strength=`ambiguous` confidence=`1.0`
+- `fx_boom_bap` expected=`boom_bap_backbeat` predicted=`None` strength=`ambiguous` confidence=`1.0`
+- `fx_trap_subdiv` expected=`trap_subdivision` predicted=`trap_subdivision` strength=`strong` confidence=`1.0`
+- `fx_dembow` expected=`dembow_like` predicted=`dembow_like` strength=`strong` confidence=`1.0`
+- `fx_bossa` expected=`bossa_like` predicted=`bossa_like` strength=`strong` confidence=`1.0`
+- `fx_samba` expected=`samba_like` predicted=`samba_like` strength=`strong` confidence=`1.0`
+- `fx_vamp` expected=`generic_vamp_cycle` predicted=`None` strength=`ambiguous` confidence=`1.0`
+- `fx_sparse_call_response` expected=`sparse_call_response` predicted=`sparse_call_response` strength=`strong` confidence=`1.0`
+- `neg_all_onset_xxxx` expected=`None` predicted=`waltz_3_4` strength=`ambiguous` confidence=`0.062127`
+- `neg_all_onset_xxxxxxxx` expected=`None` predicted=`habanera` strength=`ambiguous` confidence=`0.126202`
+- `neg_all_rest` expected=`None` predicted=`tresillo_3_3_2` strength=`ambiguous` confidence=`0.0`
+- `neg_random_sparse` expected=`None` predicted=`tresillo_3_3_2` strength=`weak` confidence=`0.46526`
+- `neg_random_dense` expected=`None` predicted=`cinquillo` strength=`ambiguous` confidence=`0.468857`
+- `neg_single_onset` expected=`None` predicted=`sparse_call_response` strength=`weak` confidence=`0.4472`
+- `neg_repeated_no_shape` expected=`None` predicted=`cinquillo` strength=`ambiguous` confidence=`0.48`
+- `neg_straight_grid_without_accent` expected=`None` predicted=`None` strength=`ambiguous` confidence=`0.78`
+- `neg_ambiguous_tresillo_habanera_like` expected=`None` predicted=`tresillo_3_3_2` strength=`ambiguous` confidence=`0.83`

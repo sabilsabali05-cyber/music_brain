@@ -118,16 +118,17 @@
 - `motif_0009` repeat_count=`53` region=`None` window=`None` confidence=`0.95`
 
 ## Standard Rhythm Family Matches
-- family `tresillo_3_3_2` count=`8432`
-- family `habanera` count=`6589`
-- family `waltz_3_4` count=`6190`
-- family `trap_subdivision` count=`4744`
-- family `twelve_eight_gospel` count=`3405`
-- family `cinquillo` count=`2839`
-- family `sparse_call_response` count=`1379`
-- family `gospel_clap_backbeat` count=`127`
-- family `generic_vamp_cycle` count=`73`
-- family `samba_like` count=`63`
+- group-level family `cinquillo` count=`243`
+- group-level family `tresillo_3_3_2` count=`218`
+- group-level family `sparse_call_response` count=`157`
+- group-level family `waltz_3_4` count=`147`
+- group-level family `habanera` count=`77`
+- group-level family `trap_subdivision` count=`72`
+- group-level family `gospel_clap_backbeat` count=`37`
+- group-level family `samba_like` count=`32`
+- group-level family `generic_vamp_cycle` count=`22`
+- group-level family `four_on_the_floor` count=`14`
+- raw candidate counts are diagnostic only: `cinquillo` (243), `tresillo_3_3_2` (208), `sparse_call_response` (157), `waltz_3_4` (147), `habanera` (77), `trap_subdivision` (76), `gospel_clap_backbeat` (40), `samba_like` (32)
 - representative matches:
   - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0013`
   - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0315`
@@ -137,21 +138,28 @@
   - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0347`
   - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0350`
   - `sparse_call_response` pattern=`sparse_call_response` confidence=`0.6` strength=`moderate` group=`motif_group_0353`
-- unknown high-information patterns: `19`
+- unknown high-information patterns: `13`
   - group=`motif_group_0157` pattern=`x.x.x.x` info_score=`180`
   - group=`motif_group_0158` pattern=`.x.x.x.x` info_score=`142`
   - group=`motif_group_0159` pattern=`x.x.x.x.` info_score=`134`
   - group=`motif_group_0160` pattern=`.x.x.x.x.` info_score=`107`
   - group=`motif_group_0268` pattern=`x..x..x` info_score=`86`
-- limitations: lexicon classification is candidate-level and may conflate related timeline families.
+- limitations: candidate-level counts can overstate prevalence; group-level counts are preferred.
 
 ## Rhythm Family Classification Quality
-- strong family matches: 
-- moderate family matches: `sparse_call_response` (795), `tresillo_3_3_2` (608), `cinquillo` (177), `habanera` (8), `twelve_eight_gospel` (4)
-- weak matches ignored for tags: `tresillo_3_3_2` (7824), `habanera` (6581), `waltz_3_4` (6190), `trap_subdivision` (4744), `twelve_eight_gospel` (3401), `cinquillo` (2662), `sparse_call_response` (584), `gospel_clap_backbeat` (127)
-- ambiguous family matches: `21`
-- overmatch warnings: `{"all_onset_groups": 10, "ambiguous_groups": 21, "weak_high_frequency_groups": 285}`
+- strong group-level family matches: 
+- moderate group-level family matches: `sparse_call_response` (795), `tresillo_3_3_2` (608), `cinquillo` (177), `habanera` (149), `generic_vamp_cycle` (105), `trap_subdivision` (35), `samba_like` (6), `gospel_clap_backbeat` (6)
+- weak group-level matches ignored for tags: `tresillo_3_3_2` (7895), `waltz_3_4` (6500), `habanera` (6479), `trap_subdivision` (4713), `sparse_call_response` (3457), `cinquillo` (2703), `gospel_clap_backbeat` (149), `samba_like` (81)
+- ambiguous family matches: `15`
+- overmatch warnings: `{"all_onset_groups": 10, "ambiguous_groups": 15, "weak_high_frequency_groups": 281}`
 - lexicon matches are candidates, not ground truth.
+
+## Standard Rhythm Lexicon Review
+- strong group-level matches: none
+- moderate group-level matches: `sparse_call_response` (795), `tresillo_3_3_2` (608), `cinquillo` (177), `habanera` (149), `generic_vamp_cycle` (105), `trap_subdivision` (35), `samba_like` (6), `gospel_clap_backbeat` (6)
+- ambiguous groups: `15`
+- unknown high-information groups: `13`
+- warning: no strong lexicon matches; classifier is intentionally refusing to overclaim.
 
 ## Top Rhythm Motif Groups
 - `motif_group_0000` pattern=`xxx` repeat_count=`1859` occurrence_count=`99`

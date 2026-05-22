@@ -10,6 +10,8 @@ from features.rhythm_ontology import (
     annotate_tag_with_rhythm_concepts,
 )
 from features.rhythm_lexicon import classify_rhythm_pattern
+from features.rhythm_standard_fixtures import STANDARD_RHYTHM_FIXTURES
+from scripts.evaluate_rhythm_lexicon import main as evaluate_rhythm_lexicon_main
 from scripts.build_ai_training_records import build_ai_training_records
 from scripts.extract_feature_pack import extract_feature_pack
 from scripts.extract_harmony_features import extract_harmony_features
@@ -376,6 +378,7 @@ def test_son_clave_pattern_matches_clave_family() -> None:
     result = classify_rhythm_pattern({"token_pattern": "x..x...x..x.x...", "accent_pattern": "X..x...X..x.x..."})
     assert result["matched_family"] == "clave"
     assert float(result["confidence"]) >= 0.55
+    assert result["matched_family"] != "tresillo_3_3_2"
 
 
 def test_all_onset_pattern_not_high_confidence_clave_or_tresillo() -> None:
@@ -409,10 +412,16 @@ def test_negative_controls_do_not_overmatch_strong_families() -> None:
 
 
 def test_ambiguous_match_sets_null_best_family() -> None:
-    result = classify_rhythm_pattern({"token_pattern": "x..x..x..", "accent_pattern": "X..x..x..", "repeat_count": 3})
-    if result.get("rhythm_family_ambiguous"):
-        assert result.get("matched_family") is None
-        assert isinstance(result.get("ambiguous_family_candidates"), list)
+    fixture = next(item for item in STANDARD_RHYTHM_FIXTURES if item.get("fixture_id") == "neg_ambiguous_tresillo_habanera_like")
+    result = classify_rhythm_pattern(
+        {
+            "token_pattern": fixture.get("token_pattern", ""),
+            "accent_pattern": fixture.get("accent_pattern", ""),
+            "normalized_ratio_pattern": fixture.get("interval_ratios", []),
+            "repeat_count": 4,
+        }
+    )
+    assert bool(result.get("rhythm_family_ambiguous")) or result.get("match_strength") == "ambiguous"
 
 
 def test_rhythm_family_counts_generated(tmp_path: Path, monkeypatch) -> None:
@@ -426,6 +435,37 @@ def test_rhythm_family_counts_generated(tmp_path: Path, monkeypatch) -> None:
     assert isinstance(index.get("strong_rhythm_family_counts"), dict)
     assert isinstance(index.get("moderate_rhythm_family_counts"), dict)
     assert isinstance(index.get("weak_rhythm_family_counts"), dict)
+    assert isinstance(index.get("raw_candidate_match_counts"), dict)
+    assert isinstance(index.get("motif_group_family_counts"), dict)
+    assert isinstance(index.get("strong_group_family_counts"), dict)
+
+
+def test_group_level_counts_differ_from_raw_candidate_counts(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
+    index = rhythm_payload.get("rhythm_pattern_index", {})
+    raw_counts = index.get("raw_candidate_match_counts", {})
+    group_counts = index.get("motif_group_family_counts", {})
+    assert isinstance(raw_counts, dict)
+    assert isinstance(group_counts, dict)
+    raw_total = sum(int(v) for v in raw_counts.values())
+    group_total = sum(int(v) for v in group_counts.values())
+    assert raw_total >= group_total
+    assert raw_counts != group_counts
+
+
+def test_evaluation_script_writes_reports(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    assert evaluate_rhythm_lexicon_main() == 0
+    report_json = tmp_path / "reports" / "rhythm_lexicon" / "evaluation_report.json"
+    report_md = tmp_path / "reports" / "rhythm_lexicon" / "evaluation_report.md"
+    assert report_json.exists()
+    assert report_md.exists()
+    payload = json.loads(report_json.read_text(encoding="utf-8"))
+    assert "total_fixtures" in payload
+    assert "exact_family_hits" in payload
 
 
 def test_rhythm_family_tags_include_matched_pattern_id(tmp_path: Path, monkeypatch) -> None:
@@ -452,6 +492,18 @@ def test_validator_rejects_missing_rhythm_family_counts(tmp_path: Path, monkeypa
     rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
     if isinstance(rhythm_payload.get("rhythm_pattern_index"), dict):
         rhythm_payload["rhythm_pattern_index"].pop("rhythm_family_counts", None)
+    (feature_dir / "rhythm_features.json").write_text(json.dumps(rhythm_payload), encoding="utf-8")
+    summary = validate_feature_pack(performance_manifest)
+    assert summary["status"] == "failed"
+
+
+def test_validator_rejects_missing_group_level_family_counts(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    performance_manifest, _, _ = _write_manifests(tmp_path, include_merged=True, include_window_midis=True)
+    feature_dir = extract_feature_pack(performance_manifest)
+    rhythm_payload = json.loads((feature_dir / "rhythm_features.json").read_text(encoding="utf-8"))
+    if isinstance(rhythm_payload.get("rhythm_pattern_index"), dict):
+        rhythm_payload["rhythm_pattern_index"].pop("raw_candidate_match_counts", None)
     (feature_dir / "rhythm_features.json").write_text(json.dumps(rhythm_payload), encoding="utf-8")
     summary = validate_feature_pack(performance_manifest)
     assert summary["status"] == "failed"

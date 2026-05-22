@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from features.rhythm_lexicon_config import DEFAULT_LEXICON_THRESHOLD, RHYTHM_LEXICON_THRESHOLDS
 
 RHYTHM_LEXICON: list[dict[str, Any]] = [
     {
@@ -517,22 +518,46 @@ def _family_requirements(
     return reasons
 
 
-def _strength(confidence: float, specificity: float, ambiguity: float, mismatch_reasons: list[str]) -> str:
-    if ambiguity >= 0.75:
+def _strength(
+    confidence: float,
+    specificity: float,
+    ambiguity: float,
+    mismatch_reasons: list[str],
+    thresholds: dict[str, Any],
+) -> str:
+    strong_confidence = float(thresholds.get("strong_confidence", 0.82))
+    moderate_confidence = float(thresholds.get("moderate_confidence", 0.60))
+    minimum_confidence = float(thresholds.get("minimum_confidence", 0.45))
+    minimum_specificity = float(thresholds.get("minimum_specificity_score", 0.30))
+    maximum_ambiguity = float(thresholds.get("maximum_ambiguity_score", 0.75))
+    if ambiguity >= maximum_ambiguity:
         return "ambiguous"
-    if confidence < 0.55:
+    if confidence < minimum_confidence:
         return "weak"
     if any("all-onset token pattern" in reason for reason in mismatch_reasons):
         return "weak"
-    if confidence < 0.70:
-        if ambiguity <= 0.45 and specificity >= 0.35 and len(mismatch_reasons) <= 2:
+    if confidence < moderate_confidence:
+        if ambiguity <= min(0.6, maximum_ambiguity) and specificity >= minimum_specificity and len(mismatch_reasons) <= 2:
             return "moderate"
         return "weak"
-    if confidence >= 0.82 and specificity >= 0.55 and ambiguity <= 0.3 and len(mismatch_reasons) <= 1:
+    if confidence >= strong_confidence and specificity >= max(0.45, minimum_specificity) and ambiguity <= 0.3 and len(mismatch_reasons) <= 1:
         return "strong"
-    if confidence >= 0.70:
+    if confidence >= moderate_confidence:
         return "moderate"
     return "weak"
+
+
+def _family_thresholds(family: str) -> dict[str, Any]:
+    merged = dict(DEFAULT_LEXICON_THRESHOLD)
+    family_cfg = RHYTHM_LEXICON_THRESHOLDS.get(family, {})
+    if isinstance(family_cfg, dict):
+        merged.update(family_cfg)
+        default_penalties = dict(DEFAULT_LEXICON_THRESHOLD.get("negative_control_penalties", {}))
+        family_penalties = family_cfg.get("negative_control_penalties", {})
+        if isinstance(family_penalties, dict):
+            default_penalties.update(family_penalties)
+        merged["negative_control_penalties"] = default_penalties
+    return merged
 
 
 def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
@@ -566,8 +591,31 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
                 information_score=information_score,
             )
         )
+        thresholds = _family_thresholds(str(item.get("family", "")))
+        penalties = thresholds.get("negative_control_penalties", {})
+        if isinstance(penalties, dict):
+            if any("all-onset token pattern" in reason for reason in mismatch_reasons):
+                confidence *= float(penalties.get("all_onset", 0.45))
+            if any("low information pattern" in reason for reason in mismatch_reasons):
+                confidence *= float(penalties.get("low_information", 0.65))
+            if repeat_count <= 1:
+                confidence *= float(penalties.get("insufficient_repetition", 0.85))
         confidence *= max(0.1, (1.0 - min(0.5, 0.07 * len(set(mismatch_reasons)))))
         specificity_score = min(1.0, (0.6 * token_score) + (0.25 * ratio_score) + (0.15 * information_score))
+        required_fields = thresholds.get("required_evidence_fields", [])
+        if isinstance(required_fields, list):
+            for field in required_fields:
+                field_name = str(field)
+                value = 0.0
+                if field_name == "token_similarity":
+                    value = token_score
+                elif field_name == "accent_similarity":
+                    value = accent_score
+                elif field_name == "ratio_similarity":
+                    value = ratio_score
+                if value <= 0.2:
+                    mismatch_reasons.append(f"missing required evidence: {field_name}")
+                    confidence *= 0.7
         result = {
             "matched_pattern_id": item["pattern_id"],
             "matched_family": item["family"],
@@ -590,6 +638,7 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
             "philosophy_sources": list(item.get("philosophy_sources", [])),
             "detection_targets": list(item.get("detection_targets", [])),
             "limitations": [str(item.get("limitations", "")), "lexicon matching is heuristic and symbolic."],
+            "thresholds": thresholds,
         }
         raw_matches.append(result)
     if not raw_matches:
@@ -635,11 +684,14 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
     else:
         best_family = best.get("matched_family")
         best_pattern_id = best.get("matched_pattern_id")
+    family_for_threshold = str(best.get("matched_family") or "")
+    thresholds = _family_thresholds(family_for_threshold)
     strength = _strength(
         float(best.get("confidence", 0.0) or 0.0),
         float(best.get("specificity_score", 0.0) or 0.0),
         float(ambiguity_score),
         list(best.get("mismatch_reasons", [])),
+        thresholds,
     )
     if family_ambiguous:
         strength = "ambiguous"
@@ -650,9 +702,19 @@ def classify_rhythm_pattern(motif_or_region: dict[str, Any]) -> dict[str, Any]:
         "matched_pattern_id": best_pattern_id,
         "matched_family": best_family,
         "raw_matches": ranked[:6],
+        "top3_matches": ranked[:3],
         "rhythm_family_ambiguous": family_ambiguous,
         "ambiguous_family_candidates": ambiguous_candidates if family_ambiguous else [],
     }
+    minimum_confidence = float(thresholds.get("minimum_confidence", 0.45))
+    minimum_specificity = float(thresholds.get("minimum_specificity_score", 0.3))
+    maximum_ambiguity = float(thresholds.get("maximum_ambiguity_score", 0.75))
+    if float(output.get("confidence", 0.0) or 0.0) < minimum_confidence:
+        output["match_strength"] = "weak"
+    if float(output.get("specificity_score", 0.0) or 0.0) < minimum_specificity:
+        output["match_strength"] = "weak"
+    if float(output.get("ambiguity_score", 0.0) or 0.0) > maximum_ambiguity:
+        output["match_strength"] = "ambiguous"
     return output
 
 

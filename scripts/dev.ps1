@@ -75,6 +75,7 @@ function Show-Usage {
     Write-Host "  build-ai-training-records <performance-manifest>"
     Write-Host "  extract-feature-pack <performance-manifest>"
     Write-Host "  validate-feature-pack <performance-manifest>"
+    Write-Host "  evaluate-rhythm-lexicon"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -766,6 +767,11 @@ switch ($Task) {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-feature-pack <performance-manifest>"
         Invoke-Step -Label "Validating feature pack outputs" -Command @(
             "python", "scripts/validate_feature_pack.py", $manifestPath
+        )
+    }
+    "evaluate-rhythm-lexicon" {
+        Invoke-Step -Label "Evaluating rhythm lexicon against standard fixtures" -Command @(
+            "python", "scripts/evaluate_rhythm_lexicon.py"
         )
     }
     "transcribe-yourmt3" {

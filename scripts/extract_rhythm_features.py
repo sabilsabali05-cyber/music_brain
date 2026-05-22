@@ -443,6 +443,8 @@ def extract_rhythm_features(
         key=lambda item: (int(item.get("group_repeat_count", 0)), int(item.get("occurrence_count", 0))),
         reverse=True,
     )
+    raw_candidate_match_counts: dict[str, int] = {}
+    motif_group_family_counts: dict[str, int] = {}
     rhythm_family_counts: dict[str, int] = {}
     strong_rhythm_family_counts: dict[str, int] = {}
     moderate_rhythm_family_counts: dict[str, int] = {}
@@ -468,6 +470,10 @@ def extract_rhythm_features(
         motif["mismatch_reasons"] = classification.get("mismatch_reasons", [])
         motif["rhythm_family_ambiguous"] = classification.get("rhythm_family_ambiguous", False)
         motif["ambiguous_family_candidates"] = classification.get("ambiguous_family_candidates", [])
+        motif_family = classification.get("matched_family")
+        if motif_family not in {None, "", "unknown"}:
+            key = str(motif_family)
+            raw_candidate_match_counts[key] = raw_candidate_match_counts.get(key, 0) + 1
     for group in motif_group_list:
         classification = classify_rhythm_pattern(
             {
@@ -497,6 +503,7 @@ def extract_rhythm_features(
             ambiguous_rhythm_family_count += 1
             overmatch_diagnostics["ambiguous_groups"] = int(overmatch_diagnostics.get("ambiguous_groups", 0)) + 1
         if family != "unknown":
+            motif_group_family_counts[family] = motif_group_family_counts.get(family, 0) + 1
             rhythm_family_counts[family] = rhythm_family_counts.get(family, 0) + repeat_weight
             if strength == "strong":
                 strong_rhythm_family_counts[family] = strong_rhythm_family_counts.get(family, 0) + repeat_weight
@@ -566,10 +573,15 @@ def extract_rhythm_features(
         "irregular_regions": irregular_region_count,
         "straight_grid_candidates": straight_grid_count,
         "triplet_grid_candidates": triplet_grid_count,
+        "raw_candidate_match_counts": raw_candidate_match_counts,
+        "motif_group_family_counts": motif_group_family_counts,
         "rhythm_family_counts": rhythm_family_counts,
         "strong_rhythm_family_counts": strong_rhythm_family_counts,
         "moderate_rhythm_family_counts": moderate_rhythm_family_counts,
         "weak_rhythm_family_counts": weak_rhythm_family_counts,
+        "strong_group_family_counts": strong_rhythm_family_counts,
+        "moderate_group_family_counts": moderate_rhythm_family_counts,
+        "weak_group_family_counts": weak_rhythm_family_counts,
         "ambiguous_rhythm_family_count": ambiguous_rhythm_family_count,
         "rhythm_family_taggable_counts": rhythm_family_taggable_counts,
         "top_rhythm_family_matches": sorted(

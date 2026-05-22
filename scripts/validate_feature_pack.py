@@ -102,6 +102,11 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         for key in ["strong_rhythm_family_counts", "moderate_rhythm_family_counts", "weak_rhythm_family_counts"]
     ):
         warnings.append("rhythm_pattern_index missing strong/moderate/weak family counts")
+    elif not all(
+        key in rhythm_pattern_index and isinstance(rhythm_pattern_index.get(key), dict)
+        for key in ["raw_candidate_match_counts", "motif_group_family_counts", "strong_group_family_counts"]
+    ):
+        warnings.append("rhythm_pattern_index missing raw/group-level family count fields")
     if not isinstance(chord_movement_summary, dict):
         warnings.append("chord_movement_summary missing or malformed")
     if not isinstance(harmony_pattern_index, dict):
@@ -222,6 +227,7 @@ def validate_feature_pack(performance_manifest_path: Path, *, output_dir: Path |
         "Rhythm Philosophy Interpretation",
         "Standard Rhythm Family Matches",
         "Rhythm Family Classification Quality",
+        "Standard Rhythm Lexicon Review",
     ]
     for token in required_summary_tokens:
         if token not in summary_text:

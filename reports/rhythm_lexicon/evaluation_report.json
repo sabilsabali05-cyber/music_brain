@@ -1,0 +1,518 @@
+{
+  "total_fixtures": 30,
+  "positive_fixtures": 21,
+  "negative_fixtures": 9,
+  "exact_family_hits": 17,
+  "expected_family_in_top3": 21,
+  "false_positive_count": 0,
+  "false_negative_count": 0,
+  "ambiguous_count": 11,
+  "overmatch_count": 2,
+  "confusion": {
+    "tresillo_3_3_2": {
+      "tresillo_3_3_2": 1
+    },
+    "habanera": {
+      "habanera": 1
+    },
+    "cinquillo": {
+      "cinquillo": 1
+    },
+    "clave": {
+      "clave": 4
+    },
+    "backbeat": {
+      "none": 1
+    },
+    "four_on_the_floor": {
+      "four_on_the_floor": 1
+    },
+    "waltz_3_4": {
+      "waltz_3_4": 1
+    },
+    "march_duple": {
+      "march_duple": 1
+    },
+    "shuffle": {
+      "shuffle": 1
+    },
+    "twelve_eight_gospel": {
+      "twelve_eight_gospel": 1
+    },
+    "gospel_clap_backbeat": {
+      "none": 1
+    },
+    "boom_bap_backbeat": {
+      "none": 1
+    },
+    "trap_subdivision": {
+      "trap_subdivision": 1
+    },
+    "dembow_like": {
+      "dembow_like": 1
+    },
+    "bossa_like": {
+      "bossa_like": 1
+    },
+    "samba_like": {
+      "samba_like": 1
+    },
+    "generic_vamp_cycle": {
+      "none": 1
+    },
+    "sparse_call_response": {
+      "sparse_call_response": 1
+    },
+    "negative": {
+      "waltz_3_4": 1,
+      "habanera": 1,
+      "tresillo_3_3_2": 3,
+      "cinquillo": 2,
+      "sparse_call_response": 1,
+      "none": 1
+    }
+  },
+  "fixture_results": [
+    {
+      "fixture_id": "fx_tresillo",
+      "expected_family": "tresillo_3_3_2",
+      "predicted_family": "tresillo_3_3_2",
+      "match_strength": "moderate",
+      "confidence": 1.0,
+      "top3_matches": [
+        "tresillo_3_3_2",
+        "waltz_3_4",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_habanera",
+      "expected_family": "habanera",
+      "predicted_family": "habanera",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "habanera",
+        "march_duple",
+        "tresillo_3_3_2"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_cinquillo",
+      "expected_family": "cinquillo",
+      "predicted_family": "cinquillo",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "cinquillo",
+        "tresillo_3_3_2",
+        "samba_like"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_son_clave_32",
+      "expected_family": "clave",
+      "predicted_family": "clave",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "clave",
+        "dembow_like",
+        "samba_like"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_son_clave_23",
+      "expected_family": "clave",
+      "predicted_family": "clave",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "clave",
+        "dembow_like",
+        "clave"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_rumba_clave_32",
+      "expected_family": "clave",
+      "predicted_family": "clave",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "clave",
+        "twelve_eight_gospel",
+        "clave"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_rumba_clave_23",
+      "expected_family": "clave",
+      "predicted_family": "clave",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "clave",
+        "bossa_like",
+        "dembow_like"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_backbeat",
+      "expected_family": "backbeat",
+      "predicted_family": null,
+      "match_strength": "ambiguous",
+      "confidence": 1.0,
+      "top3_matches": [
+        "backbeat",
+        "gospel_clap_backbeat",
+        "four_on_the_floor"
+      ],
+      "ambiguous": true,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_four_floor",
+      "expected_family": "four_on_the_floor",
+      "predicted_family": "four_on_the_floor",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "four_on_the_floor",
+        "backbeat",
+        "boom_bap_backbeat"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_waltz",
+      "expected_family": "waltz_3_4",
+      "predicted_family": "waltz_3_4",
+      "match_strength": "moderate",
+      "confidence": 1.0,
+      "top3_matches": [
+        "waltz_3_4",
+        "tresillo_3_3_2",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_march",
+      "expected_family": "march_duple",
+      "predicted_family": "march_duple",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "march_duple",
+        "cinquillo",
+        "habanera"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_shuffle",
+      "expected_family": "shuffle",
+      "predicted_family": "shuffle",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "shuffle",
+        "twelve_eight_gospel",
+        "generic_vamp_cycle"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_128_gospel",
+      "expected_family": "twelve_eight_gospel",
+      "predicted_family": "twelve_eight_gospel",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "twelve_eight_gospel",
+        "shuffle",
+        "tresillo_3_3_2"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_gospel_backbeat",
+      "expected_family": "gospel_clap_backbeat",
+      "predicted_family": null,
+      "match_strength": "ambiguous",
+      "confidence": 1.0,
+      "top3_matches": [
+        "backbeat",
+        "gospel_clap_backbeat",
+        "four_on_the_floor"
+      ],
+      "ambiguous": true,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_boom_bap",
+      "expected_family": "boom_bap_backbeat",
+      "predicted_family": null,
+      "match_strength": "ambiguous",
+      "confidence": 1.0,
+      "top3_matches": [
+        "boom_bap_backbeat",
+        "generic_vamp_cycle",
+        "four_on_the_floor"
+      ],
+      "ambiguous": true,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_trap_subdiv",
+      "expected_family": "trap_subdivision",
+      "predicted_family": "trap_subdivision",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "trap_subdivision",
+        "amen_break_like",
+        "samba_like"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_dembow",
+      "expected_family": "dembow_like",
+      "predicted_family": "dembow_like",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "dembow_like",
+        "clave",
+        "twelve_eight_gospel"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_bossa",
+      "expected_family": "bossa_like",
+      "predicted_family": "bossa_like",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "bossa_like",
+        "dembow_like",
+        "twelve_eight_gospel"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_samba",
+      "expected_family": "samba_like",
+      "predicted_family": "samba_like",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "samba_like",
+        "bossa_like",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_vamp",
+      "expected_family": "generic_vamp_cycle",
+      "predicted_family": null,
+      "match_strength": "ambiguous",
+      "confidence": 1.0,
+      "top3_matches": [
+        "boom_bap_backbeat",
+        "generic_vamp_cycle",
+        "four_on_the_floor"
+      ],
+      "ambiguous": true,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "fx_sparse_call_response",
+      "expected_family": "sparse_call_response",
+      "predicted_family": "sparse_call_response",
+      "match_strength": "strong",
+      "confidence": 1.0,
+      "top3_matches": [
+        "sparse_call_response",
+        "tresillo_3_3_2",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "neg_all_onset_xxxx",
+      "expected_family": null,
+      "predicted_family": "waltz_3_4",
+      "match_strength": "ambiguous",
+      "confidence": 0.062127,
+      "top3_matches": [
+        "waltz_3_4",
+        "cinquillo",
+        "habanera"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": [
+        "all-onset low-contrast pattern",
+        "all-onset token pattern",
+        "low information pattern",
+        "low transition complexity"
+      ]
+    },
+    {
+      "fixture_id": "neg_all_onset_xxxxxxxx",
+      "expected_family": null,
+      "predicted_family": "habanera",
+      "match_strength": "ambiguous",
+      "confidence": 0.126202,
+      "top3_matches": [
+        "habanera",
+        "march_duple",
+        "trap_subdivision"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": [
+        "all-onset low-contrast pattern",
+        "all-onset token pattern",
+        "low transition complexity"
+      ]
+    },
+    {
+      "fixture_id": "neg_all_rest",
+      "expected_family": null,
+      "predicted_family": "tresillo_3_3_2",
+      "match_strength": "ambiguous",
+      "confidence": 0.0,
+      "top3_matches": [
+        "tresillo_3_3_2",
+        "habanera",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": [
+        "insufficient onset count",
+        "low transition complexity",
+        "missing 3:3:2 skeleton evidence",
+        "missing required evidence: token_similarity",
+        "requires three onset groups"
+      ]
+    },
+    {
+      "fixture_id": "neg_random_sparse",
+      "expected_family": null,
+      "predicted_family": "tresillo_3_3_2",
+      "match_strength": "weak",
+      "confidence": 0.46526,
+      "top3_matches": [
+        "tresillo_3_3_2",
+        "twelve_eight_gospel",
+        "waltz_3_4"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": [
+        "missing 3:3:2 skeleton evidence",
+        "requires three onset groups"
+      ]
+    },
+    {
+      "fixture_id": "neg_random_dense",
+      "expected_family": null,
+      "predicted_family": "cinquillo",
+      "match_strength": "ambiguous",
+      "confidence": 0.468857,
+      "top3_matches": [
+        "cinquillo",
+        "habanera",
+        "trap_subdivision"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "neg_single_onset",
+      "expected_family": null,
+      "predicted_family": "sparse_call_response",
+      "match_strength": "weak",
+      "confidence": 0.4472,
+      "top3_matches": [
+        "sparse_call_response",
+        "waltz_3_4",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": [
+        "insufficient onset count",
+        "low transition complexity"
+      ]
+    },
+    {
+      "fixture_id": "neg_repeated_no_shape",
+      "expected_family": null,
+      "predicted_family": "cinquillo",
+      "match_strength": "ambiguous",
+      "confidence": 0.48,
+      "top3_matches": [
+        "cinquillo",
+        "four_on_the_floor",
+        "march_duple"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "neg_straight_grid_without_accent",
+      "expected_family": null,
+      "predicted_family": null,
+      "match_strength": "ambiguous",
+      "confidence": 0.78,
+      "top3_matches": [
+        "march_duple",
+        "cinquillo",
+        "habanera"
+      ],
+      "ambiguous": true,
+      "mismatch_reasons": []
+    },
+    {
+      "fixture_id": "neg_ambiguous_tresillo_habanera_like",
+      "expected_family": null,
+      "predicted_family": "tresillo_3_3_2",
+      "match_strength": "ambiguous",
+      "confidence": 0.83,
+      "top3_matches": [
+        "tresillo_3_3_2",
+        "waltz_3_4",
+        "cinquillo"
+      ],
+      "ambiguous": false,
+      "mismatch_reasons": []
+    }
+  ]
+}
