@@ -1,0 +1,103 @@
+{
+  "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+  "segment_run_id": "20260522T150322987308_audio_structure_v1",
+  "created_at": "2026-05-22T15:04:12.675991+00:00",
+  "source_artifacts": {
+    "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json",
+    "segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json",
+    "merge_report_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/merged/merge_report.json"
+  },
+  "windows": [
+    {
+      "window_id": "win_0000",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150323Z_6af015f994/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 4372,
+      "window_duration_seconds": 54.25,
+      "context_trim_loss": 360,
+      "error_messages": [],
+      "note_on_count": 512,
+      "note_on_density_per_second": 8.647127,
+      "average_note_duration_seconds": 0.016414,
+      "polyphonic_density": 0.340509,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.019231,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    },
+    {
+      "window_id": "win_0001",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150335Z_d64c26adfa/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 5831,
+      "window_duration_seconds": 65.0,
+      "context_trim_loss": 360,
+      "error_messages": [],
+      "note_on_count": 731,
+      "note_on_density_per_second": 9.757101,
+      "average_note_duration_seconds": 0.029021,
+      "polyphonic_density": 0.410959,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.017212,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    },
+    {
+      "window_id": "win_0002",
+      "status": "success",
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260522T150353Z_ab89426e21/midi/full_mix.mid",
+      "midi_exists": true,
+      "midi_parse_success": true,
+      "midi_file_size_bytes": 2945,
+      "window_duration_seconds": 70.090658,
+      "context_trim_loss": 360,
+      "error_messages": [],
+      "note_on_count": 345,
+      "note_on_density_per_second": 4.961203,
+      "average_note_duration_seconds": 0.053089,
+      "polyphonic_density": 0.305233,
+      "velocity_mean": 100.0,
+      "velocity_std": 0.0,
+      "silence_ratio_proxy": 0.058252,
+      "transcription_reliability_score": 1.0,
+      "reliability_tier": "high",
+      "reasons": [
+        "successful transcription window with parseable MIDI",
+        "sufficient note-on events",
+        "note density within expected musical range"
+      ],
+      "warnings": [],
+      "recommended_training_weight": 1.0
+    }
+  ],
+  "summary": {
+    "high_windows": 3,
+    "medium_windows": 0,
+    "low_windows": 0,
+    "failed_windows": 0,
+    "missing_windows": 0,
+    "window_count": 3,
+    "mean_reliability_score": 1.0,
+    "training_weight_mean": 1.0
+  }
+}

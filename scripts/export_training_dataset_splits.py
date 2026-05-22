@@ -11,7 +11,12 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from scripts.feature_dataset_common import now_iso, save_json
+from scripts.feature_dataset_common import (
+    compact_artifact_performance_dir,
+    ensure_windows_safe_artifact_path,
+    now_iso,
+    save_json,
+)
 from scripts.trust_common import load_jsonl_records, resolve_performance_context, trust_dir
 from features.trust.field_trust_policy import (
     POLICY_VERSION,
@@ -61,7 +66,16 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     window_rel = _window_reliability_map(reliability_payload if isinstance(reliability_payload, dict) else {})
     overall_status = str(quality_payload.get("overall_quality_status", "review_required"))
 
-    export_root = Path("datasets") / "training_exports" / ctx["performance_id"] / ctx["segment_run_id"]
+    export_root = (
+        Path("datasets")
+        / "training_exports"
+        / compact_artifact_performance_dir(str(ctx["performance_id"]))
+        / ctx["segment_run_id"]
+    )
+    ensure_windows_safe_artifact_path(
+        export_root / "review_required_records.jsonl",
+        context="training export artifact path",
+    )
     export_root.mkdir(parents=True, exist_ok=True)
 
     split_records: dict[str, list[dict[str, Any]]] = {

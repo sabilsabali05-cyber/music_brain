@@ -1,0 +1,59 @@
+{
+  "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+  "segment_run_id": "20260522T150322987308_audio_structure_v1",
+  "source_feature_pack_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1",
+  "created_at": "2026-05-22T15:04:13.050118+00:00",
+  "pipeline_git_commit": "9d0a1218b6297df9a943c4d7d1a33958d5fc241d",
+  "source_ai_record_count": 103,
+  "accepted_observation_count": 7,
+  "weak_label_count": 103,
+  "audio_midi_only_count": 0,
+  "review_required_count": 96,
+  "quarantined_count": 0,
+  "field_trust_policy_version": "field_trust_policy_v1",
+  "counts_per_split": {
+    "accepted_records": 7,
+    "weak_label_records": 103,
+    "audio_midi_only_records": 0,
+    "review_required_records": 96,
+    "quarantined_records": 0
+  },
+  "inclusion_rules_used": {
+    "accepted": "field-level observation subset derived from reliable source records.",
+    "weak_label": "separate weak-label payloads with evidence/confidence metadata.",
+    "audio_midi_only": "observation-only exports from reliable records without safe labels.",
+    "review_required": "ambiguous/low-confidence/experimental records with review reasons.",
+    "quarantined": "critical schema/provenance/time-range failures."
+  },
+  "excluded_field_summary": {
+    "created_at": 103,
+    "evidence_refs": 103,
+    "extractor_name": 103,
+    "feature_version": 103,
+    "input_features": 103,
+    "label": 103,
+    "record_type": 103,
+    "review_required": 103,
+    "source_artifact_paths": 103,
+    "source_name": 103,
+    "text_summary": 103,
+    "verified_by": 103,
+    "best_rhythm_family_match": 54,
+    "chord_movement_count": 6,
+    "motif_count": 6,
+    "rhythm_concepts_summary": 6,
+    "rhythm_family_match_refs": 54,
+    "rhythm_philosophy_summary": 6,
+    "unknown_pattern": 54,
+    "motif_group_refs": 48,
+    "motif_refs": 48,
+    "token_pattern_compact": 48,
+    "chord_movement_refs": 48,
+    "harmony_pattern_index_refs": 48,
+    "vamp_refs": 48
+  },
+  "limitations": [
+    "Field-level splitting is heuristic and should be periodically recalibrated.",
+    "Weak and interpretive labels remain non-ground-truth signals."
+  ]
+}

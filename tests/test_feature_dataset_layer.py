@@ -17,6 +17,7 @@ from scripts.build_ai_training_records import build_ai_training_records
 from scripts.extract_feature_pack import extract_feature_pack
 from scripts.extract_harmony_features import extract_harmony_features
 from scripts.extract_rhythm_features import extract_rhythm_features
+from scripts.feature_dataset_common import compact_artifact_performance_dir, default_feature_dir
 from scripts.tag_performance_features import tag_performance_features
 from scripts.validate_feature_pack import validate_feature_pack
 
@@ -180,6 +181,16 @@ def test_extract_feature_pack_and_validation_outputs_expected_files(tmp_path: Pa
     assert summary["status"] == "success"
     assert summary["tag_count"] > 0
     assert "features/performances/perf_1/run_123" in feature_dir.as_posix()
+
+
+def test_feature_artifact_paths_compact_long_performance_id() -> None:
+    long_id = "20260522T150238990635_" + ("very_long_title_" * 20)
+    compact = compact_artifact_performance_dir(long_id)
+    assert len(compact) <= 72
+    assert compact != long_id
+    target = default_feature_dir(long_id, "20260522T150322987308_audio_structure_v1")
+    assert compact in target.as_posix()
+    assert long_id not in target.as_posix()
 
 
 def test_manual_pipeline_generates_tags_and_ai_records(tmp_path: Path, monkeypatch) -> None:

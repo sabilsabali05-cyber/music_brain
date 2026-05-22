@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean, median, pstdev
 
 from mido import MidiFile, tick2second
+
+WINDOWS_SAFE_PATH_LIMIT = 240
+ARTIFACT_PERFORMANCE_DIR_MAX_LEN = 72
 
 
 def now_iso() -> str:
@@ -67,8 +72,31 @@ def performance_metadata(performance_manifest: dict[str, object], segments_manif
     return performance_id, source_name, segment_run_id
 
 
+def compact_artifact_performance_dir(performance_id: str, *, max_len: int = ARTIFACT_PERFORMANCE_DIR_MAX_LEN) -> str:
+    cleaned = re.sub(r"[^a-zA-Z0-9._-]+", "_", str(performance_id or "").strip()).strip("_") or "unknown_performance"
+    if len(cleaned) <= max_len:
+        return cleaned
+    digest = hashlib.sha1(cleaned.encode("utf-8")).hexdigest()[:10]
+    prefix_len = max(8, max_len - len(digest) - 1)
+    return f"{cleaned[:prefix_len]}_{digest}"
+
+
+def ensure_windows_safe_artifact_path(path: Path, *, context: str) -> None:
+    resolved = path.resolve().as_posix()
+    if len(resolved) > WINDOWS_SAFE_PATH_LIMIT:
+        raise RuntimeError(
+            f"{context} exceeds Windows-safe path length ({len(resolved)} > {WINDOWS_SAFE_PATH_LIMIT}): {resolved}"
+        )
+
+
 def default_feature_dir(performance_id: str, segment_run_id: str) -> Path:
-    return Path("features") / "performances" / performance_id / segment_run_id
+    performance_dir = compact_artifact_performance_dir(performance_id)
+    target = Path("features") / "performances" / performance_dir / segment_run_id
+    ensure_windows_safe_artifact_path(
+        target / "trust" / "transcription_reliability.json",
+        context="feature artifact path",
+    )
+    return target
 
 
 def summarize_window_counts(segments_manifest: dict[str, object]) -> dict[str, int]:

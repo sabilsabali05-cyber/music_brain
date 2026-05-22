@@ -11,6 +11,7 @@ from features.trust.field_trust_policy import (
     make_accepted_observation_record,
     should_quarantine_record,
 )
+from scripts.feature_dataset_common import compact_artifact_performance_dir
 from scripts.audit_training_dataset_record import audit_training_dataset_record
 from scripts.compute_transcription_reliability import compute_transcription_reliability
 from scripts.evaluate_training_quality_gates import evaluate_training_quality_gates
@@ -34,7 +35,7 @@ def _write_midi(path: Path, notes: list[int], spacing_ticks: int = 120) -> None:
     midi.save(path)
 
 
-def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
+def _setup_workspace(tmp_path: Path, *, performance_id: str = "perf_1") -> tuple[Path, Path]:
     source_audio = tmp_path / "audio" / "source.wav"
     source_audio.parent.mkdir(parents=True, exist_ok=True)
     source_audio.write_bytes(b"RIFFfake")
@@ -69,7 +70,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
     _write_json(
         manifest,
         {
-            "performance_id": "perf_1",
+            "performance_id": performance_id,
             "source_name": "source.wav",
             "source_path": source_audio.resolve().as_posix(),
             "duration_seconds": 20.0,
@@ -79,7 +80,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
         },
     )
 
-    feature_dir = tmp_path / "features" / "performances" / "perf_1" / "run_123"
+    feature_dir = tmp_path / "features" / "performances" / compact_artifact_performance_dir(performance_id) / "run_123"
     _write_json(
         feature_dir / "rhythm_features.json",
         {
@@ -135,7 +136,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
     _write_json(
         feature_dir / "feature_pack_manifest.json",
         {
-            "performance_id": "perf_1",
+            "performance_id": performance_id,
             "segment_run_id": "run_123",
             "feature_pack_dir": feature_dir.resolve().as_posix(),
         },
@@ -144,7 +145,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
         json.dumps(
             {
                 "record_id": "r1",
-                "performance_id": "perf_1",
+                "performance_id": performance_id,
                 "granularity": "window",
                 "window_id": "win_0",
                 "start_seconds": 0.0,
@@ -163,7 +164,7 @@ def _setup_workspace(tmp_path: Path) -> tuple[Path, Path]:
         json.dumps(
             {
                 "record_id": "r2",
-                "performance_id": "perf_1",
+                "performance_id": performance_id,
                 "granularity": "window",
                 "window_id": "win_1",
                 "start_seconds": 10.0,
@@ -236,6 +237,18 @@ def test_export_splits_and_no_weak_as_accepted(tmp_path: Path, monkeypatch) -> N
     assert '"source_record_id": "r2"' in weak_labels
     summary = validate_training_export(export_dir)
     assert summary["status"] == "success"
+
+
+def test_export_compacts_long_performance_id_in_output_path(tmp_path: Path, monkeypatch) -> None:
+    long_id = "20260522T150238990635_" + ("very_long_title_" * 20)
+    manifest, _ = _setup_workspace(tmp_path, performance_id=long_id)
+    monkeypatch.chdir(tmp_path)
+    compute_transcription_reliability(manifest)
+    evaluate_training_quality_gates(manifest)
+    export_dir = export_training_dataset_splits(manifest)
+    assert long_id not in export_dir.as_posix()
+    assert compact_artifact_performance_dir(long_id) in export_dir.as_posix()
+    assert validate_training_export(export_dir)["status"] == "success"
 
 
 def test_field_policy_high_reliability_mixed_record_yields_observation_and_weak(tmp_path: Path, monkeypatch) -> None:
