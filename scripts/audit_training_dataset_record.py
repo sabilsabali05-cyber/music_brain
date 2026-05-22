@@ -12,6 +12,8 @@ if str(ROOT_DIR) not in sys.path:
 
 from scripts.feature_dataset_common import load_json, now_iso, save_json
 from scripts.trust_common import load_jsonl_records, resolve_performance_context, trust_dir
+from features.model_sources import MODEL_SOURCES
+from features.theory_sources import THEORY_SOURCES
 
 
 def _read_json_if_exists(path: Path) -> dict[str, Any]:
@@ -44,8 +46,8 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     merge_report_path = ctx["segments_manifest_path"].parent / "merged" / "merge_report.json"
     reliability_path = trust_output_dir / "transcription_reliability.json"
     quality_path = trust_output_dir / "quality_gates.json"
-    external_dir = feature_dir / "external_model_features"
     routing_dir = feature_dir / "routing"
+    external_dir = feature_dir / "external_model_features"
 
     rhythm_payload = _read_json_if_exists(rhythm_path)
     harmony_payload = _read_json_if_exists(harmony_path)
@@ -60,6 +62,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     routing_decisions_payload = _read_json_if_exists(routing_dir / "analysis_routing_decisions.json")
     routing_diagnostics_payload = _read_json_if_exists(routing_dir / "routing_diagnostics.json")
     upgrade_candidates_payload = _read_json_if_exists(trust_output_dir / "label_upgrade_candidates.json")
+    model_consensus_payload = _read_json_if_exists(external_dir / "model_consensus.json")
 
     quality_status = str(quality_payload.get("overall_quality_status", "review_required"))
     inclusion_decision = quality_status
@@ -215,6 +218,26 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     meter_safe_fields = ["local_tempo_bpm", "grid_confidence", "subdivision_type", "pulse_stability", "meter_time_refs"]
     meter_weak_fields = ["microtiming_summary", "macro_section_candidate", "meter_hypothesis_candidates", "meter_time_ambiguity"]
 
+    external_refs = {
+        "essentia_features": (external_dir / "essentia_features.json").resolve().as_posix() if (external_dir / "essentia_features.json").exists() else None,
+        "musicnn_features": (external_dir / "musicnn_features.json").resolve().as_posix() if (external_dir / "musicnn_features.json").exists() else None,
+        "beat_tracker_features": (external_dir / "beat_tracker_features.json").resolve().as_posix() if (external_dir / "beat_tracker_features.json").exists() else None,
+        "music21_features": (external_dir / "music21_features.json").resolve().as_posix() if (external_dir / "music21_features.json").exists() else None,
+        "omnizart_availability": (external_dir / "omnizart_availability.json").resolve().as_posix() if (external_dir / "omnizart_availability.json").exists() else None,
+        "model_consensus_ref": (external_dir / "model_consensus.json").resolve().as_posix() if (external_dir / "model_consensus.json").exists() else None,
+    }
+    available_witnesses = sorted([name for name, value in external_refs.items() if value and name != "model_consensus_ref"])
+    unavailable_witnesses = sorted([name for name, value in external_refs.items() if not value and name != "model_consensus_ref"])
+    source_coverage = {
+        "theory_sources_represented": sorted({str(item.get("source_id")) for item in THEORY_SOURCES}),
+        "model_sources_represented": sorted({str(item.get("provider_id")) for item in MODEL_SOURCES}),
+        "available_external_witnesses": available_witnesses,
+        "unavailable_external_witnesses": unavailable_witnesses,
+        "consensus_status": "available" if external_refs["model_consensus_ref"] else "missing",
+        "what_became_more_trusted": model_consensus_payload.get("confidence_boosts", []),
+        "what_remains_weak_or_review_only": model_consensus_payload.get("unresolved_conflicts", []),
+    }
+
     audit_json = {
         "performance_id": ctx["performance_id"],
         "segment_run_id": ctx["segment_run_id"],
@@ -270,6 +293,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "weak_or_review_fields": meter_weak_fields,
         },
         "pitch_harmony_tuning_intelligence": pitch_harmony_summary,
+        "theory_and_model_source_coverage": source_coverage,
         "routing_and_label_upgrade_readiness": routing_readiness,
         "dataset_inclusion_decision": inclusion_decision,
         "recommended_dataset_split": recommended_split,
@@ -374,6 +398,15 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             f"- needs_human_review_candidates: `{routing_readiness['needs_human_review_candidates']}`",
             f"- routing_improves_training_safety: `{routing_readiness['routing_improves_training_safety']}`",
             f"- recommended_routing_calibration_status: `{routing_readiness['recommended_routing_calibration_status']}`",
+            "",
+            "## Theory and Model Source Coverage",
+            f"- theory_sources_represented: `{json.dumps(source_coverage['theory_sources_represented'], ensure_ascii=True)}`",
+            f"- model_sources_represented: `{json.dumps(source_coverage['model_sources_represented'], ensure_ascii=True)}`",
+            f"- available_external_witnesses: `{json.dumps(source_coverage['available_external_witnesses'], ensure_ascii=True)}`",
+            f"- unavailable_external_witnesses: `{json.dumps(source_coverage['unavailable_external_witnesses'], ensure_ascii=True)}`",
+            f"- consensus_status: `{source_coverage['consensus_status']}`",
+            f"- what_became_more_trusted: `{json.dumps(source_coverage['what_became_more_trusted'], ensure_ascii=True)}`",
+            f"- what_remains_weak_or_review_only: `{json.dumps(source_coverage['what_remains_weak_or_review_only'], ensure_ascii=True)}`",
         ]
     )
     audit_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

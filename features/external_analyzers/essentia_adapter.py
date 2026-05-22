@@ -105,6 +105,7 @@ class EssentiaAnalyzer(BaseExternalAnalyzer):
                 warnings=["Essentia is unavailable in this environment."],
                 limitations=availability.limitations,
                 source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+                model_source_ref="essentia",
                 dependency_info={
                     **availability.dependency_info,
                     "install_notes": availability.install_notes,
@@ -126,6 +127,7 @@ class EssentiaAnalyzer(BaseExternalAnalyzer):
                 warnings=[f"Essentia execution failed: {exc}"],
                 limitations=availability.limitations,
                 source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+                model_source_ref="essentia",
                 dependency_info=availability.dependency_info,
             )
 
@@ -145,5 +147,6 @@ class EssentiaAnalyzer(BaseExternalAnalyzer):
             warnings=warnings,
             limitations=availability.limitations,
             source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+            model_source_ref="essentia",
             dependency_info=availability.dependency_info,
         )

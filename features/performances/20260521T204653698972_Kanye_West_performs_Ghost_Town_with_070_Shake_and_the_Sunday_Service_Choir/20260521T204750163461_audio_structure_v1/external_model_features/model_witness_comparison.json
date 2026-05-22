@@ -1,0 +1,92 @@
+{
+  "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+  "segment_run_id": "20260521T204750163461_audio_structure_v1",
+  "tempo_alignment": {
+    "internal_tempo_bpm": null,
+    "external_tempo_bpm": null,
+    "delta_bpm": null
+  },
+  "tonal_alignment": {
+    "internal_key_candidate": null,
+    "external_key_candidate": null,
+    "agreement": false
+  },
+  "tag_alignment": {
+    "internal_top_tags": [
+      "dense_activity",
+      "dense_region",
+      "repeated_chord_vamp_candidate",
+      "repeated_rhythm_motif",
+      "dense_burst_pattern",
+      "sparse_activity",
+      "steady_grid_candidate",
+      "irregular_groove_candidate",
+      "sparse_call_response_candidate",
+      "ambiguous_harmony"
+    ],
+    "external_top_tags": [],
+    "overlap": []
+  },
+  "meter_alignment": {
+    "internal_meter_hypotheses": [
+      {
+        "hypothesis_id": "meter_h_0000",
+        "meter": "3/4",
+        "beats_per_bar": 3,
+        "beat_unit": 4,
+        "confidence": 0.562622,
+        "ambiguity": 0.967614,
+        "evidence": {
+          "downbeat_hits": 3407.3,
+          "offbeat_hits": 6194.4,
+          "bar_support": 1.0,
+          "consistency": 0.7532
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      },
+      {
+        "hypothesis_id": "meter_h_0001",
+        "meter": "4/4",
+        "beats_per_bar": 4,
+        "beat_unit": 4,
+        "confidence": 0.530236,
+        "ambiguity": 0.967614,
+        "evidence": {
+          "downbeat_hits": 2568.8,
+          "offbeat_hits": 6968.4,
+          "bar_support": 1.0,
+          "consistency": 0.7539
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      },
+      {
+        "hypothesis_id": "meter_h_0002",
+        "meter": "5/4",
+        "beats_per_bar": 5,
+        "beat_unit": 4,
+        "confidence": 0.511293,
+        "ambiguity": 0.967614,
+        "evidence": {
+          "downbeat_hits": 2106.0,
+          "offbeat_hits": 7395.6,
+          "bar_support": 1.0,
+          "consistency": 0.743
+        },
+        "limitations": [
+          "meter is multi-hypothesis and remains probabilistic."
+        ]
+      }
+    ],
+    "external_meter_hypotheses": []
+  },
+  "provider_status": {
+    "essentia": "unavailable",
+    "musicnn": "unavailable",
+    "beat_tracker": "unavailable",
+    "music21": "unavailable"
+  }
+}

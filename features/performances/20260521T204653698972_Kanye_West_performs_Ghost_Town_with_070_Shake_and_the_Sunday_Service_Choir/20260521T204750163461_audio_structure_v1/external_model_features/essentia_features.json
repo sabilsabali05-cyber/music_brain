@@ -14,7 +14,7 @@
     "Descriptor coverage varies by installed Essentia build and model data.",
     "Essentia licensing may require AGPL/commercial compliance review."
   ],
-  "created_at": "2026-05-22T01:22:49.381470+00:00",
+  "created_at": "2026-05-22T17:13:01.836003+00:00",
   "source_artifacts": {
     "audio_path": "C:/Users/izzyo/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
     "context": {
@@ -35,5 +35,7 @@
       "Install Python Essentia (pip install essentia) or Essentia CLI extractors.",
       "Python package `essentia` is not installed."
     ]
-  }
+  },
+  "model_source_ref": "essentia",
+  "trust_policy": "external_witness"
 }

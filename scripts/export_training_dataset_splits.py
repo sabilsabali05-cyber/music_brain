@@ -25,6 +25,8 @@ from features.trust.field_trust_policy import (
     make_review_required_record,
     make_weak_label_record,
 )
+from features.model_sources import MODEL_SOURCES
+from features.theory_sources import THEORY_SOURCES
 
 
 def _line_dump(record: dict[str, Any]) -> str:
@@ -200,6 +202,19 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     routing_by_source, routing_refs = _routing_lookup(feature_dir)
     upgrade_by_source, upgrade_refs_path = _upgrade_lookup(feature_dir)
     meter_micro_rows, meter_grid_rows, meter_macro_rows, meter_hypotheses, meter_path = _meter_time_lookup(feature_dir)
+    external_dir = feature_dir / "external_model_features"
+    external_feature_refs = {
+        "essentia_features": (external_dir / "essentia_features.json").resolve().as_posix() if (external_dir / "essentia_features.json").exists() else None,
+        "musicnn_features": (external_dir / "musicnn_features.json").resolve().as_posix() if (external_dir / "musicnn_features.json").exists() else None,
+        "beat_tracker_features": (external_dir / "beat_tracker_features.json").resolve().as_posix() if (external_dir / "beat_tracker_features.json").exists() else None,
+        "music21_features": (external_dir / "music21_features.json").resolve().as_posix() if (external_dir / "music21_features.json").exists() else None,
+        "omnizart_availability": (external_dir / "omnizart_availability.json").resolve().as_posix() if (external_dir / "omnizart_availability.json").exists() else None,
+    }
+    model_consensus_ref = (external_dir / "model_consensus.json").resolve().as_posix() if (external_dir / "model_consensus.json").exists() else None
+    model_source_refs = [str(item.get("provider_id")) for item in MODEL_SOURCES if str(item.get("implementation_status")) in {"existing", "optional_adapter", "planned", "dataset_reference"}]
+    theory_source_refs = [str(item.get("source_id")) for item in THEORY_SOURCES]
+    available_external_witnesses = sorted([name for name, path in external_feature_refs.items() if path])
+    missing_external_witnesses = sorted([name for name, path in external_feature_refs.items() if not path])
 
     export_root = resolve_artifact_performance_dir(Path("datasets") / "training_exports", str(ctx["performance_id"])) / ctx["segment_run_id"]
     ensure_windows_safe_artifact_path(
@@ -308,6 +323,11 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 export_record["route_confidence"] = route_conf
                 export_record["routing_refs"] = routing_refs
             _attach_pitch_harmony_refs(export_record)
+            export_record["model_source_refs"] = model_source_refs
+            export_record["theory_source_refs"] = theory_source_refs
+            export_record["external_feature_refs"] = external_feature_refs
+            if model_consensus_ref:
+                export_record["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             if upgrade_candidates:
                 export_record["label_upgrade_candidate_refs"] = upgrade_candidates
             if upgrade_refs_path:
@@ -353,6 +373,11 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 observation_export["pulse_stability"] = meter_view.get("pulse_stability")
                 observation_export["meter_time_refs"] = meter_view.get("meter_time_refs")
             _attach_pitch_harmony_refs(observation_export)
+            observation_export["model_source_refs"] = model_source_refs
+            observation_export["theory_source_refs"] = theory_source_refs
+            observation_export["external_feature_refs"] = external_feature_refs
+            if model_consensus_ref:
+                observation_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(observation_export)
             split_records["accepted_records"].append(observation_export)
         elif split == "audio_midi_only_records":
@@ -377,6 +402,11 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 observation_export["pulse_stability"] = meter_view.get("pulse_stability")
                 observation_export["meter_time_refs"] = meter_view.get("meter_time_refs")
             _attach_pitch_harmony_refs(observation_export)
+            observation_export["model_source_refs"] = model_source_refs
+            observation_export["theory_source_refs"] = theory_source_refs
+            observation_export["external_feature_refs"] = external_feature_refs
+            if model_consensus_ref:
+                observation_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(observation_export)
             split_records["audio_midi_only_records"].append(observation_export)
 
@@ -406,6 +436,11 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 weak_export["meter_hypothesis_candidates"] = meter_view.get("meter_hypothesis_candidates")
                 weak_export["meter_time_refs"] = meter_view.get("meter_time_refs")
             _attach_pitch_harmony_refs(weak_export)
+            weak_export["model_source_refs"] = model_source_refs
+            weak_export["theory_source_refs"] = theory_source_refs
+            weak_export["external_feature_refs"] = external_feature_refs
+            if model_consensus_ref:
+                weak_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(weak_export)
             if upgrade_candidates:
                 weak_export["label_upgrade_candidate_refs"] = upgrade_candidates
@@ -439,6 +474,11 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 review_export["meter_hypothesis_candidates"] = meter_view.get("meter_hypothesis_candidates")
                 review_export["meter_time_refs"] = meter_view.get("meter_time_refs")
             _attach_pitch_harmony_refs(review_export)
+            review_export["model_source_refs"] = model_source_refs
+            review_export["theory_source_refs"] = theory_source_refs
+            review_export["external_feature_refs"] = external_feature_refs
+            if model_consensus_ref:
+                review_export["consensus_refs"] = {"model_consensus_ref": model_consensus_ref}
             _attach_pitch_harmony_stats(review_export)
             if upgrade_candidates:
                 review_export["label_upgrade_candidate_refs"] = upgrade_candidates
@@ -481,6 +521,13 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
         "label_upgrade_candidates_path": upgrade_refs_path,
         "pitch_harmony_features_path": pitch_harmony_ref,
         "meter_time_features_path": meter_path,
+        "model_sources_used": model_source_refs,
+        "theory_sources_used": theory_source_refs,
+        "external_feature_refs": external_feature_refs,
+        "external_witnesses_available": available_external_witnesses,
+        "external_witnesses_missing": missing_external_witnesses,
+        "consensus_status": "available" if model_consensus_ref else "missing",
+        "model_consensus_ref": model_consensus_ref,
     }
     save_json(export_root / "export_manifest.json", manifest)
     return export_root.resolve()

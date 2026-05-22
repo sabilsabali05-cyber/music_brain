@@ -4,14 +4,20 @@ from pathlib import Path
 from typing import Any
 
 from .base import BaseExternalAnalyzer, ExternalAnalyzerAvailability, ExternalAnalyzerResult
+from .beat_tracker_adapter import BeatTrackerAnalyzer
 from .essentia_adapter import EssentiaAnalyzer
+from .music21_adapter import Music21Analyzer
 from .musicnn_adapter import MusicnnAnalyzer
+from .omnizart_adapter import OmnizartAnalyzer
 
 
 def _provider_instances() -> dict[str, BaseExternalAnalyzer]:
     return {
         "essentia": EssentiaAnalyzer(),
         "musicnn": MusicnnAnalyzer(),
+        "beat_tracker": BeatTrackerAnalyzer(),
+        "music21": Music21Analyzer(),
+        "omnizart": OmnizartAnalyzer(),
     }
 
 
@@ -40,6 +46,7 @@ def run_external_analyzers(
     audio_path: Path,
     context: dict[str, Any],
     selected: list[str] | None = None,
+    midi_path: Path | None = None,
 ) -> list[ExternalAnalyzerResult]:
     selected_set = {item.strip().lower() for item in selected or [] if item.strip()}
     providers = _provider_instances()
@@ -73,7 +80,10 @@ def run_external_analyzers(
             )
             continue
         try:
-            results.append(provider.analyze_audio(audio_path, context))
+            if name == "music21" and midi_path and midi_path.exists():
+                results.append(provider.analyze_midi(midi_path, context))
+            else:
+                results.append(provider.analyze_audio(audio_path, context))
         except Exception as exc:  # noqa: BLE001
             results.append(
                 ExternalAnalyzerResult(

@@ -70,6 +70,7 @@ class MusicnnAnalyzer(BaseExternalAnalyzer):
                 warnings=["musicnn is unavailable in this environment."],
                 limitations=availability.limitations,
                 source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+                model_source_ref="musicnn",
                 dependency_info={
                     **availability.dependency_info,
                     "install_notes": availability.install_notes,
@@ -87,6 +88,7 @@ class MusicnnAnalyzer(BaseExternalAnalyzer):
                 warnings=[f"musicnn execution failed: {exc}"],
                 limitations=availability.limitations,
                 source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+                model_source_ref="musicnn",
                 dependency_info=availability.dependency_info,
             )
 
@@ -128,5 +130,6 @@ class MusicnnAnalyzer(BaseExternalAnalyzer):
             warnings=[],
             limitations=availability.limitations,
             source_artifacts={"audio_path": audio_path.resolve().as_posix(), "context": context},
+            model_source_ref="musicnn",
             dependency_info=availability.dependency_info,
         )

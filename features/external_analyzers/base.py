@@ -33,6 +33,7 @@ class ExternalAnalyzerResult:
     limitations: list[str] = field(default_factory=list)
     created_at: str = field(default_factory=now_iso)
     source_artifacts: dict[str, Any] = field(default_factory=dict)
+    model_source_ref: str | None = None
     dependency_info: dict[str, Any] = field(default_factory=dict)
 
 

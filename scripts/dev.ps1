@@ -79,7 +79,11 @@ function Show-Usage {
     Write-Host "  extract-feature-pack <performance-manifest>"
     Write-Host "  validate-feature-pack <performance-manifest>"
     Write-Host "  validate-meter-time-features <performance-manifest>"
+    Write-Host "  check-model-sources"
     Write-Host "  check-external-analyzers"
+    Write-Host "  run-external-witnesses <performance-manifest> [providers]"
+    Write-Host "  compare-model-witnesses <performance-manifest>"
+    Write-Host "  build-model-consensus <performance-manifest>"
     Write-Host "  run-external-analyzers <performance-manifest> [providers]"
     Write-Host "  compare-external-features <performance-manifest>"
     Write-Host "  build-feature-consensus <performance-manifest>"
@@ -818,6 +822,31 @@ switch ($Task) {
     "check-external-analyzers" {
         Invoke-Step -Label "Checking external analyzer availability" -Command @(
             "python", "scripts/check_external_analyzers.py"
+        )
+    }
+    "check-model-sources" {
+        Invoke-Step -Label "Checking configured model source registry" -Command @(
+            "python", "scripts/check_model_sources.py"
+        )
+    }
+    "run-external-witnesses" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-external-witnesses <performance-manifest> [providers]"
+        $providers = Get-TaskArg -Index 1
+        $providerValue = if (-not [string]::IsNullOrWhiteSpace($providers)) { $providers } else { "essentia,musicnn,beat_tracker,music21,omnizart" }
+        Invoke-Step -Label "Running external witness analyzers" -Command @(
+            "python", "scripts/run_external_witnesses.py", $manifestPath, $providerValue
+        )
+    }
+    "compare-model-witnesses" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-model-witnesses <performance-manifest>"
+        Invoke-Step -Label "Comparing internal and witness model outputs" -Command @(
+            "python", "scripts/compare_model_witnesses.py", $manifestPath
+        )
+    }
+    "build-model-consensus" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-model-consensus <performance-manifest>"
+        Invoke-Step -Label "Building model witness consensus" -Command @(
+            "python", "scripts/build_model_consensus.py", $manifestPath
         )
     }
     "run-external-analyzers" {

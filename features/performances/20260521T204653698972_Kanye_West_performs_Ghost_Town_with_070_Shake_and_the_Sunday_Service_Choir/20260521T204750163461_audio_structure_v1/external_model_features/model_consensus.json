@@ -1,0 +1,34 @@
+{
+  "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+  "segment_run_id": "20260521T204750163461_audio_structure_v1",
+  "agreements": [],
+  "disagreements": [],
+  "confidence_boosts": [],
+  "confidence_penalties": [
+    "semantic_tag_mismatch"
+  ],
+  "unresolved_conflicts": [
+    "missing_external_meter_hypotheses"
+  ],
+  "provider_limitations": {
+    "essentia": [
+      "Descriptor coverage varies by installed Essentia build and model data.",
+      "Essentia licensing may require AGPL/commercial compliance review."
+    ],
+    "musicnn": [
+      "Tag outputs are model-dependent and should be treated as witness signals.",
+      "Embeddings are summarized only; full vectors are intentionally omitted."
+    ],
+    "beat_tracker": [
+      "Backend-dependent witness quality; downbeat and meter can remain uncertain."
+    ],
+    "music21": [
+      "Symbolic interpretations are weak labels unless human-verified."
+    ]
+  },
+  "recommended_review_items": [
+    "Beat witness unavailable; review rhythm family confidence manually."
+  ],
+  "consensus_status": "monitor",
+  "consensus_is_not_ground_truth": true
+}

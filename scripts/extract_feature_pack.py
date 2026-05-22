@@ -25,6 +25,8 @@ try:
         save_json,
     )
     from scripts.tag_performance_features import tag_performance_features
+    from features.model_sources import MODEL_SOURCES
+    from features.theory_sources import THEORY_SOURCES
 except ModuleNotFoundError:  # pragma: no cover
     from build_ai_training_records import build_ai_training_records  # type: ignore
     from compare_external_features import build_external_comparison  # type: ignore
@@ -41,6 +43,8 @@ except ModuleNotFoundError:  # pragma: no cover
         save_json,
     )
     from tag_performance_features import tag_performance_features  # type: ignore
+    from features.model_sources import MODEL_SOURCES  # type: ignore
+    from features.theory_sources import THEORY_SOURCES  # type: ignore
 
 
 def extract_feature_pack(
@@ -575,6 +579,13 @@ def extract_feature_pack(
         if consensus_path.exists():
             refs["feature_consensus"] = consensus_path.resolve().as_posix()
         manifest["external_feature_refs"] = refs
+        manifest["external_model_feature_refs"] = refs
+        if "feature_consensus" in refs:
+            manifest["model_consensus_ref"] = refs["feature_consensus"]
+        elif (target_dir / "external_model_features" / "model_consensus.json").exists():
+            manifest["model_consensus_ref"] = (target_dir / "external_model_features" / "model_consensus.json").resolve().as_posix()
+    manifest["model_source_refs"] = sorted({str(item.get("provider_id")) for item in MODEL_SOURCES})
+    manifest["theory_source_refs"] = sorted({str(item.get("source_id")) for item in THEORY_SOURCES})
     manifest_path = target_dir / "feature_pack_manifest.json"
     save_json(manifest_path, manifest)
     return target_dir.resolve()

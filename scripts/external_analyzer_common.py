@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from features.external_analyzers.registry import run_external_analyzers
+from features.model_sources import annotate_external_witness_result
 from scripts.feature_dataset_common import (
     default_feature_dir,
     get_active_paths,
@@ -113,6 +114,12 @@ def _provider_output_path(output_dir: Path, provider_name: str) -> Path:
         return output_dir / "essentia_features.json"
     if provider_name == "musicnn":
         return output_dir / "musicnn_features.json"
+    if provider_name == "beat_tracker":
+        return output_dir / "beat_tracker_features.json"
+    if provider_name == "music21":
+        return output_dir / "music21_features.json"
+    if provider_name == "omnizart":
+        return output_dir / "omnizart_availability.json"
     return output_dir / f"{provider_name}_features.json"
 
 
@@ -134,13 +141,19 @@ def run_and_write_external_analyzers(
         "segments_manifest_path": str(ctx["segments_manifest_path"]),
         "merged_midi_path": str(ctx["merged_midi_path"]) if ctx["merged_midi_path"] else None,
     }
-    raw_results = run_external_analyzers(audio_path, run_context, selected=selected_providers)
+    raw_results = run_external_analyzers(
+        audio_path,
+        run_context,
+        selected=selected_providers,
+        midi_path=ctx["merged_midi_path"],
+    )
 
     results: dict[str, dict[str, Any]] = {}
     for result in raw_results:
         result_dict = result.__dict__
         provider_name = str(result.provider_name)
         payload = result_to_provider_payload(provider_name, result_dict)
+        payload = annotate_external_witness_result(payload, provider_name)
         path = _provider_output_path(target_dir, provider_name)
         save_json(path, payload)
         results[provider_name] = {

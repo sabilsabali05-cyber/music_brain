@@ -1,19 +1,13 @@
 {
-  "provider_name": "musicnn",
+  "provider_name": "music21",
   "status": "unavailable",
-  "top_tags": [],
-  "tag_scores": {},
-  "embedding_reference": null,
-  "embedding_summary": {},
-  "model_info": {},
   "warnings": [
     "Provider dependencies are missing."
   ],
   "limitations": [
-    "Tag outputs are model-dependent and should be treated as witness signals.",
-    "Embeddings are summarized only; full vectors are intentionally omitted."
+    "Symbolic interpretations are weak labels unless human-verified."
   ],
-  "created_at": "2026-05-22T17:13:01.836195+00:00",
+  "created_at": "2026-05-22T17:13:01.836643+00:00",
   "source_artifacts": {
     "audio_path": "C:/Users/izzyo/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
     "context": {
@@ -26,12 +20,12 @@
     }
   },
   "dependency_info": {
-    "python_module": null,
-    "musicnn_version": null,
+    "music21": false,
+    "music21_version": null,
     "install_notes": [
-      "Install musicnn locally (pip install musicnn)."
+      "Install music21 for symbolic theory witness outputs."
     ]
   },
-  "model_source_ref": "musicnn",
-  "trust_policy": "external_witness"
+  "model_source_ref": "music21",
+  "trust_policy": "weak_label"
 }

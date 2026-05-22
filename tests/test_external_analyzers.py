@@ -83,10 +83,13 @@ def _write_minimal_feature_pack(feature_dir: Path) -> None:
     )
 
 
-def test_registry_lists_essentia_and_musicnn() -> None:
+def test_registry_lists_required_providers() -> None:
     providers = list_external_analyzers()
     assert "essentia" in providers
     assert "musicnn" in providers
+    assert "beat_tracker" in providers
+    assert "music21" in providers
+    assert "omnizart" in providers
 
 
 def test_unavailable_provider_status(monkeypatch) -> None:
@@ -203,6 +206,8 @@ def test_ai_jsonl_stores_refs_not_huge_arrays(tmp_path: Path, monkeypatch) -> No
     records_path = build_ai_training_records(manifest_path, output_dir=feature_dir)
     first = json.loads(records_path.read_text(encoding="utf-8").splitlines()[0])
     assert "external_feature_refs" in first
+    assert "model_source_refs" in first
+    assert "theory_source_refs" in first
     assert "external_tag_summary" in first
     assert "embedding_vector" not in json.dumps(first)
 

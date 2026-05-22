@@ -31,6 +31,9 @@ except ModuleNotFoundError:  # pragma: no cover
         performance_metadata,
     )
 
+from features.model_sources import MODEL_SOURCES
+from features.theory_sources import THEORY_SOURCES
+
 
 def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Path | None = None) -> Path:
     performance_manifest = load_json(performance_manifest_path)
@@ -340,6 +343,13 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
     external_tempo_summary = _external_tempo_summary()
     external_key_summary = _external_key_summary()
     external_conflict_warnings = _external_conflict_warnings()
+    model_source_refs = sorted({str(item.get("provider_id")) for item in MODEL_SOURCES})
+    theory_source_refs = sorted({str(item.get("source_id")) for item in THEORY_SOURCES})
+    consensus_ref = (
+        (external_dir / "model_consensus.json").resolve().as_posix()
+        if (external_dir / "model_consensus.json").exists()
+        else None
+    )
 
     def _top_tags_for(
         *,
@@ -512,6 +522,10 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 record["external_tempo_summary"] = external_tempo_summary
                 record["external_key_summary"] = external_key_summary
                 record["external_conflict_warnings"] = external_conflict_warnings
+            record["model_source_refs"] = model_source_refs
+            record["theory_source_refs"] = theory_source_refs
+            if consensus_ref:
+                record["consensus_refs"] = {"model_consensus_ref": consensus_ref}
             if granularity == "rhythm_region":
                 record["motif_refs"] = [
                     str(item.get("motif_id"))
@@ -686,6 +700,10 @@ def build_ai_training_records(performance_manifest_path: Path, *, output_dir: Pa
                 record["external_tempo_summary"] = external_tempo_summary
                 record["external_key_summary"] = external_key_summary
                 record["external_conflict_warnings"] = external_conflict_warnings
+            record["model_source_refs"] = model_source_refs
+            record["theory_source_refs"] = theory_source_refs
+            if consensus_ref:
+                record["consensus_refs"] = {"model_consensus_ref": consensus_ref}
             record["chord_movement_refs"] = [
                 str(item.get("region_id"))
                 for item in active_motion_regions
