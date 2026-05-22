@@ -39,8 +39,8 @@
 - Exclude/downweight: `["failed/missing reliability windows", "review_required records", "ambiguous labels without corroboration"]`
 
 ## 7. Dataset inclusion decision
-- decision: `quarantined`
-- recommended split: `quarantine`
+- decision: `accepted`
+- recommended split: `train`
 
 ## 8. Recommended next steps
 - Collect human verification for high-impact weak labels.
