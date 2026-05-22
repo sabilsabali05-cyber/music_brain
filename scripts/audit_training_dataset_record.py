@@ -43,6 +43,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     reliability_path = trust_output_dir / "transcription_reliability.json"
     quality_path = trust_output_dir / "quality_gates.json"
     external_dir = feature_dir / "external_model_features"
+    routing_dir = feature_dir / "routing"
 
     rhythm_payload = _read_json_if_exists(rhythm_path)
     harmony_payload = _read_json_if_exists(harmony_path)
@@ -50,6 +51,10 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
     ai_records = load_jsonl_records(ai_path)
     reliability_payload = _read_json_if_exists(reliability_path)
     quality_payload = _read_json_if_exists(quality_path)
+    routing_asset_payload = _read_json_if_exists(routing_dir / "asset_classification.json")
+    routing_regions_payload = _read_json_if_exists(routing_dir / "content_region_routes.json")
+    routing_decisions_payload = _read_json_if_exists(routing_dir / "analysis_routing_decisions.json")
+    upgrade_candidates_payload = _read_json_if_exists(trust_output_dir / "label_upgrade_candidates.json")
 
     quality_status = str(quality_payload.get("overall_quality_status", "review_required"))
     inclusion_decision = quality_status
@@ -88,6 +93,26 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
 
     reliability_summary = reliability_payload.get("summary", {}) if isinstance(reliability_payload.get("summary"), dict) else {}
     label_status_counts = _label_counts(ai_records)
+    region_counts = routing_regions_payload.get("content_state_counts", {}) if isinstance(routing_regions_payload.get("content_state_counts"), dict) else {}
+    routing_decisions = routing_decisions_payload.get("decisions", []) if isinstance(routing_decisions_payload.get("decisions"), list) else []
+    suppressed_labels = sum(
+        len(item.get("suppressed_labels", []))
+        for item in routing_decisions
+        if isinstance(item, dict) and isinstance(item.get("suppressed_labels"), list)
+    )
+    upgrade_candidates = upgrade_candidates_payload.get("candidates", []) if isinstance(upgrade_candidates_payload.get("candidates"), list) else []
+    upgrade_summary = upgrade_candidates_payload.get("summary", {}) if isinstance(upgrade_candidates_payload.get("summary"), dict) else {}
+    routing_readiness = {
+        "asset_type": routing_asset_payload.get("asset_type", "unknown"),
+        "asset_confidence": routing_asset_payload.get("confidence", 0.0),
+        "content_state_counts": region_counts,
+        "labels_suppressed_by_routing": suppressed_labels,
+        "upgrade_candidates": int(upgrade_summary.get("upgrade_candidate", 0) or 0),
+        "downgrade_or_suppress_candidates": int(upgrade_summary.get("downgrade_candidate", 0) or 0)
+        + int(upgrade_summary.get("suppress_candidate", 0) or 0),
+        "needs_human_review_candidates": int(upgrade_summary.get("needs_human_review", 0) or 0),
+        "routing_improves_training_safety": bool(region_counts) or bool(upgrade_candidates),
+    }
     field_level_usability = {
         "observation_only_exports_expected": True,
         "safe_fields_for_training": [
@@ -157,6 +182,7 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
             "reliability_summary": reliability_summary,
         },
         "field_level_training_usability": field_level_usability,
+        "routing_and_label_upgrade_readiness": routing_readiness,
         "dataset_inclusion_decision": inclusion_decision,
         "recommended_dataset_split": recommended_split,
         "recommended_next_steps": [
@@ -222,6 +248,19 @@ def audit_training_dataset_record(performance_manifest_path: Path) -> tuple[Path
         ]
     )
     lines.extend(f"- {item}" for item in audit_json["recommended_next_steps"])
+    lines.extend(
+        [
+            "",
+            "## Routing and Label Upgrade Readiness",
+            f"- asset_type: `{routing_readiness['asset_type']}`",
+            f"- content_state_counts: `{json.dumps(routing_readiness['content_state_counts'], ensure_ascii=True)}`",
+            f"- labels_suppressed_by_routing: `{routing_readiness['labels_suppressed_by_routing']}`",
+            f"- upgrade_candidates: `{routing_readiness['upgrade_candidates']}`",
+            f"- downgrade_or_suppress_candidates: `{routing_readiness['downgrade_or_suppress_candidates']}`",
+            f"- needs_human_review_candidates: `{routing_readiness['needs_human_review_candidates']}`",
+            f"- routing_improves_training_safety: `{routing_readiness['routing_improves_training_safety']}`",
+        ]
+    )
     audit_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return audit_md_path.resolve(), audit_json_path.resolve()
 

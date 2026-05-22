@@ -12,9 +12,9 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from scripts.feature_dataset_common import (
-    compact_artifact_performance_dir,
     ensure_windows_safe_artifact_path,
     now_iso,
+    resolve_artifact_performance_dir,
     save_json,
 )
 from scripts.trust_common import load_jsonl_records, resolve_performance_context, trust_dir
@@ -45,6 +45,55 @@ def _window_reliability_map(reliability_payload: dict[str, Any]) -> dict[str, di
     return output
 
 
+def _routing_lookup(feature_dir: Path) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+    routing_dir = feature_dir / "routing"
+    source_map: dict[str, dict[str, Any]] = {}
+    refs: dict[str, str] = {}
+    for name in ["asset_classification.json", "content_region_routes.json", "analysis_routing_decisions.json"]:
+        path = routing_dir / name
+        if path.exists():
+            refs[name.replace(".json", "")] = path.resolve().as_posix()
+    decisions_path = routing_dir / "analysis_routing_decisions.json"
+    if not decisions_path.exists():
+        return source_map, refs
+    payload = json.loads(decisions_path.read_text(encoding="utf-8"))
+    decisions = payload.get("decisions", [])
+    if not isinstance(decisions, list):
+        return source_map, refs
+    for item in decisions:
+        if not isinstance(item, dict):
+            continue
+        source_record_id = str(item.get("source_record_id", "")).strip()
+        if source_record_id:
+            source_map[source_record_id] = item
+    return source_map, refs
+
+
+def _upgrade_lookup(feature_dir: Path) -> tuple[dict[str, list[dict[str, Any]]], str | None]:
+    trust_path = feature_dir / "trust" / "label_upgrade_candidates.json"
+    if not trust_path.exists():
+        return {}, None
+    payload = json.loads(trust_path.read_text(encoding="utf-8"))
+    candidates = payload.get("candidates", [])
+    if not isinstance(candidates, list):
+        return {}, trust_path.resolve().as_posix()
+    output: dict[str, list[dict[str, Any]]] = {}
+    for item in candidates:
+        if not isinstance(item, dict):
+            continue
+        source_label_id = str(item.get("source_label_id", "")).strip()
+        if not source_label_id:
+            continue
+        output.setdefault(source_label_id, []).append(
+            {
+                "candidate_id": item.get("candidate_id"),
+                "recommended_label_status": item.get("recommended_label_status"),
+                "route_content_state": item.get("route_content_state"),
+            }
+        )
+    return output, trust_path.resolve().as_posix()
+
+
 def _git_commit() -> str | None:
     try:
         result = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True)
@@ -65,13 +114,10 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     reliability_payload = json.loads(reliability_path.read_text(encoding="utf-8")) if reliability_path.exists() else {}
     window_rel = _window_reliability_map(reliability_payload if isinstance(reliability_payload, dict) else {})
     overall_status = str(quality_payload.get("overall_quality_status", "review_required"))
+    routing_by_source, routing_refs = _routing_lookup(feature_dir)
+    upgrade_by_source, upgrade_refs_path = _upgrade_lookup(feature_dir)
 
-    export_root = (
-        Path("datasets")
-        / "training_exports"
-        / compact_artifact_performance_dir(str(ctx["performance_id"]))
-        / ctx["segment_run_id"]
-    )
+    export_root = resolve_artifact_performance_dir(Path("datasets") / "training_exports", str(ctx["performance_id"])) / ctx["segment_run_id"]
     ensure_windows_safe_artifact_path(
         export_root / "review_required_records.jsonl",
         context="training export artifact path",
@@ -89,6 +135,10 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
     excluded_field_summary: dict[str, int] = {}
     for idx, record in enumerate(ai_records):
         source_record_id = str(record.get("record_id", f"source_{idx:06d}"))
+        route = routing_by_source.get(source_record_id, {})
+        route_state = str(route.get("content_state", "unknown")) if route else None
+        route_conf = float(route.get("route_confidence", route.get("confidence", 0.0)) or 0.0) if route else None
+        upgrade_candidates = upgrade_by_source.get(source_record_id, [])
         classification = classify_record_for_export(record, window_rel, quality_payload if isinstance(quality_payload, dict) else {})
         split = str(classification.get("split", "review_required_records"))
         tier = str(classification.get("tier", "low"))
@@ -106,6 +156,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 "inclusion_reason": "; ".join(reasons) if reasons else "quarantine conditions met",
                 "excluded_fields": [],
             }
+            if route_state is not None:
+                export_record["content_state"] = route_state
+                export_record["route_confidence"] = route_conf
+                export_record["routing_refs"] = routing_refs
+            if upgrade_candidates:
+                export_record["label_upgrade_candidate_refs"] = upgrade_candidates
+            if upgrade_refs_path:
+                export_record["label_upgrade_candidates_path"] = upgrade_refs_path
             split_records[split].append(export_record)
             continue
 
@@ -128,6 +186,10 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 "inclusion_reason": "; ".join(reasons) if reasons else "observation fields accepted from reliable source",
                 "excluded_fields": excluded_fields,
             }
+            if route_state is not None:
+                observation_export["content_state"] = route_state
+                observation_export["route_confidence"] = route_conf
+                observation_export["routing_refs"] = routing_refs
             split_records["accepted_records"].append(observation_export)
         elif split == "audio_midi_only_records":
             observation_export = {
@@ -140,6 +202,10 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 "inclusion_reason": "; ".join(reasons) if reasons else "audio/midi context only",
                 "excluded_fields": excluded_fields,
             }
+            if route_state is not None:
+                observation_export["content_state"] = route_state
+                observation_export["route_confidence"] = route_conf
+                observation_export["routing_refs"] = routing_refs
             split_records["audio_midi_only_records"].append(observation_export)
 
         if str(record.get("label_status", "")) in {"weak_label", "heuristic_estimate", "interpretive_weak_label", "model_prediction"}:
@@ -153,6 +219,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 "inclusion_reason": "field-level weak label separated from accepted observations",
                 "excluded_fields": [],
             }
+            if route_state is not None:
+                weak_export["content_state"] = route_state
+                weak_export["route_confidence"] = route_conf
+                weak_export["routing_refs"] = routing_refs
+            if upgrade_candidates:
+                weak_export["label_upgrade_candidate_refs"] = upgrade_candidates
+            if upgrade_refs_path:
+                weak_export["label_upgrade_candidates_path"] = upgrade_refs_path
             split_records["weak_label_records"].append(weak_export)
 
         if split == "review_required_records":
@@ -166,6 +240,14 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
                 "inclusion_reason": "; ".join(reasons) if reasons else "review required",
                 "excluded_fields": [],
             }
+            if route_state is not None:
+                review_export["content_state"] = route_state
+                review_export["route_confidence"] = route_conf
+                review_export["routing_refs"] = routing_refs
+            if upgrade_candidates:
+                review_export["label_upgrade_candidate_refs"] = upgrade_candidates
+            if upgrade_refs_path:
+                review_export["label_upgrade_candidates_path"] = upgrade_refs_path
             split_records["review_required_records"].append(review_export)
 
     for split_name, records in split_records.items():
@@ -199,6 +281,8 @@ def export_training_dataset_splits(performance_manifest_path: Path) -> Path:
             "Field-level splitting is heuristic and should be periodically recalibrated.",
             "Weak and interpretive labels remain non-ground-truth signals.",
         ],
+        "routing_refs": routing_refs,
+        "label_upgrade_candidates_path": upgrade_refs_path,
     }
     save_json(export_root / "export_manifest.json", manifest)
     return export_root.resolve()

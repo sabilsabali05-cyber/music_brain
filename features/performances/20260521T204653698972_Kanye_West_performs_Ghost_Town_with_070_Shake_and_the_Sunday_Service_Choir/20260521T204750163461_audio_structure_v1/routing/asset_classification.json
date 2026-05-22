@@ -1,0 +1,49 @@
+{
+  "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+  "segment_run_id": "20260521T204750163461_audio_structure_v1",
+  "created_at": "2026-05-22T16:00:37.908334+00:00",
+  "asset_type": "performance_recording",
+  "confidence": 0.8,
+  "alternate_asset_types": [
+    {
+      "asset_type": "full_song",
+      "confidence": 0.72,
+      "reason": "long-form duration"
+    },
+    {
+      "asset_type": "unknown",
+      "confidence": 0.2,
+      "reason": "default fallback"
+    }
+  ],
+  "evidence": {
+    "duration_seconds": 751.420952,
+    "segment_count": 13,
+    "window_count": 13,
+    "successful_window_count": 13,
+    "mean_note_density": 10.35176,
+    "mean_polyphonic_density": 0.540383,
+    "mean_harmony_confidence": 0.588992,
+    "vocal_tag_score": 0.0,
+    "speech_tag_score": 0.0,
+    "ambient_tag_score": 0.0,
+    "percussive_tag_score": 1.0,
+    "loop_like_structure": true,
+    "transcription_reliability_windows": 13,
+    "ai_record_count": 403
+  },
+  "recommended_pipeline": [
+    "segment_audio",
+    "transcribe_windows",
+    "extract_feature_pack",
+    "compute_transcription_reliability",
+    "evaluate_training_quality_gates",
+    "audit_training_dataset_record",
+    "export_training_dataset_splits"
+  ],
+  "recommended_max_windows": 4,
+  "should_transcribe_with_yourmt3": true,
+  "should_segment": true,
+  "should_stitch": true,
+  "limitations": []
+}

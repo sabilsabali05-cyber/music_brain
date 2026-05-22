@@ -88,6 +88,11 @@ function Show-Usage {
     Write-Host "  summarize-training-exports [exports-root]"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
+    Write-Host "  classify-audio-asset <performance-manifest>"
+    Write-Host "  classify-content-regions <performance-manifest>"
+    Write-Host "  apply-analysis-routing <performance-manifest>"
+    Write-Host "  evaluate-label-upgrades <performance-manifest>"
+    Write-Host "  route-performance-analysis <performance-manifest>"
     Write-Host "  transcribe-yourmt3 <audio-path>"
     Write-Host "  clip-and-transcribe-yourmt3 <audio-path> [seconds]"
     Write-Host "  debug-args [any args]"
@@ -863,6 +868,36 @@ switch ($Task) {
         $reportPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-batch-report <batch-report-json>"
         Invoke-Step -Label "Validating batch trusted export report" -Command @(
             "python", "scripts/validate_batch_report.py", $reportPath
+        )
+    }
+    "classify-audio-asset" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd classify-audio-asset <performance-manifest>"
+        Invoke-Step -Label "Classifying file-level audio asset type" -Command @(
+            "python", "scripts/classify_audio_asset.py", $manifestPath
+        )
+    }
+    "classify-content-regions" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd classify-content-regions <performance-manifest>"
+        Invoke-Step -Label "Classifying segment/window/region content states" -Command @(
+            "python", "scripts/classify_content_regions.py", $manifestPath
+        )
+    }
+    "apply-analysis-routing" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd apply-analysis-routing <performance-manifest>"
+        Invoke-Step -Label "Applying analysis routing decisions" -Command @(
+            "python", "scripts/apply_analysis_routing.py", $manifestPath
+        )
+    }
+    "evaluate-label-upgrades" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd evaluate-label-upgrades <performance-manifest>"
+        Invoke-Step -Label "Evaluating weak-label upgrade candidates" -Command @(
+            "python", "scripts/evaluate_label_upgrade_candidates.py", $manifestPath
+        )
+    }
+    "route-performance-analysis" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd route-performance-analysis <performance-manifest>"
+        Invoke-Step -Label "Running full content-state routing workflow" -Command @(
+            "python", "scripts/route_performance_analysis.py", $manifestPath
         )
     }
     "transcribe-yourmt3" {

@@ -57,3 +57,12 @@
 - Collect human verification for high-impact weak labels.
 - Use accepted/audio_midi_only splits for baseline training first.
 - Review quarantined/review records before inclusion.
+
+## Routing and Label Upgrade Readiness
+- asset_type: `performance_recording`
+- content_state_counts: `{"silence_or_noise": 1049, "unknown": 135, "rhythm_dominant": 86, "percussive_only": 502}`
+- labels_suppressed_by_routing: `4874`
+- upgrade_candidates: `0`
+- downgrade_or_suppress_candidates: `1719`
+- needs_human_review_candidates: `0`
+- routing_improves_training_safety: `True`

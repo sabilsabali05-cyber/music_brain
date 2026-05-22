@@ -81,6 +81,14 @@ def compact_artifact_performance_dir(performance_id: str, *, max_len: int = ARTI
     return f"{cleaned[:prefix_len]}_{digest}"
 
 
+def resolve_artifact_performance_dir(root: Path, performance_id: str) -> Path:
+    legacy = root / str(performance_id)
+    if legacy.exists():
+        return legacy
+    compact = root / compact_artifact_performance_dir(performance_id)
+    return compact
+
+
 def ensure_windows_safe_artifact_path(path: Path, *, context: str) -> None:
     resolved = path.resolve().as_posix()
     if len(resolved) > WINDOWS_SAFE_PATH_LIMIT:
@@ -90,8 +98,7 @@ def ensure_windows_safe_artifact_path(path: Path, *, context: str) -> None:
 
 
 def default_feature_dir(performance_id: str, segment_run_id: str) -> Path:
-    performance_dir = compact_artifact_performance_dir(performance_id)
-    target = Path("features") / "performances" / performance_dir / segment_run_id
+    target = resolve_artifact_performance_dir(Path("features") / "performances", performance_id) / segment_run_id
     ensure_windows_safe_artifact_path(
         target / "trust" / "transcription_reliability.json",
         context="feature artifact path",
