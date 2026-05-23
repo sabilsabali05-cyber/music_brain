@@ -1,15 +1,40 @@
 {
-  "created_at": "2026-05-23T07:07:59.864802+00:00",
+  "created_at": "2026-05-23T08:31:06.480018+00:00",
   "ready_for_mass_ingestion": false,
   "ready_for_controlled_batch": true,
+  "ready_for_model_training": false,
   "recommended_next_batch_size": 10,
-  "strengths": [
+  "top_strengths": [
     "composition pipeline exists",
     "trust/audit layer exists",
     "generative examples exist",
     "prototype MIDI generation exists",
     "symbolic backend sockets exist",
     "local sample-library indexer exists"
+  ],
+  "top_blockers": [
+    "high review burden",
+    "missing manual review queue",
+    "missing serious model-training tokenization/export target",
+    "missing Synplant session logging",
+    "missing Pure Data template library",
+    "missing Max/Ableton routing records"
+  ],
+  "required_next_actions": [
+    "Run a controlled 5-10 item ingestion batch with authorization-gated manifests.",
+    "Implement symbolic tokenization export and validation for training corpus v1.",
+    "Add review-pack -> feedback import loop for quality weighting.",
+    "Add manual Synplant session logging + rating capture.",
+    "Add model-evaluation scorecards for generation iterations."
+  ],
+  "strengths": [
+    "composition pipeline exists",
+    "trust/audit layer exists",
+    "generative examples exist",
+    "prototype MIDI generation exists",
+    "symbolic backend sockets exist",
+    "local sample-library indexer exists",
+    "Ableton project export workflow exists"
   ],
   "blockers": [
     "high review burden",
@@ -138,7 +163,7 @@
       "details": "Manual queue workflow is not codified."
     },
     {
-      "category": "sample-library readiness",
+      "category": "local sample-library readiness",
       "status": "partial",
       "blocked": false,
       "details": "Local sample indexing exists with privacy-safe outputs."
@@ -166,6 +191,24 @@
       "status": "partial",
       "blocked": false,
       "details": "Schema placeholders exist for future planning."
+    },
+    {
+      "category": "symbolic backend readiness",
+      "status": "partial",
+      "blocked": false,
+      "details": "Symbolic backend adapter architecture exists but real trained backends remain unavailable."
+    },
+    {
+      "category": "training tokenization readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Tokenization/export pipeline is not ready yet."
+    },
+    {
+      "category": "model evaluation readiness",
+      "status": "partial",
+      "blocked": false,
+      "details": "Basic validators exist; structured model-evaluation scorecards are still missing."
     },
     {
       "category": "model-training readiness",

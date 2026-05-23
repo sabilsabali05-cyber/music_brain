@@ -21,11 +21,14 @@ ReadinessCategory = Literal[
     "review burden",
     "storage budget",
     "human review queue readiness",
-    "sample-library readiness",
+    "local sample-library readiness",
     "Synplant seed-selection readiness",
     "Pure Data template readiness",
     "Max/Ableton routing readiness",
     "ratio intelligence readiness",
+    "symbolic backend readiness",
+    "training tokenization readiness",
+    "model evaluation readiness",
     "model-training readiness",
 ]
 
@@ -114,7 +117,11 @@ class MassIngestionReadinessReport:
     created_at: str
     ready_for_mass_ingestion: bool
     ready_for_controlled_batch: bool
+    ready_for_model_training: bool
     recommended_next_batch_size: int
+    top_strengths: list[str] = field(default_factory=list)
+    top_blockers: list[str] = field(default_factory=list)
+    required_next_actions: list[str] = field(default_factory=list)
     strengths: list[str] = field(default_factory=list)
     blockers: list[str] = field(default_factory=list)
     risk_flags: list[IngestionRiskFlag] = field(default_factory=list)
@@ -141,7 +148,11 @@ def build_current_state_readiness_report() -> MassIngestionReadinessReport:
         created_at=now_iso(),
         ready_for_mass_ingestion=False,
         ready_for_controlled_batch=True,
+        ready_for_model_training=False,
         recommended_next_batch_size=10,
+        top_strengths=[],
+        top_blockers=[],
+        required_next_actions=[],
         strengths=[],
         blockers=[],
     )

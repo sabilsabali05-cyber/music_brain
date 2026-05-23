@@ -52,6 +52,10 @@ def build_readiness_report() -> MassIngestionReadinessReport:
     pure_data_schema_ready = (ROOT_DIR / "features" / "generative_systems" / "puredata_schema.py").exists()
     max_routing_schema_ready = (ROOT_DIR / "features" / "texture_sound" / "composition_sound_plan_schema.py").exists()
     ratio_schema_ready = (ROOT_DIR / "features" / "ratio_intelligence" / "ratio_schema.py").exists()
+    symbolic_backend_ready = (ROOT_DIR / "features" / "symbolic_models" / "backends" / "registry.py").exists()
+    model_eval_tools_ready = (ROOT_DIR / "scripts" / "validate_tangible_demo.py").exists() and (
+        ROOT_DIR / "scripts" / "validate_ableton_project_export.py"
+    ).exists()
 
     strengths = [
         "composition pipeline exists",
@@ -60,6 +64,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         "prototype MIDI generation exists",
         "symbolic backend sockets exist",
         "local sample-library indexer exists",
+        "Ableton project export workflow exists",
     ]
 
     blockers = [
@@ -72,6 +77,13 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         "missing sound feedback capture",
         "incomplete external witness coverage",
         "incomplete meter/pitch/harmony calibration on some performances",
+    ]
+    required_next_actions = [
+        "Run a controlled 5-10 item ingestion batch with authorization-gated manifests.",
+        "Implement symbolic tokenization export and validation for training corpus v1.",
+        "Add review-pack -> feedback import loop for quality weighting.",
+        "Add manual Synplant session logging + rating capture.",
+        "Add model-evaluation scorecards for generation iterations.",
     ]
 
     risk_flags = [
@@ -110,11 +122,24 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         TrainingReadinessGate("review burden", "blocked", True, "Review burden is currently too high for mass ingestion."),
         TrainingReadinessGate("storage budget", "unknown", False, "No formal storage budget report detected."),
         TrainingReadinessGate("human review queue readiness", "blocked", True, "Manual queue workflow is not codified."),
-        TrainingReadinessGate("sample-library readiness", "partial", False, "Local sample indexing exists with privacy-safe outputs."),
+        TrainingReadinessGate("local sample-library readiness", "partial", False, "Local sample indexing exists with privacy-safe outputs."),
         TrainingReadinessGate("Synplant seed-selection readiness", "blocked", True, "Session logging schemas are placeholders only."),
         TrainingReadinessGate("Pure Data template readiness", "blocked", True, "Template library is not yet established."),
         TrainingReadinessGate("Max/Ableton routing readiness", "blocked", True, "Routing records are placeholder level only."),
         TrainingReadinessGate("ratio intelligence readiness", "partial", False, "Schema placeholders exist for future planning."),
+        TrainingReadinessGate(
+            "symbolic backend readiness",
+            "partial" if symbolic_backend_ready else "blocked",
+            not symbolic_backend_ready,
+            "Symbolic backend adapter architecture exists but real trained backends remain unavailable.",
+        ),
+        TrainingReadinessGate("training tokenization readiness", "blocked", True, "Tokenization/export pipeline is not ready yet."),
+        TrainingReadinessGate(
+            "model evaluation readiness",
+            "partial" if model_eval_tools_ready else "blocked",
+            not model_eval_tools_ready,
+            "Basic validators exist; structured model-evaluation scorecards are still missing.",
+        ),
         TrainingReadinessGate("model-training readiness", "blocked", True, "Tokenization/export target and feedback loops are missing."),
     ]
 
@@ -122,7 +147,11 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         created_at=now_iso(),
         ready_for_mass_ingestion=False,
         ready_for_controlled_batch=True,
+        ready_for_model_training=False,
         recommended_next_batch_size=10,
+        top_strengths=strengths[:6],
+        top_blockers=blockers[:6],
+        required_next_actions=required_next_actions,
         strengths=strengths,
         blockers=blockers,
         risk_flags=risk_flags,
@@ -196,6 +225,7 @@ def _render_markdown(payload: dict[str, Any]) -> str:
         f"- created_at: `{payload['created_at']}`",
         f"- ready_for_mass_ingestion: `{payload['ready_for_mass_ingestion']}`",
         f"- ready_for_controlled_batch: `{payload['ready_for_controlled_batch']}`",
+        f"- ready_for_model_training: `{payload['ready_for_model_training']}`",
         f"- recommended_next_batch_size: `{payload['recommended_next_batch_size']}`",
         "",
         "## Top Strengths",
@@ -203,6 +233,8 @@ def _render_markdown(payload: dict[str, Any]) -> str:
     lines.extend([f"- {item}" for item in payload["strengths"]])
     lines.extend(["", "## Top Blockers"])
     lines.extend([f"- {item}" for item in payload["blockers"]])
+    lines.extend(["", "## Required Next Actions"])
+    lines.extend([f"- {item}" for item in payload["required_next_actions"]])
     lines.extend(["", "## Controlled Batch Plan"])
     plan = payload["controlled_batch_plan"]
     lines.extend([f"- ready_for_controlled_batch: `{plan['ready_for_controlled_batch']}`"])
@@ -238,6 +270,7 @@ def main() -> int:
     print(f"MASS_INGESTION_READINESS_MD={md_path.as_posix()}")
     print(f"READY_FOR_MASS_INGESTION={payload['ready_for_mass_ingestion']}")
     print(f"READY_FOR_CONTROLLED_BATCH={payload['ready_for_controlled_batch']}")
+    print(f"READY_FOR_MODEL_TRAINING={payload['ready_for_model_training']}")
     print(f"RECOMMENDED_NEXT_BATCH_SIZE={payload['recommended_next_batch_size']}")
     return 0
 

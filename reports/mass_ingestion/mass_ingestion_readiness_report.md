@@ -1,8 +1,9 @@
 # Mass Ingestion Readiness Report
 
-- created_at: `2026-05-23T07:07:59.864802+00:00`
+- created_at: `2026-05-23T08:31:06.480018+00:00`
 - ready_for_mass_ingestion: `False`
 - ready_for_controlled_batch: `True`
+- ready_for_model_training: `False`
 - recommended_next_batch_size: `10`
 
 ## Top Strengths
@@ -12,6 +13,7 @@
 - prototype MIDI generation exists
 - symbolic backend sockets exist
 - local sample-library indexer exists
+- Ableton project export workflow exists
 
 ## Top Blockers
 - high review burden
@@ -23,6 +25,13 @@
 - missing sound feedback capture
 - incomplete external witness coverage
 - incomplete meter/pitch/harmony calibration on some performances
+
+## Required Next Actions
+- Run a controlled 5-10 item ingestion batch with authorization-gated manifests.
+- Implement symbolic tokenization export and validation for training corpus v1.
+- Add review-pack -> feedback import loop for quality weighting.
+- Add manual Synplant session logging + rating capture.
+- Add model-evaluation scorecards for generation iterations.
 
 ## Controlled Batch Plan
 - ready_for_controlled_batch: `True`

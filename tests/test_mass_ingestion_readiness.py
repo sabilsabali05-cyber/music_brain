@@ -13,7 +13,11 @@ def test_readiness_report_schema_and_core_flags() -> None:
     assert isinstance(payload["created_at"], str)
     assert payload["ready_for_mass_ingestion"] is False
     assert payload["ready_for_controlled_batch"] is True
+    assert payload["ready_for_model_training"] is False
     assert payload["recommended_next_batch_size"] == 10
+    assert payload["top_strengths"]
+    assert payload["top_blockers"]
+    assert payload["required_next_actions"]
 
 
 def test_controlled_batch_allowed_while_mass_ingestion_blocked() -> None:
@@ -28,11 +32,14 @@ def test_required_readiness_gates_exist() -> None:
     assert "source authorization" in gates
     assert "review burden" in gates
     assert gates["review burden"]["blocked"] is True
-    assert "sample-library readiness" in gates
+    assert "local sample-library readiness" in gates
     assert "Synplant seed-selection readiness" in gates
     assert "Pure Data template readiness" in gates
     assert "Max/Ableton routing readiness" in gates
     assert "ratio intelligence readiness" in gates
+    assert "symbolic backend readiness" in gates
+    assert "training tokenization readiness" in gates
+    assert "model evaluation readiness" in gates
 
 
 def test_no_training_or_automation_claims() -> None:
