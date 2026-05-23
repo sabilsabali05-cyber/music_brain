@@ -1,0 +1,8 @@
+{
+  "tracks": [
+    {
+      "track_name": "drums",
+      "midi_file": "generated_drums.mid"
+    }
+  ]
+}

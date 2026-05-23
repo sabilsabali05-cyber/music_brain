@@ -42,3 +42,12 @@ reports/sample_libraries/**/*_index_report.md
 
 # Local machine sample-library config (use committed example template)
 config/sample_libraries/local_sounds_library.json
+
+# Tangible demo seed suggestions may include private local paths
+outputs/tangible_generation_v1/*seed_suggestions*.json
+outputs/tangible_generation_v1/*seed_suggestions*.md
+
+# Ableton export private/local-only files
+outputs/ableton_project_v1/**/private_synplant_seed_paths.json
+outputs/ableton_project_v1/**/private_synplant_seed_paths.md
+outputs/ableton_project_v1/**/Samples/**

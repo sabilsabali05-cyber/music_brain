@@ -1,0 +1,50 @@
+{
+  "status": "success",
+  "output_dir": "outputs/tangible_generation_v1",
+  "source_dataset_folders": [
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1"
+  ],
+  "source_example_ids": [
+    "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:288.0-383.5:383.5-472.25",
+    "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:44.75-186.75:186.75-244.0",
+    "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:0.0-44.75:44.75-116.25",
+    "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:244.0-288.0:288.0-325.0",
+    "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:531.0-592.5:592.5-656.5"
+  ],
+  "transformations_applied": [
+    "drums: transpose_-2, density_slice_2",
+    "bass: transpose_-1, density_slice_3",
+    "chords: transpose_0, density_slice_4",
+    "lead: transpose_1, density_slice_5",
+    "texture_bed: transpose_2, density_slice_6"
+  ],
+  "prototype_generated_from_existing_examples": true,
+  "not_model_trained": true,
+  "not_ground_truth": true,
+  "not_final_mix": true,
+  "needs_human_review": true,
+  "created_at": "2026-05-23T08:19:01.612058+00:00",
+  "ratio_timing": {
+    "ratio": "golden_ratio",
+    "duration_seconds": 180.0,
+    "climax_seconds": 111.246
+  },
+  "output_midi_paths": {
+    "song": "outputs/tangible_generation_v1/generated_song.mid",
+    "drums": "outputs/tangible_generation_v1/generated_drums.mid",
+    "bass": "outputs/tangible_generation_v1/generated_bass.mid",
+    "chords": "outputs/tangible_generation_v1/generated_chords.mid",
+    "lead": "outputs/tangible_generation_v1/generated_lead.mid",
+    "texture_bed": "outputs/tangible_generation_v1/generated_texture_motifs.mid"
+  },
+  "note_counts": {
+    "drums": 70,
+    "bass": 57,
+    "chords": 42,
+    "lead": 17,
+    "texture_bed": 25,
+    "song": 211
+  },
+  "model_training_claim": false,
+  "synplant_automation_claim": false
+}

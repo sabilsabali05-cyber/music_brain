@@ -1,0 +1,33 @@
+{
+  "status": "success",
+  "export_project_path": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+  "midi_files_copied": [
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_song.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_drums.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_bass.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_chords.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_lead.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_texture_motifs.mid"
+  ],
+  "public_safe_files_created": [
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/Ableton_Project_Plan.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/track_setup.json",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/Open_In_Ableton_Instructions.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/README_FIRST.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/synplant_seed_summary.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/export_report.json"
+  ],
+  "private_files_created": [
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/private_synplant_seed_paths.json",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/private_synplant_seed_paths.md"
+  ],
+  "copied_audio_sample_count": 0,
+  "copy_local_samples_enabled": false,
+  "als_generation_status": "not_implemented_experimental_future",
+  "limitations": [
+    "ALS generation is not implemented in v1.",
+    "Synplant automation is not implemented.",
+    "Pure Data and Max for Live tracks are placeholders only."
+  ],
+  "created_at": "2026-05-23T08:19:03.350359+00:00"
+}
