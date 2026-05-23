@@ -1,0 +1,1393 @@
+{
+  "dataset_folder": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+  "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+  "segment_run_id": "20260521T213524641640_audio_structure_v1",
+  "examples_by_task_type": {
+    "buildup_to_release": 19,
+    "call_response": 45,
+    "continuation": 39,
+    "groove_continuation": 37,
+    "harmony_continuation": 53,
+    "infill_missing_region": 52,
+    "melody_continuation": 6,
+    "motif_transformation": 22,
+    "phrase_continuation": 104,
+    "section_transition": 53
+  },
+  "context_duration_distribution": {
+    "count": 430,
+    "mean": 85.72754,
+    "min": 12.0,
+    "p25": 60.0,
+    "p50": 60.0,
+    "p75": 120.0,
+    "max": 229.5
+  },
+  "target_duration_distribution": {
+    "count": 430,
+    "mean": 55.559363,
+    "min": 12.0,
+    "p25": 58.75,
+    "p50": 60.0,
+    "p75": 60.0,
+    "max": 89.75
+  },
+  "context_note_count_distribution": {
+    "count": 430,
+    "mean": 706.223256,
+    "min": 3.0,
+    "p25": 232.0,
+    "p50": 613.0,
+    "p75": 986.0,
+    "max": 2630.0
+  },
+  "target_note_count_distribution": {
+    "count": 430,
+    "mean": 480.360465,
+    "min": 9.0,
+    "p25": 232.0,
+    "p50": 474.0,
+    "p75": 708.0,
+    "max": 1064.0
+  },
+  "boundary_quality_distribution": {
+    "count": 430,
+    "mean": 0.821568,
+    "min": 0.315355,
+    "p25": 0.842168,
+    "p50": 0.90661,
+    "p75": 0.91585,
+    "max": 0.953549
+  },
+  "phrase_boundary_weak_by_task_type": {
+    "infill_missing_region": 27,
+    "motif_transformation": 9
+  },
+  "route_state_unsuitable_by_content_state": {
+    "ambient_low_information": 53,
+    "melodic_lead": 2,
+    "rhythm_dominant": 74,
+    "unknown": 4
+  },
+  "task_policy_failed_by_task_type": {
+    "buildup_to_release": 8,
+    "call_response": 4,
+    "continuation": 4,
+    "infill_missing_region": 19,
+    "motif_transformation": 10,
+    "phrase_continuation": 92,
+    "section_transition": 13
+  },
+  "task_policy_failed_by_task_and_check": {
+    "buildup_to_release": {
+      "task_policy_failed": 8
+    },
+    "call_response": {
+      "task_policy_failed": 4
+    },
+    "continuation": {
+      "task_policy_failed": 4
+    },
+    "infill_missing_region": {
+      "duration_out_of_range": 11,
+      "task_policy_failed": 9
+    },
+    "motif_transformation": {
+      "duration_out_of_range": 7,
+      "task_policy_failed": 3
+    },
+    "phrase_continuation": {
+      "task_policy_failed": 92
+    },
+    "section_transition": {
+      "task_policy_failed": 13
+    }
+  },
+  "examples_just_below_train_threshold": [
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:continuation:313.25-372.5:372.5-438.5",
+      "task_type": "continuation",
+      "score": 0.683563,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:continuation:313.25-438.5:438.5-498.5",
+      "task_type": "continuation",
+      "score": 0.682945,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2361.5-2481.5:2481.5-2550.75",
+      "task_type": "phrase_continuation",
+      "score": 0.682511,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2421.5-2550.75:2550.75-2638.75",
+      "task_type": "phrase_continuation",
+      "score": 0.682511,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:313.25-372.5:372.5-438.5",
+      "task_type": "call_response",
+      "score": 0.692183,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:372.5-438.5:438.5-498.5",
+      "task_type": "call_response",
+      "score": 0.710496,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:438.5-498.5:498.5-558.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:644.0-683.5:683.5-773.25",
+      "task_type": "call_response",
+      "score": 0.702161,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:683.5-773.25:773.25-853.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:773.25-853.0:853.0-913.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:853.0-913.0:913.0-964.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:964.0-1024.0:1024.0-1092.75",
+      "task_type": "call_response",
+      "score": 0.709268,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1024.0-1092.75:1092.75-1162.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1092.75-1162.0:1162.0-1222.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1340.75-1400.75:1400.75-1460.75",
+      "task_type": "call_response",
+      "score": 0.712037,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1400.75-1460.75:1460.75-1520.75",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1460.75-1520.75:1520.75-1580.75",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1580.75-1640.75:1640.75-1700.75",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1640.75-1700.75:1700.75-1761.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1700.75-1761.5:1761.5-1821.5",
+      "task_type": "call_response",
+      "score": 0.7021,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1761.5-1821.5:1821.5-1881.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1821.5-1881.5:1881.5-1941.5",
+      "task_type": "call_response",
+      "score": 0.704062,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1881.5-1941.5:1941.5-2001.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1941.5-2001.5:2001.5-2061.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2001.5-2061.5:2061.5-2121.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2061.5-2121.5:2121.5-2181.5",
+      "task_type": "call_response",
+      "score": 0.703741,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2121.5-2181.5:2181.5-2241.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2181.5-2241.5:2241.5-2301.5",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2421.5-2481.5:2481.5-2550.75",
+      "task_type": "call_response",
+      "score": 0.712037,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2550.75-2638.75:2638.75-2688.75",
+      "task_type": "call_response",
+      "score": 0.697876,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2688.75-2741.25:2741.25-2788.5",
+      "task_type": "call_response",
+      "score": 0.700715,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2741.25-2788.5:2788.5-2876.0",
+      "task_type": "call_response",
+      "score": 0.6815,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2788.5-2876.0:2876.0-2936.0",
+      "task_type": "call_response",
+      "score": 0.699037,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2876.0-2936.0:2936.0-2996.0",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:2996.0-3056.0:3056.0-3116.0",
+      "task_type": "call_response",
+      "score": 0.681585,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:3116.0-3170.25:3170.25-3230.25",
+      "task_type": "call_response",
+      "score": 0.712037,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:3170.25-3230.25:3230.25-3270.25",
+      "task_type": "call_response",
+      "score": 0.706952,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:372.5-498.5:498.5-558.5",
+      "task_type": "buildup_to_release",
+      "score": 0.695607,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:498.5-644.0:644.0-683.5",
+      "task_type": "buildup_to_release",
+      "score": 0.695963,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:683.5-853.0:853.0-913.0",
+      "task_type": "buildup_to_release",
+      "score": 0.708791,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:1520.75-1640.75:1640.75-1700.75",
+      "task_type": "buildup_to_release",
+      "score": 0.708791,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:1700.75-1821.5:1821.5-1881.5",
+      "task_type": "buildup_to_release",
+      "score": 0.708791,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:1821.5-1941.5:1941.5-2001.5",
+      "task_type": "buildup_to_release",
+      "score": 0.703583,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:2001.5-2121.5:2121.5-2181.5",
+      "task_type": "buildup_to_release",
+      "score": 0.698178,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:2121.5-2241.5:2241.5-2301.5",
+      "task_type": "buildup_to_release",
+      "score": 0.701935,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:2741.25-2876.0:2876.0-2936.0",
+      "task_type": "buildup_to_release",
+      "score": 0.709003,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:3116.0-3230.25:3230.25-3270.25",
+      "task_type": "buildup_to_release",
+      "score": 0.697627,
+      "split": "validation",
+      "reasons": [
+        "quality_meets_validation_threshold"
+      ]
+    }
+  ],
+  "examples_just_below_validation_threshold": [
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2421.5-2481.5:2481.5-2550.75",
+      "task_type": "phrase_continuation",
+      "score": 0.591698,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2481.5-2550.75:2550.75-2638.75",
+      "task_type": "phrase_continuation",
+      "score": 0.572288,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2550.75-2638.75:2638.75-2688.75",
+      "task_type": "phrase_continuation",
+      "score": 0.582327,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2638.75-2688.75:2688.75-2741.25",
+      "task_type": "phrase_continuation",
+      "score": 0.573208,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2688.75-2741.25:2741.25-2788.5",
+      "task_type": "phrase_continuation",
+      "score": 0.583957,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2741.25-2788.5:2788.5-2876.0",
+      "task_type": "phrase_continuation",
+      "score": 0.576163,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:180.0-313.25:313.25-372.5",
+      "task_type": "phrase_continuation",
+      "score": 0.587958,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:253.25-372.5:372.5-438.5",
+      "task_type": "phrase_continuation",
+      "score": 0.582927,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:313.25-438.5:438.5-498.5",
+      "task_type": "phrase_continuation",
+      "score": 0.575674,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:438.5-558.5:558.5-644.0",
+      "task_type": "phrase_continuation",
+      "score": 0.567642,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:558.5-683.5:683.5-773.25",
+      "task_type": "phrase_continuation",
+      "score": 0.571946,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:644.0-773.25:773.25-853.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:683.5-853.0:853.0-913.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:773.25-913.0:913.0-964.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:853.0-964.0:964.0-1024.0",
+      "task_type": "phrase_continuation",
+      "score": 0.561647,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:913.0-1024.0:1024.0-1092.75",
+      "task_type": "phrase_continuation",
+      "score": 0.56893,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:964.0-1092.75:1092.75-1162.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572229,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1024.0-1162.0:1162.0-1222.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1092.75-1222.0:1222.0-1280.75",
+      "task_type": "phrase_continuation",
+      "score": 0.560434,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1162.0-1280.75:1280.75-1340.75",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1340.75-1460.75:1460.75-1520.75",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1400.75-1520.75:1520.75-1580.75",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1520.75-1640.75:1640.75-1700.75",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1580.75-1700.75:1700.75-1761.5",
+      "task_type": "phrase_continuation",
+      "score": 0.562817,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1640.75-1761.5:1761.5-1821.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1700.75-1821.5:1821.5-1881.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1821.5-1941.5:1941.5-2001.5",
+      "task_type": "phrase_continuation",
+      "score": 0.567219,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1881.5-2001.5:2001.5-2061.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:1941.5-2061.5:2061.5-2121.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2001.5-2121.5:2121.5-2181.5",
+      "task_type": "phrase_continuation",
+      "score": 0.561814,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2061.5-2181.5:2181.5-2241.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2121.5-2241.5:2241.5-2301.5",
+      "task_type": "phrase_continuation",
+      "score": 0.565571,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2181.5-2301.5:2301.5-2361.5",
+      "task_type": "phrase_continuation",
+      "score": 0.561562,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2241.5-2361.5:2361.5-2421.5",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2741.25-2876.0:2876.0-2936.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572639,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2788.5-2936.0:2936.0-2996.0",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2936.0-3056.0:3056.0-3116.0",
+      "task_type": "phrase_continuation",
+      "score": 0.563264,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:3056.0-3170.25:3170.25-3230.25",
+      "task_type": "phrase_continuation",
+      "score": 0.572426,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:3116.0-3230.25:3230.25-3270.25",
+      "task_type": "phrase_continuation",
+      "score": 0.561263,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:3170.25-3270.25:3270.25-3324.842",
+      "task_type": "phrase_continuation",
+      "score": 0.560336,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:groove_continuation:1520.75-1580.75:1580.75-1640.75",
+      "task_type": "groove_continuation",
+      "score": 0.585969,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:groove_continuation:2361.5-2421.5:2421.5-2481.5",
+      "task_type": "groove_continuation",
+      "score": 0.585969,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:groove_continuation:2936.0-2996.0:2996.0-3056.0",
+      "task_type": "groove_continuation",
+      "score": 0.571335,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1280.75-1340.75:1340.75-1400.75",
+      "task_type": "call_response",
+      "score": 0.579037,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:253.25-313.25:372.5-438.5",
+      "task_type": "motif_transformation",
+      "score": 0.560345,
+      "split": "review",
+      "reasons": [
+        "duration_out_of_range",
+        "quality_below_threshold",
+        "task_policy_failed",
+        "weak_or_missing_task_evidence"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:120.0-180.0:498.5-558.5",
+      "task_type": "motif_transformation",
+      "score": 0.569451,
+      "split": "review",
+      "reasons": [
+        "phrase_boundary_weak",
+        "quality_below_threshold",
+        "weak_or_missing_task_evidence"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:498.5-558.5:1460.75-1520.75",
+      "task_type": "motif_transformation",
+      "score": 0.582477,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:372.5-438.5:438.5-498.5",
+      "task_type": "motif_transformation",
+      "score": 0.574962,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold",
+        "weak_or_missing_task_evidence"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:180.0-253.25:313.25-372.5",
+      "task_type": "motif_transformation",
+      "score": 0.578512,
+      "split": "review",
+      "reasons": [
+        "phrase_boundary_weak",
+        "quality_below_threshold",
+        "weak_or_missing_task_evidence"
+      ]
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:0.0-60.0:313.25-372.5",
+      "task_type": "motif_transformation",
+      "score": 0.593661,
+      "split": "review",
+      "reasons": [
+        "quality_below_threshold"
+      ]
+    }
+  ],
+  "dense_target_low_boundary_examples": [
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:120.0-180.0:498.5-558.5",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.444142,
+      "final_score": 0.569451
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:372.5-438.5:683.5-773.25",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.430163,
+      "final_score": 0.545305
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:180.0-253.25:313.25-372.5",
+      "task_type": "motif_transformation",
+      "target_density": 0.85,
+      "phrase_boundary_quality": 0.441521,
+      "final_score": 0.578512
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:683.5-773.25:853.0-913.0",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.416095,
+      "final_score": 0.541477
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:0.0-60.0:253.25-313.25",
+      "task_type": "motif_transformation",
+      "target_density": 0.85,
+      "phrase_boundary_quality": 0.346546,
+      "final_score": 0.435999
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:60.0-120.0:498.5-558.5",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.444692,
+      "final_score": 0.569564
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:498.5-558.5:644.0-683.5",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.391224,
+      "final_score": 0.554179
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:0.0-60.0:2001.5-2061.5",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.447975,
+      "final_score": 0.575839
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:motif_transformation:498.5-558.5:773.25-853.0",
+      "task_type": "motif_transformation",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.44605,
+      "final_score": 0.565443
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:120.0-313.25:180.0-253.25",
+      "task_type": "infill_missing_region",
+      "target_density": 0.85,
+      "phrase_boundary_quality": 0.368048,
+      "final_score": 0.452417
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:180.0-372.5:253.25-313.25",
+      "task_type": "infill_missing_region",
+      "target_density": 0.85,
+      "phrase_boundary_quality": 0.372084,
+      "final_score": 0.453246
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:253.25-438.5:313.25-372.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.85,
+      "phrase_boundary_quality": 0.41257,
+      "final_score": 0.583364
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:438.5-644.0:498.5-558.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.429986,
+      "final_score": 0.572943
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:498.5-683.5:558.5-644.0",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.39169,
+      "final_score": 0.565074
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:558.5-773.25:644.0-683.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.405566,
+      "final_score": 0.567925
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:644.0-853.0:683.5-773.25",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.401825,
+      "final_score": 0.567157
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:964.0-1162.0:1024.0-1092.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.394241,
+      "final_score": 0.565599
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1024.0-1222.0:1092.75-1162.0",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.410163,
+      "final_score": 0.56887
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1340.75-1520.75:1400.75-1460.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.389987,
+      "final_score": 0.564725
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1400.75-1580.75:1460.75-1520.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.423781,
+      "final_score": 0.571668
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1460.75-1640.75:1520.75-1580.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.385709,
+      "final_score": 0.563846
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1640.75-1821.5:1700.75-1761.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.439424,
+      "final_score": 0.574882
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1821.5-2001.5:1881.5-1941.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.449448,
+      "final_score": 0.576941
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:1881.5-2061.5:1941.5-2001.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.417578,
+      "final_score": 0.570393
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2181.5-2361.5:2241.5-2301.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.433192,
+      "final_score": 0.573601
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2301.5-2481.5:2361.5-2421.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.411376,
+      "final_score": 0.569119
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2481.5-2688.75:2550.75-2638.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.410658,
+      "final_score": 0.568972
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2550.75-2741.25:2638.75-2688.75",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.395377,
+      "final_score": 0.565832
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2638.75-2788.5:2688.75-2741.25",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.389388,
+      "final_score": 0.564602
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2688.75-2876.0:2741.25-2788.5",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.430829,
+      "final_score": 0.573116
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2741.25-2936.0:2788.5-2876.0",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.3912,
+      "final_score": 0.564974
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2788.5-2996.0:2876.0-2936.0",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.43052,
+      "final_score": 0.573052
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:2936.0-3116.0:2996.0-3056.0",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.384426,
+      "final_score": 0.527582
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:infill_missing_region:3170.25-3324.842:3230.25-3270.25",
+      "task_type": "infill_missing_region",
+      "target_density": 0.75,
+      "phrase_boundary_quality": 0.436173,
+      "final_score": 0.574214
+    }
+  ],
+  "strict_routing_candidates_for_long_form_choir": [
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:0.0-60.0:60.0-120.0",
+      "task_type": "call_response",
+      "content_state": "ambient_low_information",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "boosters": {
+        "density_change_near_boundary": 0.041667,
+        "onset_density_balance": 0.114583,
+        "segment_boundary_proximity": 1.0,
+        "routing_state_change": 0.0,
+        "meter_phrase_cycle_refs": 1.0,
+        "pitch_harmony_arrival_refs": 1.0,
+        "repetition_motif_evidence": 0.588333,
+        "target_duration_adequacy": 1.0,
+        "target_density_adequacy": 0.65
+      }
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:60.0-120.0:120.0-180.0",
+      "task_type": "call_response",
+      "content_state": "ambient_low_information",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "boosters": {
+        "density_change_near_boundary": 0.025,
+        "onset_density_balance": 0.1125,
+        "segment_boundary_proximity": 1.0,
+        "routing_state_change": 0.0,
+        "meter_phrase_cycle_refs": 1.0,
+        "pitch_harmony_arrival_refs": 1.0,
+        "repetition_motif_evidence": 0.585,
+        "target_duration_adequacy": 1.0,
+        "target_density_adequacy": 0.65
+      }
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:180.0-253.25:253.25-313.25",
+      "task_type": "call_response",
+      "content_state": "ambient_low_information",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "boosters": {
+        "density_change_near_boundary": 0.392776,
+        "onset_density_balance": 0.374325,
+        "segment_boundary_proximity": 1.0,
+        "routing_state_change": 0.0,
+        "meter_phrase_cycle_refs": 1.0,
+        "pitch_harmony_arrival_refs": 1.0,
+        "repetition_motif_evidence": 0.658555,
+        "target_duration_adequacy": 1.0,
+        "target_density_adequacy": 0.85
+      }
+    },
+    {
+      "example_id": "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:call_response:1280.75-1340.75:1340.75-1400.75",
+      "task_type": "call_response",
+      "content_state": "ambient_low_information",
+      "reasons": [
+        "quality_below_threshold",
+        "route_state_unsuitable",
+        "task_policy_failed"
+      ],
+      "boosters": {
+        "density_change_near_boundary": 1.0,
+        "onset_density_balance": 1.0,
+        "segment_boundary_proximity": 1.0,
+        "routing_state_change": 1.0,
+        "meter_phrase_cycle_refs": 0.666667,
+        "pitch_harmony_arrival_refs": 1.0,
+        "repetition_motif_evidence": 0.78,
+        "target_duration_adequacy": 1.0,
+        "target_density_adequacy": 0.75
+      }
+    }
+  ],
+  "recommended_pairing_strategy_changes": [
+    "Increase phrase-like candidate generation from density/routing-change boundaries for tasks with high phrase_boundary_weak counts.",
+    "Use evidence boosters for harmony/melody/call_response when routing labels are conservative in long-form choir sections.",
+    "For dense targets with weak boundaries, expand context by one extra compatible window before excluding.",
+    "Prioritize examples near thresholds by improving boundary evidence rather than lowering split thresholds."
+  ]
+}

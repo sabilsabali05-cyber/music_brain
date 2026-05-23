@@ -17,6 +17,7 @@ if str(ROOT_DIR) not in sys.path:
 from features.generative.generative_schema import generative_example
 from features.generative.task_policies import (
     CRITICAL_BLOCKERS,
+    EVIDENCE_BOOSTERS,
     MAJOR_BLOCKERS,
     SPLIT_THRESHOLDS,
     TASK_POLICIES,
@@ -242,6 +243,129 @@ def _dominant_content_state(start_seconds: float, end_seconds: float, route_rows
     return state, round(best_conf, 6)
 
 
+def _is_long_form_performance(
+    *,
+    duration_seconds: float,
+    windows_count: int,
+    segments_count: int,
+    performance_id: str,
+    source_name: str,
+) -> bool:
+    id_text = f"{performance_id} {source_name}".lower()
+    long_form_hint = any(token in id_text for token in ("choir", "live", "performance"))
+    return duration_seconds >= 600.0 or windows_count >= 24 or segments_count >= 16 or long_form_hint
+
+
+def _state_compatible(a: str, b: str) -> bool:
+    if a == b:
+        return True
+    if a in {"harmonic_dominant", "polyphonic_full_mix"} and b in {"harmonic_dominant", "polyphonic_full_mix", "melodic_lead"}:
+        return True
+    if a in {"rhythm_dominant", "percussive_only"} and b in {"rhythm_dominant", "percussive_only", "polyphonic_full_mix"}:
+        return True
+    if a in {"melodic_lead", "vocal_dominant", "rap_vocal_dominant"} and b in {"melodic_lead", "vocal_dominant", "rap_vocal_dominant", "polyphonic_full_mix"}:
+        return True
+    return False
+
+
+def _onset_density(events: list[dict[str, float]], start_seconds: float, end_seconds: float) -> float:
+    duration = max(1e-6, end_seconds - start_seconds)
+    onsets = sum(1 for event in events if start_seconds <= event["start"] <= end_seconds)
+    return onsets / duration
+
+
+def _overlap_count(records: list[dict[str, Any]], start_seconds: float, end_seconds: float) -> int:
+    count = 0
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        r_start = _safe_float(record.get("start_seconds"), 0.0)
+        r_end = _safe_float(record.get("end_seconds"), r_start)
+        if min(end_seconds, r_end) > max(start_seconds, r_start):
+            count += 1
+    return count
+
+
+def _phrase_boundary_evidence(
+    *,
+    task_type: str,
+    context_start_seconds: float,
+    context_end_seconds: float,
+    target_start_seconds: float,
+    target_end_seconds: float,
+    context_events: list[dict[str, float]],
+    target_events: list[dict[str, float]],
+    context_state: str,
+    target_state: str,
+    segments: list[dict[str, Any]],
+    meter_payload: dict[str, Any],
+    pitch_payload: dict[str, Any],
+    motif_strength: float,
+) -> tuple[float, dict[str, float]]:
+    context_duration = max(1e-6, context_end_seconds - context_start_seconds)
+    target_duration = max(1e-6, target_end_seconds - target_start_seconds)
+    density_before = len(context_events) / context_duration
+    density_after = len(target_events) / target_duration
+    density_change = _clamp(abs(density_after - density_before) / 2.0)
+    onset_before = _clamp(_onset_density(context_events, context_start_seconds, context_end_seconds) / 4.0)
+    onset_after = _clamp(_onset_density(target_events, target_start_seconds, target_end_seconds) / 4.0)
+    onset_balance = _clamp((onset_before + onset_after) * 0.5)
+
+    boundary_distances: list[float] = []
+    for segment in segments:
+        boundary_distances.append(abs(target_start_seconds - _safe_float(segment.get("start_seconds"), target_start_seconds)))
+        boundary_distances.append(abs(target_start_seconds - _safe_float(segment.get("end_seconds"), target_start_seconds)))
+    min_boundary_dist = min(boundary_distances) if boundary_distances else 999.0
+    segment_boundary_proximity = _clamp(1.0 - min(min_boundary_dist, 8.0) / 8.0)
+
+    routing_state_change = 1.0 if context_state != target_state and target_state != "silence_or_noise" else (0.55 if target_state in NON_SILENCE_STATES else 0.0)
+
+    phrase_refs = meter_payload.get("phrase_rhythm_records", [])
+    cycle_refs = meter_payload.get("macro_time_records", [])
+    meter_ref_hits = _overlap_count(phrase_refs if isinstance(phrase_refs, list) else [], target_start_seconds, target_end_seconds)
+    meter_ref_hits += _overlap_count(cycle_refs if isinstance(cycle_refs, list) else [], target_start_seconds, target_end_seconds)
+    meter_phrase_refs = _clamp(meter_ref_hits / 3.0)
+
+    cadence_hits = _overlap_count(
+        pitch_payload.get("chord_movement", []) if isinstance(pitch_payload.get("chord_movement"), list) else [],
+        target_start_seconds,
+        target_end_seconds,
+    )
+    cadence_hits += _overlap_count(
+        pitch_payload.get("harmony_sonority", []) if isinstance(pitch_payload.get("harmony_sonority"), list) else [],
+        target_start_seconds,
+        target_end_seconds,
+    )
+    pitch_arrival_refs = _clamp(cadence_hits / 4.0)
+    repetition_evidence = _clamp(motif_strength)
+    target_duration_adequacy = _clamp(target_duration / max(4.0, _safe_float(TASK_POLICIES.get(task_type, {}).get("minimum_duration"), 4.0)))
+    target_density_adequacy = _score_density(len(target_events), target_duration)
+
+    weighted = (
+        0.14 * density_change
+        + 0.12 * onset_balance
+        + 0.12 * segment_boundary_proximity
+        + 0.1 * routing_state_change
+        + 0.12 * meter_phrase_refs
+        + 0.12 * pitch_arrival_refs
+        + 0.12 * repetition_evidence
+        + 0.08 * target_duration_adequacy
+        + 0.08 * target_density_adequacy
+    )
+    evidence = {
+        "density_change_near_boundary": round(density_change, 6),
+        "onset_density_balance": round(onset_balance, 6),
+        "segment_boundary_proximity": round(segment_boundary_proximity, 6),
+        "routing_state_change": round(routing_state_change, 6),
+        "meter_phrase_cycle_refs": round(meter_phrase_refs, 6),
+        "pitch_harmony_arrival_refs": round(pitch_arrival_refs, 6),
+        "repetition_motif_evidence": round(repetition_evidence, 6),
+        "target_duration_adequacy": round(target_duration_adequacy, 6),
+        "target_density_adequacy": round(target_density_adequacy, 6),
+    }
+    return round(_clamp(weighted), 6), evidence
+
+
 def _reliability_lookup(feature_dir: Path) -> dict[str, dict[str, Any]]:
     payload = _safe_json(feature_dir / "trust" / "transcription_reliability.json")
     windows = payload.get("windows", [])
@@ -371,10 +495,21 @@ def _tokenize_target(events: list[dict[str, float]], start_seconds: float, end_s
     }
 
 
-def _task_allowed(task_type: str, content_state: str, *, has_harmony_evidence: bool = False) -> bool:
+def _task_allowed(
+    task_type: str,
+    content_state: str,
+    *,
+    has_harmony_evidence: bool = False,
+    has_melody_evidence: bool = False,
+    has_response_evidence: bool = False,
+) -> bool:
     policy = TASK_POLICIES.get(task_type, {})
     allowed = policy.get("allowed_content_states", [])
     if task_type == "harmony_continuation" and has_harmony_evidence:
+        return True
+    if task_type == "melody_continuation" and has_melody_evidence and content_state in NON_SILENCE_STATES:
+        return True
+    if task_type == "call_response" and has_response_evidence and content_state in NON_SILENCE_STATES:
         return True
     if "non_silence_any" in allowed:
         return content_state in NON_SILENCE_STATES
@@ -394,8 +529,10 @@ def _quality_components(
     review_heavy: bool,
     motif_strength: float,
     phrase_boundary_quality: float,
+    phrase_boundary_evidence: float,
     has_meter_ref: bool,
     has_pitch_ref: bool,
+    is_long_form: bool,
 ) -> dict[str, float]:
     policy = TASK_POLICIES.get(task_type, {})
     allowed = policy.get("allowed_content_states", [])
@@ -437,17 +574,21 @@ def _quality_components(
     weighted_pre_penalty = (
         0.24 * _clamp(reliability_score)
         + 0.14 * _clamp(route_suitability)
-        + 0.1 * _clamp(phrase_boundary_quality)
+        + 0.06 * _clamp(phrase_boundary_quality)
+        + 0.08 * _clamp(phrase_boundary_evidence)
         + 0.14 * _clamp(density_score)
         + 0.14 * _clamp(completeness)
         + 0.1 * _clamp(motif_strength)
         + 0.14 * _clamp(witness)
     )
+    if is_long_form and task_type in {"continuation", "phrase_continuation", "call_response", "buildup_to_release"}:
+        weighted_pre_penalty += 0.06
     final_score = _clamp(weighted_pre_penalty - ambiguity_penalty - review_penalty)
     return {
         "transcription_reliability": round(_clamp(reliability_score), 6),
         "route_suitability": round(_clamp(route_suitability), 6),
         "phrase_boundary_quality": round(_clamp(phrase_boundary_quality), 6),
+        "phrase_boundary_evidence": round(_clamp(phrase_boundary_evidence), 6),
         "target_density": round(_clamp(density_score), 6),
         "musical_completeness": round(_clamp(completeness), 6),
         "repetition_or_motif_strength": round(_clamp(motif_strength), 6),
@@ -507,6 +648,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
     windows = _segment_windows(segments_manifest)
     windows_by_id = {str(item["window_id"]): item for item in windows}
     segments = _segments(segments_manifest)
+    duration_seconds_manifest = _safe_float(segments_manifest.get("duration_seconds"), 0.0)
 
     merged_midi_path = ctx["merged_midi_path"] if isinstance(ctx["merged_midi_path"], Path) and ctx["merged_midi_path"] else None
     all_events = _load_note_events(merged_midi_path)
@@ -526,6 +668,13 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         str(item.get("tag"))
         for item in (tag for tag in _safe_json(feature_dir / "tags.json").get("top_unique_tags", []) if isinstance(tag, dict))
     ][:12]
+    is_long_form = _is_long_form_performance(
+        duration_seconds=duration_seconds_manifest,
+        windows_count=len(windows),
+        segments_count=len(segments),
+        performance_id=str(ctx["performance_id"]),
+        source_name=str(ctx["performance_manifest"].get("source_name") or ctx["performance_manifest"].get("source_path") or ""),
+    )
 
     out_dir = resolve_artifact_performance_dir(Path("datasets") / "generative_training", str(ctx["performance_id"])) / str(ctx["segment_run_id"])
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -573,6 +722,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             critical_blockers.append("invalid_timing")
 
         content_state, route_conf = _dominant_content_state(target_start_seconds, target_end_seconds, route_rows)
+        context_state, _ = _dominant_content_state(context_start_seconds, context_end_seconds, route_rows)
         if content_state == "silence_or_noise":
             critical_blockers.append("silence_or_noise_target")
 
@@ -593,7 +743,18 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
                 for row in pitch_payload.get("harmony_sonority", [])
             )
         )
-        if not _task_allowed(task_type, content_state, has_harmony_evidence=force_harmony_allow or has_harmony_evidence):
+        has_melody_evidence = bool(
+            isinstance(pitch_payload.get("melody_contour"), list)
+            and _overlap_count(pitch_payload.get("melody_contour", []), target_start_seconds, target_end_seconds) > 0
+        )
+        has_response_evidence = has_melody_evidence or has_harmony_evidence
+        if not _task_allowed(
+            task_type,
+            content_state,
+            has_harmony_evidence=force_harmony_allow or has_harmony_evidence,
+            has_melody_evidence=has_melody_evidence,
+            has_response_evidence=has_response_evidence,
+        ):
             failed_policy_checks.append("task_policy_failed")
             split_reason_codes.append("route_state_unsuitable")
 
@@ -636,7 +797,23 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         if reliability_score < 0.45:
             split_reason_codes.append("low_transcription_reliability")
         phrase_gap = abs(target_start_seconds - context_end_seconds)
-        phrase_boundary_quality = _clamp(1.0 - min(1.0, phrase_gap / 3.0))
+        phrase_boundary_quality = _clamp(1.0 - min(1.0, phrase_gap / (4.5 if is_long_form else 3.0)))
+        phrase_boundary_evidence, phrase_evidence_components = _phrase_boundary_evidence(
+            task_type=task_type,
+            context_start_seconds=context_start_seconds,
+            context_end_seconds=context_end_seconds,
+            target_start_seconds=target_start_seconds,
+            target_end_seconds=target_end_seconds,
+            context_events=context_events,
+            target_events=target_events,
+            context_state=context_state,
+            target_state=content_state,
+            segments=segments,
+            meter_payload=meter_payload,
+            pitch_payload=pitch_payload,
+            motif_strength=motif_strength,
+        )
+        phrase_boundary_quality = round(_clamp(0.45 * phrase_boundary_quality + 0.55 * phrase_boundary_evidence), 6)
         if phrase_boundary_quality < 0.45:
             split_reason_codes.append("phrase_boundary_weak")
 
@@ -652,8 +829,10 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             review_heavy=review_heavy,
             motif_strength=motif_strength,
             phrase_boundary_quality=phrase_boundary_quality,
+            phrase_boundary_evidence=phrase_boundary_evidence,
             has_meter_ref=_path_exists(feature_refs.get("meter_time_features")),
             has_pitch_ref=_path_exists(feature_refs.get("pitch_harmony_features")),
+            is_long_form=is_long_form,
         )
 
         if reliability_score < 0.45:
@@ -801,6 +980,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
                 "transcription_reliability",
                 "route_suitability",
                 "phrase_boundary_quality",
+                "phrase_boundary_evidence",
                 "target_density",
                 "musical_completeness",
                 "repetition_or_motif_strength",
@@ -811,24 +991,43 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
                 "final_score",
             )
         }
+        row["quality_component_breakdown"]["phrase_boundary_evidence_components"] = phrase_evidence_components
         examples.append(row)
         extraction_stats[task_type] += 1
 
-    # A. Window continuation.
+    # A. Window continuation (with long-form compatible pairing).
     for i in range(len(windows) - 1):
         curr = windows[i]
         nxt = windows[i + 1]
+        curr_state, _ = _dominant_content_state(float(curr["start_seconds"]), float(curr["end_seconds"]), route_rows)
+        nxt_state, _ = _dominant_content_state(float(nxt["start_seconds"]), float(nxt["end_seconds"]), route_rows)
+        if nxt_state == "silence_or_noise":
+            continue
+        if not _state_compatible(curr_state, nxt_state):
+            continue
+        context_start = float(curr["start_seconds"])
+        context_end = float(curr["end_seconds"])
+        context_window_id = str(curr["window_id"])
+        extraction_notes = ["compatible_state_pairing"]
+        if is_long_form and i >= 1:
+            prev = windows[i - 1]
+            prev_state, _ = _dominant_content_state(float(prev["start_seconds"]), float(prev["end_seconds"]), route_rows)
+            if _state_compatible(prev_state, curr_state):
+                context_start = float(prev["start_seconds"])
+                context_window_id = f"{prev['window_id']}+{curr['window_id']}"
+                extraction_notes.append("long_form_two_window_context")
         make_example(
             task_type="continuation",
-            context_start_seconds=float(curr["start_seconds"]),
-            context_end_seconds=float(curr["end_seconds"]),
+            context_start_seconds=context_start,
+            context_end_seconds=context_end,
             target_start_seconds=float(nxt["start_seconds"]),
             target_end_seconds=float(nxt["end_seconds"]),
             context_midi_ref=str(curr.get("midi_path") or merged_midi_path.as_posix() if merged_midi_path else ""),
             target_midi_ref=str(nxt.get("midi_path") or merged_midi_path.as_posix() if merged_midi_path else ""),
-            motif_strength=0.48,
-            context_window_id=str(curr["window_id"]),
+            motif_strength=0.48 if not is_long_form else 0.54,
+            context_window_id=context_window_id,
             target_window_id=str(nxt["window_id"]),
+            extraction_notes=extraction_notes,
         )
 
     # B. Phrase continuation.
@@ -846,6 +1045,33 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             motif_strength=0.46,
             extraction_notes=[f"segment_pair={seg['segment_id']}->{nxt['segment_id']}"],
         )
+    if is_long_form and len(windows) >= 6:
+        for i in range(1, len(windows) - 1):
+            before = windows[i - 1]
+            middle = windows[i]
+            after = windows[i + 1]
+            b_events = _events_in_range(all_events, float(before["start_seconds"]), float(before["end_seconds"]))
+            m_events = _events_in_range(all_events, float(middle["start_seconds"]), float(middle["end_seconds"]))
+            a_events = _events_in_range(all_events, float(after["start_seconds"]), float(after["end_seconds"]))
+            d_before = len(b_events) / max(1e-6, float(before["duration_seconds"]))
+            d_middle = len(m_events) / max(1e-6, float(middle["duration_seconds"]))
+            d_after = len(a_events) / max(1e-6, float(after["duration_seconds"]))
+            phrase_like = abs(d_after - d_middle) > 0.35 or abs(d_middle - d_before) > 0.35
+            if not phrase_like:
+                continue
+            make_example(
+                task_type="phrase_continuation",
+                context_start_seconds=float(before["start_seconds"]),
+                context_end_seconds=float(middle["end_seconds"]),
+                target_start_seconds=float(after["start_seconds"]),
+                target_end_seconds=float(after["end_seconds"]),
+                context_midi_ref=merged_midi_path.as_posix() if merged_midi_path else None,
+                target_midi_ref=merged_midi_path.as_posix() if merged_midi_path else None,
+                motif_strength=0.52,
+                context_window_id=f"{before['window_id']}+{middle['window_id']}",
+                target_window_id=str(after["window_id"]),
+                extraction_notes=["phrase_like_internal_boundary", "density_boundary_change"],
+            )
 
     # C/D/E. Task-specific continuation.
     for i in range(len(windows) - 1):
@@ -913,11 +1139,14 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         nxt = windows[i + 1]
         curr_events = _events_in_range(all_events, float(curr["start_seconds"]), float(curr["end_seconds"]))
         next_events = _events_in_range(all_events, float(nxt["start_seconds"]), float(nxt["end_seconds"]))
-        if len(curr_events) < 6 or len(next_events) < 6:
+        if len(curr_events) < 4 or len(next_events) < 4:
             continue
         ratio = max(len(curr_events), len(next_events)) / max(1, min(len(curr_events), len(next_events)))
-        if ratio > 2.5:
+        if ratio > 3.5:
             continue
+        density_curr = len(curr_events) / max(1e-6, float(curr["duration_seconds"]))
+        density_next = len(next_events) / max(1e-6, float(nxt["duration_seconds"]))
+        density_contrast = _clamp(abs(density_next - density_curr) / 2.0)
         make_example(
             task_type="call_response",
             context_start_seconds=float(curr["start_seconds"]),
@@ -926,9 +1155,10 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             target_end_seconds=float(nxt["end_seconds"]),
             context_midi_ref=str(curr.get("midi_path") or merged_midi_path.as_posix() if merged_midi_path else ""),
             target_midi_ref=str(nxt.get("midi_path") or merged_midi_path.as_posix() if merged_midi_path else ""),
-            motif_strength=0.62,
+            motif_strength=0.58 + 0.2 * density_contrast,
             context_window_id=str(curr["window_id"]),
             target_window_id=str(nxt["window_id"]),
+            extraction_notes=["density_arc_response", "no_hard_vocal_label_requirement"],
         )
 
     # G. Motif transformation using motif groups -> window ids.
@@ -994,6 +1224,16 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         c2 = len(_events_in_range(all_events, float(w2["start_seconds"]), float(w2["end_seconds"])))
         if not (c1 > c0 and c2 < c1):
             continue
+        meter_support = _clamp(_safe_float(meter_payload.get("confidence"), 0.0))
+        pitch_support = _clamp(
+            0.2
+            + _overlap_count(
+                pitch_payload.get("chord_movement", []) if isinstance(pitch_payload.get("chord_movement"), list) else [],
+                float(w2["start_seconds"]),
+                float(w2["end_seconds"]),
+            )
+            / 4.0
+        )
         make_example(
             task_type="buildup_to_release",
             context_start_seconds=float(w0["start_seconds"]),
@@ -1002,9 +1242,10 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             target_end_seconds=float(w2["end_seconds"]),
             context_midi_ref=merged_midi_path.as_posix() if merged_midi_path else None,
             target_midi_ref=merged_midi_path.as_posix() if merged_midi_path else None,
-            motif_strength=0.68,
+            motif_strength=_clamp(0.58 + 0.22 * meter_support + 0.2 * pitch_support),
             context_window_id=str(w1["window_id"]),
             target_window_id=str(w2["window_id"]),
+            extraction_notes=["density_ramp_arrival_pair", "meter_pitch_support"],
         )
 
     # J. Infill.
@@ -1012,6 +1253,14 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
         before = windows[i]
         middle = windows[i + 1]
         after = windows[i + 2]
+        before_events = _events_in_range(all_events, float(before["start_seconds"]), float(before["end_seconds"]))
+        after_events = _events_in_range(all_events, float(after["start_seconds"]), float(after["end_seconds"]))
+        middle_events = _events_in_range(all_events, float(middle["start_seconds"]), float(middle["end_seconds"]))
+        informative_context = len(before_events) >= 2 and len(after_events) >= 2
+        if not informative_context:
+            continue
+        if len(middle_events) < max(2, int(TASK_POLICIES["infill_missing_region"].get("minimum_note_count", 1))):
+            continue
         make_example(
             task_type="infill_missing_region",
             context_start_seconds=float(before["start_seconds"]),
@@ -1023,6 +1272,7 @@ def build_generative_training_examples(performance_manifest_path: Path) -> tuple
             motif_strength=0.52,
             context_window_id=str(before["window_id"]),
             target_window_id=str(middle["window_id"]),
+            extraction_notes=["informative_before_after_context"],
         )
 
     split_counts = Counter(str(item.get("split_recommendation", "review")) for item in examples)

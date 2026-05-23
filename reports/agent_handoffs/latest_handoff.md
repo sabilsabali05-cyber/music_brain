@@ -1,8 +1,8 @@
 # Latest Agent Handoff
 
-- phase: GitHub base branch setup
-- goal: Establish main as stable GitHub base after initial import; future work should branch from main for PR audits
-- commit_hash: b245a5ba6bf7f8889979e7410e2f7257571f867f
+- phase: unspecified-phase
+- goal: No goal supplied.
+- commit_hash: e67231d2c461e910a143934183910c4e6febfa79
 
 ## Constraints Followed
 - No audio processing performed
@@ -13,40 +13,73 @@
 - YourMT3 logic unchanged
 
 ## Files Changed
-- (none)
+- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl
+- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json
+- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.json
+- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.md
+- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_summary.md
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.json
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.md
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_summary.md
+- features/generative/task_policies.py
+- reports/dataset_quality/dataset_quality_yield_report.json
+- reports/dataset_quality/dataset_quality_yield_report.md
+- scripts/build_generative_training_examples.py
+- scripts/dev.ps1
+- tests/test_generative_training_examples.py
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.json
+- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.md
+- scripts/diagnose_generative_pairing.py
 
 ## Commands Run
-- git branch -M main
-- git push -u origin main
+- (none)
 
 ## Test Results
-- No code/test changes in this step
+- (none)
 
 ## Validation Results
-- Initial GitHub import baseline established on main
+- (none)
 
 ## Generated Artifacts
-- reports/agent_handoffs/latest_handoff.json
-- reports/agent_handoffs/latest_handoff.md
+- (none)
 
 ## Metrics Before
-- latest_commit_before_setup: b245a5ba6bf7f8889979e7410e2f7257571f867f
+- (none)
 
 ## Metrics After
-- current_branch: main
-- git_status: clean
-- import_mode: initial_github_import_not_pr_diff
+- (none)
 
 ## Risks / Concerns
-- Default branch should be set to main in GitHub settings to align compare base
+- (none)
 
 ## Open User Decisions
-- Confirm when to open next phase branch from main
+- (none)
 
 ## Recommended Next Step
-- Set GitHub default branch to main, then create next feature branch from main for PR-audited work
+- Await audit feedback before next major phase.
 
 ## Git Status
 ```text
-## main...origin/main
+## cursor/sunday-service-generative-boundary-calibration
+ M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl
+ M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json
+ M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.json
+ M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.md
+ M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_summary.md
+ M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl
+ M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json
+ M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.json
+ M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.md
+ M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_summary.md
+ M features/generative/task_policies.py
+ M reports/dataset_quality/dataset_quality_yield_report.json
+ M reports/dataset_quality/dataset_quality_yield_report.md
+ M scripts/build_generative_training_examples.py
+ M scripts/dev.ps1
+ M tests/test_generative_training_examples.py
+?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.json
+?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.md
+?? scripts/diagnose_generative_pairing.py
 ```
