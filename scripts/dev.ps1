@@ -131,6 +131,7 @@ function Show-Usage {
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
     Write-Host "  evaluate-mass-ingestion-readiness"
+    Write-Host "  evaluate-personalized-training-readiness"
     Write-Host "  check-privacy-leaks [--strict]"
     Write-Host "  plan-historical-path-scrub [--apply-safe]"
     Write-Host "  plan-controlled-ingestion-batch <manifest>"
@@ -1200,6 +1201,11 @@ switch ($Task) {
     "evaluate-mass-ingestion-readiness" {
         Invoke-Step -Label "Evaluating mass-ingestion readiness" -Command @(
             "python", "scripts/evaluate_mass_ingestion_readiness.py"
+        )
+    }
+    "evaluate-personalized-training-readiness" {
+        Invoke-Step -Label "Evaluating personalized model training readiness" -Command @(
+            "python", "scripts/evaluate_personalized_training_readiness.py"
         )
     }
     "check-privacy-leaks" {

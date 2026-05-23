@@ -10,22 +10,14 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    ".gitignore",
-    "reports/privacy/privacy_leak_scan_report.json",
-    "reports/privacy/privacy_leak_scan_report.md",
-    "scripts/check_privacy_leaks.py",
     "scripts/dev.ps1",
-    "tests/test_ableton_project_export.py",
-    "config/symbolic_backends/",
-    "docs/SYMBOLIC_MODEL_ENSEMBLE.md",
-    "features/symbolic_ir/",
-    "features/symbolic_model_ensemble/",
-    "outputs/symbolic_ensemble_v1/",
-    "reports/symbolic_backends/",
-    "scripts/check_symbolic_backends.py",
-    "scripts/export_symbolic_ensemble_ableton.py",
-    "scripts/generate_with_symbolic_ensemble.py",
-    "tests/test_symbolic_model_ensemble_integration.py"
+    "docs/PERSONALIZED_MUSIC_BRAIN_TRAINING_STRATEGY.md",
+    "features/model_training/",
+    "reports/model_training/first_training_objectives.md",
+    "reports/model_training/personalized_training_readiness.json",
+    "reports/model_training/personalized_training_readiness.md",
+    "scripts/evaluate_personalized_training_readiness.py",
+    "tests/test_personalized_training_strategy.py"
   ],
   "commands_run": [],
   "tests_result": [],
@@ -36,7 +28,7 @@
   "risks_concerns": [],
   "open_user_decisions": [],
   "recommended_next_step": "Await audit feedback before next major phase.",
-  "commit_hash": "fdccd504442fd258e77f544028bed190cc21200d",
-  "git_status": "## cursor/symbolic-model-ensemble-integration-v1\n M .gitignore\n M reports/privacy/privacy_leak_scan_report.json\n M reports/privacy/privacy_leak_scan_report.md\n M scripts/check_privacy_leaks.py\n M scripts/dev.ps1\n M tests/test_ableton_project_export.py\n?? config/symbolic_backends/\n?? docs/SYMBOLIC_MODEL_ENSEMBLE.md\n?? features/symbolic_ir/\n?? features/symbolic_model_ensemble/\n?? outputs/symbolic_ensemble_v1/\n?? reports/symbolic_backends/\n?? scripts/check_symbolic_backends.py\n?? scripts/export_symbolic_ensemble_ableton.py\n?? scripts/generate_with_symbolic_ensemble.py\n?? tests/test_symbolic_model_ensemble_integration.py",
-  "generated_at_utc": "2026-05-23T21:07:12.652928+00:00"
+  "commit_hash": "30e3c27fead184679c10417aa7d319390c5bee48",
+  "git_status": "## cursor/personalized-model-training-strategy-v1\n M scripts/dev.ps1\n?? docs/PERSONALIZED_MUSIC_BRAIN_TRAINING_STRATEGY.md\n?? features/model_training/\n?? reports/model_training/first_training_objectives.md\n?? reports/model_training/personalized_training_readiness.json\n?? reports/model_training/personalized_training_readiness.md\n?? scripts/evaluate_personalized_training_readiness.py\n?? tests/test_personalized_training_strategy.py",
+  "generated_at_utc": "2026-05-23T21:46:29.489019+00:00"
 }
