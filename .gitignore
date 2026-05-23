@@ -35,7 +35,7 @@ Thumbs.db
 .vscode/
 
 # Local sample-library indexing outputs (privacy-safe)
-datasets/sample_libraries/**/sample_seed_records.jsonl
+datasets/sample_libraries/**/sample_seed_*.jsonl
 datasets/sample_libraries/**/sample_library_manifest.json
 reports/sample_libraries/**/*_index_report.json
 reports/sample_libraries/**/*_index_report.md
@@ -43,12 +43,27 @@ reports/sample_libraries/**/*_index_report.md
 # Local machine sample-library config (use committed example template)
 config/sample_libraries/local_sounds_library.json
 config/controlled_batches/*.local.json
+config/model_integrations/*.local.json
+config/synplant/*.local.json
+config/symbolic_backends/*.local.json
 
 # Tangible demo seed suggestions may include private local paths
 outputs/tangible_generation_v1/*seed_suggestions*.json
 outputs/tangible_generation_v1/*seed_suggestions*.md
 
+# Generated backend output runs are local artifacts and can embed local paths
+outputs/generated_midi/**
+outputs/model_backend_runs/**
+
 # Ableton export private/local-only files
-outputs/ableton_project_v1/**/private_synplant_seed_paths.json
-outputs/ableton_project_v1/**/private_synplant_seed_paths.md
+outputs/ableton_project_v1/**/private_synplant_*_paths.json
+outputs/ableton_project_v1/**/private_synplant_*_paths.md
 outputs/ableton_project_v1/**/Samples/**
+
+# Synplant planning private path files
+reports/synplant/private_synplant_session_paths.json
+reports/synplant/private_synplant_session_paths.md
+
+# Texture analysis private planning detail
+reports/texture_intelligence/private_texture_analysis_plan.json
+reports/texture_intelligence/private_texture_analysis_plan.md

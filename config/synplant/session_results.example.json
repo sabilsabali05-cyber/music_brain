@@ -1,0 +1,33 @@
+{
+  "session_id": "synplant_session_001",
+  "results": [
+    {
+      "session_id": "synplant_session_001",
+      "track_role": "lead",
+      "seed_sample_id": "sample_example_001",
+      "patch_ref": "patch_lead_001",
+      "rendered_audio_ref": "local_manual_render_ref",
+      "selected": true,
+      "human_rating": 4,
+      "selection_reason": "Fits role with good motion and controlled brightness.",
+      "training_allowed": true,
+      "production_use_allowed": true,
+      "source_policy_inherited": "user_owned_training_candidate",
+      "notes": "Manual Synplant workflow only."
+    },
+    {
+      "session_id": "synplant_session_001",
+      "track_role": "texture_bed",
+      "seed_sample_id": "sample_example_002",
+      "patch_ref": "patch_texture_001",
+      "rendered_audio_ref": "local_manual_render_ref",
+      "selected": false,
+      "human_rating": 3,
+      "selection_reason": "Too dense for this arrangement.",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "source_policy_inherited": "production_only_training_excluded",
+      "notes": "Kept for production references only."
+    }
+  ]
+}

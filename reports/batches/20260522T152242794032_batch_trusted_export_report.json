@@ -1,6 +1,6 @@
 {
   "created_at": "20260522T152242792121",
-  "inbox_folder": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox",
+  "inbox_folder": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox",
   "config": {
     "max_performances": 1,
     "max_windows": 1,
@@ -13,22 +13,22 @@
     "allow_partial_export": false
   },
   "files_discovered": [
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 03 Hildings!.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 04 The Water Tower.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 05 You Don't Come Up.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 06 He Was A Carpenter.mp3",
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 07 This Town Isn't Quiant.mp3"
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 03 Hildings!.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 04 The Water Tower.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 05 You Don't Come Up.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 06 He Was A Carpenter.mp3",
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 07 This Town Isn't Quiant.mp3"
   ],
   "performances_planned": [
-    "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3"
+    "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3"
   ],
   "performance_results": [
     {
-      "source_audio_path": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+      "source_audio_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
       "failure_records": [],
-      "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
+      "performance_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
       "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
       "windows_before": {
         "total_windows": 4,
@@ -57,19 +57,19 @@
         "segment_window_coverage_ratio": 1.0,
         "segment_window_coverage_percent": 100.0
       },
-      "review_report_path": "C:/Users/izzyo/ai-composer/music_brain/reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_20260522T150054174749_audio_structure_v1.md",
+      "review_report_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_20260522T150054174749_audio_structure_v1.md",
       "merged_midi_validation": {
-        "merged_midi_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/merged/merged_performance.mid",
+        "merged_midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/merged/merged_performance.mid",
         "tracks": 1,
         "messages": 3566,
         "note_on_count": 1778,
         "status": "success"
       },
-      "feature_pack_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+      "feature_pack_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
       "feature_pack_validation": {
         "status": "success",
         "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
-        "feature_pack_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+        "feature_pack_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
         "rhythm_record_count": 80,
         "harmony_record_count": 80,
         "tag_count": 263,
@@ -83,14 +83,14 @@
         },
         "warnings": []
       },
-      "transcription_reliability_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/transcription_reliability.json",
-      "quality_gates_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/quality_gates.json",
-      "audit_md_path": "C:/Users/izzyo/ai-composer/music_brain/reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
-      "audit_json_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
-      "export_folder": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+      "transcription_reliability_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/transcription_reliability.json",
+      "quality_gates_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/quality_gates.json",
+      "audit_md_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
+      "audit_json_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
+      "export_folder": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
       "export_validation": {
         "status": "success",
-        "export_folder": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+        "export_folder": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
         "errors": [],
         "counts": {
           "accepted_records.jsonl": 9,
@@ -124,9 +124,9 @@
     "review_required_count": 142,
     "quarantined_count": 0,
     "export_folders": [
-      "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
+      "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
     ]
   },
-  "dataset_summary_json_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.json",
-  "dataset_summary_md_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.md"
+  "dataset_summary_json_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/training_exports_summary.json",
+  "dataset_summary_md_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/training_exports_summary.md"
 }

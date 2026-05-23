@@ -1,6 +1,6 @@
 # Symbolic Generation Plan
 
-- dataset_folder: `C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1`
+- dataset_folder: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1`
 - requested_task: `continuation`
 - prompt: ``
 - example_count_for_task: `10`

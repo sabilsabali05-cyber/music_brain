@@ -105,10 +105,14 @@ function Show-Usage {
     Write-Host "  generate-midi-from-examples <generative-dataset-folder> [task] [split]"
     Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
+    Write-Host "  check-symbolic-backends"
+    Write-Host "  check-model-integrations"
+    Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
+    Write-Host "  generate-symbolic-ensemble <prompt>"
     Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
     Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  export-ableton-project-v1 <tangible-output-folder> [--copy-local-samples]"
@@ -129,12 +133,19 @@ function Show-Usage {
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
     Write-Host "  evaluate-mass-ingestion-readiness"
+    Write-Host "  evaluate-personalized-training-readiness"
     Write-Host "  check-privacy-leaks [--strict]"
     Write-Host "  plan-historical-path-scrub [--apply-safe]"
     Write-Host "  plan-controlled-ingestion-batch <manifest>"
     Write-Host "  run-controlled-ingestion-batch <manifest> [--execute]"
     Write-Host "  compare-generation-iterations <old-output> <new-output>"
     Write-Host "  build-mass-ingestion-readiness-artifacts"
+    Write-Host "  plan-texture-analysis"
+    Write-Host "  create-synplant-session-plan <ableton_project_folder>"
+    Write-Host "  import-synplant-session-results <session_results_json>"
+    Write-Host "  validate-synplant-sessions"
+    Write-Host "  build-sound-palette-context <ableton_project_folder>"
+    Write-Host "  export-symbolic-ensemble-ableton [source-folder] [target-folder]"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -240,10 +251,11 @@ function Find-ToolPathFromCommand {
 function Find-GitPath {
     $onPath = Find-ToolPathFromCommand "git"
     if ($onPath) { return @{ Path = $onPath; Source = "PATH" } }
+    $userProfile = [Environment]::GetFolderPath("UserProfile")
     $candidates = @(
         "C:\Program Files\Git\cmd\git.exe",
         "C:\Program Files\Git\bin\git.exe",
-        "C:\Users\izzyo\AppData\Local\Programs\Git\cmd\git.exe"
+        (Join-Path $userProfile "AppData\Local\Programs\Git\cmd\git.exe")
     )
     foreach ($candidate in $candidates) {
         if (Test-Path $candidate) { return @{ Path = $candidate; Source = "fallback: $candidate" } }
@@ -255,7 +267,7 @@ function Find-FfmpegPath {
     $onPath = Find-ToolPathFromCommand "ffmpeg"
     if ($onPath) { return @{ Path = $onPath; Source = "PATH" } }
 
-    $globRoot = "C:\Users\izzyo\AppData\Local\Microsoft\WinGet\Packages"
+    $globRoot = Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Packages"
     if (Test-Path $globRoot) {
         $wingetMatches = @(Get-ChildItem -Path $globRoot -Filter "ffmpeg.exe" -Recurse -File -ErrorAction SilentlyContinue |
                 Where-Object { $_.FullName -like "*Gyan.FFmpeg_*" -and $_.FullName -like "*\ffmpeg-*\bin\ffmpeg.exe" } |
@@ -1006,6 +1018,21 @@ switch ($Task) {
             "python", "scripts/check_symbolic_model_backends.py"
         )
     }
+    "check-symbolic-backends" {
+        Invoke-Step -Label "Checking symbolic ensemble backend availability" -Command @(
+            "python", "scripts/check_symbolic_backends.py"
+        )
+    }
+    "check-model-integrations" {
+        Invoke-Step -Label "Checking broader model integration availability" -Command @(
+            "python", "scripts/check_model_integrations.py"
+        )
+    }
+    "write-model-integration-roadmap" {
+        Invoke-Step -Label "Writing model integration roadmap report" -Command @(
+            "python", "scripts/write_model_integration_roadmap.py"
+        )
+    }
     "plan-symbolic-generation" {
         $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-symbolic-generation <generative-dataset-folder> [task]"
         $taskName = Get-TaskArg -Index 1
@@ -1039,6 +1066,12 @@ switch ($Task) {
         $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
         Invoke-Step -Label "Generating MIDI via symbolic backend wrapper" -Command @(
             "python", "scripts/generate_midi_with_backend.py", $datasetFolder, "--provider", $providerValue, "--task", $taskValue
+        )
+    }
+    "generate-symbolic-ensemble" {
+        $prompt = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-symbolic-ensemble <prompt>"
+        Invoke-Step -Label "Generating symbolic output via ensemble orchestrator" -Command @(
+            "python", "scripts/generate_with_symbolic_ensemble.py", $prompt
         )
     }
     "generate-tangible-demo" {
@@ -1182,6 +1215,11 @@ switch ($Task) {
             "python", "scripts/evaluate_mass_ingestion_readiness.py"
         )
     }
+    "evaluate-personalized-training-readiness" {
+        Invoke-Step -Label "Evaluating personalized model training readiness" -Command @(
+            "python", "scripts/evaluate_personalized_training_readiness.py"
+        )
+    }
     "check-privacy-leaks" {
         $strictFlag = Get-TaskArg -Index 0
         $command = @("python", "scripts/check_privacy_leaks.py")
@@ -1223,6 +1261,43 @@ switch ($Task) {
     "build-mass-ingestion-readiness-artifacts" {
         Invoke-Step -Label "Building readiness artifacts for phases 6-14" -Command @(
             "python", "scripts/build_mass_ingestion_readiness_artifacts.py"
+        )
+    }
+    "plan-texture-analysis" {
+        Invoke-Step -Label "Planning texture intelligence analysis from sample metadata" -Command @(
+            "python", "scripts/plan_texture_analysis.py"
+        )
+    }
+    "create-synplant-session-plan" {
+        $abletonProjectFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd create-synplant-session-plan <ableton_project_folder>"
+        Invoke-Step -Label "Creating Synplant session seed plan (manual workflow)" -Command @(
+            "python", "scripts/create_synplant_session_plan.py", $abletonProjectFolder
+        )
+    }
+    "import-synplant-session-results" {
+        $sessionResultsJson = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd import-synplant-session-results <session_results_json>"
+        Invoke-Step -Label "Importing Synplant manual session results" -Command @(
+            "python", "scripts/import_synplant_session_results.py", $sessionResultsJson
+        )
+    }
+    "validate-synplant-sessions" {
+        Invoke-Step -Label "Validating Synplant session imports and policy constraints" -Command @(
+            "python", "scripts/validate_synplant_sessions.py"
+        )
+    }
+    "build-sound-palette-context" {
+        $abletonProjectFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-sound-palette-context <ableton_project_folder>"
+        Invoke-Step -Label "Building collective sound palette context" -Command @(
+            "python", "scripts/build_sound_palette_context.py", $abletonProjectFolder
+        )
+    }
+    "export-symbolic-ensemble-ableton" {
+        $sourceFolder = Get-TaskArg -Index 0
+        $targetFolder = Get-TaskArg -Index 1
+        $source = if (-not [string]::IsNullOrWhiteSpace($sourceFolder)) { $sourceFolder } else { "outputs/symbolic_ensemble_v1" }
+        $target = if (-not [string]::IsNullOrWhiteSpace($targetFolder)) { $targetFolder } else { "outputs/ableton_project_symbolic_ensemble_v1" }
+        Invoke-Step -Label "Exporting symbolic ensemble output to Ableton scaffold" -Command @(
+            "python", "scripts/export_symbolic_ensemble_ableton.py", "--source-dir", $source, "--target-dir", $target
         )
     }
     "commit-checkpoint" {

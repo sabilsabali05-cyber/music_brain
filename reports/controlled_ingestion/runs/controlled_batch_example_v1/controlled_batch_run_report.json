@@ -1,7 +1,8 @@
 {
   "status": "dry_run_success",
   "batch_id": "controlled_batch_example_v1",
-  "manifest_path": "config/controlled_batches/controlled_batch.example.json",
+  "manifest_path": "<PRIVATE_LOCAL_PATH>/controlled_batch.example.json",
+  "manifest_path_redacted": true,
   "execute_requested": false,
   "planner_status": "valid",
   "runnable_item_count": 0,

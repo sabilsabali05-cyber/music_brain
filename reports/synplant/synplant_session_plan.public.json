@@ -1,0 +1,464 @@
+{
+  "status": "ok",
+  "created_at": "2026-05-23T22:35:48.919461+00:00",
+  "ableton_project_folder": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+  "generation_method": "manual",
+  "automation_claimed": false,
+  "seed_candidates": [
+    {
+      "candidate_ref": "seed_candidate_001",
+      "track_role": "drums",
+      "asset_type_guess": "drum_one_shot",
+      "score": 0.55,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_002",
+      "track_role": "drums",
+      "asset_type_guess": "drum_break",
+      "score": 0.55,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_003",
+      "track_role": "drums",
+      "asset_type_guess": "drum_break",
+      "score": 0.55,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_004",
+      "track_role": "drums",
+      "asset_type_guess": "drum_break",
+      "score": 0.55,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_005",
+      "track_role": "drums",
+      "asset_type_guess": "drum_break",
+      "score": 0.55,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_006",
+      "track_role": "bass",
+      "asset_type_guess": "bass_one_shot",
+      "score": 1.0,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_007",
+      "track_role": "bass",
+      "asset_type_guess": "bass_one_shot",
+      "score": 1.0,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_008",
+      "track_role": "bass",
+      "asset_type_guess": "bass_one_shot",
+      "score": 1.0,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_009",
+      "track_role": "bass",
+      "asset_type_guess": "bass_one_shot",
+      "score": 1.0,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_010",
+      "track_role": "bass",
+      "asset_type_guess": "bass_one_shot",
+      "score": 1.0,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_011",
+      "track_role": "chords",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_012",
+      "track_role": "chords",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_013",
+      "track_role": "chords",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_014",
+      "track_role": "chords",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_015",
+      "track_role": "chords",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_016",
+      "track_role": "lead",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.57,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_017",
+      "track_role": "lead",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_018",
+      "track_role": "lead",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_019",
+      "track_role": "lead",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_020",
+      "track_role": "lead",
+      "asset_type_guess": "synth_one_shot",
+      "score": 0.47,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_021",
+      "track_role": "texture_bed",
+      "asset_type_guess": "texture",
+      "score": 0.95,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_022",
+      "track_role": "texture_bed",
+      "asset_type_guess": "texture",
+      "score": 0.95,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_023",
+      "track_role": "texture_bed",
+      "asset_type_guess": "texture",
+      "score": 0.95,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_024",
+      "track_role": "texture_bed",
+      "asset_type_guess": "texture",
+      "score": 0.95,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_025",
+      "track_role": "texture_bed",
+      "asset_type_guess": "texture",
+      "score": 0.95,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_026",
+      "track_role": "transition_fx",
+      "asset_type_guess": "riser",
+      "score": 0.45,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_027",
+      "track_role": "transition_fx",
+      "asset_type_guess": "riser",
+      "score": 0.45,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_028",
+      "track_role": "transition_fx",
+      "asset_type_guess": "texture",
+      "score": 0.45,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_029",
+      "track_role": "transition_fx",
+      "asset_type_guess": "texture",
+      "score": 0.45,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    },
+    {
+      "candidate_ref": "seed_candidate_030",
+      "track_role": "transition_fx",
+      "asset_type_guess": "texture",
+      "score": 0.45,
+      "seed_source_policy": "production_only_training_excluded",
+      "training_allowed": false,
+      "production_use_allowed": true,
+      "requires_human_review": true,
+      "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+      "limitations": [
+        "No Synplant automation claim.",
+        "Public artifact intentionally redacted."
+      ]
+    }
+  ],
+  "limitations": [
+    "No Synplant automation claim.",
+    "Public report excludes private local paths.",
+    "Derived patches must inherit source restrictions from selected seed."
+  ]
+}

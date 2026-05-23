@@ -24,6 +24,11 @@ def _read_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _redacted_manifest_path(path: Path) -> str:
+    filename = path.name if path.name else "manifest.json"
+    return f"<PRIVATE_LOCAL_PATH>/{filename}"
+
+
 def run_controlled_ingestion_batch(manifest_path: Path, *, execute: bool = False) -> dict[str, Any]:
     planner_payload = plan_controlled_ingestion_batch(manifest_path=manifest_path)
     manifest = _read_json(manifest_path)
@@ -83,7 +88,8 @@ def run_controlled_ingestion_batch(manifest_path: Path, *, execute: bool = False
     payload = {
         "status": status,
         "batch_id": str(manifest.get("batch_id", "unknown")),
-        "manifest_path": manifest_path.as_posix(),
+        "manifest_path": _redacted_manifest_path(manifest_path),
+        "manifest_path_redacted": True,
         "execute_requested": execute,
         "planner_status": planner_payload.get("status"),
         "runnable_item_count": len(runnable_items),
@@ -151,6 +157,7 @@ def write_run_report(manifest_path: Path, *, execute: bool) -> tuple[Path, Path,
         "status": payload["status"],
         "execute_requested": payload["execute_requested"],
         "manifest_path": payload["manifest_path"],
+        "manifest_path_redacted": payload["manifest_path_redacted"],
         "runnable_item_count": payload["runnable_item_count"],
         "skipped_unauthorized_count": payload["skipped_unauthorized_count"],
         "errors": payload["errors"],

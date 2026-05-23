@@ -1,6 +1,6 @@
 # Segmentation Review: Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3
 
-- manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json`
+- manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json`
 - run_id: `20260522T150322987308_audio_structure_v1`
 - source_name: `Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3`
 - duration_seconds: `189.340658`
@@ -14,7 +14,7 @@
 - candidate_density: `dense`
 - fused_candidate_count: `62`
 - returned_candidate_count: `31`
-- analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150239155925_modal_librosa_dense/structure_analysis.json`
+- analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150239155925_modal_librosa_dense/structure_analysis.json`
 - segmentation_parameters: `{'boundary_threshold': 0.55, 'min_segment_seconds': 30.0, 'max_segment_seconds': 90.0, 'rms_weight': 0.2, 'onset_weight': 0.3, 'chroma_weight': 0.25, 'timbre_weight': 0.25, 'allow_fixed_candidates': False}`
 
 ## Accepted Musical Segments

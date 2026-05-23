@@ -1,6 +1,6 @@
 # Segmentation Review: Sunday Service Choir 122621.mp3
 
-- manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
+- manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
 - run_id: `20260521T213524641640_audio_structure_v1`
 - source_name: `Sunday Service Choir 122621.mp3`
 - duration_seconds: `3324.842086`
@@ -14,7 +14,7 @@
 - candidate_density: `dense`
 - fused_candidate_count: `986`
 - returned_candidate_count: `43`
-- analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Sunday_Service_Choir_122621/20260521T213424878654_modal_librosa_dense/structure_analysis.json`
+- analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Sunday_Service_Choir_122621/20260521T213424878654_modal_librosa_dense/structure_analysis.json`
 - segmentation_parameters: `{'boundary_threshold': 0.55, 'min_segment_seconds': 30.0, 'max_segment_seconds': 90.0, 'rms_weight': 0.2, 'onset_weight': 0.3, 'chroma_weight': 0.25, 'timbre_weight': 0.25, 'allow_fixed_candidates': False}`
 
 ## Accepted Musical Segments

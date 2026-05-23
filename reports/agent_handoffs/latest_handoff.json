@@ -10,18 +10,14 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    ".gitignore",
     "scripts/dev.ps1",
-    "config/controlled_batches/",
-    "docs/CONTROLLED_INGESTION_SPRINT_V1.md",
-    "reports/controlled_ingestion/",
-    "reports/privacy/",
-    "scripts/check_privacy_leaks.py",
-    "scripts/compare_generation_iterations.py",
-    "scripts/plan_controlled_ingestion_batch.py",
-    "scripts/run_controlled_ingestion_batch.py",
-    "tests/test_controlled_ingestion_sprint.py",
-    "tests/test_privacy_leak_guard.py"
+    "docs/PERSONALIZED_MUSIC_BRAIN_TRAINING_STRATEGY.md",
+    "features/model_training/",
+    "reports/model_training/first_training_objectives.md",
+    "reports/model_training/personalized_training_readiness.json",
+    "reports/model_training/personalized_training_readiness.md",
+    "scripts/evaluate_personalized_training_readiness.py",
+    "tests/test_personalized_training_strategy.py"
   ],
   "commands_run": [],
   "tests_result": [],
@@ -32,7 +28,7 @@
   "risks_concerns": [],
   "open_user_decisions": [],
   "recommended_next_step": "Await audit feedback before next major phase.",
-  "commit_hash": "32369b83fcdb8cfb7ba9403e4cb00e83ab64f973",
-  "git_status": "## cursor/controlled-ingestion-sprint-v1\n M .gitignore\n M scripts/dev.ps1\n?? config/controlled_batches/\n?? docs/CONTROLLED_INGESTION_SPRINT_V1.md\n?? reports/controlled_ingestion/\n?? reports/privacy/\n?? scripts/check_privacy_leaks.py\n?? scripts/compare_generation_iterations.py\n?? scripts/plan_controlled_ingestion_batch.py\n?? scripts/run_controlled_ingestion_batch.py\n?? tests/test_controlled_ingestion_sprint.py\n?? tests/test_privacy_leak_guard.py",
-  "generated_at_utc": "2026-05-23T17:48:42.434825+00:00"
+  "commit_hash": "30e3c27fead184679c10417aa7d319390c5bee48",
+  "git_status": "## cursor/personalized-model-training-strategy-v1\n M scripts/dev.ps1\n?? docs/PERSONALIZED_MUSIC_BRAIN_TRAINING_STRATEGY.md\n?? features/model_training/\n?? reports/model_training/first_training_objectives.md\n?? reports/model_training/personalized_training_readiness.json\n?? reports/model_training/personalized_training_readiness.md\n?? scripts/evaluate_personalized_training_readiness.py\n?? tests/test_personalized_training_strategy.py",
+  "generated_at_utc": "2026-05-23T21:46:29.489019+00:00"
 }

@@ -1,0 +1,51 @@
+{
+  "status": "ok",
+  "prompt_text": "crooked gospel rap with alien glass texture, sparse drums, unstable bass, golden ratio climax",
+  "used_steps": [
+    {
+      "backend": "text2midi",
+      "status": "unavailable",
+      "reason": "generation_hook_not_wired_no_fake_generation"
+    },
+    {
+      "backend": "moonbeam",
+      "status": "unavailable",
+      "reason": "continuation_hook_not_wired_no_fake_generation"
+    },
+    {
+      "backend": "midigpt",
+      "status": "unavailable",
+      "reason": "infill_hook_not_wired_no_fake_generation"
+    },
+    {
+      "backend": "example_retrieval",
+      "status": "ok",
+      "reason": "fallback_candidate_generated"
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "example_retrieval_ebe8df4aa3",
+      "backend": "example_retrieval",
+      "score": 0.25,
+      "note_count": 4,
+      "candidate_ir_json": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_ebe8df4aa3.ir.json",
+      "candidate_midi": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_ebe8df4aa3.mid"
+    }
+  ],
+  "selected_candidate_id": "example_retrieval_ebe8df4aa3",
+  "selected_candidate_backend": "example_retrieval",
+  "selected_candidate_note_count": 4,
+  "selected_candidate_midi": "outputs/symbolic_ensemble_v1/selected_candidate.mid",
+  "selected_candidate_ir_json": "outputs/symbolic_ensemble_v1/selected_candidate_ir.json",
+  "backend_availability_report_json": "outputs/symbolic_ensemble_v1/backend_availability_report.json",
+  "backend_availability_report_md": "outputs/symbolic_ensemble_v1/backend_availability_report.md",
+  "example_retrieval_fallback": true,
+  "no_real_symbolic_backend_available": true,
+  "not_model_trained_on_user_data": true,
+  "limitations": [
+    "No model weights are downloaded by this workflow.",
+    "No training is performed.",
+    "When real backends are unavailable, fallback uses existing example retrieval prototype."
+  ]
+}

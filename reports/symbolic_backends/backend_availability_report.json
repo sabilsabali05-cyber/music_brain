@@ -1,0 +1,79 @@
+{
+  "status": "ok",
+  "backends": [
+    {
+      "backend_id": "moonbeam",
+      "backend_role": "main_symbolic_composition_continuation_infill",
+      "supported_operations": [
+        "symbolic_understanding",
+        "continuation",
+        "infill",
+        "section_development",
+        "phrase_development",
+        "conditional_generation"
+      ],
+      "status": "unavailable",
+      "reason": "disabled_in_config",
+      "limitations": []
+    },
+    {
+      "backend_id": "musicbert",
+      "backend_role": "symbolic_understanding_evaluation_similarity",
+      "supported_operations": [
+        "symbolic_embedding",
+        "style_similarity",
+        "accompaniment_fit",
+        "melody_fit",
+        "classification",
+        "candidate_ranking"
+      ],
+      "status": "unavailable",
+      "reason": "disabled_in_config",
+      "limitations": []
+    },
+    {
+      "backend_id": "midigpt",
+      "backend_role": "controllable_multitrack_variation_backend",
+      "supported_operations": [
+        "track_level_infill",
+        "bar_level_infill",
+        "drum_variation",
+        "density_control",
+        "polyphony_control",
+        "duration_control",
+        "instrument_control"
+      ],
+      "status": "unavailable",
+      "reason": "disabled_in_config",
+      "limitations": []
+    },
+    {
+      "backend_id": "text2midi",
+      "backend_role": "prompt_to_midi_sketch_backend",
+      "supported_operations": [
+        "prompt_to_midi",
+        "text_conditioned_seed",
+        "chord_key_tempo_prompting"
+      ],
+      "status": "unavailable",
+      "reason": "disabled_in_config",
+      "limitations": []
+    },
+    {
+      "backend_id": "example_retrieval",
+      "backend_role": "fallback_only_existing_examples",
+      "supported_operations": [
+        "prototype_retrieval",
+        "fallback_generation"
+      ],
+      "status": "available",
+      "reason": "fallback_ready",
+      "limitations": []
+    }
+  ],
+  "limitations": [
+    "Availability only checks config/dependency/path/smoke gate readiness.",
+    "No model weights are downloaded by this checker.",
+    "No training or audio processing is performed."
+  ]
+}

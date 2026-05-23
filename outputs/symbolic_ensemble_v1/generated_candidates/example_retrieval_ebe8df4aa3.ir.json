@@ -1,0 +1,100 @@
+{
+  "candidate_id": "example_retrieval_ebe8df4aa3",
+  "ir": {
+    "composition_id": "645467b9698c_fallback",
+    "prompt_text": "crooked gospel rap with alien glass texture, sparse drums, unstable bass, golden ratio climax",
+    "duration_seconds": 96.0,
+    "tempo": 120.0,
+    "meter": "4/4",
+    "key_hint": "unknown",
+    "ratio_plan": "golden_ratio_climax",
+    "section_labels": [
+      "intro",
+      "build",
+      "climax",
+      "release"
+    ],
+    "sections": [
+      {
+        "section_label": "intro",
+        "start_tick": 0,
+        "end_tick": 1920,
+        "section_goal": "example_retrieval_fallback"
+      }
+    ],
+    "tracks": [
+      {
+        "track_id": "fallback_track_1",
+        "track_role": "drums",
+        "instrument_hint": "fallback_piano",
+        "note_events": [
+          {
+            "start_tick": 0,
+            "duration_tick": 480,
+            "pitch": 54,
+            "velocity": 82,
+            "channel": 0
+          },
+          {
+            "start_tick": 480,
+            "duration_tick": 480,
+            "pitch": 57,
+            "velocity": 80,
+            "channel": 0
+          },
+          {
+            "start_tick": 960,
+            "duration_tick": 480,
+            "pitch": 61,
+            "velocity": 86,
+            "channel": 0
+          },
+          {
+            "start_tick": 1440,
+            "duration_tick": 480,
+            "pitch": 64,
+            "velocity": 84,
+            "channel": 0
+          }
+        ]
+      }
+    ],
+    "source_backend": "example_retrieval",
+    "generation_method": "example_retrieval_prototype",
+    "transformation_notes": [
+      "Fallback generated from existing symbolic examples only."
+    ],
+    "provenance_flags": {
+      "generated_by_moonbeam": false,
+      "generated_by_midigpt": false,
+      "generated_by_text2midi": false,
+      "evaluated_by_musicbert": false,
+      "example_retrieval_fallback": true,
+      "not_model_trained_on_user_data": true,
+      "needs_human_review": true
+    },
+    "limitations": [
+      "No real symbolic model backend was available."
+    ]
+  },
+  "source_backend": "example_retrieval",
+  "generation_method": "example_retrieval_prototype",
+  "model_provenance": {
+    "source_backend": "example_retrieval",
+    "generation_method": "example_retrieval_prototype",
+    "transformation_notes": [],
+    "provenance_flags": {
+      "generated_by_moonbeam": false,
+      "generated_by_midigpt": false,
+      "generated_by_text2midi": false,
+      "evaluated_by_musicbert": false,
+      "example_retrieval_fallback": true,
+      "not_model_trained_on_user_data": true,
+      "needs_human_review": true
+    },
+    "limitations": []
+  },
+  "selection_notes": [
+    "Fallback candidate; requires human review."
+  ]
+}

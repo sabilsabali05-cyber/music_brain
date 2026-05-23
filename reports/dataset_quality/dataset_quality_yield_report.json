@@ -5,11 +5,11 @@
       "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
       "segment_run_id": "20260521T204750163461_audio_structure_v1",
       "paths": {
-        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
-        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
-        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
-        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1",
-        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1"
+        "performance_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
+        "feature_pack_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
+        "feature_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1",
+        "export_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1"
       },
       "basic_yield": {
         "duration_seconds": 751.420952,
@@ -169,7 +169,7 @@
       },
       "generative_dataset": {
         "generative_dataset_present": true,
-        "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1",
+        "generative_dataset_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1",
         "generative_examples_count": 98,
         "train_recommended_count": 42,
         "validation_recommended_count": 33,
@@ -207,11 +207,11 @@
       "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
       "segment_run_id": "20260521T213524641640_audio_structure_v1",
       "paths": {
-        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json",
-        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
-        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
-        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
-        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+        "performance_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json",
+        "feature_pack_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
+        "feature_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+        "export_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
       },
       "basic_yield": {
         "duration_seconds": 3324.842086,
@@ -374,7 +374,7 @@
       },
       "generative_dataset": {
         "generative_dataset_present": true,
-        "generative_dataset_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+        "generative_dataset_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
         "generative_examples_count": 430,
         "train_recommended_count": 1,
         "validation_recommended_count": 132,
@@ -412,11 +412,11 @@
       "performance_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
       "segment_run_id": "20260522T150054174749_audio_structure_v1",
       "paths": {
-        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
-        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
-        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
-        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
-        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
+        "performance_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json",
+        "feature_pack_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
+        "feature_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1",
+        "export_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
       },
       "basic_yield": {
         "duration_seconds": 281.849025,
@@ -582,11 +582,11 @@
       "performance_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
       "segment_run_id": "20260522T150322987308_audio_structure_v1",
       "paths": {
-        "performance_manifest": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json",
-        "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
-        "export_manifest": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
-        "feature_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1",
-        "export_dir": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1"
+        "performance_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json",
+        "feature_pack_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
+        "export_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
+        "feature_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1",
+        "export_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1"
       },
       "basic_yield": {
         "duration_seconds": 189.340658,

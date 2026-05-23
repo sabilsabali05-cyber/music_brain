@@ -1,14 +1,14 @@
 # Training Data Audit - 20260521T213418203003_Sunday_Service_Choir_122621
 
 ## 1. Artifacts generated
-- source audio reference: `C:/Users/izzyo/Downloads/Sunday Service Choir 122621.mp3`
-- active analysis path: `C:\Users\izzyo\ai-composer\music_brain\samples\analysis\Sunday_Service_Choir_122621\20260521T213424878654_modal_librosa_dense\structure_analysis.json`
-- active segments manifest: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
+- source audio reference: `<PRIVATE_LOCAL_PATH>/Downloads/Sunday Service Choir 122621.mp3`
+- active analysis path: `<PRIVATE_LOCAL_PATH>\ai-composer\music_brain\samples\analysis\Sunday_Service_Choir_122621\20260521T213424878654_modal_librosa_dense\structure_analysis.json`
+- active segments manifest: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
 - window MIDI count: `54`
-- merged MIDI path: `C:\Users\izzyo\ai-composer\music_brain\samples\segments\Sunday_Service_Choir_122621\20260521T213524641640_audio_structure_v1\merged\merged_performance.mid`
-- merge report path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merge_report.json`
-- feature pack files: `{"rhythm_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json", "harmony_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json", "tags": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json", "meter_time_features": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json", "feature_pack_manifest": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json"}`
-- AI JSONL path: `C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl`
+- merged MIDI path: `<PRIVATE_LOCAL_PATH>\ai-composer\music_brain\samples\segments\Sunday_Service_Choir_122621\20260521T213524641640_audio_structure_v1\merged\merged_performance.mid`
+- merge report path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merge_report.json`
+- feature pack files: `{"rhythm_features": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json", "harmony_features": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json", "tags": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json", "meter_time_features": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json", "feature_pack_manifest": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json"}`
+- AI JSONL path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl`
 
 ## 2. Strongly usable data
 - MIDI note events and transcription window timing
