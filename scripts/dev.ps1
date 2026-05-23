@@ -106,10 +106,13 @@ function Show-Usage {
     Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
+    Write-Host "  plan-ratio-analysis <performance-manifest>"
+    Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
+    Write-Host "  index-sample-library <config-json> (copy local_sounds_library.example.json to local_sounds_library.json first)"
     Write-Host "  classify-content-regions <performance-manifest>"
     Write-Host "  apply-analysis-routing <performance-manifest>"
     Write-Host "  evaluate-label-upgrades <performance-manifest>"
@@ -121,6 +124,7 @@ function Show-Usage {
     Write-Host "  benchmark-track <track-folder>"
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
+    Write-Host "  evaluate-mass-ingestion-readiness"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1000,6 +1004,23 @@ switch ($Task) {
             "python", "scripts/plan_symbolic_generation.py", $datasetFolder, "--task", $taskValue
         )
     }
+    "plan-ratio-analysis" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-ratio-analysis <performance-manifest>"
+        Invoke-Step -Label "Planning ratio analysis from existing artifacts" -Command @(
+            "python", "scripts/plan_ratio_analysis.py", $manifestPath
+        )
+    }
+    "plan-ratio-composition" {
+        $durationArg = Get-TaskArg -Index 0
+        $ratioArg = Get-TaskArg -Index 1
+        $goalArg = Get-TaskArg -Index 2
+        $duration = if (-not [string]::IsNullOrWhiteSpace($durationArg)) { $durationArg } else { "180" }
+        $ratio = if (-not [string]::IsNullOrWhiteSpace($ratioArg)) { $ratioArg } else { "golden_ratio" }
+        $goal = if (-not [string]::IsNullOrWhiteSpace($goalArg)) { $goalArg } else { "climax" }
+        Invoke-Step -Label "Planning ratio-conditioned composition" -Command @(
+            "python", "scripts/plan_ratio_conditioned_composition.py", "--duration", $duration, "--ratio", $ratio, "--goal", $goal
+        )
+    }
     "generate-midi-with-backend" {
         $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
         $providerName = Get-TaskArg -Index 1
@@ -1031,6 +1052,12 @@ switch ($Task) {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd classify-audio-asset <performance-manifest>"
         Invoke-Step -Label "Classifying file-level audio asset type" -Command @(
             "python", "scripts/classify_audio_asset.py", $manifestPath
+        )
+    }
+    "index-sample-library" {
+        $configPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd index-sample-library <config-json>"
+        Invoke-Step -Label "Indexing local sample seed library" -Command @(
+            "python", "scripts/index_sample_library.py", $configPath
         )
     }
     "classify-content-regions" {
@@ -1105,6 +1132,11 @@ switch ($Task) {
     "validate-track" {
         $trackFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-track <track-folder>"
         Invoke-Step -Label "Validating track" -Command @("python", "scripts/validate_track.py", $trackFolder)
+    }
+    "evaluate-mass-ingestion-readiness" {
+        Invoke-Step -Label "Evaluating mass-ingestion readiness" -Command @(
+            "python", "scripts/evaluate_mass_ingestion_readiness.py"
+        )
     }
     "commit-checkpoint" {
         $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }

@@ -33,3 +33,12 @@ benchmark_reports/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Local sample-library indexing outputs (privacy-safe)
+datasets/sample_libraries/**/sample_seed_records.jsonl
+datasets/sample_libraries/**/sample_library_manifest.json
+reports/sample_libraries/**/*_index_report.json
+reports/sample_libraries/**/*_index_report.md
+
+# Local machine sample-library config (use committed example template)
+config/sample_libraries/local_sounds_library.json
