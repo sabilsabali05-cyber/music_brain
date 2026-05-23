@@ -2,10 +2,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from features.mass_ingestion.source_authorization_schema import validate_source_authorization  # noqa: E402
+
 REPORT_DIR = ROOT_DIR / "reports" / "controlled_ingestion"
 PLAN_JSON = REPORT_DIR / "controlled_batch_plan.json"
 PLAN_MD = REPORT_DIR / "controlled_batch_plan.md"
@@ -58,6 +64,7 @@ def plan_controlled_ingestion_batch(manifest_path: Path) -> dict[str, Any]:
     manifest = _read_json(manifest_path)
     errors: list[str] = []
     warnings: list[str] = []
+    strict_mode = bool(manifest.get("strict_mode", True))
 
     authorization_required = bool(manifest.get("authorization_required", True))
     if not authorization_required:
@@ -117,6 +124,10 @@ def plan_controlled_ingestion_batch(manifest_path: Path) -> dict[str, Any]:
     if allow_training_export and training_eligible_song_count == 0:
         errors.append("allow_training_export=true requires at least one training-eligible authorized item.")
 
+    authorization_validation = validate_source_authorization(manifest)
+    errors.extend(authorization_validation.errors)
+    warnings.extend(authorization_validation.warnings)
+
     estimated_artifacts = {
         "performance_manifests": authorized_song_count,
         "post_ingestion_tangible_regeneration": 1 if authorized_song_count > 0 else 0,
@@ -141,6 +152,7 @@ def plan_controlled_ingestion_batch(manifest_path: Path) -> dict[str, Any]:
         "manifest_path": manifest_path.as_posix(),
         "batch_id": manifest.get("batch_id", "unknown"),
         "batch_goal": manifest.get("batch_goal", ""),
+        "strict_mode": strict_mode,
         "authorization_required": authorization_required,
         "allow_modal": allow_modal,
         "allow_transcription": allow_transcription,
@@ -154,6 +166,7 @@ def plan_controlled_ingestion_batch(manifest_path: Path) -> dict[str, Any]:
         "estimated_review_burden": estimated_review_burden,
         "errors": errors,
         "warnings": warnings,
+        "source_authorization": authorization_validation.as_dict(),
         "provenance": {
             "planner": "scripts/plan_controlled_ingestion_batch.py",
             "audio_processing_performed": False,
@@ -190,6 +203,13 @@ def _render_markdown(payload: dict[str, Any]) -> str:
     lines.extend([f"- {item}" for item in payload["errors"]] or ["- none"])
     lines.extend(["", "## Warnings"])
     lines.extend([f"- {item}" for item in payload["warnings"]] or ["- none"])
+    lines.extend(["", "## Source Authorization"])
+    lines.append(f"- status: `{payload['source_authorization']['status']}`")
+    lines.append(
+        "- training_authorized_count: "
+        f"`{payload['source_authorization']['training_authorized_count']}`"
+    )
+    lines.append(f"- excluded_count: `{payload['source_authorization']['excluded_count']}`")
     lines.extend(["", "## Limitations"])
     lines.extend([f"- {item}" for item in payload["limitations"]])
     lines.append("")

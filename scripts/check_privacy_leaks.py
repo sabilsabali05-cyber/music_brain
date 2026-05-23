@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 from dataclasses import dataclass
@@ -120,6 +121,7 @@ def scan_privacy_leaks(
     project_root: Path = ROOT_DIR,
     tracked_files: list[Path] | None = None,
     changed_files: set[str] | None = None,
+    strict_mode: bool = False,
 ) -> dict[str, Any]:
     tracked = tracked_files if tracked_files is not None else _list_tracked_files(project_root)
     changed = changed_files if changed_files is not None else _list_changed_files(project_root)
@@ -152,8 +154,11 @@ def scan_privacy_leaks(
                 historical_debt.append(leak)
 
     status = "fail" if new_public_leaks else "ok"
+    if strict_mode and historical_debt:
+        status = "fail"
     payload = {
         "status": status,
+        "strict_mode": strict_mode,
         "new_public_leak_count": len(new_public_leaks),
         "pre_existing_historical_path_debt_count": len(historical_debt),
         "new_public_leaks": [item.as_dict() for item in new_public_leaks],
@@ -172,6 +177,7 @@ def _render_markdown(payload: dict[str, Any]) -> str:
         "# Privacy Leak Scan Report",
         "",
         f"- status: `{payload['status']}`",
+        f"- strict_mode: `{payload['strict_mode']}`",
         f"- new_public_leak_count: `{payload['new_public_leak_count']}`",
         f"- pre_existing_historical_path_debt_count: `{payload['pre_existing_historical_path_debt_count']}`",
         "",
@@ -199,8 +205,8 @@ def _render_markdown(payload: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_privacy_report(project_root: Path = ROOT_DIR) -> tuple[Path, Path, dict[str, Any]]:
-    payload = scan_privacy_leaks(project_root=project_root)
+def write_privacy_report(project_root: Path = ROOT_DIR, *, strict_mode: bool = False) -> tuple[Path, Path, dict[str, Any]]:
+    payload = scan_privacy_leaks(project_root=project_root, strict_mode=strict_mode)
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     REPORT_JSON.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     REPORT_MD.write_text(_render_markdown(payload), encoding="utf-8")
@@ -208,7 +214,10 @@ def write_privacy_report(project_root: Path = ROOT_DIR) -> tuple[Path, Path, dic
 
 
 def main() -> int:
-    json_path, md_path, payload = write_privacy_report(project_root=ROOT_DIR)
+    parser = argparse.ArgumentParser(description="Scan tracked files for privacy leak markers.")
+    parser.add_argument("--strict", action="store_true", help="Fail when historical debt is detected.")
+    args = parser.parse_args()
+    json_path, md_path, payload = write_privacy_report(project_root=ROOT_DIR, strict_mode=args.strict)
     print(f"PRIVACY_LEAK_REPORT_JSON={json_path.as_posix()}")
     print(f"PRIVACY_LEAK_REPORT_MD={md_path.as_posix()}")
     print(f"PRIVACY_SCAN_STATUS={payload['status']}")

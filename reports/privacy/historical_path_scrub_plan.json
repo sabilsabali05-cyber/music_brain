@@ -1,0 +1,644 @@
+{
+  "status": "dry_run_ready",
+  "finding_count": 122,
+  "safe_apply_candidate_count": 48,
+  "skipped_candidate_count": 74,
+  "replacements_applied": 0,
+  "safe_apply_candidates": [
+    "README.md",
+    "outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/generation_report.json",
+    "outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generation_report.json",
+    "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/delegated_generation_report.json",
+    "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_report.json",
+    "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_summary.md",
+    "reports/batches/20260522T023234490710_batch_trusted_export_report.json",
+    "reports/batches/20260522T023234490710_batch_trusted_export_report.md",
+    "reports/batches/20260522T150413226738_batch_trusted_export_report.json",
+    "reports/batches/20260522T150413226738_batch_trusted_export_report.md",
+    "reports/batches/20260522T152242794032_batch_trusted_export_report.json",
+    "reports/batches/20260522T152242794032_batch_trusted_export_report.md",
+    "reports/data_audits/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_training_data_audit.md",
+    "reports/data_audits/20260521T213418203003_Sunday_Service_Choir_122621_training_data_audit.md",
+    "reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
+    "reports/data_audits/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_training_data_audit.md",
+    "reports/dataset_quality/dataset_quality_yield_report.json",
+    "reports/dataset_quality/dataset_quality_yield_report.md",
+    "reports/mass_ingestion/mass_ingestion_readiness_report.json",
+    "reports/mass_ingestion/mass_ingestion_readiness_report.md",
+    "reports/privacy/privacy_leak_scan_report.md",
+    "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T204750163461_audio_structure_v1.md",
+    "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T205541287412_audio_structure_v1.md",
+    "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203151881339_audio_structure_v1.md",
+    "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203603254802_audio_structure_v1.md",
+    "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_20260522T150054174749_audio_structure_v1.md",
+    "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_20260522T150322987308_audio_structure_v1.md",
+    "reports/segment_reviews/Sunday_Service_Choir_122621_20260521T213524641640_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T171256329037_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172827774704_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172829502376_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174126125504_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174127086675_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174128007244_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174128912321_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174130200511_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174131401703_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174132489065_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174133705536_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174134931470_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174136138704_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174137340998_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174138529740_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T175549903888_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T175649610133_audio_structure_v1.md",
+    "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T191931505231_audio_structure_v1.md",
+    "reports/segment_sweeps/varud_candidate_tuning_20260521_compare.txt",
+    "reports/segment_sweeps/varud_dense_post_commit_compare.txt"
+  ],
+  "skipped_candidates": [
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl",
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json",
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json",
+    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md",
+    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl",
+    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json",
+    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json",
+    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md",
+    "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/accepted_records.jsonl",
+    "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
+    "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl",
+    "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/weak_label_records.jsonl",
+    "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/accepted_records.jsonl",
+    "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
+    "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/review_required_records.jsonl",
+    "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/weak_label_records.jsonl",
+    "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/accepted_records.jsonl",
+    "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
+    "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/review_required_records.jsonl",
+    "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/weak_label_records.jsonl",
+    "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/accepted_records.jsonl",
+    "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
+    "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/review_required_records.jsonl",
+    "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/weak_label_records.jsonl",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/ai_training_records.jsonl",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/beat_tracker_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/musicnn_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/omnizart_availability.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_summary.md",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_time/meter_time_features.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/label_upgrade_candidates.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/quality_gates.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/training_data_audit.json",
+    "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_summary.md",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/quality_gates.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/training_data_audit.json",
+    "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/transcription_reliability.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/ai_training_records.jsonl",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_summary.md",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/harmony_features.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/rhythm_features.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/tags.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/quality_gates.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
+    "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/transcription_reliability.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/ai_training_records.jsonl",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_summary.md",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/harmony_features.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/rhythm_features.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/tags.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/quality_gates.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json",
+    "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/transcription_reliability.json",
+    "scripts/dev.ps1",
+    "tests/test_ableton_project_export.py",
+    "tests/test_controlled_ingestion_sprint.py",
+    "tests/test_dev_runner_args.py",
+    "tests/test_privacy_leak_guard.py"
+  ],
+  "findings": [
+    {
+      "path": "README.md",
+      "match_count": 7,
+      "sample_match": "C:\\Users\\izzyo\\Downloads\\Varud"
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl",
+      "match_count": 2156,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json",
+      "match_count": 5,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1"
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1`"
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl",
+      "match_count": 8170,
+      "sample_match": "C:/Users/izzyo/Downloads/Sunday"
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json",
+      "match_count": 5,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1`"
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/accepted_records.jsonl",
+      "match_count": 672,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
+      "match_count": 13,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1"
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl",
+      "match_count": 11280,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/weak_label_records.jsonl",
+      "match_count": 7654,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/accepted_records.jsonl",
+      "match_count": 2395,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
+      "match_count": 10,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/review_required_records.jsonl",
+      "match_count": 44928,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/weak_label_records.jsonl",
+      "match_count": 28365,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/accepted_records.jsonl",
+      "match_count": 117,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/review_required_records.jsonl",
+      "match_count": 2414,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/weak_label_records.jsonl",
+      "match_count": 1057,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/accepted_records.jsonl",
+      "match_count": 91,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/review_required_records.jsonl",
+      "match_count": 1632,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/weak_label_records.jsonl",
+      "match_count": 721,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/ai_training_records.jsonl",
+      "match_count": 8060,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/beat_tracker_features.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/musicnn_features.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/omnizart_availability.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
+      "match_count": 10,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_summary.md",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json`"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
+      "match_count": 1724,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+      "match_count": 11,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
+      "match_count": 1724,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_time/meter_time_features.json",
+      "match_count": 9,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
+      "match_count": 7922,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/label_upgrade_candidates.json",
+      "match_count": 2821,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/quality_gates.json",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/training_data_audit.json",
+      "match_count": 9,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json",
+      "match_count": 16,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl",
+      "match_count": 30141,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
+      "match_count": 10,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_summary.md",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json`"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json",
+      "match_count": 7532,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+      "match_count": 11,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json",
+      "match_count": 7532,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json",
+      "match_count": 9,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json",
+      "match_count": 31504,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json",
+      "match_count": 12411,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/quality_gates.json",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/Downloads/Sunday"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/training_data_audit.json",
+      "match_count": 9,
+      "sample_match": "C:/Users/izzyo/Downloads/Sunday"
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/transcription_reliability.json",
+      "match_count": 57,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/ai_training_records.jsonl",
+      "match_count": 2567,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
+      "match_count": 6,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_summary.md",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json`"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/harmony_features.json",
+      "match_count": 644,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/rhythm_features.json",
+      "match_count": 644,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/tags.json",
+      "match_count": 3142,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/quality_gates.json",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
+      "match_count": 8,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/transcription_reliability.json",
+      "match_count": 7,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/ai_training_records.jsonl",
+      "match_count": 1751,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
+      "match_count": 6,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_summary.md",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json`"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/harmony_features.json",
+      "match_count": 444,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/rhythm_features.json",
+      "match_count": 444,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/tags.json",
+      "match_count": 2444,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/quality_gates.json",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json",
+      "match_count": 8,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/transcription_reliability.json",
+      "match_count": 6,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/performance_manifest.json"
+    },
+    {
+      "path": "outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/generation_report.json",
+      "match_count": 17,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1"
+    },
+    {
+      "path": "outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generation_report.json",
+      "match_count": 17,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/delegated_generation_report.json",
+      "match_count": 17,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1"
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_report.json",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/generated_continuation_1.mid"
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_summary.md",
+      "match_count": 4,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/generated_continuation_1.mid`"
+    },
+    {
+      "path": "reports/batches/20260522T023234490710_batch_trusted_export_report.json",
+      "match_count": 3,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox"
+    },
+    {
+      "path": "reports/batches/20260522T023234490710_batch_trusted_export_report.md",
+      "match_count": 3,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox`"
+    },
+    {
+      "path": "reports/batches/20260522T150413226738_batch_trusted_export_report.json",
+      "match_count": 27,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox"
+    },
+    {
+      "path": "reports/batches/20260522T150413226738_batch_trusted_export_report.md",
+      "match_count": 6,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox`"
+    },
+    {
+      "path": "reports/batches/20260522T152242794032_batch_trusted_export_report.json",
+      "match_count": 24,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox"
+    },
+    {
+      "path": "reports/batches/20260522T152242794032_batch_trusted_export_report.md",
+      "match_count": 5,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox`"
+    },
+    {
+      "path": "reports/data_audits/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_training_data_audit.md",
+      "match_count": 11,
+      "sample_match": "C:/Users/izzyo/Downloads/Kanye"
+    },
+    {
+      "path": "reports/data_audits/20260521T213418203003_Sunday_Service_Choir_122621_training_data_audit.md",
+      "match_count": 11,
+      "sample_match": "C:/Users/izzyo/Downloads/Sunday"
+    },
+    {
+      "path": "reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
+      "match_count": 10,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "reports/data_audits/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_training_data_audit.md",
+      "match_count": 10,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas"
+    },
+    {
+      "path": "reports/dataset_quality/dataset_quality_yield_report.json",
+      "match_count": 22,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json"
+    },
+    {
+      "path": "reports/dataset_quality/dataset_quality_yield_report.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1"
+    },
+    {
+      "path": "reports/mass_ingestion/mass_ingestion_readiness_report.json",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/reports/dataset_quality/dataset_quality_yield_report.json"
+    },
+    {
+      "path": "reports/mass_ingestion/mass_ingestion_readiness_report.md",
+      "match_count": 1,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/reports/dataset_quality/dataset_quality_yield_report.json"
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.md",
+      "match_count": 58,
+      "sample_match": "C:/Users/`"
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T204750163461_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T205541287412_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T205541287412_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203151881339_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir/20260521T203151881339_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203603254802_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir/20260521T203603254802_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_20260522T150054174749_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_20260522T150322987308_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Sunday_Service_Choir_122621_20260521T213524641640_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T171256329037_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T171256329037_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172827774704_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T172827774704_audio_structure_v1/segments_manifest.json`"
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172829502376_audio_structure_v1.md",
+      "match_count": 2,
+      "sample_match": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T172829502376_audio_structure_v1/segments_manifest.json`"
+    }
+  ],
+  "provenance": {
+    "planner": "scripts/plan_historical_path_scrub.py",
+    "apply_safe": false,
+    "audio_processing_performed": false
+  },
+  "limitations": [
+    "Pattern-based path detection only.",
+    "Safe apply only touches non-dataset text/json/markdown files."
+  ]
+}

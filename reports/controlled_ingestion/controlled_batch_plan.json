@@ -3,6 +3,7 @@
   "manifest_path": "config/controlled_batches/controlled_batch.example.json",
   "batch_id": "controlled_batch_example_v1",
   "batch_goal": "Validate a small, explicitly authorized ingestion sprint.",
+  "strict_mode": true,
   "authorization_required": true,
   "allow_modal": false,
   "allow_transcription": false,
@@ -25,6 +26,13 @@
   },
   "errors": [],
   "warnings": [],
+  "source_authorization": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [],
+    "training_authorized_count": 0,
+    "excluded_count": 0
+  },
   "provenance": {
     "planner": "scripts/plan_controlled_ingestion_batch.py",
     "audio_processing_performed": false,

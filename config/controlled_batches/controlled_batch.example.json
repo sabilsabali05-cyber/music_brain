@@ -1,6 +1,7 @@
 {
   "batch_id": "controlled_batch_example_v1",
   "batch_goal": "Validate a small, explicitly authorized ingestion sprint.",
+  "strict_mode": true,
   "max_song_files": 5,
   "max_sample_library_items": 100,
   "authorization_required": true,
@@ -11,6 +12,8 @@
   "sample_library_filters": [],
   "notes": [
     "Copy this file to config/controlled_batches/<name>.local.json for real runs.",
-    "Only include explicitly authorized files."
+    "Only include explicitly authorized files.",
+    "Training sources allowed: production, retrieval, synplant_seed.",
+    "Splice is never allowed as a training source."
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-23T08:31:06.480018+00:00",
+  "created_at": "2026-05-23T18:04:05.938267+00:00",
   "ready_for_mass_ingestion": false,
-  "ready_for_controlled_batch": true,
+  "ready_for_controlled_batch": false,
   "ready_for_model_training": false,
   "recommended_next_batch_size": 10,
   "top_strengths": [
@@ -13,19 +13,16 @@
     "local sample-library indexer exists"
   ],
   "top_blockers": [
-    "high review burden",
-    "missing manual review queue",
-    "missing serious model-training tokenization/export target",
-    "missing Synplant session logging",
-    "missing Pure Data template library",
-    "missing Max/Ableton routing records"
+    "privacy leak scan reports new public leaks",
+    "symbolic corpus export is not training-ready",
+    "historical privacy debt remains above zero"
   ],
   "required_next_actions": [
-    "Run a controlled 5-10 item ingestion batch with authorization-gated manifests.",
-    "Implement symbolic tokenization export and validation for training corpus v1.",
-    "Add review-pack -> feedback import loop for quality weighting.",
-    "Add manual Synplant session logging + rating capture.",
-    "Add model-evaluation scorecards for generation iterations."
+    "Create config/controlled_batches/first_real_batch.local.json from template and keep it uncommitted.",
+    "Run plan-controlled-ingestion-batch and run-controlled-ingestion-batch against first_real_batch.local.json.",
+    "Resolve historical scrub safe candidates and reduce privacy debt count.",
+    "Regenerate tangible demo + Ableton export after controlled batch and rescore quality reports.",
+    "Re-run evaluate-mass-ingestion-readiness to verify blocker removal."
   ],
   "strengths": [
     "composition pipeline exists",
@@ -34,18 +31,14 @@
     "prototype MIDI generation exists",
     "symbolic backend sockets exist",
     "local sample-library indexer exists",
-    "Ableton project export workflow exists"
+    "Ableton project export workflow exists",
+    "controlled ingestion planner and runner reports exist",
+    "review queue and quality scorecard artifacts exist"
   ],
   "blockers": [
-    "high review burden",
-    "missing manual review queue",
-    "missing serious model-training tokenization/export target",
-    "missing Synplant session logging",
-    "missing Pure Data template library",
-    "missing Max/Ableton routing records",
-    "missing sound feedback capture",
-    "incomplete external witness coverage",
-    "incomplete meter/pitch/harmony calibration on some performances"
+    "privacy leak scan reports new public leaks",
+    "symbolic corpus export is not training-ready",
+    "historical privacy debt remains above zero"
   ],
   "risk_flags": [
     {
@@ -53,24 +46,24 @@
       "category": "review burden",
       "severity": "high",
       "blocked": true,
-      "summary": "Review backlog is high for safe mass ingestion.",
+      "summary": "Review backlog remains high for safe mass ingestion.",
       "mitigation": "Run controlled batch of 10 and reduce review queue before scaling."
     },
     {
       "risk_id": "sound_system_logging_missing",
       "category": "Synplant seed-selection readiness",
       "severity": "high",
-      "blocked": true,
-      "summary": "Synplant/Pure Data/Max routing logs are not production-ready.",
+      "blocked": false,
+      "summary": "Synplant/Pure Data/Max routing artifacts are present.",
       "mitigation": "Add manual session logging and routing record capture."
     }
   ],
   "gates": [
     {
       "category": "source authorization",
-      "status": "partial",
+      "status": "ready",
       "blocked": false,
-      "details": "Sample library config supports local authorization claims."
+      "details": "Controlled batch plan includes source authorization validation."
     },
     {
       "category": "dedupe/hash coverage",
@@ -158,9 +151,9 @@
     },
     {
       "category": "human review queue readiness",
-      "status": "blocked",
-      "blocked": true,
-      "details": "Manual queue workflow is not codified."
+      "status": "ready",
+      "blocked": false,
+      "details": "Review queue dataset/report exists."
     },
     {
       "category": "local sample-library readiness",
@@ -170,21 +163,21 @@
     },
     {
       "category": "Synplant seed-selection readiness",
-      "status": "blocked",
-      "blocked": true,
-      "details": "Session logging schemas are placeholders only."
+      "status": "ready",
+      "blocked": false,
+      "details": "Session logging guidance exists."
     },
     {
       "category": "Pure Data template readiness",
-      "status": "blocked",
-      "blocked": true,
-      "details": "Template library is not yet established."
+      "status": "ready",
+      "blocked": false,
+      "details": "Template library artifacts are present."
     },
     {
       "category": "Max/Ableton routing readiness",
-      "status": "blocked",
-      "blocked": true,
-      "details": "Routing records are placeholder level only."
+      "status": "ready",
+      "blocked": false,
+      "details": "Routing records artifacts are present."
     },
     {
       "category": "ratio intelligence readiness",
@@ -206,15 +199,15 @@
     },
     {
       "category": "model evaluation readiness",
-      "status": "partial",
+      "status": "ready",
       "blocked": false,
-      "details": "Basic validators exist; structured model-evaluation scorecards are still missing."
+      "details": "Structured model-evaluation scorecards are present."
     },
     {
       "category": "model-training readiness",
       "status": "blocked",
       "blocked": true,
-      "details": "Tokenization/export target and feedback loops are missing."
+      "details": "Model-training prerequisites are not fully satisfied yet."
     }
   ],
   "dataset_scale_estimate": {
@@ -226,7 +219,7 @@
   "review_burden_estimate": {
     "review_required_examples": 320,
     "estimated_hours": 25.6,
-    "human_review_queue_ready": false,
+    "human_review_queue_ready": true,
     "burden_level": "high"
   },
   "feature_layer_readiness": {
@@ -246,7 +239,7 @@
     "synplant_session_logging_ready": true,
     "pure_data_template_library_ready": true,
     "max_ableton_routing_records_ready": true,
-    "sound_feedback_capture_ready": false
+    "sound_feedback_capture_ready": true
   },
   "model_training_readiness": {
     "training_tokenization_target_ready": false,
@@ -257,7 +250,7 @@
     "pure_data_automation_available": false
   },
   "controlled_batch_plan": {
-    "ready_for_controlled_batch": true,
+    "ready_for_controlled_batch": false,
     "recommended_next_batch_size": 10,
     "suggested_scope": [
       "5 song/performance files",
@@ -267,7 +260,7 @@
     ],
     "notes": [
       "Controlled batch is allowed.",
-      "Mass ingestion is blocked until controlled-batch metrics improve.",
+      "Mass ingestion is blocked until historical privacy debt reaches zero and training gates clear.",
       "Do not ingest hundreds/thousands of files yet."
     ]
   },

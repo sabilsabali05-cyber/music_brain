@@ -1,0 +1,10 @@
+{
+  "batch_id": "controlled_batch_example_v1",
+  "status": "dry_run_success",
+  "execute_requested": false,
+  "manifest_path": "config/controlled_batches/controlled_batch.example.json",
+  "runnable_item_count": 0,
+  "skipped_unauthorized_count": 0,
+  "errors": [],
+  "warnings": []
+}

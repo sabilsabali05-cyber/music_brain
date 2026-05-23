@@ -129,10 +129,12 @@ function Show-Usage {
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
     Write-Host "  evaluate-mass-ingestion-readiness"
-    Write-Host "  check-privacy-leaks"
+    Write-Host "  check-privacy-leaks [--strict]"
+    Write-Host "  plan-historical-path-scrub [--apply-safe]"
     Write-Host "  plan-controlled-ingestion-batch <manifest>"
     Write-Host "  run-controlled-ingestion-batch <manifest> [--execute]"
     Write-Host "  compare-generation-iterations <old-output> <new-output>"
+    Write-Host "  build-mass-ingestion-readiness-artifacts"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1181,9 +1183,20 @@ switch ($Task) {
         )
     }
     "check-privacy-leaks" {
-        Invoke-Step -Label "Checking tracked files for privacy leaks" -Command @(
-            "python", "scripts/check_privacy_leaks.py"
-        )
+        $strictFlag = Get-TaskArg -Index 0
+        $command = @("python", "scripts/check_privacy_leaks.py")
+        if ($strictFlag -eq "--strict") {
+            $command += @("--strict")
+        }
+        Invoke-Step -Label "Checking tracked files for privacy leaks" -Command $command
+    }
+    "plan-historical-path-scrub" {
+        $applySafe = Get-TaskArg -Index 0
+        $command = @("python", "scripts/plan_historical_path_scrub.py")
+        if ($applySafe -eq "--apply-safe") {
+            $command += @("--apply-safe")
+        }
+        Invoke-Step -Label "Planning historical path scrub" -Command $command
     }
     "plan-controlled-ingestion-batch" {
         $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-controlled-ingestion-batch <manifest>"
@@ -1205,6 +1218,11 @@ switch ($Task) {
         $newOutput = Get-TaskArgOrThrow -Index 1 -Usage "Usage: scripts\dev.cmd compare-generation-iterations <old-output> <new-output>"
         Invoke-Step -Label "Comparing generation output iterations" -Command @(
             "python", "scripts/compare_generation_iterations.py", $oldOutput, $newOutput
+        )
+    }
+    "build-mass-ingestion-readiness-artifacts" {
+        Invoke-Step -Label "Building readiness artifacts for phases 6-14" -Command @(
+            "python", "scripts/build_mass_ingestion_readiness_artifacts.py"
         )
     }
     "commit-checkpoint" {

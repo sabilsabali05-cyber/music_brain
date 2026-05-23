@@ -1,0 +1,121 @@
+{
+  "status": "ok",
+  "old_output": "outputs/tangible_generation_v1",
+  "new_output": "outputs/tangible_generation_v1",
+  "note_counts": {
+    "old": {
+      "song": 560,
+      "drums": 76,
+      "bass": 18,
+      "chords": 9,
+      "lead": 74,
+      "texture": 139
+    },
+    "new": {
+      "song": 560,
+      "drums": 76,
+      "bass": 18,
+      "chords": 9,
+      "lead": 74,
+      "texture": 139
+    },
+    "delta_new_minus_old": {
+      "song": 0,
+      "drums": 0,
+      "bass": 0,
+      "chords": 0,
+      "lead": 0,
+      "texture": 0
+    }
+  },
+  "track_role_coverage": {
+    "old": [
+      "bass",
+      "chords",
+      "drums",
+      "lead",
+      "song",
+      "texture"
+    ],
+    "new": [
+      "bass",
+      "chords",
+      "drums",
+      "lead",
+      "song",
+      "texture"
+    ]
+  },
+  "section_timing": {
+    "old": [
+      {
+        "section_id": "intro",
+        "start_seconds": 0.0,
+        "end_seconds": 25.2
+      },
+      {
+        "section_id": "build",
+        "start_seconds": 25.2,
+        "end_seconds": 89.646
+      },
+      {
+        "section_id": "climax",
+        "start_seconds": 89.646,
+        "end_seconds": 122.046
+      },
+      {
+        "section_id": "release",
+        "start_seconds": 122.046,
+        "end_seconds": 150.846
+      },
+      {
+        "section_id": "outro",
+        "start_seconds": 150.846,
+        "end_seconds": 180.0
+      }
+    ],
+    "new": [
+      {
+        "section_id": "intro",
+        "start_seconds": 0.0,
+        "end_seconds": 25.2
+      },
+      {
+        "section_id": "build",
+        "start_seconds": 25.2,
+        "end_seconds": 89.646
+      },
+      {
+        "section_id": "climax",
+        "start_seconds": 89.646,
+        "end_seconds": 122.046
+      },
+      {
+        "section_id": "release",
+        "start_seconds": 122.046,
+        "end_seconds": 150.846
+      },
+      {
+        "section_id": "outro",
+        "start_seconds": 150.846,
+        "end_seconds": 180.0
+      }
+    ]
+  },
+  "source_example_diversity": {
+    "old_unique_source_example_ids": 22,
+    "new_unique_source_example_ids": 22
+  },
+  "ableton_export_availability": {
+    "old": true,
+    "new": true
+  },
+  "provenance": {
+    "script": "scripts/compare_generation_iterations.py",
+    "audio_processing_performed": false
+  },
+  "limitations": [
+    "Comparison is structural and metadata-driven; it does not evaluate musical quality.",
+    "Ableton availability check uses default export folder convention only."
+  ]
+}

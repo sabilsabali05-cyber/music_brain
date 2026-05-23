@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from scripts.plan_controlled_ingestion_batch import plan_controlled_ingestion_batch
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
 REPORT_DIR = ROOT_DIR / "reports" / "controlled_ingestion"
 RUN_JSON = REPORT_DIR / "controlled_batch_run_report.json"
 RUN_MD = REPORT_DIR / "controlled_batch_run_report.md"
@@ -78,6 +82,7 @@ def run_controlled_ingestion_batch(manifest_path: Path, *, execute: bool = False
 
     payload = {
         "status": status,
+        "batch_id": str(manifest.get("batch_id", "unknown")),
         "manifest_path": manifest_path.as_posix(),
         "execute_requested": execute,
         "planner_status": planner_payload.get("status"),
@@ -115,6 +120,7 @@ def _render_markdown(payload: dict[str, Any]) -> str:
         "# Controlled Ingestion Batch Run Report",
         "",
         f"- status: `{payload['status']}`",
+        f"- batch_id: `{payload['batch_id']}`",
         f"- execute_requested: `{payload['execute_requested']}`",
         f"- runnable_item_count: `{payload['runnable_item_count']}`",
         f"- skipped_unauthorized_count: `{payload['skipped_unauthorized_count']}`",
@@ -137,6 +143,25 @@ def write_run_report(manifest_path: Path, *, execute: bool) -> tuple[Path, Path,
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
     RUN_JSON.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     RUN_MD.write_text(_render_markdown(payload), encoding="utf-8")
+    batch_id = payload.get("batch_id", "unknown")
+    run_dir = REPORT_DIR / "runs" / str(batch_id)
+    run_dir.mkdir(parents=True, exist_ok=True)
+    run_state = {
+        "batch_id": batch_id,
+        "status": payload["status"],
+        "execute_requested": payload["execute_requested"],
+        "manifest_path": payload["manifest_path"],
+        "runnable_item_count": payload["runnable_item_count"],
+        "skipped_unauthorized_count": payload["skipped_unauthorized_count"],
+        "errors": payload["errors"],
+        "warnings": payload["warnings"],
+    }
+    (run_dir / "run_state.json").write_text(json.dumps(run_state, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    (run_dir / "controlled_batch_run_report.json").write_text(
+        json.dumps(payload, indent=2, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
+    (run_dir / "controlled_batch_run_report.md").write_text(_render_markdown(payload), encoding="utf-8")
     return RUN_JSON, RUN_MD, payload
 
 

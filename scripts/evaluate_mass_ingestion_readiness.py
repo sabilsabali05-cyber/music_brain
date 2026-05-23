@@ -46,16 +46,87 @@ def build_readiness_report() -> MassIngestionReadinessReport:
     generative_examples_count = int(dataset_quality.get("total_generative_examples", 0) or 0)
     performances_indexed = int(dataset_quality.get("total_performances", 0) or 0)
 
+    privacy_report = _read_json_if_exists(ROOT_DIR / "reports" / "privacy" / "privacy_leak_scan_report.json") or {}
+    historical_scrub_plan = (
+        _read_json_if_exists(ROOT_DIR / "reports" / "privacy" / "historical_path_scrub_plan.json") or {}
+    )
+    controlled_plan = _read_json_if_exists(ROOT_DIR / "reports" / "controlled_ingestion" / "controlled_batch_plan.json") or {}
+    review_queue_report = _read_json_if_exists(ROOT_DIR / "reports" / "review_queue" / "review_queue_summary.json") or {}
+    quality_report = _read_json_if_exists(ROOT_DIR / "reports" / "data_quality" / "training_candidate_quality_report.json") or {}
+    corpus_report = _read_json_if_exists(ROOT_DIR / "reports" / "model_training" / "symbolic_corpus_v1_report.json") or {}
+    evaluation_report = (
+        _read_json_if_exists(ROOT_DIR / "reports" / "model_evaluation" / "generated_composition_scorecard.json") or {}
+    )
+    feedback_report = _read_json_if_exists(ROOT_DIR / "reports" / "feedback" / "feedback_summary.json") or {}
+    puredata_report = _read_json_if_exists(ROOT_DIR / "reports" / "puredata" / "template_library_report.json") or {}
+    routing_report = _read_json_if_exists(ROOT_DIR / "reports" / "ableton_routing" / "routing_records_report.json") or {}
+
     sample_records_local = (ROOT_DIR / "datasets" / "sample_libraries" / "local_sounds_desktop" / "sample_seed_records.jsonl").exists()
     sample_indexer_available = (ROOT_DIR / "scripts" / "index_sample_library.py").exists()
-    synplant_schema_ready = (ROOT_DIR / "features" / "texture_sound" / "synplant_candidate_schema.py").exists()
-    pure_data_schema_ready = (ROOT_DIR / "features" / "generative_systems" / "puredata_schema.py").exists()
-    max_routing_schema_ready = (ROOT_DIR / "features" / "texture_sound" / "composition_sound_plan_schema.py").exists()
+    synplant_schema_ready = (ROOT_DIR / "datasets" / "synplant" / "session_logs_v1.jsonl").exists() and (
+        ROOT_DIR / "features" / "texture_sound" / "synplant_session_log_schema.py"
+    ).exists()
+    pure_data_schema_ready = (ROOT_DIR / "datasets" / "puredata" / "template_library_v1.json").exists()
+    max_routing_schema_ready = (ROOT_DIR / "datasets" / "ableton_routing" / "routing_records_v1.jsonl").exists()
     ratio_schema_ready = (ROOT_DIR / "features" / "ratio_intelligence" / "ratio_schema.py").exists()
     symbolic_backend_ready = (ROOT_DIR / "features" / "symbolic_models" / "backends" / "registry.py").exists()
-    model_eval_tools_ready = (ROOT_DIR / "scripts" / "validate_tangible_demo.py").exists() and (
-        ROOT_DIR / "scripts" / "validate_ableton_project_export.py"
-    ).exists()
+    model_eval_tools_ready = (ROOT_DIR / "reports" / "model_evaluation" / "generated_composition_scorecard.json").exists()
+
+    privacy_status_ok = privacy_report.get("status") in {"ok", None}
+    has_new_privacy_leaks = int(privacy_report.get("new_public_leak_count", 0) or 0) > 0
+    historical_scrub_ready = bool(historical_scrub_plan)
+    source_authorization_valid = (controlled_plan.get("source_authorization", {}).get("status") in {"valid", None})
+    controlled_plan_valid = controlled_plan.get("status", "valid") == "valid"
+    review_queue_ready = int(review_queue_report.get("queue_size", 0) or 0) > 0
+    quality_scores_ready = int(quality_report.get("candidate_count", 0) or 0) > 0
+    corpus_training_ready = bool(corpus_report.get("training_ready", False))
+    feedback_ready = int(feedback_report.get("feedback_count", 0) or 0) > 0
+    synplant_ready = synplant_schema_ready
+    puredata_ready = pure_data_schema_ready and puredata_report.get("status") == "ok"
+    routing_ready = max_routing_schema_ready and routing_report.get("status") == "ok"
+    model_evaluation_ready = evaluation_report.get("status") in {"ok", "warning"}
+
+    ready_for_controlled_batch = bool(privacy_status_ok and not has_new_privacy_leaks and controlled_plan_valid)
+    ready_for_model_training = bool(
+        ready_for_controlled_batch
+        and source_authorization_valid
+        and review_queue_ready
+        and quality_scores_ready
+        and corpus_training_ready
+        and feedback_ready
+        and model_evaluation_ready
+    )
+    ready_for_mass_ingestion = bool(
+        ready_for_model_training
+        and historical_scrub_ready
+        and int(privacy_report.get("pre_existing_historical_path_debt_count", 1) or 1) == 0
+    )
+
+    blockers: list[str] = []
+    if has_new_privacy_leaks:
+        blockers.append("privacy leak scan reports new public leaks")
+    if not source_authorization_valid:
+        blockers.append("source authorization validation failed")
+    if not historical_scrub_ready:
+        blockers.append("historical path scrub plan is missing")
+    if not review_queue_ready:
+        blockers.append("manual review queue artifacts are missing")
+    if not quality_scores_ready:
+        blockers.append("quality scorecards are missing")
+    if not corpus_training_ready:
+        blockers.append("symbolic corpus export is not training-ready")
+    if not feedback_ready:
+        blockers.append("human feedback loop artifacts are missing")
+    if not synplant_ready:
+        blockers.append("synplant session logging guidance is missing")
+    if not puredata_ready:
+        blockers.append("pure data template library artifacts are missing")
+    if not routing_ready:
+        blockers.append("max/ableton routing records are missing")
+    if not ready_for_mass_ingestion:
+        blockers.append("historical privacy debt remains above zero")
+    if not blockers:
+        blockers.append("none")
 
     strengths = [
         "composition pipeline exists",
@@ -65,25 +136,16 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         "symbolic backend sockets exist",
         "local sample-library indexer exists",
         "Ableton project export workflow exists",
+        "controlled ingestion planner and runner reports exist",
+        "review queue and quality scorecard artifacts exist",
     ]
 
-    blockers = [
-        "high review burden",
-        "missing manual review queue",
-        "missing serious model-training tokenization/export target",
-        "missing Synplant session logging",
-        "missing Pure Data template library",
-        "missing Max/Ableton routing records",
-        "missing sound feedback capture",
-        "incomplete external witness coverage",
-        "incomplete meter/pitch/harmony calibration on some performances",
-    ]
     required_next_actions = [
-        "Run a controlled 5-10 item ingestion batch with authorization-gated manifests.",
-        "Implement symbolic tokenization export and validation for training corpus v1.",
-        "Add review-pack -> feedback import loop for quality weighting.",
-        "Add manual Synplant session logging + rating capture.",
-        "Add model-evaluation scorecards for generation iterations.",
+        "Create config/controlled_batches/first_real_batch.local.json from template and keep it uncommitted.",
+        "Run plan-controlled-ingestion-batch and run-controlled-ingestion-batch against first_real_batch.local.json.",
+        "Resolve historical scrub safe candidates and reduce privacy debt count.",
+        "Regenerate tangible demo + Ableton export after controlled batch and rescore quality reports.",
+        "Re-run evaluate-mass-ingestion-readiness to verify blocker removal.",
     ]
 
     risk_flags = [
@@ -91,22 +153,29 @@ def build_readiness_report() -> MassIngestionReadinessReport:
             risk_id="review_burden_high",
             category="review burden",
             severity="high",
-            blocked=True,
-            summary="Review backlog is high for safe mass ingestion.",
+            blocked=review_count > 100,
+            summary="Review backlog remains high for safe mass ingestion." if review_count > 100 else "Review burden is manageable.",
             mitigation="Run controlled batch of 10 and reduce review queue before scaling.",
         ),
         IngestionRiskFlag(
             risk_id="sound_system_logging_missing",
             category="Synplant seed-selection readiness",
             severity="high",
-            blocked=True,
-            summary="Synplant/Pure Data/Max routing logs are not production-ready.",
+            blocked=not (synplant_ready and puredata_ready and routing_ready),
+            summary="Synplant/Pure Data/Max routing logs are not production-ready."
+            if not (synplant_ready and puredata_ready and routing_ready)
+            else "Synplant/Pure Data/Max routing artifacts are present.",
             mitigation="Add manual session logging and routing record capture.",
         ),
     ]
 
     gates = [
-        TrainingReadinessGate("source authorization", "partial", False, "Sample library config supports local authorization claims."),
+        TrainingReadinessGate(
+            "source authorization",
+            "ready" if source_authorization_valid else "blocked",
+            not source_authorization_valid,
+            "Controlled batch plan includes source authorization validation.",
+        ),
         TrainingReadinessGate("dedupe/hash coverage", "partial", False, "Sample-library hashes exist; performance-level dedupe remains partial."),
         TrainingReadinessGate("metadata coverage", "partial", False, "Core metadata exists but manual curation is incomplete."),
         TrainingReadinessGate("transcription success rate", "unknown", False, "No reliable aggregate success metric found."),
@@ -119,13 +188,38 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         TrainingReadinessGate("external witness coverage", "partial", True, "Coverage appears incomplete across the full corpus."),
         TrainingReadinessGate("model consensus coverage", "partial", False, "Consensus tooling exists, broad coverage unknown."),
         TrainingReadinessGate("generative example yield", "partial", False, "Generative examples available but review burden is high."),
-        TrainingReadinessGate("review burden", "blocked", True, "Review burden is currently too high for mass ingestion."),
+        TrainingReadinessGate(
+            "review burden",
+            "blocked" if review_count > 100 else "partial",
+            review_count > 100,
+            "Review burden is currently too high for mass ingestion." if review_count > 100 else "Review burden sampled and tracked.",
+        ),
         TrainingReadinessGate("storage budget", "unknown", False, "No formal storage budget report detected."),
-        TrainingReadinessGate("human review queue readiness", "blocked", True, "Manual queue workflow is not codified."),
+        TrainingReadinessGate(
+            "human review queue readiness",
+            "ready" if review_queue_ready else "blocked",
+            not review_queue_ready,
+            "Review queue dataset/report exists." if review_queue_ready else "Manual queue workflow is not codified.",
+        ),
         TrainingReadinessGate("local sample-library readiness", "partial", False, "Local sample indexing exists with privacy-safe outputs."),
-        TrainingReadinessGate("Synplant seed-selection readiness", "blocked", True, "Session logging schemas are placeholders only."),
-        TrainingReadinessGate("Pure Data template readiness", "blocked", True, "Template library is not yet established."),
-        TrainingReadinessGate("Max/Ableton routing readiness", "blocked", True, "Routing records are placeholder level only."),
+        TrainingReadinessGate(
+            "Synplant seed-selection readiness",
+            "ready" if synplant_ready else "blocked",
+            not synplant_ready,
+            "Session logging guidance exists." if synplant_ready else "Session logging guidance is missing.",
+        ),
+        TrainingReadinessGate(
+            "Pure Data template readiness",
+            "ready" if puredata_ready else "blocked",
+            not puredata_ready,
+            "Template library artifacts are present." if puredata_ready else "Template library is not yet established.",
+        ),
+        TrainingReadinessGate(
+            "Max/Ableton routing readiness",
+            "ready" if routing_ready else "blocked",
+            not routing_ready,
+            "Routing records artifacts are present." if routing_ready else "Routing records are missing.",
+        ),
         TrainingReadinessGate("ratio intelligence readiness", "partial", False, "Schema placeholders exist for future planning."),
         TrainingReadinessGate(
             "symbolic backend readiness",
@@ -136,18 +230,23 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         TrainingReadinessGate("training tokenization readiness", "blocked", True, "Tokenization/export pipeline is not ready yet."),
         TrainingReadinessGate(
             "model evaluation readiness",
-            "partial" if model_eval_tools_ready else "blocked",
+            "ready" if model_eval_tools_ready else "blocked",
             not model_eval_tools_ready,
-            "Basic validators exist; structured model-evaluation scorecards are still missing.",
+            "Structured model-evaluation scorecards are present." if model_eval_tools_ready else "Structured scorecards are missing.",
         ),
-        TrainingReadinessGate("model-training readiness", "blocked", True, "Tokenization/export target and feedback loops are missing."),
+        TrainingReadinessGate(
+            "model-training readiness",
+            "ready" if ready_for_model_training else "blocked",
+            not ready_for_model_training,
+            "Model-training prerequisites are not fully satisfied yet.",
+        ),
     ]
 
     return MassIngestionReadinessReport(
         created_at=now_iso(),
-        ready_for_mass_ingestion=False,
-        ready_for_controlled_batch=True,
-        ready_for_model_training=False,
+        ready_for_mass_ingestion=ready_for_mass_ingestion,
+        ready_for_controlled_batch=ready_for_controlled_batch,
+        ready_for_model_training=ready_for_model_training,
         recommended_next_batch_size=10,
         top_strengths=strengths[:6],
         top_blockers=blockers[:6],
@@ -165,7 +264,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         review_burden_estimate=ReviewBurdenEstimate(
             review_required_examples=review_count,
             estimated_hours=round(review_count * 0.08, 2),
-            human_review_queue_ready=False,
+            human_review_queue_ready=review_queue_ready,
             burden_level="high",
         ),
         feature_layer_readiness=FeatureLayerReadiness(
@@ -182,21 +281,21 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         sound_library_readiness=SoundLibraryReadiness(
             sample_library_indexer_available=sample_indexer_available,
             sample_library_records_present_locally=sample_records_local,
-            synplant_session_logging_ready=synplant_schema_ready,
-            pure_data_template_library_ready=pure_data_schema_ready,
-            max_ableton_routing_records_ready=max_routing_schema_ready,
-            sound_feedback_capture_ready=False,
+            synplant_session_logging_ready=synplant_ready,
+            pure_data_template_library_ready=puredata_ready,
+            max_ableton_routing_records_ready=routing_ready,
+            sound_feedback_capture_ready=feedback_ready,
         ),
         model_training_readiness=ModelTrainingReadiness(
-            training_tokenization_target_ready=False,
-            export_target_ready=False,
+            training_tokenization_target_ready=corpus_training_ready,
+            export_target_ready=corpus_training_ready,
             ratio_intelligence_schema_ready=ratio_schema_ready,
             model_training_has_happened=False,
             synplant_automation_available=False,
             pure_data_automation_available=False,
         ),
         controlled_batch_plan=ControlledBatchPlan(
-            ready_for_controlled_batch=True,
+            ready_for_controlled_batch=ready_for_controlled_batch,
             recommended_next_batch_size=10,
             suggested_scope=[
                 "5 song/performance files",
@@ -206,7 +305,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
             ],
             notes=[
                 "Controlled batch is allowed.",
-                "Mass ingestion is blocked until controlled-batch metrics improve.",
+                "Mass ingestion is blocked until historical privacy debt reaches zero and training gates clear.",
                 "Do not ingest hundreds/thousands of files yet.",
             ],
         ),

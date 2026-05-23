@@ -1,0 +1,5 @@
+# PureData Template Library Report
+
+- status: `ok`
+- template_count: `2`
+- ready_for_manual_use: `True`

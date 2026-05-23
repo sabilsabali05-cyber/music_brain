@@ -1,21 +1,149 @@
 {
-  "status": "ok",
-  "new_public_leak_count": 0,
-  "pre_existing_historical_path_debt_count": 134,
-  "new_public_leaks": [],
-  "pre_existing_historical_path_debt": [
+  "status": "fail",
+  "strict_mode": false,
+  "new_public_leak_count": 23,
+  "pre_existing_historical_path_debt_count": 131,
+  "new_public_leaks": [
     {
       "path": ".gitignore",
       "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
+      "debt_type": "new_or_changed_public_leak",
       "line_count": 2
     },
     {
       "path": ".gitignore",
       "marker": "sample_seed_records.jsonl",
-      "debt_type": "pre_existing_historical_path_debt",
+      "debt_type": "new_or_changed_public_leak",
       "line_count": 1
     },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 116
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.json",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 5
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.json",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 6
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 46
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.md",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    },
+    {
+      "path": "reports/privacy/privacy_leak_scan_report.md",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/check_privacy_leaks.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    },
+    {
+      "path": "scripts/check_privacy_leaks.py",
+      "marker": "OneDrive\\Desktop\\sounds",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/check_privacy_leaks.py",
+      "marker": "OneDrive/Desktop/sounds",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/check_privacy_leaks.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/check_privacy_leaks.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/dev.ps1",
+      "marker": "C:\\Users\\",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    },
+    {
+      "path": "tests/test_controlled_ingestion_sprint.py",
+      "marker": "C:\\Users\\",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_controlled_ingestion_sprint.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_controlled_ingestion_sprint.py",
+      "marker": "OneDrive/Desktop/sounds",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_controlled_ingestion_sprint.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    },
+    {
+      "path": "tests/test_privacy_leak_guard.py",
+      "marker": "C:\\Users\\",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_privacy_leak_guard.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    },
+    {
+      "path": "tests/test_privacy_leak_guard.py",
+      "marker": "OneDrive\\Desktop\\sounds",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_privacy_leak_guard.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2
+    }
+  ],
+  "pre_existing_historical_path_debt": [
     {
       "path": "README.md",
       "marker": "C:\\Users\\",
@@ -743,12 +871,6 @@
       "line_count": 24
     },
     {
-      "path": "scripts/dev.ps1",
-      "marker": "C:\\Users\\",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
-    },
-    {
       "path": "scripts/evaluate_mass_ingestion_readiness.py",
       "marker": "sample_seed_records.jsonl",
       "debt_type": "pre_existing_historical_path_debt",
@@ -810,6 +932,7 @@
     }
   ],
   "skipped_private_or_allowlisted_paths": [
+    "config/controlled_batches/controlled_batch.example.json",
     "outputs/ableton_project_v1/AI_Generated_Song_Project/Ableton_Project_Plan.md",
     "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_bass.mid",
     "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_chords.mid",

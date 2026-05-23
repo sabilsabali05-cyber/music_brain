@@ -1,0 +1,34 @@
+{
+  "status": "dry_run_success",
+  "batch_id": "batch_test",
+  "manifest_path": "C:/Users/izzyo/AppData/Local/Temp/pytest-of-izzyo/pytest-256/test_controlled_runner_writes_0/manifest.json",
+  "execute_requested": false,
+  "planner_status": "valid",
+  "runnable_item_count": 0,
+  "skipped_unauthorized_count": 0,
+  "skipped_unauthorized": [],
+  "requested_actions": {
+    "transcription_requested": false,
+    "modal_requested": false
+  },
+  "permission_flags": {
+    "allow_transcription": false,
+    "allow_modal": false
+  },
+  "errors": [],
+  "warnings": [],
+  "execution_notes": [
+    "Dry run only. No processing performed."
+  ],
+  "provenance": {
+    "runner": "scripts/run_controlled_ingestion_batch.py",
+    "audio_processing_performed": false,
+    "transcription_performed": false,
+    "modal_calls_performed": false,
+    "ingestion_integrated": false
+  },
+  "limitations": [
+    "Runner shell validates policy and readiness only in this phase.",
+    "Execute mode intentionally refuses real ingestion until explicit integration."
+  ]
+}

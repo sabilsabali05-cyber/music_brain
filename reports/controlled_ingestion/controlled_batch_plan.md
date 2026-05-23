@@ -24,6 +24,11 @@
 ## Warnings
 - none
 
+## Source Authorization
+- status: `valid`
+- training_authorized_count: `0`
+- excluded_count: `0`
+
 ## Limitations
 - Planner validates manifest policy only; it does not process or inspect audio.
 - Review-burden estimate is heuristic and should be confirmed manually.

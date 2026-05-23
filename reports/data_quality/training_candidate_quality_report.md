@@ -1,0 +1,7 @@
+# Training Candidate Quality Report
+
+- status: `ok`
+- candidate_count: `40`
+- high_quality_count: `0`
+- review_count: `40`
+- exclude_count: `0`

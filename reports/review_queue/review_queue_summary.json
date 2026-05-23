@@ -1,0 +1,10 @@
+{
+  "status": "ok",
+  "queue_size": 40,
+  "pending_count": 40,
+  "exclude_count": 0,
+  "limitations": [
+    "Queue is sampled to avoid mass processing.",
+    "Manual review decisions are still required."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "batch_id": "first_real_batch_local",
+  "strict_mode": true,
+  "authorization_required": true,
+  "allow_modal": false,
+  "allow_transcription": false,
+  "allow_training_export": false,
+  "song_files": [],
+  "sample_library_filters": []
+}

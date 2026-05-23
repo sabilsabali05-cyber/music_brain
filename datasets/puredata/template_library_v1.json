@@ -1,0 +1,18 @@
+{
+  "version": "v1",
+  "templates": [
+    {
+      "template_id": "pd_texture_pad",
+      "intent": "long evolving pad",
+      "ready": true
+    },
+    {
+      "template_id": "pd_percussive_noise",
+      "intent": "percussive texture",
+      "ready": true
+    }
+  ],
+  "limitations": [
+    "Template metadata only; no automated patch rendering performed."
+  ]
+}

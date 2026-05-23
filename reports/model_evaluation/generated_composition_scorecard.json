@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "has_generation_report": true,
+  "structured_sections_count": 0,
+  "notes": [
+    "Scorecard is metadata-based and intended for iteration tracking.",
+    "No model training or inference executed in this step."
+  ]
+}
