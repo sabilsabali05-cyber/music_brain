@@ -1,0 +1,51 @@
+from .composition_sound_plan_schema import (
+    CompositionSoundPlan,
+    InstrumentTextureRequest,
+    MaxForLiveRoutingPlan,
+    PureDataSystemAssignment,
+    SampleSeedAssignment,
+    SynplantPatchAssignment,
+    TrackSoundRole,
+)
+from .sample_seed_schema import (
+    SampleRoleCandidate,
+    SampleSearchQuery,
+    SampleSearchResult,
+    SampleSeedFeatureProfile,
+    SampleSeedRecord,
+    SynplantSeedCandidate,
+    build_sample_seed_record,
+    classify_asset_type_guess,
+    derive_usage_policy,
+)
+from .synplant_candidate_schema import (
+    SynplantFeedbackRecord,
+    SynplantGenerationSession,
+    SynplantPatchCandidate,
+    SynplantPatchSelection,
+    SynplantRenderResult,
+)
+
+__all__ = [
+    "CompositionSoundPlan",
+    "InstrumentTextureRequest",
+    "MaxForLiveRoutingPlan",
+    "PureDataSystemAssignment",
+    "SampleRoleCandidate",
+    "SampleSearchQuery",
+    "SampleSearchResult",
+    "SampleSeedAssignment",
+    "SampleSeedFeatureProfile",
+    "SampleSeedRecord",
+    "SynplantFeedbackRecord",
+    "SynplantGenerationSession",
+    "SynplantPatchAssignment",
+    "SynplantPatchCandidate",
+    "SynplantPatchSelection",
+    "SynplantRenderResult",
+    "SynplantSeedCandidate",
+    "TrackSoundRole",
+    "build_sample_seed_record",
+    "classify_asset_type_guess",
+    "derive_usage_policy",
+]
