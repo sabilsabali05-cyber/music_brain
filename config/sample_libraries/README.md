@@ -5,7 +5,7 @@ To use the local sample-library indexer safely:
 1. Copy `config/sample_libraries/local_sounds_library.example.json` to
    `config/sample_libraries/local_sounds_library.json`.
 2. Set `root_path` in your local copy (for example:
-   `C:\\Users\\izzyo\\OneDrive\\Desktop\\sounds`).
+   `C:\\Path\\To\\Your\\Sounds`).
 3. Run:
    `scripts\dev.cmd index-sample-library config/sample_libraries/local_sounds_library.json`
 
