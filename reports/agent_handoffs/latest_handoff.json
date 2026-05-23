@@ -1,6 +1,6 @@
 {
-  "phase": "unspecified-phase",
-  "goal": "No goal supplied.",
+  "phase": "generative-audit-coverage-and-prototype-midi",
+  "goal": "Fix compacted generative audit resolution and add prototype MIDI generation from existing examples.",
   "constraints_followed": [
     "No audio processing performed",
     "Modal not called",
@@ -10,29 +10,52 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
+    "reports/dataset_quality/dataset_quality_yield_report.json",
+    "reports/dataset_quality/dataset_quality_yield_report.md",
+    "scripts/audit_dataset_quality_yield.py",
     "scripts/dev.ps1",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md",
-    "features/symbolic_models/",
+    "tests/test_dataset_quality_yield_audit.py",
     "outputs/",
-    "reports/symbolic_models/",
-    "scripts/check_symbolic_model_backends.py",
-    "scripts/generate_midi_with_backend.py",
-    "scripts/plan_symbolic_generation.py",
-    "tests/test_symbolic_model_backends.py"
+    "scripts/generate_midi_from_examples.py",
+    "scripts/validate_generated_midi_outputs.py",
+    "tests/test_generate_midi_from_examples.py"
   ],
-  "commands_run": [],
-  "tests_result": [],
-  "validation_results": [],
-  "generated_artifacts": [],
-  "metrics_before": {},
-  "metrics_after": {},
-  "risks_concerns": [],
+  "commands_run": [
+    "scripts\\dev.cmd audit-dataset-quality-yield",
+    "scripts\\dev.cmd test",
+    "scripts\\dev.cmd generate-midi-from-examples Ghost continuation train",
+    "scripts\\dev.cmd validate-generated-midi Ghost output",
+    "scripts\\dev.cmd generate-midi-from-examples Sunday call_response validation",
+    "scripts\\dev.cmd validate-generated-midi Sunday output"
+  ],
+  "tests_result": [
+    "scripts\\dev.cmd test: 187 passed, 2 warnings"
+  ],
+  "validation_results": [
+    "Ghost generated MIDI validation: success (4 files)",
+    "Sunday generated MIDI validation: success (4 files)"
+  ],
+  "generated_artifacts": [
+    "reports/dataset_quality/dataset_quality_yield_report.json",
+    "outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1",
+    "outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+  ],
+  "metrics_before": {
+    "total_generative_examples": "430"
+  },
+  "metrics_after": {
+    "total_generative_examples": "528",
+    "split_train": "43",
+    "split_validation": "165",
+    "split_review": "320",
+    "split_exclude": "0"
+  },
+  "risks_concerns": [
+    "Hybrid context/target mode currently safe-fallback only when context timing is insufficient."
+  ],
   "open_user_decisions": [],
-  "recommended_next_step": "Await audit feedback before next major phase.",
+  "recommended_next_step": "Open PR for audit and confirm desired default generation mode for future prototype batches.",
   "commit_hash": "1acc12f67acc6d381a51454678a9d1764fb27788",
-  "git_status": "## cursor/symbolic-model-backend-adapters\n M scripts/dev.ps1\n?? datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json\n?? datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md\n?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json\n?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md\n?? features/symbolic_models/\n?? outputs/\n?? reports/symbolic_models/\n?? scripts/check_symbolic_model_backends.py\n?? scripts/generate_midi_with_backend.py\n?? scripts/plan_symbolic_generation.py\n?? tests/test_symbolic_model_backends.py",
-  "generated_at_utc": "2026-05-23T03:25:06.129898+00:00"
+  "git_status": "## cursor/prototype-midi-generation-from-examples\n M reports/dataset_quality/dataset_quality_yield_report.json\n M reports/dataset_quality/dataset_quality_yield_report.md\n M scripts/audit_dataset_quality_yield.py\n M scripts/dev.ps1\n M tests/test_dataset_quality_yield_audit.py\n?? outputs/\n?? scripts/generate_midi_from_examples.py\n?? scripts/validate_generated_midi_outputs.py\n?? tests/test_generate_midi_from_examples.py",
+  "generated_at_utc": "2026-05-23T02:57:33.397431+00:00"
 }

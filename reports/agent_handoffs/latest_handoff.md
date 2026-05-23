@@ -1,7 +1,7 @@
 # Latest Agent Handoff
 
-- phase: unspecified-phase
-- goal: No goal supplied.
+- phase: generative-audit-coverage-and-prototype-midi
+- goal: Fix compacted generative audit resolution and add prototype MIDI generation from existing examples.
 - commit_hash: 1acc12f67acc6d381a51454678a9d1764fb27788
 
 ## Constraints Followed
@@ -13,59 +13,65 @@
 - YourMT3 logic unchanged
 
 ## Files Changed
+- reports/dataset_quality/dataset_quality_yield_report.json
+- reports/dataset_quality/dataset_quality_yield_report.md
+- scripts/audit_dataset_quality_yield.py
 - scripts/dev.ps1
-- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json
-- datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md
-- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json
-- datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md
-- features/symbolic_models/
+- tests/test_dataset_quality_yield_audit.py
 - outputs/
-- reports/symbolic_models/
-- scripts/check_symbolic_model_backends.py
-- scripts/generate_midi_with_backend.py
-- scripts/plan_symbolic_generation.py
-- tests/test_symbolic_model_backends.py
+- scripts/generate_midi_from_examples.py
+- scripts/validate_generated_midi_outputs.py
+- tests/test_generate_midi_from_examples.py
 
 ## Commands Run
-- (none)
+- scripts\dev.cmd audit-dataset-quality-yield
+- scripts\dev.cmd test
+- scripts\dev.cmd generate-midi-from-examples Ghost continuation train
+- scripts\dev.cmd validate-generated-midi Ghost output
+- scripts\dev.cmd generate-midi-from-examples Sunday call_response validation
+- scripts\dev.cmd validate-generated-midi Sunday output
 
 ## Test Results
-- (none)
+- scripts\dev.cmd test: 187 passed, 2 warnings
 
 ## Validation Results
-- (none)
+- Ghost generated MIDI validation: success (4 files)
+- Sunday generated MIDI validation: success (4 files)
 
 ## Generated Artifacts
-- (none)
+- reports/dataset_quality/dataset_quality_yield_report.json
+- outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1
+- outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1
 
 ## Metrics Before
-- (none)
+- total_generative_examples: 430
 
 ## Metrics After
-- (none)
+- total_generative_examples: 528
+- split_train: 43
+- split_validation: 165
+- split_review: 320
+- split_exclude: 0
 
 ## Risks / Concerns
-- (none)
+- Hybrid context/target mode currently safe-fallback only when context timing is insufficient.
 
 ## Open User Decisions
 - (none)
 
 ## Recommended Next Step
-- Await audit feedback before next major phase.
+- Open PR for audit and confirm desired default generation mode for future prototype batches.
 
 ## Git Status
 ```text
-## cursor/symbolic-model-backend-adapters
+## cursor/prototype-midi-generation-from-examples
+ M reports/dataset_quality/dataset_quality_yield_report.json
+ M reports/dataset_quality/dataset_quality_yield_report.md
+ M scripts/audit_dataset_quality_yield.py
  M scripts/dev.ps1
-?? datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json
-?? datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md
-?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json
-?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md
-?? features/symbolic_models/
+ M tests/test_dataset_quality_yield_audit.py
 ?? outputs/
-?? reports/symbolic_models/
-?? scripts/check_symbolic_model_backends.py
-?? scripts/generate_midi_with_backend.py
-?? scripts/plan_symbolic_generation.py
-?? tests/test_symbolic_model_backends.py
+?? scripts/generate_midi_from_examples.py
+?? scripts/validate_generated_midi_outputs.py
+?? tests/test_generate_midi_from_examples.py
 ```

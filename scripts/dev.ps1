@@ -102,6 +102,8 @@ function Show-Usage {
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
     Write-Host "  diagnose-generative-examples <generative-dataset-folder>"
     Write-Host "  diagnose-generative-pairing <generative-dataset-folder>"
+    Write-Host "  generate-midi-from-examples <generative-dataset-folder> [task] [split]"
+    Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
@@ -967,6 +969,22 @@ switch ($Task) {
         $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd diagnose-generative-pairing <generative-dataset-folder>"
         Invoke-Step -Label "Diagnosing generative pairing quality" -Command @(
             "python", "scripts/diagnose_generative_pairing.py", $datasetFolder
+        )
+    }
+    "generate-midi-from-examples" {
+        $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-midi-from-examples <generative-dataset-folder> [task] [split]"
+        $taskName = Get-TaskArg -Index 1
+        $splitName = Get-TaskArg -Index 2
+        $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
+        $splitValue = if (-not [string]::IsNullOrWhiteSpace($splitName)) { $splitName } else { "train" }
+        Invoke-Step -Label "Generating prototype MIDI from examples" -Command @(
+            "python", "scripts/generate_midi_from_examples.py", $datasetFolder, "--task", $taskValue, "--split", $splitValue
+        )
+    }
+    "validate-generated-midi" {
+        $outputFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-generated-midi <output-folder>"
+        Invoke-Step -Label "Validating generated MIDI outputs" -Command @(
+            "python", "scripts/validate_generated_midi_outputs.py", $outputFolder
         )
     }
     "check-symbolic-model-backends" {
