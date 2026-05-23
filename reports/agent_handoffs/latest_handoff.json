@@ -10,15 +10,13 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    "features/generative_systems/",
-    "features/mass_ingestion/",
-    "features/ratio_intelligence/",
-    "features/texture_sound/__init__.py",
-    "features/texture_sound/composition_sound_plan_schema.py",
-    "features/texture_sound/synplant_candidate_schema.py",
-    "reports/mass_ingestion/",
-    "scripts/evaluate_mass_ingestion_readiness.py",
-    "tests/test_mass_ingestion_readiness.py"
+    ".gitignore",
+    "scripts/dev.ps1",
+    "features/tangible_generation/",
+    "outputs/tangible_generation_v1/",
+    "scripts/generate_tangible_demo.py",
+    "scripts/validate_tangible_demo.py",
+    "tests/test_tangible_generation_demo.py"
   ],
   "commands_run": [],
   "tests_result": [],
@@ -30,6 +28,6 @@
   "open_user_decisions": [],
   "recommended_next_step": "Await audit feedback before next major phase.",
   "commit_hash": "fae8dee2056661b3e45eab21d5b2a9cc0945800b",
-  "git_status": "## cursor/mass-ingestion-readiness-v1\n?? features/generative_systems/\n?? features/mass_ingestion/\n?? features/ratio_intelligence/\n?? features/texture_sound/__init__.py\n?? features/texture_sound/composition_sound_plan_schema.py\n?? features/texture_sound/synplant_candidate_schema.py\n?? reports/mass_ingestion/\n?? scripts/evaluate_mass_ingestion_readiness.py\n?? tests/test_mass_ingestion_readiness.py",
-  "generated_at_utc": "2026-05-23T07:08:21.761021+00:00"
+  "git_status": "## cursor/tangible-generation-v1\n M .gitignore\n M scripts/dev.ps1\n?? features/tangible_generation/\n?? outputs/tangible_generation_v1/\n?? scripts/generate_tangible_demo.py\n?? scripts/validate_tangible_demo.py\n?? tests/test_tangible_generation_demo.py",
+  "generated_at_utc": "2026-05-23T07:40:56.986937+00:00"
 }

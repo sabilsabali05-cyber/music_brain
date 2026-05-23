@@ -1,0 +1,40 @@
+{
+  "tracks": [
+    {
+      "track_name": "drums",
+      "midi_file": "generated_drums.mid",
+      "seed_role_hint": "drum_break_or_loop",
+      "future_pd_or_max_role": "rhythm_macro_placeholder"
+    },
+    {
+      "track_name": "bass",
+      "midi_file": "generated_bass.mid",
+      "seed_role_hint": "bass_or_synth_seed",
+      "future_pd_or_max_role": "sub_harmonic_control_placeholder"
+    },
+    {
+      "track_name": "chords",
+      "midi_file": "generated_chords.mid",
+      "seed_role_hint": "chord_stab_or_pad_seed",
+      "future_pd_or_max_role": "harmonic_texture_placeholder"
+    },
+    {
+      "track_name": "lead",
+      "midi_file": "generated_lead.mid",
+      "seed_role_hint": "vocal_or_synth_seed",
+      "future_pd_or_max_role": "melodic_fx_macro_placeholder"
+    },
+    {
+      "track_name": "texture",
+      "midi_file": "generated_texture_motifs.mid",
+      "seed_role_hint": "texture_or_drone_seed",
+      "future_pd_or_max_role": "granular_or_drone_placeholder"
+    }
+  ],
+  "human_review_checklist": [
+    "Confirm role fit of MIDI material per section.",
+    "Choose sample seeds manually before Synplant usage.",
+    "Confirm transitions around climax and release timing.",
+    "Mark successful seeds for future training records."
+  ]
+}
