@@ -18,6 +18,7 @@ from features.symbolic_model_ensemble.capability_registry import build_backend_r
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 OUT_DIR = ROOT_DIR / "outputs" / "symbolic_ensemble_v1"
+ROUTING_REPORT_DIR = ROOT_DIR / "reports" / "symbolic_backends"
 
 
 def _to_repo_relative(path: Path) -> str:
@@ -51,6 +52,62 @@ class SymbolicEnsembleOrchestrator:
             source_backend=backend_id,
             conditioning={},
         )
+
+    @staticmethod
+    def symbolic_routing_plan() -> dict[str, Any]:
+        return {
+            "status": "ok",
+            "moonbeam_preferred_for": [
+                "continuation",
+                "infill",
+                "section_development",
+                "phrase_development",
+                "symbolic_composition",
+            ],
+            "midigpt_preferred_for": [
+                "drums",
+                "groove",
+                "density_variation",
+                "multitrack_infill",
+            ],
+            "text2midi_preferred_for": [
+                "prompt_sketch",
+            ],
+            "musicbert_preferred_for": [
+                "ranking",
+                "evaluation",
+                "symbolic_similarity",
+            ],
+            "fallback_policy": "example_retrieval_only_when_no_real_symbolic_backend_available",
+            "model_training_has_occurred": False,
+            "limitations": [
+                "Routing priority does not force availability.",
+                "Unavailable backends are reported explicitly and do not silently generate.",
+            ],
+        }
+
+    def write_routing_report(self, report_dir: Path = ROUTING_REPORT_DIR) -> tuple[Path, Path, dict[str, Any]]:
+        payload = self.symbolic_routing_plan()
+        report_dir.mkdir(parents=True, exist_ok=True)
+        json_path = report_dir / "symbolic_routing_plan.json"
+        md_path = report_dir / "symbolic_routing_plan.md"
+        json_path.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+        lines = [
+            "# Symbolic Routing Plan",
+            "",
+            "## Preferred Routing",
+            "- Moonbeam: continuation, infill, section development, phrase development, symbolic composition",
+            "- MIDI-GPT: drums, groove, density variation, multitrack infill",
+            "- Text2MIDI: prompt sketch",
+            "- MusicBERT: ranking, evaluation, symbolic similarity",
+            "",
+            "## Fallback",
+            "- example_retrieval_only_when_no_real_symbolic_backend_available",
+            "",
+            "- model_training_has_occurred: `False`",
+        ]
+        md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return json_path, md_path, payload
 
     def _write_backend_availability(self, output_root: Path) -> dict[str, Any]:
         rows: list[dict[str, Any]] = []
@@ -138,7 +195,7 @@ class SymbolicEnsembleOrchestrator:
         if text2midi_res.candidate is not None:
             candidates.append(text2midi_res.candidate)
 
-        moonbeam_req = self._build_request(prompt, "moonbeam", "continuation_infill")
+        moonbeam_req = self._build_request(prompt, "moonbeam", "symbolic_composition")
         moonbeam_res = self.registry["moonbeam"].continue_ir(moonbeam_req)
         used_steps.append({"backend": "moonbeam", "status": moonbeam_res.status, "reason": moonbeam_res.reason})
         if moonbeam_res.candidate is not None:
