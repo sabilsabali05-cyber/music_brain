@@ -1,0 +1,165 @@
+{
+  "stub_mode": false,
+  "providers": [
+    {
+      "provider_id": "musicbert",
+      "display_name": "MusicBERT",
+      "capabilities": [
+        "symbolic_embedding",
+        "style_classification",
+        "similarity_scoring",
+        "reranking",
+        "accompaniment_suggestion",
+        "explanation"
+      ],
+      "default_role": "evaluator_understanding_witness",
+      "role_hint": "Use for symbolic understanding, embeddings, similarity, reranking, and evaluation.",
+      "installation_hint": "Install optional dependencies (e.g. torch + transformers) and set MUSICBERT_MODEL_PATH."
+    },
+    {
+      "provider_id": "moonbeam",
+      "display_name": "Moonbeam",
+      "capabilities": [
+        "midi_continuation",
+        "midi_infill",
+        "symbolic_embedding",
+        "controllable_generation",
+        "explanation"
+      ],
+      "default_role": "foundation_symbolic_generator",
+      "role_hint": "Use for MIDI continuation/infill and conditional symbolic generation.",
+      "installation_hint": "Install Moonbeam runtime and set MOONBEAM_MODEL_PATH."
+    },
+    {
+      "provider_id": "midigpt",
+      "display_name": "MIDI-GPT",
+      "capabilities": [
+        "multitrack_generation",
+        "controllable_generation",
+        "midi_infill",
+        "midi_continuation",
+        "explanation"
+      ],
+      "default_role": "controllable_composer_backend",
+      "role_hint": "Use for controllable multitrack symbolic composition and infill.",
+      "installation_hint": "Install MIDI-GPT runtime and set MIDIGPT_MODEL_PATH."
+    },
+    {
+      "provider_id": "text2midi",
+      "display_name": "Text2MIDI",
+      "capabilities": [
+        "text_to_midi",
+        "controllable_generation",
+        "explanation"
+      ],
+      "default_role": "prompt_sketch_generator",
+      "role_hint": "Use for text prompt to symbolic sketch generation.",
+      "installation_hint": "Install Text2MIDI runtime and set TEXT2MIDI_MODEL_PATH."
+    }
+  ],
+  "availability": [
+    {
+      "provider_id": "musicbert",
+      "display_name": "MusicBERT",
+      "available": false,
+      "capabilities": [
+        "symbolic_embedding",
+        "style_classification",
+        "similarity_scoring",
+        "reranking",
+        "accompaniment_suggestion",
+        "explanation"
+      ],
+      "default_role": "evaluator_understanding_witness",
+      "role_hint": "Use for symbolic understanding, embeddings, similarity, reranking, and evaluation.",
+      "installation_hint": "Install optional dependencies (e.g. torch + transformers) and set MUSICBERT_MODEL_PATH.",
+      "details": {
+        "has_torch": false,
+        "has_transformers": false,
+        "model_path_configured": false
+      },
+      "limitations": [
+        "MusicBERT model weights are not bundled with this repository.",
+        "This adapter intentionally avoids heavyweight runtime imports at module load time.",
+        "Generation is disabled because MusicBERT is treated as an evaluator/understanding witness."
+      ],
+      "checked_at": "2026-05-23T03:36:31.963072+00:00"
+    },
+    {
+      "provider_id": "moonbeam",
+      "display_name": "Moonbeam",
+      "available": false,
+      "capabilities": [
+        "midi_continuation",
+        "midi_infill",
+        "symbolic_embedding",
+        "controllable_generation",
+        "explanation"
+      ],
+      "default_role": "foundation_symbolic_generator",
+      "role_hint": "Use for MIDI continuation/infill and conditional symbolic generation.",
+      "installation_hint": "Install Moonbeam runtime and set MOONBEAM_MODEL_PATH.",
+      "details": {
+        "has_torch": false,
+        "has_moonbeam_module": false,
+        "model_path_configured": false
+      },
+      "limitations": [
+        "Moonbeam weights/runtime are optional and not included in this repository.",
+        "Adapter currently performs capability/availability reporting only.",
+        "No model inference is executed when backend is unavailable."
+      ],
+      "checked_at": "2026-05-23T03:36:31.963236+00:00"
+    },
+    {
+      "provider_id": "midigpt",
+      "display_name": "MIDI-GPT",
+      "available": false,
+      "capabilities": [
+        "multitrack_generation",
+        "controllable_generation",
+        "midi_infill",
+        "midi_continuation",
+        "explanation"
+      ],
+      "default_role": "controllable_composer_backend",
+      "role_hint": "Use for controllable multitrack symbolic composition and infill.",
+      "installation_hint": "Install MIDI-GPT runtime and set MIDIGPT_MODEL_PATH.",
+      "details": {
+        "has_torch": false,
+        "has_midigpt_module": false,
+        "model_path_configured": false
+      },
+      "limitations": [
+        "MIDI-GPT weights/runtime are optional and not included in this repository.",
+        "Adapter currently performs capability/availability reporting only.",
+        "No model inference is executed when backend is unavailable."
+      ],
+      "checked_at": "2026-05-23T03:36:31.963566+00:00"
+    },
+    {
+      "provider_id": "text2midi",
+      "display_name": "Text2MIDI",
+      "available": false,
+      "capabilities": [
+        "text_to_midi",
+        "controllable_generation",
+        "explanation"
+      ],
+      "default_role": "prompt_sketch_generator",
+      "role_hint": "Use for text prompt to symbolic sketch generation.",
+      "installation_hint": "Install Text2MIDI runtime and set TEXT2MIDI_MODEL_PATH.",
+      "details": {
+        "has_torch": false,
+        "has_text2midi_module": false,
+        "model_path_configured": false
+      },
+      "limitations": [
+        "Text2MIDI weights/runtime are optional and not included in this repository.",
+        "Adapter currently performs capability/availability reporting only.",
+        "No model inference is executed when backend is unavailable."
+      ],
+      "checked_at": "2026-05-23T03:36:31.963786+00:00"
+    }
+  ]
+}

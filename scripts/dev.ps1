@@ -104,6 +104,9 @@ function Show-Usage {
     Write-Host "  diagnose-generative-pairing <generative-dataset-folder>"
     Write-Host "  generate-midi-from-examples <generative-dataset-folder> [task] [split]"
     Write-Host "  validate-generated-midi <output-folder>"
+    Write-Host "  check-symbolic-model-backends"
+    Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
+    Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
@@ -982,6 +985,29 @@ switch ($Task) {
         $outputFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd validate-generated-midi <output-folder>"
         Invoke-Step -Label "Validating generated MIDI outputs" -Command @(
             "python", "scripts/validate_generated_midi_outputs.py", $outputFolder
+        )
+    }
+    "check-symbolic-model-backends" {
+        Invoke-Step -Label "Checking symbolic model backend availability" -Command @(
+            "python", "scripts/check_symbolic_model_backends.py"
+        )
+    }
+    "plan-symbolic-generation" {
+        $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-symbolic-generation <generative-dataset-folder> [task]"
+        $taskName = Get-TaskArg -Index 1
+        $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
+        Invoke-Step -Label "Planning symbolic generation strategy" -Command @(
+            "python", "scripts/plan_symbolic_generation.py", $datasetFolder, "--task", $taskValue
+        )
+    }
+    "generate-midi-with-backend" {
+        $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
+        $providerName = Get-TaskArg -Index 1
+        $taskName = Get-TaskArg -Index 2
+        $providerValue = if (-not [string]::IsNullOrWhiteSpace($providerName)) { $providerName } else { "example_retrieval" }
+        $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
+        Invoke-Step -Label "Generating MIDI via symbolic backend wrapper" -Command @(
+            "python", "scripts/generate_midi_with_backend.py", $datasetFolder, "--provider", $providerValue, "--task", $taskValue
         )
     }
     "batch-trusted-exports" {
