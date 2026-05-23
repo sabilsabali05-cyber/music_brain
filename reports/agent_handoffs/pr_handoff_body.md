@@ -1,32 +1,25 @@
 ## summary
-- Phase: generative-audit-coverage-and-prototype-midi
-- Goal: Fix compacted generative audit resolution and add prototype MIDI generation from existing examples.
+- Phase: unspecified-phase
+- Goal: No goal supplied.
 
 ## test results
-- scripts\dev.cmd test: 187 passed, 2 warnings
+- (none)
 
 ## validation results
-- Ghost generated MIDI validation: success (4 files)
-- Sunday generated MIDI validation: success (4 files)
+- (none)
 
 ## artifact paths
-- reports/dataset_quality/dataset_quality_yield_report.json
-- outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1
-- outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1
+- (none)
 
 ## metrics before/after
 **before**
-- total_generative_examples: 430
+- (none)
 
 **after**
-- total_generative_examples: 528
-- split_train: 43
-- split_validation: 165
-- split_review: 320
-- split_exclude: 0
+- (none)
 
 ## risks
-- Hybrid context/target mode currently safe-fallback only when context timing is insufficient.
+- (none)
 
 ## questions for Sabil
 - (none)

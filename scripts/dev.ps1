@@ -109,6 +109,8 @@ function Show-Usage {
     Write-Host "  plan-ratio-analysis <performance-manifest>"
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
+    Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
+    Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
@@ -1029,6 +1031,24 @@ switch ($Task) {
         $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
         Invoke-Step -Label "Generating MIDI via symbolic backend wrapper" -Command @(
             "python", "scripts/generate_midi_with_backend.py", $datasetFolder, "--provider", $providerValue, "--task", $taskValue
+        )
+    }
+    "generate-tangible-demo" {
+        $durationArg = Get-TaskArg -Index 0
+        $ratioArg = Get-TaskArg -Index 1
+        $goalArg = Get-TaskArg -Index 2
+        $duration = if (-not [string]::IsNullOrWhiteSpace($durationArg)) { $durationArg } else { "180" }
+        $ratio = if (-not [string]::IsNullOrWhiteSpace($ratioArg)) { $ratioArg } else { "golden_ratio" }
+        $goal = if (-not [string]::IsNullOrWhiteSpace($goalArg)) { $goalArg } else { "climax" }
+        Invoke-Step -Label "Generating tangible MIDI demo composition" -Command @(
+            "python", "scripts/generate_tangible_demo.py", $duration, $ratio, $goal
+        )
+    }
+    "validate-tangible-demo" {
+        $outputFolder = Get-TaskArg -Index 0
+        $target = if (-not [string]::IsNullOrWhiteSpace($outputFolder)) { $outputFolder } else { "outputs/tangible_generation_v1" }
+        Invoke-Step -Label "Validating tangible demo outputs" -Command @(
+            "python", "scripts/validate_tangible_demo.py", $target
         )
     }
     "batch-trusted-exports" {

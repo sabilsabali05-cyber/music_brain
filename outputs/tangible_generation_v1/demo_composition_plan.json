@@ -1,0 +1,217 @@
+{
+  "plan_id": "tangible_generation_v1_plan",
+  "duration_seconds": 180.0,
+  "structure_ratio": "golden_ratio",
+  "goal": "climax",
+  "climax_seconds": 111.246,
+  "sections": [
+    {
+      "section_id": "intro",
+      "section_name": "intro",
+      "start_seconds": 0.0,
+      "end_seconds": 25.2,
+      "section_goal": "establish material"
+    },
+    {
+      "section_id": "build",
+      "section_name": "build",
+      "start_seconds": 25.2,
+      "end_seconds": 89.646,
+      "section_goal": "increase tension"
+    },
+    {
+      "section_id": "climax",
+      "section_name": "climax",
+      "start_seconds": 89.646,
+      "end_seconds": 122.046,
+      "section_goal": "climax"
+    },
+    {
+      "section_id": "release",
+      "section_name": "release",
+      "start_seconds": 122.046,
+      "end_seconds": 150.846,
+      "section_goal": "inverse_phi_decay"
+    },
+    {
+      "section_id": "outro",
+      "section_name": "outro",
+      "start_seconds": 150.846,
+      "end_seconds": 180.0,
+      "section_goal": "resolve"
+    }
+  ],
+  "midi_parts": [
+    {
+      "part_id": "drums_part",
+      "track_role": "drums",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:0.0-44.75:44.75-116.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:244.0-288.0:288.0-325.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:325.0-383.5:383.5-472.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:383.5-472.25:472.25-531.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:531.0-592.5:592.5-656.5"
+      ],
+      "transformations_applied": [
+        "intro:transpose(-2),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(-1),stride(2),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(0),stride(1),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(1),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(2),stride(1),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 76
+    },
+    {
+      "part_id": "bass_part",
+      "track_role": "bass",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:continuation:116.25-244.0:244.0-288.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:continuation:186.75-288.0:288.0-325.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:continuation:288.0-383.5:383.5-472.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:continuation:383.5-531.0:531.0-592.5",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:continuation:44.75-186.75:186.75-244.0"
+      ],
+      "transformations_applied": [
+        "intro:transpose(-1),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(0),stride(1),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(1),stride(2),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(2),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(-2),stride(2),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 18
+    },
+    {
+      "part_id": "chords_part",
+      "track_role": "chords",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:phrase_continuation:472.25-592.5:592.5-656.5",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2361.5-2481.5:2481.5-2550.75",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2421.5-2550.75:2550.75-2638.75",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2481.5-2638.75:2638.75-2688.75",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:phrase_continuation:2638.75-2741.25:2741.25-2788.5"
+      ],
+      "transformations_applied": [
+        "intro:transpose(0),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(1),stride(2),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(2),stride(1),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(-2),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(-1),stride(1),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 9
+    },
+    {
+      "part_id": "lead_part",
+      "track_role": "lead",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:0.0-44.75:44.75-116.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:325.0-383.5:383.5-472.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:383.5-472.25:472.25-531.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:531.0-592.5:592.5-656.5",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:592.5-656.5:656.5-712.75"
+      ],
+      "transformations_applied": [
+        "intro:transpose(1),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(2),stride(1),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(-2),stride(2),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(-1),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(0),stride(2),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 74
+    },
+    {
+      "part_id": "counter_melody_part",
+      "track_role": "counter_melody",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:0.0-44.75:44.75-116.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:244.0-288.0:288.0-325.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:383.5-472.25:472.25-531.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:531.0-592.5:592.5-656.5",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:call_response:592.5-656.5:656.5-712.75"
+      ],
+      "transformations_applied": [
+        "intro:transpose(2),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(-2),stride(2),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(-1),stride(1),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(0),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(1),stride(1),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 76
+    },
+    {
+      "part_id": "texture_bed_part",
+      "track_role": "texture_bed",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:288.0-383.5:383.5-472.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:44.75-186.75:186.75-244.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:592.5-712.75:712.75-751.421",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:1700.75-1821.5:1821.5-1881.5",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:2741.25-2876.0:2876.0-2936.0"
+      ],
+      "transformations_applied": [
+        "intro:transpose(-2),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(-1),stride(1),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(0),stride(2),velocity_scale(1.05),time_scale(0.40)",
+        "release:transpose(1),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(2),stride(2),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 139
+    },
+    {
+      "part_id": "transition_fx_part",
+      "track_role": "transition_fx",
+      "source_example_ids": [
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:288.0-383.5:383.5-472.25",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:44.75-186.75:186.75-244.0",
+        "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:buildup_to_release:592.5-712.75:712.75-751.421",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:1520.75-1640.75:1640.75-1700.75",
+        "20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:buildup_to_release:2741.25-2876.0:2876.0-2936.0"
+      ],
+      "transformations_applied": [
+        "intro:transpose(-1),stride(1),velocity_scale(0.85),time_scale(0.40)",
+        "build:transpose(0),stride(2),velocity_scale(0.95),time_scale(0.40)",
+        "climax:transpose(1),stride(1),velocity_scale(1.05),time_scale(0.44)",
+        "release:transpose(2),stride(2),velocity_scale(0.85),time_scale(0.40)",
+        "outro:transpose(-2),stride(1),velocity_scale(0.95),time_scale(0.40)"
+      ],
+      "note_count": 168
+    }
+  ],
+  "sound_roles": [
+    {
+      "track_role": "drums",
+      "requested_texture": "groove-driving rhythmic backbone",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "bass",
+      "requested_texture": "low-end pulse",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "chords",
+      "requested_texture": "harmonic support layer",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "lead",
+      "requested_texture": "foreground melodic hook",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "counter_melody",
+      "requested_texture": "call/response melodic layer",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "texture_bed",
+      "requested_texture": "ambient sustained texture",
+      "generation_method": "recombined_example"
+    },
+    {
+      "track_role": "transition_fx",
+      "requested_texture": "section transitions and swells",
+      "generation_method": "recombined_example"
+    }
+  ],
+  "created_at": "2026-05-23T07:37:14.694389+00:00"
+}
