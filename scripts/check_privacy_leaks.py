@@ -46,6 +46,7 @@ ALLOWLIST_PATH_SNIPPETS = [
     "reports/sample_libraries/",
     "reports/privacy/",
     "scripts/check_privacy_leaks.py",
+    "tests/",
 ]
 
 

@@ -106,6 +106,8 @@ function Show-Usage {
     Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
     Write-Host "  check-symbolic-backends"
+    Write-Host "  check-model-integrations"
+    Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
@@ -1019,6 +1021,16 @@ switch ($Task) {
     "check-symbolic-backends" {
         Invoke-Step -Label "Checking symbolic ensemble backend availability" -Command @(
             "python", "scripts/check_symbolic_backends.py"
+        )
+    }
+    "check-model-integrations" {
+        Invoke-Step -Label "Checking broader model integration availability" -Command @(
+            "python", "scripts/check_model_integrations.py"
+        )
+    }
+    "write-model-integration-roadmap" {
+        Invoke-Step -Label "Writing model integration roadmap report" -Command @(
+            "python", "scripts/write_model_integration_roadmap.py"
         )
     }
     "plan-symbolic-generation" {

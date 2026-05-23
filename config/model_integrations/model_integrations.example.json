@@ -1,0 +1,27 @@
+{
+  "config_version": 1,
+  "description": "Model integration local template. Keep disabled unless explicitly configured.",
+  "models": {
+    "moonbeam": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "midigpt": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "text2midi": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "musicbert": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "yourmt3": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "basic_pitch": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "muq": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "mert": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "essentia": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "clap": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "mulan_style": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "demucs": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "musicgen": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "audiocraft": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "musicgen_stem": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "texture_embedding_model": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "synplant_seed_selector": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "synplant_patch_ranker": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "ableton_exporter": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "max_for_live_bridge": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "puredata_plugdata_bridge": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" }
+  }
+}
