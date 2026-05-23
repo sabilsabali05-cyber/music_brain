@@ -152,6 +152,38 @@ def _index_performance_manifests(project_root: Path) -> dict[str, Path]:
     return output
 
 
+def _token_overlap_score(a: str, b: str) -> int:
+    a_tokens = {token for token in a.split("_") if token}
+    b_tokens = {token for token in b.split("_") if token}
+    return len(a_tokens & b_tokens)
+
+
+def _resolve_generative_dataset_dir(project_root: Path, performance_id: str, run_id: str) -> Path:
+    direct = (project_root / "datasets" / "generative_training" / performance_id / run_id).resolve()
+    if (direct / "generative_manifest.json").exists():
+        return direct
+
+    root = (project_root / "datasets" / "generative_training").resolve()
+    if not root.exists():
+        return direct
+    candidates = [path.parent for path in root.glob(f"*/{run_id}/generative_manifest.json")]
+    if not candidates:
+        return direct
+    if len(candidates) == 1:
+        return candidates[0]
+
+    ranked = sorted(
+        candidates,
+        key=lambda path: (
+            _token_overlap_score(performance_id, path.parent.name),
+            int(path.parent.name.startswith(performance_id.split("_", 1)[0])),
+            len(path.parent.name),
+        ),
+        reverse=True,
+    )
+    return ranked[0]
+
+
 def audit_dataset_quality_yield(
     *,
     project_root: Path = Path("."),
@@ -260,7 +292,7 @@ def audit_dataset_quality_yield(
         consensus_payload = _read_json(consensus_path)
         comparison_payload = _read_json(external_dir / "model_witness_comparison.json")
         trust_audit_payload = _read_json(audit_path)
-        generative_dir = (project_root / "datasets" / "generative_training" / performance_id / run_id).resolve()
+        generative_dir = _resolve_generative_dataset_dir(project_root, performance_id, run_id)
         generative_manifest = _read_json(generative_dir / "generative_manifest.json")
         generative_examples = _read_jsonl(generative_dir / "generative_examples.jsonl")
 

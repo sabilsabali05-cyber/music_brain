@@ -231,3 +231,81 @@ def test_audit_flags_hard_labels_without_confidence_and_no_audio_processing(tmp_
     payload = json.loads(json_path.read_text(encoding="utf-8"))
     perf = next(row for row in payload["performance_reports"] if row["performance_id"] == "perf_conf")
     assert "hard_labels_without_confidence" in perf["risk_flags"]
+
+
+def test_audit_resolves_compacted_generative_dataset_path(tmp_path: Path, monkeypatch) -> None:
+    performance_id = "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir"
+    compacted_id = "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59"
+    run_id = "20260521T204750163461_audio_structure_v1"
+
+    _seed_perf(
+        tmp_path,
+        performance_id=performance_id,
+        run_id=run_id,
+        duration_seconds=120.0,
+        source_records=[{"record_id": "s1"}],
+        accepted_records=[{"record_id": "a1", "label_status": "raw_observation", "confidence": 0.9}],
+        weak_records=[],
+        review_records=[],
+        quarantined_records=[],
+        provider_status={
+            "essentia_features.json": "success",
+            "music21_features.json": "success",
+            "musicnn_features.json": "success",
+            "beat_tracker_features.json": "success",
+            "omnizart_availability.json": "success",
+        },
+    )
+
+    default_generative_dir = tmp_path / "datasets" / "generative_training" / performance_id
+    if default_generative_dir.exists():
+        for path in sorted(default_generative_dir.glob("**/*"), reverse=True):
+            if path.is_file():
+                path.unlink()
+            elif path.is_dir():
+                path.rmdir()
+        default_generative_dir.rmdir()
+
+    compacted_generative_dir = tmp_path / "datasets" / "generative_training" / compacted_id / run_id
+    _write_json(
+        compacted_generative_dir / "generative_manifest.json",
+        {
+            "performance_id": compacted_id,
+            "segment_run_id": run_id,
+            "generative_examples_count": 2,
+            "split_counts": {"train": 1, "validation": 1, "review": 0, "exclude": 0},
+            "examples_by_task_type": {
+                "continuation": 1,
+                "phrase_continuation": 1,
+                "groove_continuation": 1,
+                "harmony_continuation": 1,
+                "melody_continuation": 1,
+                "call_response": 1,
+                "motif_transformation": 1,
+                "section_transition": 1,
+                "buildup_to_release": 1,
+                "infill_missing_region": 1,
+            },
+            "average_quality_score": 0.73,
+            "examples_per_minute": 1.0,
+            "high_quality_examples_per_minute": 0.5,
+        },
+    )
+    _write_jsonl(
+        compacted_generative_dir / "generative_examples.jsonl",
+        [
+            {"example_id": "x1", "task_type": "continuation", "split_recommendation": "train", "quality_score": {"final_score": 0.8}},
+            {"example_id": "x2", "task_type": "call_response", "split_recommendation": "validation", "quality_score": {"final_score": 0.7}},
+        ],
+    )
+
+    monkeypatch.chdir(tmp_path)
+    json_path, _ = audit_dataset_quality_yield()
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+    perf = next(row for row in payload["performance_reports"] if row["performance_id"] == performance_id)
+    generative = perf["generative_dataset"]
+
+    assert generative["generative_dataset_present"] is True
+    assert generative["generative_examples_count"] == 2
+    assert generative["generative_dataset_path"] == compacted_generative_dir.as_posix()
+    assert generative["missing_task_coverage"] == []

@@ -1,6 +1,6 @@
 {
-  "phase": "unspecified-phase",
-  "goal": "No goal supplied.",
+  "phase": "generative-audit-coverage-and-prototype-midi",
+  "goal": "Fix compacted generative audit resolution and add prototype MIDI generation from existing examples.",
   "constraints_followed": [
     "No audio processing performed",
     "Modal not called",
@@ -10,36 +10,52 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.json",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.md",
-    "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_summary.md",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.json",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.md",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_summary.md",
-    "features/generative/task_policies.py",
     "reports/dataset_quality/dataset_quality_yield_report.json",
     "reports/dataset_quality/dataset_quality_yield_report.md",
-    "scripts/build_generative_training_examples.py",
+    "scripts/audit_dataset_quality_yield.py",
     "scripts/dev.ps1",
-    "tests/test_generative_training_examples.py",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.json",
-    "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.md",
-    "scripts/diagnose_generative_pairing.py"
+    "tests/test_dataset_quality_yield_audit.py",
+    "outputs/",
+    "scripts/generate_midi_from_examples.py",
+    "scripts/validate_generated_midi_outputs.py",
+    "tests/test_generate_midi_from_examples.py"
   ],
-  "commands_run": [],
-  "tests_result": [],
-  "validation_results": [],
-  "generated_artifacts": [],
-  "metrics_before": {},
-  "metrics_after": {},
-  "risks_concerns": [],
+  "commands_run": [
+    "scripts\\dev.cmd audit-dataset-quality-yield",
+    "scripts\\dev.cmd test",
+    "scripts\\dev.cmd generate-midi-from-examples Ghost continuation train",
+    "scripts\\dev.cmd validate-generated-midi Ghost output",
+    "scripts\\dev.cmd generate-midi-from-examples Sunday call_response validation",
+    "scripts\\dev.cmd validate-generated-midi Sunday output"
+  ],
+  "tests_result": [
+    "scripts\\dev.cmd test: 187 passed, 2 warnings"
+  ],
+  "validation_results": [
+    "Ghost generated MIDI validation: success (4 files)",
+    "Sunday generated MIDI validation: success (4 files)"
+  ],
+  "generated_artifacts": [
+    "reports/dataset_quality/dataset_quality_yield_report.json",
+    "outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1",
+    "outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1"
+  ],
+  "metrics_before": {
+    "total_generative_examples": "430"
+  },
+  "metrics_after": {
+    "total_generative_examples": "528",
+    "split_train": "43",
+    "split_validation": "165",
+    "split_review": "320",
+    "split_exclude": "0"
+  },
+  "risks_concerns": [
+    "Hybrid context/target mode currently safe-fallback only when context timing is insufficient."
+  ],
   "open_user_decisions": [],
-  "recommended_next_step": "Await audit feedback before next major phase.",
-  "commit_hash": "e67231d2c461e910a143934183910c4e6febfa79",
-  "git_status": "## cursor/sunday-service-generative-boundary-calibration\n M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl\n M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json\n M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.json\n M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_quality_diagnostics.md\n M datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_summary.md\n M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl\n M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json\n M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.json\n M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_quality_diagnostics.md\n M datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_summary.md\n M features/generative/task_policies.py\n M reports/dataset_quality/dataset_quality_yield_report.json\n M reports/dataset_quality/dataset_quality_yield_report.md\n M scripts/build_generative_training_examples.py\n M scripts/dev.ps1\n M tests/test_generative_training_examples.py\n?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.json\n?? datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_pairing_diagnostics.md\n?? scripts/diagnose_generative_pairing.py",
-  "generated_at_utc": "2026-05-23T01:33:08.701072+00:00"
+  "recommended_next_step": "Open PR for audit and confirm desired default generation mode for future prototype batches.",
+  "commit_hash": "1acc12f67acc6d381a51454678a9d1764fb27788",
+  "git_status": "## cursor/prototype-midi-generation-from-examples\n M reports/dataset_quality/dataset_quality_yield_report.json\n M reports/dataset_quality/dataset_quality_yield_report.md\n M scripts/audit_dataset_quality_yield.py\n M scripts/dev.ps1\n M tests/test_dataset_quality_yield_audit.py\n?? outputs/\n?? scripts/generate_midi_from_examples.py\n?? scripts/validate_generated_midi_outputs.py\n?? tests/test_generate_midi_from_examples.py",
+  "generated_at_utc": "2026-05-23T02:57:33.397431+00:00"
 }
