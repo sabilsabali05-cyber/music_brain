@@ -101,6 +101,7 @@ function Show-Usage {
     Write-Host "  build-generative-examples <performance-manifest>"
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
     Write-Host "  diagnose-generative-examples <generative-dataset-folder>"
+    Write-Host "  diagnose-generative-pairing <generative-dataset-folder>"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
@@ -957,6 +958,12 @@ switch ($Task) {
         $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd diagnose-generative-examples <generative-dataset-folder>"
         Invoke-Step -Label "Diagnosing generative training examples" -Command @(
             "python", "scripts/diagnose_generative_examples.py", $datasetFolder
+        )
+    }
+    "diagnose-generative-pairing" {
+        $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd diagnose-generative-pairing <generative-dataset-folder>"
+        Invoke-Step -Label "Diagnosing generative pairing quality" -Command @(
+            "python", "scripts/diagnose_generative_pairing.py", $datasetFolder
         )
     }
     "batch-trusted-exports" {

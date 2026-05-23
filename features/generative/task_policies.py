@@ -32,6 +32,20 @@ NON_CRITICAL_WEAKNESSES = {
     "missing_human_verification",
 }
 
+SOFT_BLOCKERS = {
+    "route_state_unsuitable",
+    "phrase_boundary_weak",
+    "weak_or_missing_task_evidence",
+}
+
+EVIDENCE_BOOSTERS: dict[str, list[str]] = {
+    "continuation": ["compatible_state_pairing", "long_form_context"],
+    "phrase_continuation": ["phrase_boundary_evidence", "density_boundary_change"],
+    "call_response": ["density_arc_response", "rhythmic_contrast_response"],
+    "harmony_continuation": ["pitch_harmony_overlap", "meter_time_support"],
+    "melody_continuation": ["pitch_harmony_overlap", "motif_or_contour_support"],
+}
+
 
 def _policy(
     *,
