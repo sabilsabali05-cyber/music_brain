@@ -264,7 +264,7 @@
   },
   "limitations": [
     "Readiness is inferred from available local artifacts and may include unknowns.",
-    "Dataset quality signal source: C:/Users/izzyo/ai-composer/music_brain/reports/dataset_quality/dataset_quality_yield_report.json (if present).",
+    "Dataset quality signal source: <PRIVATE_LOCAL_PATH>/ai-composer/music_brain/reports/dataset_quality/dataset_quality_yield_report.json (if present).",
     "No model training, transcription, modal calls, or audio processing performed."
   ]
 }

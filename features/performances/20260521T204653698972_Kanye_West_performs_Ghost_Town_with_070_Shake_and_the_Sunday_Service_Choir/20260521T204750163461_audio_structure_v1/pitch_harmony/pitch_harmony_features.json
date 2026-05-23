@@ -7,10 +7,10 @@
   "end_seconds": null,
   "duration_seconds": null,
   "source_artifact_paths": {
-    "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
-    "segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json",
-    "analysis_path": "C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json",
-    "merged_midi_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merged_performance.mid"
+    "performance_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json",
+    "segments_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json",
+    "analysis_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json",
+    "merged_midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merged_performance.mid"
   },
   "feature_version": "pitch_harmony_pack_v1",
   "extractor_name": "pitch_harmony_feature_extractor_v1",
@@ -29,7 +29,7 @@
   "records": [],
   "generated_at": "2026-05-22T16:37:23.025372+00:00",
   "context_artifacts": {
-    "rhythm_features_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
+    "rhythm_features_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
     "rhythm_features_summary": {
       "record_count": 215,
       "source_mode": "merged",
@@ -42,7 +42,7 @@
       },
       "bin_seconds": 4.0
     },
-    "harmony_features_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
+    "harmony_features_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
     "harmony_features_summary": {
       "record_count": 215,
       "source_mode": "merged",
@@ -55,13 +55,13 @@
       },
       "bin_seconds": 4.0
     },
-    "tags_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
+    "tags_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
     "tags_summary": {},
-    "routing_asset_classification_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/asset_classification.json",
+    "routing_asset_classification_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/asset_classification.json",
     "routing_asset_classification_summary": {},
-    "routing_content_regions_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/content_region_routes.json",
+    "routing_content_regions_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/content_region_routes.json",
     "routing_content_regions_summary": {},
-    "routing_decisions_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/analysis_routing_decisions.json",
+    "routing_decisions_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/routing/analysis_routing_decisions.json",
     "routing_decisions_summary": {
       "decision_count": 402,
       "suppressed_label_count": 363,
@@ -73,7 +73,7 @@
         "unknown"
       ]
     },
-    "transcription_reliability_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json",
+    "transcription_reliability_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json",
     "transcription_reliability_summary": {
       "high_windows": 13,
       "medium_windows": 0,

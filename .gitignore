@@ -50,6 +50,10 @@ config/symbolic_backends/*.local.json
 outputs/tangible_generation_v1/*seed_suggestions*.json
 outputs/tangible_generation_v1/*seed_suggestions*.md
 
+# Generated backend output runs are local artifacts and can embed local paths
+outputs/generated_midi/**
+outputs/model_backend_runs/**
+
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json
 outputs/ableton_project_v1/**/private_synplant_*_paths.md

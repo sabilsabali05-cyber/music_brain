@@ -4,10 +4,10 @@
 - segment_run_id: `20260521T213524641640_audio_structure_v1`
 - source_duration_seconds: `3324.842086`
 - source_artifacts:
-  - performance_manifest: `C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json`
-  - active_analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Sunday_Service_Choir_122621/20260521T213424878654_modal_librosa_dense/structure_analysis.json`
-  - active_segments_manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
-  - active_merged_midi_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merged_performance.mid`
+  - performance_manifest: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json`
+  - active_analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Sunday_Service_Choir_122621/20260521T213424878654_modal_librosa_dense/structure_analysis.json`
+  - active_segments_manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json`
+  - active_merged_midi_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merged_performance.mid`
 
 - rhythm_summary: `{"record_count": 941, "source_mode": "merged", "low_confidence_record_count": 395, "record_count_by_granularity": {"performance": 1, "segment": 54, "window": 54, "rhythm_region": 832}, "bin_seconds": 4.0}`
 - harmony_summary: `{"record_count": 941, "source_mode": "merged", "low_confidence_record_count": 506, "record_count_by_granularity": {"performance": 1, "segment": 54, "window": 54, "chord_region": 832}, "bin_seconds": 4.0}`

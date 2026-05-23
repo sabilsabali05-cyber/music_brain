@@ -4,10 +4,10 @@
 - segment_run_id: `20260521T204750163461_audio_structure_v1`
 - source_duration_seconds: `751.420952`
 - source_artifacts:
-  - performance_manifest: `C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json`
-  - active_analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json`
-  - active_segments_manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json`
-  - active_merged_midi_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merged_performance.mid`
+  - performance_manifest: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/performance_manifest.json`
+  - active_analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204701196539_modal_librosa_dense/structure_analysis.json`
+  - active_segments_manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/segments_manifest.json`
+  - active_merged_midi_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/merged/merged_performance.mid`
 
 - rhythm_summary: `{"record_count": 215, "source_mode": "merged", "low_confidence_record_count": 52, "record_count_by_granularity": {"performance": 1, "segment": 13, "window": 13, "rhythm_region": 188}, "bin_seconds": 4.0}`
 - harmony_summary: `{"record_count": 215, "source_mode": "merged", "low_confidence_record_count": 98, "record_count_by_granularity": {"performance": 1, "segment": 13, "window": 13, "chord_region": 188}, "bin_seconds": 4.0}`

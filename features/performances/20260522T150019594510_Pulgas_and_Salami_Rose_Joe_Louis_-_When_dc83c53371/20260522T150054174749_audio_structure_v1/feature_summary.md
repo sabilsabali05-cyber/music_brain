@@ -4,10 +4,10 @@
 - segment_run_id: `20260522T150054174749_audio_structure_v1`
 - source_duration_seconds: `281.849025`
 - source_artifacts:
-  - performance_manifest: `C:/Users/izzyo/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json`
-  - active_analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150020358993_modal_librosa_dense/structure_analysis.json`
-  - active_segments_manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/segments_manifest.json`
-  - active_merged_midi_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/merged/merged_performance.mid`
+  - performance_manifest: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/performance_manifest.json`
+  - active_analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150020358993_modal_librosa_dense/structure_analysis.json`
+  - active_segments_manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/segments_manifest.json`
+  - active_merged_midi_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send/20260522T150054174749_audio_structure_v1/merged/merged_performance.mid`
 
 - rhythm_summary: `{"record_count": 80, "source_mode": "merged", "low_confidence_record_count": 36, "record_count_by_granularity": {"performance": 1, "segment": 4, "window": 4, "rhythm_region": 71}, "bin_seconds": 4.0}`
 - harmony_summary: `{"record_count": 80, "source_mode": "merged", "low_confidence_record_count": 42, "record_count_by_granularity": {"performance": 1, "segment": 4, "window": 4, "chord_region": 71}, "bin_seconds": 4.0}`

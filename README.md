@@ -52,7 +52,7 @@ scripts\dev.cmd analyze-structure-local "samples/input/my_song.wav"
 scripts\dev.cmd analyze-structure-modal "samples/input/my_song.wav"
 scripts\dev.cmd analyze-structure-modal-dense "samples/input/my_song.wav"
 scripts\dev.cmd audio-analysis-diagnostics
-scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd segment-audio "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd segment-audio-structure "samples/input/my_song.wav" 60
 scripts\dev.cmd segment-audio-structure-dense "samples/input/my_song.wav" 60
 scripts\dev.cmd segment-audio-structure-tuned "samples/input/my_song.wav" 60 0.45
@@ -88,7 +88,7 @@ scripts\dev.cmd commit-checkpoint "My commit message"
 When paths contain spaces on Windows, always quote them, for example:
 
 ```powershell
-scripts\dev.cmd clip-and-transcribe-yourmt3 "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 30
+scripts\dev.cmd clip-and-transcribe-yourmt3 "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 30
 ```
 
 Troubleshooting:
@@ -343,7 +343,7 @@ Future improvements can layer in beat/bar grid, chroma/harmonic shifts, recurren
 Safe first run for long audio:
 
 ```powershell
-scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd segment-audio "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd transcribe-windows "<manifest_path>" 2
 scripts\dev.cmd benchmark-segments "<manifest_path>"
@@ -369,7 +369,7 @@ Convenience pointers and comparison:
 Example:
 
 ```powershell
-scripts\dev.cmd segment-audio "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 energy
+scripts\dev.cmd segment-audio "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 energy
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 ```
@@ -426,8 +426,8 @@ This does not change YourMT3 model logic and does not require transcription to r
 Preferred flow:
 
 ```powershell
-scripts\dev.cmd analyze-structure-modal "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3"
-scripts\dev.cmd segment-audio-structure "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
+scripts\dev.cmd analyze-structure-modal "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3"
+scripts\dev.cmd segment-audio-structure "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 60
 scripts\dev.cmd inspect-latest-segments
 scripts\dev.cmd compare-segmentations "samples/segments/Varud_-_Sigur_Ros_Valtari"
 ```
@@ -441,7 +441,7 @@ Guidance:
 Tuning experiment helper:
 
 ```powershell
-scripts\dev.cmd segment-audio-structure-tuned "C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 0.45
+scripts\dev.cmd segment-audio-structure-tuned "<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3" 60 0.45
 ```
 
 This keeps prior runs intact and records tuning values in `segmentation_parameters` inside each manifest.

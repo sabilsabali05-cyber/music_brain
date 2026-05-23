@@ -1,6 +1,6 @@
 # Symbolic Generation Plan
 
-- dataset_folder: `C:/Users/izzyo/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1`
+- dataset_folder: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1`
 - requested_task: `call_response`
 - prompt: ``
 - example_count_for_task: `45`

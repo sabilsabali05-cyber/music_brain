@@ -3,15 +3,15 @@
   "segment_run_id": "20260521T213524641640_audio_structure_v1",
   "created_at": "2026-05-22T02:19:33.758579+00:00",
   "source_artifacts": {
-    "performance_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json",
-    "segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json",
-    "merge_report_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merge_report.json"
+    "performance_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/library/20260521T213418203003_Sunday_Service_Choir_122621/performance_manifest.json",
+    "segments_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/segments_manifest.json",
+    "merge_report_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/merged/merge_report.json"
   },
   "windows": [
     {
       "window_id": "win_0000",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T213531Z_7aeced0dbe/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T213531Z_7aeced0dbe/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 268,
@@ -38,7 +38,7 @@
     {
       "window_id": "win_0001",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T213641Z_7c0dba07d9/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T213641Z_7c0dba07d9/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 312,
@@ -65,7 +65,7 @@
     {
       "window_id": "win_0002",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T213652Z_8cbb55fa0b/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T213652Z_8cbb55fa0b/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 385,
@@ -92,7 +92,7 @@
     {
       "window_id": "win_0003",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220302Z_87960dccdb/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220302Z_87960dccdb/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1595,
@@ -119,7 +119,7 @@
     {
       "window_id": "win_0004",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220405Z_92d4618d40/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220405Z_92d4618d40/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 836,
@@ -146,7 +146,7 @@
     {
       "window_id": "win_0005",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220418Z_010e3a49cc/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220418Z_010e3a49cc/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1584,
@@ -173,7 +173,7 @@
     {
       "window_id": "win_0006",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220437Z_d1093c01e3/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220437Z_d1093c01e3/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2303,
@@ -200,7 +200,7 @@
     {
       "window_id": "win_0007",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220457Z_6f78b294c8/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220457Z_6f78b294c8/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5222,
@@ -227,7 +227,7 @@
     {
       "window_id": "win_0008",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220523Z_c52f404739/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220523Z_c52f404739/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3587,
@@ -254,7 +254,7 @@
     {
       "window_id": "win_0009",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220551Z_fe7760d38d/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220551Z_fe7760d38d/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5242,
@@ -281,7 +281,7 @@
     {
       "window_id": "win_0010",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220619Z_d1e02db8a4/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220619Z_d1e02db8a4/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2843,
@@ -308,7 +308,7 @@
     {
       "window_id": "win_0011",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220638Z_f71c7aa3b3/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220638Z_f71c7aa3b3/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7657,
@@ -335,7 +335,7 @@
     {
       "window_id": "win_0012",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220713Z_bda712fac8/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220713Z_bda712fac8/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7945,
@@ -362,7 +362,7 @@
     {
       "window_id": "win_0013",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220746Z_8cdb569eea/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220746Z_8cdb569eea/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5044,
@@ -389,7 +389,7 @@
     {
       "window_id": "win_0014",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220811Z_3de7457e68/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220811Z_3de7457e68/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4928,
@@ -416,7 +416,7 @@
     {
       "window_id": "win_0015",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220831Z_08e5424cb1/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220831Z_08e5424cb1/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1527,
@@ -443,7 +443,7 @@
     {
       "window_id": "win_0016",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220848Z_9053fa59a9/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220848Z_9053fa59a9/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3065,
@@ -470,7 +470,7 @@
     {
       "window_id": "win_0017",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220909Z_7eb8ef2576/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220909Z_7eb8ef2576/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4243,
@@ -497,7 +497,7 @@
     {
       "window_id": "win_0018",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220933Z_3efd48b76f/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220933Z_3efd48b76f/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6088,
@@ -524,7 +524,7 @@
     {
       "window_id": "win_0019",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T220958Z_bbc59d8964/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T220958Z_bbc59d8964/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1065,
@@ -551,7 +551,7 @@
     {
       "window_id": "win_0020",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221012Z_891bec3274/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221012Z_891bec3274/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5063,
@@ -578,7 +578,7 @@
     {
       "window_id": "win_0021",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221035Z_594811ebbe/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221035Z_594811ebbe/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2462,
@@ -605,7 +605,7 @@
     {
       "window_id": "win_0022",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221054Z_75fe1da773/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221054Z_75fe1da773/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4112,
@@ -632,7 +632,7 @@
     {
       "window_id": "win_0023",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221118Z_4e8701daaf/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221118Z_4e8701daaf/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6533,
@@ -659,7 +659,7 @@
     {
       "window_id": "win_0024",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221145Z_e7d013871b/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221145Z_e7d013871b/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7145,
@@ -686,7 +686,7 @@
     {
       "window_id": "win_0025",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221212Z_ea9f5ff672/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221212Z_ea9f5ff672/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7962,
@@ -714,7 +714,7 @@
     {
       "window_id": "win_0026",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221235Z_4c29af8c4f/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221235Z_4c29af8c4f/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3423,
@@ -741,7 +741,7 @@
     {
       "window_id": "win_0027",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221256Z_1ea23ddb12/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221256Z_1ea23ddb12/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6093,
@@ -768,7 +768,7 @@
     {
       "window_id": "win_0028",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221322Z_6a03254bfa/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221322Z_6a03254bfa/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6669,
@@ -795,7 +795,7 @@
     {
       "window_id": "win_0029",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221347Z_e8b516085d/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221347Z_e8b516085d/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4914,
@@ -822,7 +822,7 @@
     {
       "window_id": "win_0030",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221412Z_e532a22b9c/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221412Z_e532a22b9c/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5805,
@@ -849,7 +849,7 @@
     {
       "window_id": "win_0031",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221438Z_27c14c22f5/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221438Z_27c14c22f5/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4755,
@@ -876,7 +876,7 @@
     {
       "window_id": "win_0032",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221501Z_9b0e2d2f59/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221501Z_9b0e2d2f59/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3273,
@@ -903,7 +903,7 @@
     {
       "window_id": "win_0033",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221524Z_8245758665/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221524Z_8245758665/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4816,
@@ -930,7 +930,7 @@
     {
       "window_id": "win_0034",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221551Z_8e9199dca8/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221551Z_8e9199dca8/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5608,
@@ -957,7 +957,7 @@
     {
       "window_id": "win_0035",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221616Z_7dab1585d4/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221616Z_7dab1585d4/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7321,
@@ -984,7 +984,7 @@
     {
       "window_id": "win_0036",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221640Z_25e550d82f/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221640Z_25e550d82f/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5086,
@@ -1011,7 +1011,7 @@
     {
       "window_id": "win_0037",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221701Z_0b2cb62224/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221701Z_0b2cb62224/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1580,
@@ -1038,7 +1038,7 @@
     {
       "window_id": "win_0038",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221719Z_9f989b54c6/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221719Z_9f989b54c6/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 5877,
@@ -1065,7 +1065,7 @@
     {
       "window_id": "win_0039",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221746Z_db7be3e798/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221746Z_db7be3e798/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 8734,
@@ -1093,7 +1093,7 @@
     {
       "window_id": "win_0040",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221811Z_330afb8466/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221811Z_330afb8466/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3827,
@@ -1120,7 +1120,7 @@
     {
       "window_id": "win_0041",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221830Z_518106d4a3/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221830Z_518106d4a3/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4356,
@@ -1147,7 +1147,7 @@
     {
       "window_id": "win_0042",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221852Z_aee5f10c8d/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221852Z_aee5f10c8d/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1947,
@@ -1174,7 +1174,7 @@
     {
       "window_id": "win_0043",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221904Z_20173d4095/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221904Z_20173d4095/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2222,
@@ -1201,7 +1201,7 @@
     {
       "window_id": "win_0044",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221919Z_de74e29d9f/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221919Z_de74e29d9f/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2985,
@@ -1228,7 +1228,7 @@
     {
       "window_id": "win_0045",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221936Z_2cbc7c8cc8/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221936Z_2cbc7c8cc8/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 4252,
@@ -1255,7 +1255,7 @@
     {
       "window_id": "win_0046",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T221959Z_d8229268f4/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T221959Z_d8229268f4/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 3409,
@@ -1282,7 +1282,7 @@
     {
       "window_id": "win_0047",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222021Z_b26e5d66a3/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222021Z_b26e5d66a3/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7367,
@@ -1309,7 +1309,7 @@
     {
       "window_id": "win_0048",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222049Z_5d76b95fcb/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222049Z_5d76b95fcb/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 7439,
@@ -1337,7 +1337,7 @@
     {
       "window_id": "win_0049",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222116Z_9790d87318/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222116Z_9790d87318/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6841,
@@ -1364,7 +1364,7 @@
     {
       "window_id": "win_0050",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222141Z_09f0f177bf/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222141Z_09f0f177bf/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2402,
@@ -1391,7 +1391,7 @@
     {
       "window_id": "win_0051",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222201Z_a30d2c6497/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222201Z_a30d2c6497/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 6748,
@@ -1418,7 +1418,7 @@
     {
       "window_id": "win_0052",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222229Z_e84d1150d1/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222229Z_e84d1150d1/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 2887,
@@ -1445,7 +1445,7 @@
     {
       "window_id": "win_0053",
       "status": "success",
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/library/trk_20260521T222247Z_33b8ab32f8/midi/full_mix.mid",
+      "midi_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/library/trk_20260521T222247Z_33b8ab32f8/midi/full_mix.mid",
       "midi_exists": true,
       "midi_parse_success": true,
       "midi_file_size_bytes": 1018,

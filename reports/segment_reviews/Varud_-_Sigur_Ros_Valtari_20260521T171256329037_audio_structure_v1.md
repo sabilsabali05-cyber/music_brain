@@ -1,6 +1,6 @@
 # Segmentation Review: Varud - Sigur Ros (Valtari).mp3
 
-- manifest_path: `C:/Users/izzyo/ai-composer/music_brain/samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T171256329037_audio_structure_v1/segments_manifest.json`
+- manifest_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Varud_-_Sigur_Ros_Valtari/20260521T171256329037_audio_structure_v1/segments_manifest.json`
 - run_id: `20260521T171256329037_audio_structure_v1`
 - source_name: `Varud - Sigur Ros (Valtari).mp3`
 - duration_seconds: `392.370794`
@@ -11,7 +11,7 @@
 - missing_features: `[]`
 - candidate_boundary_count: `6`
 - accepted_boundary_count: `1`
-- analysis_path: `C:/Users/izzyo/ai-composer/music_brain/samples/analysis/Varud_-_Sigur_Ros_Valtari/structure_analysis.json`
+- analysis_path: `<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/analysis/Varud_-_Sigur_Ros_Valtari/structure_analysis.json`
 
 ## Accepted Musical Segments
 

@@ -8,7 +8,7 @@
       "status": "pass",
       "severity": "info",
       "evidence": {
-        "source_path": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3"
+        "source_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3"
       },
       "recommendation": "Source path present."
     },
@@ -44,7 +44,7 @@
       "status": "pass",
       "severity": "info",
       "evidence": {
-        "active_analysis_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\analysis\\Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound\\20260522T150239155925_modal_librosa_dense\\structure_analysis.json"
+        "active_analysis_path": "<PRIVATE_LOCAL_PATH>\\ai-composer\\music_brain\\samples\\analysis\\Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound\\20260522T150239155925_modal_librosa_dense\\structure_analysis.json"
       },
       "recommendation": "Re-run analysis stage if this path is expected for current run."
     },
@@ -53,7 +53,7 @@
       "status": "pass",
       "severity": "info",
       "evidence": {
-        "active_segments_manifest_path": "C:/Users/izzyo/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json"
+        "active_segments_manifest_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/samples/segments/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/segments_manifest.json"
       },
       "recommendation": "Set active_segments_manifest_path to a valid run manifest."
     },
@@ -78,7 +78,7 @@
       "severity": "info",
       "evidence": {
         "performance_complete": true,
-        "merged_midi_path": "C:\\Users\\izzyo\\ai-composer\\music_brain\\samples\\segments\\Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound\\20260522T150322987308_audio_structure_v1\\merged\\merged_performance.mid"
+        "merged_midi_path": "<PRIVATE_LOCAL_PATH>\\ai-composer\\music_brain\\samples\\segments\\Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound\\20260522T150322987308_audio_structure_v1\\merged\\merged_performance.mid"
       },
       "recommendation": "Run stitch-midi for complete performances to improve global feature consistency."
     },
@@ -87,7 +87,7 @@
       "status": "pass",
       "severity": "info",
       "evidence": {
-        "feature_pack_dir": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1"
+        "feature_pack_dir": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1"
       },
       "recommendation": "Run extract-feature-pack before trust evaluation."
     },
@@ -106,7 +106,7 @@
       "status": "pass",
       "severity": "info",
       "evidence": {
-        "ai_training_records_path": "C:/Users/izzyo/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/ai_training_records.jsonl",
+        "ai_training_records_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound/20260522T150322987308_audio_structure_v1/ai_training_records.jsonl",
         "record_count": 103
       },
       "recommendation": "Build AI training records JSONL before audit/export."

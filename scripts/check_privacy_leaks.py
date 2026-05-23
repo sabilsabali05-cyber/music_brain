@@ -15,10 +15,19 @@ REPORT_MD = REPORT_DIR / "privacy_leak_scan_report.md"
 FORBIDDEN_MARKERS = [
     "C:\\Users\\",
     "C:/Users/",
+    "C:/" + "Users/" + "izzyo",
+    "C:\\" + "Users\\" + "izzyo",
     r"OneDrive\Desktop\sounds",
     "OneDrive/Desktop/sounds",
     "private_synplant_seed_paths",
     "sample_seed_records.jsonl",
+]
+
+ENFORCED_PUBLIC_PATH_PREFIXES = [
+    "outputs/generated_midi/",
+    "outputs/model_backend_runs/",
+    "outputs/symbolic_ensemble_v1/",
+    "reports/",
 ]
 
 # These are private/local by design and should not be treated as public-leak targets.
@@ -96,6 +105,11 @@ def _is_allowlisted(relative_path: str) -> bool:
     return any(snippet in lower for snippet in ALLOWLIST_PATH_SNIPPETS)
 
 
+def _is_enforced_public_path(relative_path: str) -> bool:
+    lower = relative_path.lower()
+    return any(lower.startswith(prefix) for prefix in ENFORCED_PUBLIC_PATH_PREFIXES)
+
+
 def _scan_file(path: Path, relative_path: str) -> list[tuple[str, int]]:
     if not _is_text_file(path):
         return []
@@ -109,6 +123,16 @@ def _scan_file(path: Path, relative_path: str) -> list[tuple[str, int]]:
         count = text.count(marker)
         if count > 0:
             matches.append((marker, count))
+    # Enforce local sample identifiers only in public report/output surfaces.
+    if (
+        relative_path.startswith("reports/synplant/")
+        or relative_path.startswith("reports/texture_intelligence/")
+        or relative_path.startswith("outputs/")
+    ):
+        for marker in ("local_sounds_desktop__", "!a secret"):
+            count = text.count(marker)
+            if count > 0:
+                matches.append((marker, count))
 
     # If a real local config file is accidentally tracked, treat as leak.
     if relative_path.endswith("config/sample_libraries/local_sounds_library.json"):
@@ -116,6 +140,19 @@ def _scan_file(path: Path, relative_path: str) -> list[tuple[str, int]]:
     # Seed suggestions containing private source path are not allowed in tracked/public outputs.
     if "seed_suggestions" in relative_path and ("C:/Users/" in text or "C:\\Users\\" in text):
         matches.append(("private_seed_suggestion_path", 1))
+    # Public Synplant/texture reports should not expose direct per-sample filename/source_path fields.
+    if relative_path.startswith("reports/synplant/") and ".public." in relative_path:
+        if "\"source_path\"" in text:
+            matches.append(("public_synplant_report_contains_source_path_field", text.count("\"source_path\"")))
+        if "\"filename\"" in text:
+            matches.append(("public_synplant_report_contains_filename_field", text.count("\"filename\"")))
+        if "\"sample_id\"" in text:
+            matches.append(("public_synplant_report_contains_sample_id_field", text.count("\"sample_id\"")))
+    if relative_path == "reports/texture_intelligence/texture_analysis_plan.public.json":
+        if "\"source_path\"" in text:
+            matches.append(("public_texture_report_contains_source_path_field", text.count("\"source_path\"")))
+        if "\"filename\"" in text:
+            matches.append(("public_texture_report_contains_filename_field", text.count("\"filename\"")))
     return matches
 
 
@@ -144,13 +181,18 @@ def scan_privacy_leaks(
         if not found:
             continue
         for marker, count in found:
+            enforced_public = _is_enforced_public_path(rel)
             leak = LeakMatch(
                 path=rel,
                 marker=marker,
-                debt_type="new_or_changed_public_leak" if rel in changed else "pre_existing_historical_path_debt",
+                debt_type=(
+                    "new_or_changed_public_leak"
+                    if rel in changed
+                    else ("enforced_public_leak" if enforced_public else "pre_existing_historical_path_debt")
+                ),
                 line_count=count,
             )
-            if rel in changed:
+            if rel in changed or enforced_public:
                 new_public_leaks.append(leak)
             else:
                 historical_debt.append(leak)

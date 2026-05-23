@@ -1,6 +1,6 @@
 {
   "created_at": "20260522T023234490477",
-  "inbox_folder": "C:/Users/izzyo/ai-composer/music_brain/performances/inbox",
+  "inbox_folder": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox",
   "config": {
     "max_performances": 1,
     "max_windows": 3,
@@ -31,6 +31,6 @@
     "quarantined_count": 0,
     "export_folders": []
   },
-  "dataset_summary_json_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.json",
-  "dataset_summary_md_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/training_exports/training_exports_summary.md"
+  "dataset_summary_json_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/training_exports_summary.json",
+  "dataset_summary_md_path": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/datasets/training_exports/training_exports_summary.md"
 }

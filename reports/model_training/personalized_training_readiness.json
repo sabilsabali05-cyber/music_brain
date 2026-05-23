@@ -1,8 +1,8 @@
 {
   "status": "ok",
-  "generated_at": "2026-05-23T21:46:12.855444+00:00",
+  "generated_at": "2026-05-23T22:35:48.818423+00:00",
   "plan": {
-    "generated_at": "2026-05-23T21:46:12.853105+00:00",
+    "generated_at": "2026-05-23T22:35:48.813068+00:00",
     "plan_id": "personalized_model_training_strategy_v1",
     "core_principle": "Pretrained models may be used as base systems, but every subsystem must move toward personalization from authorized user corpus, review outcomes, arrangement feedback, prompt behavior, and workflow preferences. No training is claimed unless real training runs are executed.",
     "global_blocked_data": [

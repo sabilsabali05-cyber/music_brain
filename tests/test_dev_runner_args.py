@@ -21,18 +21,18 @@ def _run_debug_args(*task_args: str) -> str:
 def test_dev_runner_accepts_quoted_path_with_spaces_and_seconds() -> None:
     output = _run_debug_args(
         "clip-and-transcribe-yourmt3",
-        r"C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3",
+        r"<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3",
         "30",
     )
     assert "TASK_ARG_COUNT=3" in output
-    assert "TASK_ARG_1=C:\\Users\\izzyo\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
+    assert "TASK_ARG_1=<PRIVATE_LOCAL_PATH>\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
     assert "TASK_ARG_2=30" in output
 
 
 def test_dev_runner_optional_seconds_can_be_omitted() -> None:
     output = _run_debug_args(
         "clip-and-transcribe-yourmt3",
-        r"C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3",
+        r"<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3",
     )
     assert "TASK_ARG_COUNT=2" in output
 
@@ -47,12 +47,12 @@ def test_dev_runner_commit_message_with_spaces_is_single_argument() -> None:
 def test_dev_runner_segment_audio_quoted_windows_path() -> None:
     output = _run_debug_args(
         "segment-audio",
-        r"C:\Users\izzyo\Downloads\Varud - Sigur Ros (Valtari).mp3",
+        r"<PRIVATE_LOCAL_PATH>\Downloads\Varud - Sigur Ros (Valtari).mp3",
         "60",
     )
     assert "TASK_ARG_COUNT=3" in output
     assert "TASK_ARG_0=segment-audio" in output
-    assert "TASK_ARG_1=C:\\Users\\izzyo\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
+    assert "TASK_ARG_1=<PRIVATE_LOCAL_PATH>\\Downloads\\Varud - Sigur Ros (Valtari).mp3" in output
     assert "TASK_ARG_2=60" in output
 
 
