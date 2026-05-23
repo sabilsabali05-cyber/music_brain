@@ -105,6 +105,7 @@
     "tests/test_modal_diagnostics_helpers.py",
     "tests/test_modal_external_witnesses.py",
     "tests/test_modal_pipeline.py",
+    "tests/test_model_integrations.py",
     "tests/test_performance_batch.py",
     "tests/test_performance_runs.py",
     "tests/test_personalized_training_strategy.py",

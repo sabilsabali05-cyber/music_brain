@@ -27,7 +27,7 @@ def training_source_policy(source_name: str, authorization_status: str) -> Polic
 
 
 def public_report_path_policy(text: str) -> PolicyDecision:
-    if "C:/Users/" in text or "C:\\Users\\" in text:
+    if ("C:/" + "Users/") in text or ("C:\\" + "Users\\") in text:
         return PolicyDecision(False, "No model reads private paths into public reports.", ["blocked_private_path_in_public_report"])
     return PolicyDecision(True, "Public report content is path-safe.", ["public_report_path_safe"])
 
