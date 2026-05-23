@@ -1,0 +1,26 @@
+{
+  "moonbeam": {
+    "enabled": false,
+    "model_path": "",
+    "repo_path": "",
+    "device": "cpu"
+  },
+  "musicbert": {
+    "enabled": false,
+    "model_path": "",
+    "repo_path": "",
+    "device": "cpu"
+  },
+  "midigpt": {
+    "enabled": false,
+    "model_path": "",
+    "repo_path": "",
+    "device": "cpu"
+  },
+  "text2midi": {
+    "enabled": false,
+    "model_path": "",
+    "repo_path": "",
+    "device": "cpu"
+  }
+}

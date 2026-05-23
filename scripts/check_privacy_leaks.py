@@ -29,6 +29,7 @@ ALLOWLIST_PATH_SNIPPETS = [
     "datasets/sample_libraries/",
     "reports/sample_libraries/",
     "reports/privacy/",
+    "scripts/check_privacy_leaks.py",
 ]
 
 

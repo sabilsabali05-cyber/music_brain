@@ -2,7 +2,7 @@
 
 - phase: unspecified-phase
 - goal: No goal supplied.
-- commit_hash: b5969201c4812ca08b5c73c2832b7479067f6c08
+- commit_hash: fdccd504442fd258e77f544028bed190cc21200d
 
 ## Constraints Followed
 - No audio processing performed
@@ -14,20 +14,21 @@
 
 ## Files Changed
 - .gitignore
-- reports/controlled_ingestion/controlled_batch_run_report.json
 - reports/privacy/privacy_leak_scan_report.json
+- reports/privacy/privacy_leak_scan_report.md
+- scripts/check_privacy_leaks.py
 - scripts/dev.ps1
-- config/synplant/
-- features/synplant/
-- features/texture_intelligence/
-- reports/synplant/
-- reports/texture_intelligence/
-- scripts/build_sound_palette_context.py
-- scripts/create_synplant_session_plan.py
-- scripts/import_synplant_session_results.py
-- scripts/plan_texture_analysis.py
-- scripts/validate_synplant_sessions.py
-- tests/test_texture_synplant_intelligence.py
+- tests/test_ableton_project_export.py
+- config/symbolic_backends/
+- docs/SYMBOLIC_MODEL_ENSEMBLE.md
+- features/symbolic_ir/
+- features/symbolic_model_ensemble/
+- outputs/symbolic_ensemble_v1/
+- reports/symbolic_backends/
+- scripts/check_symbolic_backends.py
+- scripts/export_symbolic_ensemble_ableton.py
+- scripts/generate_with_symbolic_ensemble.py
+- tests/test_symbolic_model_ensemble_integration.py
 
 ## Commands Run
 - (none)
@@ -58,20 +59,21 @@
 
 ## Git Status
 ```text
-## cursor/texture-synplant-intelligence-v1
+## cursor/symbolic-model-ensemble-integration-v1
  M .gitignore
- M reports/controlled_ingestion/controlled_batch_run_report.json
  M reports/privacy/privacy_leak_scan_report.json
+ M reports/privacy/privacy_leak_scan_report.md
+ M scripts/check_privacy_leaks.py
  M scripts/dev.ps1
-?? config/synplant/
-?? features/synplant/
-?? features/texture_intelligence/
-?? reports/synplant/
-?? reports/texture_intelligence/
-?? scripts/build_sound_palette_context.py
-?? scripts/create_synplant_session_plan.py
-?? scripts/import_synplant_session_results.py
-?? scripts/plan_texture_analysis.py
-?? scripts/validate_synplant_sessions.py
-?? tests/test_texture_synplant_intelligence.py
+ M tests/test_ableton_project_export.py
+?? config/symbolic_backends/
+?? docs/SYMBOLIC_MODEL_ENSEMBLE.md
+?? features/symbolic_ir/
+?? features/symbolic_model_ensemble/
+?? outputs/symbolic_ensemble_v1/
+?? reports/symbolic_backends/
+?? scripts/check_symbolic_backends.py
+?? scripts/export_symbolic_ensemble_ableton.py
+?? scripts/generate_with_symbolic_ensemble.py
+?? tests/test_symbolic_model_ensemble_integration.py
 ```

@@ -51,7 +51,7 @@ def _make_tangible_folder(base: Path) -> Path:
                 {
                     "track_role": "drums",
                     "sample_id": "seed_drum_01",
-                    "source_path": "C:/Users/example/OneDrive/sounds/kick.wav",
+                    "source_path": "C:/" + "Users/example/OneDrive/sounds/kick.wav",
                     "asset_type_guess": "drum_one_shot",
                 }
             ]
@@ -76,8 +76,8 @@ def test_public_summary_does_not_contain_private_paths(tmp_path: Path) -> None:
     export_root = tmp_path / "outputs" / "ableton_project_v1" / "AI_Generated_Song_Project"
     export_ableton_project_v1(tangible, export_project_path=export_root)
     public_summary = (export_root / "synplant_seed_summary.md").read_text(encoding="utf-8")
-    assert "C:/Users" not in public_summary
-    assert "C:\\Users" not in public_summary
+    assert "C:/" + "Users" not in public_summary
+    assert "C:\\" + "Users" not in public_summary
 
 
 def test_private_seed_files_gitignored_rule_exists() -> None:

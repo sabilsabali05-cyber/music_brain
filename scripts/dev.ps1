@@ -105,10 +105,12 @@ function Show-Usage {
     Write-Host "  generate-midi-from-examples <generative-dataset-folder> [task] [split]"
     Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
+    Write-Host "  check-symbolic-backends"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
+    Write-Host "  generate-symbolic-ensemble <prompt>"
     Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
     Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  export-ableton-project-v1 <tangible-output-folder> [--copy-local-samples]"
@@ -140,6 +142,7 @@ function Show-Usage {
     Write-Host "  import-synplant-session-results <session_results_json>"
     Write-Host "  validate-synplant-sessions"
     Write-Host "  build-sound-palette-context <ableton_project_folder>"
+    Write-Host "  export-symbolic-ensemble-ableton [source-folder] [target-folder]"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1012,6 +1015,11 @@ switch ($Task) {
             "python", "scripts/check_symbolic_model_backends.py"
         )
     }
+    "check-symbolic-backends" {
+        Invoke-Step -Label "Checking symbolic ensemble backend availability" -Command @(
+            "python", "scripts/check_symbolic_backends.py"
+        )
+    }
     "plan-symbolic-generation" {
         $datasetFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-symbolic-generation <generative-dataset-folder> [task]"
         $taskName = Get-TaskArg -Index 1
@@ -1045,6 +1053,12 @@ switch ($Task) {
         $taskValue = if (-not [string]::IsNullOrWhiteSpace($taskName)) { $taskName } else { "continuation" }
         Invoke-Step -Label "Generating MIDI via symbolic backend wrapper" -Command @(
             "python", "scripts/generate_midi_with_backend.py", $datasetFolder, "--provider", $providerValue, "--task", $taskValue
+        )
+    }
+    "generate-symbolic-ensemble" {
+        $prompt = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-symbolic-ensemble <prompt>"
+        Invoke-Step -Label "Generating symbolic output via ensemble orchestrator" -Command @(
+            "python", "scripts/generate_with_symbolic_ensemble.py", $prompt
         )
     }
     "generate-tangible-demo" {
@@ -1257,6 +1271,15 @@ switch ($Task) {
         $abletonProjectFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-sound-palette-context <ableton_project_folder>"
         Invoke-Step -Label "Building collective sound palette context" -Command @(
             "python", "scripts/build_sound_palette_context.py", $abletonProjectFolder
+        )
+    }
+    "export-symbolic-ensemble-ableton" {
+        $sourceFolder = Get-TaskArg -Index 0
+        $targetFolder = Get-TaskArg -Index 1
+        $source = if (-not [string]::IsNullOrWhiteSpace($sourceFolder)) { $sourceFolder } else { "outputs/symbolic_ensemble_v1" }
+        $target = if (-not [string]::IsNullOrWhiteSpace($targetFolder)) { $targetFolder } else { "outputs/ableton_project_symbolic_ensemble_v1" }
+        Invoke-Step -Label "Exporting symbolic ensemble output to Ableton scaffold" -Command @(
+            "python", "scripts/export_symbolic_ensemble_ableton.py", "--source-dir", $source, "--target-dir", $target
         )
     }
     "commit-checkpoint" {

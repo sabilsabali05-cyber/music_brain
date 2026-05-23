@@ -2,7 +2,7 @@
   "status": "ok",
   "strict_mode": false,
   "new_public_leak_count": 0,
-  "pre_existing_historical_path_debt_count": 144,
+  "pre_existing_historical_path_debt_count": 138,
   "new_public_leaks": [],
   "pre_existing_historical_path_debt": [
     {
@@ -732,36 +732,6 @@
       "line_count": 24
     },
     {
-      "path": "scripts/check_privacy_leaks.py",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
-    },
-    {
-      "path": "scripts/check_privacy_leaks.py",
-      "marker": "OneDrive\\Desktop\\sounds",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
-      "path": "scripts/check_privacy_leaks.py",
-      "marker": "OneDrive/Desktop/sounds",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
-      "path": "scripts/check_privacy_leaks.py",
-      "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
-      "path": "scripts/check_privacy_leaks.py",
-      "marker": "sample_seed_records.jsonl",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
       "path": "scripts/evaluate_mass_ingestion_readiness.py",
       "marker": "sample_seed_records.jsonl",
       "debt_type": "pre_existing_historical_path_debt",
@@ -790,12 +760,6 @@
       "marker": "private_synplant_seed_paths",
       "debt_type": "pre_existing_historical_path_debt",
       "line_count": 2
-    },
-    {
-      "path": "tests/test_ableton_project_export.py",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
     },
     {
       "path": "tests/test_controlled_ingestion_sprint.py",
@@ -900,7 +864,8 @@
     "reports/privacy/historical_path_scrub_plan.json",
     "reports/privacy/historical_path_scrub_plan.md",
     "reports/privacy/privacy_leak_scan_report.json",
-    "reports/privacy/privacy_leak_scan_report.md"
+    "reports/privacy/privacy_leak_scan_report.md",
+    "scripts/check_privacy_leaks.py"
   ],
   "limitations": [
     "String-based scan only; semantic privacy issues may require manual review.",

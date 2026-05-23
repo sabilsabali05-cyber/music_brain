@@ -3,7 +3,7 @@
 - status: `ok`
 - strict_mode: `False`
 - new_public_leak_count: `0`
-- pre_existing_historical_path_debt_count: `144`
+- pre_existing_historical_path_debt_count: `138`
 
 ## New Public Leaks
 - none
@@ -59,7 +59,7 @@
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json` marker=`C:/Users/` count=`9`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json` marker=`C:/Users/` count=`31504`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json` marker=`C:/Users/` count=`12411`
-- ... and 94 more
+- ... and 88 more
 
 ## Limitations
 - String-based scan only; semantic privacy issues may require manual review.
