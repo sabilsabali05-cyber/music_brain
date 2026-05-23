@@ -30,6 +30,13 @@ ENFORCED_PUBLIC_PATH_PREFIXES = [
     "reports/",
 ]
 
+ENFORCED_PUBLIC_SAMPLE_ID_PREFIXES = [
+    "reports/synplant/",
+    "reports/texture_intelligence/",
+    "outputs/generated_midi/",
+    "outputs/model_backend_runs/",
+]
+
 # These are private/local by design and should not be treated as public-leak targets.
 ALLOWLIST_PATH_SNIPPETS = [
     "config/controlled_batches/",
@@ -110,6 +117,11 @@ def _is_enforced_public_path(relative_path: str) -> bool:
     return any(lower.startswith(prefix) for prefix in ENFORCED_PUBLIC_PATH_PREFIXES)
 
 
+def _is_enforced_public_sample_surface(relative_path: str) -> bool:
+    lower = relative_path.lower()
+    return any(lower.startswith(prefix) for prefix in ENFORCED_PUBLIC_SAMPLE_ID_PREFIXES)
+
+
 def _scan_file(path: Path, relative_path: str) -> list[tuple[str, int]]:
     if not _is_text_file(path):
         return []
@@ -124,11 +136,7 @@ def _scan_file(path: Path, relative_path: str) -> list[tuple[str, int]]:
         if count > 0:
             matches.append((marker, count))
     # Enforce local sample identifiers only in public report/output surfaces.
-    if (
-        relative_path.startswith("reports/synplant/")
-        or relative_path.startswith("reports/texture_intelligence/")
-        or relative_path.startswith("outputs/")
-    ):
+    if _is_enforced_public_sample_surface(relative_path):
         for marker in ("local_sounds_desktop__", "!a secret"):
             count = text.count(marker)
             if count > 0:

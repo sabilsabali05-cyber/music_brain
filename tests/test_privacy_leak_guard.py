@@ -72,3 +72,31 @@ def test_privacy_scan_enforces_public_outputs_even_if_not_changed(tmp_path: Path
     assert payload["status"] == "fail"
     assert payload["new_public_leak_count"] >= 1
     assert any(item["marker"] == "C:/Users/" for item in payload["new_public_leaks"])
+
+
+def test_privacy_scan_flags_local_sample_id_in_generated_midi_output(tmp_path: Path) -> None:
+    tracked = tmp_path / "outputs" / "generated_midi" / "session" / "report.json"
+    tracked.parent.mkdir(parents=True, exist_ok=True)
+    tracked.write_text('{"sample_id":"local_sounds_desktop__abc123"}', encoding="utf-8")
+
+    payload = scan_privacy_leaks(
+        project_root=tmp_path,
+        tracked_files=[tracked],
+        changed_files=set(),
+    )
+    assert payload["status"] == "fail"
+    assert any(item["marker"] == "local_sounds_desktop__" for item in payload["new_public_leaks"])
+
+
+def test_privacy_scan_flags_secret_marker_in_model_backend_runs(tmp_path: Path) -> None:
+    tracked = tmp_path / "outputs" / "model_backend_runs" / "run_001" / "summary.md"
+    tracked.parent.mkdir(parents=True, exist_ok=True)
+    tracked.write_text("private marker: !a secret", encoding="utf-8")
+
+    payload = scan_privacy_leaks(
+        project_root=tmp_path,
+        tracked_files=[tracked],
+        changed_files=set(),
+    )
+    assert payload["status"] == "fail"
+    assert any(item["marker"] == "!a secret" for item in payload["new_public_leaks"])
