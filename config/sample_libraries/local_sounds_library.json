@@ -1,0 +1,19 @@
+{
+  "library_id": "local_sounds_desktop",
+  "root_path": "C:\\Users\\izzyo\\OneDrive\\Desktop\\sounds",
+  "source_type": "local_sample_seed_library",
+  "intended_uses": [
+    "synplant_seed_selection",
+    "texture_learning",
+    "sound_role_retrieval",
+    "future_model_training"
+  ],
+  "authorization_status": "user_local_claimed",
+  "ingestion_policy": {
+    "do_not_move_source_files": true,
+    "do_not_modify_source_files": true,
+    "hash_files": true,
+    "include_nested_folders": true,
+    "skip_unsupported_files": true
+  }
+}

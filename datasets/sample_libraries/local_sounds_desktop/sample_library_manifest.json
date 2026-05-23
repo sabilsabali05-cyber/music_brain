@@ -1,0 +1,29 @@
+{
+  "library_id": "local_sounds_desktop",
+  "root_path": "C:\\Users\\izzyo\\OneDrive\\Desktop\\sounds",
+  "source_type": "local_sample_seed_library",
+  "authorization_status": "user_local_claimed",
+  "intended_uses": [
+    "synplant_seed_selection",
+    "texture_learning",
+    "sound_role_retrieval",
+    "future_model_training"
+  ],
+  "generated_at": "2026-05-23T05:29:52.956336+00:00",
+  "file_counts": {
+    "files_scanned": 6373,
+    "supported_files_indexed": 4828,
+    "unsupported_files_skipped": 1545,
+    "unreadable_or_problem_files": 0
+  },
+  "records_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/sample_libraries/local_sounds_desktop/sample_seed_records.jsonl",
+  "report_json_path": "C:/Users/izzyo/ai-composer/music_brain/reports/sample_libraries/local_sounds_desktop_index_report.json",
+  "report_markdown_path": "C:/Users/izzyo/ai-composer/music_brain/reports/sample_libraries/local_sounds_desktop_index_report.md",
+  "indexing_policy": {
+    "do_not_move_source_files": true,
+    "do_not_modify_source_files": true,
+    "hash_files": true,
+    "include_nested_folders": true,
+    "skip_unsupported_files": true
+  }
+}
