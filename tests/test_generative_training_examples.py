@@ -6,6 +6,7 @@ from pathlib import Path
 from mido import Message, MidiFile, MidiTrack
 
 from scripts.build_generative_training_examples import build_generative_training_examples
+from scripts.build_generative_training_examples import _is_long_form_performance
 from scripts.build_generative_training_examples import _task_allowed
 from scripts.diagnose_generative_examples import diagnose_generative_examples
 from scripts.diagnose_generative_pairing import diagnose_generative_pairing
@@ -280,6 +281,36 @@ def test_conservative_routing_with_pitch_harmony_evidence_allows_harmony(tmp_pat
 
 def test_call_response_policy_does_not_require_hard_vocal_label() -> None:
     assert _task_allowed("call_response", "rhythm_dominant", has_response_evidence=True)
+
+
+def test_long_duration_is_long_form_regardless_of_name() -> None:
+    assert _is_long_form_performance(
+        duration_seconds=650.0,
+        windows_count=8,
+        segments_count=6,
+        performance_id="short_named_track",
+        source_name="normal_song.wav",
+    )
+
+
+def test_short_sunday_name_is_not_long_form_by_itself() -> None:
+    assert not _is_long_form_performance(
+        duration_seconds=120.0,
+        windows_count=8,
+        segments_count=6,
+        performance_id="sunday_clip",
+        source_name="sunday_take.wav",
+    )
+
+
+def test_choir_live_performance_soft_hints_still_supported() -> None:
+    assert _is_long_form_performance(
+        duration_seconds=120.0,
+        windows_count=8,
+        segments_count=6,
+        performance_id="choir_session",
+        source_name="live_performance_take.wav",
+    )
 
 
 def test_phrase_boundary_evidence_present_in_quality_breakdown(tmp_path: Path, monkeypatch) -> None:

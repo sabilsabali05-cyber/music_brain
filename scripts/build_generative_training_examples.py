@@ -252,7 +252,7 @@ def _is_long_form_performance(
     source_name: str,
 ) -> bool:
     id_text = f"{performance_id} {source_name}".lower()
-    long_form_hint = any(token in id_text for token in ("sunday", "choir", "live", "performance"))
+    long_form_hint = any(token in id_text for token in ("choir", "live", "performance"))
     return duration_seconds >= 600.0 or windows_count >= 24 or segments_count >= 16 or long_form_hint
 
 
