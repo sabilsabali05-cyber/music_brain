@@ -1,6 +1,6 @@
 # Mass Ingestion Readiness Report
 
-- created_at: `2026-05-23T18:04:05.938267+00:00`
+- created_at: `2026-05-23T18:05:24.842961+00:00`
 - ready_for_mass_ingestion: `False`
 - ready_for_controlled_batch: `False`
 - ready_for_model_training: `False`
