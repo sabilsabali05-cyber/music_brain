@@ -43,6 +43,7 @@ reports/sample_libraries/**/*_index_report.md
 # Local machine sample-library config (use committed example template)
 config/sample_libraries/local_sounds_library.json
 config/controlled_batches/*.local.json
+config/synplant/*.local.json
 
 # Tangible demo seed suggestions may include private local paths
 outputs/tangible_generation_v1/*seed_suggestions*.json
@@ -52,3 +53,7 @@ outputs/tangible_generation_v1/*seed_suggestions*.md
 outputs/ableton_project_v1/**/private_synplant_seed_paths.json
 outputs/ableton_project_v1/**/private_synplant_seed_paths.md
 outputs/ableton_project_v1/**/Samples/**
+
+# Synplant planning private path files
+reports/synplant/private_synplant_session_paths.json
+reports/synplant/private_synplant_session_paths.md

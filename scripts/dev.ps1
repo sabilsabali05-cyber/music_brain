@@ -135,6 +135,11 @@ function Show-Usage {
     Write-Host "  run-controlled-ingestion-batch <manifest> [--execute]"
     Write-Host "  compare-generation-iterations <old-output> <new-output>"
     Write-Host "  build-mass-ingestion-readiness-artifacts"
+    Write-Host "  plan-texture-analysis"
+    Write-Host "  create-synplant-session-plan <ableton_project_folder>"
+    Write-Host "  import-synplant-session-results <session_results_json>"
+    Write-Host "  validate-synplant-sessions"
+    Write-Host "  build-sound-palette-context <ableton_project_folder>"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1223,6 +1228,34 @@ switch ($Task) {
     "build-mass-ingestion-readiness-artifacts" {
         Invoke-Step -Label "Building readiness artifacts for phases 6-14" -Command @(
             "python", "scripts/build_mass_ingestion_readiness_artifacts.py"
+        )
+    }
+    "plan-texture-analysis" {
+        Invoke-Step -Label "Planning texture intelligence analysis from sample metadata" -Command @(
+            "python", "scripts/plan_texture_analysis.py"
+        )
+    }
+    "create-synplant-session-plan" {
+        $abletonProjectFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd create-synplant-session-plan <ableton_project_folder>"
+        Invoke-Step -Label "Creating Synplant session seed plan (manual workflow)" -Command @(
+            "python", "scripts/create_synplant_session_plan.py", $abletonProjectFolder
+        )
+    }
+    "import-synplant-session-results" {
+        $sessionResultsJson = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd import-synplant-session-results <session_results_json>"
+        Invoke-Step -Label "Importing Synplant manual session results" -Command @(
+            "python", "scripts/import_synplant_session_results.py", $sessionResultsJson
+        )
+    }
+    "validate-synplant-sessions" {
+        Invoke-Step -Label "Validating Synplant session imports and policy constraints" -Command @(
+            "python", "scripts/validate_synplant_sessions.py"
+        )
+    }
+    "build-sound-palette-context" {
+        $abletonProjectFolder = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd build-sound-palette-context <ableton_project_folder>"
+        Invoke-Step -Label "Building collective sound palette context" -Command @(
+            "python", "scripts/build_sound_palette_context.py", $abletonProjectFolder
         )
     }
     "commit-checkpoint" {

@@ -11,17 +11,20 @@
   ],
   "files_changed": [
     ".gitignore",
+    "reports/controlled_ingestion/controlled_batch_run_report.json",
+    "reports/privacy/privacy_leak_scan_report.json",
     "scripts/dev.ps1",
-    "config/controlled_batches/",
-    "docs/CONTROLLED_INGESTION_SPRINT_V1.md",
-    "reports/controlled_ingestion/",
-    "reports/privacy/",
-    "scripts/check_privacy_leaks.py",
-    "scripts/compare_generation_iterations.py",
-    "scripts/plan_controlled_ingestion_batch.py",
-    "scripts/run_controlled_ingestion_batch.py",
-    "tests/test_controlled_ingestion_sprint.py",
-    "tests/test_privacy_leak_guard.py"
+    "config/synplant/",
+    "features/synplant/",
+    "features/texture_intelligence/",
+    "reports/synplant/",
+    "reports/texture_intelligence/",
+    "scripts/build_sound_palette_context.py",
+    "scripts/create_synplant_session_plan.py",
+    "scripts/import_synplant_session_results.py",
+    "scripts/plan_texture_analysis.py",
+    "scripts/validate_synplant_sessions.py",
+    "tests/test_texture_synplant_intelligence.py"
   ],
   "commands_run": [],
   "tests_result": [],
@@ -32,7 +35,7 @@
   "risks_concerns": [],
   "open_user_decisions": [],
   "recommended_next_step": "Await audit feedback before next major phase.",
-  "commit_hash": "32369b83fcdb8cfb7ba9403e4cb00e83ab64f973",
-  "git_status": "## cursor/controlled-ingestion-sprint-v1\n M .gitignore\n M scripts/dev.ps1\n?? config/controlled_batches/\n?? docs/CONTROLLED_INGESTION_SPRINT_V1.md\n?? reports/controlled_ingestion/\n?? reports/privacy/\n?? scripts/check_privacy_leaks.py\n?? scripts/compare_generation_iterations.py\n?? scripts/plan_controlled_ingestion_batch.py\n?? scripts/run_controlled_ingestion_batch.py\n?? tests/test_controlled_ingestion_sprint.py\n?? tests/test_privacy_leak_guard.py",
-  "generated_at_utc": "2026-05-23T17:48:42.434825+00:00"
+  "commit_hash": "b5969201c4812ca08b5c73c2832b7479067f6c08",
+  "git_status": "## cursor/texture-synplant-intelligence-v1\n M .gitignore\n M reports/controlled_ingestion/controlled_batch_run_report.json\n M reports/privacy/privacy_leak_scan_report.json\n M scripts/dev.ps1\n?? config/synplant/\n?? features/synplant/\n?? features/texture_intelligence/\n?? reports/synplant/\n?? reports/texture_intelligence/\n?? scripts/build_sound_palette_context.py\n?? scripts/create_synplant_session_plan.py\n?? scripts/import_synplant_session_results.py\n?? scripts/plan_texture_analysis.py\n?? scripts/validate_synplant_sessions.py\n?? tests/test_texture_synplant_intelligence.py",
+  "generated_at_utc": "2026-05-23T19:41:50.004656+00:00"
 }

@@ -1,0 +1,10 @@
+{
+  "status": "ok",
+  "dataset_exists": false,
+  "row_count": 0,
+  "selected_count": 0,
+  "training_allowed_count": 0,
+  "errors": [],
+  "automation_claimed": false,
+  "created_at": "2026-05-23T19:40:07.888075+00:00"
+}

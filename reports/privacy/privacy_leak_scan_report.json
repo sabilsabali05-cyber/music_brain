@@ -603,7 +603,7 @@
       "path": "reports/privacy/privacy_leak_scan_report.json",
       "marker": "OneDrive/Desktop/sounds",
       "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 4
+      "line_count": 3
     },
     {
       "path": "reports/privacy/privacy_leak_scan_report.json",

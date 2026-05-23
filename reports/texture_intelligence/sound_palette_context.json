@@ -1,0 +1,50 @@
+{
+  "status": "ok",
+  "created_at": "2026-05-23T19:40:07.888272+00:00",
+  "project_folder": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+  "foreground_roles": [
+    "drums",
+    "bass",
+    "lead"
+  ],
+  "background_roles": [
+    "chords",
+    "texture_bed",
+    "transition_fx"
+  ],
+  "low_spectral_occupancy": [
+    "drums",
+    "bass"
+  ],
+  "mid_spectral_occupancy": [
+    "chords",
+    "texture_bed"
+  ],
+  "high_spectral_occupancy": [
+    "lead",
+    "transition_fx"
+  ],
+  "density_by_section": {
+    "intro": 6.0
+  },
+  "contrast_pairs": [
+    "bass_vs_lead",
+    "drums_vs_texture_bed",
+    "chords_vs_transition_fx"
+  ],
+  "masking_risks": [
+    "lead/chords mid-high overlap risk",
+    "texture_bed/transition_fx high-band buildup risk"
+  ],
+  "missing_texture_roles": [],
+  "suggested_additions": [],
+  "evidence_refs": [
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/track_setup.json",
+    "reports/synplant/synplant_session_plan.public.json (missing)",
+    "reports/texture_intelligence/texture_analysis_plan.json"
+  ],
+  "limitations": [
+    "Context uses track-role planning metadata only (no new audio processing).",
+    "No Synplant automation claim."
+  ]
+}

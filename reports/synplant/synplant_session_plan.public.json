@@ -1,0 +1,404 @@
+{
+  "status": "ok",
+  "created_at": "2026-05-23T19:40:07.959561+00:00",
+  "ableton_project_folder": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+  "generation_method": "manual",
+  "automation_claimed": false,
+  "seed_candidates": [
+    {
+      "track_role": "drums",
+      "seed_sample_id": "local_sounds_desktop__(@cryptid1k) rotations kit__hihats__hihats (15)__drumstick hat.wav",
+      "public_safe_sample_label": "local_sounds_desktop__(@cryptid1k) rotations kit__hihats__hihats (15)__drumstick hat.wav (drum_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.55,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "drums",
+      "seed_sample_id": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK1 54 BPM MICKEY DRUMS VOL. 8.wav",
+      "public_safe_sample_label": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK1 54 BPM MICKEY DRUMS VOL. 8.wav (drum_break)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.55,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "drums",
+      "seed_sample_id": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK10 83.5 BPM MICKEY DRUMS VOL. 8.wav",
+      "public_safe_sample_label": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK10 83.5 BPM MICKEY DRUMS VOL. 8.wav (drum_break)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.55,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "drums",
+      "seed_sample_id": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK11 85 BPM MICKEY DRUMS VOL. 8.wav",
+      "public_safe_sample_label": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK11 85 BPM MICKEY DRUMS VOL. 8.wav (drum_break)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.55,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "drums",
+      "seed_sample_id": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK12 88.8 BPM FOR 10 SECONDS THEN 120 BPM MICKEY DRUMS VOL. 8.wav",
+      "public_safe_sample_label": "local_sounds_desktop__MICKEY DRUMS VOL. 7, 8 & 9__MICKEY DRUMS VOL. 8__THESE ARE THE BREAKS__BREAK12 88.8 BPM FOR 10 SECONDS THEN 120 BPM MICKEY DRUMS VOL. 8.wav (drum_break)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.55,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "bass",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav (bass_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 1.0,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "bass",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #bass sweet.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass sweet.wav (bass_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 1.0,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "bass",
+      "seed_sample_id": "local_sounds_desktop__!a secret__2 808__#808 circus.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__2 808__#808 circus.wav (bass_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 1.0,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "bass",
+      "seed_sample_id": "local_sounds_desktop__!a secret__2 808__#808 Color.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__2 808__#808 Color.wav (bass_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 1.0,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "bass",
+      "seed_sample_id": "local_sounds_desktop__!a secret__2 808__#808 drown.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__2 808__#808 drown.wav (bass_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 1.0,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "chords",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key CYN.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key CYN.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "chords",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key Feazt.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key Feazt.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "chords",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key hazy.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key hazy.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "chords",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key loCated.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key loCated.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "chords",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key SiQ.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key SiQ.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "lead",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #lead Club.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #lead Club.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.57,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "lead",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key CYN.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key CYN.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "lead",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key Feazt.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key Feazt.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "lead",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key hazy.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key hazy.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "lead",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #key loCated.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #key loCated.wav (synth_one_shot)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.47,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "texture_bed",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture 4battle.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture 4battle.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.95,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "texture_bed",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture B2it.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture B2it.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.95,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "texture_bed",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture Diy.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture Diy.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.95,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "texture_bed",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture f3rn.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture f3rn.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.95,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "texture_bed",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture Struggle.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture Struggle.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.95,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "transition_fx",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #riser FEll.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #riser FEll.wav (riser)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.45,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "transition_fx",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #riser Track4 @mobbmind.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #riser Track4 @mobbmind.wav (riser)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.45,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "transition_fx",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture 4battle.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture 4battle.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.45,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "transition_fx",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture B2it.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture B2it.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.45,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    },
+    {
+      "track_role": "transition_fx",
+      "seed_sample_id": "local_sounds_desktop__!a secret__1 synth__#synth #texture Diy.wav",
+      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #texture Diy.wav (texture)",
+      "source_policy": "production_only_training_excluded",
+      "fit_score": 0.45,
+      "generation_method": "manual",
+      "automation_claimed": false,
+      "seed_notes": [
+        "Manual Synplant session candidate only.",
+        "No Synplant automation claim."
+      ]
+    }
+  ],
+  "limitations": [
+    "No Synplant automation claim.",
+    "Public report excludes private local paths.",
+    "Derived patches must inherit source restrictions from selected seed."
+  ]
+}
