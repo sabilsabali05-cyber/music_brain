@@ -1,0 +1,329 @@
+{
+  "project_name": "AI_Generated_Song_Project",
+  "source_tangible_output": "outputs/tangible_generation_v1",
+  "export_root": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+  "als_generation_status": "not_implemented_experimental_future",
+  "tracks": [
+    {
+      "track_name": "Drums",
+      "role": "drums",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_drums.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    },
+    {
+      "track_name": "Bass",
+      "role": "bass",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_bass.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    },
+    {
+      "track_name": "Chords",
+      "role": "chords",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_chords.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    },
+    {
+      "track_name": "Lead",
+      "role": "lead",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_lead.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    },
+    {
+      "track_name": "Texture Bed",
+      "role": "texture_bed",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_texture_motifs.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    },
+    {
+      "track_name": "Transition Fx",
+      "role": "transition_fx",
+      "track_type": "midi",
+      "midi_file": "MIDI/generated_texture_motifs.mid",
+      "selected_sample_ref": "",
+      "local_source_path_private": "",
+      "public_safe_sample_label": "",
+      "device_suggestion": "Ableton MIDI track",
+      "notes": "Drag MIDI clip onto track timeline manually.",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "limitations": "No .als generation in v1."
+    }
+  ],
+  "midi_clip_assignments": [
+    {
+      "track_name": "Drums",
+      "role": "drums",
+      "midi_file": "MIDI/generated_drums.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    },
+    {
+      "track_name": "Bass",
+      "role": "bass",
+      "midi_file": "MIDI/generated_bass.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    },
+    {
+      "track_name": "Chords",
+      "role": "chords",
+      "midi_file": "MIDI/generated_chords.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    },
+    {
+      "track_name": "Lead",
+      "role": "lead",
+      "midi_file": "MIDI/generated_lead.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    },
+    {
+      "track_name": "Texture Bed",
+      "role": "texture_bed",
+      "midi_file": "MIDI/generated_texture_motifs.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    },
+    {
+      "track_name": "Transition Fx",
+      "role": "transition_fx",
+      "midi_file": "MIDI/generated_texture_motifs.mid",
+      "arrangement_start_seconds": 0.0,
+      "arrangement_end_seconds": 25.2,
+      "section_name": "intro",
+      "notes": "Drop clip in Arrangement View.",
+      "limitations": "Clip warp and quantization must be reviewed manually."
+    }
+  ],
+  "sample_assignments": [
+    {
+      "track_name": "Drums",
+      "role": "drums",
+      "selected_sample_ref": "sample_9ca14fd617",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_9ca14fd617 (unknown)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    },
+    {
+      "track_name": "Bass",
+      "role": "bass",
+      "selected_sample_ref": "sample_bc7e5e3804",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_bc7e5e3804 (unknown)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    },
+    {
+      "track_name": "Chords",
+      "role": "chords",
+      "selected_sample_ref": "sample_743ac9df55",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_743ac9df55 (unknown)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    },
+    {
+      "track_name": "Lead",
+      "role": "lead",
+      "selected_sample_ref": "sample_e3b456ebb8",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_e3b456ebb8 (unknown)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    },
+    {
+      "track_name": "Texture Bed",
+      "role": "texture_bed",
+      "selected_sample_ref": "sample_04c257d4b9",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_04c257d4b9 (bass_one_shot)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    },
+    {
+      "track_name": "Transition Fx",
+      "role": "transition_fx",
+      "selected_sample_ref": "sample_8252593cc5",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_8252593cc5 (unknown)",
+      "device_suggestion": "Synplant seed input (manual)",
+      "notes": "Keep private local path in ignored private file only.",
+      "limitations": "Manual drag-in only; no automatic sample import."
+    }
+  ],
+  "synplant_seed_instructions": [
+    {
+      "track_name": "Drums",
+      "role": "drums",
+      "selected_sample_ref": "sample_9ca14fd617",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_9ca14fd617 (unknown)",
+      "device_suggestion": "drum_break_or_loop",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    },
+    {
+      "track_name": "Bass",
+      "role": "bass",
+      "selected_sample_ref": "sample_bc7e5e3804",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_bc7e5e3804 (unknown)",
+      "device_suggestion": "bass_or_synth_seed",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    },
+    {
+      "track_name": "Chords",
+      "role": "chords",
+      "selected_sample_ref": "sample_743ac9df55",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_743ac9df55 (unknown)",
+      "device_suggestion": "chord_stab_or_pad_seed",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    },
+    {
+      "track_name": "Lead",
+      "role": "lead",
+      "selected_sample_ref": "sample_e3b456ebb8",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_e3b456ebb8 (unknown)",
+      "device_suggestion": "vocal_or_synth_seed",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    },
+    {
+      "track_name": "Texture Bed",
+      "role": "texture_bed",
+      "selected_sample_ref": "sample_04c257d4b9",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_04c257d4b9 (bass_one_shot)",
+      "device_suggestion": "texture_or_drone_seed",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    },
+    {
+      "track_name": "Transition Fx",
+      "role": "transition_fx",
+      "selected_sample_ref": "sample_8252593cc5",
+      "local_source_path_private": "private_local_only",
+      "public_safe_sample_label": "sample_8252593cc5 (unknown)",
+      "device_suggestion": "fx_or_riser_seed",
+      "notes": "Manually drag this sample into Synplant / Ableton if desired.",
+      "limitations": "Synplant automation not implemented."
+    }
+  ],
+  "puredata_placeholders": [
+    {
+      "track_name": "Drums",
+      "role": "drums",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    },
+    {
+      "track_name": "Bass",
+      "role": "bass",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    },
+    {
+      "track_name": "Chords",
+      "role": "chords",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    },
+    {
+      "track_name": "Lead",
+      "role": "lead",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    },
+    {
+      "track_name": "Texture Bed",
+      "role": "texture_bed",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    },
+    {
+      "track_name": "Transition Fx",
+      "role": "transition_fx",
+      "device_suggestion": "Future Max for Live / Pure Data bridge",
+      "notes": "Placeholder lane for future control-routing experiments.",
+      "limitations": "Pure Data patch generation/control not implemented in export v1."
+    }
+  ],
+  "created_at": "2026-05-23T08:22:05.131501+00:00"
+}
