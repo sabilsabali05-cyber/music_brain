@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 import sys
@@ -163,7 +164,8 @@ def export_ableton_project_v1(
         sample_id = str(item.get("sample_id", "unknown"))
         source_path = str(item.get("source_path", ""))
         asset_type = str(item.get("asset_type_guess", "unknown"))
-        label = f"{sample_id} ({asset_type})"
+        public_id = f"sample_{hashlib.sha1(sample_id.encode('utf-8')).hexdigest()[:10]}"
+        label = f"{public_id} ({asset_type})"
         private_seed_rows.append(
             {
                 "track_role": role,
@@ -186,7 +188,7 @@ def export_ableton_project_v1(
             AbletonSampleAssignment(
                 track_name=role.replace("_", " ").title(),
                 role=role,
-                selected_sample_ref=sample_id,
+                selected_sample_ref=public_id,
                 local_source_path_private="private_local_only",
                 public_safe_sample_label=label,
                 device_suggestion="Synplant seed input (manual)",
@@ -197,7 +199,7 @@ def export_ableton_project_v1(
             AbletonSynplantSeedInstruction(
                 track_name=role.replace("_", " ").title(),
                 role=role,
-                selected_sample_ref=sample_id,
+                selected_sample_ref=public_id,
                 local_source_path_private="private_local_only",
                 public_safe_sample_label=label,
                 device_suggestion=track_seed_map.get(role, "manual_seed"),

@@ -161,9 +161,9 @@
     {
       "track_name": "Drums",
       "role": "drums",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__#synth #bass add.wav",
+      "selected_sample_ref": "sample_9ca14fd617",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__#synth #bass add.wav (unknown)",
+      "public_safe_sample_label": "sample_9ca14fd617 (unknown)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -171,9 +171,9 @@
     {
       "track_name": "Bass",
       "role": "bass",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass BODY.wav",
+      "selected_sample_ref": "sample_bc7e5e3804",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass BODY.wav (unknown)",
+      "public_safe_sample_label": "sample_bc7e5e3804 (unknown)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -181,9 +181,9 @@
     {
       "track_name": "Chords",
       "role": "chords",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass ExpErnza.wav",
+      "selected_sample_ref": "sample_743ac9df55",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass ExpErnza.wav (unknown)",
+      "public_safe_sample_label": "sample_743ac9df55 (unknown)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -191,9 +191,9 @@
     {
       "track_name": "Lead",
       "role": "lead",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass EyemEvil.wav",
+      "selected_sample_ref": "sample_e3b456ebb8",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass EyemEvil.wav (unknown)",
+      "public_safe_sample_label": "sample_e3b456ebb8 (unknown)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -201,9 +201,9 @@
     {
       "track_name": "Texture Bed",
       "role": "texture_bed",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav",
+      "selected_sample_ref": "sample_04c257d4b9",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav (bass_one_shot)",
+      "public_safe_sample_label": "sample_04c257d4b9 (bass_one_shot)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -211,9 +211,9 @@
     {
       "track_name": "Transition Fx",
       "role": "transition_fx",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass Litter.wav",
+      "selected_sample_ref": "sample_8252593cc5",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass Litter.wav (unknown)",
+      "public_safe_sample_label": "sample_8252593cc5 (unknown)",
       "device_suggestion": "Synplant seed input (manual)",
       "notes": "Keep private local path in ignored private file only.",
       "limitations": "Manual drag-in only; no automatic sample import."
@@ -223,9 +223,9 @@
     {
       "track_name": "Drums",
       "role": "drums",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__#synth #bass add.wav",
+      "selected_sample_ref": "sample_9ca14fd617",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__#synth #bass add.wav (unknown)",
+      "public_safe_sample_label": "sample_9ca14fd617 (unknown)",
       "device_suggestion": "drum_break_or_loop",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -233,9 +233,9 @@
     {
       "track_name": "Bass",
       "role": "bass",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass BODY.wav",
+      "selected_sample_ref": "sample_bc7e5e3804",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass BODY.wav (unknown)",
+      "public_safe_sample_label": "sample_bc7e5e3804 (unknown)",
       "device_suggestion": "bass_or_synth_seed",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -243,9 +243,9 @@
     {
       "track_name": "Chords",
       "role": "chords",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass ExpErnza.wav",
+      "selected_sample_ref": "sample_743ac9df55",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass ExpErnza.wav (unknown)",
+      "public_safe_sample_label": "sample_743ac9df55 (unknown)",
       "device_suggestion": "chord_stab_or_pad_seed",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -253,9 +253,9 @@
     {
       "track_name": "Lead",
       "role": "lead",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass EyemEvil.wav",
+      "selected_sample_ref": "sample_e3b456ebb8",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass EyemEvil.wav (unknown)",
+      "public_safe_sample_label": "sample_e3b456ebb8 (unknown)",
       "device_suggestion": "vocal_or_synth_seed",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -263,9 +263,9 @@
     {
       "track_name": "Texture Bed",
       "role": "texture_bed",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav",
+      "selected_sample_ref": "sample_04c257d4b9",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass getReal.wav (bass_one_shot)",
+      "public_safe_sample_label": "sample_04c257d4b9 (bass_one_shot)",
       "device_suggestion": "texture_or_drone_seed",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -273,9 +273,9 @@
     {
       "track_name": "Transition Fx",
       "role": "transition_fx",
-      "selected_sample_ref": "local_sounds_desktop__!a secret__1 synth__#synth #bass Litter.wav",
+      "selected_sample_ref": "sample_8252593cc5",
       "local_source_path_private": "private_local_only",
-      "public_safe_sample_label": "local_sounds_desktop__!a secret__1 synth__#synth #bass Litter.wav (unknown)",
+      "public_safe_sample_label": "sample_8252593cc5 (unknown)",
       "device_suggestion": "fx_or_riser_seed",
       "notes": "Manually drag this sample into Synplant / Ableton if desired.",
       "limitations": "Synplant automation not implemented."
@@ -325,5 +325,5 @@
       "limitations": "Pure Data patch generation/control not implemented in export v1."
     }
   ],
-  "created_at": "2026-05-23T08:19:03.349703+00:00"
+  "created_at": "2026-05-23T08:22:05.131501+00:00"
 }
