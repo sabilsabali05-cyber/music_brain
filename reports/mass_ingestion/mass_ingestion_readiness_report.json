@@ -1,0 +1,236 @@
+{
+  "created_at": "2026-05-23T07:07:59.864802+00:00",
+  "ready_for_mass_ingestion": false,
+  "ready_for_controlled_batch": true,
+  "recommended_next_batch_size": 10,
+  "strengths": [
+    "composition pipeline exists",
+    "trust/audit layer exists",
+    "generative examples exist",
+    "prototype MIDI generation exists",
+    "symbolic backend sockets exist",
+    "local sample-library indexer exists"
+  ],
+  "blockers": [
+    "high review burden",
+    "missing manual review queue",
+    "missing serious model-training tokenization/export target",
+    "missing Synplant session logging",
+    "missing Pure Data template library",
+    "missing Max/Ableton routing records",
+    "missing sound feedback capture",
+    "incomplete external witness coverage",
+    "incomplete meter/pitch/harmony calibration on some performances"
+  ],
+  "risk_flags": [
+    {
+      "risk_id": "review_burden_high",
+      "category": "review burden",
+      "severity": "high",
+      "blocked": true,
+      "summary": "Review backlog is high for safe mass ingestion.",
+      "mitigation": "Run controlled batch of 10 and reduce review queue before scaling."
+    },
+    {
+      "risk_id": "sound_system_logging_missing",
+      "category": "Synplant seed-selection readiness",
+      "severity": "high",
+      "blocked": true,
+      "summary": "Synplant/Pure Data/Max routing logs are not production-ready.",
+      "mitigation": "Add manual session logging and routing record capture."
+    }
+  ],
+  "gates": [
+    {
+      "category": "source authorization",
+      "status": "partial",
+      "blocked": false,
+      "details": "Sample library config supports local authorization claims."
+    },
+    {
+      "category": "dedupe/hash coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Sample-library hashes exist; performance-level dedupe remains partial."
+    },
+    {
+      "category": "metadata coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Core metadata exists but manual curation is incomplete."
+    },
+    {
+      "category": "transcription success rate",
+      "status": "unknown",
+      "blocked": false,
+      "details": "No reliable aggregate success metric found."
+    },
+    {
+      "category": "segmentation success rate",
+      "status": "unknown",
+      "blocked": false,
+      "details": "No consolidated segmentation readiness metric found."
+    },
+    {
+      "category": "merged MIDI coverage",
+      "status": "unknown",
+      "blocked": false,
+      "details": "No merged MIDI coverage aggregate found."
+    },
+    {
+      "category": "rhythm feature coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Feature extraction pipeline exists."
+    },
+    {
+      "category": "meter/time feature coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Feature extraction pipeline exists."
+    },
+    {
+      "category": "pitch/harmony feature coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Feature extraction pipeline exists."
+    },
+    {
+      "category": "routing/content-state coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Routing schema exists but completeness is unknown."
+    },
+    {
+      "category": "external witness coverage",
+      "status": "partial",
+      "blocked": true,
+      "details": "Coverage appears incomplete across the full corpus."
+    },
+    {
+      "category": "model consensus coverage",
+      "status": "partial",
+      "blocked": false,
+      "details": "Consensus tooling exists, broad coverage unknown."
+    },
+    {
+      "category": "generative example yield",
+      "status": "partial",
+      "blocked": false,
+      "details": "Generative examples available but review burden is high."
+    },
+    {
+      "category": "review burden",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Review burden is currently too high for mass ingestion."
+    },
+    {
+      "category": "storage budget",
+      "status": "unknown",
+      "blocked": false,
+      "details": "No formal storage budget report detected."
+    },
+    {
+      "category": "human review queue readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Manual queue workflow is not codified."
+    },
+    {
+      "category": "sample-library readiness",
+      "status": "partial",
+      "blocked": false,
+      "details": "Local sample indexing exists with privacy-safe outputs."
+    },
+    {
+      "category": "Synplant seed-selection readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Session logging schemas are placeholders only."
+    },
+    {
+      "category": "Pure Data template readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Template library is not yet established."
+    },
+    {
+      "category": "Max/Ableton routing readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Routing records are placeholder level only."
+    },
+    {
+      "category": "ratio intelligence readiness",
+      "status": "partial",
+      "blocked": false,
+      "details": "Schema placeholders exist for future planning."
+    },
+    {
+      "category": "model-training readiness",
+      "status": "blocked",
+      "blocked": true,
+      "details": "Tokenization/export target and feedback loops are missing."
+    }
+  ],
+  "dataset_scale_estimate": {
+    "performances_indexed": 0,
+    "generative_examples_count": 0,
+    "sample_library_index_available": true,
+    "storage_budget_note": "not formally reported"
+  },
+  "review_burden_estimate": {
+    "review_required_examples": 320,
+    "estimated_hours": 25.6,
+    "human_review_queue_ready": false,
+    "burden_level": "high"
+  },
+  "feature_layer_readiness": {
+    "transcription_success_rate_known": false,
+    "segmentation_success_rate_known": false,
+    "merged_midi_coverage_known": false,
+    "rhythm_feature_coverage_known": true,
+    "meter_time_feature_coverage_known": true,
+    "pitch_harmony_feature_coverage_known": true,
+    "routing_content_state_coverage_known": true,
+    "external_witness_coverage_known": false,
+    "model_consensus_coverage_known": false
+  },
+  "sound_library_readiness": {
+    "sample_library_indexer_available": true,
+    "sample_library_records_present_locally": true,
+    "synplant_session_logging_ready": true,
+    "pure_data_template_library_ready": true,
+    "max_ableton_routing_records_ready": true,
+    "sound_feedback_capture_ready": false
+  },
+  "model_training_readiness": {
+    "training_tokenization_target_ready": false,
+    "export_target_ready": false,
+    "ratio_intelligence_schema_ready": true,
+    "model_training_has_happened": false,
+    "synplant_automation_available": false,
+    "pure_data_automation_available": false
+  },
+  "controlled_batch_plan": {
+    "ready_for_controlled_batch": true,
+    "recommended_next_batch_size": 10,
+    "suggested_scope": [
+      "5 song/performance files",
+      "50 to 100 local sample-library sounds",
+      "5 to 10 manually logged Synplant seed attempts later",
+      "3 to 5 Pure Data template/control experiments later"
+    ],
+    "notes": [
+      "Controlled batch is allowed.",
+      "Mass ingestion is blocked until controlled-batch metrics improve.",
+      "Do not ingest hundreds/thousands of files yet."
+    ]
+  },
+  "limitations": [
+    "Readiness is inferred from available local artifacts and may include unknowns.",
+    "Dataset quality signal source: C:/Users/izzyo/ai-composer/music_brain/reports/dataset_quality/dataset_quality_yield_report.json (if present).",
+    "No model training, transcription, modal calls, or audio processing performed."
+  ]
+}
