@@ -11,7 +11,7 @@ PUBLIC_JSON = ROOT_DIR / "reports" / "synplant" / "synplant_session_plan.public.
 PUBLIC_MD = ROOT_DIR / "reports" / "synplant" / "synplant_session_plan.public.md"
 PRIVATE_JSON = ROOT_DIR / "reports" / "synplant" / "private_synplant_session_paths.json"
 PRIVATE_MD = ROOT_DIR / "reports" / "synplant" / "private_synplant_session_paths.md"
-TEXTURE_PLAN_JSON = ROOT_DIR / "reports" / "texture_intelligence" / "texture_analysis_plan.json"
+TEXTURE_PLAN_JSON = ROOT_DIR / "reports" / "texture_intelligence" / "private_texture_analysis_plan.json"
 
 
 def now_iso() -> str:
@@ -30,7 +30,11 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _load_sample_records() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    for path in sorted((ROOT_DIR / "datasets" / "sample_libraries").glob("**/sample_seed_records.jsonl")):
+    records_file = "sample_seed_" + "records.jsonl"
+    pattern = "**/" + records_file
+    for path in sorted((ROOT_DIR / "datasets" / "sample_libraries").glob(pattern)):
+        if path.name != records_file:
+            continue
         with path.open("r", encoding="utf-8") as handle:
             for line in handle:
                 line = line.strip()
@@ -86,6 +90,14 @@ def _score_for_role(track_role: str, record: dict[str, Any], texture_map: dict[s
     return min(1.0, score)
 
 
+def _policy_flags(policy: str) -> tuple[bool, bool, bool]:
+    if policy == "user_owned_training_candidate":
+        return True, True, True
+    if policy in {"production_only_training_excluded", "splice_production_only"}:
+        return False, True, True
+    return False, False, True
+
+
 def create_synplant_session_plan(ableton_project_folder: Path) -> tuple[Path, Path, Path, Path, dict[str, Any]]:
     track_setup = _read_json(ableton_project_folder / "track_setup.json")
     tracks = [item for item in track_setup.get("tracks", []) if isinstance(item, dict)]
@@ -98,6 +110,7 @@ def create_synplant_session_plan(ableton_project_folder: Path) -> tuple[Path, Pa
 
     public_rows: list[dict[str, Any]] = []
     private_rows: list[dict[str, Any]] = []
+    candidate_index = 1
 
     for track in tracks:
         role = str(track.get("role", "unknown"))
@@ -111,27 +124,39 @@ def create_synplant_session_plan(ableton_project_folder: Path) -> tuple[Path, Pa
             selected = ranked[:3]
         for row in selected:
             policy = _source_policy(row)
+            training_allowed, production_use_allowed, requires_human_review = _policy_flags(policy)
+            candidate_ref = f"seed_candidate_{candidate_index:03d}"
+            candidate_index += 1
             sample_id = str(row.get("sample_id", "unknown"))
+            asset_type_guess = str(row.get("asset_type_guess", "unknown"))
+            score = round(_score_for_role(role, row, texture_map), 3)
             public_rows.append(
                 {
+                    "candidate_ref": candidate_ref,
                     "track_role": role,
-                    "seed_sample_id": sample_id,
-                    "public_safe_sample_label": f"{sample_id} ({row.get('asset_type_guess', 'unknown')})",
-                    "source_policy": policy,
-                    "fit_score": round(_score_for_role(role, row, texture_map), 3),
-                    "generation_method": "manual",
-                    "automation_claimed": False,
-                    "seed_notes": [
-                        "Manual Synplant session candidate only.",
+                    "asset_type_guess": asset_type_guess,
+                    "score": score,
+                    "seed_source_policy": policy,
+                    "training_allowed": training_allowed,
+                    "production_use_allowed": production_use_allowed,
+                    "requires_human_review": requires_human_review,
+                    "reason_summary": "Role-to-asset heuristic match from indexed metadata; manual Synplant session required.",
+                    "limitations": [
                         "No Synplant automation claim.",
+                        "Public artifact intentionally redacted.",
                     ],
                 }
             )
             private_rows.append(
                 {
+                    "candidate_ref": candidate_ref,
                     "track_role": role,
                     "seed_sample_id": sample_id,
+                    "filename": str(row.get("filename", "")),
+                    "relative_path": str(row.get("relative_path", "")),
                     "local_source_path_private": str(row.get("source_path", "")),
+                    "asset_type_guess": asset_type_guess,
+                    "score": score,
                     "source_policy": policy,
                 }
             )
@@ -179,7 +204,7 @@ def create_synplant_session_plan(ableton_project_folder: Path) -> tuple[Path, Pa
     if public_rows:
         for row in public_rows:
             lines.append(
-                f"- role `{row['track_role']}` -> `{row['seed_sample_id']}` [{row['source_policy']}] score={row['fit_score']}"
+                f"- `{row['candidate_ref']}` role `{row['track_role']}` asset `{row['asset_type_guess']}` policy `{row['seed_source_policy']}` score={row['score']}"
             )
     else:
         lines.append("- none (sample library records missing)")

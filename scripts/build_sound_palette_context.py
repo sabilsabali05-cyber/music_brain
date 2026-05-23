@@ -10,7 +10,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 OUT_JSON = ROOT_DIR / "reports" / "texture_intelligence" / "sound_palette_context.json"
 OUT_MD = ROOT_DIR / "reports" / "texture_intelligence" / "sound_palette_context.md"
 SYNPLANT_PLAN = ROOT_DIR / "reports" / "synplant" / "synplant_session_plan.public.json"
-TEXTURE_PLAN = ROOT_DIR / "reports" / "texture_intelligence" / "texture_analysis_plan.json"
+TEXTURE_PLAN = ROOT_DIR / "reports" / "texture_intelligence" / "texture_analysis_plan.public.json"
 
 
 def now_iso() -> str:

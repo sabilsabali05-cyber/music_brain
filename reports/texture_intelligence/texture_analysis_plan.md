@@ -31,4 +31,4 @@
 
 ## Limitations
 - Planning only; no transcription, no Modal calls, no model training, no new audio processing.
-- Private local source paths are intentionally excluded from public plan outputs.
+- Public plan intentionally excludes per-sample IDs, filenames, and local paths.

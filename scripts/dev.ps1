@@ -245,10 +245,11 @@ function Find-ToolPathFromCommand {
 function Find-GitPath {
     $onPath = Find-ToolPathFromCommand "git"
     if ($onPath) { return @{ Path = $onPath; Source = "PATH" } }
+    $userProfile = [Environment]::GetFolderPath("UserProfile")
     $candidates = @(
         "C:\Program Files\Git\cmd\git.exe",
         "C:\Program Files\Git\bin\git.exe",
-        "C:\Users\izzyo\AppData\Local\Programs\Git\cmd\git.exe"
+        (Join-Path $userProfile "AppData\Local\Programs\Git\cmd\git.exe")
     )
     foreach ($candidate in $candidates) {
         if (Test-Path $candidate) { return @{ Path = $candidate; Source = "fallback: $candidate" } }
@@ -260,7 +261,7 @@ function Find-FfmpegPath {
     $onPath = Find-ToolPathFromCommand "ffmpeg"
     if ($onPath) { return @{ Path = $onPath; Source = "PATH" } }
 
-    $globRoot = "C:\Users\izzyo\AppData\Local\Microsoft\WinGet\Packages"
+    $globRoot = Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Packages"
     if (Test-Path $globRoot) {
         $wingetMatches = @(Get-ChildItem -Path $globRoot -Filter "ffmpeg.exe" -Recurse -File -ErrorAction SilentlyContinue |
                 Where-Object { $_.FullName -like "*Gyan.FFmpeg_*" -and $_.FullName -like "*\ffmpeg-*\bin\ffmpeg.exe" } |

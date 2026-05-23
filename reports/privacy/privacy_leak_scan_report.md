@@ -3,14 +3,12 @@
 - status: `ok`
 - strict_mode: `False`
 - new_public_leak_count: `0`
-- pre_existing_historical_path_debt_count: `158`
+- pre_existing_historical_path_debt_count: `144`
 
 ## New Public Leaks
 - none
 
 ## Pre-existing Historical Path Debt
-- `.gitignore` marker=`private_synplant_seed_paths` count=`2`
-- `.gitignore` marker=`sample_seed_records.jsonl` count=`1`
 - `README.md` marker=`C:\Users\` count=`7`
 - `datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl` marker=`C:/Users/` count=`2156`
 - `datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json` marker=`C:/Users/` count=`5`
@@ -59,7 +57,9 @@
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/pitch_harmony/pitch_harmony_features.json` marker=`C:/Users/` count=`11`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json` marker=`C:/Users/` count=`7532`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json` marker=`C:/Users/` count=`9`
-- ... and 108 more
+- `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json` marker=`C:/Users/` count=`31504`
+- `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json` marker=`C:/Users/` count=`12411`
+- ... and 94 more
 
 ## Limitations
 - String-based scan only; semantic privacy issues may require manual review.

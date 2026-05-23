@@ -2,21 +2,9 @@
   "status": "ok",
   "strict_mode": false,
   "new_public_leak_count": 0,
-  "pre_existing_historical_path_debt_count": 158,
+  "pre_existing_historical_path_debt_count": 144,
   "new_public_leaks": [],
   "pre_existing_historical_path_debt": [
-    {
-      "path": ".gitignore",
-      "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
-    },
-    {
-      "path": ".gitignore",
-      "marker": "sample_seed_records.jsonl",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
     {
       "path": "README.md",
       "marker": "C:\\Users\\",
@@ -510,12 +498,6 @@
       "line_count": 5
     },
     {
-      "path": "reports/controlled_ingestion/controlled_batch_run_report.json",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
       "path": "reports/data_audits/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_training_data_audit.md",
       "marker": "C:\\Users\\",
       "debt_type": "pre_existing_historical_path_debt",
@@ -584,60 +566,6 @@
     {
       "path": "reports/mass_ingestion/mass_ingestion_readiness_report.md",
       "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
-      "path": "reports/privacy/historical_path_scrub_plan.json",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 99
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.json",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 124
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.json",
-      "marker": "OneDrive/Desktop/sounds",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 3
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.json",
-      "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 10
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.json",
-      "marker": "sample_seed_records.jsonl",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 9
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.md",
-      "marker": "C:\\Users\\",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 1
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.md",
-      "marker": "C:/Users/",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 46
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.md",
-      "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
-    },
-    {
-      "path": "reports/privacy/privacy_leak_scan_report.md",
-      "marker": "sample_seed_records.jsonl",
       "debt_type": "pre_existing_historical_path_debt",
       "line_count": 1
     },
@@ -834,12 +762,6 @@
       "line_count": 1
     },
     {
-      "path": "scripts/dev.ps1",
-      "marker": "C:\\Users\\",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
-    },
-    {
       "path": "scripts/evaluate_mass_ingestion_readiness.py",
       "marker": "sample_seed_records.jsonl",
       "debt_type": "pre_existing_historical_path_debt",
@@ -874,12 +796,6 @@
       "marker": "C:/Users/",
       "debt_type": "pre_existing_historical_path_debt",
       "line_count": 1
-    },
-    {
-      "path": "tests/test_ableton_project_export.py",
-      "marker": "private_synplant_seed_paths",
-      "debt_type": "pre_existing_historical_path_debt",
-      "line_count": 2
     },
     {
       "path": "tests/test_controlled_ingestion_sprint.py",
@@ -980,7 +896,11 @@
     "outputs/tangible_generation_v1/generated_song.mid",
     "outputs/tangible_generation_v1/generated_texture_motifs.mid",
     "outputs/tangible_generation_v1/generation_report.json",
-    "outputs/tangible_generation_v1/generation_report.md"
+    "outputs/tangible_generation_v1/generation_report.md",
+    "reports/privacy/historical_path_scrub_plan.json",
+    "reports/privacy/historical_path_scrub_plan.md",
+    "reports/privacy/privacy_leak_scan_report.json",
+    "reports/privacy/privacy_leak_scan_report.md"
   ],
   "limitations": [
     "String-based scan only; semantic privacy issues may require manual review.",

@@ -28,6 +28,7 @@ ALLOWLIST_PATH_SNIPPETS = [
     "outputs/tangible_generation_v1/",
     "datasets/sample_libraries/",
     "reports/sample_libraries/",
+    "reports/privacy/",
 ]
 
 

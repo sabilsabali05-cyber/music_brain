@@ -82,8 +82,8 @@ def test_public_summary_does_not_contain_private_paths(tmp_path: Path) -> None:
 
 def test_private_seed_files_gitignored_rule_exists() -> None:
     gitignore = Path(".gitignore").read_text(encoding="utf-8")
-    assert "outputs/ableton_project_v1/**/private_synplant_seed_paths.json" in gitignore
-    assert "outputs/ableton_project_v1/**/private_synplant_seed_paths.md" in gitignore
+    assert "outputs/ableton_project_v1/**/private_synplant_*_paths.json" in gitignore
+    assert "outputs/ableton_project_v1/**/private_synplant_*_paths.md" in gitignore
 
 
 def test_no_als_claim_and_copy_local_samples_default_false(tmp_path: Path) -> None:
