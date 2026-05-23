@@ -83,7 +83,7 @@
         "This adapter intentionally avoids heavyweight runtime imports at module load time.",
         "Generation is disabled because MusicBERT is treated as an evaluator/understanding witness."
       ],
-      "checked_at": "2026-05-23T03:21:39.252799+00:00"
+      "checked_at": "2026-05-23T03:36:31.963072+00:00"
     },
     {
       "provider_id": "moonbeam",
@@ -109,7 +109,7 @@
         "Adapter currently performs capability/availability reporting only.",
         "No model inference is executed when backend is unavailable."
       ],
-      "checked_at": "2026-05-23T03:21:39.254428+00:00"
+      "checked_at": "2026-05-23T03:36:31.963236+00:00"
     },
     {
       "provider_id": "midigpt",
@@ -135,7 +135,7 @@
         "Adapter currently performs capability/availability reporting only.",
         "No model inference is executed when backend is unavailable."
       ],
-      "checked_at": "2026-05-23T03:21:39.255232+00:00"
+      "checked_at": "2026-05-23T03:36:31.963566+00:00"
     },
     {
       "provider_id": "text2midi",
@@ -159,7 +159,7 @@
         "Adapter currently performs capability/availability reporting only.",
         "No model inference is executed when backend is unavailable."
       ],
-      "checked_at": "2026-05-23T03:21:39.255462+00:00"
+      "checked_at": "2026-05-23T03:36:31.963786+00:00"
     }
   ]
 }

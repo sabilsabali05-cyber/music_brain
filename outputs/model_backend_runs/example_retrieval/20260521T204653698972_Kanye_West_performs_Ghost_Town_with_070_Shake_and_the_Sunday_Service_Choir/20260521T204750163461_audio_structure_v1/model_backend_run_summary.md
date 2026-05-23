@@ -4,8 +4,8 @@
 - availability: `True`
 - task: `continuation`
 - prompt: `None`
-- generation_status: `success_internal_example_fallback`
-- limitations: `["Delegation module unavailable: No module named 'scripts.generate_midi_from_examples'", 'Used internal fallback path from existing examples.']`
+- generation_status: `success_delegated_to_example_retrieval`
+- limitations: `['Delegated to existing example-based generator.', 'No symbolic model backend inference executed.']`
 - provenance: `{'prototype_generated_from_existing_examples': True, 'not_original_model_composition': True, 'not_ground_truth': True, 'not_model_trained': True}`
 
 ## Input examples used
