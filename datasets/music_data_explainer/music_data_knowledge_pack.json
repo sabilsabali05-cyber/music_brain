@@ -1,0 +1,284 @@
+{
+  "built_at": "2026-05-23T19:06:11.052147+00:00",
+  "sources": [
+    {
+      "source_id": "mass_ingestion_readiness_report",
+      "artifact_path": "reports/mass_ingestion/mass_ingestion_readiness_report.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "privacy_leak_scan_report",
+      "artifact_path": "reports/privacy/privacy_leak_scan_report.json",
+      "exists": true,
+      "privacy_redacted": true,
+      "notes": [
+        "privacy_redacted"
+      ]
+    },
+    {
+      "source_id": "controlled_batch_plan",
+      "artifact_path": "reports/controlled_ingestion/controlled_batch_plan.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "symbolic_corpus_v1_report",
+      "artifact_path": "reports/model_training/symbolic_corpus_v1_report.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "review_queue_summary",
+      "artifact_path": "reports/review_queue/review_queue_summary.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "training_candidate_quality_report",
+      "artifact_path": "reports/data_quality/training_candidate_quality_report.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "generated_composition_scorecard",
+      "artifact_path": "reports/model_evaluation/generated_composition_scorecard.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "generation_report",
+      "artifact_path": "outputs/tangible_generation_v1/generation_report.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "demo_composition_plan",
+      "artifact_path": "outputs/tangible_generation_v1/demo_composition_plan.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "track_setup",
+      "artifact_path": "outputs/ableton_project_v1/AI_Generated_Song_Project/track_setup.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    },
+    {
+      "source_id": "export_report",
+      "artifact_path": "outputs/ableton_project_v1/AI_Generated_Song_Project/export_report.json",
+      "exists": true,
+      "privacy_redacted": false,
+      "notes": []
+    }
+  ],
+  "performances": [
+    {
+      "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+      "display_name": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+      "generative_dataset_count": 1,
+      "generative_example_count": 98,
+      "task_types": [
+        "buildup_to_release",
+        "call_response",
+        "continuation",
+        "groove_continuation",
+        "harmony_continuation",
+        "infill_missing_region",
+        "melody_continuation",
+        "motif_transformation",
+        "phrase_continuation",
+        "section_transition"
+      ],
+      "evidence_refs": [
+        {
+          "artifact_path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json",
+          "summary": "generative manifest",
+          "privacy_redacted": false
+        }
+      ]
+    },
+    {
+      "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+      "display_name": "20260521T213418203003_Sunday_Service_Choir_122621",
+      "generative_dataset_count": 1,
+      "generative_example_count": 430,
+      "task_types": [
+        "buildup_to_release",
+        "call_response",
+        "continuation",
+        "groove_continuation",
+        "harmony_continuation",
+        "infill_missing_region",
+        "melody_continuation",
+        "motif_transformation",
+        "phrase_continuation",
+        "section_transition"
+      ],
+      "evidence_refs": [
+        {
+          "artifact_path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json",
+          "summary": "generative manifest",
+          "privacy_redacted": false
+        }
+      ]
+    }
+  ],
+  "generative_datasets": [
+    {
+      "dataset_id": "20260521T204750163461_audio_structure_v1",
+      "dataset_path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1",
+      "performance_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+      "example_count": 98,
+      "task_types": [
+        "buildup_to_release",
+        "call_response",
+        "continuation",
+        "groove_continuation",
+        "harmony_continuation",
+        "infill_missing_region",
+        "melody_continuation",
+        "motif_transformation",
+        "phrase_continuation",
+        "section_transition"
+      ],
+      "split_counts": {
+        "train": 42,
+        "review": 23,
+        "validation": 33
+      },
+      "privacy_redacted": false
+    },
+    {
+      "dataset_id": "20260521T213524641640_audio_structure_v1",
+      "dataset_path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1",
+      "performance_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+      "example_count": 430,
+      "task_types": [
+        "buildup_to_release",
+        "call_response",
+        "continuation",
+        "groove_continuation",
+        "harmony_continuation",
+        "infill_missing_region",
+        "melody_continuation",
+        "motif_transformation",
+        "phrase_continuation",
+        "section_transition"
+      ],
+      "split_counts": {
+        "review": 297,
+        "validation": 132,
+        "train": 1
+      },
+      "privacy_redacted": false
+    }
+  ],
+  "sample_libraries": [
+    {
+      "library_id": "local_sounds_desktop",
+      "manifest_found": true,
+      "sample_count": null,
+      "indexed_audio_files": null,
+      "source_type": "local_sample_seed_library",
+      "privacy_redacted": true,
+      "notes": [
+        "privacy_redacted"
+      ]
+    }
+  ],
+  "ableton_output": {
+    "export_available": true,
+    "export_root": "outputs/ableton_project_v1/AI_Generated_Song_Project",
+    "midi_track_count": 6,
+    "track_roles": [
+      "bass",
+      "chords",
+      "drums",
+      "lead",
+      "texture_bed",
+      "transition_fx"
+    ],
+    "als_generation_status": "not_implemented_experimental_future",
+    "notes": []
+  },
+  "readiness": {
+    "ready_for_controlled_batch": true,
+    "ready_for_mass_ingestion": false,
+    "ready_for_model_training": false,
+    "blockers": [
+      "symbolic corpus export is not training-ready",
+      "historical privacy debt remains above zero"
+    ],
+    "top_strengths": [
+      "composition pipeline exists",
+      "trust/audit layer exists",
+      "generative examples exist",
+      "prototype MIDI generation exists",
+      "symbolic backend sockets exist",
+      "local sample-library indexer exists"
+    ],
+    "next_actions": [
+      "Create config/controlled_batches/first_real_batch.local.json from template and keep it uncommitted.",
+      "Run plan-controlled-ingestion-batch and run-controlled-ingestion-batch against first_real_batch.local.json.",
+      "Resolve historical scrub safe candidates and reduce privacy debt count.",
+      "Regenerate tangible demo + Ableton export after controlled batch and rescore quality reports.",
+      "Re-run evaluate-mass-ingestion-readiness to verify blocker removal."
+    ],
+    "privacy_new_public_leak_count": 0,
+    "privacy_historical_debt_count": 158
+  },
+  "known_task_types": [
+    "buildup_to_release",
+    "call_response",
+    "continuation",
+    "groove_continuation",
+    "harmony_continuation",
+    "infill_missing_region",
+    "melody_continuation",
+    "motif_transformation",
+    "phrase_continuation",
+    "section_transition"
+  ],
+  "corpus_split_counts": {
+    "train": 0,
+    "validation": 0,
+    "review": 40,
+    "exclude": 0
+  },
+  "tangible_outputs": {
+    "output_dir": "outputs/tangible_generation_v1",
+    "sample_suggestions_generated": false,
+    "climax_seconds": 111.246,
+    "note_counts": {
+      "drums": 76,
+      "bass": 18,
+      "chords": 9,
+      "lead": 74,
+      "texture_bed": 139,
+      "song": 560
+    }
+  },
+  "limitations": [
+    {
+      "limitation_id": "historical_privacy_debt",
+      "description": "Historical tracked path debt exists and should be scrubbed/redacted.",
+      "severity": "medium"
+    }
+  ],
+  "next_best_actions": [
+    "Fill a local controlled batch manifest with 1-5 authorized song files.",
+    "Run controlled-batch plan + dry-run before execute mode.",
+    "Prioritize review queue items to increase training-ready corpus coverage.",
+    "Keep privacy scans clean for new public leaks before each merge."
+  ]
+}

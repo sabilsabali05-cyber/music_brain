@@ -135,6 +135,8 @@ function Show-Usage {
     Write-Host "  run-controlled-ingestion-batch <manifest> [--execute]"
     Write-Host "  compare-generation-iterations <old-output> <new-output>"
     Write-Host "  build-mass-ingestion-readiness-artifacts"
+    Write-Host "  build-music-data-knowledge-pack"
+    Write-Host "  explain-music-data <question>"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1223,6 +1225,20 @@ switch ($Task) {
     "build-mass-ingestion-readiness-artifacts" {
         Invoke-Step -Label "Building readiness artifacts for phases 6-14" -Command @(
             "python", "scripts/build_mass_ingestion_readiness_artifacts.py"
+        )
+    }
+    "build-music-data-knowledge-pack" {
+        Invoke-Step -Label "Building music data explainer knowledge pack" -Command @(
+            "python", "scripts/build_music_data_knowledge_pack.py"
+        )
+    }
+    "explain-music-data" {
+        $question = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "" }
+        if ([string]::IsNullOrWhiteSpace($question)) {
+            throw "Usage: scripts\dev.cmd explain-music-data <question>"
+        }
+        Invoke-Step -Label "Explaining music data state" -Command @(
+            "python", "scripts/explain_music_data.py", $question
         )
     }
     "commit-checkpoint" {
