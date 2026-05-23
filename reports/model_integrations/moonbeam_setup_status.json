@@ -1,0 +1,38 @@
+{
+  "status": "unavailable",
+  "config_source": "config/model_integrations/model_integrations.example.json",
+  "moonbeam_enabled": false,
+  "moonbeam_configured": false,
+  "moonbeam_available": false,
+  "smoke_test_enabled": false,
+  "smoke_test_passed": false,
+  "unavailable_reason": "disabled_or_missing_local_config",
+  "next_setup_step": "Enable Moonbeam and set repo_path/model_path/tokenizer_path in config/model_integrations/model_integrations.local.json.",
+  "path_checks": {
+    "repo_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    },
+    "model_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    },
+    "tokenizer_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    }
+  },
+  "model_training_has_occurred": false,
+  "limitations": [
+    "This checker does not import heavyweight Moonbeam packages.",
+    "This checker does not download model weights.",
+    "This checker does not train models."
+  ],
+  "smoke_test_notes": [
+    "Smoke test skipped because local config is disabled or missing.",
+    "No weights downloaded and no training performed."
+  ]
+}

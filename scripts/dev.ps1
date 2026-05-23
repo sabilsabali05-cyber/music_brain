@@ -107,6 +107,8 @@ function Show-Usage {
     Write-Host "  check-symbolic-model-backends"
     Write-Host "  check-symbolic-backends"
     Write-Host "  check-model-integrations"
+    Write-Host "  check-moonbeam-setup"
+    Write-Host "  run-moonbeam-smoke-test"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1026,6 +1028,16 @@ switch ($Task) {
     "check-model-integrations" {
         Invoke-Step -Label "Checking broader model integration availability" -Command @(
             "python", "scripts/check_model_integrations.py"
+        )
+    }
+    "check-moonbeam-setup" {
+        Invoke-Step -Label "Checking Moonbeam local setup status" -Command @(
+            "python", "scripts/check_moonbeam_setup.py"
+        )
+    }
+    "run-moonbeam-smoke-test" {
+        Invoke-Step -Label "Running Moonbeam minimal smoke test" -Command @(
+            "python", "scripts/run_moonbeam_smoke_test.py"
         )
     }
     "write-model-integration-roadmap" {

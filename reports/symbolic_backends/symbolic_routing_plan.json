@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "moonbeam_preferred_for": [
+    "continuation",
+    "infill",
+    "section_development",
+    "phrase_development",
+    "symbolic_composition"
+  ],
+  "midigpt_preferred_for": [
+    "drums",
+    "groove",
+    "density_variation",
+    "multitrack_infill"
+  ],
+  "text2midi_preferred_for": [
+    "prompt_sketch"
+  ],
+  "musicbert_preferred_for": [
+    "ranking",
+    "evaluation",
+    "symbolic_similarity"
+  ],
+  "fallback_policy": "example_retrieval_only_when_no_real_symbolic_backend_available",
+  "model_training_has_occurred": false,
+  "limitations": [
+    "Routing priority does not force availability.",
+    "Unavailable backends are reported explicitly and do not silently generate."
+  ]
+}
