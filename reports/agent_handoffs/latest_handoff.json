@@ -10,11 +10,18 @@
     "YourMT3 logic unchanged"
   ],
   "files_changed": [
-    "features/mass_ingestion/readiness_schema.py",
-    "reports/mass_ingestion/mass_ingestion_readiness_report.json",
-    "reports/mass_ingestion/mass_ingestion_readiness_report.md",
-    "scripts/evaluate_mass_ingestion_readiness.py",
-    "tests/test_mass_ingestion_readiness.py"
+    ".gitignore",
+    "scripts/dev.ps1",
+    "config/controlled_batches/",
+    "docs/CONTROLLED_INGESTION_SPRINT_V1.md",
+    "reports/controlled_ingestion/",
+    "reports/privacy/",
+    "scripts/check_privacy_leaks.py",
+    "scripts/compare_generation_iterations.py",
+    "scripts/plan_controlled_ingestion_batch.py",
+    "scripts/run_controlled_ingestion_batch.py",
+    "tests/test_controlled_ingestion_sprint.py",
+    "tests/test_privacy_leak_guard.py"
   ],
   "commands_run": [],
   "tests_result": [],
@@ -25,7 +32,7 @@
   "risks_concerns": [],
   "open_user_decisions": [],
   "recommended_next_step": "Await audit feedback before next major phase.",
-  "commit_hash": "4d402b61a778d9a5f08d58d94988cf54880db7fc",
-  "git_status": "## cursor/mass-ingestion-readiness-v1...origin/cursor/mass-ingestion-readiness-v1 [ahead 6]\n M features/mass_ingestion/readiness_schema.py\n M reports/mass_ingestion/mass_ingestion_readiness_report.json\n M reports/mass_ingestion/mass_ingestion_readiness_report.md\n M scripts/evaluate_mass_ingestion_readiness.py\n M tests/test_mass_ingestion_readiness.py",
-  "generated_at_utc": "2026-05-23T08:32:04.471291+00:00"
+  "commit_hash": "32369b83fcdb8cfb7ba9403e4cb00e83ab64f973",
+  "git_status": "## cursor/controlled-ingestion-sprint-v1\n M .gitignore\n M scripts/dev.ps1\n?? config/controlled_batches/\n?? docs/CONTROLLED_INGESTION_SPRINT_V1.md\n?? reports/controlled_ingestion/\n?? reports/privacy/\n?? scripts/check_privacy_leaks.py\n?? scripts/compare_generation_iterations.py\n?? scripts/plan_controlled_ingestion_batch.py\n?? scripts/run_controlled_ingestion_batch.py\n?? tests/test_controlled_ingestion_sprint.py\n?? tests/test_privacy_leak_guard.py",
+  "generated_at_utc": "2026-05-23T17:48:42.434825+00:00"
 }

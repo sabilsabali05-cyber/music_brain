@@ -129,6 +129,10 @@ function Show-Usage {
     Write-Host "  validate-latest"
     Write-Host "  validate-track <track-folder>"
     Write-Host "  evaluate-mass-ingestion-readiness"
+    Write-Host "  check-privacy-leaks"
+    Write-Host "  plan-controlled-ingestion-batch <manifest>"
+    Write-Host "  run-controlled-ingestion-batch <manifest> [--execute]"
+    Write-Host "  compare-generation-iterations <old-output> <new-output>"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1174,6 +1178,33 @@ switch ($Task) {
     "evaluate-mass-ingestion-readiness" {
         Invoke-Step -Label "Evaluating mass-ingestion readiness" -Command @(
             "python", "scripts/evaluate_mass_ingestion_readiness.py"
+        )
+    }
+    "check-privacy-leaks" {
+        Invoke-Step -Label "Checking tracked files for privacy leaks" -Command @(
+            "python", "scripts/check_privacy_leaks.py"
+        )
+    }
+    "plan-controlled-ingestion-batch" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-controlled-ingestion-batch <manifest>"
+        Invoke-Step -Label "Planning controlled ingestion batch" -Command @(
+            "python", "scripts/plan_controlled_ingestion_batch.py", $manifestPath
+        )
+    }
+    "run-controlled-ingestion-batch" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-controlled-ingestion-batch <manifest> [--execute]"
+        $executeFlag = Get-TaskArg -Index 1
+        $command = @("python", "scripts/run_controlled_ingestion_batch.py", $manifestPath)
+        if ($executeFlag -eq "--execute") {
+            $command += @("--execute")
+        }
+        Invoke-Step -Label "Running controlled ingestion batch shell" -Command $command
+    }
+    "compare-generation-iterations" {
+        $oldOutput = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd compare-generation-iterations <old-output> <new-output>"
+        $newOutput = Get-TaskArgOrThrow -Index 1 -Usage "Usage: scripts\dev.cmd compare-generation-iterations <old-output> <new-output>"
+        Invoke-Step -Label "Comparing generation output iterations" -Command @(
+            "python", "scripts/compare_generation_iterations.py", $oldOutput, $newOutput
         )
     }
     "commit-checkpoint" {

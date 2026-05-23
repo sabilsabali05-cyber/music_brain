@@ -1,0 +1,842 @@
+{
+  "status": "ok",
+  "new_public_leak_count": 0,
+  "pre_existing_historical_path_debt_count": 134,
+  "new_public_leaks": [],
+  "pre_existing_historical_path_debt": [
+    {
+      "path": ".gitignore",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": ".gitignore",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "README.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2156
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 5
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/symbolic_generation_plan.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_examples.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8170
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generative_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 5
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/generative_training/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/symbolic_generation_plan.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/accepted_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 672
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/export_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 13
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 11280
+    },
+    {
+      "path": "datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/weak_label_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7654
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/accepted_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2395
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/export_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 10
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/review_required_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 44928
+    },
+    {
+      "path": "datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/weak_label_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 28365
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/accepted_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 117
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/export_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/review_required_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2414
+    },
+    {
+      "path": "datasets/training_exports/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/weak_label_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1057
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/accepted_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 91
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/export_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/review_required_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1632
+    },
+    {
+      "path": "datasets/training_exports/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/weak_label_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 721
+    },
+    {
+      "path": "docs/ABLETON_EXPORT_WORKFLOW.md",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/ai_training_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8060
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/beat_tracker_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/musicnn_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/external_model_features/omnizart_availability.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_pack_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 10
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/feature_summary.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1724
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 11
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1724
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/rhythm_time/meter_time_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/tags.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7922
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/label_upgrade_candidates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2821
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/quality_gates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/training_data_audit.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/transcription_reliability.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 16
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/ai_training_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 30141
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_pack_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 10
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/feature_summary.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7532
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/pitch_harmony/pitch_harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 11
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7532
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 31504
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 12411
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/quality_gates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/training_data_audit.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/transcription_reliability.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 57
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/ai_training_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2567
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_pack_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 6
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/feature_summary.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 644
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/rhythm_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 644
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/tags.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 3142
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/quality_gates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8
+    },
+    {
+      "path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/transcription_reliability.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 7
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/ai_training_records.jsonl",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1751
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_pack_manifest.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 6
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/feature_summary.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/harmony_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 444
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/rhythm_features.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 444
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/tags.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2444
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/quality_gates.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8
+    },
+    {
+      "path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/transcription_reliability.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 6
+    },
+    {
+      "path": "outputs/generated_midi/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/generation_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 17
+    },
+    {
+      "path": "outputs/generated_midi/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/generation_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 17
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/delegated_generation_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 17
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "outputs/model_backend_runs/example_retrieval/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/model_backend_run_summary.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 4
+    },
+    {
+      "path": "reports/batches/20260522T023234490710_batch_trusted_export_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 3
+    },
+    {
+      "path": "reports/batches/20260522T023234490710_batch_trusted_export_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 3
+    },
+    {
+      "path": "reports/batches/20260522T150413226738_batch_trusted_export_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 27
+    },
+    {
+      "path": "reports/batches/20260522T150413226738_batch_trusted_export_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 6
+    },
+    {
+      "path": "reports/batches/20260522T152242794032_batch_trusted_export_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 24
+    },
+    {
+      "path": "reports/batches/20260522T152242794032_batch_trusted_export_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 5
+    },
+    {
+      "path": "reports/data_audits/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_training_data_audit.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/data_audits/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_training_data_audit.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "reports/data_audits/20260521T213418203003_Sunday_Service_Choir_122621_training_data_audit.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/data_audits/20260521T213418203003_Sunday_Service_Choir_122621_training_data_audit.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 9
+    },
+    {
+      "path": "reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/data_audits/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_training_data_audit.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8
+    },
+    {
+      "path": "reports/data_audits/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_training_data_audit.md",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/data_audits/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_training_data_audit.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 8
+    },
+    {
+      "path": "reports/dataset_quality/dataset_quality_yield_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 22
+    },
+    {
+      "path": "reports/dataset_quality/dataset_quality_yield_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/mass_ingestion/mass_ingestion_readiness_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "reports/mass_ingestion/mass_ingestion_readiness_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T204750163461_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir_20260521T205541287412_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203151881339_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Kanye_West_performs_I_Wonder_with_Tony_Williams_and_the_Sunday_Service_Choir_20260521T203603254802_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send_20260522T150054174749_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound_20260522T150322987308_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Sunday_Service_Choir_122621_20260521T213524641640_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T171256329037_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172827774704_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T172829502376_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174126125504_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174127086675_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174128007244_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174128912321_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174130200511_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174131401703_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174132489065_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174133705536_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174134931470_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174136138704_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174137340998_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T174138529740_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T175549903888_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T175649610133_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_reviews/Varud_-_Sigur_Ros_Valtari_20260521T191931505231_audio_structure_v1.md",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "reports/segment_sweeps/varud_candidate_tuning_20260521_compare.txt",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 22
+    },
+    {
+      "path": "reports/segment_sweeps/varud_dense_post_commit_compare.txt",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 24
+    },
+    {
+      "path": "scripts/dev.ps1",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "scripts/evaluate_mass_ingestion_readiness.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/export_ableton_project_v1.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "scripts/generate_tangible_demo.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/index_sample_library.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/validate_ableton_project_export.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "tests/test_ableton_project_export.py",
+      "marker": "C:/Users/",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_ableton_project_export.py",
+      "marker": "private_synplant_seed_paths",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 2
+    },
+    {
+      "path": "tests/test_dev_runner_args.py",
+      "marker": "C:\\Users\\",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 3
+    },
+    {
+      "path": "tests/test_mass_ingestion_readiness.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    },
+    {
+      "path": "tests/test_tangible_generation_demo.py",
+      "marker": "sample_seed_records.jsonl",
+      "debt_type": "pre_existing_historical_path_debt",
+      "line_count": 1
+    }
+  ],
+  "skipped_private_or_allowlisted_paths": [
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/Ableton_Project_Plan.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_bass.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_chords.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_drums.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_lead.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_song.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/generated_texture_motifs.mid",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/Open_In_Ableton_Instructions.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/README_FIRST.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/export_report.json",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/synplant_seed_summary.md",
+    "outputs/ableton_project_v1/AI_Generated_Song_Project/track_setup.json",
+    "outputs/tangible_generation_v1/ableton_track_plan.json",
+    "outputs/tangible_generation_v1/ableton_track_plan.md",
+    "outputs/tangible_generation_v1/demo_composition_plan.json",
+    "outputs/tangible_generation_v1/demo_composition_plan.md",
+    "outputs/tangible_generation_v1/generated_bass.mid",
+    "outputs/tangible_generation_v1/generated_chords.mid",
+    "outputs/tangible_generation_v1/generated_drums.mid",
+    "outputs/tangible_generation_v1/generated_lead.mid",
+    "outputs/tangible_generation_v1/generated_song.mid",
+    "outputs/tangible_generation_v1/generated_texture_motifs.mid",
+    "outputs/tangible_generation_v1/generation_report.json",
+    "outputs/tangible_generation_v1/generation_report.md"
+  ],
+  "limitations": [
+    "String-based scan only; semantic privacy issues may require manual review.",
+    "Historical debt is reported but does not fail unless file is newly changed on this branch."
+  ]
+}
