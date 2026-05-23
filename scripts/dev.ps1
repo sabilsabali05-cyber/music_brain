@@ -112,7 +112,7 @@ function Show-Usage {
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
     Write-Host "  validate-batch-report <batch-report-json>"
     Write-Host "  classify-audio-asset <performance-manifest>"
-    Write-Host "  index-sample-library <config-json>"
+    Write-Host "  index-sample-library <config-json> (copy local_sounds_library.example.json to local_sounds_library.json first)"
     Write-Host "  classify-content-regions <performance-manifest>"
     Write-Host "  apply-analysis-routing <performance-manifest>"
     Write-Host "  evaluate-label-upgrades <performance-manifest>"

@@ -331,7 +331,14 @@ def index_sample_library(config_path: Path) -> IndexResult:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Index a local sample seed library without modifying source files.")
+    parser = argparse.ArgumentParser(
+        description="Index a local sample seed library without modifying source files.",
+        epilog=(
+            "Create a local config by copying "
+            "config/sample_libraries/local_sounds_library.example.json "
+            "to config/sample_libraries/local_sounds_library.json and setting your local root_path."
+        ),
+    )
     parser.add_argument("config_json", help="Path to sample library config JSON")
     args = parser.parse_args()
 

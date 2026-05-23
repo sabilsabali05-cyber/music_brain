@@ -39,7 +39,7 @@ def _read_jsonl(path: Path) -> list[dict[str, object]]:
 
 
 def test_local_sample_library_config_loads() -> None:
-    config_path = Path("config/sample_libraries/local_sounds_library.json")
+    config_path = Path("config/sample_libraries/local_sounds_library.example.json")
     payload = load_library_config(config_path)
     assert payload["library_id"] == "local_sounds_desktop"
     assert payload["source_type"] == "local_sample_seed_library"
