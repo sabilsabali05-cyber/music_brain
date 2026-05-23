@@ -1,7 +1,7 @@
 {
   "status": "dry_run_success",
   "batch_id": "batch_test",
-  "manifest_path": "C:/Users/izzyo/AppData/Local/Temp/pytest-of-izzyo/pytest-257/test_controlled_runner_writes_0/manifest.json",
+  "manifest_path": "C:/Users/izzyo/AppData/Local/Temp/pytest-of-izzyo/pytest-259/test_controlled_runner_writes_0/manifest.json",
   "execute_requested": false,
   "planner_status": "valid",
   "runnable_item_count": 0,

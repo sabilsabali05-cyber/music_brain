@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-05-23T18:05:24.842961+00:00",
+  "created_at": "2026-05-23T18:17:44.625523+00:00",
   "ready_for_mass_ingestion": false,
-  "ready_for_controlled_batch": false,
+  "ready_for_controlled_batch": true,
   "ready_for_model_training": false,
   "recommended_next_batch_size": 10,
   "top_strengths": [
@@ -13,7 +13,6 @@
     "local sample-library indexer exists"
   ],
   "top_blockers": [
-    "privacy leak scan reports new public leaks",
     "symbolic corpus export is not training-ready",
     "historical privacy debt remains above zero"
   ],
@@ -36,7 +35,6 @@
     "review queue and quality scorecard artifacts exist"
   ],
   "blockers": [
-    "privacy leak scan reports new public leaks",
     "symbolic corpus export is not training-ready",
     "historical privacy debt remains above zero"
   ],
@@ -250,7 +248,7 @@
     "pure_data_automation_available": false
   },
   "controlled_batch_plan": {
-    "ready_for_controlled_batch": false,
+    "ready_for_controlled_batch": true,
     "recommended_next_batch_size": 10,
     "suggested_scope": [
       "5 song/performance files",

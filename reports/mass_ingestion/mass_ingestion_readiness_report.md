@@ -1,8 +1,8 @@
 # Mass Ingestion Readiness Report
 
-- created_at: `2026-05-23T18:05:24.842961+00:00`
+- created_at: `2026-05-23T18:17:44.625523+00:00`
 - ready_for_mass_ingestion: `False`
-- ready_for_controlled_batch: `False`
+- ready_for_controlled_batch: `True`
 - ready_for_model_training: `False`
 - recommended_next_batch_size: `10`
 
@@ -18,7 +18,6 @@
 - review queue and quality scorecard artifacts exist
 
 ## Top Blockers
-- privacy leak scan reports new public leaks
 - symbolic corpus export is not training-ready
 - historical privacy debt remains above zero
 
@@ -30,7 +29,7 @@
 - Re-run evaluate-mass-ingestion-readiness to verify blocker removal.
 
 ## Controlled Batch Plan
-- ready_for_controlled_batch: `False`
+- ready_for_controlled_batch: `True`
 - recommended_next_batch_size: `10`
 - suggested_scope:
   - 5 song/performance files

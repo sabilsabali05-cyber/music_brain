@@ -1,36 +1,16 @@
 # Privacy Leak Scan Report
 
-- status: `fail`
+- status: `ok`
 - strict_mode: `False`
-- new_public_leak_count: `23`
-- pre_existing_historical_path_debt_count: `131`
+- new_public_leak_count: `0`
+- pre_existing_historical_path_debt_count: `158`
 
 ## New Public Leaks
-- `.gitignore` marker=`private_synplant_seed_paths` count=`2`
-- `.gitignore` marker=`sample_seed_records.jsonl` count=`1`
-- `reports/privacy/privacy_leak_scan_report.json` marker=`C:/Users/` count=`116`
-- `reports/privacy/privacy_leak_scan_report.json` marker=`private_synplant_seed_paths` count=`5`
-- `reports/privacy/privacy_leak_scan_report.json` marker=`sample_seed_records.jsonl` count=`6`
-- `reports/privacy/privacy_leak_scan_report.md` marker=`C:\Users\` count=`1`
-- `reports/privacy/privacy_leak_scan_report.md` marker=`C:/Users/` count=`46`
-- `reports/privacy/privacy_leak_scan_report.md` marker=`private_synplant_seed_paths` count=`2`
-- `reports/privacy/privacy_leak_scan_report.md` marker=`sample_seed_records.jsonl` count=`1`
-- `scripts/check_privacy_leaks.py` marker=`C:/Users/` count=`2`
-- `scripts/check_privacy_leaks.py` marker=`OneDrive\Desktop\sounds` count=`1`
-- `scripts/check_privacy_leaks.py` marker=`OneDrive/Desktop/sounds` count=`1`
-- `scripts/check_privacy_leaks.py` marker=`private_synplant_seed_paths` count=`1`
-- `scripts/check_privacy_leaks.py` marker=`sample_seed_records.jsonl` count=`1`
-- `scripts/dev.ps1` marker=`C:\Users\` count=`2`
-- `tests/test_controlled_ingestion_sprint.py` marker=`C:\Users\` count=`1`
-- `tests/test_controlled_ingestion_sprint.py` marker=`C:/Users/` count=`1`
-- `tests/test_controlled_ingestion_sprint.py` marker=`OneDrive/Desktop/sounds` count=`1`
-- `tests/test_controlled_ingestion_sprint.py` marker=`private_synplant_seed_paths` count=`2`
-- `tests/test_privacy_leak_guard.py` marker=`C:\Users\` count=`1`
-- `tests/test_privacy_leak_guard.py` marker=`C:/Users/` count=`2`
-- `tests/test_privacy_leak_guard.py` marker=`OneDrive\Desktop\sounds` count=`1`
-- `tests/test_privacy_leak_guard.py` marker=`private_synplant_seed_paths` count=`2`
+- none
 
 ## Pre-existing Historical Path Debt
+- `.gitignore` marker=`private_synplant_seed_paths` count=`2`
+- `.gitignore` marker=`sample_seed_records.jsonl` count=`1`
 - `README.md` marker=`C:\Users\` count=`7`
 - `datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_examples.jsonl` marker=`C:/Users/` count=`2156`
 - `datasets/generative_training/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_33667a7b59/20260521T204750163461_audio_structure_v1/generative_manifest.json` marker=`C:/Users/` count=`5`
@@ -79,9 +59,7 @@
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/pitch_harmony/pitch_harmony_features.json` marker=`C:/Users/` count=`11`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_features.json` marker=`C:/Users/` count=`7532`
 - `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/rhythm_time/meter_time_features.json` marker=`C:/Users/` count=`9`
-- `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/tags.json` marker=`C:/Users/` count=`31504`
-- `features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/label_upgrade_candidates.json` marker=`C:/Users/` count=`12411`
-- ... and 81 more
+- ... and 108 more
 
 ## Limitations
 - String-based scan only; semantic privacy issues may require manual review.
