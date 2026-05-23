@@ -1,0 +1,16 @@
+{
+  "batch_id": "controlled_batch_example_v1",
+  "batch_goal": "Validate a small, explicitly authorized ingestion sprint.",
+  "max_song_files": 5,
+  "max_sample_library_items": 100,
+  "authorization_required": true,
+  "allow_modal": false,
+  "allow_transcription": false,
+  "allow_training_export": false,
+  "song_files": [],
+  "sample_library_filters": [],
+  "notes": [
+    "Copy this file to config/controlled_batches/<name>.local.json for real runs.",
+    "Only include explicitly authorized files."
+  ]
+}

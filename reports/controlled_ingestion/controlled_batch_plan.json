@@ -1,0 +1,38 @@
+{
+  "status": "valid",
+  "manifest_path": "config/controlled_batches/controlled_batch.example.json",
+  "batch_id": "controlled_batch_example_v1",
+  "batch_goal": "Validate a small, explicitly authorized ingestion sprint.",
+  "authorization_required": true,
+  "allow_modal": false,
+  "allow_transcription": false,
+  "allow_training_export": false,
+  "max_song_files": 5,
+  "max_sample_library_items": 100,
+  "song_files_count": 0,
+  "authorized_song_files_count": 0,
+  "requested_sample_items": 0,
+  "estimated_artifacts": {
+    "performance_manifests": 0,
+    "post_ingestion_tangible_regeneration": 0,
+    "post_ingestion_ableton_export": 0
+  },
+  "estimated_review_burden": {
+    "manual_song_reviews": 0,
+    "manual_sample_reviews": 0,
+    "estimated_total_review_actions": 0,
+    "burden_level": "low"
+  },
+  "errors": [],
+  "warnings": [],
+  "provenance": {
+    "planner": "scripts/plan_controlled_ingestion_batch.py",
+    "audio_processing_performed": false,
+    "transcription_performed": false,
+    "modal_calls_performed": false
+  },
+  "limitations": [
+    "Planner validates manifest policy only; it does not process or inspect audio.",
+    "Review-burden estimate is heuristic and should be confirmed manually."
+  ]
+}
