@@ -1,0 +1,173 @@
+{
+  "report_version": "v1",
+  "generated_at_utc": "2026-05-23T04:19:53.248360+00:00",
+  "research_constraints": [
+    "No heavy dependency installation",
+    "No model weight download",
+    "No model training",
+    "No audio processing",
+    "No Modal / transcription workflows",
+    "Memory-only claims avoided; explicit links or unknown markers used"
+  ],
+  "research_sources": [
+    "https://aim-qmul.github.io/moonbeam-midi-foundation-model/",
+    "https://arxiv.org/html/2505.15559",
+    "https://github.com/AMAAI-Lab/Text2midi",
+    "https://github.com/Metacreation-Lab/MIDI-GPT",
+    "https://github.com/guozixunnicolas/moonbeam-midi-foundation-model",
+    "https://github.com/microsoft/muzic/blob/main/musicbert/README.md",
+    "https://huggingface.co/amaai-lab/text2midi",
+    "https://microsoft.github.io/muzic/musicbert/",
+    "https://ojs.aaai.org/index.php/AAAI/article/view/32138",
+    "https://pypi.org/project/midigpt/"
+  ],
+  "backends": [
+    {
+      "provider_id": "moonbeam",
+      "display_name": "Moonbeam",
+      "expected_input_format": "Tokenized symbolic sequences using Moonbeam's custom absolute+relative attribute tokenizer and checkpoint/tokenizer files.",
+      "expected_output_format": "Generated symbolic token sequences decoded back to MIDI (continuation, conditional generation, and infilling workflows).",
+      "public_code_installable": "yes",
+      "pretrained_weights_required": "yes",
+      "license_usage_status": "clear",
+      "midi_tokenization_compatibility": "partially_compatible",
+      "estimated_integration_difficulty": "high",
+      "usable_with_current_repo_state": false,
+      "evidence": [
+        {
+          "title": "Moonbeam GitHub repository",
+          "url": "https://github.com/guozixunnicolas/moonbeam-midi-foundation-model",
+          "note": "Repository includes dependency installation instructions and checkpoint download instructions."
+        },
+        {
+          "title": "Moonbeam project page",
+          "url": "https://aim-qmul.github.io/moonbeam-midi-foundation-model/",
+          "note": "States paper/code/pretrained weights release and Apache License 2.0 status."
+        },
+        {
+          "title": "Moonbeam paper",
+          "url": "https://arxiv.org/html/2505.15559",
+          "note": "Describes custom tokenization and downstream continuation/infilling tasks."
+        }
+      ],
+      "unknowns": {},
+      "notes": [
+        "Most aligned with our first-generation backend use-case (continuation/infill).",
+        "Requires tokenization conversion bridge from current generative examples."
+      ]
+    },
+    {
+      "provider_id": "midigpt",
+      "display_name": "MIDI-GPT",
+      "expected_input_format": "MIDI-GPT event/token representation for multitrack bar/track infilling with attribute controls.",
+      "expected_output_format": "Multitrack MIDI generation/infill outputs from model checkpoint and tokenizer config.",
+      "public_code_installable": "yes",
+      "pretrained_weights_required": "yes",
+      "license_usage_status": "unknown",
+      "midi_tokenization_compatibility": "partially_compatible",
+      "estimated_integration_difficulty": "high",
+      "usable_with_current_repo_state": false,
+      "evidence": [
+        {
+          "title": "MIDI-GPT GitHub repository",
+          "url": "https://github.com/Metacreation-Lab/MIDI-GPT",
+          "note": "Describes controllable multitrack generation/infill and bundled model checkpoints in repository artifacts."
+        },
+        {
+          "title": "MIDI-GPT AAAI paper",
+          "url": "https://ojs.aaai.org/index.php/AAAI/article/view/32138",
+          "note": "Explains controllable multitrack architecture and infill tasks."
+        },
+        {
+          "title": "MIDI-GPT Python package",
+          "url": "https://pypi.org/project/midigpt/",
+          "note": "Shows packaged tokenizer/model runtime and checkpoint format expectations."
+        }
+      ],
+      "unknowns": {
+        "license_usage_status": "unknown"
+      },
+      "notes": [
+        "Strong controllable multitrack fit, but representation conversion work is non-trivial.",
+        "License status should be manually verified before production usage."
+      ]
+    },
+    {
+      "provider_id": "text2midi",
+      "display_name": "Text2MIDI",
+      "expected_input_format": "Natural-language prompt with T5 encoder and REMI-based decoder vocabulary/config.",
+      "expected_output_format": "Generated symbolic token sequence decoded to MIDI conditioned on text prompt.",
+      "public_code_installable": "yes",
+      "pretrained_weights_required": "yes",
+      "license_usage_status": "unknown",
+      "midi_tokenization_compatibility": "partially_compatible",
+      "estimated_integration_difficulty": "medium",
+      "usable_with_current_repo_state": false,
+      "evidence": [
+        {
+          "title": "Text2MIDI GitHub repository",
+          "url": "https://github.com/AMAAI-Lab/Text2midi",
+          "note": "Provides code and loading instructions tied to HuggingFace-hosted weights and REMI vocab."
+        },
+        {
+          "title": "Text2MIDI HuggingFace model card",
+          "url": "https://huggingface.co/amaai-lab/text2midi",
+          "note": "Documents pretrained weight files and runtime loading process."
+        }
+      ],
+      "unknowns": {
+        "license_usage_status": "unknown"
+      },
+      "notes": [
+        "Good for prompt-driven sketch generation, less direct for continuation/infill from current examples.",
+        "Prompt pathway useful but may not be best first backend for example-conditioned generation."
+      ]
+    },
+    {
+      "provider_id": "musicbert",
+      "display_name": "MusicBERT",
+      "expected_input_format": "OctupleMIDI symbolic encoding for music understanding tasks using fairseq-style checkpoints.",
+      "expected_output_format": "Embeddings, classification/similarity/reranking signals; not primarily a MIDI generator backend.",
+      "public_code_installable": "yes",
+      "pretrained_weights_required": "yes",
+      "license_usage_status": "unknown",
+      "midi_tokenization_compatibility": "incompatible",
+      "estimated_integration_difficulty": "high",
+      "usable_with_current_repo_state": false,
+      "evidence": [
+        {
+          "title": "MusicBERT README",
+          "url": "https://github.com/microsoft/muzic/blob/main/musicbert/README.md",
+          "note": "Describes symbolic understanding scope, OctupleMIDI encoding, and checkpoint requirements."
+        },
+        {
+          "title": "Muzic project page",
+          "url": "https://microsoft.github.io/muzic/musicbert/",
+          "note": "Confirms understanding/evaluation orientation and pretrained checkpoint usage."
+        }
+      ],
+      "unknowns": {
+        "license_usage_status": "unknown"
+      },
+      "notes": [
+        "Best used as evaluator/ranker witness, not as first direct generation backend.",
+        "Tokenization mismatch with current examples is significant for direct generation."
+      ]
+    }
+  ],
+  "recommended_first_backend": {
+    "provider_id": "moonbeam",
+    "reason": "Most aligned with continuation/infill goals and has explicit public code + pretrained checkpoint documentation for symbolic generation.",
+    "confidence": "medium",
+    "prerequisites": [
+      "Validate Moonbeam checkpoint/tokenizer licensing and usage terms in repo release artifacts.",
+      "Implement deterministic conversion bridge between current generative example representation and Moonbeam tokenizer schema.",
+      "Run non-production smoke tests on tiny symbolic fixtures before any weight download phase."
+    ],
+    "alternative_candidates": [
+      "midigpt for stronger multitrack control once representation bridge/licensing is validated",
+      "text2midi for prompt-only sketch mode",
+      "musicbert as evaluator/reranker witness"
+    ]
+  }
+}

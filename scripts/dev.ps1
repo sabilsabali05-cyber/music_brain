@@ -105,6 +105,7 @@ function Show-Usage {
     Write-Host "  generate-midi-from-examples <generative-dataset-folder> [task] [split]"
     Write-Host "  validate-generated-midi <output-folder>"
     Write-Host "  check-symbolic-model-backends"
+    Write-Host "  research-symbolic-backend-feasibility"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  batch-trusted-exports <inbox-folder> [max-performances] [max-windows]"
@@ -990,6 +991,11 @@ switch ($Task) {
     "check-symbolic-model-backends" {
         Invoke-Step -Label "Checking symbolic model backend availability" -Command @(
             "python", "scripts/check_symbolic_model_backends.py"
+        )
+    }
+    "research-symbolic-backend-feasibility" {
+        Invoke-Step -Label "Researching symbolic backend feasibility" -Command @(
+            "python", "scripts/research_symbolic_backend_feasibility.py"
         )
     }
     "plan-symbolic-generation" {
