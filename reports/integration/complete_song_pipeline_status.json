@@ -25,13 +25,22 @@
     "status": "attempted_no_transform_capture",
     "transformed_midi_captured": false
   },
+  "synplant": {
+    "configured": false,
+    "available": false,
+    "used": false,
+    "is_render_target_only": true,
+    "is_not_composer": true
+  },
   "render": {
     "reaper_status": "available",
     "vst_status": "configured",
     "render_backend_status": "planned_not_executed",
     "wav_rendered": false,
     "final_wav_path": "",
-    "assisted_pack_path": "outputs/render_ready_packs/complete_song_v1"
+    "assisted_pack_path": "outputs/render_ready_packs/complete_song_v1",
+    "reaper_project_created": true,
+    "reaper_project_path": "outputs/reaper_projects/complete_song_v1/complete_song_v1.RPP"
   },
   "selector": {
     "selector_status": "heuristic_or_unconfirmed",
@@ -46,6 +55,7 @@
     "assisted_pack_created": true
   },
   "blockers": [
-    "final_wav_not_verified"
+    "final_wav_not_verified",
+    "synplant_not_configured"
   ]
 }

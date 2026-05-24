@@ -1,0 +1,29 @@
+<REAPER_PROJECT 0.1 "7.x" 16909060
+  RIPPLE 0
+  GROUPOVERRIDE 0 0 0
+  ENVATTACH 3
+  RENDER_FILE "outputs/reaper_projects/complete_song_v1"
+  RENDER_PATTERN "final"
+  RENDER_FMT 0 2 44100
+  <TRACK {00000000-0000-0000-0000-000000000101}
+    NAME "Bass"
+    NOTES "midi=outputs/complete_song_v1/stems/bass.mid"
+    NOTES "plugin=fallback_bass"
+  >
+  <TRACK {00000000-0000-0000-0000-000000000102}
+    NAME "Chords"
+    NOTES "midi=outputs/complete_song_v1/stems/skeleton.mid"
+    NOTES "midi_fx=chordpotion_midi_fx"
+    NOTES "instrument=fallback_keys"
+  >
+  <TRACK {00000000-0000-0000-0000-000000000103}
+    NAME "Lead"
+    NOTES "midi=outputs/complete_song_v1/stems/lead.mid"
+    NOTES "plugin=fallback_lead"
+  >
+  <TRACK {00000000-0000-0000-0000-000000000104}
+    NAME "Texture"
+    NOTES "midi=outputs/complete_song_v1/stems/texture.mid"
+    NOTES "plugin=fallback_texture"
+  >
+>

@@ -1,0 +1,47 @@
+{
+  "generation_id": "complete_song_v1",
+  "reaper_project_path": "outputs/reaper_projects/complete_song_v1/complete_song_v1.RPP",
+  "reaper_project_created": true,
+  "chordpotion_can_route_into_synplant": false,
+  "synplant_configured": false,
+  "synplant_available": false,
+  "synplant_is_render_target_only": true,
+  "synplant_is_not_composer": true,
+  "assignments": {
+    "chords": {
+      "texture_intent": "warm_emotional_chord_bed",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "keys",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    "bass": {
+      "texture_intent": "bass_motion_driven",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "bass",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    "lead": {
+      "texture_intent": "weird_but_musical",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "lead",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    "texture": {
+      "texture_intent": "haunted_noise_tail",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "texture",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    }
+  },
+  "blockers": [
+    "preferred_synplant_plugin_id_or_synplant_enabled_missing"
+  ]
+}

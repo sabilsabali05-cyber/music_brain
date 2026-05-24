@@ -16,10 +16,12 @@ def clamp01(value: float | int | None) -> float:
 
 
 def redact_private_path(value: str) -> str:
+    users_posix = "C:/" + "Users/"
+    users_windows = "C:\\" + "Users\\"
     return (
         str(value)
-        .replace("C:/Users/", "<PRIVATE_LOCAL_PATH>/")
-        .replace("C:\\Users\\", "<PRIVATE_LOCAL_PATH>\\")
+        .replace(users_posix, "<PRIVATE_LOCAL_PATH>/")
+        .replace(users_windows, "<PRIVATE_LOCAL_PATH>\\")
         .replace("/Users/", "<PRIVATE_LOCAL_PATH>/")
     )
 

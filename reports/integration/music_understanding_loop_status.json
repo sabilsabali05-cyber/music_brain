@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T21:18:29.488085+00:00",
+  "generated_at": "2026-05-24T21:25:57.888329+00:00",
   "loop_id": "music_understanding_loop_v1",
   "music_understanding_completed": true,
   "taste_learning_completed": true,
@@ -16,6 +16,11 @@
   "selected_candidate_path": "outputs/music_understanding_loop_v1/candidates/candidate_03.mid",
   "chordpotion_variant_created": false,
   "wav_rendering_attempted": false,
+  "chordpotion_can_route_into_synplant": true,
+  "synplant_is_render_target_only": true,
+  "synplant_is_not_composer": true,
+  "synplant_configured": false,
+  "synplant_available": false,
   "feedback_template_path": "reports/review_queue/music_understanding_loop_feedback.json",
   "step_results": [
     {
