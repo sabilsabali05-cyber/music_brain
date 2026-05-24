@@ -103,6 +103,10 @@ function Show-Usage {
     Write-Host "  apply-music-intelligence-schema"
     Write-Host "  build-music-intelligence-review-form"
     Write-Host "  audit-dataset-quality-yield"
+    Write-Host "  analyze-music-theory-understanding"
+    Write-Host "  build-generation-conditioning-profiles"
+    Write-Host "  generate-from-theory-conditioning"
+    Write-Host "  evaluate-theory-conditioned-generation"
     Write-Host "  build-generative-examples <performance-manifest>"
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
     Write-Host "  diagnose-generative-examples <generative-dataset-folder>"
@@ -1033,6 +1037,26 @@ switch ($Task) {
     "audit-dataset-quality-yield" {
         Invoke-Step -Label "Auditing dataset quality and data yield" -Command @(
             "python", "scripts/audit_dataset_quality_yield.py"
+        )
+    }
+    "analyze-music-theory-understanding" {
+        Invoke-Step -Label "Analyzing music theory understanding layer" -Command @(
+            "python", "scripts/analyze_music_theory_understanding.py"
+        )
+    }
+    "build-generation-conditioning-profiles" {
+        Invoke-Step -Label "Building generation conditioning profiles" -Command @(
+            "python", "scripts/build_generation_conditioning_profiles.py"
+        )
+    }
+    "generate-from-theory-conditioning" {
+        Invoke-Step -Label "Generating from theory conditioning profiles" -Command @(
+            "python", "scripts/generate_from_theory_conditioning.py"
+        )
+    }
+    "evaluate-theory-conditioned-generation" {
+        Invoke-Step -Label "Evaluating theory-conditioned generation outputs" -Command @(
+            "python", "scripts/evaluate_theory_conditioned_generation.py"
         )
     }
     "build-generative-examples" {

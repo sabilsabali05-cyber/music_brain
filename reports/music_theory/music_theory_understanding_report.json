@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-05-24T17:51:39.871247+00:00",
+  "rows_considered": 2497,
+  "rows_analyzed": 2497,
+  "rows_skipped": 0,
+  "rows_blocked_by_confidence": 2496,
+  "rows_blocked_by_policy": 0,
+  "rows_with_harmony_theory": 0,
+  "rows_with_rhythm_theory": 0,
+  "rows_with_motif_theory": 0,
+  "rows_with_voice_leading_theory": 0,
+  "retrieval_only_rows_reference": 152,
+  "review_required_rows_reference": 2345,
+  "top_25_harmony_rich": [],
+  "top_25_rhythm_rich": [],
+  "top_25_motif_rich": [],
+  "top_25_voice_leading_rich": [],
+  "top_25_valuable_weirdness": [],
+  "top_25_random_keyboard_junk_moments": [],
+  "blocked_reasons": {
+    "confidence": 2496
+  },
+  "policy": {
+    "no_cloud_calls": true,
+    "no_model_training": true,
+    "no_raw_media_processing": true,
+    "no_fake_confidence_claims": true
+  }
+}

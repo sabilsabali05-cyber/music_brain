@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-05-24T17:13:16.031558+00:00",
-  "normalized_input_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/normalized_music_corpus/normalized_music_corpus.jsonl",
+  "normalized_input_path": "datasets/normalized_music_corpus/normalized_music_corpus.jsonl",
   "total_input_rows": 2497,
   "train_rows": 0,
   "validation_rows": 0,

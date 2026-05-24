@@ -1,0 +1,585 @@
+{
+  "generated_at": "2026-05-24T17:51:52.000998+00:00",
+  "profiles_created": 10,
+  "profile_names": [
+    "harmony_first_ballad",
+    "dark_gospel_progression",
+    "weird_but_musical_chromatic_motion",
+    "sparse_rap_pocket",
+    "dense_experimental_rhythm",
+    "emotional_piano_skeleton",
+    "bass_motion_driven",
+    "motif_development",
+    "texture_atmosphere",
+    "through_composed_story"
+  ],
+  "source_records_available": 2497,
+  "profiles": [
+    {
+      "profile_name": "harmony_first_ballad",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "dark_gospel_progression",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "weird_but_musical_chromatic_motion",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "sparse_rap_pocket",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005",
+        "rq_0006",
+        "rq_0007",
+        "rq_0008",
+        "rq_0009",
+        "rq_0010",
+        "rq_0011"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 12,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 12,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "dense_experimental_rhythm",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "emotional_piano_skeleton",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "bass_motion_driven",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "motif_development",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "texture_atmosphere",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    },
+    {
+      "profile_name": "through_composed_story",
+      "target_tempo_range": [
+        87,
+        107
+      ],
+      "target_key_or_mode": "ambiguous_mode_allowed",
+      "chord_movement_strategy": "functional_or_quasi_functional_direction",
+      "bass_motion_strategy": "root_pedal_support",
+      "voice_leading_strategy": "favor_common_tones_and_step_resolutions",
+      "motif_development_strategy": "short-call-response-cells",
+      "rhythm_strategy": "sparse_grid_with_accent_lifts",
+      "form_strategy": "hybrid_form_with_anchor_refrain",
+      "texture_strategy": "minimal_texture_roles",
+      "avoid_list": [
+        "random unprepared semitone stacks",
+        "over-dense low-register clusters"
+      ],
+      "preserve_list": [],
+      "tension_curve": [
+        0.09,
+        0.12,
+        0.15,
+        0.1275,
+        0.105
+      ],
+      "density_curve": [
+        0.104,
+        0.1386666666666667,
+        0.17333333333333334,
+        0.14733333333333334,
+        0.12133333333333333
+      ],
+      "confidence": 0.0,
+      "source_records_used": [
+        "feedback_0001",
+        "rq_0001",
+        "rq_0002",
+        "rq_0003",
+        "rq_0004",
+        "rq_0005"
+      ],
+      "policy_limits": {
+        "no_cloud_calls": true,
+        "no_model_training": true,
+        "no_raw_media_processing": true
+      },
+      "retrieval_training_status": {
+        "retrieval_allowed_count": 6,
+        "training_allowed_count": 0
+      },
+      "theory_summary": {
+        "records_count": 6,
+        "avg_harmonic_interest": 0.15
+      }
+    }
+  ]
+}

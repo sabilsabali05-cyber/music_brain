@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-24T17:52:08.794068+00:00",
+  "baseline_found": true,
+  "metrics": {
+    "random_note_penalty": {
+      "baseline": 0.1191,
+      "theory_conditioned": 0.0426,
+      "improved": true
+    },
+    "voice_leading_score": {
+      "baseline": 0.656,
+      "theory_conditioned": 0.617,
+      "improved": false
+    },
+    "chord_movement_score": {
+      "baseline": 1.0,
+      "theory_conditioned": 1.0,
+      "improved": true
+    },
+    "weirdness_preserved_musically": true
+  },
+  "theory_conditioning_improved_generation_metrics": false,
+  "remaining_failures": [
+    "sparse source labels limit deep harmonic certainty",
+    "motif extraction still proxy-based from metadata, not dense symbolic parsing"
+  ],
+  "policy": {
+    "cloud_called": false,
+    "model_training_used": false,
+    "raw_media_processed": false
+  }
+}

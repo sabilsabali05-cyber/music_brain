@@ -1,0 +1,13 @@
+{
+  "status": "ok",
+  "generated_locally": true,
+  "raw_media_used": false,
+  "private_paths_redacted": true,
+  "source_profiles": [
+    "harmony_first_ballad",
+    "weird_but_musical_chromatic_motion",
+    "dense_experimental_rhythm"
+  ],
+  "cloud_called": false,
+  "model_training_used": false
+}

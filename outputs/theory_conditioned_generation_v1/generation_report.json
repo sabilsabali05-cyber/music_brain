@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-05-24T17:51:59.366947+00:00",
+  "status": "ok",
+  "midi_outputs": [
+    "outputs/theory_conditioned_generation_v1/harmony_first_piano_skeleton.mid",
+    "outputs/theory_conditioned_generation_v1/weird_but_musical_progression.mid",
+    "outputs/theory_conditioned_generation_v1/rhythm_motif_study.mid"
+  ],
+  "source_profiles_used": [
+    "harmony_first_ballad",
+    "weird_but_musical_chromatic_motion",
+    "dense_experimental_rhythm"
+  ],
+  "theory_hooks_used": {
+    "harmony": "functional_or_quasi_functional_direction",
+    "weirdness": [],
+    "rhythm": "sparse_grid_with_accent_lifts"
+  },
+  "cloud_called": false,
+  "model_training_used": false,
+  "fake_model_usage_claimed": false
+}
