@@ -1,0 +1,70 @@
+{
+  "status": "unavailable_safe",
+  "config_source": "config/model_integrations/model_integrations.example.json",
+  "yourmt3_configured": false,
+  "yourmt3_available": false,
+  "yourmt3_unavailable_reason": "disabled_or_missing_local_config",
+  "basic_pitch_configured": false,
+  "basic_pitch_available": false,
+  "basic_pitch_unavailable_reason": "disabled_or_missing_local_config",
+  "transcription_performed": false,
+  "model_training_has_occurred": false,
+  "witness_policy": "witness_not_truth",
+  "audio_processing_performed": false,
+  "downloads_performed": false,
+  "no_fake_transcription_outputs": true,
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and keep both witnesses disabled by default.",
+  "details": {
+    "yourmt3": {
+      "enabled": false,
+      "configured": false,
+      "available": false,
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and keep both witnesses disabled by default.",
+      "path_checks": {
+        "repo_path": {
+          "configured": false,
+          "exists": false,
+          "path": "<PRIVATE_LOCAL_PATH>"
+        },
+        "model_path": {
+          "configured": false,
+          "exists": false,
+          "path": "<PRIVATE_LOCAL_PATH>"
+        }
+      }
+    },
+    "basic_pitch": {
+      "enabled": false,
+      "configured": false,
+      "available": false,
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and keep both witnesses disabled by default.",
+      "path_checks": {
+        "repo_path": {
+          "configured": false,
+          "exists": false,
+          "path": "<PRIVATE_LOCAL_PATH>"
+        },
+        "model_path": {
+          "configured": false,
+          "exists": false,
+          "path": "<PRIVATE_LOCAL_PATH>"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Checker is setup-only and does not execute transcription.",
+    "No audio is processed and no model weights are downloaded.",
+    "Heavy imports are intentionally skipped in this vertical slice."
+  ],
+  "smoke_test_passed": false,
+  "smoke_tests_performed": [],
+  "transcription_outputs_generated": [],
+  "smoke_test_notes": [
+    "Smoke tests validate setup semantics only.",
+    "No audio processing, no transcription execution, and no downloads were performed.",
+    "Witness scaffolds explicitly prevent fake transcription outputs."
+  ]
+}

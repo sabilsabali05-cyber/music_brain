@@ -60,3 +60,13 @@ def fine_tune_corpus_policy(corpus_validated: bool) -> PolicyDecision:
     if not corpus_validated:
         return PolicyDecision(False, "Fine-tuning requires validated training corpus.", ["blocked_unvalidated_corpus"])
     return PolicyDecision(True, "Validated corpus allows fine-tuning workflow.", ["validated_corpus"])
+
+
+def transcription_witness_policy_state() -> dict[str, Any]:
+    return {
+        "yourmt3_available": False,
+        "basic_pitch_available": False,
+        "transcription_performed": False,
+        "model_training_has_occurred": False,
+        "witness_policy": "witness_not_truth",
+    }

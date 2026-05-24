@@ -121,6 +121,9 @@ function Show-Usage {
     Write-Host "  check-audio-understanding-setup"
     Write-Host "  run-audio-understanding-smoke-tests"
     Write-Host "  plan-audio-texture-embedding"
+    Write-Host "  check-transcription-witnesses-setup"
+    Write-Host "  run-transcription-witnesses-smoke-tests"
+    Write-Host "  plan-transcription-witnesses"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1110,6 +1113,21 @@ switch ($Task) {
     "plan-audio-texture-embedding" {
         Invoke-Step -Label "Planning audio texture embedding workflow" -Command @(
             "python", "scripts/plan_audio_texture_embedding.py"
+        )
+    }
+    "check-transcription-witnesses-setup" {
+        Invoke-Step -Label "Checking transcription witness local setup status" -Command @(
+            "python", "scripts/check_transcription_witnesses_setup.py"
+        )
+    }
+    "run-transcription-witnesses-smoke-tests" {
+        Invoke-Step -Label "Running transcription witness smoke scaffolds" -Command @(
+            "python", "scripts/run_transcription_witnesses_smoke_tests.py"
+        )
+    }
+    "plan-transcription-witnesses" {
+        Invoke-Step -Label "Planning transcription witness workflow" -Command @(
+            "python", "scripts/plan_transcription_witnesses.py"
         )
     }
     "write-model-integration-roadmap" {
