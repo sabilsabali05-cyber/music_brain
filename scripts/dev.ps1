@@ -212,6 +212,8 @@ function Show-Usage {
     Write-Host "  setup-beat-battle-browser-session"
     Write-Host "  detect-beat-battle-round"
     Write-Host "  acquire-beat-battle-round-sounds"
+    Write-Host "  create-battle-sound-pair-record [--manifest <path>]"
+    Write-Host "  ingest-sound-pair-feedback"
     Write-Host "  analyze-beat-battle-kit [--manifest <path>]"
     Write-Host "  generate-beat-battle-drafts"
     Write-Host "  render-beat-battle-submission"
@@ -1743,6 +1745,16 @@ switch ($Task) {
     "acquire-beat-battle-round-sounds" {
         Invoke-Step -Label "Acquiring Beat Battle round sounds" -Command @(
             "python", "scripts/acquire_beat_battle_round_sounds.py"
+        )
+    }
+    "create-battle-sound-pair-record" {
+        $command = @("python", "scripts/create_battle_sound_pair_record.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Creating Beat Battle sound pair records" -Command $command
+    }
+    "ingest-sound-pair-feedback" {
+        Invoke-Step -Label "Ingesting Beat Battle sound pair feedback" -Command @(
+            "python", "scripts/ingest_sound_pair_feedback.py"
         )
     }
     "analyze-beat-battle-kit" {

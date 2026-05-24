@@ -1,0 +1,86 @@
+{
+  "audit_mode": "no_commit_repo_drift_triage",
+  "constraints_observed": {
+    "continued_feature_work": false,
+    "branch_switch_performed": false,
+    "staged_files": false,
+    "commit_performed": false,
+    "push_performed": false,
+    "stash_performed": false,
+    "delete_performed": false
+  },
+  "repo_state": {
+    "branch": "cursor/beat-battle-ranked-compliance-study-agent-v1",
+    "head_commit": "684f4b0c6dc1456dd7ad863ee2de403881408f93",
+    "upstream": "origin/cursor/beat-battle-ranked-compliance-study-agent-v1",
+    "git_status_porcelain_pre_report": [],
+    "modified_files_pre_report": [],
+    "untracked_files_pre_report": [],
+    "staged_files_pre_report": [],
+    "files_changed_since_task_start_detectable": [
+      "reports/recovery/repo_drift_triage.md",
+      "reports/recovery/repo_drift_triage.json"
+    ],
+    "detectability_note": "No tracked changes were visible before report creation; only request-driven report artifacts were added."
+  },
+  "categorization": {
+    "continuous_beat_battle_agent_loop": [],
+    "compliance_manual_study_agent": [],
+    "sound_pair_records": [],
+    "site_automation_scaffold": [],
+    "synplant_render_study_catalog": [],
+    "unrelated_pre_existing": [],
+    "unknown": [
+      "reports/recovery/repo_drift_triage.md",
+      "reports/recovery/repo_drift_triage.json"
+    ]
+  },
+  "sensitive_artifact_scan": {
+    "local_config_files_present": [
+      ".env.example"
+    ],
+    "cookies_or_browser_state_present": false,
+    "raw_audio_present": false,
+    "wav_mp3_or_other_rendered_audio_present": false,
+    "private_paths_detected_in_drift_set": false,
+    "token_named_files_present": false,
+    "notes": [
+      "A template .env.example exists; no .env file was detected via filename scan.",
+      "No wav/mp3/aif/aiff/flac files detected in repository listing."
+    ]
+  },
+  "commit_guidance": {
+    "safe_to_commit": [
+      "reports/recovery/repo_drift_triage.md",
+      "reports/recovery/repo_drift_triage.json"
+    ],
+    "must_stay_local_or_ignored": [],
+    "policy_reminder": [
+      "Do not commit raw provided battle sounds.",
+      "Do not commit Synplant rendered audio.",
+      "Do not commit cookies/browser/session state.",
+      "Do not commit private-path local configs or tokens."
+    ]
+  },
+  "recommended_recovery_path": {
+    "steps": [
+      "Stay on current branch for immediate safety; tree is clean except requested report artifacts.",
+      "Either stage only the two recovery report files for a dedicated recovery commit, or leave them untracked if no commit is desired.",
+      "Resume implementation only after explicit approval.",
+      "Optionally create a fresh recovery branch before resuming implementation to isolate future changes."
+    ],
+    "explicit_answers": {
+      "A_can_safely_continue_on_current_branch": true,
+      "B_should_switch_back_to_cursor_continuous_beat_battle_ranked_agent_v1": "no",
+      "C_should_create_fresh_recovery_branch": "optional_recommended_before_resuming_implementation",
+      "D_files_to_stage_for_next_commit": [
+        "reports/recovery/repo_drift_triage.md",
+        "reports/recovery/repo_drift_triage.json"
+      ],
+      "E_files_to_leave_untracked_or_discard_later": [
+        "reports/recovery/repo_drift_triage.md",
+        "reports/recovery/repo_drift_triage.json"
+      ]
+    }
+  }
+}

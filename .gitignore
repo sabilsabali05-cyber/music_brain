@@ -54,9 +54,13 @@ config/local_vst_registry.local.json
 # Local rendering artifacts
 renders/
 local_renders/
+local_battle_records/
+beat_battle_sound_pairs/
+beat_battle_synplant_variations/
 *.wav
 *.aif
 *.aiff
+*.mp3
 *.flac
 
 # Local symbolic backend assets
