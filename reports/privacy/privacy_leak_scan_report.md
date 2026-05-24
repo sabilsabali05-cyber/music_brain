@@ -2,15 +2,21 @@
 
 - status: `fail`
 - strict_mode: `False`
-- new_public_leak_count: `5`
+- new_public_leak_count: `11`
 - pre_existing_historical_path_debt_count: `6`
 
 ## New Public Leaks
 - `features/music_theory_understanding/theory_schema.py` marker=`C:/Users/` count=`1`
+- `features/source_understanding/source_understanding_schema.py` marker=`C:/Users/` count=`1`
 - `outputs/through_composed_story_100bpm_v2/generation_report.json` marker=`C:/Users/` count=`2`
 - `outputs/through_composed_story_100bpm_v2/generation_report.json` marker=`C:/Users/izzyo` count=`2`
 - `outputs/through_composed_story_100bpm_v2/generation_report.md` marker=`C:/Users/` count=`2`
 - `outputs/through_composed_story_100bpm_v2/generation_report.md` marker=`C:/Users/izzyo` count=`2`
+- `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/izzyo` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/izzyo` count=`1`
+- `scripts/run_music_understanding_loop.py` marker=`C:/Users/` count=`1`
 
 ## Pre-existing Historical Path Debt
 - `docs/ABLETON_EXPORT_WORKFLOW.md` marker=`private_synplant_seed_paths` count=`1`

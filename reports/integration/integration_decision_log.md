@@ -10,3 +10,5 @@
 - **local_config_reporting** decision=`keep/wire`; rationale=`booleans and blocker labels only, no private path leaks`; evidence=`reports/integration/local_config_blockers.*`.
 - **cloud_activation_tasks** decision=`postpone`; rationale=`no cloud calls allowed in this integration`; evidence=`scripts/dev.ps1` cloud tasks.
 - **tracked_generated_outputs_growth** decision=`retire`; rationale=`avoid committing additional rendered/raw outputs`; evidence=`docs/GENERATED_ARTIFACT_POLICY.md`.
+- **branch_canonical_selection** decision=`keep/wire`; rationale=`cursor/music-understanding-taste-loop-v1 is the active integration trunk`; evidence=`docs/CANONICAL_ACTIVE_BRANCH.md`, `docs/PROJECT_STATUS_AND_NEXT_STEPS.md`.
+- **branch_supersession_chordpotion_selector** decision=`retire`; rationale=`cursor/chordpotion-intelligent-preset-selector-v1 is fully contained in cursor/music-understanding-taste-loop-v1 with no unique commits/files`; evidence=`reports/integration/loose_threads_inventory.*`.

@@ -2,6 +2,12 @@
 
 Generated for branch `cursor/music-understanding-taste-loop-v1`.
 
+## Branch Status
+
+- Canonical active branch: `cursor/music-understanding-taste-loop-v1` (active).
+- Retired/superseded branch: `cursor/chordpotion-intelligent-preset-selector-v1`.
+- Supersession reason: fully contained in `cursor/music-understanding-taste-loop-v1` with no unique commits/files.
+
 ## Inventory Items
 
 - `source_understanding_contract` (`docs/SOURCE_AUDIO_UNDERSTANDING_CONTRACT.md`) status=`new_core`; strict confidence/evidence policy; command=`scripts/dev.cmd build-source-understanding-records`; blockers=`none`; privacy_risk=`low`; artifact_risk=`low`; next=`enforce_in_builder_and_tests`.

@@ -87,6 +87,24 @@
         "docs/GENERATED_ARTIFACT_POLICY.md",
         "reports/integration/privacy_debt_report.json"
       ]
+    },
+    {
+      "subsystem": "branch_canonical_selection",
+      "decision": "keep/wire",
+      "rationale": "cursor/music-understanding-taste-loop-v1 is the canonical active integration branch.",
+      "evidence": [
+        "docs/CANONICAL_ACTIVE_BRANCH.md",
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md"
+      ]
+    },
+    {
+      "subsystem": "branch_supersession_chordpotion_selector",
+      "decision": "retire",
+      "rationale": "cursor/chordpotion-intelligent-preset-selector-v1 is fully contained in cursor/music-understanding-taste-loop-v1 with no unique commits/files.",
+      "evidence": [
+        "reports/integration/loose_threads_inventory.md",
+        "reports/integration/loose_threads_inventory.json"
+      ]
     }
   ]
 }

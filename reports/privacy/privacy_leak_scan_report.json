@@ -1,11 +1,17 @@
 {
   "status": "fail",
   "strict_mode": false,
-  "new_public_leak_count": 5,
+  "new_public_leak_count": 11,
   "pre_existing_historical_path_debt_count": 6,
   "new_public_leaks": [
     {
       "path": "features/music_theory_understanding/theory_schema.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "features/source_understanding/source_understanding_schema.py",
       "marker": "C:/Users/",
       "debt_type": "new_or_changed_public_leak",
       "line_count": 1
@@ -33,6 +39,36 @@
       "marker": "C:/Users/izzyo",
       "debt_type": "new_or_changed_public_leak",
       "line_count": 2
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.json",
+      "marker": "C:/Users/izzyo",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.md",
+      "marker": "C:/Users/izzyo",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
+    },
+    {
+      "path": "scripts/run_music_understanding_loop.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1
     }
   ],
   "pre_existing_historical_path_debt": [
@@ -115,12 +151,19 @@
     "tests/test_benchmark_segments.py",
     "tests/test_benchmark_track.py",
     "tests/test_canonical_music_corpus_schema.py",
+    "tests/test_chordpotion_audition.py",
+    "tests/test_chordpotion_intent_schema.py",
+    "tests/test_chordpotion_output_analysis.py",
     "tests/test_chordpotion_schema.py",
+    "tests/test_chordpotion_scoring.py",
+    "tests/test_chordpotion_selector.py",
+    "tests/test_chordpotion_training_dataset.py",
     "tests/test_chordpotion_transform_plan.py",
     "tests/test_cli_output.py",
     "tests/test_compare_analyses.py",
     "tests/test_compare_segmentations.py",
     "tests/test_complete_song_pipeline.py",
+    "tests/test_composition_taste_ranker.py",
     "tests/test_content_routing.py",
     "tests/test_controlled_ingestion_sprint.py",
     "tests/test_create_test_audio.py",
@@ -136,11 +179,14 @@
     "tests/test_generate_ballad_with_symbolic_backends.py",
     "tests/test_generate_chordpotion_ready_skeleton.py",
     "tests/test_generate_midi_from_examples.py",
+    "tests/test_generate_ranked_midi_candidates.py",
     "tests/test_generate_with_chordpotion.py",
+    "tests/test_generate_with_intelligent_chordpotion.py",
     "tests/test_generated_artifact_policy.py",
     "tests/test_generative_training_examples.py",
     "tests/test_harmony_analysis.py",
     "tests/test_human_review_batch.py",
+    "tests/test_ingest_output_feedback.py",
     "tests/test_inspect_segments.py",
     "tests/test_integration_decision_log.py",
     "tests/test_job_report.py",
@@ -180,14 +226,18 @@
     "tests/test_render_plan_schema.py",
     "tests/test_review_segments.py",
     "tests/test_rhythm_analysis.py",
+    "tests/test_run_music_understanding_loop.py",
     "tests/test_sample_library_index.py",
     "tests/test_segment_audio.py",
     "tests/test_source_separation_witness_vertical_slice.py",
+    "tests/test_source_to_generation_mapping.py",
+    "tests/test_source_understanding_schema.py",
     "tests/test_stitch_midi.py",
     "tests/test_symbolic_backend_activation.py",
     "tests/test_symbolic_model_backends.py",
     "tests/test_symbolic_model_ensemble_integration.py",
     "tests/test_tangible_generation_demo.py",
+    "tests/test_taste_feedback_schema.py",
     "tests/test_text2midi_vertical_slice.py",
     "tests/test_texture_synplant_intelligence.py",
     "tests/test_theory_conditioned_generation.py",
@@ -195,6 +245,7 @@
     "tests/test_theory_model_sources.py",
     "tests/test_theory_to_chordpotion.py",
     "tests/test_theory_to_generation_mapping.py",
+    "tests/test_train_chordpotion_preset_selector.py",
     "tests/test_training_export_summary.py",
     "tests/test_training_trust_layer.py",
     "tests/test_transcribe_windows.py",

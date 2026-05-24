@@ -2,9 +2,10 @@
 
 ## Current Status
 
-- Active integration branch: `cursor/integrate-loose-threads-complete-pipeline-v1`.
-- One-command local orchestrator is now wired: `scripts/dev.cmd generate-complete-song-wav`.
-- Complete command emits truthful status outputs and review artifacts (no fake WAV/chordpotion/training claims).
+- Canonical active branch: `cursor/music-understanding-taste-loop-v1`.
+- Retired/superseded branch: `cursor/chordpotion-intelligent-preset-selector-v1` (fully contained in canonical branch; no unique commits/files).
+- Primary command for active loop: `scripts/dev.cmd run-music-understanding-loop`.
+- Current review focus: `outputs/music_understanding_loop_v1/candidates/candidate_01.mid` through `candidate_08.mid`.
 - Cloud calls remain intentionally out of scope for this pass.
 
 ## What Works
@@ -24,8 +25,8 @@
 
 ## Immediate Next Steps
 
-- Fix current `check-privacy-leaks` failures and re-run strict privacy gate.
+- Run `scripts/dev.cmd test` and `scripts/dev.cmd run-music-understanding-loop` on `cursor/music-understanding-taste-loop-v1`.
+- Review `candidate_01.mid` through `candidate_08.mid` and append labeled taste feedback.
+- Reach 20+ labeled feedback examples to enable trained composition taste ranker mode.
 - Keep local config files private and untracked; only commit redacted/boolean reports.
-- Verify complete command output in local environment and confirm `wav_status` is honest.
-- If WAV is not rendered, use assisted pack workflow and capture manual review feedback.
-- Merge only after tests and privacy checks pass with no new regressions.
+- Re-run `scripts/dev.cmd check-privacy-leaks` and address any failing findings.

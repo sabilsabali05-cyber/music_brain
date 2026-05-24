@@ -1,5 +1,13 @@
 {
   "generated_by": "music_understanding_taste_loop_v1",
+  "canonical_active_branch": "cursor/music-understanding-taste-loop-v1",
+  "retired_branches": [
+    {
+      "branch": "cursor/chordpotion-intelligent-preset-selector-v1",
+      "status": "retired/superseded",
+      "reason": "Fully contained in cursor/music-understanding-taste-loop-v1 with no unique commits/files."
+    }
+  ],
   "items": [
     {
       "name": "complete_pipeline_orchestrator",
