@@ -26,6 +26,11 @@ class MidiGptAdapter:
         "track_level_infill",
     ]
 
+    def _symbolic_backend_config_paths(self) -> tuple[Path, Path]:
+        root_dir = Path(__file__).resolve().parents[3]
+        config_dir = root_dir / "config" / "symbolic_backends"
+        return config_dir / "symbolic_backends.local.json", config_dir / "symbolic_backends.example.json"
+
     def _paths_ready(self, repo_path: Path, model_path: Path, tokenizer_path: Path | None) -> tuple[bool, str]:
         if not repo_path.exists() or not repo_path.is_dir():
             return False, "repo_path_missing"
@@ -60,13 +65,15 @@ class MidiGptAdapter:
         )
 
     def check_available(self):
-        settings, source = backend_settings(self.backend_id)
+        settings, _ = backend_settings(self.backend_id)
+        local_path, _ = self._symbolic_backend_config_paths()
+        using_local_config = local_path.exists()
         if not settings:
             return unavailable_capability(
                 self.backend_id,
                 self.backend_role,
                 self.operations,
-                f"config_missing:{source}",
+                "disabled_or_missing_local_config",
                 limitations=["MIDI-GPT requires an explicit local symbolic backend config section."],
             )
         if not bool(settings.get("enabled", False)):
@@ -74,8 +81,17 @@ class MidiGptAdapter:
                 self.backend_id,
                 self.backend_role,
                 self.operations,
-                "disabled_in_config",
-                limitations=["Enable midigpt in local symbolic backend config to allow probing."],
+                "disabled_in_local_config" if using_local_config else "disabled_or_missing_local_config",
+                limitations=[
+                    (
+                        "Enable midigpt in local symbolic backend config to allow probing."
+                        if using_local_config
+                        else (
+                            "Create symbolic_backends.local.json and enable midigpt there; "
+                            "example config does not make it available."
+                        )
+                    )
+                ],
             )
         model_path = str(settings.get("model_path", "")).strip()
         repo_path = str(settings.get("repo_path", "")).strip()
