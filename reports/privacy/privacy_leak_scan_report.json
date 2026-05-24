@@ -74,6 +74,7 @@
     "reports/privacy/privacy_leak_scan_report.json",
     "reports/privacy/privacy_leak_scan_report.md",
     "scripts/check_privacy_leaks.py",
+    "tests/test_ableton_agent_bridge.py",
     "tests/test_ableton_project_export.py",
     "tests/test_analyze_audio_structure.py",
     "tests/test_artifact_paths.py",

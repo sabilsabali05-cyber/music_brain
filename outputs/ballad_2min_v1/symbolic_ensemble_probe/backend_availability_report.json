@@ -74,8 +74,7 @@
     }
   ],
   "limitations": [
-    "Availability only checks config/dependency/path/smoke gate readiness.",
-    "No model weights are downloaded by this checker.",
-    "No training or audio processing is performed."
+    "Real backends remain optional until local config/dependencies/weights are provided.",
+    "Availability does not imply generation quality or model training on user data."
   ]
 }

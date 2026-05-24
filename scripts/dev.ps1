@@ -140,6 +140,7 @@ function Show-Usage {
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  generate-symbolic-ensemble <prompt>"
     Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
+    Write-Host "  generate-2min-ballad"
     Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  export-ableton-project-v1 <tangible-output-folder> [--copy-local-samples]"
     Write-Host "  validate-ableton-project-export [project-folder]"
@@ -1241,6 +1242,11 @@ switch ($Task) {
         $goal = if (-not [string]::IsNullOrWhiteSpace($goalArg)) { $goalArg } else { "climax" }
         Invoke-Step -Label "Generating tangible MIDI demo composition" -Command @(
             "python", "scripts/generate_tangible_demo.py", $duration, $ratio, $goal
+        )
+    }
+    "generate-2min-ballad" {
+        Invoke-Step -Label "Generating 2-minute symbolic ballad bundle" -Command @(
+            "python", "scripts/generate_2min_ballad.py"
         )
     }
     "validate-tangible-demo" {

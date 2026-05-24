@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "mode": "prototype",
+  "provenance": {
+    "symbolic_ensemble_probe_used": true,
+    "symbolic_ensemble_selected_backend": "example_retrieval",
+    "example_retrieval_fallback_used": true,
+    "no_real_symbolic_backend_available": true,
+    "source_example_conditioning": {
+      "examples_files_scanned": 2,
+      "examples_rows_scanned": 1,
+      "motif_source": "symbolic_examples_pitch_cell"
+    },
+    "arrangement_method": "deterministic_minor_ballad_ruleset"
+  },
+  "policy": {
+    "cloud_called": false,
+    "training_performed": false,
+    "audio_processed": false,
+    "human_review_required": true
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "status": "ok",
+  "mode": "prototype",
+  "duration_seconds": 120.0,
+  "tempo_bpm": 78.0,
+  "key": "A minor",
+  "meter": "4/4",
+  "structure": [
+    "intro",
+    "verse",
+    "hook",
+    "bridge",
+    "final_hook",
+    "outro"
+  ],
+  "section_timeline": [
+    {
+      "section": "intro",
+      "start_seconds": 0.0,
+      "end_seconds": 12.308,
+      "bars": 4
+    },
+    {
+      "section": "verse",
+      "start_seconds": 12.308,
+      "end_seconds": 43.077,
+      "bars": 10
+    },
+    {
+      "section": "hook",
+      "start_seconds": 43.077,
+      "end_seconds": 67.692,
+      "bars": 8
+    },
+    {
+      "section": "bridge",
+      "start_seconds": 67.692,
+      "end_seconds": 86.154,
+      "bars": 6
+    },
+    {
+      "section": "final_hook",
+      "start_seconds": 86.154,
+      "end_seconds": 110.769,
+      "bars": 8
+    },
+    {
+      "section": "outro",
+      "start_seconds": 110.769,
+      "end_seconds": 120.0,
+      "bars": 3
+    }
+  ],
+  "midi_files_created": [
+    "outputs/ballad_2min_v1/ballad_drums.mid",
+    "outputs/ballad_2min_v1/ballad_bass.mid",
+    "outputs/ballad_2min_v1/ballad_chords.mid",
+    "outputs/ballad_2min_v1/ballad_lead.mid",
+    "outputs/ballad_2min_v1/ballad_texture.mid",
+    "outputs/ballad_2min_v1/ballad_full.mid"
+  ],
+  "models_checked": [
+    "moonbeam",
+    "musicbert",
+    "midigpt",
+    "text2midi",
+    "example_retrieval"
+  ],
+  "models_used": [
+    "example_retrieval"
+  ],
+  "models_skipped_unavailable": [
+    "moonbeam:disabled_or_missing_local_config",
+    "musicbert:disabled_or_missing_local_config",
+    "midigpt:disabled_or_missing_local_config",
+    "text2midi:disabled_or_missing_local_config"
+  ],
+  "generated_from_user_data": {
+    "value": true,
+    "explanation": "Derived lead motif and arrangement constraints from local symbolic example datasets under datasets/generative_training."
+  },
+  "trained_model_generation": false,
+  "cloud_called": false,
+  "training_performed": false,
+  "human_review_required": true,
+  "ensemble_probe_report": "outputs/ballad_2min_v1/symbolic_ensemble_probe/ensemble_generation_report.json",
+  "note_counts": {
+    "drums": 144,
+    "bass": 92,
+    "chords": 234,
+    "lead": 108,
+    "texture": 50,
+    "full": 628
+  },
+  "motif_offsets": [
+    -7,
+    -5,
+    0,
+    3
+  ],
+  "example_source_summary": {
+    "examples_files_scanned": 2,
+    "examples_rows_scanned": 1,
+    "motif_source": "symbolic_examples_pitch_cell"
+  }
+}
