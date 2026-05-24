@@ -1,0 +1,41 @@
+{
+  "enabled": true,
+  "mode": "manual_or_authorized_only",
+  "site_config_path": "config/beat_battle_ranked_site.local.json",
+  "poll_interval_seconds": 120,
+  "max_rounds_per_loop": 1,
+  "min_drafts_per_round": 8,
+  "max_synplant_variations_per_round": 12,
+  "useful_variation_threshold": 0.65,
+  "submission_allowed": false,
+  "safety": {
+    "allow_captcha_bypass": false,
+    "allow_mfa_bypass": false,
+    "allow_login_bypass": false,
+    "allow_stealth_bot_evasion": false,
+    "allow_multi_account_farming": false,
+    "allow_scrape_unrelated_private_data": false,
+    "allow_spam_submissions": false,
+    "allow_fake_submissions_or_results": false,
+    "allow_fake_synplant_usage": false,
+    "allow_unauthorized_training_data": false,
+    "stop_on_login_required": true,
+    "stop_on_captcha_required": true,
+    "stop_on_manual_challenge_required": true,
+    "auto_submit": false,
+    "require_manual_submit_confirmation": true
+  },
+  "paths": {
+    "local_state_path": "battle_agent_state/agent_state.local.json",
+    "status_json_path": "reports/beat_battle_agent/agent_status.json",
+    "status_md_path": "reports/beat_battle_agent/agent_status.md",
+    "dashboard_json_path": "reports/beat_battle_agent/agent_dashboard.json",
+    "dashboard_md_path": "reports/beat_battle_agent/agent_dashboard.md",
+    "round_watcher_status_json_path": "reports/beat_battle_agent/round_watcher_status.json",
+    "round_watcher_status_md_path": "reports/beat_battle_agent/round_watcher_status.md",
+    "synplant_manifest_jsonl_path": "datasets/beat_battle_agent/synplant_variation_manifest.jsonl",
+    "local_synplant_variation_audio_root": "beat_battle_synplant_variations",
+    "round_outputs_root": "outputs/beat_battle_agent",
+    "results_dataset_jsonl_path": "datasets/beat_battle_agent/battle_results.jsonl"
+  }
+}

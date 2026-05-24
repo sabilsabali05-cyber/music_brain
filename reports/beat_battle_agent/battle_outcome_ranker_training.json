@@ -1,0 +1,9 @@
+{
+  "results_count": 0,
+  "training_mode": "heuristic_baseline",
+  "holdout_evaluation_ran": false,
+  "battle_outcome_ranker_trained": false,
+  "honest_reporting": true,
+  "artifact_path": "artifacts/beat_battle_agent/battle_outcome_ranker/model.json",
+  "blocker": ""
+}

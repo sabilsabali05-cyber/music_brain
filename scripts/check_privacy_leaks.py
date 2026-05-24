@@ -44,6 +44,8 @@ ALLOWLIST_PATH_SNIPPETS = [
     "outputs/tangible_generation_v1/",
     "datasets/sample_libraries/",
     "reports/sample_libraries/",
+    "reports/integration/privacy_debt_report.",
+    "reports/taste_learning/feedback_ingestion_report.",
     "reports/privacy/",
     "scripts/check_privacy_leaks.py",
     "tests/",

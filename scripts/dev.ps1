@@ -212,12 +212,24 @@ function Show-Usage {
     Write-Host "  setup-beat-battle-browser-session"
     Write-Host "  detect-beat-battle-round"
     Write-Host "  acquire-beat-battle-round-sounds"
-    Write-Host "  analyze-beat-battle-kit [--manifest <path>]"
+    Write-Host "  import-beat-battle-manual-round"
+    Write-Host "  analyze-beat-battle-kit"
     Write-Host "  generate-beat-battle-drafts"
+    Write-Host "  generate-synplant-study-variations"
+    Write-Host "  export-beat-battle-submission-pack"
+    Write-Host "  ingest-beat-battle-result"
     Write-Host "  render-beat-battle-submission"
     Write-Host "  submit-beat-battle-entry [--manual-submit-confirmed]"
     Write-Host "  check-beat-battle-result"
     Write-Host "  beat-battle-ranked-site-auto"
+    Write-Host "  watch-beat-battle-rounds"
+    Write-Host "  generate-synplant-round-variations"
+    Write-Host "  generate-battle-round-beats [--round-id <id>]"
+    Write-Host "  analyze-battle-results"
+    Write-Host "  train-battle-outcome-ranker"
+    Write-Host "  beat-battle-study-agent"
+    Write-Host "  beat-battle-agent-once [--manual-submit-confirmed]"
+    Write-Host "  beat-battle-agent-loop [--iterations <n>]"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1745,14 +1757,34 @@ switch ($Task) {
             "python", "scripts/acquire_beat_battle_round_sounds.py"
         )
     }
+    "import-beat-battle-manual-round" {
+        Invoke-Step -Label "Importing Beat Battle manual round sounds" -Command @(
+            "python", "scripts/import_beat_battle_manual_round.py"
+        )
+    }
     "analyze-beat-battle-kit" {
-        $command = @("python", "scripts/analyze_beat_battle_kit.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Analyzing Beat Battle round kit" -Command $command
+        Invoke-Step -Label "Analyzing Beat Battle round kit" -Command @(
+            "python", "scripts/analyze_beat_battle_kit.py"
+        )
     }
     "generate-beat-battle-drafts" {
         Invoke-Step -Label "Generating Beat Battle draft candidates" -Command @(
             "python", "scripts/generate_beat_battle_drafts.py"
+        )
+    }
+    "generate-synplant-study-variations" {
+        Invoke-Step -Label "Generating Synplant study variations catalog" -Command @(
+            "python", "scripts/generate_synplant_study_variations.py"
+        )
+    }
+    "export-beat-battle-submission-pack" {
+        Invoke-Step -Label "Exporting Beat Battle submission pack" -Command @(
+            "python", "scripts/export_beat_battle_submission_pack.py"
+        )
+    }
+    "ingest-beat-battle-result" {
+        Invoke-Step -Label "Ingesting Beat Battle manual result" -Command @(
+            "python", "scripts/ingest_beat_battle_result.py"
         )
     }
     "render-beat-battle-submission" {
@@ -1774,6 +1806,46 @@ switch ($Task) {
         Invoke-Step -Label "Running Beat Battle ranked site automation" -Command @(
             "python", "scripts/beat_battle_ranked_site_auto.py"
         )
+    }
+    "watch-beat-battle-rounds" {
+        Invoke-Step -Label "Watching Beat Battle rounds safely" -Command @(
+            "python", "scripts/watch_beat_battle_rounds.py"
+        )
+    }
+    "generate-synplant-round-variations" {
+        Invoke-Step -Label "Generating Synplant round variations" -Command @(
+            "python", "scripts/generate_synplant_round_variations.py"
+        )
+    }
+    "generate-battle-round-beats" {
+        $command = @("python", "scripts/generate_battle_round_beats.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Generating battle round beats" -Command $command
+    }
+    "analyze-battle-results" {
+        Invoke-Step -Label "Analyzing battle results and winners" -Command @(
+            "python", "scripts/analyze_battle_results.py"
+        )
+    }
+    "train-battle-outcome-ranker" {
+        Invoke-Step -Label "Training battle outcome ranker" -Command @(
+            "python", "scripts/train_battle_outcome_ranker.py"
+        )
+    }
+    "beat-battle-study-agent" {
+        Invoke-Step -Label "Running Beat Battle study agent" -Command @(
+            "python", "scripts/beat_battle_study_agent.py"
+        )
+    }
+    "beat-battle-agent-once" {
+        $command = @("python", "scripts/beat_battle_agent_once.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running beat battle agent once" -Command $command
+    }
+    "beat-battle-agent-loop" {
+        $command = @("python", "scripts/beat_battle_agent_loop.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running beat battle agent loop" -Command $command
     }
     "commit-checkpoint" {
         $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }

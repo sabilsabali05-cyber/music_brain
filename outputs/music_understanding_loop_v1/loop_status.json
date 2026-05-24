@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T21:25:57.888329+00:00",
+  "generated_at": "2026-05-24T22:00:58.358973+00:00",
   "loop_id": "music_understanding_loop_v1",
   "music_understanding_completed": true,
   "taste_learning_completed": true,
@@ -44,5 +44,8 @@
       "output_excerpt": "CANDIDATES_GENERATED=8\nSELECTED_CANDIDATE_PATH=outputs/music_understanding_loop_v1/candidates/candidate_03.mid\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
     }
   ],
+  "battle_results_feedback_count": 0,
+  "battle_results_top3_count": 0,
+  "battle_outcome_ranker_trained": false,
   "blockers": []
 }

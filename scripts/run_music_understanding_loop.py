@@ -100,6 +100,8 @@ def main() -> int:
     source_report = _read_json(ROOT_DIR / "reports" / "source_understanding" / "source_understanding_report.json")
     train_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.json")
     candidates_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "ranked_midi_candidates_report.json")
+    beat_battle_results_summary = _read_json(ROOT_DIR / "reports" / "beat_battle_agent" / "battle_results_analysis.json")
+    beat_battle_outcome_training = _read_json(ROOT_DIR / "reports" / "beat_battle_agent" / "battle_outcome_ranker_training.json")
     local_config = load_local_render_config(ROOT_DIR / "config" / "local_render_config.local.json")
     registry = load_registry(ROOT_DIR / "config" / "local_vst_registry.local.json")
     preferred_synplant_plugin_id = str(local_config.get("preferred_synplant_plugin_id", "")).strip()
@@ -131,6 +133,9 @@ def main() -> int:
         "synplant_available": bool(synplant_plugin and synplant_plugin.available),
         "feedback_template_path": _repo_rel(feedback_template_path),
         "step_results": step_results,
+        "battle_results_feedback_count": int(beat_battle_results_summary.get("results_count", 0)),
+        "battle_results_top3_count": int(beat_battle_results_summary.get("top3_count", 0)),
+        "battle_outcome_ranker_trained": bool(beat_battle_outcome_training.get("battle_outcome_ranker_trained", False)),
         "blockers": blockers,
     }
     report_json = ROOT_DIR / "reports" / "integration" / "music_understanding_loop_status.json"

@@ -1,0 +1,13 @@
+{
+  "mode": "manual_or_authorized_only",
+  "blocker": "missing_manual_round_config",
+  "live_site_automation_enabled": false,
+  "manual_round_import_ready": false,
+  "sounds_imported": 0,
+  "drafts_generated": 0,
+  "synplant_study_variations_generated": 0,
+  "submission_pack_path": "",
+  "result_logging_ready": false,
+  "results_logged": 0,
+  "battle_outcome_ranker_status": "heuristic_baseline"
+}

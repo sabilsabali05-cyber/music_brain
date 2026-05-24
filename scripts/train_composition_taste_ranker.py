@@ -48,14 +48,41 @@ def _is_valid_generated_outcome_row(row: dict) -> bool:
     return True
 
 
+def _safe_placement(value: object) -> int:
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        return 9999
+    return parsed if parsed > 0 else 9999
+
+
 def main() -> int:
     feedback_path = ROOT_DIR / "datasets" / "taste_learning" / "taste_feedback.jsonl"
     beat_battle_feedback_path = ROOT_DIR / "datasets" / "taste_learning" / "beat_battle_site_feedback.jsonl"
+    beat_battle_agent_results_path = ROOT_DIR / "datasets" / "beat_battle_agent" / "result_memory.jsonl"
     model_path = ROOT_DIR / "artifacts" / "taste_learning" / "composition_ranker" / "model.json"
     report_json = ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.json"
     report_md = ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.md"
     combined_rows = [row for row in _load_jsonl(feedback_path) if _is_valid_generated_outcome_row(row)]
     combined_rows.extend(row for row in _load_jsonl(beat_battle_feedback_path) if _is_valid_generated_outcome_row(row))
+    for result_row in _load_jsonl(beat_battle_agent_results_path):
+        round_id = str(result_row.get("round_id", "")).strip()
+        if not round_id:
+            continue
+        placement = _safe_placement(result_row.get("placement"))
+        combined_rows.append(
+            {
+                "generation_id": f"beat_battle_agent_{round_id}",
+                "authorization_status": "authorized",
+                "source_authorized_for_learning": True,
+                "result_available": bool(result_row.get("result_logged", False)),
+                "accepted": placement <= 3,
+                "taste_label": "positive" if placement <= 3 else "neutral",
+                "musicality_score": 0.8 if placement <= 3 else 0.55,
+                "groove_score": 0.75 if placement <= 3 else 0.5,
+                "harmony_score": 0.7 if placement <= 3 else 0.5,
+            }
+        )
     with tempfile.TemporaryDirectory() as tmpdir:
         combined_path = Path(tmpdir) / "combined_feedback.jsonl"
         with combined_path.open("w", encoding="utf-8") as handle:

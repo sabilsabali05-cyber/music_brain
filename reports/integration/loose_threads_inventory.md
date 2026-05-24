@@ -1,12 +1,15 @@
 # Loose Threads Inventory
 
-Generated for branch `cursor/music-understanding-taste-loop-v1`.
+Generated for branch `cursor/consolidate-synplant-and-beatbattle-v1`.
 
 ## Branch Status
 
-- Canonical active branch: `cursor/music-understanding-taste-loop-v1` (active).
+- Canonical active branch: `cursor/consolidate-synplant-and-beatbattle-v1` (active).
+- Superseded branch: `cursor/music-understanding-taste-loop-v1`.
+- Integrated branch: `cursor/synplant-local-render-target-v1`.
+- Integrated branch: `cursor/beat-battle-ranked-site-automation-v1`.
 - Retired/superseded branch: `cursor/chordpotion-intelligent-preset-selector-v1`.
-- Supersession reason: fully contained in `cursor/music-understanding-taste-loop-v1` with no unique commits/files.
+- Supersession reason: fully contained in the canonical branch line with no unique commits/files.
 
 ## Inventory Items
 

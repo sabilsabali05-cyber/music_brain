@@ -1,11 +1,18 @@
 {
-  "generated_by": "music_understanding_taste_loop_v1",
-  "canonical_active_branch": "cursor/music-understanding-taste-loop-v1",
+  "generated_by": "consolidate_synplant_and_beatbattle_v1",
+  "canonical_active_branch": "cursor/consolidate-synplant-and-beatbattle-v1",
+  "superseded_branches": [
+    "cursor/music-understanding-taste-loop-v1"
+  ],
+  "integrated_branches": [
+    "cursor/synplant-local-render-target-v1",
+    "cursor/beat-battle-ranked-site-automation-v1"
+  ],
   "retired_branches": [
     {
       "branch": "cursor/chordpotion-intelligent-preset-selector-v1",
       "status": "retired/superseded",
-      "reason": "Fully contained in cursor/music-understanding-taste-loop-v1 with no unique commits/files."
+      "reason": "Fully contained in cursor/consolidate-synplant-and-beatbattle-v1 with no unique commits/files."
     }
   ],
   "items": [

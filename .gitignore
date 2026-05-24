@@ -89,11 +89,24 @@ reports/texture_intelligence/private_texture_analysis_plan.md
 # Beat Battle ranked site local/private automation files
 config/beat_battle_ranked_site.local.json
 config/beat_battle_ranked_site.session.local.json
+config/beat_battle_agent.local.json
+config/beat_battle_manual_round.local.json
+browser_state/
+playwright_state/
+site_sessions/
+beat_battle_round_audio/
 datasets_local/beat_battle_site/
 artifacts/beat_battle_site/
 renders/beat_battle_site/
+battle_agent_state/agent_state.local.json
+beat_battle_synplant_variations/**/*.wav
+outputs/beat_battle_agent/**/rendered_audio/**
+datasets/beat_battle_agent/raw_round_sounds/**
+**/round_sound*.wav
+**/submission_render*.wav
 reports/beat_battle_site_automation/*private*.json
 reports/beat_battle_site_automation/*private*.md
 **/cookies*.json
 **/auth*.json
 **/session*.json
+reports/review_queue/beat_battle_result.local.json

@@ -1,0 +1,12 @@
+# Beat Battle Round Watcher Status
+
+- generated_at: ``
+- active_round_detected: `false`
+- active_round_id: ``
+- new_round_detected: `false`
+- duplicate_round_ignored: `false`
+- paused_for_manual_gate: `true`
+- manual_gate_reason: `missing_local_agent_config`
+- submission_attempted: `false`
+- blocker: `missing_local_agent_config`
+- rounds_processed: `0`

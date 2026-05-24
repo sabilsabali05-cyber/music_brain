@@ -91,16 +91,43 @@
     {
       "subsystem": "branch_canonical_selection",
       "decision": "keep/wire",
-      "rationale": "cursor/music-understanding-taste-loop-v1 is the canonical active integration branch.",
+      "rationale": "cursor/consolidate-synplant-and-beatbattle-v1 is the canonical active integration branch.",
       "evidence": [
         "docs/CANONICAL_ACTIVE_BRANCH.md",
         "docs/PROJECT_STATUS_AND_NEXT_STEPS.md"
       ]
     },
     {
+      "subsystem": "branch_supersession_music_understanding_loop",
+      "decision": "retire",
+      "rationale": "cursor/music-understanding-taste-loop-v1 is superseded by cursor/consolidate-synplant-and-beatbattle-v1.",
+      "evidence": [
+        "docs/CANONICAL_ACTIVE_BRANCH.md",
+        "reports/integration/loose_threads_inventory.md"
+      ]
+    },
+    {
+      "subsystem": "branch_integration_synplant_local_render_target",
+      "decision": "keep/wire",
+      "rationale": "cursor/synplant-local-render-target-v1 integrated while keeping Synplant as local render target only.",
+      "evidence": [
+        "features/local_rendering/synplant_assignment.py",
+        "reports/local_rendering/synplant_render_status.json"
+      ]
+    },
+    {
+      "subsystem": "branch_integration_beat_battle_site_automation",
+      "decision": "keep/wire",
+      "rationale": "cursor/beat-battle-ranked-site-automation-v1 integrated as safe, config-gated site automation.",
+      "evidence": [
+        "features/beat_battle_site_automation",
+        "reports/beat_battle_site_automation/site_auto_status.json"
+      ]
+    },
+    {
       "subsystem": "branch_supersession_chordpotion_selector",
       "decision": "retire",
-      "rationale": "cursor/chordpotion-intelligent-preset-selector-v1 is fully contained in cursor/music-understanding-taste-loop-v1 with no unique commits/files.",
+      "rationale": "cursor/chordpotion-intelligent-preset-selector-v1 is fully contained in cursor/consolidate-synplant-and-beatbattle-v1 with no unique commits/files.",
       "evidence": [
         "reports/integration/loose_threads_inventory.md",
         "reports/integration/loose_threads_inventory.json"
