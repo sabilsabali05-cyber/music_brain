@@ -1,0 +1,19 @@
+# Music Understanding Loop Status
+
+- music_understanding_completed: `true`
+- taste_learning_completed: `true`
+- generation_completed: `true`
+- review_ready: `true`
+- learning_ready: `true`
+- source_understanding_records_count: `2497`
+- usable_source_evidence_count: `0`
+- training_examples_count: `2`
+- trained_ranker_used: `false`
+- heuristic_ranker_used: `true`
+- candidates_generated: `8`
+- selected_candidate_path: `outputs/music_understanding_loop_v1/candidates/candidate_03.mid`
+- chordpotion_variant_created: `false`
+- wav_rendering_attempted: `false`
+
+## Blockers
+- none

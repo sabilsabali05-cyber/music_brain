@@ -1,0 +1,6 @@
+{
+  "selected_preset": "cp_sparse_emotional_a",
+  "selection_rule": "max_overall_candidate_score",
+  "blocked_by_local_config": true,
+  "blocker": "blocked_by_local_config"
+}

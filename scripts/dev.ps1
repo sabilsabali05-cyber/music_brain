@@ -202,6 +202,12 @@ function Show-Usage {
     Write-Host "  evaluate-chordpotion-preset-selector"
     Write-Host "  generate-with-intelligent-chordpotion"
     Write-Host "  verify-local-wav-renders [generation-id]"
+    Write-Host "  build-source-understanding-records"
+    Write-Host "  train-composition-taste-ranker"
+    Write-Host "  evaluate-composition-taste-ranker"
+    Write-Host "  generate-ranked-midi-candidates"
+    Write-Host "  run-music-understanding-loop"
+    Write-Host "  ingest-output-feedback [--input <path>]"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1675,6 +1681,39 @@ switch ($Task) {
             $command += @("--generation-id", $generationId)
         }
         Invoke-Step -Label "Verifying local WAV render artifacts" -Command $command
+    }
+    "build-source-understanding-records" {
+        Invoke-Step -Label "Building source understanding records and reports" -Command @(
+            "python", "scripts/build_source_understanding_records.py"
+        )
+    }
+    "train-composition-taste-ranker" {
+        Invoke-Step -Label "Training composition taste ranker" -Command @(
+            "python", "scripts/train_composition_taste_ranker.py"
+        )
+    }
+    "evaluate-composition-taste-ranker" {
+        Invoke-Step -Label "Evaluating composition taste ranker" -Command @(
+            "python", "scripts/evaluate_composition_taste_ranker.py"
+        )
+    }
+    "generate-ranked-midi-candidates" {
+        Invoke-Step -Label "Generating ranked MIDI candidates" -Command @(
+            "python", "scripts/generate_ranked_midi_candidates.py"
+        )
+    }
+    "run-music-understanding-loop" {
+        Invoke-Step -Label "Running music understanding taste loop" -Command @(
+            "python", "scripts/run_music_understanding_loop.py"
+        )
+    }
+    "ingest-output-feedback" {
+        $inputPath = Get-TaskArg -Index 0
+        $command = @("python", "scripts/ingest_output_feedback.py")
+        if (-not [string]::IsNullOrWhiteSpace($inputPath)) {
+            $command += @("--input", $inputPath)
+        }
+        Invoke-Step -Label "Ingesting output feedback into taste learning dataset" -Command $command
     }
     "commit-checkpoint" {
         $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }

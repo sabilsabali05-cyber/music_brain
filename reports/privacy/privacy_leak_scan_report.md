@@ -2,11 +2,15 @@
 
 - status: `fail`
 - strict_mode: `False`
-- new_public_leak_count: `1`
+- new_public_leak_count: `5`
 - pre_existing_historical_path_debt_count: `6`
 
 ## New Public Leaks
 - `features/music_theory_understanding/theory_schema.py` marker=`C:/Users/` count=`1`
+- `outputs/through_composed_story_100bpm_v2/generation_report.json` marker=`C:/Users/` count=`2`
+- `outputs/through_composed_story_100bpm_v2/generation_report.json` marker=`C:/Users/izzyo` count=`2`
+- `outputs/through_composed_story_100bpm_v2/generation_report.md` marker=`C:/Users/` count=`2`
+- `outputs/through_composed_story_100bpm_v2/generation_report.md` marker=`C:/Users/izzyo` count=`2`
 
 ## Pre-existing Historical Path Debt
 - `docs/ABLETON_EXPORT_WORKFLOW.md` marker=`private_synplant_seed_paths` count=`1`

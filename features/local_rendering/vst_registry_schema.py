@@ -31,6 +31,7 @@ class VstPluginEntry:
     preset_names: list[str] = field(default_factory=list)
     texture_tags: list[str] = field(default_factory=list)
     roles: list[str] = field(default_factory=list)
+    preset_profiles: list[dict] = field(default_factory=list)
     notes: str = ""
 
     def to_public_dict(self) -> dict:
@@ -95,6 +96,7 @@ def _parse_plugin(payload: dict) -> VstPluginEntry:
         texture_tags=[str(item) for item in payload.get("texture_tags", []) if str(item).strip()],
         roles=roles,
         notes=str(payload.get("notes", "")),
+        preset_profiles=[item for item in payload.get("preset_profiles", []) if isinstance(item, dict)],
     )
 
 

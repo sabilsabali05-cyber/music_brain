@@ -1,0 +1,233 @@
+{
+  "generated_at": "2026-05-24T21:08:29.577333+00:00",
+  "rows_considered": 2497,
+  "records_built": 2497,
+  "usable_source_evidence_count": 0,
+  "blocked_by_policy_count": 0,
+  "blocked_by_confidence_count": 2497,
+  "raw_audio_processing_allowed": false,
+  "source_type_counts": {
+    "generated_midi_feedback": 2,
+    "artifact_record": 54,
+    "review_queue": 41,
+    "training_export": 2395,
+    "ingestion_policy_report": 5
+  },
+  "evidence_type_counts": {
+    "music_intelligence_row": 2497,
+    "normalized_corpus_row": 2497,
+    "theory_understanding_row": 2497
+  },
+  "top_25_high_confidence": [
+    {
+      "record_id": "source_understanding_feedback_0001",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0001",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0002",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0003",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0004",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0005",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0006",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0007",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0008",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0009",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0010",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0011",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0012",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0013",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0014",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0015",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0016",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0017",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0018",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0019",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0020",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0021",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0022",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0023",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0024",
+      "confidence": 0.0
+    }
+  ],
+  "top_25_generation_ready": [],
+  "top_25_blocked_confidence": [
+    {
+      "record_id": "source_understanding_feedback_0001",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0001",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0002",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0003",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0004",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0005",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0006",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0007",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0008",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0009",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0010",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0011",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0012",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0013",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0014",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0015",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0016",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0017",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0018",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0019",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0020",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0021",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0022",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0023",
+      "confidence": 0.0
+    },
+    {
+      "record_id": "source_understanding_rq_0024",
+      "confidence": 0.0
+    }
+  ],
+  "top_25_blocked_policy": [],
+  "policy": {
+    "no_cloud_calls": true,
+    "no_fake_source_audio_understanding": true,
+    "no_fake_model_training": true,
+    "no_raw_audio_processing_without_local_authorization": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "heuristic_or_trained": "heuristic_baseline",
+  "training_examples_count": 1,
+  "allowed_data_policy": "local_generated_midi_and_user_feedback_only",
+  "reason": "fewer_than_20_labeled_outcomes"
+}

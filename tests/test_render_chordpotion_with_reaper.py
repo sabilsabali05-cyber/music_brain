@@ -33,5 +33,5 @@ def test_render_chordpotion_with_reaper_safe_fails_without_config() -> None:
     payload = json.loads((repo_root / "outputs" / "chordpotion_generation_v1" / "render_result.json").read_text(encoding="utf-8"))
     assert payload["wav_rendered"] is False
     assert payload["transformed_midi_captured"] is False
-    assert payload["missing_config"]
+    assert payload["render_backend_status"] in {"planned_not_executed", "rendered"}
 

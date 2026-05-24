@@ -4,10 +4,10 @@
 - default_render_backend: `dry_run_plan_only`
 
 ## Stem Assignments
-- `bass` role=`bass` plugin=`none` preset=`none` backend=`dry_run_plan_only` uncertainty=`high`
-- `drums` role=`drums` plugin=`none` preset=`none` backend=`dry_run_plan_only` uncertainty=`high`
-- `lead` role=`lead` plugin=`none` preset=`none` backend=`dry_run_plan_only` uncertainty=`high`
-- `pad` role=`pad` plugin=`none` preset=`none` backend=`dry_run_plan_only` uncertainty=`high`
+- `bass` role=`bass` plugin=`omnisphere_vst3` preset=`Default` backend=`dry_run_plan_only` uncertainty=`medium`
+- `drums` role=`drums` plugin=`chordpotion_midi_fx` preset=`Default` backend=`dry_run_plan_only` uncertainty=`medium`
+- `lead` role=`lead` plugin=`omnisphere_vst3` preset=`Default` backend=`dry_run_plan_only` uncertainty=`medium`
+- `pad` role=`pad` plugin=`omnisphere_vst3` preset=`Default` backend=`dry_run_plan_only` uncertainty=`medium`
 
 ## Planner Notes
 - Plan generated from local MIDI stems only.

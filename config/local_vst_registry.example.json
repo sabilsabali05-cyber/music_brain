@@ -49,7 +49,57 @@
         "midi_humanizer",
         "generative_midi_effect"
       ],
-      "notes": "Optional local MIDI FX entry; keep local_path private and only mark available when locally verified."
+      "preset_profiles": [
+        {
+          "preset_id": "cp_sparse_emotional_a",
+          "display_name": "Sparse Emotional A",
+          "local_preset_name": "Sparse Emotional A",
+          "category": "emotional",
+          "expected_pattern_family": "sparse_emotional_pulse",
+          "expected_density": 0.28,
+          "expected_syncopation": 0.24,
+          "expected_motion": 0.42,
+          "expected_register_behavior": "mid_register_support",
+          "expected_texture": "warm_emotional_chord_bed",
+          "known_good_for": [
+            "emotional piano support",
+            "slow harmonic movement"
+          ],
+          "known_bad_for": [
+            "dense chopped groove",
+            "fast aggressive pocket"
+          ],
+          "user_rating": 0.0,
+          "audition_count": 0,
+          "avg_score": 0.0,
+          "notes": "Prior expectation only, validate by audition."
+        },
+        {
+          "preset_id": "cp_syncopated_chops_b",
+          "display_name": "Syncopated Chops B",
+          "local_preset_name": "Syncopated Chops B",
+          "category": "groove",
+          "expected_pattern_family": "rap_pocket_chops",
+          "expected_density": 0.66,
+          "expected_syncopation": 0.78,
+          "expected_motion": 0.63,
+          "expected_register_behavior": "mid_high_pocket",
+          "expected_texture": "dense_experimental_rhythm",
+          "known_good_for": [
+            "rap pocket arrangement",
+            "syncopated chord stabs"
+          ],
+          "known_bad_for": [
+            "ambient slow pads",
+            "minimal support beds"
+          ],
+          "user_rating": 0.0,
+          "audition_count": 0,
+          "avg_score": 0.0,
+          "notes": "Prior expectation only, validate by audition."
+        }
+      ],
+      "notes": "Optional local MIDI FX entry; keep local_path private and only mark available when locally verified. Preset profiles are priors, not truth."
     }
   ]
 }

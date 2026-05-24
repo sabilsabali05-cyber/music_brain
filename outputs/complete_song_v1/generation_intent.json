@@ -1,0 +1,13 @@
+{
+  "generation_id": "complete_song_v1",
+  "selected_theory_profile": "harmony_first_ballad",
+  "selected_texture_profile": "warm_emotional_chord_bed",
+  "corpus_records_available": 2497,
+  "theory_profiles_available": 10,
+  "texture_context_available": true,
+  "rules": {
+    "no_cloud_calls": true,
+    "no_fake_claims": true,
+    "no_training_without_labels": true
+  }
+}

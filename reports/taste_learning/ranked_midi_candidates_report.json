@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-05-24T21:08:30.172473+00:00",
+  "generation_id": "music_understanding_loop_v1",
+  "candidates_generated": 8,
+  "trained_ranker_used": false,
+  "heuristic_ranker_used": true,
+  "selected_candidate_id": "candidate_03",
+  "selected_candidate_path": "outputs/music_understanding_loop_v1/candidates/candidate_03.mid",
+  "ranked_candidates": [
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_03",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_03.mid",
+      "musicality_score": 0.7837326388888889,
+      "groove_score": 0.921875,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.831442
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_05",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_05.mid",
+      "musicality_score": 0.7830505952380952,
+      "groove_score": 0.90625,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.827297
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_01",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_01.mid",
+      "musicality_score": 0.8007341269841269,
+      "groove_score": 0.875,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.825674
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_02",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_02.mid",
+      "musicality_score": 0.788717757936508,
+      "groove_score": 0.890625,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.825374
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_08",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_08.mid",
+      "musicality_score": 0.7810044642857144,
+      "groove_score": 0.859375,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.814862
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_07",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_07.mid",
+      "musicality_score": 0.7764657738095238,
+      "groove_score": 0.828125,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.805461
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_04",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_04.mid",
+      "musicality_score": 0.7605927579365079,
+      "groove_score": 0.828125,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.799905
+    },
+    {
+      "generation_id": "music_understanding_loop_v1",
+      "candidate_id": "candidate_06",
+      "midi_path": "outputs/music_understanding_loop_v1/candidates/candidate_06.mid",
+      "musicality_score": 0.716594742063492,
+      "groove_score": 0.765625,
+      "harmony_score": 0.8,
+      "density_score": 0.6666666666666666,
+      "variety_score": 1.0,
+      "ranker_mode": "heuristic",
+      "ranker_score": 0.768881
+    }
+  ],
+  "policy": {
+    "no_cloud_calls": true,
+    "wav_rendering_attempted": false,
+    "chordpotion_variant_created": false
+  }
+}

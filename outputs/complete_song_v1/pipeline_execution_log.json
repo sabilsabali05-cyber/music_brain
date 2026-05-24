@@ -1,0 +1,30 @@
+{
+  "steps_completed": [
+    "load_local_config",
+    "load_profiles",
+    "build_generation_intent",
+    "generate_stems",
+    "chordpotion_optional_attempt",
+    "build_vst_render_plan",
+    "attempt_local_render_or_fallback",
+    "write_status_and_review_outputs"
+  ],
+  "render_report": {
+    "generation_id": "complete_song_v1",
+    "render_backend": "reaper_auto_render",
+    "render_backend_status": "planned_not_executed",
+    "reaper_available": true,
+    "vst_registry_configured": true,
+    "wav_rendered": false,
+    "vst_render_used": false,
+    "fallback_preview_used": false,
+    "render_plan_only": true,
+    "final_wav_path": "",
+    "stems_wav_paths": [],
+    "missing_config": [],
+    "notes": [
+      "Reaper executable and registry detected, but full CLI automation is not yet implemented.",
+      "Use generated project plan to execute render manually in Reaper."
+    ]
+  }
+}

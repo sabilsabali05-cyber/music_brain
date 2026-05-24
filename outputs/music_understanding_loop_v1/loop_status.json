@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-24T21:08:30.218879+00:00",
+  "loop_id": "music_understanding_loop_v1",
+  "music_understanding_completed": true,
+  "taste_learning_completed": true,
+  "generation_completed": true,
+  "review_ready": true,
+  "learning_ready": true,
+  "no_cloud_calls": true,
+  "source_understanding_records_count": 2497,
+  "usable_source_evidence_count": 0,
+  "training_examples_count": 2,
+  "trained_ranker_used": false,
+  "heuristic_ranker_used": true,
+  "candidates_generated": 8,
+  "selected_candidate_path": "outputs/music_understanding_loop_v1/candidates/candidate_03.mid",
+  "chordpotion_variant_created": false,
+  "wav_rendering_attempted": false,
+  "feedback_template_path": "reports/review_queue/music_understanding_loop_feedback.json",
+  "step_results": [
+    {
+      "step": "build_source_understanding_records",
+      "exit_code": 0,
+      "output_excerpt": "SOURCE_UNDERSTANDING_RECORDS=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/datasets/source_understanding/source_understanding_records.jsonl\nSOURCE_UNDERSTANDING_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.json\nSOURCE_UNDERSTANDING_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.md\nSOU"
+    },
+    {
+      "step": "train_composition_taste_ranker",
+      "exit_code": 0,
+      "output_excerpt": "TRAINING_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_training_report.json\nTRAINING_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_training_report.md\nTRAINING_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
+    },
+    {
+      "step": "evaluate_composition_taste_ranker",
+      "exit_code": 0,
+      "output_excerpt": "EVAL_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_eval_report.json\nEVAL_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_eval_report.md\nEVAL_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
+    },
+    {
+      "step": "generate_ranked_midi_candidates",
+      "exit_code": 0,
+      "output_excerpt": "CANDIDATES_GENERATED=8\nSELECTED_CANDIDATE_PATH=outputs/music_understanding_loop_v1/candidates/candidate_03.mid\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
+    }
+  ],
+  "blockers": []
+}

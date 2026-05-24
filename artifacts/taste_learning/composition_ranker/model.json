@@ -1,0 +1,7 @@
+{
+  "model_type": "heuristic_baseline",
+  "trained_ranker_used": false,
+  "heuristic_ranker_used": true,
+  "training_examples_count": 2,
+  "blocked_examples_count": 0
+}

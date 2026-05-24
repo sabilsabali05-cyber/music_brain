@@ -1,0 +1,2 @@
+{"preset_id":"cp_sparse_emotional_a","rating":8,"keep_or_reject":"keep","notes":"Good for emotional sparse pulse.","target_pattern_family":"sparse_emotional_pulse"}
+{"preset_id":"cp_syncopated_chops_b","rating":5,"keep_or_reject":"reject","notes":"Too active for ambient target.","target_pattern_family":"ambient_slow_motion"}

@@ -1,0 +1,13 @@
+{
+  "selector_mode": "feedback_ranker_selector",
+  "presets_considered": 2,
+  "presets_auditioned": 0,
+  "selected_preset": "cp_sparse_emotional_a",
+  "why_selected": "highest overall_candidate_score",
+  "musical_target_match": "rolling_chord_motion",
+  "transformed_midi_captured": false,
+  "wav_rendered": false,
+  "training_data_used": true,
+  "trained_selector_used": false,
+  "fallback_used": false
+}

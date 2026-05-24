@@ -1,198 +1,169 @@
 {
-  "generated_by": "integration_pass_complete_pipeline_v1",
+  "generated_by": "music_understanding_taste_loop_v1",
   "items": [
     {
       "name": "complete_pipeline_orchestrator",
       "path_or_branch": "scripts/generate_complete_song_wav.py",
       "status": "merged_candidate",
-      "what_it_does": "Runs one local end-to-end generation, optional chordpotion attempt, render attempt, and honest status outputs.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "medium",
-      "next_action": "keep_and_validate"
-    },
-    {
-      "name": "deterministic_skeleton_generation",
-      "path_or_branch": "scripts/generate_chordpotion_ready_skeleton.py",
-      "status": "merged_candidate",
-      "what_it_does": "Generates local deterministic harmony, bass, and lead guide MIDI scaffold.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "reuse_without_duplication"
-    },
-    {
-      "name": "chordpotion_transform_planner",
-      "path_or_branch": "scripts/build_chordpotion_transform_plan.py",
-      "status": "merged_candidate",
-      "what_it_does": "Builds local-only transform plan and reports blocked status when config is missing.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "reuse_for_optional_stage"
-    },
-    {
-      "name": "chordpotion_audition_flow",
-      "path_or_branch": "scripts/audition_chordpotion_presets.py",
-      "status": "useful_unmerged",
-      "what_it_does": "Scores/chooses preset candidates against intent and records blocked state when no captured output exists.",
+      "what_it_does": "Runs existing complete render-oriented local pipeline.",
       "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
       "blockers": [
-        "No automatic transformed MIDI capture implementation."
-      ],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "medium",
-      "next_action": "wire_as_optional_and_truth_guarded"
-    },
-    {
-      "name": "chordpotion_reaper_runner",
-      "path_or_branch": "scripts/render_chordpotion_with_reaper.py",
-      "status": "useful_unmerged",
-      "what_it_does": "Runs chordpotion render backend in honest plan-only mode unless verified final WAV exists.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [
-        "Reaper automation remains plan scaffold."
-      ],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "medium",
-      "next_action": "keep_with_fallback_path"
-    },
-    {
-      "name": "local_reaper_backend",
-      "path_or_branch": "features/local_rendering/reaper_backend.py",
-      "status": "merged_candidate",
-      "what_it_does": "Reports availability/missing config, writes truthful render reports, and avoids fake render success claims.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [
-        "CLI execution path still planned_not_executed in many scenarios."
-      ],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "medium",
-      "next_action": "reuse_for_render_status_source_of_truth"
-    },
-    {
-      "name": "render_plan_builder",
-      "path_or_branch": "features/local_rendering/midi_to_render_plan.py",
-      "status": "merged_candidate",
-      "what_it_does": "Builds VST render plan from generated stems.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "keep_and_emit_plan_artifacts"
-    },
-    {
-      "name": "assisted_pack_export",
-      "path_or_branch": "scripts/export_ableton_render_pack.py and scripts/export_chordpotion_ableton_pack.py",
-      "status": "merged_candidate",
-      "what_it_does": "Creates manual-assisted render packs when local automation is unavailable.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "medium",
-      "generated_artifact_risk": "medium",
-      "next_action": "keep_with_privacy_gate_checks"
-    },
-    {
-      "name": "wav_verification",
-      "path_or_branch": "features/local_rendering/wav_verifier.py",
-      "status": "merged_candidate",
-      "what_it_does": "Verifies existence/readability/non-zero audio before claiming rendered WAV.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "keep_as_final_claim_gate"
-    },
-    {
-      "name": "selector_training_scripts",
-      "path_or_branch": "scripts/train_chordpotion_preset_selector.py and scripts/evaluate_chordpotion_preset_selector.py",
-      "status": "blocked",
-      "what_it_does": "Trains/evaluates local selector only from locally labeled outcomes.",
-      "command_uses_it": "not_auto_invoked_by_complete_pipeline",
-      "blockers": [
-        "Training must not run without explicit labeled data.",
-        "Current integration pass keeps training disabled."
-      ],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "allow_manual_only"
-    },
-    {
-      "name": "theory_conditioning_profiles",
-      "path_or_branch": "datasets/music_theory/generation_conditioning_profiles.jsonl",
-      "status": "useful_unmerged",
-      "what_it_does": "Provides theory profile rows used for generation intent context.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [
-        "Profile file can be missing in fresh clones."
-      ],
-      "privacy_risk": "low",
-      "generated_artifact_risk": "low",
-      "next_action": "load_if_present_else_fallback"
-    },
-    {
-      "name": "texture_context",
-      "path_or_branch": "reports/texture_intelligence/sound_palette_context.json",
-      "status": "useful_unmerged",
-      "what_it_does": "Offers texture context metadata for generation intent selection.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [
-        "Not always generated."
+        "Not focused on understanding/taste loop."
       ],
       "privacy_risk": "medium",
-      "generated_artifact_risk": "low",
-      "next_action": "optional_load_with_redaction_checks"
+      "generated_artifact_risk": "medium",
+      "next_action": "keep_separate_from_new_core_loop"
     },
     {
       "name": "local_config_files",
       "path_or_branch": "config/local_render_config.local.json and config/local_vst_registry.local.json",
       "status": "blocked",
-      "what_it_does": "Stores local executable/plugin paths and preferred plugin IDs.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
-      "blockers": [],
+      "what_it_does": "Contains private local paths and plugin mappings.",
+      "command_uses_it": "multiple local render commands",
+      "blockers": [
+        "Must never be committed."
+      ],
       "privacy_risk": "high",
       "generated_artifact_risk": "low",
-      "next_action": "never_commit_emit_only_boolean_status"
+      "next_action": "emit_boolean_capability_only"
     },
     {
-      "name": "modified_generated_outputs_in_worktree",
-      "path_or_branch": "outputs/chordpotion_generation_v1/* and outputs/generated_wav_v1/*",
-      "status": "retire_candidate",
-      "what_it_does": "Legacy/generated artifacts from prior branches and runs.",
-      "command_uses_it": "none",
-      "blockers": [
-        "May include stale run assumptions."
-      ],
-      "privacy_risk": "medium",
-      "generated_artifact_risk": "high",
-      "next_action": "do_not_expand_tracking_apply_policy"
+      "name": "source_understanding_contract",
+      "path_or_branch": "docs/SOURCE_AUDIO_UNDERSTANDING_CONTRACT.md",
+      "status": "merged_candidate",
+      "what_it_does": "Defines strict confidence/evidence and policy gates for source understanding.",
+      "command_uses_it": "scripts/dev.cmd build-source-understanding-records",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "enforce_in_builder_and_tests"
     },
     {
-      "name": "new_chordpotion_feature_modules",
-      "path_or_branch": "features/local_rendering/chordpotion_*.py",
-      "status": "useful_unmerged",
-      "what_it_does": "Adds intent schema, scoring, selector, audition parsing, and training schema utilities.",
-      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav (partial)",
+      "name": "source_understanding_builder",
+      "path_or_branch": "scripts/build_source_understanding_records.py",
+      "status": "merged_candidate",
+      "what_it_does": "Builds source understanding records and reports using local artifact evidence only.",
+      "command_uses_it": "scripts/dev.cmd build-source-understanding-records",
       "blockers": [],
       "privacy_risk": "low",
       "generated_artifact_risk": "medium",
-      "next_action": "keep_core_modules_mark_experimental_edges"
+      "next_action": "reuse_as_single_source_of_truth"
     },
     {
-      "name": "cloud_activation_workstreams",
-      "path_or_branch": "cursor/cloud-full-activation-v1 and modal smoke tasks in scripts/dev.ps1",
-      "status": "stale",
-      "what_it_does": "Cloud-related activation and external execution tasks.",
-      "command_uses_it": "not_used_in_complete_pipeline",
+      "name": "source_to_generation_mapper",
+      "path_or_branch": "features/source_understanding/source_to_generation.py",
+      "status": "merged_candidate",
+      "what_it_does": "Maps understanding confidence/tags to deterministic generation controls.",
+      "command_uses_it": "scripts/dev.cmd generate-ranked-midi-candidates",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "keep_and_extend"
+    },
+    {
+      "name": "taste_feedback_schema",
+      "path_or_branch": "features/taste_learning/taste_feedback_schema.py",
+      "status": "merged_candidate",
+      "what_it_does": "Defines taste labels and policy-safe feedback validation.",
+      "command_uses_it": "scripts/dev.cmd ingest-output-feedback",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "treat_as_contract"
+    },
+    {
+      "name": "composition_taste_ranker",
+      "path_or_branch": "features/taste_learning/composition_ranker.py",
+      "status": "useful_unmerged",
+      "what_it_does": "Uses heuristic ranker when labels <20 and tiny local linear ranker when labels >=20.",
+      "command_uses_it": "scripts/dev.cmd train-composition-taste-ranker",
       "blockers": [
-        "Current integration pass enforces no cloud calls."
+        "Needs >=20 authorized labeled rows for trained model mode."
+      ],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "medium",
+      "next_action": "collect_authorized_feedback_rows"
+    },
+    {
+      "name": "multi_candidate_midi_generation",
+      "path_or_branch": "scripts/generate_ranked_midi_candidates.py",
+      "status": "useful_unmerged",
+      "what_it_does": "Generates >=8 MIDI candidates, computes musicality features, and ranks via trained/heuristic ranker.",
+      "command_uses_it": "scripts/dev.cmd generate-ranked-midi-candidates",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "medium",
+      "next_action": "reuse_in_loop"
+    },
+    {
+      "name": "music_understanding_loop_orchestrator",
+      "path_or_branch": "scripts/run_music_understanding_loop.py",
+      "status": "useful_unmerged",
+      "what_it_does": "Runs understanding -> generation -> review template -> learning status without requiring WAV rendering.",
+      "command_uses_it": "scripts/dev.cmd run-music-understanding-loop",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "medium",
+      "next_action": "make_primary_loop_command"
+    },
+    {
+      "name": "feedback_ingestion",
+      "path_or_branch": "scripts/ingest_output_feedback.py",
+      "status": "useful_unmerged",
+      "what_it_does": "Appends only authorized valid taste feedback rows and blocks unauthorized rows.",
+      "command_uses_it": "scripts/dev.cmd ingest-output-feedback",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "feed_ranker_training"
+    },
+    {
+      "name": "chordpotion_optional_role",
+      "path_or_branch": "reports/chordpotion/chordpotion_role_in_pipeline.md",
+      "status": "merged_candidate",
+      "what_it_does": "Sets ChordPotion as optional fallback and disallows fake transform claims.",
+      "command_uses_it": "scripts/dev.cmd run-music-understanding-loop",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "preserve_optional_status"
+    },
+    {
+      "name": "synplant_optional_sound_design_role",
+      "path_or_branch": "docs/SYNPLANT_AND_SOUND_DESIGN_ROLE.md",
+      "status": "merged_candidate",
+      "what_it_does": "Defines Synplant as optional downstream role, not required for core loop truth.",
+      "command_uses_it": "none",
+      "blockers": [],
+      "privacy_risk": "low",
+      "generated_artifact_risk": "low",
+      "next_action": "keep_as_policy_guard"
+    },
+    {
+      "name": "existing_complete_song_pipeline",
+      "path_or_branch": "scripts/generate_complete_song_wav.py",
+      "status": "stale",
+      "what_it_does": "Legacy complete local render flow with optional ChordPotion/render attempts.",
+      "command_uses_it": "scripts/dev.cmd generate-complete-song-wav",
+      "blockers": [
+        "Not focused on understanding/taste learning loop."
       ],
       "privacy_risk": "medium",
       "generated_artifact_risk": "medium",
-      "next_action": "isolate_from_local_complete_pipeline"
+      "next_action": "keep_separate_from_new_core_loop"
+    },
+    {
+      "name": "cloud_activation_workstreams",
+      "path_or_branch": "modal and cloud activation tasks in scripts/dev.ps1",
+      "status": "stale",
+      "what_it_does": "Cloud-oriented activation scaffolds.",
+      "command_uses_it": "not_used_in_new_loop",
+      "blockers": [
+        "New loop enforces no cloud calls."
+      ],
+      "privacy_risk": "medium",
+      "generated_artifact_risk": "medium",
+      "next_action": "explicitly_not_called"
     }
   ]
 }
