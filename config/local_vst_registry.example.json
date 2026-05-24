@@ -1,0 +1,28 @@
+{
+  "registry_source": "manual_template",
+  "plugins": [
+    {
+      "plugin_id": "example_piano",
+      "display_name": "Example Piano",
+      "vendor": "ExampleVendor",
+      "format": "VST3",
+      "category": "keys",
+      "local_path": "",
+      "local_path_redacted": "<LOCAL>/Example Piano.vst3",
+      "available": false,
+      "verified_loadable": false,
+      "preset_names": [
+        "Default"
+      ],
+      "texture_tags": [
+        "warm",
+        "natural"
+      ],
+      "roles": [
+        "keys",
+        "lead"
+      ],
+      "notes": "Copy this file to config/local_vst_registry.local.json and fill local_path privately."
+    }
+  ]
+}

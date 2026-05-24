@@ -1,0 +1,104 @@
+{
+  "generation_id": "generated_wav_v1",
+  "default_render_backend": "dry_run_plan_only",
+  "stems": [
+    {
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/bass.mid",
+      "track_name": "bass",
+      "track_role": "bass",
+      "texture_intent": "supportive low-end pulse",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
+      "fallback_plugin_category": "bass",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "bass supports arrangement balance",
+      "render_backend": "dry_run_plan_only",
+      "uncertainty": "high",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping."
+      ]
+    },
+    {
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/drums.mid",
+      "track_name": "drums",
+      "track_role": "drums",
+      "texture_intent": "punchy rhythmic backbone",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
+      "fallback_plugin_category": "drum",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "transient_shaper"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "drums supports arrangement balance",
+      "render_backend": "dry_run_plan_only",
+      "uncertainty": "high",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping."
+      ]
+    },
+    {
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/lead.mid",
+      "track_name": "lead",
+      "track_role": "lead",
+      "texture_intent": "foreground melodic clarity",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
+      "fallback_plugin_category": "lead",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "delay_ping_pong",
+        "reverb_plate"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "lead supports arrangement balance",
+      "render_backend": "dry_run_plan_only",
+      "uncertainty": "high",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping."
+      ]
+    },
+    {
+      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/pad.mid",
+      "track_name": "pad",
+      "track_role": "pad",
+      "texture_intent": "wide atmospheric bed",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
+      "fallback_plugin_category": "pad",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "chorus",
+        "reverb_large"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "pad supports arrangement balance",
+      "render_backend": "dry_run_plan_only",
+      "uncertainty": "high",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping."
+      ]
+    }
+  ],
+  "planner_notes": [
+    "Plan generated from local MIDI stems only.",
+    "No cloud render calls or model training were used.",
+    "If VST config is missing, backend should remain dry_run_plan_only."
+  ]
+}

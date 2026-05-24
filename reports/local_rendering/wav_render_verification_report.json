@@ -1,0 +1,18 @@
+[
+  {
+    "path": "C:/Users/izzyo/ai-composer/music_brain/renders/generated_wav_v1/final.wav",
+    "exists": false,
+    "readable": false,
+    "duration_seconds": 0.0,
+    "nonzero_samples": false,
+    "sample_rate": 0,
+    "bit_depth": 0,
+    "channels": 0,
+    "peak": 0.0,
+    "rms": 0.0,
+    "clipping_detected": false,
+    "silence_detected": true,
+    "render_backend": "local_rendering",
+    "source_midi_provenance": "outputs/generated_wav_v1/full.mid"
+  }
+]

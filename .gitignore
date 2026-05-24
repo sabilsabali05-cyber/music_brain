@@ -48,6 +48,16 @@ config/model_integrations/model_integrations.local.json
 config/synplant/*.local.json
 config/symbolic_backends/*.local.json
 config/activation_manifests/*.local.json
+config/local_render_config.local.json
+config/local_vst_registry.local.json
+
+# Local rendering artifacts
+renders/
+local_renders/
+*.wav
+*.aif
+*.aiff
+*.flac
 
 # Local symbolic backend assets
 external_models/

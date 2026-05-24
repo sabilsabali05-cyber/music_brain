@@ -187,6 +187,11 @@ function Show-Usage {
     Write-Host "  validate-synplant-sessions"
     Write-Host "  build-sound-palette-context <ableton_project_folder>"
     Write-Host "  export-symbolic-ensemble-ableton [source-folder] [target-folder]"
+    Write-Host "  bootstrap-local-render-config"
+    Write-Host "  render-with-reaper [generation-id]"
+    Write-Host "  export-ableton-render-pack [generation-id] [reason]"
+    Write-Host "  generate-and-render-wav"
+    Write-Host "  verify-local-wav-renders [generation-id]"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1563,6 +1568,40 @@ switch ($Task) {
         Invoke-Step -Label "Exporting symbolic ensemble output to Ableton scaffold" -Command @(
             "python", "scripts/export_symbolic_ensemble_ableton.py", "--source-dir", $source, "--target-dir", $target
         )
+    }
+    "bootstrap-local-render-config" {
+        Invoke-Step -Label "Bootstrapping local render config files" -Command @(
+            "python", "scripts/bootstrap_local_render_config.py"
+        )
+    }
+    "render-with-reaper" {
+        $generationId = Get-TaskArg -Index 0
+        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "generated_wav_v1" }
+        Invoke-Step -Label "Planning/running Reaper local render backend" -Command @(
+            "python", "scripts/render_with_reaper.py", $target
+        )
+    }
+    "export-ableton-render-pack" {
+        $generationId = Get-TaskArg -Index 0
+        $reason = Get-TaskArg -Index 1
+        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "generated_wav_v1" }
+        $reasonValue = if (-not [string]::IsNullOrWhiteSpace($reason)) { $reason } else { "automation_unavailable" }
+        Invoke-Step -Label "Creating Ableton assisted render pack" -Command @(
+            "python", "scripts/export_ableton_render_pack.py", $target, "--reason", $reasonValue
+        )
+    }
+    "generate-and-render-wav" {
+        Invoke-Step -Label "Generating MIDI and attempting local WAV render" -Command @(
+            "python", "scripts/generate_and_render_wav.py"
+        )
+    }
+    "verify-local-wav-renders" {
+        $generationId = Get-TaskArg -Index 0
+        $command = @("python", "scripts/verify_local_wav_renders.py")
+        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
+            $command += @("--generation-id", $generationId)
+        }
+        Invoke-Step -Label "Verifying local WAV render artifacts" -Command $command
     }
     "commit-checkpoint" {
         $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }
