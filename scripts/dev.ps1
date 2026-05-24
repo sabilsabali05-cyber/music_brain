@@ -112,6 +112,9 @@ function Show-Usage {
     Write-Host "  check-musicbert-setup"
     Write-Host "  run-musicbert-smoke-test"
     Write-Host "  evaluate-symbolic-candidates-musicbert"
+    Write-Host "  check-midigpt-setup"
+    Write-Host "  run-midigpt-smoke-test"
+    Write-Host "  generate-midigpt-variation-scaffold"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1056,6 +1059,21 @@ switch ($Task) {
     "evaluate-symbolic-candidates-musicbert" {
         Invoke-Step -Label "Evaluating symbolic candidates with MusicBERT scaffold" -Command @(
             "python", "scripts/evaluate_symbolic_candidates_musicbert.py"
+        )
+    }
+    "check-midigpt-setup" {
+        Invoke-Step -Label "Checking MIDI-GPT local setup status" -Command @(
+            "python", "scripts/check_midigpt_setup.py"
+        )
+    }
+    "run-midigpt-smoke-test" {
+        Invoke-Step -Label "Running MIDI-GPT minimal smoke test" -Command @(
+            "python", "scripts/run_midigpt_smoke_test.py"
+        )
+    }
+    "generate-midigpt-variation-scaffold" {
+        Invoke-Step -Label "Generating MIDI-GPT variation scaffold report" -Command @(
+            "python", "scripts/generate_midigpt_variation_scaffold.py"
         )
     }
     "write-model-integration-roadmap" {

@@ -35,17 +35,18 @@
       "backend_id": "midigpt",
       "backend_role": "controllable_multitrack_variation_backend",
       "supported_operations": [
-        "track_level_infill",
-        "bar_level_infill",
         "drum_variation",
-        "density_control",
-        "polyphony_control",
-        "duration_control",
-        "instrument_control"
+        "groove_variation",
+        "density_variation",
+        "multitrack_infill",
+        "bar_level_infill",
+        "track_level_infill"
       ],
       "status": "unavailable",
       "reason": "disabled_in_config",
-      "limitations": []
+      "limitations": [
+        "Enable midigpt in local symbolic backend config to allow probing."
+      ]
     },
     {
       "backend_id": "text2midi",

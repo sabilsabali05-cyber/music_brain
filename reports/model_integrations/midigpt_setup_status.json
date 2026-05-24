@@ -1,0 +1,38 @@
+{
+  "status": "unavailable",
+  "config_source": "config/model_integrations/model_integrations.example.json",
+  "midigpt_enabled": false,
+  "midigpt_configured": false,
+  "midigpt_available": false,
+  "smoke_test_enabled": false,
+  "smoke_test_passed": false,
+  "unavailable_reason": "disabled_or_missing_local_config",
+  "next_setup_step": "Enable MIDI-GPT and set repo_path/model_path/tokenizer_path in config/model_integrations/model_integrations.local.json.",
+  "path_checks": {
+    "repo_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    },
+    "model_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    },
+    "tokenizer_path": {
+      "configured": false,
+      "exists": false,
+      "path": "<PRIVATE_LOCAL_PATH>"
+    }
+  },
+  "model_training_has_occurred": false,
+  "limitations": [
+    "No heavyweight MIDI-GPT package imports are attempted unless local config is enabled.",
+    "No model weights are downloaded by this checker.",
+    "No training is performed."
+  ],
+  "smoke_test_notes": [
+    "Smoke test skipped because local config is disabled or missing.",
+    "No weights downloaded and no training performed."
+  ]
+}

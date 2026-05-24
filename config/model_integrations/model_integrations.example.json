@@ -12,7 +12,17 @@
       "max_tokens": 512,
       "output_dir": "<PATH_TO_REPO>"
     },
-    "midigpt": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "midigpt": {
+      "enabled": false,
+      "repo_path": "<PATH_TO_REPO>",
+      "model_path": "<PATH_TO_MODEL>",
+      "tokenizer_path": "<PATH_TO_MODEL>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "max_bars": 16,
+      "max_tracks": 8,
+      "output_dir": "<PATH_TO_REPO>"
+    },
     "text2midi": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "musicbert": {
       "enabled": false,
