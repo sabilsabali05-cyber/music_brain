@@ -1,0 +1,59 @@
+{
+  "site_name": "Beat Battle Ranked",
+  "base_url": "https://example-beat-battle.invalid",
+  "ranked_path": "/ranked",
+  "user_handle": "your_handle_here",
+  "session": {
+    "headless": false,
+    "browser_channel": "chromium",
+    "storage_state_path": "config/beat_battle_ranked_site.session.local.json",
+    "manual_round_snapshot_path": "artifacts/beat_battle_site/manual_round_snapshot.json",
+    "manual_result_snapshot_path": "artifacts/beat_battle_site/manual_result_snapshot.json"
+  },
+  "safety": {
+    "allow_auto_submit": false,
+    "require_manual_submit_confirmation": true,
+    "allow_captcha_bypass": false,
+    "allow_login_bypass": false,
+    "allow_mfa_bypass": false,
+    "allow_bot_evasion": false,
+    "allow_multi_account": false,
+    "allow_fake_submission_claims": false,
+    "allow_fake_result_claims": false,
+    "allow_unrelated_private_data_scrape": false,
+    "allow_unauthorized_audio_training": false
+  },
+  "selectors": {
+    "login_gate": "[data-test='login-required']",
+    "captcha_gate": "[data-test='captcha-required']",
+    "mfa_gate": "[data-test='mfa-required']",
+    "manual_confirmation_gate": "[data-test='manual-confirmation-required']",
+    "active_round_card": "[data-test='ranked-round-card']",
+    "active_round_id": "[data-test='round-id']",
+    "active_round_status": "[data-test='round-status']",
+    "active_round_sound_links": "[data-test='round-sound-link']",
+    "upload_input": "input[type='file']",
+    "submit_button": "[data-test='submit-entry']",
+    "result_row": "[data-test='my-result-row']"
+  },
+  "paths": {
+    "local_raw_audio_dir": "datasets_local/beat_battle_site/raw_audio",
+    "local_render_dir": "renders/beat_battle_site",
+    "round_manifest_root": "datasets/beat_battle_site/rounds",
+    "round_results_jsonl": "datasets/beat_battle_site/results.jsonl",
+    "taste_feedback_jsonl": "datasets/taste_learning/beat_battle_site_feedback.jsonl",
+    "reports_root": "reports/beat_battle_site_automation",
+    "drafts_root": "outputs/beat_battle_site"
+  },
+  "acquisition": {
+    "strategies": [
+      "snapshot_sound_links",
+      "manual_file_import",
+      "local_round_folder_scan"
+    ],
+    "manual_sound_file_paths": [],
+    "local_round_sound_folder": "datasets_local/beat_battle_site/manual_round_sounds"
+  },
+  "allow_synplant": false,
+  "allow_chordpotion": false
+}

@@ -85,3 +85,15 @@ reports/synplant/private_synplant_session_paths.md
 # Texture analysis private planning detail
 reports/texture_intelligence/private_texture_analysis_plan.json
 reports/texture_intelligence/private_texture_analysis_plan.md
+
+# Beat Battle ranked site local/private automation files
+config/beat_battle_ranked_site.local.json
+config/beat_battle_ranked_site.session.local.json
+datasets_local/beat_battle_site/
+artifacts/beat_battle_site/
+renders/beat_battle_site/
+reports/beat_battle_site_automation/*private*.json
+reports/beat_battle_site_automation/*private*.md
+**/cookies*.json
+**/auth*.json
+**/session*.json

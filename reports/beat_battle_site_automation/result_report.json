@@ -1,0 +1,5 @@
+{
+  "result_available": false,
+  "feedback_ingested": false,
+  "blocker": "missing_local_site_config"
+}

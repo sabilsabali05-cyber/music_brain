@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -18,14 +19,53 @@ def _repo_rel(path: Path) -> str:
         return path.as_posix()
 
 
+def _load_jsonl(path: Path) -> list[dict]:
+    if not path.exists():
+        return []
+    rows: list[dict] = []
+    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            payload = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(payload, dict):
+            rows.append(payload)
+    return rows
+
+
+def _is_valid_generated_outcome_row(row: dict) -> bool:
+    if not str(row.get("generation_id", "")).strip():
+        return False
+    if str(row.get("authorization_status", "")).strip().lower() not in {"authorized", "public_domain", "self_owned"}:
+        return False
+    if not bool(row.get("source_authorized_for_learning", False)):
+        return False
+    if "result_available" in row and not bool(row.get("result_available", False)):
+        return False
+    return True
+
+
 def main() -> int:
     feedback_path = ROOT_DIR / "datasets" / "taste_learning" / "taste_feedback.jsonl"
+    beat_battle_feedback_path = ROOT_DIR / "datasets" / "taste_learning" / "beat_battle_site_feedback.jsonl"
     model_path = ROOT_DIR / "artifacts" / "taste_learning" / "composition_ranker" / "model.json"
     report_json = ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.json"
     report_md = ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.md"
-    result = train_ranker(feedback_path, model_path)
+    combined_rows = [row for row in _load_jsonl(feedback_path) if _is_valid_generated_outcome_row(row)]
+    combined_rows.extend(row for row in _load_jsonl(beat_battle_feedback_path) if _is_valid_generated_outcome_row(row))
+    with tempfile.TemporaryDirectory() as tmpdir:
+        combined_path = Path(tmpdir) / "combined_feedback.jsonl"
+        with combined_path.open("w", encoding="utf-8") as handle:
+            for row in combined_rows:
+                handle.write(json.dumps(row, ensure_ascii=True) + "\n")
+        result = train_ranker(combined_path, model_path)
     payload = result_to_dict(result)
     payload["model_path"] = _repo_rel(Path(payload["model_path"]))
+    payload["combined_rows_count"] = len(combined_rows)
+    payload["beat_battle_rows_considered"] = len([row for row in combined_rows if str(row.get("generation_id", "")).startswith("beat_battle_")])
     report_json.parent.mkdir(parents=True, exist_ok=True)
     report_json.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     report_md.write_text(

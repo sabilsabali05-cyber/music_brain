@@ -1,0 +1,9 @@
+{
+  "upload_success": false,
+  "submitted": false,
+  "stopped_pre_submit": true,
+  "status": "blocked_missing_local_site_config",
+  "blocker": "missing_local_site_config",
+  "allow_auto_submit": false,
+  "require_manual_submit_confirmation": true
+}

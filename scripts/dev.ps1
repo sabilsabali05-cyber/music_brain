@@ -204,10 +204,20 @@ function Show-Usage {
     Write-Host "  verify-local-wav-renders [generation-id]"
     Write-Host "  build-source-understanding-records"
     Write-Host "  train-composition-taste-ranker"
+    Write-Host "  train-beat-battle-site-ranker"
     Write-Host "  evaluate-composition-taste-ranker"
     Write-Host "  generate-ranked-midi-candidates"
     Write-Host "  run-music-understanding-loop"
     Write-Host "  ingest-output-feedback [--input <path>]"
+    Write-Host "  setup-beat-battle-browser-session"
+    Write-Host "  detect-beat-battle-round"
+    Write-Host "  acquire-beat-battle-round-sounds"
+    Write-Host "  analyze-beat-battle-kit [--manifest <path>]"
+    Write-Host "  generate-beat-battle-drafts"
+    Write-Host "  render-beat-battle-submission"
+    Write-Host "  submit-beat-battle-entry [--manual-submit-confirmed]"
+    Write-Host "  check-beat-battle-result"
+    Write-Host "  beat-battle-ranked-site-auto"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1692,6 +1702,11 @@ switch ($Task) {
             "python", "scripts/train_composition_taste_ranker.py"
         )
     }
+    "train-beat-battle-site-ranker" {
+        Invoke-Step -Label "Training Beat Battle site ranker" -Command @(
+            "python", "scripts/train_beat_battle_site_ranker.py"
+        )
+    }
     "evaluate-composition-taste-ranker" {
         Invoke-Step -Label "Evaluating composition taste ranker" -Command @(
             "python", "scripts/evaluate_composition_taste_ranker.py"
@@ -1714,6 +1729,51 @@ switch ($Task) {
             $command += @("--input", $inputPath)
         }
         Invoke-Step -Label "Ingesting output feedback into taste learning dataset" -Command $command
+    }
+    "setup-beat-battle-browser-session" {
+        Invoke-Step -Label "Setting up Beat Battle browser session" -Command @(
+            "python", "scripts/setup_beat_battle_browser_session.py"
+        )
+    }
+    "detect-beat-battle-round" {
+        Invoke-Step -Label "Detecting Beat Battle active round" -Command @(
+            "python", "scripts/detect_beat_battle_round.py"
+        )
+    }
+    "acquire-beat-battle-round-sounds" {
+        Invoke-Step -Label "Acquiring Beat Battle round sounds" -Command @(
+            "python", "scripts/acquire_beat_battle_round_sounds.py"
+        )
+    }
+    "analyze-beat-battle-kit" {
+        $command = @("python", "scripts/analyze_beat_battle_kit.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Analyzing Beat Battle round kit" -Command $command
+    }
+    "generate-beat-battle-drafts" {
+        Invoke-Step -Label "Generating Beat Battle draft candidates" -Command @(
+            "python", "scripts/generate_beat_battle_drafts.py"
+        )
+    }
+    "render-beat-battle-submission" {
+        Invoke-Step -Label "Rendering Beat Battle submission" -Command @(
+            "python", "scripts/render_beat_battle_submission.py"
+        )
+    }
+    "submit-beat-battle-entry" {
+        $command = @("python", "scripts/submit_beat_battle_entry.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Submitting Beat Battle entry" -Command $command
+    }
+    "check-beat-battle-result" {
+        Invoke-Step -Label "Checking Beat Battle round result" -Command @(
+            "python", "scripts/check_beat_battle_result.py"
+        )
+    }
+    "beat-battle-ranked-site-auto" {
+        Invoke-Step -Label "Running Beat Battle ranked site automation" -Command @(
+            "python", "scripts/beat_battle_ranked_site_auto.py"
+        )
     }
     "commit-checkpoint" {
         $commitMessage = if ($TaskArgs.Count -gt 0) { ($TaskArgs -join " ") } else { "Checkpoint" }
