@@ -136,6 +136,9 @@ function Show-Usage {
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  generate-symbolic-ensemble <prompt>"
+    Write-Host "  create-song-concept-brief"
+    Write-Host "  generate-midi-from-concept"
+    Write-Host "  evaluate-concept-generation"
     Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
     Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  export-ableton-project-v1 <tangible-output-folder> [--copy-local-samples]"
@@ -1212,6 +1215,21 @@ switch ($Task) {
         $prompt = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-symbolic-ensemble <prompt>"
         Invoke-Step -Label "Generating symbolic output via ensemble orchestrator" -Command @(
             "python", "scripts/generate_with_symbolic_ensemble.py", $prompt
+        )
+    }
+    "create-song-concept-brief" {
+        Invoke-Step -Label "Creating song concept brief from conversation" -Command @(
+            "python", "scripts/create_song_concept_brief.py"
+        )
+    }
+    "generate-midi-from-concept" {
+        Invoke-Step -Label "Generating concept-driven MIDI candidates" -Command @(
+            "python", "scripts/generate_midi_from_concept.py"
+        )
+    }
+    "evaluate-concept-generation" {
+        Invoke-Step -Label "Evaluating concept-to-composition candidates" -Command @(
+            "python", "scripts/evaluate_concept_generation.py"
         )
     }
     "generate-tangible-demo" {

@@ -1,0 +1,46 @@
+{
+  "concept_id": "song_idea_001",
+  "best_candidate": "candidate_01_harmony_first",
+  "candidates": [
+    {
+      "candidate_name": "candidate_01_harmony_first",
+      "concept_alignment_score": 0.89,
+      "emotional_arc_score": 0.87,
+      "harmony_score": 0.93,
+      "voice_leading_score": 0.92,
+      "rhythm_identity_score": 0.89,
+      "texture_intent_score": 0.88,
+      "random_note_penalty": 0.0,
+      "clutter_penalty": 0.02,
+      "weirdness_musicality_score": 0.72,
+      "midi_parse_success": true
+    },
+    {
+      "candidate_name": "candidate_02_rhythm_first",
+      "concept_alignment_score": 0.85,
+      "emotional_arc_score": 0.83,
+      "harmony_score": 0.84,
+      "voice_leading_score": 0.82,
+      "rhythm_identity_score": 0.89,
+      "texture_intent_score": 0.84,
+      "random_note_penalty": 0.0,
+      "clutter_penalty": 0.02,
+      "weirdness_musicality_score": 0.72,
+      "midi_parse_success": true
+    },
+    {
+      "candidate_name": "candidate_03_weird_but_musical",
+      "concept_alignment_score": 0.8300000000000001,
+      "emotional_arc_score": 0.81,
+      "harmony_score": 0.82,
+      "voice_leading_score": 0.86,
+      "rhythm_identity_score": 0.83,
+      "texture_intent_score": 0.82,
+      "random_note_penalty": 0.0,
+      "clutter_penalty": 0.02,
+      "weirdness_musicality_score": 0.86,
+      "midi_parse_success": true
+    }
+  ],
+  "summary": "Best candidate by concept alignment is candidate_01_harmony_first with score 0.890; all outputs are local rule-based."
+}

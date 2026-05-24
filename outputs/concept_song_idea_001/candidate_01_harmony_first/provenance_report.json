@@ -1,0 +1,31 @@
+{
+  "candidate": "candidate_01_harmony_first",
+  "generation_pipeline": "local_rule_based",
+  "model_usage": {
+    "trained_model_generation_happened": false,
+    "cloud_calls": false,
+    "model_downloads": false,
+    "fake_model_usage": false
+  },
+  "context_usage": {
+    "database_derived_context_used": false,
+    "theory_context_used": true,
+    "texture_context_used": true,
+    "rhythm_context_used": true
+  },
+  "symbolic_backend": {
+    "real_symbolic_backend_used": false,
+    "fallback_rules_used": true,
+    "smoke_pass_available": false
+  },
+  "human_review_required": true,
+  "artifacts": {
+    "full_midi": "C:/mb/outputs/concept_song_idea_001/candidate_01_harmony_first/full.mid",
+    "stems": {
+      "chords": "C:/mb/outputs/concept_song_idea_001/candidate_01_harmony_first/stems/chords.mid",
+      "bass": "C:/mb/outputs/concept_song_idea_001/candidate_01_harmony_first/stems/bass.mid",
+      "lead": "C:/mb/outputs/concept_song_idea_001/candidate_01_harmony_first/stems/lead.mid",
+      "texture": "C:/mb/outputs/concept_song_idea_001/candidate_01_harmony_first/stems/texture.mid"
+    }
+  }
+}

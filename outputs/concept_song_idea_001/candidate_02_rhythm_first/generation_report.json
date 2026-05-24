@@ -1,0 +1,189 @@
+{
+  "candidate": "candidate_02_rhythm_first",
+  "strategy": "rhythm_first",
+  "concept_brief_used": {
+    "title": "Song Idea 001 Conversation",
+    "short_description": "Conversation-derived concept brief for local rule-based MIDI generation.",
+    "emotional_core": "uplift and forward motion",
+    "narrative_arc": "intro restraint -> emotional lift -> reflective release",
+    "perspective": "first person interior monologue",
+    "scene_or_image": "city lights reflected on wet pavement just before dawn",
+    "energy_curve": [
+      0.25,
+      0.45,
+      0.72,
+      0.56
+    ],
+    "tension_curve": [
+      0.35,
+      0.55,
+      0.8,
+      0.4
+    ],
+    "density_curve": [
+      0.2,
+      0.42,
+      0.66,
+      0.5
+    ],
+    "tempo_range": {
+      "min_bpm": 88,
+      "max_bpm": 108
+    },
+    "key_or_mode_preference": "C major with modal mixture",
+    "harmony_strategy": "functional center with selective modal borrowing",
+    "chord_movement_strategy": "prefer stepwise bass roots and common-tone pivots",
+    "bass_strategy": "anchor roots on strong beats, occasional passing tones",
+    "melody_strategy": "short singable motifs with controlled register peaks",
+    "rhythm_strategy": "clear pocket first, syncopation as section energy rises",
+    "texture_strategy": "sparse intro, widening mid-song, controlled release in outro",
+    "arrangement_strategy": "4-part arc using recurring motif with variation",
+    "section_plan": [
+      {
+        "name": "intro",
+        "bars": 8,
+        "intent": "set scene and motif"
+      },
+      {
+        "name": "verse",
+        "bars": 16,
+        "intent": "build story and tension"
+      },
+      {
+        "name": "lift",
+        "bars": 8,
+        "intent": "peak harmony and rhythm identity"
+      },
+      {
+        "name": "outro",
+        "bars": 8,
+        "intent": "resolve while keeping emotional residue"
+      }
+    ],
+    "motifs_to_try": [
+      "falling third",
+      "neighbor-tone sigh",
+      "syncopated pickup"
+    ],
+    "avoid_patterns": [
+      "constant 16th-note clutter",
+      "random interval jumps larger than an octave",
+      "overlapping lead notes that remove vocal space"
+    ],
+    "preserve_patterns": [
+      "singable top line",
+      "emotional chord movement continuity",
+      "motif recurrence across sections"
+    ],
+    "weirdness_policy": "allow unusual harmonic turns but avoid random-note chaos",
+    "vocal_space_policy": "reserve 1-3 kHz range by thinning texture during lead statements",
+    "reference_influence_policy": "capture vibe-level influence only; no direct melodic copying",
+    "generation_seed": 4107867791,
+    "confidence": 0.74,
+    "unresolved_questions": [
+      "Should bridge modulation be introduced in a future pass?",
+      "How sparse should percussion remain in intro?"
+    ]
+  },
+  "emotional_goals": [
+    "maintain continuity",
+    "support narrative arc"
+  ],
+  "theory_hooks_used": [
+    "stepwise chord roots",
+    "common-tone voice-leading",
+    "major add9 release voicings"
+  ],
+  "texture_hooks_used": [
+    "dynamic layer growth",
+    "vocal-space aware arrangement",
+    "wider upper harmonics in final section"
+  ],
+  "rhythm_hooks_used": [
+    "clear downbeat anchors",
+    "syncopation in lift sections",
+    "late-beat pickups into cadences"
+  ],
+  "avoid_patterns_applied": [
+    "constant 16th-note clutter",
+    "random interval jumps larger than an octave",
+    "overlapping lead notes that remove vocal space"
+  ],
+  "preserve_patterns_applied": [
+    "singable top line",
+    "emotional chord movement continuity",
+    "motif recurrence across sections"
+  ],
+  "target_tempo": 102,
+  "section_lengths": {
+    "intro": 8,
+    "verse": 16,
+    "lift": 8,
+    "outro": 8
+  },
+  "track_roles": [
+    "chords",
+    "bass",
+    "lead",
+    "texture"
+  ],
+  "note_density": {
+    "chords": 0.45,
+    "bass": 0.46,
+    "lead": 0.26,
+    "texture": 0.3
+  },
+  "register_ranges": {
+    "chords": [
+      48,
+      76
+    ],
+    "bass": [
+      34,
+      56
+    ],
+    "lead": [
+      60,
+      84
+    ],
+    "texture": [
+      52,
+      90
+    ]
+  },
+  "velocity_ranges": {
+    "chords": [
+      45,
+      92
+    ],
+    "bass": [
+      50,
+      96
+    ],
+    "lead": [
+      52,
+      102
+    ],
+    "texture": [
+      35,
+      82
+    ]
+  },
+  "chord_movement_rules": [
+    "prefer common tones between adjacent chords",
+    "favor stepwise or third-based root motion",
+    "retain emotional progression intent from concept"
+  ],
+  "motif_reuse_rules": [
+    "reuse primary motif at least once per major section",
+    "allow rhythmic variation while preserving contour"
+  ],
+  "avoid_random_leaps": true,
+  "preserve_singable_top_line": true,
+  "preserve_emotional_chord_movement": true,
+  "database_derived_context_used": false,
+  "trained_model_generation_happened": false,
+  "real_symbolic_backend_used": false,
+  "fallback_rules_used": true,
+  "human_review_required": true
+}
