@@ -1,0 +1,542 @@
+{
+  "generated_at": "2026-05-24T17:39:50.591570+00:00",
+  "total_rows_processed": 2497,
+  "records_with_complete_tempo_structure_fields": 0,
+  "records_with_complete_harmony_fields": 0,
+  "records_with_complete_rhythm_fields": 0,
+  "records_with_complete_texture_fields": 0,
+  "records_with_valuable_moments": 0,
+  "records_with_junk_moments": 0,
+  "training_safe_count": 0,
+  "retrieval_only_count": 0,
+  "excluded_count": 2497,
+  "missing_policy_count": 2417,
+  "missing_label_count": 2497,
+  "top_blockers": [
+    {
+      "blocker": "high_junk_penalty",
+      "count": 2497
+    },
+    {
+      "blocker": "labels_incomplete",
+      "count": 2497
+    },
+    {
+      "blocker": "low_music_value",
+      "count": 2497
+    },
+    {
+      "blocker": "low_training_value",
+      "count": 2497
+    },
+    {
+      "blocker": "low_transcription_confidence",
+      "count": 2497
+    },
+    {
+      "blocker": "training_not_allowed",
+      "count": 2497
+    },
+    {
+      "blocker": "policy_fields_incomplete",
+      "count": 2417
+    },
+    {
+      "blocker": "authorization_not_training_safe",
+      "count": 2345
+    }
+  ],
+  "top_25_highest_retrieval_value_records": [
+    {
+      "item_id": "rq_0001",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0002",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0003",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0004",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0005",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0006",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0007",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0008",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0009",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0010",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0011",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0012",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0013",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0014",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0015",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0016",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0017",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0018",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0019",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0020",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0021",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0022",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0023",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0024",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0025",
+      "retrieval_value_score": 0.11249999999999999,
+      "promotion_label": "excluded"
+    }
+  ],
+  "top_25_closest_to_training_safe_records": [
+    {
+      "item_id": "feedback_0001",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "policy_fields_incomplete",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0001",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0002",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0003",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0004",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0005",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0006",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0007",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0008",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0009",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0010",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0011",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0012",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0013",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0014",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0015",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0016",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0017",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0018",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0019",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0020",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0021",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0022",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0023",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    },
+    {
+      "item_id": "rq_0024",
+      "training_value_score": 0.0,
+      "blockers": [
+        "authorization_not_training_safe",
+        "high_junk_penalty",
+        "labels_incomplete",
+        "low_music_value",
+        "low_training_value",
+        "low_transcription_confidence",
+        "training_not_allowed"
+      ],
+      "promotion_label": "excluded"
+    }
+  ],
+  "input_sources": {
+    "normalized_music_corpus": "datasets/normalized_music_corpus/normalized_music_corpus.jsonl",
+    "review_required": "datasets/training_corpus/review_required.jsonl",
+    "retrieval_only": "datasets/training_corpus/retrieval_only.jsonl",
+    "normalized_report": "reports/database/normalized_music_corpus_report.json",
+    "corpus_split_report": "reports/training_corpus/corpus_split_report.json"
+  },
+  "context": {
+    "review_required_rows": 2345,
+    "retrieval_only_rows": 152,
+    "normalized_report_total_rows": 2497,
+    "split_report_total_rows": 2497
+  }
+}

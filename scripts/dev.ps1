@@ -100,6 +100,8 @@ function Show-Usage {
     Write-Host "  normalize-music-corpus"
     Write-Host "  promote-reviewed-corpus-splits"
     Write-Host "  build-human-review-batch"
+    Write-Host "  apply-music-intelligence-schema"
+    Write-Host "  build-music-intelligence-review-form"
     Write-Host "  audit-dataset-quality-yield"
     Write-Host "  build-generative-examples <performance-manifest>"
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
@@ -1016,6 +1018,16 @@ switch ($Task) {
     "build-human-review-batch" {
         Invoke-Step -Label "Building curated human review batch" -Command @(
             "python", "scripts/build_human_review_batch.py"
+        )
+    }
+    "apply-music-intelligence-schema" {
+        Invoke-Step -Label "Applying strict music intelligence schema to corpus" -Command @(
+            "python", "scripts/apply_music_intelligence_schema.py"
+        )
+    }
+    "build-music-intelligence-review-form" {
+        Invoke-Step -Label "Building music intelligence review form batch" -Command @(
+            "python", "scripts/build_music_intelligence_review_form.py"
         )
     }
     "audit-dataset-quality-yield" {

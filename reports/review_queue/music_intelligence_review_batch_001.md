@@ -1,0 +1,75 @@
+# Music Intelligence Review Batch 001
+
+- generated_at: `2026-05-24T17:40:00.722937+00:00`
+- selection_size: `50`
+- selection_strategy: `highest-value near-eligible records`
+
+## Questions
+- is this musically valuable?
+- best time range
+- junk/noisy time range
+- harmony quality 1-10
+- chord movement quality 1-10
+- bass movement quality 1-10
+- melodic contour quality 1-10
+- motif usefulness 1-10
+- rhythm/groove quality 1-10
+- texture usefulness 1-10
+- emotional value 1-10
+- weirdness good/bad/neutral
+- training policy: training_safe/retrieval_only/excluded/unsure
+- reason
+- tags
+- notes
+
+## Items
+- `rq_0001` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0002` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0003` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0004` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0005` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0006` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0007` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0008` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0009` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0010` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0011` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0012` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0013` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0014` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0015` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0016` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0017` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0018` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0019` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0020` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0021` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0022` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0023` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0024` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0025` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0026` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0027` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0028` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0029` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0030` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0031` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0032` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0033` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0034` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0035` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0036` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0037` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0038` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0039` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `rq_0040` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0027` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0028` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0029` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0030` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0031` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0032` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0033` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0034` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0035` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
+- `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0036` | retrieval_value=`0.11249999999999999` | training_value=`0.0`
