@@ -75,6 +75,9 @@ class SymbolicEnsembleOrchestrator:
             ],
             "text2midi_preferred_for": [
                 "prompt sketch",
+                "text-conditioned seed",
+                "chord/key/tempo prompt conditioning",
+                "user vocabulary future target",
             ],
             "musicbert_preferred_for": [
                 "ranking",
@@ -104,7 +107,7 @@ class SymbolicEnsembleOrchestrator:
             "## Preferred Routing",
             "- Moonbeam: continuation, infill, section development, phrase development, symbolic composition",
             "- MIDI-GPT: drums, groove, density variation, multitrack infill, bar-level infill, track-level infill, drum variation",
-            "- Text2MIDI: prompt sketch",
+            "- Text2MIDI: prompt sketch, text-conditioned seed, chord/key/tempo prompt conditioning, user vocabulary future target",
             "- MusicBERT: ranking, evaluation, symbolic similarity, accompaniment fit, melody fit, taste-ranker future target",
             "",
             "## Fallback",
