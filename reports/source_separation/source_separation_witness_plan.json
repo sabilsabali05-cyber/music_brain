@@ -1,0 +1,26 @@
+{
+  "status": "planned",
+  "created_at": "2026-05-24T01:31:11.786693+00:00",
+  "demucs_available": false,
+  "source_separation_performed": false,
+  "stems_generated": false,
+  "audio_processing_performed": false,
+  "downloads_performed": false,
+  "model_training_has_occurred": false,
+  "witness_policy": "weak_evidence_not_truth",
+  "training_use_allowed": "false_by_default",
+  "no_fake_stems": true,
+  "workflow_plan": [
+    "Step 1: Keep Demucs disabled unless explicit local witness setup is configured.",
+    "Step 2: Require explicit command and explicit user-provided input before any future separation execution.",
+    "Step 3: Treat stems strictly as weak evidence for arrangement and texture inspection.",
+    "Step 4: Never claim stem outputs as ground truth labels.",
+    "Step 5: Preserve no-download and no-training defaults in this vertical slice."
+  ],
+  "limitations": [
+    "Plan-only scaffold; no source separation execution occurs.",
+    "No audio is processed and no model downloads are triggered.",
+    "No model training is performed or claimed."
+  ],
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and set models.demucs.enabled=true only when explicit witness execution wiring is intentionally enabled."
+}

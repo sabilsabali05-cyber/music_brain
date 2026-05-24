@@ -70,3 +70,15 @@ def transcription_witness_policy_state() -> dict[str, Any]:
         "model_training_has_occurred": False,
         "witness_policy": "witness_not_truth",
     }
+
+
+def source_separation_witness_policy_state() -> dict[str, Any]:
+    return {
+        "demucs_available": False,
+        "source_separation_performed": False,
+        "stems_generated": False,
+        "downloads_performed": False,
+        "model_training_has_occurred": False,
+        "witness_policy": "weak_evidence_not_truth",
+        "training_use_allowed": "false_by_default",
+    }
