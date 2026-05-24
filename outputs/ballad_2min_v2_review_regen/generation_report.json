@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "source_output": "outputs/ballad_2min_v1",
+  "target_output": "outputs/ballad_2min_v2_review_regen",
+  "kept_stems": [],
+  "regenerated_stems": [
+    "drums",
+    "bass",
+    "chords",
+    "lead",
+    "texture"
+  ],
+  "cloud_called": false,
+  "training_performed": false,
+  "audio_processed": false
+}

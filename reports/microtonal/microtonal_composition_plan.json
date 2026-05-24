@@ -1,0 +1,71 @@
+{
+  "status": "ok",
+  "selected_preset": "24_edo",
+  "supported_presets": [
+    "12_tet",
+    "19_edo",
+    "22_edo",
+    "24_edo",
+    "31_edo",
+    "53_edo",
+    "just_major_5_limit",
+    "just_minor_5_limit",
+    "blues_leaning_microtonal",
+    "pelog_placeholder",
+    "slendro_placeholder",
+    "maqam_placeholder",
+    "raga_shruti_placeholder"
+  ],
+  "supported_export_strategies": [
+    "standard_midi_pitch_bend",
+    "multichannel_pitch_bend_midi",
+    "mpe_midi",
+    "scala_scl",
+    "keyboard_mapping_kbm",
+    "tuning_table_json",
+    "ableton_max_tuning_bridge_plan",
+    "rendered_audio_fallback_plan"
+  ],
+  "ir_plan": {
+    "status": "ok",
+    "preset_id": "24_edo",
+    "placeholder_safe": false,
+    "advisory": "",
+    "stem_plans": [
+      {
+        "stem": "drums",
+        "steps_per_octave": 24,
+        "interval_count": 24
+      },
+      {
+        "stem": "bass",
+        "steps_per_octave": 24,
+        "interval_count": 24
+      },
+      {
+        "stem": "chords",
+        "steps_per_octave": 24,
+        "interval_count": 24
+      },
+      {
+        "stem": "lead",
+        "steps_per_octave": 24,
+        "interval_count": 24
+      },
+      {
+        "stem": "texture",
+        "steps_per_octave": 24,
+        "interval_count": 24
+      }
+    ],
+    "no_audio_generated": true,
+    "cloud_called": false,
+    "training_performed": false
+  },
+  "constraints": {
+    "no_audio_generated": true,
+    "cloud_called": false,
+    "training_performed": false,
+    "ableton_required": false
+  }
+}

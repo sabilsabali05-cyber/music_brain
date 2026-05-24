@@ -122,6 +122,10 @@ function Show-Usage {
     Write-Host "  check-symbolic-backend-activation"
     Write-Host "  discover-symbolic-model-sources"
     Write-Host "  generate-2min-ballad [--use-symbolic-backends] [--output <folder>]"
+    Write-Host "  regenerate-ballad-from-review <feedback-json>"
+    Write-Host "  plan-microtonal-composition"
+    Write-Host "  validate-microtonal-tuning"
+    Write-Host "  export-microtonal-midi-plan"
     Write-Host "  generate-text2midi-prompt-sketch-scaffold"
     Write-Host "  check-audio-understanding-setup"
     Write-Host "  run-audio-understanding-smoke-tests"
@@ -1145,6 +1149,27 @@ switch ($Task) {
             $command += @("--use-symbolic-backends")
         }
         Invoke-Step -Label "Generating 2-minute ballad v2 package" -Command $command
+    }
+    "regenerate-ballad-from-review" {
+        $feedbackPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd regenerate-ballad-from-review <feedback-json>"
+        Invoke-Step -Label "Regenerating ballad stems from review feedback" -Command @(
+            "python", "scripts/regenerate_ballad_from_review.py", $feedbackPath
+        )
+    }
+    "plan-microtonal-composition" {
+        Invoke-Step -Label "Planning microtonal composition layer outputs" -Command @(
+            "python", "scripts/plan_microtonal_composition.py"
+        )
+    }
+    "validate-microtonal-tuning" {
+        Invoke-Step -Label "Validating microtonal tuning presets and Scala parsing" -Command @(
+            "python", "scripts/validate_microtonal_tuning.py"
+        )
+    }
+    "export-microtonal-midi-plan" {
+        Invoke-Step -Label "Planning microtonal MIDI export strategies" -Command @(
+            "python", "scripts/export_microtonal_midi_plan.py"
+        )
     }
     "generate-text2midi-prompt-sketch-scaffold" {
         Invoke-Step -Label "Generating Text2MIDI prompt sketch scaffold report" -Command @(

@@ -1,0 +1,20 @@
+{
+  "keep_drums": true,
+  "regenerate_drums": false,
+  "keep_bass": false,
+  "regenerate_bass": true,
+  "keep_chords": true,
+  "regenerate_chords": false,
+  "keep_lead": false,
+  "regenerate_lead": true,
+  "keep_texture": true,
+  "regenerate_texture": false,
+  "human_rating": 7,
+  "notes": "Keep drums/chords/texture, refresh bass and lead.",
+  "target_changes": ["Regenerate bass phrasing", "Regenerate lead contour"],
+  "mood_adjustment": "slightly brighter",
+  "density_adjustment": "keep intro sparse",
+  "melody_adjustment": "longer lead arcs",
+  "harmony_adjustment": "retain progression",
+  "microtonal_request": "optional 24_edo lead ornaments"
+}

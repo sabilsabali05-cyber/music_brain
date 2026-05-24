@@ -1,0 +1,91 @@
+{
+  "status": "ok",
+  "strategies": [
+    {
+      "status": "ok",
+      "strategy": "standard_midi_pitch_bend",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": true,
+      "recommended_path": "Use channel splitting or MPE.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "multichannel_pitch_bend_midi",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "mpe_midi",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "scala_scl",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "keyboard_mapping_kbm",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "tuning_table_json",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "ableton_max_tuning_bridge_plan",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    },
+    {
+      "status": "ok",
+      "strategy": "rendered_audio_fallback_plan",
+      "polyphonic_input": true,
+      "requires_channel_split_or_mpe": false,
+      "recommended_path": "Direct strategy acceptable.",
+      "no_audio_generated": true,
+      "cloud_called": false,
+      "training_performed": false
+    }
+  ],
+  "constraints": {
+    "no_audio_generated": true,
+    "cloud_called": false,
+    "training_performed": false,
+    "ableton_required": false
+  }
+}
