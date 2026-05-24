@@ -109,6 +109,9 @@ function Show-Usage {
     Write-Host "  check-model-integrations"
     Write-Host "  check-moonbeam-setup"
     Write-Host "  run-moonbeam-smoke-test"
+    Write-Host "  check-musicbert-setup"
+    Write-Host "  run-musicbert-smoke-test"
+    Write-Host "  evaluate-symbolic-candidates-musicbert"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1038,6 +1041,21 @@ switch ($Task) {
     "run-moonbeam-smoke-test" {
         Invoke-Step -Label "Running Moonbeam minimal smoke test" -Command @(
             "python", "scripts/run_moonbeam_smoke_test.py"
+        )
+    }
+    "check-musicbert-setup" {
+        Invoke-Step -Label "Checking MusicBERT local setup status" -Command @(
+            "python", "scripts/check_musicbert_setup.py"
+        )
+    }
+    "run-musicbert-smoke-test" {
+        Invoke-Step -Label "Running MusicBERT minimal smoke test" -Command @(
+            "python", "scripts/run_musicbert_smoke_test.py"
+        )
+    }
+    "evaluate-symbolic-candidates-musicbert" {
+        Invoke-Step -Label "Evaluating symbolic candidates with MusicBERT scaffold" -Command @(
+            "python", "scripts/evaluate_symbolic_candidates_musicbert.py"
         )
     }
     "write-model-integration-roadmap" {

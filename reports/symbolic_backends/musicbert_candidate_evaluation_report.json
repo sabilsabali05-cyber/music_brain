@@ -1,0 +1,25 @@
+{
+  "status": "unavailable",
+  "musicbert_available": false,
+  "no_fake_evaluation": true,
+  "unavailable_reason": "disabled_or_missing_local_config",
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "candidate_id": "example_retrieval_885bde2088",
+      "candidate_ir_json": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_885bde2088.ir.json",
+      "evaluation_status": "pending_real_musicbert_evaluation"
+    },
+    {
+      "candidate_id": "example_retrieval_ebe8df4aa3",
+      "candidate_ir_json": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_ebe8df4aa3.ir.json",
+      "evaluation_status": "pending_real_musicbert_evaluation"
+    }
+  ],
+  "scores_generated": false,
+  "model_training_has_occurred": false,
+  "limitations": [
+    "No evaluation scores are generated while MusicBERT is unavailable.",
+    "No training is performed."
+  ]
+}
