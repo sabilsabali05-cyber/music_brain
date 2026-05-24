@@ -1,0 +1,120 @@
+{
+  "status": "planned",
+  "created_at": "2026-05-24T01:40:35.057756+00:00",
+  "manifest_path": "<PRIVATE_USERS_PATH>/izzyo/ai-composer/music_brain/config/activation_manifests/full_activation.example.json",
+  "execute": false,
+  "validation_passed": true,
+  "validation_errors": [],
+  "validation_warnings": [
+    "local model integration config is missing; all model activation paths remain unavailable by default"
+  ],
+  "unauthorized_inputs": [
+    {
+      "input_id": "example_input_1",
+      "reason": "unauthorized_or_missing_explicit_execution_authorization",
+      "authorization_status": "authorized_for_processing"
+    }
+  ],
+  "config": {
+    "local_model_config_exists": false,
+    "enabled_models_in_manifest": []
+  },
+  "stage_plan": [
+    {
+      "stage_name": "source_separation",
+      "models": [
+        {
+          "model_id": "demucs",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        }
+      ]
+    },
+    {
+      "stage_name": "transcription",
+      "models": [
+        {
+          "model_id": "yourmt3",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "basic_pitch",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        }
+      ]
+    },
+    {
+      "stage_name": "embeddings",
+      "models": [
+        {
+          "model_id": "muq",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "mert",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "essentia",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "musicbert",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        }
+      ]
+    },
+    {
+      "stage_name": "symbolic_generation",
+      "models": [
+        {
+          "model_id": "moonbeam",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "midigpt",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        },
+        {
+          "model_id": "text2midi",
+          "status": "skipped_not_requested",
+          "reason": "manifest_model_disabled",
+          "available": false
+        }
+      ]
+    },
+    {
+      "stage_name": "training_export",
+      "models": [],
+      "status": "blocked",
+      "reason": "training_disabled_by_default"
+    }
+  ],
+  "training_export_authorized": false,
+  "audio_processing_performed": false,
+  "source_separation_performed": false,
+  "transcription_performed": false,
+  "embeddings_generated": false,
+  "symbolic_generation_performed": false,
+  "training_performed": false,
+  "no_modal_calls_performed": true,
+  "model_weights_downloaded": false,
+  "provenance_outputs": []
+}

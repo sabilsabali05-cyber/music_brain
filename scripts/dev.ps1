@@ -124,6 +124,9 @@ function Show-Usage {
     Write-Host "  check-transcription-witnesses-setup"
     Write-Host "  run-transcription-witnesses-smoke-tests"
     Write-Host "  plan-transcription-witnesses"
+    Write-Host "  plan-full-model-activation <manifest>"
+    Write-Host "  run-full-model-activation <manifest>"
+    Write-Host "  build-music-evidence-fusion-plan"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1128,6 +1131,23 @@ switch ($Task) {
     "plan-transcription-witnesses" {
         Invoke-Step -Label "Planning transcription witness workflow" -Command @(
             "python", "scripts/plan_transcription_witnesses.py"
+        )
+    }
+    "plan-full-model-activation" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-full-model-activation <manifest>"
+        Invoke-Step -Label "Planning full model activation scaffold" -Command @(
+            "python", "scripts/plan_full_model_activation.py", $manifestPath
+        )
+    }
+    "run-full-model-activation" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-full-model-activation <manifest>"
+        Invoke-Step -Label "Running full model activation scaffold" -Command @(
+            "python", "scripts/run_full_model_activation.py", $manifestPath
+        )
+    }
+    "build-music-evidence-fusion-plan" {
+        Invoke-Step -Label "Building music evidence fusion plan scaffold" -Command @(
+            "python", "scripts/build_music_evidence_fusion_plan.py"
         )
     }
     "write-model-integration-roadmap" {

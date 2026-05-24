@@ -1,5 +1,5 @@
 {
-  "status": "unavailable_safe",
+  "status": "ok",
   "config_source": "config/model_integrations/model_integrations.example.json",
   "yourmt3_configured": false,
   "yourmt3_available": false,
@@ -58,13 +58,5 @@
     "Checker is setup-only and does not execute transcription.",
     "No audio is processed and no model weights are downloaded.",
     "Heavy imports are intentionally skipped in this vertical slice."
-  ],
-  "smoke_test_passed": false,
-  "smoke_tests_performed": [],
-  "transcription_outputs_generated": [],
-  "smoke_test_notes": [
-    "Smoke tests validate setup semantics only.",
-    "No audio processing, no transcription execution, and no downloads were performed.",
-    "Witness scaffolds explicitly prevent fake transcription outputs."
   ]
 }
