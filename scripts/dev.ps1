@@ -115,6 +115,9 @@ function Show-Usage {
     Write-Host "  check-midigpt-setup"
     Write-Host "  run-midigpt-smoke-test"
     Write-Host "  generate-midigpt-variation-scaffold"
+    Write-Host "  check-text2midi-setup"
+    Write-Host "  run-text2midi-smoke-test"
+    Write-Host "  generate-text2midi-prompt-sketch-scaffold"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1074,6 +1077,21 @@ switch ($Task) {
     "generate-midigpt-variation-scaffold" {
         Invoke-Step -Label "Generating MIDI-GPT variation scaffold report" -Command @(
             "python", "scripts/generate_midigpt_variation_scaffold.py"
+        )
+    }
+    "check-text2midi-setup" {
+        Invoke-Step -Label "Checking Text2MIDI local setup status" -Command @(
+            "python", "scripts/check_text2midi_setup.py"
+        )
+    }
+    "run-text2midi-smoke-test" {
+        Invoke-Step -Label "Running Text2MIDI minimal smoke test" -Command @(
+            "python", "scripts/run_text2midi_smoke_test.py"
+        )
+    }
+    "generate-text2midi-prompt-sketch-scaffold" {
+        Invoke-Step -Label "Generating Text2MIDI prompt sketch scaffold report" -Command @(
+            "python", "scripts/generate_text2midi_prompt_sketch_scaffold.py"
         )
     }
     "write-model-integration-roadmap" {

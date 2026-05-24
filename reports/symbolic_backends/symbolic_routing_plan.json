@@ -17,7 +17,10 @@
     "drum variation"
   ],
   "text2midi_preferred_for": [
-    "prompt sketch"
+    "prompt sketch",
+    "text-conditioned seed",
+    "chord/key/tempo prompt conditioning",
+    "user vocabulary future target"
   ],
   "musicbert_preferred_for": [
     "ranking",
