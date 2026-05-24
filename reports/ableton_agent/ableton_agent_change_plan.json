@@ -1,0 +1,129 @@
+{
+  "status": "planned_dry_run_only",
+  "hard_constraints_respected": true,
+  "dry_run_default": true,
+  "ableton_connected": false,
+  "live_set_modified": false,
+  "commands_generated": true,
+  "commands_executed": false,
+  "human_review_required": true,
+  "model_generation_performed": false,
+  "audio_processing_performed": false,
+  "training_performed": false,
+  "intent": {
+    "intent_id": "sample_bridge_intent",
+    "prompt": "Add a generated bridge and smooth transition before final chorus.",
+    "goal": "Increase contrast and lift before the ending chorus.",
+    "preferred_sections": [
+      "bridge",
+      "chorus_2"
+    ],
+    "constraints": [
+      "dry-run by default",
+      "no GUI automation",
+      "no real Ableton mutation"
+    ],
+    "generated_candidates_requested": [
+      "bridge_candidate_001"
+    ],
+    "notes": "Generated outputs remain candidates until human approval."
+  },
+  "project_state_summary": {
+    "tempo": 124.0,
+    "time_signature": "4/4",
+    "section_count": 4,
+    "track_count": 3,
+    "candidate_count": 1
+  },
+  "interpreted_musical_intent": "Increase contrast and lift before the ending chorus.",
+  "proposed_arrangement_changes": [
+    "Target sections for edits: bridge, chorus_2.",
+    "Reserve an 8-bar bridge lane for candidate insertion and transition shaping.",
+    "Preserve existing chorus anchors while previewing structural changes in dry-run only."
+  ],
+  "proposed_generated_candidates_needed": [
+    {
+      "candidate_id": "bridge_candidate_001",
+      "candidate_type": "bridge",
+      "required": true,
+      "status": "generated_candidate_not_final"
+    }
+  ],
+  "proposed_ableton_commands": [
+    {
+      "command_type": "insert_generated_bridge",
+      "parameters": {
+        "target_track": "Drums",
+        "target_section": "bridge",
+        "candidate_id": "bridge_candidate_001",
+        "candidate_provenance": {
+          "provider": "symbolic_model_placeholder",
+          "artifact_ref": "generated_candidate://bridge_candidate_001",
+          "status": "generated_candidate"
+        },
+        "source_material_type": "transcribed",
+        "evidence_role": "witness_not_truth"
+      },
+      "human_review_required": true,
+      "generated_candidate": true,
+      "notes": ""
+    },
+    {
+      "command_type": "thin_arrangement",
+      "parameters": {
+        "target_section": "chorus_2",
+        "mode": "mute_support_layers"
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    },
+    {
+      "command_type": "set_track_volume",
+      "parameters": {
+        "track_name": "Drums",
+        "value": 1.2
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    },
+    {
+      "command_type": "automate_device_parameter",
+      "parameters": {
+        "track_name": "Drums",
+        "device_name": "Unknown_Device_X",
+        "parameter_name": "Macro 9",
+        "points": [
+          {
+            "bar": 33.0,
+            "value": -0.1
+          },
+          {
+            "bar": 41.0,
+            "value": 1.4
+          }
+        ]
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    }
+  ],
+  "risk_warnings": [
+    "Dry-run only; no real Ableton connection or Live Set mutation.",
+    "Destructive changes (thin_arrangement) require explicit human review.",
+    "Unknown device/parameter targets are warnings for review, not execution success."
+  ],
+  "human_review_checklist": [
+    "Verify generated candidate provenance before approval.",
+    "Confirm arrangement edits are musically appropriate.",
+    "Confirm no private local paths are present in reports.",
+    "Confirm real execution remains disabled."
+  ],
+  "limitations": [
+    "No Ableton API control is implemented in this scaffold.",
+    "No model generation, audio processing, or training is performed.",
+    "No GUI automation is used."
+  ]
+}

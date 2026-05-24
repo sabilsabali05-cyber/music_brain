@@ -127,6 +127,9 @@ function Show-Usage {
     Write-Host "  check-source-separation-setup"
     Write-Host "  run-source-separation-smoke-tests"
     Write-Host "  plan-source-separation-witness"
+    Write-Host "  plan-ableton-agent-change"
+    Write-Host "  validate-ableton-agent-commands"
+    Write-Host "  run-ableton-agent-dry-run"
     Write-Host "  plan-full-model-activation <manifest>"
     Write-Host "  run-full-model-activation <manifest>"
     Write-Host "  build-music-evidence-fusion-plan"
@@ -1149,6 +1152,21 @@ switch ($Task) {
     "plan-source-separation-witness" {
         Invoke-Step -Label "Planning source separation witness workflow" -Command @(
             "python", "scripts/plan_source_separation_witness.py"
+        )
+    }
+    "plan-ableton-agent-change" {
+        Invoke-Step -Label "Planning Ableton Agent bridge scaffold" -Command @(
+            "python", "scripts/plan_ableton_agent_change.py"
+        )
+    }
+    "validate-ableton-agent-commands" {
+        Invoke-Step -Label "Validating Ableton Agent scaffold commands" -Command @(
+            "python", "scripts/validate_ableton_agent_commands.py"
+        )
+    }
+    "run-ableton-agent-dry-run" {
+        Invoke-Step -Label "Running Ableton Agent dry-run report" -Command @(
+            "python", "scripts/run_ableton_agent_dry_run.py"
         )
     }
     "plan-full-model-activation" {

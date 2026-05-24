@@ -1,0 +1,116 @@
+{
+  "status": "dry_run_completed",
+  "ableton_connected": false,
+  "live_set_modified": false,
+  "commands_generated": true,
+  "commands_executed": false,
+  "human_review_required": true,
+  "model_generation_performed": false,
+  "audio_processing_performed": false,
+  "training_performed": false,
+  "no_gui_automation": true,
+  "real_live_set_writes_future_gated": true,
+  "interpreted_musical_intent": "Increase contrast and lift before the ending chorus.",
+  "proposed_arrangement_changes": [
+    "Target sections for edits: bridge, chorus_2.",
+    "Reserve an 8-bar bridge lane for candidate insertion and transition shaping.",
+    "Preserve existing chorus anchors while previewing structural changes in dry-run only."
+  ],
+  "proposed_generated_candidates_needed": [
+    {
+      "candidate_id": "bridge_candidate_001",
+      "candidate_type": "bridge",
+      "required": true,
+      "status": "generated_candidate_not_final"
+    }
+  ],
+  "proposed_ableton_commands": [
+    {
+      "command_type": "insert_generated_bridge",
+      "parameters": {
+        "target_track": "Drums",
+        "target_section": "bridge",
+        "candidate_id": "bridge_candidate_001",
+        "candidate_provenance": {
+          "provider": "symbolic_model_placeholder",
+          "artifact_ref": "generated_candidate://bridge_candidate_001",
+          "status": "generated_candidate"
+        },
+        "source_material_type": "transcribed",
+        "evidence_role": "witness_not_truth"
+      },
+      "human_review_required": true,
+      "generated_candidate": true,
+      "notes": ""
+    },
+    {
+      "command_type": "thin_arrangement",
+      "parameters": {
+        "target_section": "chorus_2",
+        "mode": "mute_support_layers"
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    },
+    {
+      "command_type": "set_track_volume",
+      "parameters": {
+        "track_name": "Drums",
+        "value": 1.0
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    },
+    {
+      "command_type": "automate_device_parameter",
+      "parameters": {
+        "track_name": "Drums",
+        "device_name": "Unknown_Device_X",
+        "parameter_name": "Macro 9",
+        "points": [
+          {
+            "bar": 33.0,
+            "value": 0.0
+          },
+          {
+            "bar": 41.0,
+            "value": 1.0
+          }
+        ]
+      },
+      "human_review_required": true,
+      "generated_candidate": false,
+      "notes": ""
+    }
+  ],
+  "risk_warnings": [
+    "Dry-run only; no real Ableton connection or Live Set mutation.",
+    "Destructive changes (thin_arrangement) require explicit human review.",
+    "Unknown device/parameter targets are warnings for review, not execution success.",
+    "Clamped set_track_volume from 1.2 to 1.0.",
+    "Clamped automate_device_parameter point 0 value from -0.1 to 0.0.",
+    "Clamped automate_device_parameter point 1 value from 1.4 to 1.0.",
+    "Unknown device `Unknown_Device_X`; command kept as warning for manual review.",
+    "Unknown parameter `Macro 9`; command kept as warning for manual review."
+  ],
+  "human_review_checklist": [
+    "Confirm proposed commands match musical intent.",
+    "Confirm destructive edits are explicitly approved.",
+    "Confirm generated candidates include provenance metadata.",
+    "Confirm source-separated/transcribed evidence is treated as witness_not_truth.",
+    "Confirm no private paths are present in reports.",
+    "Confirm no real Ableton execution is requested."
+  ],
+  "validation_warnings": [
+    "Clamped set_track_volume from 1.2 to 1.0.",
+    "Clamped automate_device_parameter point 0 value from -0.1 to 0.0.",
+    "Clamped automate_device_parameter point 1 value from 1.4 to 1.0.",
+    "Unknown device `Unknown_Device_X`; command kept as warning for manual review.",
+    "Unknown parameter `Macro 9`; command kept as warning for manual review."
+  ],
+  "validation_errors": [],
+  "review_blockers": [],
+  "no_real_ableton_operations": true
+}
