@@ -13,7 +13,11 @@
 - candidates_generated: `8`
 - selected_candidate_path: `outputs/music_understanding_loop_v1/candidates/candidate_03.mid`
 - chordpotion_variant_created: `false`
+- chordpotion_can_route_into_synplant: `true`
 - wav_rendering_attempted: `false`
+- synplant_configured: `false`
+- synplant_available: `false`
+- synplant_is_not_composer: `true`
 
 ## Blockers
 - none

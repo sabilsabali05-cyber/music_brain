@@ -6,7 +6,7 @@
       "midi_path": "outputs/complete_song_v1/stems/bass.mid",
       "track_name": "bass",
       "track_role": "bass",
-      "texture_intent": "supportive low-end pulse",
+      "texture_intent": "bass_motion_driven",
       "suggested_plugin_id": "omnisphere_vst3",
       "suggested_preset": "Default",
       "fallback_plugin_category": "bass",
@@ -21,61 +21,15 @@
       "uncertainty": "medium",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
-        "Confirm preset gain staging avoids clipping."
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
       ]
     },
     {
-      "midi_path": "outputs/complete_song_v1/stems/drums_optional.mid",
-      "track_name": "drums_optional",
-      "track_role": "drums",
-      "texture_intent": "punchy rhythmic backbone",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
-      "fallback_plugin_category": "drum",
-      "effect_chain": [
-        "eq_cleanup",
-        "gentle_compressor",
-        "transient_shaper"
-      ],
-      "register_adjustment": "none",
-      "velocity_adjustment": "humanize_light",
-      "expected_ear_effect": "drums supports arrangement balance",
-      "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
-      "manual_notes": [
-        "Confirm MIDI octave/register in DAW.",
-        "Confirm preset gain staging avoids clipping."
-      ]
-    },
-    {
-      "midi_path": "outputs/complete_song_v1/stems/lead.mid",
-      "track_name": "lead",
-      "track_role": "lead",
-      "texture_intent": "foreground melodic clarity",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
-      "fallback_plugin_category": "lead",
-      "effect_chain": [
-        "eq_cleanup",
-        "gentle_compressor",
-        "delay_ping_pong",
-        "reverb_plate"
-      ],
-      "register_adjustment": "none",
-      "velocity_adjustment": "humanize_light",
-      "expected_ear_effect": "lead supports arrangement balance",
-      "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
-      "manual_notes": [
-        "Confirm MIDI octave/register in DAW.",
-        "Confirm preset gain staging avoids clipping."
-      ]
-    },
-    {
-      "midi_path": "outputs/complete_song_v1/stems/skeleton.mid",
-      "track_name": "skeleton",
+      "midi_path": "outputs/complete_song_v1/stems/chords.mid",
+      "track_name": "chords",
       "track_role": "texture",
-      "texture_intent": "ambient evolving movement",
+      "texture_intent": "warm_emotional_chord_bed",
       "suggested_plugin_id": "chordpotion_midi_fx",
       "suggested_preset": "Default",
       "fallback_plugin_category": "texture",
@@ -92,13 +46,114 @@
       "uncertainty": "medium",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
-        "Confirm preset gain staging avoids clipping."
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
+      ]
+    },
+    {
+      "midi_path": "outputs/complete_song_v1/stems/drums_optional.mid",
+      "track_name": "drums_optional",
+      "track_role": "drums",
+      "texture_intent": "machine_pulse",
+      "suggested_plugin_id": "chordpotion_midi_fx",
+      "suggested_preset": "Default",
+      "fallback_plugin_category": "instrument",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "transient_shaper"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "drums supports arrangement balance",
+      "render_backend": "reaper_auto_render",
+      "uncertainty": "medium",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
+      ]
+    },
+    {
+      "midi_path": "outputs/complete_song_v1/stems/lead.mid",
+      "track_name": "lead",
+      "track_role": "lead",
+      "texture_intent": "fragile_human_breath",
+      "suggested_plugin_id": "omnisphere_vst3",
+      "suggested_preset": "Default",
+      "fallback_plugin_category": "lead",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "delay_ping_pong",
+        "reverb_plate"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "lead supports arrangement balance",
+      "render_backend": "reaper_auto_render",
+      "uncertainty": "medium",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
+      ]
+    },
+    {
+      "midi_path": "outputs/complete_song_v1/stems/skeleton.mid",
+      "track_name": "skeleton",
+      "track_role": "texture",
+      "texture_intent": "warm_emotional_chord_bed",
+      "suggested_plugin_id": "chordpotion_midi_fx",
+      "suggested_preset": "Default",
+      "fallback_plugin_category": "texture",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "chorus",
+        "reverb_large"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "texture supports arrangement balance",
+      "render_backend": "reaper_auto_render",
+      "uncertainty": "medium",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
+      ]
+    },
+    {
+      "midi_path": "outputs/complete_song_v1/stems/texture.mid",
+      "track_name": "texture",
+      "track_role": "texture",
+      "texture_intent": "haunted_noise_tail",
+      "suggested_plugin_id": "chordpotion_midi_fx",
+      "suggested_preset": "Default",
+      "fallback_plugin_category": "texture",
+      "effect_chain": [
+        "eq_cleanup",
+        "gentle_compressor",
+        "chorus",
+        "reverb_large"
+      ],
+      "register_adjustment": "none",
+      "velocity_adjustment": "humanize_light",
+      "expected_ear_effect": "texture supports arrangement balance",
+      "render_backend": "reaper_auto_render",
+      "uncertainty": "medium",
+      "manual_notes": [
+        "Confirm MIDI octave/register in DAW.",
+        "Confirm preset gain staging avoids clipping.",
+        "Synplant fallback reason: synplant_disabled"
       ]
     }
   ],
   "planner_notes": [
     "Plan generated from local MIDI stems only.",
     "No cloud render calls or model training were used.",
-    "If VST config is missing, backend should remain dry_run_plan_only."
+    "If VST config is missing, backend should remain dry_run_plan_only.",
+    "Composition/taste/understanding pipeline remains independent from Synplant render assignment."
   ]
 }

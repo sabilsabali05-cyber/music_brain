@@ -17,8 +17,10 @@ from features.local_rendering.ableton_backend import create_ableton_assisted_ren
 from features.local_rendering.midi_to_render_plan import build_render_plan_from_stems  # noqa: E402
 from features.local_rendering.reaper_backend import load_local_render_config, run_reaper_auto_render  # noqa: E402
 from features.local_rendering.render_plan_schema import render_plan_markdown, write_render_plan_json  # noqa: E402
+from features.local_rendering.synplant_assignment import assign_synplant_for_intent  # noqa: E402
 from features.local_rendering.vst_registry_schema import load_registry  # noqa: E402
 from features.local_rendering.wav_verifier import verify_wav_file  # noqa: E402
+from scripts.create_reaper_project_from_selected_candidate import create_reaper_project  # noqa: E402
 
 GENERATION_ID = "complete_song_v1"
 
@@ -94,6 +96,30 @@ def _midi_exists_and_parses(path: Path) -> bool:
     return True
 
 
+def _texture_intent_for_stem(stem_name: str) -> str:
+    mapping = {
+        "skeleton": "warm_emotional_chord_bed",
+        "chords": "warm_emotional_chord_bed",
+        "bass": "bass_motion_driven",
+        "lead": "fragile_human_breath",
+        "texture": "haunted_noise_tail",
+        "drums_optional": "machine_pulse",
+    }
+    return mapping.get(stem_name, "weird_but_musical")
+
+
+def _preset_for_synplant_role(local_config: dict[str, Any], role: str) -> str:
+    role_to_field = {
+        "pad": "synplant_pad_preset",
+        "lead": "synplant_lead_preset",
+        "bass": "synplant_bass_preset",
+        "texture": "synplant_texture_preset",
+        "synth": "synplant_default_preset",
+    }
+    field = role_to_field.get(role, "synplant_default_preset")
+    return str(local_config.get(field, "")).strip()
+
+
 def _read_training_status() -> dict[str, Any]:
     model_path = ROOT_DIR / "artifacts" / "model_training" / "chordpotion_preset_selector" / "model.json"
     training_report_path = ROOT_DIR / "reports" / "model_training" / "chordpotion_preset_selector_training_report.md"
@@ -165,6 +191,10 @@ def main() -> int:
         source = source_root / source_name
         if source.exists():
             destination.write_bytes(source.read_bytes())
+    if not (stems_dir / "chords.mid").exists() and (stems_dir / "skeleton.mid").exists():
+        (stems_dir / "chords.mid").write_bytes((stems_dir / "skeleton.mid").read_bytes())
+    if not (stems_dir / "skeleton.mid").exists() and (stems_dir / "chords.mid").exists():
+        (stems_dir / "skeleton.mid").write_bytes((stems_dir / "chords.mid").read_bytes())
 
     bpm = int(local_config.get("chordpotion_default_bpm", 100) or 100)
     optional_drums = stems_dir / "drums_optional.mid"
@@ -177,8 +207,15 @@ def main() -> int:
         )
 
     (output_root / "harmony_skeleton.mid").write_bytes((stems_dir / "skeleton.mid").read_bytes())
+    if (stems_dir / "chords.mid").exists():
+        (output_root / "chords.mid").write_bytes((stems_dir / "chords.mid").read_bytes())
     (output_root / "bass.mid").write_bytes((stems_dir / "bass.mid").read_bytes())
     (output_root / "lead_guide.mid").write_bytes((stems_dir / "lead.mid").read_bytes())
+    texture_midi = stems_dir / "texture.mid"
+    if not texture_midi.exists() and (stems_dir / "lead.mid").exists():
+        texture_midi.write_bytes((stems_dir / "lead.mid").read_bytes())
+    if texture_midi.exists():
+        (output_root / "texture.mid").write_bytes(texture_midi.read_bytes())
 
     reaper_path = str(local_config.get("reaper_executable_path", "")).strip()
     reaper_available = bool(reaper_path and Path(reaper_path).exists())
@@ -186,6 +223,11 @@ def main() -> int:
     chordpotion_plugin = registry.get_plugin(chordpotion_plugin_id) if chordpotion_plugin_id else None
     chordpotion_configured = bool(chordpotion_plugin_id and chordpotion_plugin is not None)
     chordpotion_available = bool(chordpotion_plugin and chordpotion_plugin.available and chordpotion_plugin.category == "midi_fx")
+    preferred_synplant_plugin_id = str(local_config.get("preferred_synplant_plugin_id", "")).strip()
+    synplant_enabled = bool(local_config.get("synplant_enabled", False))
+    synplant_plugin = registry.get_plugin(preferred_synplant_plugin_id) if preferred_synplant_plugin_id else None
+    synplant_configured = bool(synplant_enabled and preferred_synplant_plugin_id)
+    synplant_available = bool(synplant_plugin and synplant_plugin.available)
 
     chordpotion_attempted = False
     chordpotion_status = "missing_config"
@@ -203,6 +245,8 @@ def main() -> int:
         _run_python("render_chordpotion_with_reaper.py", ["--generation-id", GENERATION_ID])
         if transformed_midi_path.exists():
             chordpotion_status = "attempted"
+            if (stems_dir / "chords.mid").exists():
+                (stems_dir / "chords.mid").write_bytes(transformed_midi_path.read_bytes())
         else:
             chordpotion_status = "attempted_no_transform_capture"
 
@@ -212,6 +256,28 @@ def main() -> int:
         registry=registry,
         default_backend="reaper_auto_render",
     )
+    bass_role_configured = bool(str(local_config.get("synplant_bass_preset", "")).strip())
+    synplant_used = False
+    for stem in render_plan.stems:
+        stem.texture_intent = _texture_intent_for_stem(stem.track_name)
+        assignment = assign_synplant_for_intent(
+            texture_intent=stem.texture_intent,
+            track_role=stem.track_role,
+            synplant_enabled=synplant_enabled,
+            synplant_available=synplant_available,
+            bass_role_configured=bass_role_configured,
+        )
+        stem.fallback_plugin_category = assignment.fallback_category
+        if assignment.use_synplant and preferred_synplant_plugin_id:
+            stem.suggested_plugin_id = preferred_synplant_plugin_id
+            stem.suggested_preset = _preset_for_synplant_role(local_config, assignment.target_role)
+            stem.manual_notes.append(f"Synplant role: {assignment.target_role}")
+            synplant_used = True
+        else:
+            stem.manual_notes.append(f"Synplant fallback reason: {assignment.reason}")
+    if chordpotion_status == "attempted" and synplant_used:
+        render_plan.planner_notes.append("ChordPotion-patterned chord MIDI can feed Synplant when both are locally available.")
+    render_plan.planner_notes.append("Composition/taste/understanding pipeline remains independent from Synplant render assignment.")
     write_render_plan_json(output_root / "render_plan.json", render_plan)
     (output_root / "render_plan.md").write_text(render_plan_markdown(render_plan), encoding="utf-8")
 
@@ -259,6 +325,47 @@ def main() -> int:
             blockers.append("final_wav_not_verified")
     if chordpotion_status == "missing_config":
         blockers.extend(chordpotion_missing_config)
+    if not synplant_configured:
+        blockers.append("synplant_not_configured")
+    elif not synplant_available:
+        blockers.append("synplant_unavailable")
+
+    reaper_project_path, reaper_project_payload = create_reaper_project()
+    reaper_project_created = bool(reaper_project_payload.get("reaper_project_created", False))
+    synplant_status_report = {
+        "synplant_configured": synplant_configured,
+        "synplant_available": synplant_available,
+        "synplant_used": synplant_used,
+        "reaper_project_created": reaper_project_created,
+        "wav_rendered": wav_rendered,
+        "final_wav_path": final_wav_path if wav_rendered else "",
+        "exact_blockers": blockers,
+    }
+    synplant_status_dir = ROOT_DIR / "reports" / "local_rendering"
+    synplant_status_dir.mkdir(parents=True, exist_ok=True)
+    (synplant_status_dir / "synplant_render_status.json").write_text(
+        json.dumps(synplant_status_report, indent=2, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
+    (synplant_status_dir / "synplant_render_status.md").write_text(
+        "\n".join(
+            [
+                "# Synplant Render Status",
+                "",
+                f"- synplant_configured: `{str(synplant_configured).lower()}`",
+                f"- synplant_available: `{str(synplant_available).lower()}`",
+                f"- synplant_used: `{str(synplant_used).lower()}`",
+                f"- reaper_project_created: `{str(reaper_project_created).lower()}`",
+                f"- wav_rendered: `{str(wav_rendered).lower()}`",
+                f"- final_wav_path: `{final_wav_path or 'none'}`",
+                "",
+                "## Exact Blockers",
+            ]
+            + ([f"- {item}" for item in blockers] if blockers else ["- none"])
+            + [""],
+        ),
+        encoding="utf-8",
+    )
 
     integration_status = {
         "generation_id": GENERATION_ID,
@@ -287,6 +394,13 @@ def main() -> int:
             "status": chordpotion_status,
             "transformed_midi_captured": transformed_midi_captured,
         },
+        "synplant": {
+            "configured": synplant_configured,
+            "available": synplant_available,
+            "used": synplant_used,
+            "is_render_target_only": True,
+            "is_not_composer": True,
+        },
         "render": {
             "reaper_status": "available" if reaper_available else "missing_config",
             "vst_status": "configured" if registry.configured else "missing_config",
@@ -294,6 +408,8 @@ def main() -> int:
             "wav_rendered": wav_rendered,
             "final_wav_path": final_wav_path,
             "assisted_pack_path": assisted_pack_path,
+            "reaper_project_created": reaper_project_created,
+            "reaper_project_path": _repo_rel(reaper_project_path),
         },
         "selector": {
             "selector_status": "trained_selector_used" if training["trained_selector_used"] else "heuristic_or_unconfirmed",
@@ -347,6 +463,7 @@ def main() -> int:
                 "",
                 "- [ ] Verify stem balance: skeleton, bass, lead, optional drums.",
                 "- [ ] Confirm no fake ChordPotion or fake WAV claims.",
+                "- [ ] Confirm Synplant is render target only, never composer.",
                 f"- [ ] Verify wav_status (`{wav_status}`) and blocker list.",
                 "- [ ] If assisted pack exists, perform manual render and update status.",
                 "",
@@ -413,6 +530,10 @@ def main() -> int:
     print(f"VST_STATUS={integration_status['render']['vst_status']}")
     print(f"SELECTOR_STATUS={integration_status['selector']['selector_status']}")
     print(f"TRAINING_STATUS={integration_status['training']['training_status']}")
+    print(f"SYNPLANT_CONFIGURED={str(synplant_configured).lower()}")
+    print(f"SYNPLANT_AVAILABLE={str(synplant_available).lower()}")
+    print(f"SYNPLANT_USED={str(synplant_used).lower()}")
+    print(f"REAPER_PROJECT_CREATED={str(reaper_project_created).lower()}")
     return 0
 
 

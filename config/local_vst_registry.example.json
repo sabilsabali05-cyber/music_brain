@@ -25,6 +25,39 @@
       "notes": "Copy this file to config/local_vst_registry.local.json and fill local_path privately."
     },
     {
+      "plugin_id": "synplant2",
+      "display_name": "Synplant 2",
+      "vendor": "",
+      "format": "VST3",
+      "category": "synth",
+      "local_path": "LOCAL_ONLY_DO_NOT_COMMIT",
+      "local_path_redacted": "LOCAL_ONLY_DO_NOT_COMMIT",
+      "available": false,
+      "verified_loadable": false,
+      "preset_names": [
+        "Default"
+      ],
+      "texture_tags": [
+        "organic",
+        "evolving",
+        "strange",
+        "synthetic",
+        "warm",
+        "alien",
+        "grainy",
+        "expressive"
+      ],
+      "roles": [
+        "pad",
+        "lead",
+        "bass",
+        "texture",
+        "weird_texture",
+        "organic_synth"
+      ],
+      "notes": "Local-only Synplant 2 entry example. Keep private paths/config in local files only."
+    },
+    {
       "plugin_id": "chordpotion_midi_fx",
       "display_name": "ChordPotion",
       "vendor": "FeelYourSound",

@@ -14,6 +14,9 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from features.taste_learning.composition_ranker import load_model, rank_candidates  # noqa: E402
+from features.local_rendering.reaper_backend import load_local_render_config  # noqa: E402
+from features.local_rendering.synplant_assignment import assign_synplant_for_intent  # noqa: E402
+from features.local_rendering.vst_registry_schema import load_registry  # noqa: E402
 
 
 def _write_midi(path: Path, notes: list[tuple[float, float, int, int]], bpm: int = 100) -> None:
@@ -92,6 +95,13 @@ def main() -> int:
     selected_dir.mkdir(parents=True, exist_ok=True)
     stems_dir.mkdir(parents=True, exist_ok=True)
     model_payload = load_model(ROOT_DIR / "artifacts" / "taste_learning" / "composition_ranker" / "model.json")
+    local_config = load_local_render_config(ROOT_DIR / "config" / "local_render_config.local.json")
+    registry = load_registry(ROOT_DIR / "config" / "local_vst_registry.local.json")
+    preferred_synplant_plugin_id = str(local_config.get("preferred_synplant_plugin_id", "")).strip()
+    synplant_enabled = bool(local_config.get("synplant_enabled", False))
+    synplant_plugin = registry.get_plugin(preferred_synplant_plugin_id) if preferred_synplant_plugin_id else None
+    synplant_configured = bool(preferred_synplant_plugin_id and synplant_enabled)
+    synplant_available = bool(synplant_plugin and synplant_plugin.available)
 
     candidate_rows: list[dict[str, Any]] = []
     for idx in range(8):
@@ -116,8 +126,56 @@ def main() -> int:
         selected_abs = ROOT_DIR / selected_path
         (selected_dir / "selected_candidate.mid").write_bytes(selected_abs.read_bytes())
         (stems_dir / "harmony.mid").write_bytes(selected_abs.read_bytes())
+        (stems_dir / "chords.mid").write_bytes(selected_abs.read_bytes())
         (stems_dir / "bass.mid").write_bytes(selected_abs.read_bytes())
         (stems_dir / "lead.mid").write_bytes(selected_abs.read_bytes())
+        (stems_dir / "texture.mid").write_bytes(selected_abs.read_bytes())
+
+    synplant_assignments = [
+        assign_synplant_for_intent(
+            texture_intent="warm_emotional_chord_bed",
+            track_role="chords",
+            synplant_enabled=synplant_enabled,
+            synplant_available=synplant_available,
+            bass_role_configured=bool(local_config.get("synplant_bass_preset", "")),
+        ).__dict__,
+        assign_synplant_for_intent(
+            texture_intent="bass_motion_driven",
+            track_role="bass",
+            synplant_enabled=synplant_enabled,
+            synplant_available=synplant_available,
+            bass_role_configured=bool(local_config.get("synplant_bass_preset", "")),
+        ).__dict__,
+        assign_synplant_for_intent(
+            texture_intent="weird_but_musical",
+            track_role="lead",
+            synplant_enabled=synplant_enabled,
+            synplant_available=synplant_available,
+            bass_role_configured=bool(local_config.get("synplant_bass_preset", "")),
+        ).__dict__,
+        assign_synplant_for_intent(
+            texture_intent="machine_pulse",
+            track_role="texture",
+            synplant_enabled=synplant_enabled,
+            synplant_available=synplant_available,
+            bass_role_configured=bool(local_config.get("synplant_bass_preset", "")),
+        ).__dict__,
+    ]
+    (out_root / "synplant_assignment_plan.json").write_text(
+        json.dumps(
+            {
+                "synplant_configured": synplant_configured,
+                "synplant_available": synplant_available,
+                "synplant_plugin_id": preferred_synplant_plugin_id if synplant_configured else "",
+                "assignments": synplant_assignments,
+                "composer_owned_by": "composition_ranker_or_heuristic",
+            },
+            indent=2,
+            ensure_ascii=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -132,6 +190,13 @@ def main() -> int:
             "no_cloud_calls": True,
             "wav_rendering_attempted": False,
             "chordpotion_variant_created": False,
+            "chordpotion_can_route_into_synplant": True,
+            "synplant_is_render_target_only": True,
+            "synplant_is_not_composer": True,
+        },
+        "synplant": {
+            "configured": synplant_configured,
+            "available": synplant_available,
         },
     }
     report_json.parent.mkdir(parents=True, exist_ok=True)

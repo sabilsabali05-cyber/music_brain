@@ -1,0 +1,40 @@
+{
+  "synplant_configured": false,
+  "synplant_available": false,
+  "synplant_plugin_id": "",
+  "assignments": [
+    {
+      "texture_intent": "warm_emotional_chord_bed",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "keys",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    {
+      "texture_intent": "bass_motion_driven",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "bass",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    {
+      "texture_intent": "weird_but_musical",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "lead",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    },
+    {
+      "texture_intent": "machine_pulse",
+      "use_synplant": false,
+      "target_role": "",
+      "fallback_category": "texture",
+      "reason": "synplant_disabled",
+      "is_composer": false
+    }
+  ],
+  "composer_owned_by": "composition_ranker_or_heuristic"
+}

@@ -13,3 +13,4 @@
 
 ## Blockers
 - final_wav_not_verified
+- synplant_not_configured

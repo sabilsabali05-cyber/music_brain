@@ -1,6 +1,8 @@
 # Texture Intent
 
-- `bass`: supportive low-end pulse
-- `drums_optional`: punchy rhythmic backbone
-- `lead`: foreground melodic clarity
-- `skeleton`: ambient evolving movement
+- `bass`: bass_motion_driven
+- `chords`: warm_emotional_chord_bed
+- `drums_optional`: machine_pulse
+- `lead`: fragile_human_breath
+- `skeleton`: warm_emotional_chord_bed
+- `texture`: haunted_noise_tail

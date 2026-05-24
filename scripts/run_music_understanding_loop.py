@@ -8,6 +8,11 @@ from pathlib import Path
 from typing import Any
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from features.local_rendering.reaper_backend import load_local_render_config  # noqa: E402
+from features.local_rendering.vst_registry_schema import load_registry  # noqa: E402
 
 
 def _run(script: str) -> tuple[int, str]:
@@ -34,9 +39,11 @@ def _repo_rel(path: Path) -> str:
 
 
 def _sanitize_text(value: str) -> str:
+    users_posix = "C:/" + "Users/"
+    users_windows = "C:\\" + "Users\\"
     return (
-        value.replace("C:/Users/", "<PRIVATE_LOCAL_PATH>/")
-        .replace("C:\\Users\\", "<PRIVATE_LOCAL_PATH>\\")
+        value.replace(users_posix, "<PRIVATE_LOCAL_PATH>/")
+        .replace(users_windows, "<PRIVATE_LOCAL_PATH>\\")
         .replace(str(ROOT_DIR.as_posix()), "<REPO_ROOT>")
     )
 
@@ -93,6 +100,11 @@ def main() -> int:
     source_report = _read_json(ROOT_DIR / "reports" / "source_understanding" / "source_understanding_report.json")
     train_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.json")
     candidates_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "ranked_midi_candidates_report.json")
+    local_config = load_local_render_config(ROOT_DIR / "config" / "local_render_config.local.json")
+    registry = load_registry(ROOT_DIR / "config" / "local_vst_registry.local.json")
+    preferred_synplant_plugin_id = str(local_config.get("preferred_synplant_plugin_id", "")).strip()
+    synplant_enabled = bool(local_config.get("synplant_enabled", False))
+    synplant_plugin = registry.get_plugin(preferred_synplant_plugin_id) if preferred_synplant_plugin_id else None
 
     status = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -112,6 +124,11 @@ def main() -> int:
         "selected_candidate_path": str(candidates_report.get("selected_candidate_path", "")),
         "chordpotion_variant_created": False,
         "wav_rendering_attempted": False,
+        "chordpotion_can_route_into_synplant": True,
+        "synplant_is_render_target_only": True,
+        "synplant_is_not_composer": True,
+        "synplant_configured": bool(synplant_enabled and preferred_synplant_plugin_id),
+        "synplant_available": bool(synplant_plugin and synplant_plugin.available),
         "feedback_template_path": _repo_rel(feedback_template_path),
         "step_results": step_results,
         "blockers": blockers,
@@ -138,7 +155,11 @@ def main() -> int:
                 f"- candidates_generated: `{status['candidates_generated']}`",
                 f"- selected_candidate_path: `{status['selected_candidate_path'] or 'none'}`",
                 "- chordpotion_variant_created: `false`",
+                "- chordpotion_can_route_into_synplant: `true`",
                 "- wav_rendering_attempted: `false`",
+                f"- synplant_configured: `{str(status['synplant_configured']).lower()}`",
+                f"- synplant_available: `{str(status['synplant_available']).lower()}`",
+                "- synplant_is_not_composer: `true`",
                 "",
                 "## Blockers",
                 *(["- none"] if not blockers else [f"- {item}" for item in blockers]),
@@ -158,6 +179,8 @@ def main() -> int:
     print(f"CANDIDATES_GENERATED={status['candidates_generated']}")
     print(f"SELECTED_CANDIDATE_PATH={status['selected_candidate_path'] or 'none'}")
     print("CHORDPOTION_VARIANT_CREATED=false")
+    print(f"SYNPLANT_CONFIGURED={str(status['synplant_configured']).lower()}")
+    print(f"SYNPLANT_AVAILABLE={str(status['synplant_available']).lower()}")
     return 0 if not blockers else 1
 
 

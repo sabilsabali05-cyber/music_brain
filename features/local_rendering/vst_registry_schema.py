@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Literal
 
 PluginFormat = Literal["VST2", "VST3", "CLAP", "AbletonDevice", "M4L"]
-ALLOWED_PLUGIN_CATEGORIES = {"instrument", "effect", "keys", "bass", "lead", "pad", "drums", "texture", "midi_fx"}
+ALLOWED_PLUGIN_CATEGORIES = {"instrument", "effect", "keys", "bass", "lead", "pad", "drums", "texture", "midi_fx", "synth"}
 MIDI_FX_ROLES = {
     "chord_pattern_generator",
     "arpeggiator",

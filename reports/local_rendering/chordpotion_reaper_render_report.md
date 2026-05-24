@@ -1,6 +1,6 @@
 # ChordPotion Reaper Render Report
 
-- generation_id: `chordpotion_generation_v1`
+- generation_id: `complete_song_v1`
 - render_backend_status: `planned_not_executed`
 - chordpotion_configured: `true`
 - chordpotion_available: `true`
@@ -9,7 +9,7 @@
 - transformed_midi_captured: `false`
 - wav_rendered: `false`
 - final_wav_path: `none`
-- assisted_pack_path: `outputs/chordpotion_assisted_pack/chordpotion_generation_v1`
+- assisted_pack_path: `outputs/chordpotion_assisted_pack/complete_song_v1`
 
 ## Missing Config
 

@@ -1,7 +1,7 @@
 # Through-Composed Story MIDI Enhancement Report
 
-- base_midi: `C:/Users/izzyo/ai-composer/music_brain/outputs/through_composed_story_100bpm/full.mid`
-- output_midi: `C:/Users/izzyo/ai-composer/music_brain/outputs/through_composed_story_100bpm_v2/full.mid`
+- base_midi: `outputs/through_composed_story_100bpm/full.mid`
+- output_midi: `outputs/through_composed_story_100bpm_v2/full.mid`
 - tempo_bpm: `100.0`
 - tempo_matches_base: `True`
 - fallback_used: `False`
