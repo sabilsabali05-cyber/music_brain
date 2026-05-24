@@ -63,7 +63,19 @@ def _candidate_notes(seed: int, bars: int = 8) -> list[tuple[float, float, int, 
 
 def _features(notes: list[tuple[float, float, int, int]]) -> dict[str, float]:
     if not notes:
-        return {"musicality_score": 0.0, "groove_score": 0.0, "harmony_score": 0.0, "density_score": 0.0, "variety_score": 0.0}
+        return {
+            "musicality_score": 0.0,
+            "groove_score": 0.0,
+            "harmony_score": 0.0,
+            "density_score": 0.0,
+            "variety_score": 0.0,
+            "golden_section_alignment": 0.0,
+            "phrase_ratio_score": 0.0,
+            "rhythm_ratio_score": 0.0,
+            "interval_ratio_score": 0.0,
+            "density_ratio_score": 0.0,
+            "ratio_musicality_score": 0.0,
+        }
     pitches = [n[2] for n in notes]
     durations = [max(0.01, n[1] - n[0]) for n in notes]
     unique_pc = len({p % 12 for p in pitches}) / 12.0
@@ -74,12 +86,50 @@ def _features(notes: list[tuple[float, float, int, int]]) -> dict[str, float]:
     harmony = min(1.0, unique_pc + 0.3)
     variety = min(1.0, len(set(pitches)) / 10.0)
     musicality = max(0.0, min(1.0, 0.45 * groove + 0.35 * harmony + 0.2 * (1.0 - leap_ratio)))
+    starts = [n[0] for n in notes]
+    total_duration = max((n[1] for n in notes), default=1.0)
+    golden_anchor = total_duration * 0.61803398875
+    peak_time = starts[int(len(starts) * 0.7)] if starts else 0.0
+    golden_alignment = max(0.0, 1.0 - abs(peak_time - golden_anchor) / max(0.25, total_duration))
+    early = sum(1 for s in starts if s <= total_duration * 0.5)
+    late = max(1, len(starts) - early)
+    phrase_ratio = early / late
+    phrase_ratio_score = max(0.0, min(1.0, 1.0 - abs(phrase_ratio - 1.5) / 1.5))
+    short = sum(1 for d in durations if d <= 0.35)
+    long = max(1, len(durations) - short)
+    rhythm_ratio = short / long
+    rhythm_ratio_score = max(0.0, min(1.0, 1.0 - abs(rhythm_ratio - (5.0 / 3.0)) / (5.0 / 3.0)))
+    step = sum(1 for i in range(1, len(pitches)) if abs(pitches[i] - pitches[i - 1]) <= 2)
+    leap = max(1, sum(1 for i in range(1, len(pitches)) if abs(pitches[i] - pitches[i - 1]) > 2))
+    interval_ratio = step / leap
+    interval_ratio_score = max(0.0, min(1.0, 1.0 - abs(interval_ratio - 1.25) / 1.25))
+    density_early = sum(1 for s in starts if s <= golden_anchor)
+    density_late = max(1, len(starts) - density_early)
+    density_ratio = density_early / density_late
+    density_ratio_score = max(0.0, min(1.0, 1.0 - abs(density_ratio - 1.6) / 1.6))
+    ratio_musicality = max(
+        0.0,
+        min(
+            1.0,
+            0.25 * golden_alignment
+            + 0.2 * phrase_ratio_score
+            + 0.2 * rhythm_ratio_score
+            + 0.2 * interval_ratio_score
+            + 0.15 * density_ratio_score,
+        ),
+    )
     return {
         "musicality_score": musicality,
         "groove_score": groove,
         "harmony_score": harmony,
         "density_score": density,
         "variety_score": variety,
+        "golden_section_alignment": golden_alignment,
+        "phrase_ratio_score": phrase_ratio_score,
+        "rhythm_ratio_score": rhythm_ratio_score,
+        "interval_ratio_score": interval_ratio_score,
+        "density_ratio_score": density_ratio_score,
+        "ratio_musicality_score": ratio_musicality,
     }
 
 

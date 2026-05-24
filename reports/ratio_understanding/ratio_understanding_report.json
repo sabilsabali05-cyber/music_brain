@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-05-24T23:51:54.539701+00:00",
+  "analysis_type": "ratio_understanding",
+  "evidence_based_only": true,
+  "source_understanding_rows_considered": 2497,
+  "ratio_observations_count": 56,
+  "high_confidence_observations_count": 0,
+  "golden_section_findings_count": 19,
+  "unavailable_count": 0,
+  "unknown_count": 0,
+  "midi_artifacts_analyzed_count": 8,
+  "domains_covered": [
+    "density",
+    "harmonic",
+    "interval",
+    "motif",
+    "phrase",
+    "rhythm",
+    "section"
+  ],
+  "observations_by_domain": {
+    "section": 8,
+    "phrase": 8,
+    "rhythm": 8,
+    "harmonic": 8,
+    "motif": 8,
+    "interval": 8,
+    "density": 8
+  },
+  "observations_by_ratio_name": {
+    "5:8": 11,
+    "1:1": 8,
+    "8:13": 2,
+    "2:1": 8,
+    "inverse_phi_0_382": 19,
+    "5:3": 8
+  },
+  "evidence_sources": [
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/datasets/source_understanding/source_understanding_records.jsonl",
+      "available": true
+    },
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/datasets/music_theory/theory_understanding_records.jsonl",
+      "available": true
+    },
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.json",
+      "available": true
+    },
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/reports/taste_learning/ranked_midi_candidates_report.json",
+      "available": true
+    },
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/outputs/music_understanding_loop_v1",
+      "available": true
+    },
+    {
+      "path": "C:/Users/izzyo/ai-composer/music_brain/outputs/beat_battle_site",
+      "available": false
+    }
+  ],
+  "notes": [
+    "Analysis uses only local symbolic/features artifacts where available.",
+    "Unavailable/unknown statuses are preserved without fabricated evidence.",
+    "No universal golden-ratio forcing was applied."
+  ]
+}

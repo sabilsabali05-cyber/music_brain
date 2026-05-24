@@ -66,6 +66,18 @@ def main() -> int:
     payload["model_path"] = _repo_rel(Path(payload["model_path"]))
     payload["combined_rows_count"] = len(combined_rows)
     payload["beat_battle_rows_considered"] = len([row for row in combined_rows if str(row.get("generation_id", "")).startswith("beat_battle_")])
+    ratio_keys = {
+        "golden_section_alignment",
+        "phrase_ratio_score",
+        "rhythm_ratio_score",
+        "interval_ratio_score",
+        "density_ratio_score",
+        "ratio_musicality_score",
+    }
+    payload["ratio_feature_rows_count"] = sum(1 for row in combined_rows if any(key in row for key in ratio_keys))
+    payload["ratio_feature_coverage"] = (
+        round(payload["ratio_feature_rows_count"] / len(combined_rows), 6) if combined_rows else 0.0
+    )
     report_json.parent.mkdir(parents=True, exist_ok=True)
     report_json.write_text(json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
     report_md.write_text(
@@ -80,6 +92,8 @@ def main() -> int:
                 f"- heuristic_ranker_used: `{str(payload['heuristic_ranker_used']).lower()}`",
                 f"- train_status: `{payload['train_status']}`",
                 f"- model_path: `{payload['model_path']}`",
+                f"- ratio_feature_rows_count: `{payload['ratio_feature_rows_count']}`",
+                f"- ratio_feature_coverage: `{payload['ratio_feature_coverage']}`",
                 "",
             ]
         ),

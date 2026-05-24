@@ -85,9 +85,12 @@ def main() -> int:
 
     steps = [
         ("build_source_understanding_records", "build_source_understanding_records.py"),
+        ("analyze_ratio_understanding", "analyze_ratio_understanding.py"),
         ("train_composition_taste_ranker", "train_composition_taste_ranker.py"),
         ("evaluate_composition_taste_ranker", "evaluate_composition_taste_ranker.py"),
         ("generate_ranked_midi_candidates", "generate_ranked_midi_candidates.py"),
+        ("generate_ratio_controlled_song", "generate_ratio_controlled_song.py"),
+        ("evaluate_ratio_controlled_generation", "evaluate_ratio_controlled_generation.py"),
     ]
     step_results: list[dict[str, Any]] = []
     blockers: list[str] = []
@@ -98,6 +101,8 @@ def main() -> int:
             blockers.append(f"{step_name}_failed")
 
     source_report = _read_json(ROOT_DIR / "reports" / "source_understanding" / "source_understanding_report.json")
+    ratio_understanding_report = _read_json(ROOT_DIR / "reports" / "ratio_understanding" / "ratio_understanding_report.json")
+    ratio_eval_report = _read_json(ROOT_DIR / "reports" / "ratio_understanding" / "ratio_controlled_generation_eval.json")
     train_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "composition_ranker_training_report.json")
     candidates_report = _read_json(ROOT_DIR / "reports" / "taste_learning" / "ranked_midi_candidates_report.json")
     local_config = load_local_render_config(ROOT_DIR / "config" / "local_render_config.local.json")
@@ -112,6 +117,8 @@ def main() -> int:
         "music_understanding_completed": bool(source_report),
         "taste_learning_completed": bool(train_report),
         "generation_completed": bool(candidates_report),
+        "ratio_understanding_completed": bool(ratio_understanding_report),
+        "ratio_control_generation_completed": bool(ratio_eval_report),
         "review_ready": feedback_template_path.exists(),
         "learning_ready": bool(train_report),
         "no_cloud_calls": True,
@@ -122,6 +129,9 @@ def main() -> int:
         "heuristic_ranker_used": bool(train_report.get("heuristic_ranker_used", True)),
         "candidates_generated": int(candidates_report.get("candidates_generated", 0)),
         "selected_candidate_path": str(candidates_report.get("selected_candidate_path", "")),
+        "ratio_observations_count": int(ratio_understanding_report.get("ratio_observations_count", 0)),
+        "high_confidence_ratio_observations_count": int(ratio_understanding_report.get("high_confidence_observations_count", 0)),
+        "ratio_compliance_score": float(ratio_eval_report.get("ratio_compliance_score", 0.0)),
         "chordpotion_variant_created": False,
         "wav_rendering_attempted": False,
         "chordpotion_can_route_into_synplant": True,
@@ -145,6 +155,8 @@ def main() -> int:
                 f"- music_understanding_completed: `{str(status['music_understanding_completed']).lower()}`",
                 f"- taste_learning_completed: `{str(status['taste_learning_completed']).lower()}`",
                 f"- generation_completed: `{str(status['generation_completed']).lower()}`",
+                f"- ratio_understanding_completed: `{str(status['ratio_understanding_completed']).lower()}`",
+                f"- ratio_control_generation_completed: `{str(status['ratio_control_generation_completed']).lower()}`",
                 f"- review_ready: `{str(status['review_ready']).lower()}`",
                 f"- learning_ready: `{str(status['learning_ready']).lower()}`",
                 f"- source_understanding_records_count: `{status['source_understanding_records_count']}`",
@@ -154,6 +166,9 @@ def main() -> int:
                 f"- heuristic_ranker_used: `{str(status['heuristic_ranker_used']).lower()}`",
                 f"- candidates_generated: `{status['candidates_generated']}`",
                 f"- selected_candidate_path: `{status['selected_candidate_path'] or 'none'}`",
+                f"- ratio_observations_count: `{status['ratio_observations_count']}`",
+                f"- high_confidence_ratio_observations_count: `{status['high_confidence_ratio_observations_count']}`",
+                f"- ratio_compliance_score: `{status['ratio_compliance_score']}`",
                 "- chordpotion_variant_created: `false`",
                 "- chordpotion_can_route_into_synplant: `true`",
                 "- wav_rendering_attempted: `false`",

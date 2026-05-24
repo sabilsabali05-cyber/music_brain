@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T21:25:57.854563+00:00",
+  "generated_at": "2026-05-24T23:51:55.109383+00:00",
   "generation_id": "music_understanding_loop_v1",
   "candidates_generated": 8,
   "trained_ranker_used": false,
@@ -16,8 +16,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.9251206029232284,
+      "phrase_ratio_score": 0.6666666666666667,
+      "rhythm_ratio_score": 0.4378378378378378,
+      "interval_ratio_score": 0.16923076923076918,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6297772054778619,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.831442
+      "ranker_score": 0.816368
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -28,8 +34,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.9358634461143411,
+      "phrase_ratio_score": 0.7096774193548387,
+      "rhythm_ratio_score": 0.41052631578947363,
+      "interval_ratio_score": 0.18823529411764706,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6394036673809771,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.827297
+      "ranker_score": 0.81296
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -40,8 +52,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.9251206029232284,
+      "phrase_ratio_score": 0.6666666666666667,
+      "rhythm_ratio_score": 0.3599999999999999,
+      "interval_ratio_score": 0.27234042553191495,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6348315691705235,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.825674
+      "ranker_score": 0.811032
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -52,8 +70,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.93053398875,
+      "phrase_ratio_score": 0.7096774193548387,
+      "rhythm_ratio_score": 0.3846153846153847,
+      "interval_ratio_score": 0.15094339622641506,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6254307372268277,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.825374
+      "ranker_score": 0.810247
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -64,8 +88,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.93053398875,
+      "phrase_ratio_score": 0.7096774193548387,
+      "rhythm_ratio_score": 0.3365853658536585,
+      "interval_ratio_score": 0.22857142857142854,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6313503399434852,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.814862
+      "ranker_score": 0.800557
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -76,8 +106,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.93053398875,
+      "phrase_ratio_score": 0.7096774193548387,
+      "rhythm_ratio_score": 0.2930232558139535,
+      "interval_ratio_score": 0.13333333333333341,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6035902988879251,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.805461
+      "ranker_score": 0.789894
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -88,8 +124,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.9251206029232284,
+      "phrase_ratio_score": 0.6666666666666667,
+      "rhythm_ratio_score": 0.2930232558139535,
+      "interval_ratio_score": 0.20799999999999996,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6085681352269312,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.799905
+      "ranker_score": 0.78496
     },
     {
       "generation_id": "music_understanding_loop_v1",
@@ -100,8 +142,14 @@
       "harmony_score": 0.8,
       "density_score": 0.6666666666666666,
       "variety_score": 1.0,
+      "golden_section_alignment": 0.9251206029232284,
+      "phrase_ratio_score": 0.6666666666666667,
+      "rhythm_ratio_score": 0.21702127659574466,
+      "interval_ratio_score": 0.27234042553191495,
+      "density_ratio_score": 0.9583333333333334,
+      "ratio_musicality_score": 0.6062358244896724,
       "ranker_mode": "heuristic",
-      "ranker_score": 0.768881
+      "ranker_score": 0.7553
     }
   ],
   "policy": {

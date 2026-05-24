@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-05-24T23:51:55.632126+00:00",
+  "status": "ok",
+  "ratio_compliance_score": 0.120831,
+  "ratio_controls_evaluated": 5,
+  "ratio_controls_within_tolerance": 1,
+  "measured_duration_seconds": 120.0163,
+  "note_count": 1072,
+  "evaluations": [
+    {
+      "ratio_name": "golden_section_0_618",
+      "target_ratio": 0.61803398875,
+      "measured_ratio": 0.6862499276718008,
+      "tolerance": 0.08,
+      "confidence": 0.72,
+      "score": 0.147301,
+      "within_tolerance": true
+    },
+    {
+      "ratio_name": "3:2",
+      "target_ratio": 1.5,
+      "measured_ratio": 1.053639846743295,
+      "tolerance": 0.08,
+      "confidence": 0.78,
+      "score": 0.0,
+      "within_tolerance": false
+    },
+    {
+      "ratio_name": "5:3",
+      "target_ratio": 1.6666666666666667,
+      "measured_ratio": 9.72,
+      "tolerance": 0.08,
+      "confidence": 0.71,
+      "score": 0.0,
+      "within_tolerance": false
+    },
+    {
+      "ratio_name": "5:4",
+      "target_ratio": 1.25,
+      "measured_ratio": 0.02881844380403458,
+      "tolerance": 0.08,
+      "confidence": 0.74,
+      "score": 0.0,
+      "within_tolerance": false
+    },
+    {
+      "ratio_name": "8:5",
+      "target_ratio": 1.6,
+      "measured_ratio": 1.727735368956743,
+      "tolerance": 0.1,
+      "confidence": 0.68,
+      "score": 0.489059,
+      "within_tolerance": false
+    }
+  ],
+  "warnings": [
+    "low_ratio_compliance_score"
+  ]
+}

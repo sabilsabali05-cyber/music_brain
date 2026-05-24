@@ -76,6 +76,7 @@ outputs/tangible_generation_v1/*seed_suggestions*.md
 # Generated backend output runs are local artifacts and can embed local paths
 outputs/generated_midi/**
 outputs/model_backend_runs/**
+outputs/internal_beat_loop/**
 
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json

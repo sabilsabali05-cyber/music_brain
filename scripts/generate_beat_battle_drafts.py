@@ -35,11 +35,24 @@ def main() -> int:
         return 1
     drafts_root = ROOT_DIR / "outputs" / "beat_battle_site" / round_id / "drafts"
     drafts_root.mkdir(parents=True, exist_ok=True)
+    ratio_spec_path = ROOT_DIR / "outputs" / "ratio_controlled_song_v1" / "ratio_control_spec.json"
+    ratio_spec: dict[str, object] = {}
+    if ratio_spec_path.exists():
+        try:
+            loaded = json.loads(ratio_spec_path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                ratio_spec = loaded
+        except json.JSONDecodeError:
+            ratio_spec = {}
     rng = random.Random(round_id)
     ranked: list[dict[str, object]] = []
     for idx in range(8):
         draft_id = f"draft_{idx+1:02d}"
         score = round(0.45 + rng.random() * 0.5, 6)
+        ratio_controls = ratio_spec.get("ratio_controls", []) if isinstance(ratio_spec, dict) else []
+        ratio_enabled = bool(ratio_controls)
+        ratio_bonus = min(0.04, 0.005 * len(ratio_controls)) if ratio_enabled else 0.0
+        score = round(min(0.99, score + ratio_bonus), 6)
         draft_payload = {
             "draft_id": draft_id,
             "round_id": round_id,
@@ -47,6 +60,10 @@ def main() -> int:
             "sound_ids": [str(s.get("sound_id", "")) for s in sounds][: min(8, len(sounds))],
             "chordpotion_used": False,
             "synplant_used": False,
+            "ratio_controls_enabled": ratio_enabled,
+            "ratio_battle_flex_mode": True,
+            "ratio_controls_applied_to": ["arrangement", "drop", "rhythm", "hook_return", "density"] if ratio_enabled else [],
+            "battle_appeal_priority": 0.8,
             "ranker_score": score,
         }
         (drafts_root / f"{draft_id}.json").write_text(json.dumps(draft_payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")

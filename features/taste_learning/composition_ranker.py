@@ -36,16 +36,28 @@ def extract_features(row: dict[str, Any]) -> dict[str, float]:
         "harmony_score": _safe_float(row.get("harmony_score"), 0.5),
         "density_score": _safe_float(row.get("density_score"), 0.5),
         "variety_score": _safe_float(row.get("variety_score"), 0.5),
+        "golden_section_alignment": _safe_float(row.get("golden_section_alignment"), 0.5),
+        "phrase_ratio_score": _safe_float(row.get("phrase_ratio_score"), 0.5),
+        "rhythm_ratio_score": _safe_float(row.get("rhythm_ratio_score"), 0.5),
+        "interval_ratio_score": _safe_float(row.get("interval_ratio_score"), 0.5),
+        "density_ratio_score": _safe_float(row.get("density_ratio_score"), 0.5),
+        "ratio_musicality_score": _safe_float(row.get("ratio_musicality_score"), 0.5),
     }
 
 
 def score_with_heuristic(features: dict[str, float]) -> float:
     return (
-        features["musicality_score"] * 0.35
-        + features["groove_score"] * 0.25
-        + features["harmony_score"] * 0.2
+        features["musicality_score"] * 0.33
+        + features["groove_score"] * 0.24
+        + features["harmony_score"] * 0.19
         + features["density_score"] * 0.1
-        + features["variety_score"] * 0.1
+        + features["variety_score"] * 0.08
+        + features["ratio_musicality_score"] * 0.04
+        + features["golden_section_alignment"] * 0.004
+        + features["phrase_ratio_score"] * 0.004
+        + features["rhythm_ratio_score"] * 0.004
+        + features["interval_ratio_score"] * 0.004
+        + features["density_ratio_score"] * 0.004
     )
 
 
@@ -68,7 +80,8 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
 
 def _train_linear_regression(rows: list[dict[str, Any]]) -> dict[str, float]:
     # Tiny local model; no cloud, no heavy dependencies.
-    weights = {"bias": 0.0, "musicality_score": 0.0, "groove_score": 0.0, "harmony_score": 0.0, "density_score": 0.0, "variety_score": 0.0}
+    feature_keys = list(extract_features({}).keys())
+    weights = {"bias": 0.0, **{key: 0.0 for key in feature_keys}}
     lr = 0.08
     for _ in range(180):
         for row in rows:

@@ -1,0 +1,87 @@
+{
+  "spec_id": "ratio_controlled_song_v1_spec",
+  "generation_id": "ratio_controlled_song_v1",
+  "duration_seconds": 120.0,
+  "bpm": 108,
+  "ratio_controls": [
+    {
+      "ratio_name": "golden_section_0_618",
+      "target_ratio": 0.61803398875,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.72,
+      "strict": false,
+      "source_observation_ids": [
+        "demo_section_ratio"
+      ],
+      "notes": [
+        "default_demo_climax_anchor"
+      ]
+    },
+    {
+      "ratio_name": "3:2",
+      "target_ratio": 1.5,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.78,
+      "strict": false,
+      "source_observation_ids": [
+        "demo_phrase_ratio"
+      ],
+      "notes": [
+        "phrase_length_relation"
+      ]
+    },
+    {
+      "ratio_name": "5:3",
+      "target_ratio": 1.6666666666666667,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.71,
+      "strict": false,
+      "source_observation_ids": [
+        "demo_rhythm_ratio"
+      ],
+      "notes": [
+        "rhythm_subdivision_relation"
+      ]
+    },
+    {
+      "ratio_name": "5:4",
+      "target_ratio": 1.25,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.74,
+      "strict": false,
+      "source_observation_ids": [
+        "demo_interval_ratio"
+      ],
+      "notes": [
+        "interval_motion_relation"
+      ]
+    },
+    {
+      "ratio_name": "8:5",
+      "target_ratio": 1.6,
+      "measured_ratio": null,
+      "tolerance": 0.1,
+      "confidence": 0.68,
+      "strict": false,
+      "source_observation_ids": [
+        "demo_density_ratio"
+      ],
+      "notes": [
+        "arrangement_density_relation"
+      ]
+    }
+  ],
+  "preserve_battle_appeal_priority": true,
+  "flexibility_priority": 0.7,
+  "ratio_musicality_weight": 0.22,
+  "evidence_based_only": true,
+  "no_cloud_calls": true,
+  "notes": [
+    "Default demo uses ratio guidance for duration/climax/section/phrase/rhythm/interval/density.",
+    "No universal ratio forcing; controls are soft by default."
+  ]
+}

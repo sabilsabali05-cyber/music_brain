@@ -1,12 +1,15 @@
 # Privacy Leak Scan Report
 
-- status: `ok`
+- status: `fail`
 - strict_mode: `False`
-- new_public_leak_count: `0`
+- new_public_leak_count: `4`
 - pre_existing_historical_path_debt_count: `6`
 
 ## New Public Leaks
-- none
+- `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/izzyo` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/` count=`1`
+- `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/izzyo` count=`1`
 
 ## Pre-existing Historical Path Debt
 - `docs/ABLETON_EXPORT_WORKFLOW.md` marker=`private_synplant_seed_paths` count=`1`
