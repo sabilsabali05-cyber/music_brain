@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-24T02:20:00-04:00",
+  "repo_root": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain",
+  "current_branch": "cursor/actually-activate-moonbeam-hf-v1",
+  "current_head_hash_before_commit": "e22c494dc0f4dc89e39b894b2fa56d4535df1f05",
+  "main_hash": "5a85e10f98d9115c2395b316e68ad81f026b9711",
+  "branch_landscape": {
+    "active_branches_recent": [
+      "cursor/actually-activate-moonbeam-hf-v1",
+      "cursor/activate-symbolic-backends-v1",
+      "cursor/ableton-agent-bridge-v1",
+      "cursor/cloud-full-activation-v1",
+      "backup/mixed-cloud-ableton-before-split",
+      "main"
+    ],
+    "requested_branches_present": {
+      "cursor/ableton-agent-bridge-v1": true,
+      "cursor/activate-symbolic-backends-v1": true,
+      "cursor/actually-activate-moonbeam-hf-v1": true,
+      "cloud/full-activation family": [
+        "cursor/cloud-full-activation-v1",
+        "cursor/full-model-activation-pipeline-v1"
+      ],
+      "microtonal/hum-to-midi family": []
+    },
+    "merge_ready_branches": [
+      {
+        "branch": "cursor/ableton-agent-bridge-v1",
+        "ahead_of_main": 3,
+        "behind_main": 0
+      },
+      {
+        "branch": "cursor/actually-activate-moonbeam-hf-v1",
+        "ahead_of_main": 2,
+        "behind_main": 0
+      },
+      {
+        "branch": "cursor/activate-symbolic-backends-v1",
+        "ahead_of_main": 1,
+        "behind_main": 0
+      },
+      {
+        "branch": "cursor/cloud-full-activation-v1",
+        "ahead_of_main": 1,
+        "behind_main": 0
+      },
+      {
+        "branch": "backup/mixed-cloud-ableton-before-split",
+        "ahead_of_main": 1,
+        "behind_main": 0
+      }
+    ],
+    "stale_or_sibling_or_conflicting": {
+      "stale_branches": [
+        "cursor/music-data-explainer-v1",
+        "cursor/moonbeam-feasibility-spike",
+        "cursor/synplant-puredata-generative-architecture",
+        "cursor/synplant-seed-selection-architecture"
+      ],
+      "sibling_branches": [
+        "cursor/activate-symbolic-backends-v1",
+        "cursor/actually-activate-moonbeam-hf-v1",
+        "cursor/full-model-activation-pipeline-v1",
+        "cursor/cloud-full-activation-v1"
+      ],
+      "high_overlap_conflicts": [
+        {
+          "a": "cursor/activate-symbolic-backends-v1",
+          "b": "cursor/actually-activate-moonbeam-hf-v1",
+          "overlapping_files": 56
+        },
+        {
+          "a": "cursor/cloud-full-activation-v1",
+          "b": "backup/mixed-cloud-ableton-before-split",
+          "overlapping_files": 46
+        }
+      ]
+    }
+  },
+  "feature_sets_by_branch": {
+    "full activation pipeline": [
+      "cursor/full-model-activation-pipeline-v1",
+      "cursor/activate-symbolic-backends-v1",
+      "cursor/actually-activate-moonbeam-hf-v1"
+    ],
+    "cloud activation": [
+      "cursor/cloud-full-activation-v1",
+      "backup/mixed-cloud-ableton-before-split"
+    ],
+    "Ableton agent bridge": [
+      "cursor/ableton-agent-bridge-v1",
+      "backup/mixed-cloud-ableton-before-split"
+    ],
+    "ballad outputs": [
+      "cursor/activate-symbolic-backends-v1",
+      "cursor/actually-activate-moonbeam-hf-v1",
+      "cursor/ableton-agent-bridge-v1"
+    ],
+    "symbolic backend activation": [
+      "cursor/activate-symbolic-backends-v1",
+      "cursor/actually-activate-moonbeam-hf-v1",
+      "cursor/symbolic-model-backend-adapters"
+    ],
+    "Hugging Face/source discovery": [
+      "cursor/actually-activate-moonbeam-hf-v1"
+    ],
+    "integration inventory": [
+      "cursor/actually-activate-moonbeam-hf-v1"
+    ],
+    "source separation": [
+      "cursor/source-separation-witness-vertical-slice-v1",
+      "cursor/cloud-full-activation-v1"
+    ],
+    "transcription witnesses": [
+      "cursor/transcription-witnesses-vertical-slice-v1",
+      "cursor/cloud-full-activation-v1"
+    ],
+    "audio understanding": [
+      "cursor/audio-understanding-vertical-slice-v1",
+      "cursor/cloud-full-activation-v1"
+    ],
+    "microtonal layer": [],
+    "hum-to-MIDI live companion": []
+  },
+  "readiness_dashboard": {
+    "scaffold_only_features": [
+      "full model activation run remains dry-run",
+      "controlled ingestion runner remains dry-run shell",
+      "cloud execution policy exists but no real cloud calls",
+      "microtonal and hum-to-MIDI exist as design docs only"
+    ],
+    "features_producing_real_artifacts": [
+      "integration inventory reports",
+      "symbolic backend activation reports",
+      "symbolic ensemble reports and candidate IR JSON",
+      "ballad output reports",
+      "privacy and model integration availability reports"
+    ],
+    "actually_active_models": [],
+    "blocked_models": [
+      {
+        "model_id": "moonbeam",
+        "reason": "disabled_in_local_config"
+      },
+      {
+        "model_id": "midigpt",
+        "reason": "disabled_in_local_config"
+      },
+      {
+        "model_id": "musicbert",
+        "reason": "disabled_in_local_config"
+      },
+      {
+        "model_id": "text2midi",
+        "reason": "configured_in_local_config_but_not_available"
+      },
+      {
+        "model_id": "demucs/basic_pitch/yourmt3/essentia",
+        "reason": "disabled_in_local_config"
+      }
+    ],
+    "mass_ingestion_ready": false,
+    "controlled_batch_ready": true,
+    "model_training_ready": false,
+    "ableton_integration_state": {
+      "real_vs_scaffold": "mixed_scaffold_heavy",
+      "notes": "Export artifacts and bridge schemas exist, but no verified live Ableton control execution is recorded in this audit run."
+    },
+    "cloud_execution_state": {
+      "real_vs_dry_run": "dry_run_only",
+      "evidence": [
+        "reports/activation/full_model_activation_run_report.json status=dry_run",
+        "reports/controlled_ingestion/controlled_batch_run_report.json status=dry_run_success",
+        "modal_called=false in both run reports"
+      ]
+    },
+    "generated_midi": {
+      "present_in_current_worktree": false,
+      "current_branch_paths": [],
+      "present_in_branch_history": [
+        "outputs/ballad_2min_v2/*.mid",
+        "outputs/symbolic_ensemble_v1/selected_candidate.mid",
+        "outputs/symbolic_ensemble_v1/generated_candidates/*.mid",
+        "outputs/tangible_generation_v1/generated_*.mid",
+        "outputs/ableton_project_v1/AI_Generated_Song_Project/MIDI/*.mid"
+      ]
+    }
+  },
+  "validations": {
+    "scripts/dev.cmd test": {
+      "status": "pass",
+      "details": "371 passed, 3 warnings"
+    },
+    "scripts/dev.cmd check-privacy-leaks": {
+      "status": "pass_with_historical_debt",
+      "details": "new_public_leak_count=0, pre_existing_historical_path_debt_count=6"
+    },
+    "scripts/dev.cmd check-model-integrations": {
+      "status": "pass",
+      "details": "configured_count=1, available_count=0, model_training_has_occurred=false"
+    },
+    "required_git_greps": {
+      "private_paths_C_Users_izzyo": "none_found",
+      "tokens_in_reports_docs_outputs_config": "none_found"
+    }
+  },
+  "top_5_blockers": [
+    "Historical privacy debt remains non-zero (6 records).",
+    "No model backend is currently available for real execution.",
+    "Mass ingestion remains blocked by review burden and training-tokenization gates.",
+    "Cloud execution remains dry-run only; no real bounded execution witness.",
+    "Microtonal/hum-to-MIDI workflows are not implemented as runnable branches."
+  ],
+  "next_5_recommended_jobs": [
+    "Run safe historical scrub plan/apply-safe loop until privacy debt reaches zero.",
+    "Create and use a local controlled batch manifest, then execute a real controlled ingestion witness (non-audio processing disabled unless explicitly authorized).",
+    "Enable one symbolic backend in local config and produce one real local smoke witness without cloud.",
+    "Consolidate overlapping activation branches into one canonical branch to remove sibling conflict risk.",
+    "Promote microtonal and hum-to-MIDI from design docs to policy-safe local scaffolds with tests."
+  ]
+}

@@ -12,6 +12,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
+from scripts import check_text2midi_setup
+
 LOCAL_CONFIG = ROOT_DIR / "config" / "model_integrations" / "model_integrations.local.json"
 EXAMPLE_CONFIG = ROOT_DIR / "config" / "model_integrations" / "model_integrations.example.json"
 
@@ -62,8 +64,11 @@ def _write_smoke_report(output_dir: Path, payload: dict) -> tuple[Path, Path]:
 
 
 def run_text2midi_smoke_test() -> dict:
+    setup_status = check_text2midi_setup.evaluate_text2midi_setup()
     settings = _load_settings()
-    enabled = bool(settings.get("enabled", False)) and LOCAL_CONFIG.exists()
+    enabled = bool(setup_status.get("text2midi_enabled", False))
+    configured = bool(setup_status.get("text2midi_configured", False))
+    smoke_test_enabled = bool(setup_status.get("smoke_test_enabled", False))
     repo_path = Path(str(settings.get("repo_path", "")).strip())
     model_path = Path(str(settings.get("model_path", "")).strip())
     tokenizer_path = Path(str(settings.get("tokenizer_path", "")).strip())
@@ -75,6 +80,34 @@ def run_text2midi_smoke_test() -> dict:
             "text2midi_available": False,
             "real_smoke_passed": False,
             "unavailable_reason": "disabled",
+            "artifact_report_generated": False,
+            "provenance_report_generated": False,
+            "artifact_report_path": "",
+            "provenance_report_path": "",
+            "redacted_traceback_summary": "",
+            "model_training_has_occurred": False,
+        }
+    if not configured:
+        return {
+            "status": "unavailable",
+            "text2midi_enabled": True,
+            "text2midi_available": False,
+            "real_smoke_passed": False,
+            "unavailable_reason": str(setup_status.get("unavailable_reason", "missing_paths")),
+            "artifact_report_generated": False,
+            "provenance_report_generated": False,
+            "artifact_report_path": "",
+            "provenance_report_path": "",
+            "redacted_traceback_summary": "",
+            "model_training_has_occurred": False,
+        }
+    if not smoke_test_enabled:
+        return {
+            "status": "unavailable",
+            "text2midi_enabled": True,
+            "text2midi_available": False,
+            "real_smoke_passed": False,
+            "unavailable_reason": "smoke_test_disabled_in_config",
             "artifact_report_generated": False,
             "provenance_report_generated": False,
             "artifact_report_path": "",

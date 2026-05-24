@@ -1,22 +1,22 @@
 {
   "status": "ok",
   "config_source": "config/model_integrations/model_integrations.local.json",
-  "text2midi_enabled": false,
-  "text2midi_configured": false,
+  "text2midi_enabled": true,
+  "text2midi_configured": true,
   "text2midi_available": false,
-  "smoke_test_enabled": false,
+  "smoke_test_enabled": true,
   "smoke_test_passed": false,
-  "unavailable_reason": "disabled_in_local_config",
-  "next_setup_step": "Set models.text2midi.enabled=true in local config after policy review.",
+  "unavailable_reason": "ready_for_smoke_test",
+  "next_setup_step": "Run scripts/dev.cmd run-text2midi-smoke-test to validate local Text2MIDI setup.",
   "path_checks": {
     "repo_path": {
-      "configured": false,
-      "exists": false,
+      "configured": true,
+      "exists": true,
       "path": "<PRIVATE_LOCAL_PATH>"
     },
     "model_path": {
-      "configured": false,
-      "exists": false,
+      "configured": true,
+      "exists": true,
       "path": "<PRIVATE_LOCAL_PATH>"
     }
   },

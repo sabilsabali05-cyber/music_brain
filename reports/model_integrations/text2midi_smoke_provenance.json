@@ -1,0 +1,7 @@
+{
+  "backend": "text2midi",
+  "probe_type": "torch_tensor_math",
+  "real_inference_probe": true,
+  "cloud_called": false,
+  "modal_called": false
+}

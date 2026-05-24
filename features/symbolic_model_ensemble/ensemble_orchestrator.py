@@ -191,9 +191,7 @@ class SymbolicEnsembleOrchestrator:
         candidates_dir.mkdir(parents=True, exist_ok=True)
 
         availability = self._write_backend_availability(output_root)
-        by_id = {row["backend_id"]: row for row in availability["backends"]}
-        real_backends = ["text2midi", "moonbeam", "midigpt", "musicbert"]
-        no_real_symbolic_backend_available = all(by_id.get(name, {}).get("status") != "available" for name in real_backends)
+        real_backends = {"text2midi", "moonbeam", "midigpt", "musicbert"}
 
         candidates: list[SymbolicGenerationCandidate] = []
         used_steps: list[dict[str, str]] = []
@@ -256,6 +254,7 @@ class SymbolicEnsembleOrchestrator:
         selected_ir_json.write_text(json.dumps(asdict(selected), indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
         selected_note_count = self._write_candidate_midi(selected, selected_midi)
 
+        real_candidate_produced = any(candidate.source_backend in real_backends for candidate in candidates)
         report = {
             "status": "ok",
             "prompt_text": prompt,
@@ -269,7 +268,7 @@ class SymbolicEnsembleOrchestrator:
             "backend_availability_report_json": _to_repo_relative(output_root / "backend_availability_report.json"),
             "backend_availability_report_md": _to_repo_relative(output_root / "backend_availability_report.md"),
             "example_retrieval_fallback": fallback_used,
-            "no_real_symbolic_backend_available": no_real_symbolic_backend_available,
+            "no_real_symbolic_backend_available": not real_candidate_produced,
             "not_model_trained_on_user_data": True,
             "limitations": [
                 "No model weights are downloaded by this workflow.",

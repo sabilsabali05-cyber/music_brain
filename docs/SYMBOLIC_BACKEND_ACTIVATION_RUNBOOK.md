@@ -34,6 +34,12 @@ This runbook enables local pretrained symbolic inference gates for Text2MIDI, Mo
 - `scripts/dev.cmd run-musicbert-smoke-test`
 - `scripts/dev.cmd check-symbolic-backend-activation`
 
+## Dependency Notes
+
+- Text2MIDI smoke requires local `torch` importability in the active Python runtime.
+- If smoke fails with `ModuleNotFoundError: No module named 'torch'`, install only the missing dependency locally:
+  - `python -m pip install torch`
+
 ## Fallback Guidance
 
 - If all symbolic generation backends are unavailable, generation falls back to `example_retrieval + ruleset`.

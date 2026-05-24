@@ -9,11 +9,11 @@
 - midigpt_enabled: `False`
 - midigpt_available: `False`
 - midigpt_smoke_passed: `False`
-- text2midi_enabled: `False`
-- text2midi_available: `False`
-- text2midi_smoke_passed: `False`
+- text2midi_enabled: `True`
+- text2midi_available: `True`
+- text2midi_smoke_passed: `True`
 - cloud_symbolic_available: `False`
-- models_ready_for_generation: `False`
+- models_ready_for_generation: `True`
 - models_ready_for_ranking: `False`
 - trained_model_generation_allowed: `False`
 - model_training_has_occurred: `False`

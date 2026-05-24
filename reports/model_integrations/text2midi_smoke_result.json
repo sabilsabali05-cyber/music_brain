@@ -1,13 +1,13 @@
 {
-  "status": "disabled",
-  "text2midi_enabled": false,
-  "text2midi_available": false,
-  "real_smoke_passed": false,
-  "unavailable_reason": "disabled",
-  "artifact_report_generated": false,
-  "provenance_report_generated": false,
-  "artifact_report_path": "",
-  "provenance_report_path": "",
+  "status": "available",
+  "text2midi_enabled": true,
+  "text2midi_available": true,
+  "real_smoke_passed": true,
+  "unavailable_reason": "",
+  "artifact_report_generated": true,
+  "provenance_report_generated": true,
+  "artifact_report_path": "reports/model_integrations/text2midi_smoke_artifact.json",
+  "provenance_report_path": "reports/model_integrations/text2midi_smoke_provenance.json",
   "redacted_traceback_summary": "",
   "model_training_has_occurred": false
 }
