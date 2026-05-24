@@ -1,0 +1,213 @@
+# Human Review Batch 001
+
+- generated_at: `2026-05-24T17:13:17.059734+00:00`
+- selection_size: `50`
+
+## Selection rules
+- Prioritize musically dense/interesting rows.
+- Prioritize rows with harmony/motif hints and stronger provenance.
+- Prioritize near-eligible rows that can unblock train/validation.
+- Include generated MIDI rows requiring preference labels.
+- Cap batch at 50 items.
+
+## Items
+- item_id: `feedback_0001`
+  - source_artifact: `datasets/feedback/generation_feedback.jsonl`
+  - source_type: `generated_midi_feedback`
+  - priority_score: `4.0`
+- item_id: `generated_53edf334a3d543a6`
+  - source_artifact: `outputs/ballad_2min_v2_review_regen/review_regeneration_report.json`
+  - source_type: `generated_midi_feedback`
+  - priority_score: `4.0`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0067`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0068`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0069`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0098`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0106`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0107`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0108`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0109`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0113`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0114`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0116`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0117`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0118`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0119`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0120`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0125`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0148`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0151`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0153`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0158`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0161`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0165`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0166`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0168`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0181`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0186`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0204`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0207`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:global:0211`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0239`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0244`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0245`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0246`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0249`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0254`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0255`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0256`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0295`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0296`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0297`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0301`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0305`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0306`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0307`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0354`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0356`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir:20260521T204750163461_audio_structure_v1:chord_region:0374`
+  - source_artifact: `datasets/training_exports/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`
+- item_id: `20260521T213418203003_Sunday_Service_Choir_122621:20260521T213524641640_audio_structure_v1:global:0225`
+  - source_artifact: `datasets/training_exports/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/review_required_records.jsonl`
+  - source_type: `training_export`
+  - priority_score: `3.88`

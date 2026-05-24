@@ -97,6 +97,9 @@ function Show-Usage {
     Write-Host "  export-training-dataset-splits <performance-manifest>"
     Write-Host "  validate-training-export <export-folder>"
     Write-Host "  summarize-training-exports [exports-root]"
+    Write-Host "  normalize-music-corpus"
+    Write-Host "  promote-reviewed-corpus-splits"
+    Write-Host "  build-human-review-batch"
     Write-Host "  audit-dataset-quality-yield"
     Write-Host "  build-generative-examples <performance-manifest>"
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
@@ -998,6 +1001,21 @@ switch ($Task) {
         $target = if (-not [string]::IsNullOrWhiteSpace($exportsRoot)) { $exportsRoot } else { "datasets/training_exports" }
         Invoke-Step -Label "Summarizing training export manifests" -Command @(
             "python", "scripts/summarize_training_exports.py", $target
+        )
+    }
+    "normalize-music-corpus" {
+        Invoke-Step -Label "Normalizing DB-like artifacts into canonical corpus" -Command @(
+            "python", "scripts/normalize_music_corpus_artifacts.py"
+        )
+    }
+    "promote-reviewed-corpus-splits" {
+        Invoke-Step -Label "Promoting reviewed corpus rows to deterministic splits" -Command @(
+            "python", "scripts/promote_reviewed_corpus_splits.py"
+        )
+    }
+    "build-human-review-batch" {
+        Invoke-Step -Label "Building curated human review batch" -Command @(
+            "python", "scripts/build_human_review_batch.py"
         )
     }
     "audit-dataset-quality-yield" {

@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-24T17:13:16.031558+00:00",
+  "normalized_input_path": "C:/Users/izzyo/ai-composer/music_brain/datasets/normalized_music_corpus/normalized_music_corpus.jsonl",
+  "total_input_rows": 2497,
+  "train_rows": 0,
+  "validation_rows": 0,
+  "retrieval_only_rows": 152,
+  "review_required_rows": 2345,
+  "top_blockers": [
+    {
+      "reason": "not_accepted",
+      "count": 2345
+    },
+    {
+      "reason": "training_not_allowed",
+      "count": 152
+    }
+  ],
+  "rules": [
+    "Only accepted + training_allowed=true + policy complete + non-sparse labels are promoted.",
+    "Rows with missing policy fields cannot enter train/validation.",
+    "Sparse labels are routed to retrieval/reviewer pools.",
+    "Deterministic hash split (80/20) is used for train/validation assignment.",
+    "Generated MIDI rows require human review before supervised use."
+  ]
+}

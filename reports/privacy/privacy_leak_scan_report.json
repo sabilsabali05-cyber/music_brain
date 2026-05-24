@@ -104,6 +104,7 @@
     "tests/test_mass_ingestion_readiness.py",
     "tests/test_mass_ingestion_readiness_foundation.py",
     "tests/test_meter_time_features.py",
+    "tests/test_microtonal_composition_layer.py",
     "tests/test_midigpt_vertical_slice.py",
     "tests/test_modal_client.py",
     "tests/test_modal_diagnostics_helpers.py",
