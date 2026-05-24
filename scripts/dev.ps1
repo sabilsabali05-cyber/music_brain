@@ -124,6 +124,9 @@ function Show-Usage {
     Write-Host "  check-transcription-witnesses-setup"
     Write-Host "  run-transcription-witnesses-smoke-tests"
     Write-Host "  plan-transcription-witnesses"
+    Write-Host "  check-source-separation-setup"
+    Write-Host "  run-source-separation-smoke-tests"
+    Write-Host "  plan-source-separation-witness"
     Write-Host "  plan-full-model-activation <manifest>"
     Write-Host "  run-full-model-activation <manifest>"
     Write-Host "  build-music-evidence-fusion-plan"
@@ -1131,6 +1134,21 @@ switch ($Task) {
     "plan-transcription-witnesses" {
         Invoke-Step -Label "Planning transcription witness workflow" -Command @(
             "python", "scripts/plan_transcription_witnesses.py"
+        )
+    }
+    "check-source-separation-setup" {
+        Invoke-Step -Label "Checking source separation witness setup status" -Command @(
+            "python", "scripts/check_source_separation_setup.py"
+        )
+    }
+    "run-source-separation-smoke-tests" {
+        Invoke-Step -Label "Running source separation witness smoke scaffolds" -Command @(
+            "python", "scripts/run_source_separation_smoke_tests.py"
+        )
+    }
+    "plan-source-separation-witness" {
+        Invoke-Step -Label "Planning source separation witness workflow" -Command @(
+            "python", "scripts/plan_source_separation_witness.py"
         )
     }
     "plan-full-model-activation" {

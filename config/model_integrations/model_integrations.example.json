@@ -90,7 +90,15 @@
     },
     "clap": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "mulan_style": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "demucs": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "demucs": {
+      "enabled": false,
+      "package_required": "demucs",
+      "model_name": "htdemucs",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "output_dir": "<PATH_TO_REPO>",
+      "stem_policy": "weak_evidence_not_truth"
+    },
     "musicgen": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "audiocraft": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "musicgen_stem": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
