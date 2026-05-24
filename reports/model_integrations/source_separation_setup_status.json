@@ -1,0 +1,39 @@
+{
+  "status": "unavailable_safe",
+  "config_source": "config/model_integrations/model_integrations.example.json",
+  "demucs_configured": false,
+  "demucs_available": false,
+  "smoke_test_passed": false,
+  "source_separation_performed": false,
+  "stems_generated": false,
+  "downloads_performed": false,
+  "model_training_has_occurred": false,
+  "witness_policy": "weak_evidence_not_truth",
+  "training_use_allowed": "false_by_default",
+  "demucs_unavailable_reason": "disabled_or_missing_local_config",
+  "demucs_details": {
+    "configured": false,
+    "available": false,
+    "unavailable_reason": "disabled_or_missing_local_config",
+    "package_required": "demucs",
+    "model_name": "htdemucs",
+    "device": "<DEVICE>",
+    "output_dir": "<PATH_TO_REPO>",
+    "stem_policy": "weak_evidence_not_truth"
+  },
+  "audio_processing_performed": false,
+  "limitations": [
+    "Setup check is witness-only and does not process audio.",
+    "No stem separation is executed and no downloads are performed.",
+    "Stem outputs are weak evidence and never ground truth."
+  ],
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.demucs.enabled=true only when explicit witness execution is intentionally enabled.",
+  "smoke_tests_performed": [],
+  "generated_stem_paths": [],
+  "no_fake_stems": true,
+  "smoke_test_notes": [
+    "Smoke tests validate witness-only source separation semantics.",
+    "No audio processing, no stem separation, and no model downloads were performed.",
+    "Stem outputs remain weak evidence and not ground truth."
+  ]
+}
