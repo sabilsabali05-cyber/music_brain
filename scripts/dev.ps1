@@ -118,6 +118,9 @@ function Show-Usage {
     Write-Host "  check-text2midi-setup"
     Write-Host "  run-text2midi-smoke-test"
     Write-Host "  generate-text2midi-prompt-sketch-scaffold"
+    Write-Host "  check-audio-understanding-setup"
+    Write-Host "  run-audio-understanding-smoke-tests"
+    Write-Host "  plan-audio-texture-embedding"
     Write-Host "  write-model-integration-roadmap"
     Write-Host "  plan-symbolic-generation <generative-dataset-folder> [task]"
     Write-Host "  plan-ratio-analysis <performance-manifest>"
@@ -1092,6 +1095,21 @@ switch ($Task) {
     "generate-text2midi-prompt-sketch-scaffold" {
         Invoke-Step -Label "Generating Text2MIDI prompt sketch scaffold report" -Command @(
             "python", "scripts/generate_text2midi_prompt_sketch_scaffold.py"
+        )
+    }
+    "check-audio-understanding-setup" {
+        Invoke-Step -Label "Checking audio understanding local setup status" -Command @(
+            "python", "scripts/check_audio_understanding_setup.py"
+        )
+    }
+    "run-audio-understanding-smoke-tests" {
+        Invoke-Step -Label "Running audio understanding minimal smoke tests" -Command @(
+            "python", "scripts/run_audio_understanding_smoke_tests.py"
+        )
+    }
+    "plan-audio-texture-embedding" {
+        Invoke-Step -Label "Planning audio texture embedding workflow" -Command @(
+            "python", "scripts/plan_audio_texture_embedding.py"
         )
     }
     "write-model-integration-roadmap" {
