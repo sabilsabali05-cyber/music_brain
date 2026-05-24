@@ -1,0 +1,78 @@
+{
+  "manifest_version": 1,
+  "activation_name": "full_model_activation_scaffold_v1",
+  "execute": false,
+  "training_allowed": false,
+  "human_review_required": true,
+  "export_training_dataset": false,
+  "allow_flags": {
+    "allow_audio_processing": false,
+    "allow_source_separation": false,
+    "allow_transcription": false,
+    "allow_embeddings": false,
+    "allow_symbolic_generation": false,
+    "allow_training_export": false
+  },
+  "inputs": [
+    {
+      "input_id": "example_input_1",
+      "kind": "full_mix_audio",
+      "source_policy": "authorized_user_owned",
+      "authorization_status": "authorized_for_processing",
+      "explicitly_authorized_for_execution": false,
+      "reference": "samples/input/.gitkeep"
+    }
+  ],
+  "models": {
+    "demucs": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "yourmt3": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "basic_pitch": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "muq": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "mert": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "essentia": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "moonbeam": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "midigpt": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "text2midi": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    },
+    "musicbert": {
+      "enabled": false,
+      "required_for_execution": false,
+      "allow_execute": false
+    }
+  }
+}

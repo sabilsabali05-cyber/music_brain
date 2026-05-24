@@ -1,0 +1,48 @@
+{
+  "status": "planned",
+  "fusion_performed": false,
+  "graph_generated": false,
+  "model_training_has_occurred": false,
+  "summary": [
+    "Fuse full-mix and stem-level evidence as weighted witnesses, never as automatic ground truth.",
+    "Compare transcription witnesses (yourmt3/basic_pitch) for agreement and preserve witness_not_truth semantics.",
+    "Treat demucs as weak evidence with explicit confidence penalties and review gating.",
+    "Combine essentia, muq, and mert evidence into retrieval/ranking context only.",
+    "Feed symbolic ranking and human feedback outcomes into preference rankers, not direct training here."
+  ],
+  "sources": [
+    {
+      "source_id": "full_mix_features",
+      "source_type": "mix_level_witness",
+      "witness_semantics": "witness_not_truth",
+      "enabled": true,
+      "available": true,
+      "contribution": "global rhythmic, harmonic, and density context"
+    },
+    {
+      "source_id": "stem_features_demucs",
+      "source_type": "stem_level_weak_evidence",
+      "witness_semantics": "weak_evidence_requires_review",
+      "enabled": false,
+      "available": false,
+      "contribution": "optional stem isolation witness with confidence penalty"
+    },
+    {
+      "source_id": "transcription_witnesses",
+      "source_type": "symbolic_witness",
+      "witness_semantics": "witness_not_truth",
+      "enabled": false,
+      "available": false,
+      "contribution": "cross-model agreement and disagreement features"
+    },
+    {
+      "source_id": "audio_understanding_embeddings",
+      "source_type": "embedding_witness",
+      "witness_semantics": "witness_not_truth",
+      "enabled": false,
+      "available": false,
+      "contribution": "essentia/muq/mert support for retrieval and ranking"
+    }
+  ],
+  "created_at": "2026-05-24T01:54:21.695588+00:00"
+}

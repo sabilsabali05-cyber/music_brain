@@ -1,5 +1,5 @@
 {
-  "status": "unavailable",
+  "status": "ok",
   "essentia_configured": false,
   "essentia_available": false,
   "muq_configured": false,
@@ -47,9 +47,5 @@
     "Checker is configuration-only and import-probe-only; no audio processing is performed.",
     "No model downloads and no model training are performed.",
     "All adapters are disabled by default until explicitly enabled in local config."
-  ],
-  "smoke_test_notes": [
-    "Smoke tests only run dependency probes when models are explicitly enabled in local config.",
-    "No audio processing, no embedding generation, no downloads, and no training are performed."
   ]
 }
