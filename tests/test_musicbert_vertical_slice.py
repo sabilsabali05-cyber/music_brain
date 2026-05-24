@@ -113,10 +113,10 @@ def test_musicbert_preferred_symbolic_ranking_backend() -> None:
     plan = SymbolicEnsembleOrchestrator.symbolic_routing_plan()
     assert "ranking" in plan["musicbert_preferred_for"]
     assert "evaluation" in plan["musicbert_preferred_for"]
-    assert "symbolic_similarity" in plan["musicbert_preferred_for"]
-    assert "accompaniment_fit" in plan["musicbert_preferred_for"]
-    assert "melody_fit" in plan["musicbert_preferred_for"]
-    assert "taste_ranker_future_target" in plan["musicbert_preferred_for"]
+    assert "symbolic similarity" in plan["musicbert_preferred_for"]
+    assert "accompaniment fit" in plan["musicbert_preferred_for"]
+    assert "melody fit" in plan["musicbert_preferred_for"]
+    assert "taste-ranker future target" in plan["musicbert_preferred_for"]
 
 
 def test_model_training_has_occurred_remains_false() -> None:

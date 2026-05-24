@@ -1,0 +1,34 @@
+{
+  "status": "unavailable",
+  "midigpt_available": false,
+  "unavailable_reason": "disabled_in_config",
+  "requested_variation_types": [
+    "drum_variation",
+    "groove_variation",
+    "density_variation",
+    "multitrack_infill"
+  ],
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "candidate_id": "example_retrieval_885bde2088",
+      "candidate_ir_json": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_885bde2088.ir.json",
+      "status": "pending_midigpt_variation_generation"
+    },
+    {
+      "candidate_id": "example_retrieval_ebe8df4aa3",
+      "candidate_ir_json": "outputs/symbolic_ensemble_v1/generated_candidates/example_retrieval_ebe8df4aa3.ir.json",
+      "status": "pending_midigpt_variation_generation"
+    }
+  ],
+  "variations_generated": false,
+  "no_fake_generation": true,
+  "generated_midi_outputs": [],
+  "scores_generated": false,
+  "model_training_has_occurred": false,
+  "limitations": [
+    "No fake MIDI output is generated when MIDI-GPT is unavailable.",
+    "No fake ranking/evaluation scores are produced.",
+    "No training is performed."
+  ]
+}
