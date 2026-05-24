@@ -1,0 +1,14 @@
+{
+  "status": "planned_no_evidence",
+  "graph_generated": false,
+  "graph_id": "voice_interaction_graph_v1",
+  "voices": [],
+  "interactions": [],
+  "witness_not_truth": true,
+  "witness_sources": [],
+  "created_at": "2026-05-24T03:06:09.307847+00:00",
+  "output_files": [
+    "reports/music_cognition/voice_interaction_graph.json",
+    "reports/music_cognition/voice_interaction_graph.md"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "status": "unavailable_safe",
+  "status": "ok",
   "config_source": "config/model_integrations/model_integrations.example.json",
   "demucs_configured": false,
   "demucs_available": false,
@@ -27,13 +27,5 @@
     "No stem separation is executed and no downloads are performed.",
     "Stem outputs are weak evidence and never ground truth."
   ],
-  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.demucs.enabled=true only when explicit witness execution is intentionally enabled.",
-  "smoke_tests_performed": [],
-  "generated_stem_paths": [],
-  "no_fake_stems": true,
-  "smoke_test_notes": [
-    "Smoke tests validate witness-only source separation semantics.",
-    "No audio processing, no stem separation, and no model downloads were performed.",
-    "Stem outputs remain weak evidence and not ground truth."
-  ]
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.demucs.enabled=true only when explicit witness execution is intentionally enabled."
 }

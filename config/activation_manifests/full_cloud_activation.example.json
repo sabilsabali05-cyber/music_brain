@@ -1,0 +1,82 @@
+{
+  "manifest_version": 2,
+  "activation_name": "full_cloud_activation_scaffold_v1",
+  "execute": false,
+  "allow_cloud_execution": false,
+  "allow_cloud_upload": false,
+  "allow_ableton_export": false,
+  "training_allowed": false,
+  "human_review_required": true,
+  "max_budget_usd": 0.0,
+  "input_authorization": {
+    "authorization_status": "unknown",
+    "explicitly_authorized_for_execution": false
+  },
+  "inputs": [
+    {
+      "input_id": "example_input_1",
+      "kind": "full_mix_audio",
+      "reference": "samples/input/.gitkeep"
+    }
+  ],
+  "models": {
+    "demucs": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "essentia": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "muq": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "mert": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "yourmt3": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "basic_pitch": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "text2midi": {
+      "enabled": false,
+      "provider": "huggingface",
+      "allow_execute": false
+    },
+    "moonbeam": {
+      "enabled": false,
+      "provider": "replicate",
+      "allow_execute": false
+    },
+    "midigpt": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    },
+    "musicbert": {
+      "enabled": false,
+      "provider": "modal",
+      "allow_execute": false
+    }
+  },
+  "stage_overrides": {
+    "voice_interaction_graph": {
+      "enabled": true
+    },
+    "ableton_review_export_plan": {
+      "enabled": true
+    }
+  }
+}

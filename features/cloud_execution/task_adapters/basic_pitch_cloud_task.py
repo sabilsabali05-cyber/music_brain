@@ -1,0 +1,41 @@
+from __future__ import annotations
+
+from typing import Any
+
+from features.cloud_execution.cloud_job_schema import CloudJobResult
+
+
+def describe_task() -> dict[str, Any]:
+    return {
+        "task_type": "basic_pitch_transcription_witness",
+        "model_id": "basic_pitch",
+        "evidence_policy": "transcription=witness_not_truth",
+    }
+
+
+def estimate_cost(input_payload: dict[str, Any]) -> float:
+    duration = float(input_payload.get("duration_seconds", 0.0))
+    return round((duration / 60.0) * 0.02, 4)
+
+
+def validate_inputs(input_payload: dict[str, Any]) -> tuple[bool, str]:
+    return (bool(input_payload.get("input_id")), "ok" if input_payload.get("input_id") else "missing_input_id")
+
+
+def plan_job(input_payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "task_type": "basic_pitch_transcription_witness",
+        "estimated_cost_usd": estimate_cost(input_payload),
+        "planned_only": True,
+    }
+
+
+def run_job(input_payload: dict[str, Any]) -> CloudJobResult:
+    return CloudJobResult(
+        status="skipped_dry_run" if not bool(input_payload.get("execute", False)) else "skipped_unauthorized",
+        reason="execute_false" if not bool(input_payload.get("execute", False)) else "adapter_requires_external_policy_gate",
+        task_type="basic_pitch_transcription_witness",
+        provider_id=str(input_payload.get("provider_id", "unknown")),
+        model_id="basic_pitch",
+        input_id=str(input_payload.get("input_id", "unknown")),
+    )

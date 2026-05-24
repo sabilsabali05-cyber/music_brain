@@ -1,0 +1,114 @@
+{
+  "status": "planned_dry_run",
+  "created_at": "2026-05-24T03:06:08.552914+00:00",
+  "manifest_path": "<PRIVATE_USERS_PATH>",
+  "manifest_version": 2,
+  "execute": false,
+  "allow_cloud_execution": false,
+  "allow_cloud_upload": false,
+  "allow_ableton_export": false,
+  "validation_errors": [],
+  "validation_passed": true,
+  "stage_results": [
+    {
+      "stage": "source_separation_demucs",
+      "model_id": "demucs",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "audio_embedding_essentia",
+      "model_id": "essentia",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "audio_embedding_muq",
+      "model_id": "muq",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "audio_embedding_mert",
+      "model_id": "mert",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "transcription_witness_yourmt3",
+      "model_id": "yourmt3",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "transcription_witness_basic_pitch",
+      "model_id": "basic_pitch",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "symbolic_generation_text2midi",
+      "model_id": "text2midi",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "symbolic_generation_moonbeam",
+      "model_id": "moonbeam",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "symbolic_generation_midigpt",
+      "model_id": "midigpt",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "ranking_musicbert",
+      "model_id": "musicbert",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled"
+    },
+    {
+      "stage": "voice_interaction_graph",
+      "status": "planned_no_evidence",
+      "reason": "no_evidence_inputs"
+    },
+    {
+      "stage": "ableton_review_export_plan",
+      "status": "planned_only",
+      "reason": "plan_stage_only"
+    },
+    {
+      "stage": "ableton_export",
+      "status": "skipped_cloud_upload_not_allowed",
+      "reason": "allow_ableton_export_false"
+    },
+    {
+      "stage": "training",
+      "status": "skipped_training_not_allowed",
+      "reason": "training_jobs_not_supported_in_this_branch"
+    }
+  ],
+  "policy_limits": {
+    "cloud_disabled_by_default": true,
+    "no_cloud_without_execute_and_allow": true,
+    "no_cloud_without_authorized_input": true,
+    "no_cloud_without_budget": true,
+    "no_training_jobs_in_this_branch": true
+  },
+  "provenance_outputs": [],
+  "no_fake_output_guarantee": true,
+  "cloud_jobs_started": false,
+  "uploads_performed": false,
+  "downloads_performed": false,
+  "audio_processing_performed": false,
+  "source_separation_performed": false,
+  "transcription_performed": false,
+  "embeddings_generated": false,
+  "symbolic_generation_performed": false,
+  "ranking_performed": false,
+  "ableton_export_performed": false,
+  "training_performed": false
+}

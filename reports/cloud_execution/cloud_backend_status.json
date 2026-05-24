@@ -1,0 +1,77 @@
+{
+  "status": "ok",
+  "created_at": "2026-05-24T03:06:00.795942+00:00",
+  "cloud_execution_available": false,
+  "cloud_config_source": "<PRIVATE_USERS_PATH>",
+  "cloud_enabled": false,
+  "dry_run_only": true,
+  "providers": {
+    "modal": {
+      "provider_id": "modal",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "modal_token_id",
+        "modal_token_secret"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    },
+    "huggingface": {
+      "provider_id": "huggingface",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "hf_token"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    },
+    "replicate": {
+      "provider_id": "replicate",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "replicate_api_token"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    }
+  },
+  "provider_available_flags": {
+    "modal": false,
+    "hf": false,
+    "replicate": false
+  },
+  "env_var_presence_only": {
+    "modal_auth_present": false,
+    "hf_auth_present": false,
+    "replicate_auth_present": false
+  },
+  "missing_secret_names": {
+    "modal": [
+      "modal_token_id",
+      "modal_token_secret"
+    ],
+    "huggingface": [
+      "hf_token"
+    ],
+    "replicate": [
+      "replicate_api_token"
+    ]
+  },
+  "cloud_jobs_started": false,
+  "uploads_performed": false,
+  "downloads_performed": false,
+  "audio_processing_performed": false,
+  "source_separation_performed": false,
+  "transcription_performed": false,
+  "embeddings_generated": false,
+  "symbolic_generation_performed": false,
+  "ranking_performed": false,
+  "ableton_export_performed": false,
+  "training_performed": false
+}

@@ -1,8 +1,9 @@
-# Source Separation Smoke Test Status
+# Source Separation Setup Status
 
-- status: `unavailable_safe`
-- smoke_test_passed: `False`
+- config_source: `config/model_integrations/model_integrations.example.json`
+- demucs_configured: `False`
 - demucs_available: `False`
+- smoke_test_passed: `False`
 - source_separation_performed: `False`
 - stems_generated: `False`
 - downloads_performed: `False`

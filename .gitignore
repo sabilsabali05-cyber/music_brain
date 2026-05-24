@@ -47,6 +47,9 @@ config/model_integrations/*.local.json
 config/synplant/*.local.json
 config/symbolic_backends/*.local.json
 config/activation_manifests/*.local.json
+config/cloud_backends/*.local.json
+.env.local
+.env.*.local
 
 # Tangible demo seed suggestions may include private local paths
 outputs/tangible_generation_v1/*seed_suggestions*.json

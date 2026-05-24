@@ -1,0 +1,32 @@
+{
+  "manifest_version": 1,
+  "cloud_enabled": false,
+  "dry_run_only": true,
+  "default_budget_usd": 0.0,
+  "providers": {
+    "modal": {
+      "enabled": false,
+      "allow_cloud_execution": false,
+      "allow_upload": false,
+      "dry_run_only": true,
+      "api_base_url": "https://api.modal.com",
+      "required_env_vars": ["modal_token_id", "modal_token_secret"]
+    },
+    "huggingface": {
+      "enabled": false,
+      "allow_cloud_execution": false,
+      "allow_upload": false,
+      "dry_run_only": true,
+      "api_base_url": "https://api-inference.huggingface.co",
+      "required_env_vars": ["hf_token"]
+    },
+    "replicate": {
+      "enabled": false,
+      "allow_cloud_execution": false,
+      "allow_upload": false,
+      "dry_run_only": true,
+      "api_base_url": "https://api.replicate.com",
+      "required_env_vars": ["replicate_api_token"]
+    }
+  }
+}

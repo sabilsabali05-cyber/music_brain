@@ -127,6 +127,11 @@ function Show-Usage {
     Write-Host "  check-source-separation-setup"
     Write-Host "  run-source-separation-smoke-tests"
     Write-Host "  plan-source-separation-witness"
+    Write-Host "  check-cloud-backends"
+    Write-Host "  plan-cloud-full-activation <manifest>"
+    Write-Host "  run-cloud-full-activation <manifest>"
+    Write-Host "  build-voice-interaction-graph"
+    Write-Host "  plan-ableton-review-export-from-activation"
     Write-Host "  plan-full-model-activation <manifest>"
     Write-Host "  run-full-model-activation <manifest>"
     Write-Host "  build-music-evidence-fusion-plan"
@@ -1149,6 +1154,33 @@ switch ($Task) {
     "plan-source-separation-witness" {
         Invoke-Step -Label "Planning source separation witness workflow" -Command @(
             "python", "scripts/plan_source_separation_witness.py"
+        )
+    }
+    "check-cloud-backends" {
+        Invoke-Step -Label "Checking cloud backend configuration gates" -Command @(
+            "python", "scripts/check_cloud_backends.py"
+        )
+    }
+    "plan-cloud-full-activation" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd plan-cloud-full-activation <manifest>"
+        Invoke-Step -Label "Planning cloud full activation scaffold" -Command @(
+            "python", "scripts/plan_cloud_full_activation.py", $manifestPath
+        )
+    }
+    "run-cloud-full-activation" {
+        $manifestPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd run-cloud-full-activation <manifest>"
+        Invoke-Step -Label "Running cloud full activation scaffold" -Command @(
+            "python", "scripts/run_cloud_full_activation.py", $manifestPath
+        )
+    }
+    "build-voice-interaction-graph" {
+        Invoke-Step -Label "Building voice interaction graph scaffold" -Command @(
+            "python", "scripts/build_voice_interaction_graph.py"
+        )
+    }
+    "plan-ableton-review-export-from-activation" {
+        Invoke-Step -Label "Planning Ableton review export from activation" -Command @(
+            "python", "scripts/plan_ableton_review_export_from_activation.py"
         )
     }
     "plan-full-model-activation" {

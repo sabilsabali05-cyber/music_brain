@@ -82,6 +82,9 @@
     "tests/test_benchmark_segments.py",
     "tests/test_benchmark_track.py",
     "tests/test_cli_output.py",
+    "tests/test_cloud_execution_policy.py",
+    "tests/test_cloud_full_activation.py",
+    "tests/test_cloud_task_adapters.py",
     "tests/test_compare_analyses.py",
     "tests/test_compare_segmentations.py",
     "tests/test_content_routing.py",
@@ -135,6 +138,7 @@
     "tests/test_transcription_factory.py",
     "tests/test_transcription_witnesses_vertical_slice.py",
     "tests/test_validate_track.py",
+    "tests/test_voice_interaction_activation.py",
     "tests/test_yourmt3_modal_client.py",
     "tests/test_yourmt3_modal_pipeline.py"
   ],

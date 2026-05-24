@@ -1,0 +1,184 @@
+{
+  "status": "planned_dry_run",
+  "created_at": "2026-05-24T03:06:07.769739+00:00",
+  "manifest_path": "<PRIVATE_USERS_PATH>",
+  "manifest_version": 2,
+  "execute": false,
+  "allow_cloud_execution": false,
+  "allow_cloud_upload": false,
+  "max_budget_usd": 0.0,
+  "validation_errors": [],
+  "validation_passed": true,
+  "providers": {
+    "modal": {
+      "provider_id": "modal",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "modal_token_id",
+        "modal_token_secret"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    },
+    "huggingface": {
+      "provider_id": "huggingface",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "hf_token"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    },
+    "replicate": {
+      "provider_id": "replicate",
+      "configured": false,
+      "available": false,
+      "dry_run_only": true,
+      "missing_secret_names": [
+        "replicate_api_token"
+      ],
+      "allow_cloud_execution": false,
+      "allow_upload": false
+    }
+  },
+  "policy_limits": {
+    "cloud_disabled_by_default": true,
+    "no_cloud_without_execute_and_allow": true,
+    "no_cloud_without_authorized_input": true,
+    "no_cloud_without_budget": true,
+    "no_training_jobs_in_this_branch": true
+  },
+  "stage_plan": [
+    {
+      "stage": "source_separation_demucs",
+      "model_id": "demucs",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "audio_embedding_essentia",
+      "model_id": "essentia",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "audio_embedding_muq",
+      "model_id": "muq",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "audio_embedding_mert",
+      "model_id": "mert",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "transcription_witness_yourmt3",
+      "model_id": "yourmt3",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "transcription_witness_basic_pitch",
+      "model_id": "basic_pitch",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "symbolic_generation_text2midi",
+      "model_id": "text2midi",
+      "provider": "huggingface",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "symbolic_generation_moonbeam",
+      "model_id": "moonbeam",
+      "provider": "replicate",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "symbolic_generation_midigpt",
+      "model_id": "midigpt",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "ranking_musicbert",
+      "model_id": "musicbert",
+      "provider": "modal",
+      "mode": "none",
+      "status": "skipped_not_requested",
+      "reason": "manifest_model_disabled",
+      "integration_available": false
+    },
+    {
+      "stage": "voice_interaction_graph",
+      "mode": "local_plan_only",
+      "status": "planned_dry_run",
+      "reason": "no_execution"
+    },
+    {
+      "stage": "ableton_review_export_plan",
+      "mode": "local_plan_only",
+      "status": "planned_dry_run",
+      "reason": "no_execution"
+    },
+    {
+      "stage": "ableton_export",
+      "mode": "local_plan_only",
+      "status": "planned_dry_run",
+      "reason": "no_execution"
+    },
+    {
+      "stage": "training",
+      "mode": "blocked",
+      "status": "skipped_training_not_allowed",
+      "reason": "training_jobs_not_supported_in_this_branch"
+    }
+  ],
+  "provenance_outputs": [],
+  "no_fake_output_guarantee": true,
+  "cloud_jobs_started": false,
+  "uploads_performed": false,
+  "downloads_performed": false,
+  "audio_processing_performed": false,
+  "source_separation_performed": false,
+  "transcription_performed": false,
+  "embeddings_generated": false,
+  "symbolic_generation_performed": false,
+  "ranking_performed": false,
+  "ableton_export_performed": false,
+  "training_performed": false
+}
