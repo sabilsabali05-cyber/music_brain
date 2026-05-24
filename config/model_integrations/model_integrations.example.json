@@ -14,7 +14,16 @@
     },
     "midigpt": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "text2midi": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "musicbert": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "musicbert": {
+      "enabled": false,
+      "repo_path": "<PATH_TO_REPO>",
+      "model_path": "<PATH_TO_MODEL>",
+      "tokenizer_path": "<PATH_TO_MODEL>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "embedding_dim": 768,
+      "output_dir": "<PATH_TO_REPO>"
+    },
     "yourmt3": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "basic_pitch": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "muq": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },

@@ -19,7 +19,10 @@
   "musicbert_preferred_for": [
     "ranking",
     "evaluation",
-    "symbolic_similarity"
+    "symbolic_similarity",
+    "accompaniment_fit",
+    "melody_fit",
+    "taste_ranker_future_target"
   ],
   "fallback_policy": "example_retrieval_only_when_no_real_symbolic_backend_available",
   "model_training_has_occurred": false,

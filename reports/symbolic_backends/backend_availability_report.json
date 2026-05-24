@@ -28,7 +28,7 @@
         "candidate_ranking"
       ],
       "status": "unavailable",
-      "reason": "disabled_in_config",
+      "reason": "disabled_or_missing_local_config",
       "limitations": []
     },
     {
