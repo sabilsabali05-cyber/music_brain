@@ -208,6 +208,9 @@ function Show-Usage {
     Write-Host "  evaluate-composition-taste-ranker"
     Write-Host "  generate-ranked-midi-candidates"
     Write-Host "  run-music-understanding-loop"
+    Write-Host "  internal-beat-loop [--interval-seconds N] [--max-iterations N]"
+    Write-Host "  internal-beat-loop-status"
+    Write-Host "  stop-internal-beat-loop"
     Write-Host "  ingest-output-feedback [--input <path>]"
     Write-Host "  setup-beat-battle-browser-session"
     Write-Host "  detect-beat-battle-round"
@@ -219,6 +222,8 @@ function Show-Usage {
     Write-Host "  render-beat-battle-submission"
     Write-Host "  submit-beat-battle-entry [--manual-submit-confirmed]"
     Write-Host "  check-beat-battle-result"
+    Write-Host "  beat-battle-session-loop [--poll-seconds N] [--wait-for-result-entry] [--max-wait-seconds N]"
+    Write-Host "  beat-battle-session-loop-watch [--poll-seconds N]"
     Write-Host "  beat-battle-ranked-site-auto"
     Write-Host "  commit-checkpoint [commit message]"
 }
@@ -1724,6 +1729,21 @@ switch ($Task) {
             "python", "scripts/run_music_understanding_loop.py"
         )
     }
+    "internal-beat-loop" {
+        $command = @("python", "scripts/internal_beat_loop.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running continuous internal beat generation loop" -Command $command
+    }
+    "internal-beat-loop-status" {
+        Invoke-Step -Label "Inspecting internal beat loop status" -Command @(
+            "python", "scripts/internal_beat_loop_status.py"
+        )
+    }
+    "stop-internal-beat-loop" {
+        Invoke-Step -Label "Stopping internal beat loop" -Command @(
+            "python", "scripts/stop_internal_beat_loop.py"
+        )
+    }
     "ingest-output-feedback" {
         $inputPath = Get-TaskArg -Index 0
         $command = @("python", "scripts/ingest_output_feedback.py")
@@ -1781,6 +1801,16 @@ switch ($Task) {
         Invoke-Step -Label "Checking Beat Battle round result" -Command @(
             "python", "scripts/check_beat_battle_result.py"
         )
+    }
+    "beat-battle-session-loop" {
+        $command = @("python", "scripts/beat_battle_session_loop.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running Beat Battle session loop (single launcher)" -Command $command
+    }
+    "beat-battle-session-loop-watch" {
+        $command = @("python", "scripts/beat_battle_session_loop.py", "--watch")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running Beat Battle session loop watcher" -Command $command
     }
     "beat-battle-ranked-site-auto" {
         Invoke-Step -Label "Running Beat Battle ranked site automation" -Command @(
