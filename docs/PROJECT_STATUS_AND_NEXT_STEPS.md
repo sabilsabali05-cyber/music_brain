@@ -1,44 +1,31 @@
 # Project Status And Next Steps
 
 ## Current Status
-- Branch under audit: `cursor/actually-activate-moonbeam-hf-v1`
-- Main baseline: `5a85e10f98d9115c2395b316e68ad81f026b9711`
-- Consolidation status: active branch families are present, but overlapping sibling branches still create merge/conflict risk.
-- Execution truth: model/cloud paths are mostly scaffolded or dry-run; no fake "active" status is reported.
 
-## What Is Real Today
-- Test suite passes locally (`371 passed`).
-- Privacy scans report zero new leaks (with historical debt still present).
-- Integration inventory and model integration reports are generated.
-- Symbolic and ballad reporting artifacts are present.
-- Branch history contains generated MIDI artifacts, though no MIDI files are currently in this working tree snapshot.
+- Active integration branch: `cursor/integrate-loose-threads-complete-pipeline-v1`.
+- One-command local orchestrator is now wired: `scripts/dev.cmd generate-complete-song-wav`.
+- Complete command emits truthful status outputs and review artifacts (no fake WAV/chordpotion/training claims).
+- Cloud calls remain intentionally out of scope for this pass.
 
-## What Is Still Scaffold / Blocked
-- Full activation run remains dry-run (`execute_allowed=false`).
-- Controlled ingestion runner currently reports dry-run only for this phase.
-- Cloud execution has no real run evidence (`modal_called=false` in audited run reports).
-- Model integrations report `available_count=0`; no backend is currently active for real generation/execution.
-- Microtonal and hum-to-MIDI are currently design artifacts, not runnable branch workflows.
+## What Works
 
-## Top 5 Blockers
-- Historical path/privacy debt remains non-zero.
-- No locally available real backend despite one configured integration.
-- Mass ingestion remains blocked by review burden + training-tokenization readiness gaps.
-- Activation/cloud execution remains dry-run and non-executing.
-- Overlapping activation branches increase consolidation/merge risk.
+- Deterministic local stem generation (skeleton, bass, lead, optional drums).
+- Optional chordpotion path with explicit `missing_config` fallback behavior.
+- VST render-plan generation and local render attempt gate.
+- Assisted pack fallback path when verified WAV is unavailable.
+- Integration reports for loose-thread inventory, decisions, blockers, and privacy debt.
 
-## Next 5 Recommended Jobs
-- **Job 1:** Run historical scrub planning/apply-safe loop and reduce privacy debt to zero.
-- **Job 2:** Execute one controlled batch witness with explicit local manifest + strict policy logs.
-- **Job 3:** Enable one symbolic backend in local config and produce one real local smoke witness.
-- **Job 4:** Collapse sibling activation branches into one canonical consolidation branch.
-- **Job 5:** Implement minimal runnable microtonal and hum-to-MIDI local scaffolds with tests.
+## What Is Blocked / Experimental
 
-## Branch Consolidation Guidance
-- Keep merge-ready branch order tight:
-  1. `cursor/activate-symbolic-backends-v1`
-  2. `cursor/actually-activate-moonbeam-hf-v1`
-  3. `cursor/ableton-agent-bridge-v1`
-  4. `cursor/cloud-full-activation-v1`
-- Treat `backup/mixed-cloud-ableton-before-split` as archival/reference unless intentionally revived.
-- De-prioritize stale branches with large behind counts unless they contain unique artifacts.
+- Reaper automation remains partially scaffolded (`planned_not_executed` in many runs).
+- ChordPotion transformed MIDI capture is not guaranteed by automation.
+- Selector training is blocked unless explicit labeled outcomes exist.
+- Privacy scan currently reports failures that must be resolved before merge.
+
+## Immediate Next Steps
+
+- Fix current `check-privacy-leaks` failures and re-run strict privacy gate.
+- Keep local config files private and untracked; only commit redacted/boolean reports.
+- Verify complete command output in local environment and confirm `wav_status` is honest.
+- If WAV is not rendered, use assisted pack workflow and capture manual review feedback.
+- Merge only after tests and privacy checks pass with no new regressions.

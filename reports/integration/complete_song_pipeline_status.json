@@ -1,0 +1,51 @@
+{
+  "generation_id": "complete_song_v1",
+  "local_mode_only": true,
+  "cloud_called": false,
+  "load_local_config": {
+    "local_render_config_present": true,
+    "local_vst_registry_present": true
+  },
+  "profiles_loaded": {
+    "corpus_records_count": 2497,
+    "theory_profiles_count": 10,
+    "texture_profiles_available": true
+  },
+  "generation_intent_path": "outputs/complete_song_v1/generation_intent.json",
+  "stems_generated": {
+    "skeleton": true,
+    "bass": true,
+    "lead": true,
+    "optional_drums": true
+  },
+  "chordpotion": {
+    "configured": true,
+    "available": true,
+    "attempted": true,
+    "status": "attempted_no_transform_capture",
+    "transformed_midi_captured": false
+  },
+  "render": {
+    "reaper_status": "available",
+    "vst_status": "configured",
+    "render_backend_status": "planned_not_executed",
+    "wav_rendered": false,
+    "final_wav_path": "",
+    "assisted_pack_path": "outputs/render_ready_packs/complete_song_v1"
+  },
+  "selector": {
+    "selector_status": "heuristic_or_unconfirmed",
+    "trained_selector_used": false
+  },
+  "training": {
+    "training_status": "labels_present_trained_selector_unconfirmed",
+    "labeled_examples_count": 1
+  },
+  "fallback_paths": {
+    "direct_stems_render_fallback_used": true,
+    "assisted_pack_created": true
+  },
+  "blockers": [
+    "final_wav_not_verified"
+  ]
+}

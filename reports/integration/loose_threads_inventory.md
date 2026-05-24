@@ -1,0 +1,28 @@
+# Loose Threads Inventory
+
+Generated for branch `cursor/integrate-loose-threads-complete-pipeline-v1`.
+
+## Inventory Items
+
+- **complete_pipeline_orchestrator** (`scripts/generate_complete_song_wav.py`) status=`merged_candidate`; one local end-to-end command; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`low`; artifact_risk=`medium`; next=`keep_and_validate`.
+- **deterministic_skeleton_generation** (`scripts/generate_chordpotion_ready_skeleton.py`) status=`merged_candidate`; generates local deterministic skeleton/bass/lead; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`low`; artifact_risk=`low`; next=`reuse_without_duplication`.
+- **chordpotion_transform_planner** (`scripts/build_chordpotion_transform_plan.py`) status=`merged_candidate`; writes local-only transform plan with blocked truth flags; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`low`; artifact_risk=`low`; next=`reuse_for_optional_stage`.
+- **chordpotion_audition_flow** (`scripts/audition_chordpotion_presets.py`) status=`useful_unmerged`; scores/chooses presets and records blocked states; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`no automatic transformed MIDI capture`; privacy_risk=`low`; artifact_risk=`medium`; next=`wire_as_optional_and_truth_guarded`.
+- **chordpotion_reaper_runner** (`scripts/render_chordpotion_with_reaper.py`) status=`useful_unmerged`; chordpotion render backend with honest plan-only behavior; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`automation remains scaffold`; privacy_risk=`low`; artifact_risk=`medium`; next=`keep_with_fallback_path`.
+- **local_reaper_backend** (`features/local_rendering/reaper_backend.py`) status=`merged_candidate`; reports config and truthful render status; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`planned_not_executed path`; privacy_risk=`low`; artifact_risk=`medium`; next=`reuse_for_render_status_source_of_truth`.
+- **render_plan_builder** (`features/local_rendering/midi_to_render_plan.py`) status=`merged_candidate`; builds VST render plan from stems; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`low`; artifact_risk=`low`; next=`keep_and_emit_plan_artifacts`.
+- **assisted_pack_export** (`scripts/export_ableton_render_pack.py`, `scripts/export_chordpotion_ableton_pack.py`) status=`merged_candidate`; creates manual render packs on fallback; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`medium`; artifact_risk=`medium`; next=`keep_with_privacy_gate_checks`.
+- **wav_verification** (`features/local_rendering/wav_verifier.py`) status=`merged_candidate`; gates final WAV claims on verifiable audio; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`none`; privacy_risk=`low`; artifact_risk=`low`; next=`keep_as_final_claim_gate`.
+- **selector_training_scripts** (`scripts/train_chordpotion_preset_selector.py`, `scripts/evaluate_chordpotion_preset_selector.py`) status=`blocked`; local training/eval pipeline; command=`not_auto_invoked`; blockers=`no training without explicit labels`; privacy_risk=`low`; artifact_risk=`low`; next=`manual_only`.
+- **theory_conditioning_profiles** (`datasets/music_theory/generation_conditioning_profiles.jsonl`) status=`useful_unmerged`; profile context source; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`may be absent`; privacy_risk=`low`; artifact_risk=`low`; next=`optional_load_fallback`.
+- **texture_context** (`reports/texture_intelligence/sound_palette_context.json`) status=`useful_unmerged`; texture context source; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`may be absent`; privacy_risk=`medium`; artifact_risk=`low`; next=`optional_load_with_redaction_checks`.
+- **local_config_files** (`config/local_render_config.local.json`, `config/local_vst_registry.local.json`) status=`blocked`; local path/private plugin registry; command=`scripts/dev.cmd generate-complete-song-wav`; blockers=`must never be committed`; privacy_risk=`high`; artifact_risk=`low`; next=`emit_booleans_only`.
+- **modified_generated_outputs_in_worktree** (`outputs/chordpotion_generation_v1/*`, `outputs/generated_wav_v1/*`) status=`retire_candidate`; legacy/generated tracked output deltas; command=`none`; blockers=`stale run assumptions`; privacy_risk=`medium`; artifact_risk=`high`; next=`policy_gate_not_growth`.
+- **new_chordpotion_feature_modules** (`features/local_rendering/chordpotion_*.py`) status=`useful_unmerged`; intent/scoring/selector/audition helpers; command=`scripts/dev.cmd generate-complete-song-wav` (partial); blockers=`none`; privacy_risk=`low`; artifact_risk=`medium`; next=`keep_core_mark_experimental_edges`.
+- **cloud_activation_workstreams** (`cursor/cloud-full-activation-v1`, modal tasks in `scripts/dev.ps1`) status=`stale`; cloud-oriented execution paths; command=`not used by complete pipeline`; blockers=`integration pass requires no cloud calls`; privacy_risk=`medium`; artifact_risk=`medium`; next=`isolate_from_local_pipeline`.
+
+## Discovered Related Untracked/Modified Buckets
+
+- Modified tracked files detected in local render/chordpotion outputs, render reports, `scripts/dev.ps1`, and `tests/test_render_chordpotion_with_reaper.py`.
+- Untracked additions detected under `artifacts/`, `datasets/chordpotion/`, `features/local_rendering/chordpotion_*.py`, `scripts/*chordpotion*.py`, and related tests.
+- Integration actions in this pass keep these visible in inventory and decision logs instead of silently dropping them.

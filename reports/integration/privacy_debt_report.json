@@ -1,0 +1,27 @@
+{
+  "source_report": "reports/privacy/privacy_leak_scan_report.json",
+  "privacy_scan_status": "fail",
+  "new_public_leak_count": 5,
+  "pre_existing_historical_path_debt_count": 6,
+  "high_priority_new_leaks": [
+    "features/music_theory_understanding/theory_schema.py",
+    "outputs/through_composed_story_100bpm_v2/generation_report.json",
+    "outputs/through_composed_story_100bpm_v2/generation_report.md"
+  ],
+  "historical_debt_examples": [
+    "docs/ABLETON_EXPORT_WORKFLOW.md",
+    "scripts/export_ableton_project_v1.py",
+    "scripts/validate_ableton_project_export.py"
+  ],
+  "policy_gates_added": [
+    "docs/GENERATED_ARTIFACT_POLICY.md",
+    "reports/integration/local_config_blockers.json",
+    "reports/integration/complete_song_pipeline_status.json"
+  ],
+  "silent_ignore_allowed": false,
+  "recommended_actions": [
+    "Resolve new public leaks before merge.",
+    "Keep path redaction checks in check-privacy-leaks gate.",
+    "Defer historical debt cleanup to dedicated scrub pass with explicit audit."
+  ]
+}

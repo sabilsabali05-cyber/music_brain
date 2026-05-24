@@ -1,0 +1,17 @@
+{
+  "generation_id": "complete_song_v1",
+  "reviewed_by": "",
+  "accepted": false,
+  "notes": "",
+  "issues": [],
+  "requested_changes": [
+    "arrangement",
+    "sound_selection",
+    "mix_balance",
+    "render_validation"
+  ],
+  "status_files": {
+    "wav_status": "outputs/complete_song_v1/wav_status.md",
+    "pipeline_status_json": "reports/integration/complete_song_pipeline_status.json"
+  }
+}

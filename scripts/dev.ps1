@@ -191,11 +191,16 @@ function Show-Usage {
     Write-Host "  render-with-reaper [generation-id]"
     Write-Host "  export-ableton-render-pack [generation-id] [reason]"
     Write-Host "  generate-and-render-wav"
+    Write-Host "  generate-complete-song-wav"
     Write-Host "  generate-chordpotion-ready-skeleton"
     Write-Host "  build-chordpotion-transform-plan [generation-id]"
     Write-Host "  render-chordpotion-with-reaper [generation-id]"
     Write-Host "  export-chordpotion-ableton-pack [generation-id] [reason]"
     Write-Host "  generate-with-chordpotion"
+    Write-Host "  audition-chordpotion-presets [generation-id]"
+    Write-Host "  train-chordpotion-preset-selector"
+    Write-Host "  evaluate-chordpotion-preset-selector"
+    Write-Host "  generate-with-intelligent-chordpotion"
     Write-Host "  verify-local-wav-renders [generation-id]"
     Write-Host "  commit-checkpoint [commit message]"
 }
@@ -1600,6 +1605,11 @@ switch ($Task) {
             "python", "scripts/generate_and_render_wav.py"
         )
     }
+    "generate-complete-song-wav" {
+        Invoke-Step -Label "Running complete local song pipeline" -Command @(
+            "python", "scripts/generate_complete_song_wav.py"
+        )
+    }
     "generate-chordpotion-ready-skeleton" {
         Invoke-Step -Label "Generating ChordPotion-ready MIDI skeleton" -Command @(
             "python", "scripts/generate_chordpotion_ready_skeleton.py"
@@ -1633,6 +1643,29 @@ switch ($Task) {
     "generate-with-chordpotion" {
         Invoke-Step -Label "Running ChordPotion one-command generation flow" -Command @(
             "python", "scripts/generate_with_chordpotion.py"
+        )
+    }
+    "audition-chordpotion-presets" {
+        $generationId = Get-TaskArg -Index 0
+        $command = @("python", "scripts/audition_chordpotion_presets.py")
+        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
+            $command += @("--generation-id", $generationId)
+        }
+        Invoke-Step -Label "Auditioning ChordPotion preset candidates" -Command $command
+    }
+    "train-chordpotion-preset-selector" {
+        Invoke-Step -Label "Training local ChordPotion preset selector" -Command @(
+            "python", "scripts/train_chordpotion_preset_selector.py"
+        )
+    }
+    "evaluate-chordpotion-preset-selector" {
+        Invoke-Step -Label "Evaluating local ChordPotion preset selector" -Command @(
+            "python", "scripts/evaluate_chordpotion_preset_selector.py"
+        )
+    }
+    "generate-with-intelligent-chordpotion" {
+        Invoke-Step -Label "Running intelligent ChordPotion generation flow" -Command @(
+            "python", "scripts/generate_with_intelligent_chordpotion.py"
         )
     }
     "verify-local-wav-renders" {

@@ -1,0 +1,92 @@
+{
+  "generated_by": "integration_pass_complete_pipeline_v1",
+  "decisions": [
+    {
+      "subsystem": "complete_song_orchestrator",
+      "decision": "keep/wire",
+      "rationale": "Required one-command local pipeline and truthful status outputs.",
+      "evidence": [
+        "scripts/generate_complete_song_wav.py",
+        "scripts/dev.ps1 generate-complete-song-wav task"
+      ]
+    },
+    {
+      "subsystem": "deterministic_stem_generation",
+      "decision": "keep/wire",
+      "rationale": "Already exists and satisfies no-cloud/no-fake constraints.",
+      "evidence": [
+        "scripts/generate_chordpotion_ready_skeleton.py"
+      ]
+    },
+    {
+      "subsystem": "chordpotion_optional_path",
+      "decision": "keep/wire",
+      "rationale": "Kept as optional and only claims attempted status when configured and executed.",
+      "evidence": [
+        "scripts/build_chordpotion_transform_plan.py",
+        "scripts/audition_chordpotion_presets.py",
+        "scripts/render_chordpotion_with_reaper.py"
+      ]
+    },
+    {
+      "subsystem": "trained_preset_selector_usage",
+      "decision": "local-only",
+      "rationale": "Trained selector is reported true only when artifact exists and report confirms trained mode.",
+      "evidence": [
+        "scripts/train_chordpotion_preset_selector.py",
+        "reports/model_training/chordpotion_preset_selector_training_report.md"
+      ]
+    },
+    {
+      "subsystem": "automatic_training",
+      "decision": "retire",
+      "rationale": "No training is auto-triggered by complete pipeline; blocked unless explicit labels exist.",
+      "evidence": [
+        "scripts/generate_complete_song_wav.py training gate"
+      ]
+    },
+    {
+      "subsystem": "reaper_cli_auto_render",
+      "decision": "experimental",
+      "rationale": "Backend remains mostly plan scaffold; keep with assisted-pack fallback and honest blockers.",
+      "evidence": [
+        "features/local_rendering/reaper_backend.py"
+      ]
+    },
+    {
+      "subsystem": "assisted_pack_fallback",
+      "decision": "keep/wire",
+      "rationale": "Required for blocked local render scenarios to preserve end-to-end completion.",
+      "evidence": [
+        "features/local_rendering/ableton_backend.py",
+        "scripts/export_ableton_render_pack.py"
+      ]
+    },
+    {
+      "subsystem": "local_config_reporting",
+      "decision": "keep/wire",
+      "rationale": "Use boolean blocker reporting only; do not expose private paths.",
+      "evidence": [
+        "reports/integration/local_config_blockers.json",
+        "reports/integration/local_config_blockers.md"
+      ]
+    },
+    {
+      "subsystem": "cloud_activation_tasks",
+      "decision": "postpone",
+      "rationale": "Out of scope for this pass due to no-cloud hard constraint.",
+      "evidence": [
+        "scripts/dev.ps1 modal and cloud tasks"
+      ]
+    },
+    {
+      "subsystem": "tracked_generated_outputs_growth",
+      "decision": "retire",
+      "rationale": "Policy should prevent expanding tracked generated media and stale run artifacts.",
+      "evidence": [
+        "docs/GENERATED_ARTIFACT_POLICY.md",
+        "reports/integration/privacy_debt_report.json"
+      ]
+    }
+  ]
+}
