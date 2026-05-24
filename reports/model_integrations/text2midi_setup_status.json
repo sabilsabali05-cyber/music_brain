@@ -1,5 +1,5 @@
 {
-  "status": "unavailable",
+  "status": "ok",
   "config_source": "config/model_integrations/model_integrations.example.json",
   "text2midi_enabled": false,
   "text2midi_configured": false,
@@ -7,7 +7,7 @@
   "smoke_test_enabled": false,
   "smoke_test_passed": false,
   "unavailable_reason": "disabled_or_missing_local_config",
-  "next_setup_step": "Enable Text2MIDI and set repo_path/model_path in config/model_integrations/model_integrations.local.json.",
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.text2midi.enabled=true.",
   "path_checks": {
     "repo_path": {
       "configured": false,
@@ -25,9 +25,5 @@
     "No heavyweight Text2MIDI package imports are attempted unless local config is enabled.",
     "No model weights are downloaded by this checker.",
     "No training is performed."
-  ],
-  "smoke_test_notes": [
-    "Smoke test skipped because local config is disabled or missing.",
-    "No weights downloaded and no training performed."
   ]
 }

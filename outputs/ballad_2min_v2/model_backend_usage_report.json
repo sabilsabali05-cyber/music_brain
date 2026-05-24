@@ -1,0 +1,21 @@
+{
+  "text2midi": {
+    "used": false,
+    "available": false
+  },
+  "moonbeam": {
+    "used": false,
+    "available": false
+  },
+  "midigpt": {
+    "used": false,
+    "available": false
+  },
+  "musicbert": {
+    "used": false,
+    "available": false
+  },
+  "fallback_used": true,
+  "real_backend_generation": false,
+  "real_backend_ranking": false
+}

@@ -1,0 +1,13 @@
+{
+  "status": "disabled",
+  "text2midi_enabled": false,
+  "text2midi_available": false,
+  "real_smoke_passed": false,
+  "unavailable_reason": "disabled",
+  "artifact_report_generated": false,
+  "provenance_report_generated": false,
+  "artifact_report_path": "",
+  "provenance_report_path": "",
+  "redacted_traceback_summary": "",
+  "model_training_has_occurred": false
+}

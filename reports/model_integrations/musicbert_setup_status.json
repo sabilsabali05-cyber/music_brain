@@ -1,5 +1,5 @@
 {
-  "status": "unavailable",
+  "status": "ok",
   "config_source": "config/model_integrations/model_integrations.example.json",
   "musicbert_enabled": false,
   "musicbert_configured": false,
@@ -7,7 +7,7 @@
   "smoke_test_enabled": false,
   "smoke_test_passed": false,
   "unavailable_reason": "disabled_or_missing_local_config",
-  "next_setup_step": "Enable MusicBERT and set repo_path/model_path/tokenizer_path in config/model_integrations/model_integrations.local.json.",
+  "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.musicbert.enabled=true.",
   "path_checks": {
     "repo_path": {
       "configured": false,
@@ -30,9 +30,5 @@
     "This checker does not import heavyweight MusicBERT packages.",
     "This checker does not download model weights.",
     "This checker does not train models."
-  ],
-  "smoke_test_notes": [
-    "Smoke test skipped because local config is disabled or missing.",
-    "No weights downloaded and no training performed."
   ]
 }

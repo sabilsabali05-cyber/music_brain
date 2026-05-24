@@ -1,9 +1,9 @@
-# Text2MIDI Smoke Test Status
+# Text2MIDI Setup Status
 
-- status: `unavailable`
+- config_source: `config/model_integrations/model_integrations.example.json`
 - text2midi_configured: `False`
 - text2midi_available: `False`
 - smoke_test_passed: `False`
 - unavailable_reason: `disabled_or_missing_local_config`
-- next_setup_step: Enable Text2MIDI and set repo_path/model_path in config/model_integrations/model_integrations.local.json.
+- next_setup_step: Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.text2midi.enabled=true.
 - model_training_has_occurred: `False`

@@ -1,0 +1,35 @@
+{
+  "status": "ok",
+  "local_config_created_or_exists": true,
+  "local_config_was_created": true,
+  "all_models_enabled": false,
+  "private_paths_redacted": true,
+  "symbolic_backends": {
+    "text2midi": {
+      "enabled": false,
+      "repo_path_configured": true,
+      "model_path_configured": true,
+      "tokenizer_path_configured": false
+    },
+    "moonbeam": {
+      "enabled": false,
+      "repo_path_configured": true,
+      "model_path_configured": true,
+      "tokenizer_path_configured": true
+    },
+    "midigpt": {
+      "enabled": false,
+      "repo_path_configured": true,
+      "model_path_configured": true,
+      "tokenizer_path_configured": true
+    },
+    "musicbert": {
+      "enabled": false,
+      "repo_path_configured": true,
+      "model_path_configured": true,
+      "tokenizer_path_configured": true
+    }
+  },
+  "model_training_has_occurred": false,
+  "trained_model_generation_allowed": false
+}

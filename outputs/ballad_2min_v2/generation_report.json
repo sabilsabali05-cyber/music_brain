@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "real_backend_generation": false,
+  "real_backend_ranking": false,
+  "text2midi_used": false,
+  "moonbeam_used": false,
+  "midigpt_used": false,
+  "musicbert_used": false,
+  "fallback_used": true,
+  "trained_model_generation": false,
+  "personal_model_training_used": false,
+  "human_review_required": true,
+  "no_audio_processing": true,
+  "cloud_called": false
+}

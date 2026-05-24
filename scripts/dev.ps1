@@ -117,6 +117,10 @@ function Show-Usage {
     Write-Host "  generate-midigpt-variation-scaffold"
     Write-Host "  check-text2midi-setup"
     Write-Host "  run-text2midi-smoke-test"
+    Write-Host "  bootstrap-symbolic-model-local-config"
+    Write-Host "  plan-symbolic-backend-install"
+    Write-Host "  check-symbolic-backend-activation"
+    Write-Host "  generate-2min-ballad [--use-symbolic-backends] [--output <folder>]"
     Write-Host "  generate-text2midi-prompt-sketch-scaffold"
     Write-Host "  check-audio-understanding-setup"
     Write-Host "  run-audio-understanding-smoke-tests"
@@ -1100,6 +1104,41 @@ switch ($Task) {
         Invoke-Step -Label "Running Text2MIDI minimal smoke test" -Command @(
             "python", "scripts/run_text2midi_smoke_test.py"
         )
+    }
+    "bootstrap-symbolic-model-local-config" {
+        Invoke-Step -Label "Bootstrapping symbolic model local config" -Command @(
+            "python", "scripts/bootstrap_symbolic_model_local_config.py"
+        )
+    }
+    "plan-symbolic-backend-install" {
+        Invoke-Step -Label "Writing symbolic backend install plan" -Command @(
+            "python", "scripts/plan_symbolic_backend_install.py"
+        )
+    }
+    "check-symbolic-backend-activation" {
+        Invoke-Step -Label "Checking symbolic backend activation status" -Command @(
+            "python", "scripts/check_symbolic_backend_activation.py"
+        )
+    }
+    "generate-2min-ballad" {
+        $useSymbolic = $false
+        $output = "outputs/ballad_2min_v2"
+        for ($i = 0; $i -lt $TaskArgs.Count; $i++) {
+            $arg = $TaskArgs[$i]
+            if ($arg -eq "--use-symbolic-backends") {
+                $useSymbolic = $true
+            }
+            elseif ($arg -eq "--output") {
+                if (($i + 1) -ge $TaskArgs.Count) { throw "Usage: scripts\dev.cmd generate-2min-ballad [--use-symbolic-backends] [--output <folder>]" }
+                $output = $TaskArgs[$i + 1]
+                $i++
+            }
+        }
+        $command = @("python", "scripts/generate_2min_ballad.py", "--output", $output)
+        if ($useSymbolic) {
+            $command += @("--use-symbolic-backends")
+        }
+        Invoke-Step -Label "Generating 2-minute ballad v2 package" -Command $command
     }
     "generate-text2midi-prompt-sketch-scaffold" {
         Invoke-Step -Label "Generating Text2MIDI prompt sketch scaffold report" -Command @(

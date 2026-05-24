@@ -91,12 +91,10 @@ def test_smoke_test_does_not_download_or_train(monkeypatch, tmp_path: Path) -> N
     monkeypatch.setattr(check_moonbeam_setup, "LOCAL_CONFIG", tmp_path / "missing.local.json")
     monkeypatch.setattr(check_moonbeam_setup, "EXAMPLE_CONFIG", tmp_path / "missing.example.json")
     payload = run_moonbeam_smoke_test.run_moonbeam_smoke_test()
-    assert payload["status"] == "unavailable"
-    assert payload["unavailable_reason"] == "disabled_or_missing_local_config"
+    assert payload["status"] == "disabled"
+    assert payload["unavailable_reason"] == "disabled"
     assert payload["model_training_has_occurred"] is False
-    notes = " ".join(payload["smoke_test_notes"])
-    assert "No weights downloaded" in notes
-    assert "no training" in notes.lower()
+    assert payload["real_smoke_passed"] is False
 
 
 def test_public_moonbeam_reports_contain_no_private_paths(tmp_path: Path) -> None:

@@ -118,12 +118,10 @@ def test_smoke_test_no_download_or_training(monkeypatch, tmp_path: Path) -> None
     monkeypatch.setattr(check_midigpt_setup, "LOCAL_CONFIG", tmp_path / "missing.local.json")
     monkeypatch.setattr(check_midigpt_setup, "EXAMPLE_CONFIG", tmp_path / "missing.example.json")
     payload = run_midigpt_smoke_test.run_midigpt_smoke_test()
-    assert payload["status"] == "unavailable"
-    assert payload["unavailable_reason"] == "disabled_or_missing_local_config"
+    assert payload["status"] == "disabled"
+    assert payload["unavailable_reason"] == "disabled"
     assert payload["model_training_has_occurred"] is False
-    notes = " ".join(payload["smoke_test_notes"]).lower()
-    assert "no weights downloaded" in notes
-    assert "no training" in notes
+    assert payload["real_smoke_passed"] is False
 
 
 def test_public_reports_have_no_user_paths(tmp_path: Path) -> None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 from typing import Any
 
@@ -8,7 +9,6 @@ from features.symbolic_ir import SymbolicGenerationRequest
 from features.symbolic_model_ensemble.backend_protocol import (
     BackendOperationResult,
     available_capability,
-    backend_settings,
     unavailable_capability,
     unavailable_result,
 )
@@ -26,10 +26,25 @@ class MidiGptAdapter:
         "track_level_infill",
     ]
 
-    def _symbolic_backend_config_paths(self) -> tuple[Path, Path]:
+    def _model_integrations_config_paths(self) -> tuple[Path, Path]:
         root_dir = Path(__file__).resolve().parents[3]
-        config_dir = root_dir / "config" / "symbolic_backends"
-        return config_dir / "symbolic_backends.local.json", config_dir / "symbolic_backends.example.json"
+        config_dir = root_dir / "config" / "model_integrations"
+        return config_dir / "model_integrations.local.json", config_dir / "model_integrations.example.json"
+
+    def _load_midigpt_settings(self) -> tuple[dict[str, Any], bool]:
+        local_path, example_path = self._model_integrations_config_paths()
+        source = local_path if local_path.exists() else example_path
+        if not source.exists():
+            return {}, False
+        try:
+            payload = json.loads(source.read_text(encoding="utf-8"))
+        except Exception:  # noqa: BLE001
+            return {}, False
+        models = payload.get("models", {}) if isinstance(payload, dict) else {}
+        if not isinstance(models, dict):
+            return {}, False
+        settings = models.get("midigpt", {})
+        return settings if isinstance(settings, dict) else {}, bool(local_path.exists())
 
     def _paths_ready(self, repo_path: Path, model_path: Path, tokenizer_path: Path | None) -> tuple[bool, str]:
         if not repo_path.exists() or not repo_path.is_dir():
@@ -65,9 +80,7 @@ class MidiGptAdapter:
         )
 
     def check_available(self):
-        settings, _ = backend_settings(self.backend_id)
-        local_path, _ = self._symbolic_backend_config_paths()
-        using_local_config = local_path.exists()
+        settings, using_local_config = self._load_midigpt_settings()
         if not settings:
             return unavailable_capability(
                 self.backend_id,
@@ -87,7 +100,7 @@ class MidiGptAdapter:
                         "Enable midigpt in local symbolic backend config to allow probing."
                         if using_local_config
                         else (
-                            "Create symbolic_backends.local.json and enable midigpt there; "
+                            "Create model_integrations.local.json and enable midigpt there; "
                             "example config does not make it available."
                         )
                     )

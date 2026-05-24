@@ -115,6 +115,6 @@
   "symbolic_generation_performed": false,
   "training_performed": false,
   "no_modal_calls_performed": true,
-  "model_weights_downloaded": false,
+  "weights_downloaded": false,
   "provenance_outputs": []
 }

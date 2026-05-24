@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "backend_activation_checked": true,
+  "activation_report_source": "reports/model_integrations/symbolic_backend_activation_status.json",
+  "real_backend_generation": false,
+  "real_backend_ranking": false,
+  "trained_model_generation": false,
+  "personal_model_training_used": false,
+  "human_review_required": true,
+  "cloud_called": false
+}

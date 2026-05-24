@@ -43,9 +43,9 @@
         "track_level_infill"
       ],
       "status": "unavailable",
-      "reason": "disabled_in_config",
+      "reason": "disabled_or_missing_local_config",
       "limitations": [
-        "Enable midigpt in local symbolic backend config to allow probing."
+        "Create model_integrations.local.json and enable midigpt there; example config does not make it available."
       ]
     },
     {
@@ -54,10 +54,11 @@
       "supported_operations": [
         "prompt_to_midi",
         "text_conditioned_seed",
-        "chord_key_tempo_prompting"
+        "chord_key_tempo_prompting",
+        "user_vocabulary_future_target"
       ],
       "status": "unavailable",
-      "reason": "disabled_in_config",
+      "reason": "disabled_or_missing_local_config",
       "limitations": []
     },
     {
