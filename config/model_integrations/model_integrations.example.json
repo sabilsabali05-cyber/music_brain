@@ -45,9 +45,33 @@
     },
     "yourmt3": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "basic_pitch": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "muq": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "mert": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "essentia": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "muq": {
+      "enabled": false,
+      "repo_path": "<PATH_TO_REPO>",
+      "model_path": "<PATH_TO_MODEL>",
+      "tokenizer_path": "<PATH_TO_MODEL>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "embedding_dim": 1024,
+      "output_dir": "<PATH_TO_REPO>"
+    },
+    "mert": {
+      "enabled": false,
+      "repo_path": "<PATH_TO_REPO>",
+      "model_path": "<PATH_TO_MODEL>",
+      "tokenizer_path": "<PATH_TO_MODEL>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "embedding_dim": 768,
+      "output_dir": "<PATH_TO_REPO>"
+    },
+    "essentia": {
+      "enabled": false,
+      "package_required": "essentia",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "output_dir": "<PATH_TO_REPO>"
+    },
     "clap": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "mulan_style": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
     "demucs": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
