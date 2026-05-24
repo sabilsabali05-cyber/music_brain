@@ -1,0 +1,5 @@
+{
+  "ok": false,
+  "manual_action_required": true,
+  "blocker": "missing_local_site_config"
+}

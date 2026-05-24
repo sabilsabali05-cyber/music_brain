@@ -5,5 +5,7 @@
   "trained_ranker_used": false,
   "heuristic_ranker_used": true,
   "train_status": "heuristic_baseline_only_insufficient_rows",
-  "model_path": "artifacts/taste_learning/composition_ranker/model.json"
+  "model_path": "artifacts/taste_learning/composition_ranker/model.json",
+  "combined_rows_count": 2,
+  "beat_battle_rows_considered": 0
 }
