@@ -43,8 +43,24 @@
       "embedding_dim": 768,
       "output_dir": "<PATH_TO_REPO>"
     },
-    "yourmt3": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
-    "basic_pitch": { "enabled": false, "model_path": "<PATH_TO_MODEL>", "repo_path": "<PATH_TO_REPO>", "device": "<DEVICE>" },
+    "yourmt3": {
+      "enabled": false,
+      "model_path": "<PATH_TO_MODEL>",
+      "repo_path": "<PATH_TO_REPO>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "witness_policy": "witness_not_truth",
+      "output_dir": "<PATH_TO_REPO>"
+    },
+    "basic_pitch": {
+      "enabled": false,
+      "model_path": "<PATH_TO_MODEL>",
+      "repo_path": "<PATH_TO_REPO>",
+      "device": "<DEVICE>",
+      "smoke_test_enabled": false,
+      "witness_policy": "witness_not_truth",
+      "output_dir": "<PATH_TO_REPO>"
+    },
     "muq": {
       "enabled": false,
       "repo_path": "<PATH_TO_REPO>",
