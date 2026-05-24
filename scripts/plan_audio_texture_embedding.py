@@ -12,7 +12,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 REPORT_DIR = ROOT_DIR / "reports" / "audio_understanding"
-PRIVATE_PATH_MARKERS = ("C:/Users/", "C:\\Users\\")
+PRIVATE_PATH_MARKERS = (":/Users/", "\\Users\\")
 TRAINING_EXCLUSION_POLICIES = [
     "splice_production_only",
     "production_only_training_excluded",
