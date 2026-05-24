@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .render_plan_schema import RenderPlan
+from .midi_fx_schema import MidiFxTransformPlan
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -23,6 +24,24 @@ class ReaperRenderReport:
     render_plan_only: bool
     final_wav_path: str = ""
     stems_wav_paths: list[str] = field(default_factory=list)
+    missing_config: list[str] = field(default_factory=list)
+    notes: list[str] = field(default_factory=list)
+
+
+@dataclass
+class ChordPotionReaperReport:
+    generation_id: str
+    render_backend: str
+    render_backend_status: str
+    chordpotion_configured: bool
+    chordpotion_available: bool
+    reaper_available: bool
+    instrument_vst_available: bool
+    transformed_midi_captured: bool
+    wav_rendered: bool
+    render_plan_only: bool
+    final_wav_path: str = ""
+    assisted_pack_path: str = ""
     missing_config: list[str] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
 
@@ -143,3 +162,97 @@ def load_local_render_config(path: Path) -> dict[str, Any]:
     except Exception:  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
+
+
+def run_chordpotion_reaper_render(
+    generation_id: str,
+    transform_plan: MidiFxTransformPlan,
+    local_render_root: Path | None = None,
+) -> ChordPotionReaperReport:
+    local_render_root = local_render_root or (ROOT_DIR / "renders" / generation_id)
+    report_json = ROOT_DIR / "reports" / "local_rendering" / "chordpotion_reaper_render_report.json"
+    report_md = ROOT_DIR / "reports" / "local_rendering" / "chordpotion_reaper_render_report.md"
+    local_render_root.mkdir(parents=True, exist_ok=True)
+    temp_project = local_render_root / "temp_reaper_chordpotion_project_plan.rpp.txt"
+    final_wav = local_render_root / "final.wav"
+
+    missing = list(transform_plan.missing_config)
+    if not transform_plan.chordpotion_configured and "preferred_chordpotion_plugin_id" not in missing:
+        missing.append("preferred_chordpotion_plugin_id")
+    if not transform_plan.chordpotion_available and "chordpotion_plugin_unavailable" not in missing:
+        missing.append("chordpotion_plugin_unavailable")
+    if not transform_plan.reaper_available and "reaper_executable_path" not in missing:
+        missing.append("reaper_executable_path")
+    if not transform_plan.instrument_vst_available and "instrument_vst_unavailable" not in missing:
+        missing.append("instrument_vst_unavailable")
+
+    temp_project.write_text(
+        "\n".join(
+            [
+                f"generation_id={generation_id}",
+                f"chordpotion_plugin_id={transform_plan.midi_fx_plugin_id or 'none'}",
+                f"input_harmony={transform_plan.input_harmony_midi}",
+                f"output_transformed={transform_plan.output_transformed_midi}",
+                "action=manual_reaper_insert_midi_fx_then_render",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    wav_exists = final_wav.exists() and final_wav.is_file() and final_wav.stat().st_size > 0
+    assisted_pack_path = ""
+    if not wav_exists:
+        assisted = ROOT_DIR / "outputs" / "chordpotion_assisted_pack" / generation_id
+        assisted.mkdir(parents=True, exist_ok=True)
+        assisted_pack_path = _repo_relative(assisted)
+
+    notes = [
+        "No fake render success is reported without verifiable final.wav.",
+        "Transformed MIDI capture remains false until explicit capture implementation is added.",
+    ]
+    status = "rendered" if wav_exists else "planned_not_executed"
+    report = ChordPotionReaperReport(
+        generation_id=generation_id,
+        render_backend="reaper_auto_render_chordpotion",
+        render_backend_status=status,
+        chordpotion_configured=transform_plan.chordpotion_configured,
+        chordpotion_available=transform_plan.chordpotion_available,
+        reaper_available=transform_plan.reaper_available,
+        instrument_vst_available=transform_plan.instrument_vst_available,
+        transformed_midi_captured=False,
+        wav_rendered=wav_exists,
+        render_plan_only=not wav_exists,
+        final_wav_path=_repo_relative(final_wav) if wav_exists else "",
+        assisted_pack_path=assisted_pack_path,
+        missing_config=missing,
+        notes=notes,
+    )
+    report_json.parent.mkdir(parents=True, exist_ok=True)
+    report_json.write_text(json.dumps(asdict(report), indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    report_md.write_text(
+        "\n".join(
+            [
+                "# ChordPotion Reaper Render Report",
+                "",
+                f"- generation_id: `{report.generation_id}`",
+                f"- render_backend_status: `{report.render_backend_status}`",
+                f"- chordpotion_configured: `{str(report.chordpotion_configured).lower()}`",
+                f"- chordpotion_available: `{str(report.chordpotion_available).lower()}`",
+                f"- reaper_available: `{str(report.reaper_available).lower()}`",
+                f"- instrument_vst_available: `{str(report.instrument_vst_available).lower()}`",
+                f"- transformed_midi_captured: `{str(report.transformed_midi_captured).lower()}`",
+                f"- wav_rendered: `{str(report.wav_rendered).lower()}`",
+                f"- final_wav_path: `{report.final_wav_path or 'none'}`",
+                f"- assisted_pack_path: `{report.assisted_pack_path or 'none'}`",
+                "",
+                "## Missing Config",
+            ]
+            + [f"- {item}" for item in report.missing_config]
+            + ["", "## Notes"]
+            + [f"- {item}" for item in report.notes]
+            + [""],
+        ),
+        encoding="utf-8",
+    )
+    return report

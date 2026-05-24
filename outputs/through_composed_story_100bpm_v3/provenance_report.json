@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "input_midi": "outputs/through_composed_story_100bpm_v2/full.mid",
+  "output_midi": "outputs/through_composed_story_100bpm_v3/full.mid",
+  "process": "local deterministic scripted MIDI transformation",
+  "cloud_called": false,
+  "training_performed": false,
+  "fake_model_claims": false,
+  "private_paths_redacted": true,
+  "database_derived_context_used": false
+}

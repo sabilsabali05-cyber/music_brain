@@ -6,6 +6,15 @@ from pathlib import Path
 from typing import Literal
 
 PluginFormat = Literal["VST2", "VST3", "CLAP", "AbletonDevice", "M4L"]
+ALLOWED_PLUGIN_CATEGORIES = {"instrument", "effect", "keys", "bass", "lead", "pad", "drums", "texture", "midi_fx"}
+MIDI_FX_ROLES = {
+    "chord_pattern_generator",
+    "arpeggiator",
+    "rhythmizer",
+    "chord_voicing_transformer",
+    "midi_humanizer",
+    "generative_midi_effect",
+}
 
 
 @dataclass
@@ -65,19 +74,26 @@ def _parse_plugin(payload: dict) -> VstPluginEntry:
     plugin_format = str(payload.get("format", "VST3"))
     if plugin_format not in {"VST2", "VST3", "CLAP", "AbletonDevice", "M4L"}:
         plugin_format = "VST3"
+    category = str(payload.get("category", "instrument")).strip() or "instrument"
+    if category not in ALLOWED_PLUGIN_CATEGORIES:
+        category = "instrument"
+    roles = [str(item) for item in payload.get("roles", []) if str(item).strip()]
+    if category == "midi_fx":
+        # Keep midi-fx role vocabulary bounded for deterministic matching and reports.
+        roles = [role for role in roles if role in MIDI_FX_ROLES] or ["generative_midi_effect"]
     return VstPluginEntry(
         plugin_id=str(payload.get("plugin_id", "")),
         display_name=str(payload.get("display_name", "")),
         vendor=str(payload.get("vendor", "")),
         format=plugin_format,  # type: ignore[arg-type]
-        category=str(payload.get("category", "instrument")),
+        category=category,
         local_path=str(payload.get("local_path", "")),
         local_path_redacted=str(payload.get("local_path_redacted", "local_only")),
         available=bool(payload.get("available", False)),
         verified_loadable=bool(payload.get("verified_loadable", False)),
         preset_names=[str(item) for item in payload.get("preset_names", []) if str(item).strip()],
         texture_tags=[str(item) for item in payload.get("texture_tags", []) if str(item).strip()],
-        roles=[str(item) for item in payload.get("roles", []) if str(item).strip()],
+        roles=roles,
         notes=str(payload.get("notes", "")),
     )
 

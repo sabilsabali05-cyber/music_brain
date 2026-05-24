@@ -1,0 +1,297 @@
+{
+  "status": "ok",
+  "input_midi": "outputs/through_composed_story_100bpm_v4/full.mid",
+  "output_midi": "outputs/through_composed_story_100bpm_v5/full.mid",
+  "harmony_skeleton_midi": "outputs/through_composed_story_100bpm_v5/harmony_skeleton.mid",
+  "tempo_bpm": 100.0,
+  "method": "deterministic interval analysis + explicit harmony skeleton voice-leading rewrite",
+  "explicit_rules_applied": [
+    "Build harmony_skeleton first.",
+    "Bass uses roots/fifths with stepwise approaches; chromatic motion only as expressive passing.",
+    "Top voice constrained to singable contour with mostly step/small leap links.",
+    "Inner voices prioritize common tones and stepwise movement.",
+    "Avoid random leaps > P5 except planned peak points.",
+    "Resolve dissonances by step and preserve common tones across transitions.",
+    "Avoid low-register m2/m9 unless framed as tension.",
+    "Use deliberate suspensions (4-3/9-8/7-6/2-1) where available.",
+    "Open lower spacing and tighter upper spacing.",
+    "Limit simultaneous color stacking; altered tones must resolve or motif-repeat."
+  ],
+  "interval_goals": {
+    "more_2nds_for_passing": true,
+    "more_3rds_6ths_for_consonance": true,
+    "4ths_5ths_for_structure": true,
+    "7ths_9ths_as_controlled_color": true,
+    "tritones_functional_only": true,
+    "octave_displacement_used_for_register_clashes": true
+  },
+  "preserved_from_v4": {
+    "suspension_bars": [
+      3,
+      6,
+      8,
+      10,
+      13,
+      16,
+      18,
+      20,
+      21,
+      24,
+      26,
+      27,
+      30,
+      32,
+      33,
+      37
+    ],
+    "preserved_root_movements": [
+      {
+        "bar_transition": [
+          1,
+          2
+        ],
+        "root_motion_semitones": 10
+      },
+      {
+        "bar_transition": [
+          2,
+          3
+        ],
+        "root_motion_semitones": 10
+      },
+      {
+        "bar_transition": [
+          3,
+          4
+        ],
+        "root_motion_semitones": 11
+      },
+      {
+        "bar_transition": [
+          4,
+          5
+        ],
+        "root_motion_semitones": 5
+      },
+      {
+        "bar_transition": [
+          5,
+          6
+        ],
+        "root_motion_semitones": 10
+      },
+      {
+        "bar_transition": [
+          6,
+          7
+        ],
+        "root_motion_semitones": 10
+      },
+      {
+        "bar_transition": [
+          7,
+          8
+        ],
+        "root_motion_semitones": 11
+      },
+      {
+        "bar_transition": [
+          8,
+          9
+        ],
+        "root_motion_semitones": 8
+      },
+      {
+        "bar_transition": [
+          9,
+          10
+        ],
+        "root_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          10,
+          11
+        ],
+        "root_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          11,
+          12
+        ],
+        "root_motion_semitones": 7
+      },
+      {
+        "bar_transition": [
+          12,
+          13
+        ],
+        "root_motion_semitones": 10
+      },
+      {
+        "bar_transition": [
+          13,
+          14
+        ],
+        "root_motion_semitones": 3
+      },
+      {
+        "bar_transition": [
+          14,
+          15
+        ],
+        "root_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          15,
+          16
+        ],
+        "root_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          16,
+          17
+        ],
+        "root_motion_semitones": 7
+      }
+    ],
+    "preserved_top_motions": [
+      {
+        "bar_transition": [
+          1,
+          2
+        ],
+        "top_motion_semitones": 0
+      },
+      {
+        "bar_transition": [
+          2,
+          3
+        ],
+        "top_motion_semitones": -2
+      },
+      {
+        "bar_transition": [
+          3,
+          4
+        ],
+        "top_motion_semitones": -1
+      },
+      {
+        "bar_transition": [
+          4,
+          5
+        ],
+        "top_motion_semitones": -4
+      },
+      {
+        "bar_transition": [
+          5,
+          6
+        ],
+        "top_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          6,
+          7
+        ],
+        "top_motion_semitones": 7
+      },
+      {
+        "bar_transition": [
+          7,
+          8
+        ],
+        "top_motion_semitones": 7
+      },
+      {
+        "bar_transition": [
+          8,
+          9
+        ],
+        "top_motion_semitones": 0
+      },
+      {
+        "bar_transition": [
+          9,
+          10
+        ],
+        "top_motion_semitones": -4
+      },
+      {
+        "bar_transition": [
+          10,
+          11
+        ],
+        "top_motion_semitones": -5
+      },
+      {
+        "bar_transition": [
+          11,
+          12
+        ],
+        "top_motion_semitones": -5
+      },
+      {
+        "bar_transition": [
+          12,
+          13
+        ],
+        "top_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          13,
+          14
+        ],
+        "top_motion_semitones": -4
+      },
+      {
+        "bar_transition": [
+          14,
+          15
+        ],
+        "top_motion_semitones": -3
+      },
+      {
+        "bar_transition": [
+          15,
+          16
+        ],
+        "top_motion_semitones": 2
+      },
+      {
+        "bar_transition": [
+          16,
+          17
+        ],
+        "top_motion_semitones": 0
+      }
+    ]
+  },
+  "analysis_reports": {
+    "markdown": "reports/analysis/through_composed_story_100bpm_v4_interval_voiceleading_analysis.md",
+    "json": "reports/analysis/through_composed_story_100bpm_v4_interval_voiceleading_analysis.json"
+  },
+  "constraints": {
+    "cloud_called": false,
+    "training_performed": false,
+    "fake_model_claims": false
+  },
+  "validation": {
+    "midi_parses_full": true,
+    "midi_parses_harmony_skeleton": true,
+    "tempo_exact_100_bpm_full": true,
+    "tempo_exact_100_bpm_harmony_skeleton": true,
+    "v4_input_unchanged": true,
+    "reports_generated": true,
+    "no_cloud_called": true,
+    "no_training_performed": true,
+    "no_fake_model_claims": true,
+    "no_private_paths_in_reports": true
+  }
+}

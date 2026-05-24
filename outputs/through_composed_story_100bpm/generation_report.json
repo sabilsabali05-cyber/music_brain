@@ -1,0 +1,71 @@
+{
+  "status": "ok",
+  "piece_title": "through_composed_story_100bpm",
+  "tempo_bpm": 100,
+  "time_signature": "4/4",
+  "total_bars": 48,
+  "approx_duration_seconds": 115.2,
+  "form_sequence": [
+    "intro_tension",
+    "lift",
+    "conflict",
+    "breakthrough",
+    "resolution"
+  ],
+  "section_layout": [
+    {
+      "name": "intro_tension",
+      "start_bar": 1,
+      "end_bar": 8,
+      "bars": 8
+    },
+    {
+      "name": "lift",
+      "start_bar": 9,
+      "end_bar": 18,
+      "bars": 10
+    },
+    {
+      "name": "conflict",
+      "start_bar": 19,
+      "end_bar": 30,
+      "bars": 12
+    },
+    {
+      "name": "breakthrough",
+      "start_bar": 31,
+      "end_bar": 38,
+      "bars": 8
+    },
+    {
+      "name": "resolution",
+      "start_bar": 39,
+      "end_bar": 48,
+      "bars": 10
+    }
+  ],
+  "harmonic_center_arc": [
+    "D minor",
+    "F major/A minor",
+    "G minor chromatic",
+    "B-flat major",
+    "D minor with Picardy lift"
+  ],
+  "narrative_arc": "intro tension -> lift -> conflict -> breakthrough -> resolution",
+  "texture": [
+    "melody",
+    "arpeggiated harmonic motion",
+    "bass line",
+    "drum groove"
+  ],
+  "through_composed": true,
+  "uses_static_block_chords_only": false,
+  "fallback_used": false,
+  "cloud_called": false,
+  "model_training_used": false,
+  "outputs": {
+    "midi_file": "full.mid",
+    "generation_report_json": "generation_report.json",
+    "generation_report_md": "generation_report.md"
+  }
+}

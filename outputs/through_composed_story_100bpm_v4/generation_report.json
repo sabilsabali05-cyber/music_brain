@@ -1,0 +1,174 @@
+{
+  "status": "ok",
+  "input_midi": "outputs/through_composed_story_100bpm_v3/full.mid",
+  "output_midi": "outputs/through_composed_story_100bpm_v4/full.mid",
+  "tempo_bpm": 100.0,
+  "v3_note_count": 1969,
+  "v4_note_count": 1892,
+  "notes_removed": 77,
+  "notes_softened": 747,
+  "notes_shortened": 32,
+  "notes_octave_moved": 0,
+  "sections_thinned_most": [
+    "conflict:20",
+    "breakthrough:17",
+    "intro_tension:16"
+  ],
+  "dissonances_preserved": 47,
+  "dissonances_removed": 0,
+  "rhythmic_cells_preserved": [
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 0.5, 0.5]",
+      "count": 8,
+      "example_bar": 21,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 0.5, 1.0]",
+      "count": 5,
+      "example_bar": 13,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.0, 0.5, 1.0]",
+      "count": 4,
+      "example_bar": 11,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 1.0, 1.0]",
+      "count": 4,
+      "example_bar": 2,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.0, 0.0, 0.5]",
+      "count": 2,
+      "example_bar": 17,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5
+      ]
+    }
+  ],
+  "harmony_chord_movements_preserved": [
+    {
+      "from_bar": 1,
+      "to_bar": 2,
+      "from_root": 50,
+      "to_root": 48,
+      "delta": -2
+    },
+    {
+      "from_bar": 2,
+      "to_bar": 3,
+      "from_root": 48,
+      "to_root": 46,
+      "delta": -2
+    },
+    {
+      "from_bar": 4,
+      "to_bar": 5,
+      "from_root": 45,
+      "to_root": 50,
+      "delta": 5
+    },
+    {
+      "from_bar": 5,
+      "to_bar": 6,
+      "from_root": 50,
+      "to_root": 48,
+      "delta": -2
+    },
+    {
+      "from_bar": 6,
+      "to_bar": 7,
+      "from_root": 48,
+      "to_root": 46,
+      "delta": -2
+    },
+    {
+      "from_bar": 8,
+      "to_bar": 9,
+      "from_root": 45,
+      "to_root": 53,
+      "delta": 8
+    },
+    {
+      "from_bar": 9,
+      "to_bar": 10,
+      "from_root": 53,
+      "to_root": 55,
+      "delta": 2
+    },
+    {
+      "from_bar": 10,
+      "to_bar": 11,
+      "from_root": 55,
+      "to_root": 57,
+      "delta": 2
+    }
+  ],
+  "emotional_density_improved": true,
+  "constraints": {
+    "cloud_called": false,
+    "training_performed": false,
+    "fake_model_claims": false
+  },
+  "validation": {
+    "midi_parses": true,
+    "tempo_exact_100_bpm": true,
+    "v3_full_mid_unchanged": true,
+    "v4_full_mid_exists": true,
+    "no_cloud_called": true,
+    "no_training_performed": true,
+    "no_fake_model_claims": true,
+    "no_private_paths_in_reports": true
+  },
+  "stems": {
+    "created": true,
+    "path": "outputs/through_composed_story_100bpm_v4_stems",
+    "generated_files": [
+      "ableton_track_plan.md",
+      "bass.mid",
+      "counterline.mid",
+      "full.mid",
+      "harmony.mid",
+      "lead.mid",
+      "rhythm_pulse.mid",
+      "texture.mid"
+    ]
+  }
+}

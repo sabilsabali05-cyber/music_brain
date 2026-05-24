@@ -1,0 +1,710 @@
+{
+  "goal": "thin non-essential notes while preserving weird harmony and rhythmic character",
+  "classification_counts": {
+    "essential_chord_tone": 86,
+    "emotional_tension": 448,
+    "melodic_anchor": 67,
+    "rhythmic_identity": 782,
+    "transition_voiceleading": 148,
+    "texture_support": 160,
+    "passing_tone": 11,
+    "ornament": 12,
+    "duplicate": 15,
+    "clutter": 0,
+    "accidental_clash": 179,
+    "low_emotional_value": 61
+  },
+  "policy": [
+    "Keep essential_chord_tone, emotional_tension, melodic_anchor, rhythmic_identity, transition_voiceleading.",
+    "Keep passing_tone only when clear stepwise resolution exists.",
+    "Reduce texture_support where it masks lead or harmony.",
+    "Remove duplicate unless it adds downbeat weight.",
+    "Remove clutter and low_emotional_value.",
+    "Fix accidental_clash using soften/shorten/octave/resolution before deletion.",
+    "Preserve breathing rests and dominant voice in busy bars.",
+    "Preserve tension/release dissonances that drive emotional movement."
+  ],
+  "pre_thinning_density_by_section": {
+    "intro_tension": 250,
+    "lift": 433,
+    "conflict": 543,
+    "breakthrough": 360,
+    "resolution": 383
+  },
+  "accidental_clashes": [
+    {
+      "bar": 6,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:30",
+        "Bass:3:17"
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Bass",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.65,
+      "note_ids": [
+        "MotionHarmony:2:70",
+        "Bass:3:28"
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.45,
+      "note_ids": [
+        "Melody:1:50",
+        "MotionHarmony:2:69"
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:55",
+        "MotionHarmony:2:77"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.85,
+      "note_ids": [
+        "Melody:1:61",
+        "Bass:3:37"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:56",
+        "Bass:3:33"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:57",
+        "Bass:3:33"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:60",
+        "Bass:3:37"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:56",
+        "MotionHarmony:2:78"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:58",
+        "MotionHarmony:2:80"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:60",
+        "MotionHarmony:2:83"
+      ]
+    },
+    {
+      "bar": 10,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:61",
+        "MotionHarmony:2:85"
+      ]
+    },
+    {
+      "bar": 11,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:63",
+        "MotionHarmony:2:88"
+      ]
+    },
+    {
+      "bar": 11,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:64",
+        "MotionHarmony:2:88"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 1.0,
+      "note_ids": [
+        "Melody:1:68",
+        "Bass:3:45"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.75,
+      "note_ids": [
+        "Melody:1:73",
+        "Bass:3:49"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:69",
+        "Bass:3:45"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:68",
+        "MotionHarmony:2:94"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:69",
+        "MotionHarmony:2:96"
+      ]
+    },
+    {
+      "bar": 12,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:70",
+        "MotionHarmony:2:97"
+      ]
+    }
+  ],
+  "intentional_dissonances": [
+    {
+      "bar": 1,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.24,
+      "note_ids": [
+        "Melody:1:0",
+        "PadSwells:6:1"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.24,
+      "note_ids": [
+        "Melody:1:1",
+        "PadSwells:6:1"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.24,
+      "note_ids": [
+        "Melody:1:0",
+        "PadSwells:6:0"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.24,
+      "note_ids": [
+        "Melody:1:1",
+        "PadSwells:6:0"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.171,
+      "note_ids": [
+        "Melody:1:4",
+        "MotionHarmony:2:4"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:4",
+        "Bass:3:2"
+      ]
+    },
+    {
+      "bar": 1,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.85,
+      "note_ids": [
+        "Melody:1:5",
+        "Bass:3:2"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "MotionHarmony",
+        "PadSwells"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "MotionHarmony:2:10",
+        "PadSwells:6:5"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.4,
+      "note_ids": [
+        "Melody:1:7",
+        "Bass:3:3"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:7",
+        "PadSwells:6:4"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.75,
+      "note_ids": [
+        "Melody:1:8",
+        "Bass:3:4"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.75,
+      "note_ids": [
+        "Melody:1:8",
+        "PadSwells:6:4"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.25,
+      "note_ids": [
+        "Melody:1:9",
+        "MotionHarmony:2:12"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.15,
+      "note_ids": [
+        "Melody:1:9",
+        "Bass:3:4"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "note_ids": [
+        "Melody:1:9",
+        "PadSwells:6:4"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.171,
+      "note_ids": [
+        "Melody:1:10",
+        "MotionHarmony:2:12"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:10",
+        "MotionHarmony:2:13"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "Melody:1:11",
+        "MotionHarmony:2:15"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.9,
+      "note_ids": [
+        "Melody:1:11",
+        "Bass:3:6"
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "MotionHarmony",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.421,
+      "note_ids": [
+        "MotionHarmony:2:9",
+        "PadSwells:6:5"
+      ]
+    }
+  ],
+  "rhythmic_cells_to_preserve": [
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 0.5, 0.5]",
+      "count": 8,
+      "example_bar": 21,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 0.5, 1.0]",
+      "count": 5,
+      "example_bar": 13,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.0, 0.5, 1.0]",
+      "count": 4,
+      "example_bar": 11,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.5, 1.0, 1.0]",
+      "count": 4,
+      "example_bar": 2,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.0, 0.0, 0.5]",
+      "count": 2,
+      "example_bar": 17,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5
+      ]
+    },
+    {
+      "cell": "[0.0, 0.0, 0.0, 0.0, 0.5, 0.5]",
+      "count": 2,
+      "example_bar": 10,
+      "positions": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.5
+      ]
+    }
+  ],
+  "harmony_movements_to_preserve": [
+    {
+      "from_bar": 1,
+      "to_bar": 2,
+      "from_root": 50,
+      "to_root": 48,
+      "delta": -2
+    },
+    {
+      "from_bar": 2,
+      "to_bar": 3,
+      "from_root": 48,
+      "to_root": 46,
+      "delta": -2
+    },
+    {
+      "from_bar": 4,
+      "to_bar": 5,
+      "from_root": 45,
+      "to_root": 50,
+      "delta": 5
+    },
+    {
+      "from_bar": 5,
+      "to_bar": 6,
+      "from_root": 50,
+      "to_root": 48,
+      "delta": -2
+    },
+    {
+      "from_bar": 6,
+      "to_bar": 7,
+      "from_root": 48,
+      "to_root": 46,
+      "delta": -2
+    },
+    {
+      "from_bar": 8,
+      "to_bar": 9,
+      "from_root": 45,
+      "to_root": 53,
+      "delta": 8
+    },
+    {
+      "from_bar": 9,
+      "to_bar": 10,
+      "from_root": 53,
+      "to_root": 55,
+      "delta": 2
+    },
+    {
+      "from_bar": 10,
+      "to_bar": 11,
+      "from_root": 55,
+      "to_root": 57,
+      "delta": 2
+    },
+    {
+      "from_bar": 11,
+      "to_bar": 12,
+      "from_root": 57,
+      "to_root": 52,
+      "delta": -5
+    },
+    {
+      "from_bar": 12,
+      "to_bar": 13,
+      "from_root": 52,
+      "to_root": 50,
+      "delta": -2
+    }
+  ]
+}

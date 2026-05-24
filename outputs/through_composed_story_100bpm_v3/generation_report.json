@@ -1,0 +1,204 @@
+{
+  "status": "ok",
+  "output_midi": "outputs/through_composed_story_100bpm_v3/full.mid",
+  "tempo_bpm": 100.0,
+  "structure_preserved_from_v2": true,
+  "personality_focus": [
+    "retained syncopated odd cells",
+    "kept chromatic harmonic movement",
+    "preserved asymmetrical phrase accents"
+  ],
+  "strategy_applied": {
+    "register_velocity_changes": {
+      "octave_shifts": 14,
+      "velocity_reductions": 617,
+      "timing_offsets": 39,
+      "duration_shortens": 207,
+      "resolutions_added": 0,
+      "texture_reassignments": 0,
+      "notes_thinned": 0
+    },
+    "transition_tension_changes": {
+      "suspensions": 4,
+      "passing_tones": 4,
+      "neighbor_tones": 4,
+      "upper_extensions": 4,
+      "altered_tensions": 4,
+      "chromatic_approaches": 4,
+      "pedal_dissonances": 4
+    },
+    "clash_reframing": {
+      "targeted_clashes": 16,
+      "converted_to_tension": 14,
+      "octave_shifts": 15,
+      "timing_offsets": 5,
+      "velocity_lowers": 102,
+      "duration_shortens": 102,
+      "stepwise_resolutions": 14,
+      "texture_reassignments": 0,
+      "additional_repair_passes": 10,
+      "remaining_severe_clashes": 16,
+      "intentional_tensions_before": 16,
+      "intentional_tensions_after": 16
+    }
+  },
+  "analysis_highlights": {
+    "strong_personality_sections": [
+      {
+        "section": "breakthrough",
+        "personality_score": 3.894,
+        "offbeat_ratio": 0.577,
+        "density": 43.75
+      },
+      {
+        "section": "conflict",
+        "personality_score": 3.868,
+        "offbeat_ratio": 0.574,
+        "density": 43.417
+      },
+      {
+        "section": "lift",
+        "personality_score": 3.67,
+        "offbeat_ratio": 0.512,
+        "density": 42.4
+      }
+    ],
+    "best_chord_movement": [
+      {
+        "from_bar": 8,
+        "to_bar": 9,
+        "from_root_midi": 45,
+        "to_root_midi": 53,
+        "semitone_motion": 8,
+        "movement_score": 9
+      },
+      {
+        "from_bar": 38,
+        "to_bar": 39,
+        "from_root_midi": 57,
+        "to_root_midi": 50,
+        "semitone_motion": -7,
+        "movement_score": 8
+      },
+      {
+        "from_bar": 30,
+        "to_bar": 31,
+        "from_root_midi": 52,
+        "to_root_midi": 58,
+        "semitone_motion": 6,
+        "movement_score": 7
+      },
+      {
+        "from_bar": 4,
+        "to_bar": 5,
+        "from_root_midi": 45,
+        "to_root_midi": 50,
+        "semitone_motion": 5,
+        "movement_score": 6
+      }
+    ],
+    "motifs_preserved": [
+      {
+        "count": 3,
+        "cell_signature": "[0.0, 0.5, 1.0, 1.5, 1.5, 2.0]|[-3, 3, -3, 3, -3]",
+        "example": {
+          "bar": 20,
+          "positions_beats": [
+            0.0,
+            0.5,
+            1.0,
+            1.5,
+            1.5,
+            2.0
+          ],
+          "intervals": [
+            -3,
+            3,
+            -3,
+            3,
+            -3
+          ]
+        }
+      },
+      {
+        "count": 2,
+        "cell_signature": "[0.0, 0.0, 0.5, 1.0, 1.0, 1.5]|[5, 0, -5, 5, -5]",
+        "example": {
+          "bar": 41,
+          "positions_beats": [
+            0.0,
+            0.0,
+            0.5,
+            1.0,
+            1.0,
+            1.5
+          ],
+          "intervals": [
+            5,
+            0,
+            -5,
+            5,
+            -5
+          ]
+        }
+      },
+      {
+        "count": 2,
+        "cell_signature": "[0.0, 0.5, 0.5, 1.0, 1.25, 1.75]|[-3, 3, -3, 3, -3]",
+        "example": {
+          "bar": 21,
+          "positions_beats": [
+            0.0,
+            0.5,
+            0.5,
+            1.0,
+            1.25,
+            1.75
+          ],
+          "intervals": [
+            -3,
+            3,
+            -3,
+            3,
+            -3
+          ]
+        }
+      }
+    ]
+  },
+  "constraints": {
+    "cloud_called": false,
+    "training_performed": false,
+    "fake_model_usage": false,
+    "database_context_used": false
+  },
+  "validation": {
+    "midi_parses": true,
+    "tempo_exact_100_bpm": true,
+    "v2_full_mid_unchanged": true,
+    "v3_full_mid_exists": true,
+    "no_cloud_called": true,
+    "no_training_performed": true,
+    "no_fake_model_claims": true,
+    "no_private_paths_in_reports": true
+  },
+  "stems": {
+    "created": true,
+    "path": "outputs/through_composed_story_100bpm_v3_stems",
+    "generated_files": [
+      "ableton_track_plan.md",
+      "bass.mid",
+      "counterline.mid",
+      "full.mid",
+      "harmony.mid",
+      "lead.mid",
+      "rhythm_pulse.mid",
+      "texture.mid"
+    ],
+    "uncertainty_notes": {
+      "harmony": "PadSwells overlaps texture role; kept inside harmony for progression auditioning.",
+      "texture": "Texture sourced from PadSwells due to absence of dedicated texture-only track.",
+      "rhythm_pulse": "Drums interpreted as rhythm pulse layer."
+    }
+  }
+}

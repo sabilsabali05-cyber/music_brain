@@ -138,10 +138,12 @@ def main() -> int:
         local_render_root=ROOT_DIR / "renders" / GENERATION_ID,
     )
     final_wav = ROOT_DIR / "renders" / GENERATION_ID / "final.wav"
+    full_midi_rel = full_midi.relative_to(ROOT_DIR).as_posix()
+    final_wav_rel = final_wav.relative_to(ROOT_DIR).as_posix()
     wav_result = verify_wav_file(
         final_wav,
         render_backend="reaper_auto_render",
-        source_midi_provenance=full_midi.as_posix(),
+        source_midi_provenance=full_midi_rel,
     )
 
     missing_config: list[str] = []
@@ -181,7 +183,7 @@ def main() -> int:
                 "# Generated WAV Verification",
                 "",
                 f"- wav_rendered: `{str(wav_result.exists and wav_result.readable and wav_result.duration_seconds > 0 and wav_result.nonzero_samples).lower()}`",
-                f"- final_wav_path: `{final_wav.as_posix() if wav_result.exists else 'none'}`",
+                f"- final_wav_path: `{final_wav_rel if wav_result.exists else 'none'}`",
                 f"- duration_seconds: `{wav_result.duration_seconds:.3f}`",
                 f"- sample_rate: `{wav_result.sample_rate}`",
                 f"- channels: `{wav_result.channels}`",
@@ -200,7 +202,7 @@ def main() -> int:
         "vst_render_used": bool(report.vst_render_used),
         "fallback_preview_used": False,
         "render_plan_only": bool(report.render_plan_only),
-        "final_wav_path": final_wav.as_posix() if wav_result.exists else "",
+        "final_wav_path": final_wav_rel if wav_result.exists else "",
         "assisted_render_pack": assisted_pack,
         "missing_config": missing_config,
         "wav_status": wav_status,

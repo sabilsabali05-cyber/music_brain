@@ -1,0 +1,11 @@
+{
+  "generation_id": "g1",
+  "render_backend": "ableton_assisted_render",
+  "render_backend_status": "assisted_pack_created",
+  "pack_path": "outputs/render_ready_packs/g1",
+  "wav_rendered": false,
+  "vst_render_used": false,
+  "fallback_preview_used": false,
+  "render_plan_only": true,
+  "reason": "reaper_unavailable"
+}

@@ -1,0 +1,52 @@
+{
+  "status": "ok",
+  "base_midi": "C:/Users/izzyo/ai-composer/music_brain/outputs/through_composed_story_100bpm/full.mid",
+  "output_midi": "C:/Users/izzyo/ai-composer/music_brain/outputs/through_composed_story_100bpm_v2/full.mid",
+  "tempo_bpm": 100.0,
+  "tempo_matches_base": true,
+  "fallback_used": false,
+  "cloud_called": false,
+  "db_signals_used": {
+    "review_feedback": {
+      "keep_intro_sparse": true,
+      "longer_lead_arcs": true,
+      "regenerate_bass_phrasing": true,
+      "retain_progression": true,
+      "mood_adjustment": "slightly brighter"
+    },
+    "generation_weights": {
+      "variation_strength": 0.7,
+      "motif_preservation": 0.9,
+      "role_weights": {
+        "drums": 1.0,
+        "bass": 0.9,
+        "lead": 0.85
+      }
+    },
+    "generative_pairing_and_quality": {
+      "focus_tasks": [
+        "call_response",
+        "buildup_to_release",
+        "groove_continuation",
+        "section_transition"
+      ],
+      "target_density_baseline": [
+        0.75,
+        0.85
+      ],
+      "phrase_boundary_quality_bias": "prioritize clearer boundary arrivals and transitions"
+    },
+    "feedback_note": "continue tightening drum transitions"
+  },
+  "concrete_changes": [
+    "Applied sectional velocity phrasing so intro stays restrained and conflict peaks with stronger accents.",
+    "Rebuilt bass with anticipations and octave bounce notes in high-energy sections to avoid static roots.",
+    "Added call-and-response counterline derived from lead motifs (sparser intro, denser middle arc).",
+    "Added pad swells per bar using harmony-derived roots for fuller emotional bed without replacing progression.",
+    "Added section-end drum fills to reinforce transitions and buildup/release contour."
+  ],
+  "output_midi_files": [
+    "full.mid"
+  ],
+  "exactly_one_final_midi_file": true
+}

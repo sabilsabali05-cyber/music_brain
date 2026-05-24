@@ -1,0 +1,18 @@
+[
+  {
+    "path": "renders/chordpotion_generation_v1/final.wav",
+    "exists": false,
+    "readable": false,
+    "duration_seconds": 0.0,
+    "nonzero_samples": false,
+    "sample_rate": 0,
+    "bit_depth": 0,
+    "channels": 0,
+    "peak": 0.0,
+    "rms": 0.0,
+    "clipping_detected": false,
+    "silence_detected": true,
+    "render_backend": "reaper_auto_render_chordpotion",
+    "source_midi_provenance": "outputs/chordpotion_generation_v1/harmony_skeleton.mid"
+  }
+]

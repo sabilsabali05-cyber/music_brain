@@ -191,6 +191,11 @@ function Show-Usage {
     Write-Host "  render-with-reaper [generation-id]"
     Write-Host "  export-ableton-render-pack [generation-id] [reason]"
     Write-Host "  generate-and-render-wav"
+    Write-Host "  generate-chordpotion-ready-skeleton"
+    Write-Host "  build-chordpotion-transform-plan [generation-id]"
+    Write-Host "  render-chordpotion-with-reaper [generation-id]"
+    Write-Host "  export-chordpotion-ableton-pack [generation-id] [reason]"
+    Write-Host "  generate-with-chordpotion"
     Write-Host "  verify-local-wav-renders [generation-id]"
     Write-Host "  commit-checkpoint [commit message]"
 }
@@ -1593,6 +1598,41 @@ switch ($Task) {
     "generate-and-render-wav" {
         Invoke-Step -Label "Generating MIDI and attempting local WAV render" -Command @(
             "python", "scripts/generate_and_render_wav.py"
+        )
+    }
+    "generate-chordpotion-ready-skeleton" {
+        Invoke-Step -Label "Generating ChordPotion-ready MIDI skeleton" -Command @(
+            "python", "scripts/generate_chordpotion_ready_skeleton.py"
+        )
+    }
+    "build-chordpotion-transform-plan" {
+        $generationId = Get-TaskArg -Index 0
+        $command = @("python", "scripts/build_chordpotion_transform_plan.py")
+        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
+            $command += @("--generation-id", $generationId)
+        }
+        Invoke-Step -Label "Building ChordPotion transform plan" -Command $command
+    }
+    "render-chordpotion-with-reaper" {
+        $generationId = Get-TaskArg -Index 0
+        $command = @("python", "scripts/render_chordpotion_with_reaper.py")
+        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
+            $command += @("--generation-id", $generationId)
+        }
+        Invoke-Step -Label "Running ChordPotion Reaper backend" -Command $command
+    }
+    "export-chordpotion-ableton-pack" {
+        $generationId = Get-TaskArg -Index 0
+        $reason = Get-TaskArg -Index 1
+        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "chordpotion_generation_v1" }
+        $reasonValue = if (-not [string]::IsNullOrWhiteSpace($reason)) { $reason } else { "chordpotion_or_reaper_unavailable" }
+        Invoke-Step -Label "Exporting ChordPotion Ableton assisted pack" -Command @(
+            "python", "scripts/export_chordpotion_ableton_pack.py", "--generation-id", $target, "--reason", $reasonValue
+        )
+    }
+    "generate-with-chordpotion" {
+        Invoke-Step -Label "Running ChordPotion one-command generation flow" -Command @(
+            "python", "scripts/generate_with_chordpotion.py"
         )
     }
     "verify-local-wav-renders" {

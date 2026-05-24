@@ -1,6 +1,6 @@
 # Reaper Local Render Report
 
-- generation_id: `generated_wav_v1`
+- generation_id: `g1`
 - render_backend: `reaper_auto_render`
 - render_backend_status: `planned_not_executed`
 - reaper_available: `False`

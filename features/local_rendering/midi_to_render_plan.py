@@ -34,12 +34,20 @@ def _texture_from_role(role: str) -> str:
     return mapping.get(role, "balanced instrumental texture")
 
 
+def _repo_relative(path: Path, root: Path) -> str:
+    try:
+        return path.resolve().relative_to(root.resolve()).as_posix()
+    except Exception:  # noqa: BLE001
+        return path.as_posix()
+
+
 def build_render_plan_from_stems(
     generation_id: str,
     stems_dir: Path,
     registry: VstRegistry,
     default_backend: str = "dry_run_plan_only",
 ) -> RenderPlan:
+    root = Path(__file__).resolve().parent.parent.parent
     midi_files = sorted([item for item in stems_dir.glob("*.mid") if item.is_file()])
     stems: list[RenderPlanStem] = []
     for midi_file in midi_files:
@@ -60,7 +68,7 @@ def build_render_plan_from_stems(
             effects.append("transient_shaper")
         stems.append(
             RenderPlanStem(
-                midi_path=midi_file.as_posix(),
+                midi_path=_repo_relative(midi_file, root),
                 track_name=track_name,
                 track_role=track_role,
                 texture_intent=texture_intent,

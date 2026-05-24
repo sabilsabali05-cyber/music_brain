@@ -3,7 +3,7 @@
   "default_render_backend": "dry_run_plan_only",
   "stems": [
     {
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/bass.mid",
+      "midi_path": "outputs/generated_wav_v1/stems/bass.mid",
       "track_name": "bass",
       "track_role": "bass",
       "texture_intent": "supportive low-end pulse",
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/drums.mid",
+      "midi_path": "outputs/generated_wav_v1/stems/drums.mid",
       "track_name": "drums",
       "track_role": "drums",
       "texture_intent": "punchy rhythmic backbone",
@@ -48,7 +48,7 @@
       ]
     },
     {
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/lead.mid",
+      "midi_path": "outputs/generated_wav_v1/stems/lead.mid",
       "track_name": "lead",
       "track_role": "lead",
       "texture_intent": "foreground melodic clarity",
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "midi_path": "C:/Users/izzyo/ai-composer/music_brain/outputs/generated_wav_v1/stems/pad.mid",
+      "midi_path": "outputs/generated_wav_v1/stems/pad.mid",
       "track_name": "pad",
       "track_role": "pad",
       "texture_intent": "wide atmospheric bed",

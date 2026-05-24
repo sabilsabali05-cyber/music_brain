@@ -1,0 +1,785 @@
+{
+  "tempo_bpm": 100.0,
+  "ticks_per_beat": 480,
+  "total_bars": 48,
+  "sections_with_strongest_personality": [
+    {
+      "section": "breakthrough",
+      "personality_score": 3.894,
+      "offbeat_ratio": 0.577,
+      "density": 43.75
+    },
+    {
+      "section": "conflict",
+      "personality_score": 3.868,
+      "offbeat_ratio": 0.574,
+      "density": 43.417
+    },
+    {
+      "section": "lift",
+      "personality_score": 3.67,
+      "offbeat_ratio": 0.512,
+      "density": 42.4
+    }
+  ],
+  "best_chord_movement": [
+    {
+      "from_bar": 8,
+      "to_bar": 9,
+      "from_root_midi": 45,
+      "to_root_midi": 53,
+      "semitone_motion": 8,
+      "movement_score": 9
+    },
+    {
+      "from_bar": 38,
+      "to_bar": 39,
+      "from_root_midi": 57,
+      "to_root_midi": 50,
+      "semitone_motion": -7,
+      "movement_score": 8
+    },
+    {
+      "from_bar": 30,
+      "to_bar": 31,
+      "from_root_midi": 52,
+      "to_root_midi": 58,
+      "semitone_motion": 6,
+      "movement_score": 7
+    },
+    {
+      "from_bar": 4,
+      "to_bar": 5,
+      "from_root_midi": 45,
+      "to_root_midi": 50,
+      "semitone_motion": 5,
+      "movement_score": 6
+    },
+    {
+      "from_bar": 11,
+      "to_bar": 12,
+      "from_root_midi": 57,
+      "to_root_midi": 52,
+      "semitone_motion": -5,
+      "movement_score": 6
+    },
+    {
+      "from_bar": 16,
+      "to_bar": 17,
+      "from_root_midi": 57,
+      "to_root_midi": 52,
+      "semitone_motion": -5,
+      "movement_score": 6
+    }
+  ],
+  "interesting_rhythms": [
+    {
+      "source_bar": 20,
+      "cell_positions_beats": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        1.5,
+        2.0
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 41,
+      "cell_positions_beats": [
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0,
+        1.5
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 21,
+      "cell_positions_beats": [
+        0.0,
+        0.5,
+        0.5,
+        1.0,
+        1.25,
+        1.75
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 17,
+      "cell_positions_beats": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    }
+  ],
+  "too_busy_sections": [
+    "bar_01_intro_tension",
+    "bar_02_intro_tension",
+    "bar_03_intro_tension",
+    "bar_04_intro_tension",
+    "bar_05_intro_tension",
+    "bar_06_intro_tension",
+    "bar_07_intro_tension",
+    "bar_08_intro_tension",
+    "bar_09_lift",
+    "bar_10_lift",
+    "bar_11_lift",
+    "bar_12_lift",
+    "bar_13_lift",
+    "bar_14_lift"
+  ],
+  "accidental_clashes": [
+    {
+      "bar": 24,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.65,
+      "combined_velocity": 190,
+      "notes": [
+        47,
+        65
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.65,
+      "combined_velocity": 190,
+      "notes": [
+        47,
+        65
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.421,
+      "combined_velocity": 190,
+      "notes": [
+        65,
+        71
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.421,
+      "combined_velocity": 190,
+      "notes": [
+        65,
+        67
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 1.25,
+      "combined_velocity": 189,
+      "notes": [
+        40,
+        65
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.75,
+      "combined_velocity": 189,
+      "notes": [
+        40,
+        65
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.5,
+      "combined_velocity": 189,
+      "notes": [
+        40,
+        65
+      ]
+    },
+    {
+      "bar": 23,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "combined_velocity": 186,
+      "notes": [
+        65,
+        66
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.5,
+      "combined_velocity": 185,
+      "notes": [
+        40,
+        65
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 6,
+      "overlap_beats": 0.421,
+      "combined_velocity": 185,
+      "notes": [
+        65,
+        71
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.9,
+      "combined_velocity": 184,
+      "notes": [
+        43,
+        65
+      ]
+    },
+    {
+      "bar": 20,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.75,
+      "combined_velocity": 184,
+      "notes": [
+        51,
+        65
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.75,
+      "combined_velocity": 184,
+      "notes": [
+        43,
+        65
+      ]
+    },
+    {
+      "bar": 30,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.5,
+      "combined_velocity": 184,
+      "notes": [
+        40,
+        65
+      ]
+    },
+    {
+      "bar": 26,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.4,
+      "combined_velocity": 184,
+      "notes": [
+        51,
+        65
+      ]
+    },
+    {
+      "bar": 24,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.421,
+      "combined_velocity": 182,
+      "notes": [
+        52,
+        65
+      ]
+    }
+  ],
+  "clashes_that_can_be_intentional_tensions": [
+    {
+      "bar": 1,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.85,
+      "combined_velocity": 95,
+      "notes": [
+        38,
+        60
+      ]
+    },
+    {
+      "bar": 2,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.9,
+      "combined_velocity": 99,
+      "notes": [
+        36,
+        62
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.421,
+      "combined_velocity": 104,
+      "notes": [
+        48,
+        62
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Bass",
+        "Melody"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "combined_velocity": 112,
+      "notes": [
+        36,
+        62
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.25,
+      "combined_velocity": 106,
+      "notes": [
+        60,
+        62
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "combined_velocity": 99,
+      "notes": [
+        58,
+        60
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.25,
+      "combined_velocity": 96,
+      "notes": [
+        57,
+        67
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 10,
+      "overlap_beats": 0.25,
+      "combined_velocity": 97,
+      "notes": [
+        48,
+        58
+      ]
+    },
+    {
+      "bar": 6,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 11,
+      "overlap_beats": 0.5,
+      "combined_velocity": 99,
+      "notes": [
+        58,
+        69
+      ]
+    },
+    {
+      "bar": 7,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 1.0,
+      "combined_velocity": 102,
+      "notes": [
+        62,
+        63
+      ]
+    },
+    {
+      "bar": 7,
+      "tracks": [
+        "Melody",
+        "MotionHarmony"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.171,
+      "combined_velocity": 88,
+      "notes": [
+        58,
+        60
+      ]
+    },
+    {
+      "bar": 7,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 2,
+      "overlap_beats": 0.5,
+      "combined_velocity": 95,
+      "notes": [
+        58,
+        60
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Melody",
+        "PadSwells"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.75,
+      "combined_velocity": 139,
+      "notes": [
+        64,
+        65
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Counterline",
+        "Melody"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.4,
+      "combined_velocity": 138,
+      "notes": [
+        61,
+        62
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Bass",
+        "MotionHarmony"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.171,
+      "combined_velocity": 121,
+      "notes": [
+        47,
+        72
+      ]
+    },
+    {
+      "bar": 9,
+      "tracks": [
+        "Bass",
+        "PadSwells"
+      ],
+      "interval_class": 1,
+      "overlap_beats": 0.9,
+      "combined_velocity": 130,
+      "notes": [
+        45,
+        70
+      ]
+    }
+  ],
+  "register_separation_opportunities": [
+    "Keep Bass mostly <= MIDI 55 while Melody remains >= MIDI 60 in dense bars.",
+    "Push pad and sustained harmony toward middle register (MIDI 48-76) under lead peaks.",
+    "Use Counterline as high-mid response voice to avoid masking Melody attacks."
+  ],
+  "velocity_reduction_opportunities": [
+    "Reduce supportive layers (PadSwells/Counterline) by 8-16 velocity in bars with polyphony > 5.",
+    "Keep dominant voice accents while lowering duplicate harmony attacks.",
+    "Trim stacked peak hits where combined velocity pressures exceed 120."
+  ],
+  "motifs_to_preserve": [
+    {
+      "count": 3,
+      "cell_signature": "[0.0, 0.5, 1.0, 1.5, 1.5, 2.0]|[-3, 3, -3, 3, -3]",
+      "example": {
+        "bar": 20,
+        "positions_beats": [
+          0.0,
+          0.5,
+          1.0,
+          1.5,
+          1.5,
+          2.0
+        ],
+        "intervals": [
+          -3,
+          3,
+          -3,
+          3,
+          -3
+        ]
+      }
+    },
+    {
+      "count": 2,
+      "cell_signature": "[0.0, 0.0, 0.5, 1.0, 1.0, 1.5]|[5, 0, -5, 5, -5]",
+      "example": {
+        "bar": 41,
+        "positions_beats": [
+          0.0,
+          0.0,
+          0.5,
+          1.0,
+          1.0,
+          1.5
+        ],
+        "intervals": [
+          5,
+          0,
+          -5,
+          5,
+          -5
+        ]
+      }
+    },
+    {
+      "count": 2,
+      "cell_signature": "[0.0, 0.5, 0.5, 1.0, 1.25, 1.75]|[-3, 3, -3, 3, -3]",
+      "example": {
+        "bar": 21,
+        "positions_beats": [
+          0.0,
+          0.5,
+          0.5,
+          1.0,
+          1.25,
+          1.75
+        ],
+        "intervals": [
+          -3,
+          3,
+          -3,
+          3,
+          -3
+        ]
+      }
+    },
+    {
+      "count": 1,
+      "cell_signature": "[0.0, 0.0, 0.0, 0.5, 1.0, 1.0]|[0, 3, 0, -3, 3]",
+      "example": {
+        "bar": 17,
+        "positions_beats": [
+          0.0,
+          0.0,
+          0.0,
+          0.5,
+          1.0,
+          1.0
+        ],
+        "intervals": [
+          0,
+          3,
+          0,
+          -3,
+          3
+        ]
+      }
+    }
+  ],
+  "rhythmic_cells_to_develop": [
+    {
+      "source_bar": 20,
+      "cell_positions_beats": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        1.5,
+        2.0
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 41,
+      "cell_positions_beats": [
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0,
+        1.5
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 21,
+      "cell_positions_beats": [
+        0.0,
+        0.5,
+        0.5,
+        1.0,
+        1.25,
+        1.75
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    },
+    {
+      "source_bar": 17,
+      "cell_positions_beats": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "development_hint": "repeat with one displaced rest and one anticipation"
+    }
+  ],
+  "harmonic_gestures_to_extend": [
+    {
+      "bars": [
+        8,
+        9
+      ],
+      "gesture": "root move 8 semitones",
+      "extension_strategy": "approach upper-extension voicing before arrival"
+    },
+    {
+      "bars": [
+        38,
+        39
+      ],
+      "gesture": "root move -7 semitones",
+      "extension_strategy": "approach upper-extension voicing before arrival"
+    },
+    {
+      "bars": [
+        30,
+        31
+      ],
+      "gesture": "root move 6 semitones",
+      "extension_strategy": "approach upper-extension voicing before arrival"
+    },
+    {
+      "bars": [
+        4,
+        5
+      ],
+      "gesture": "root move 5 semitones",
+      "extension_strategy": "approach upper-extension voicing before arrival"
+    },
+    {
+      "bars": [
+        11,
+        12
+      ],
+      "gesture": "root move -5 semitones",
+      "extension_strategy": "approach upper-extension voicing before arrival"
+    }
+  ]
+}

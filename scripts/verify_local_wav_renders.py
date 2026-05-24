@@ -24,7 +24,11 @@ def main() -> int:
     final_wav = render_root / "final.wav"
     stem_wavs = sorted((render_root / "stems").glob("*.wav")) if (render_root / "stems").exists() else []
     all_paths = [final_wav] + stem_wavs
-    results = [verify_wav_file(path, render_backend="local_rendering", source_midi_provenance="outputs/generated_wav_v1/full.mid") for path in all_paths]
+    relative_paths = [path.relative_to(ROOT_DIR) if path.is_absolute() else path for path in all_paths]
+    results = [
+        verify_wav_file(path, render_backend="local_rendering", source_midi_provenance="outputs/generated_wav_v1/full.mid")
+        for path in relative_paths
+    ]
 
     json_path = ROOT_DIR / "reports" / "local_rendering" / "wav_render_verification_report.json"
     md_path = ROOT_DIR / "reports" / "local_rendering" / "wav_render_verification_report.md"
