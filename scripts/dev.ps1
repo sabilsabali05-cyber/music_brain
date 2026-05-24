@@ -120,6 +120,7 @@ function Show-Usage {
     Write-Host "  bootstrap-symbolic-model-local-config"
     Write-Host "  plan-symbolic-backend-install"
     Write-Host "  check-symbolic-backend-activation"
+    Write-Host "  discover-symbolic-model-sources"
     Write-Host "  generate-2min-ballad [--use-symbolic-backends] [--output <folder>]"
     Write-Host "  generate-text2midi-prompt-sketch-scaffold"
     Write-Host "  check-audio-understanding-setup"
@@ -1118,6 +1119,11 @@ switch ($Task) {
     "check-symbolic-backend-activation" {
         Invoke-Step -Label "Checking symbolic backend activation status" -Command @(
             "python", "scripts/check_symbolic_backend_activation.py"
+        )
+    }
+    "discover-symbolic-model-sources" {
+        Invoke-Step -Label "Discovering official symbolic model sources" -Command @(
+            "python", "scripts/discover_symbolic_model_sources.py"
         )
     }
     "generate-2min-ballad" {

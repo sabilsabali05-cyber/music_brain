@@ -1,0 +1,50 @@
+{
+  "status": "ok",
+  "source_policy": "official_only_no_random_repositories",
+  "cloud_called": false,
+  "modal_called": false,
+  "automatic_clone_performed": false,
+  "automatic_download_performed": false,
+  "models": [
+    {
+      "model_name": "Moonbeam",
+      "source_found": true,
+      "source_type": "github",
+      "source_verified": true,
+      "license_found": false,
+      "pretrained_weights_found": false,
+      "download_allowed": false,
+      "blocker": "license_unclear"
+    },
+    {
+      "model_name": "Text2MIDI",
+      "source_found": true,
+      "source_type": "github",
+      "source_verified": true,
+      "license_found": true,
+      "pretrained_weights_found": true,
+      "download_allowed": true,
+      "blocker": ""
+    },
+    {
+      "model_name": "MIDI-GPT",
+      "source_found": true,
+      "source_type": "github",
+      "source_verified": true,
+      "license_found": false,
+      "pretrained_weights_found": false,
+      "download_allowed": false,
+      "blocker": "license_unclear"
+    },
+    {
+      "model_name": "MusicBERT",
+      "source_found": true,
+      "source_type": "github",
+      "source_verified": true,
+      "license_found": true,
+      "pretrained_weights_found": false,
+      "download_allowed": false,
+      "blocker": "weights_not_found"
+    }
+  ]
+}

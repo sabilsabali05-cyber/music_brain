@@ -1,9 +1,9 @@
 # Moonbeam Setup Status
 
-- config_source: `config/model_integrations/model_integrations.example.json`
+- config_source: `config/model_integrations/model_integrations.local.json`
 - moonbeam_configured: `False`
 - moonbeam_available: `False`
 - smoke_test_passed: `False`
-- unavailable_reason: `disabled_or_missing_local_config`
-- next_setup_step: Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.moonbeam.enabled=true.
+- unavailable_reason: `disabled_in_local_config`
+- next_setup_step: Set models.moonbeam.enabled=true in local config after policy review.
 - model_training_has_occurred: `False`
