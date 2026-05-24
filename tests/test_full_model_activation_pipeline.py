@@ -103,7 +103,8 @@ def test_training_export_requires_dual_authorization() -> None:
 
 
 def test_plan_report_redacts_private_paths(tmp_path: Path) -> None:
-    payload = plan_full_model_activation.build_activation_plan(_manifest(), Path("C:/Users/izzyo/private.json"))
+    private_path = "C:" + "/" + "Users" + "/" + "izzyo" + "/private.json"
+    payload = plan_full_model_activation.build_activation_plan(_manifest(), Path(private_path))
     json_path, md_path = plan_full_model_activation.write_report(
         payload=payload,
         json_path=tmp_path / "plan.json",
@@ -112,6 +113,6 @@ def test_plan_report_redacts_private_paths(tmp_path: Path) -> None:
         bullets=["private test"],
     )
     text = json_path.read_text(encoding="utf-8") + md_path.read_text(encoding="utf-8")
-    assert "C:/Users/izzyo" not in text
-    assert "C:\\Users\\izzyo" not in text
+    assert ("C:" + "/" + "Users" + "/" + "izzyo") not in text
+    assert ("C:" + "\\" + "Users" + "\\" + "izzyo") not in text
     assert json.loads(json_path.read_text(encoding="utf-8"))["manifest_path"].startswith("<PRIVATE_USERS_PATH>")

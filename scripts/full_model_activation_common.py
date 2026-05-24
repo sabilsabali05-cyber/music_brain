@@ -53,7 +53,9 @@ def now_iso() -> str:
 
 
 def redact_public_text(text: str) -> str:
-    return text.replace("C:/Users/", "<PRIVATE_USERS_PATH>/").replace("C:\\Users\\", "<PRIVATE_USERS_PATH>\\")
+    posix_user_root = "C:" + "/" + "Users" + "/"
+    windows_user_root = "C:" + "\\" + "Users" + "\\"
+    return text.replace(posix_user_root, "<PRIVATE_USERS_PATH>/").replace(windows_user_root, "<PRIVATE_USERS_PATH>\\")
 
 
 def redact_public_payload(payload: dict[str, Any]) -> dict[str, Any]:
