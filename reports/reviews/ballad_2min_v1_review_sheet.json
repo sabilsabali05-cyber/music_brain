@@ -1,0 +1,63 @@
+{
+  "output_id": "ballad_2min_v1",
+  "tempo_bpm": 78.0,
+  "key": "A minor",
+  "duration_seconds": 120.0,
+  "meter": "4/4",
+  "section_structure": [
+    "intro",
+    "verse",
+    "hook",
+    "bridge",
+    "final_hook",
+    "outro"
+  ],
+  "tracks_stems": [
+    "ballad_drums.mid",
+    "ballad_bass.mid",
+    "ballad_chords.mid",
+    "ballad_lead.mid",
+    "ballad_texture.mid",
+    "ballad_full.mid"
+  ],
+  "note_counts_note_on_velocity_gt_0": {
+    "ballad_drums.mid": 144,
+    "ballad_bass.mid": 92,
+    "ballad_chords.mid": 234,
+    "ballad_lead.mid": 108,
+    "ballad_texture.mid": 50,
+    "ballad_full.mid": 628
+  },
+  "models_checked": [
+    "moonbeam",
+    "musicbert",
+    "midigpt",
+    "text2midi",
+    "example_retrieval"
+  ],
+  "models_used": [
+    "example_retrieval"
+  ],
+  "models_skipped_unavailable": [
+    "moonbeam:disabled_or_missing_local_config",
+    "musicbert:disabled_or_missing_local_config",
+    "midigpt:disabled_or_missing_local_config",
+    "text2midi:disabled_or_missing_local_config"
+  ],
+  "trained_model_generation": false,
+  "generated_from_repo_data_conditioning": {
+    "value": true,
+    "explanation": "Lead motif and arrangement constraints were conditioned by local symbolic examples under datasets/generative_training, with deterministic minor-ballad arrangement rules. This is retrieval/ruleset-based generation rather than a fresh trained-model sample."
+  },
+  "human_review_checklist": [
+    "chords feel emotional?",
+    "melody is hummable?",
+    "bass supports the progression?",
+    "drums leave space?",
+    "texture helps or clutters?",
+    "bridge works?",
+    "final hook lands?",
+    "what to regenerate?",
+    "what to keep?"
+  ]
+}
