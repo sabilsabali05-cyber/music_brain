@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-05-25T00:10:40.633994+00:00",
+  "status": "ok",
+  "baseline_v1_score": 0.120831,
+  "baseline_v2_score": 0.547743,
+  "repaired_score": 0.547743,
+  "attempts": [
+    {
+      "attempt": 1,
+      "score": 0.547743,
+      "controls_within_tolerance": 3,
+      "warnings": [
+        "low_ratio_compliance_score"
+      ],
+      "failed_controls": [
+        "5:3",
+        "5:4"
+      ]
+    },
+    {
+      "attempt": 2,
+      "score": 0.547743,
+      "controls_within_tolerance": 3,
+      "warnings": [
+        "low_ratio_compliance_score"
+      ],
+      "failed_controls": [
+        "5:3",
+        "5:4"
+      ]
+    },
+    {
+      "attempt": 3,
+      "score": 0.547743,
+      "controls_within_tolerance": 3,
+      "warnings": [
+        "low_ratio_compliance_score"
+      ],
+      "failed_controls": [
+        "5:3",
+        "5:4"
+      ]
+    }
+  ],
+  "final_controls_within_tolerance": 3,
+  "final_warnings": [
+    "low_ratio_compliance_score"
+  ],
+  "guardrails": {
+    "fake_pass_prevention": "repair loop never edits evaluator outputs directly; each score comes from fresh evaluation runs",
+    "max_attempts": 3
+  }
+}

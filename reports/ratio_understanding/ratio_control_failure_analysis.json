@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-05-24T20:00:00+00:00",
+  "source_eval": "reports/ratio_understanding/ratio_controlled_generation_eval.json",
+  "baseline_compliance_score": 0.120831,
+  "failed_controls": [
+    {
+      "ratio_name": "3:2",
+      "requested": 1.5,
+      "actual": 1.053639846743295,
+      "absolute_error": 0.44636015325670503,
+      "tolerance": 0.08,
+      "root_cause_category": "phrase",
+      "root_cause_notes": [
+        "generator alternates phrase lengths but evaluator used coarse early/late note split",
+        "phrase boundaries were not explicitly planned or measured"
+      ]
+    },
+    {
+      "ratio_name": "5:3",
+      "requested": 1.6666666666666667,
+      "actual": 9.72,
+      "absolute_error": 8.053333333333333,
+      "tolerance": 0.08,
+      "root_cause_category": "rhythm quantization",
+      "root_cause_notes": [
+        "duration thresholding collapsed mixed rhythmic layers into an inflated short/long ratio",
+        "no explicit rhythm onset cell model existed in v1"
+      ]
+    },
+    {
+      "ratio_name": "5:4",
+      "requested": 1.25,
+      "actual": 0.02881844380403458,
+      "absolute_error": 1.2211815561959654,
+      "tolerance": 0.08,
+      "root_cause_category": "interval detection",
+      "root_cause_notes": [
+        "interval proxy relied on adjacent global pitch sequence rather than phrase-aware melodic voice",
+        "generator did not target step/leap ratio explicitly"
+      ]
+    },
+    {
+      "ratio_name": "8:5",
+      "requested": 1.6,
+      "actual": 1.727735368956743,
+      "absolute_error": 0.12773536895674284,
+      "tolerance": 0.1,
+      "root_cause_category": "density model",
+      "root_cause_notes": [
+        "density used a single before/after golden split and missed strongest peak location",
+        "generator density scheduling was broad, not tied to planned windows"
+      ]
+    }
+  ],
+  "notes": [
+    "golden_section_0_618 was within tolerance in v1 but measured by coarse section proxy",
+    "repair scope is compliance-focused without adding unrelated generation features"
+  ]
+}

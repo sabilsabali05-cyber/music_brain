@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-05-25T00:10:40.572583+00:00",
+  "status": "ok",
+  "ratio_compliance_score": 0.547743,
+  "ratio_controls_evaluated": 5,
+  "ratio_controls_within_tolerance": 3,
+  "measured_duration_seconds": 119.930652,
+  "note_count": 873,
+  "random_note_penalty": 0.0,
+  "too_rigid_penalty": 0.0,
+  "density_peak_time_seconds": 72.0,
+  "density_peak_ratio_measured": 1.5952848722986248,
+  "phrase_boundary_ratio_measured": 1.5000004500000566,
+  "chord_boundary_ratio_measured": 173.75000000040495,
+  "rhythm_onset_ratio_measured": 2.948159982371088,
+  "interval_ratio_measured": 0.12226512226512226,
+  "per_control_scores": {
+    "golden_section_0_618": 0.778912,
+    "3:2": 0.999994,
+    "5:3": 0.0,
+    "5:4": 0.0,
+    "8:5": 0.952849
+  },
+  "plan_used": "outputs/ratio_controlled_song_v2_repaired/ratio_plan.json",
+  "evaluations": [
+    {
+      "ratio_name": "golden_section_0_618",
+      "target_ratio": 0.61803398875,
+      "measured_ratio": 0.6003469429998045,
+      "absolute_error": 0.01768704575019553,
+      "tolerance": 0.08,
+      "confidence": 0.82,
+      "score": 0.778912,
+      "within_tolerance": true
+    },
+    {
+      "ratio_name": "3:2",
+      "target_ratio": 1.5,
+      "measured_ratio": 1.5000004500000566,
+      "absolute_error": 4.500000565510476e-07,
+      "tolerance": 0.08,
+      "confidence": 0.82,
+      "score": 0.999994,
+      "within_tolerance": true
+    },
+    {
+      "ratio_name": "5:3",
+      "target_ratio": 1.6666666666666667,
+      "measured_ratio": 2.948159982371088,
+      "absolute_error": 1.2814933157044213,
+      "tolerance": 0.08,
+      "confidence": 0.8,
+      "score": 0.0,
+      "within_tolerance": false
+    },
+    {
+      "ratio_name": "5:4",
+      "target_ratio": 1.25,
+      "measured_ratio": 0.12226512226512226,
+      "absolute_error": 1.1277348777348777,
+      "tolerance": 0.08,
+      "confidence": 0.8,
+      "score": 0.0,
+      "within_tolerance": false
+    },
+    {
+      "ratio_name": "8:5",
+      "target_ratio": 1.6,
+      "measured_ratio": 1.5952848722986248,
+      "absolute_error": 0.004715127701375277,
+      "tolerance": 0.1,
+      "confidence": 0.78,
+      "score": 0.952849,
+      "within_tolerance": true
+    }
+  ],
+  "warnings": [
+    "low_ratio_compliance_score"
+  ]
+}

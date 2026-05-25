@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T23:51:55.681130+00:00",
+  "generated_at": "2026-05-25T00:13:06.550235+00:00",
   "loop_id": "music_understanding_loop_v1",
   "music_understanding_completed": true,
   "taste_learning_completed": true,
@@ -56,12 +56,12 @@
     {
       "step": "generate_ratio_controlled_song",
       "exit_code": 0,
-      "output_excerpt": "RATIO_CONTROL_SPEC=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v1/ratio_control_spec.json\nRATIO_CONTROLLED_SONG_PATH=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v1/full.mid\nGENERATION_REPORT=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v1/generation_report.md\nGENERATED_AT=2026-05-24T23:51:55.386576+00:00"
+      "output_excerpt": "RATIO_CONTROL_SPEC=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/ratio_control_spec.json\nRATIO_PLAN_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/ratio_plan.json\nRATIO_CONTROLLED_SONG_PATH=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/full.mid\nGENERATION_REPORT=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_co"
     },
     {
       "step": "evaluate_ratio_controlled_generation",
       "exit_code": 0,
-      "output_excerpt": "RATIO_EVAL_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_eval.md\nRATIO_EVAL_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_eval.json\nRATIO_COMPLIANCE_SCORE=0.120831"
+      "output_excerpt": "RATIO_EVAL_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_v2_eval.md\nRATIO_EVAL_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_v2_eval.json\nRATIO_COMPLIANCE_SCORE=0.547743"
     }
   ],
   "blockers": []

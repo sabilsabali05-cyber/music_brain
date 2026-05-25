@@ -211,6 +211,7 @@ function Show-Usage {
     Write-Host "  analyze-ratio-understanding"
     Write-Host "  generate-ratio-controlled-song"
     Write-Host "  evaluate-ratio-controlled-generation"
+    Write-Host "  repair-ratio-controlled-generation"
     Write-Host "  internal-beat-loop [--interval-seconds N] [--max-iterations N]"
     Write-Host "  internal-beat-loop-status"
     Write-Host "  stop-internal-beat-loop"
@@ -1740,6 +1741,11 @@ switch ($Task) {
     "evaluate-ratio-controlled-generation" {
         Invoke-Step -Label "Evaluating ratio-controlled generation compliance" -Command @(
             "python", "scripts/evaluate_ratio_controlled_generation.py"
+        )
+    }
+    "repair-ratio-controlled-generation" {
+        Invoke-Step -Label "Repairing ratio-controlled generation compliance" -Command @(
+            "python", "scripts/repair_ratio_controlled_generation.py"
         )
     }
     "run-music-understanding-loop" {

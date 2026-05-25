@@ -1,0 +1,87 @@
+{
+  "spec_id": "ratio_controlled_song_v2_spec",
+  "generation_id": "ratio_controlled_song_v2",
+  "duration_seconds": 120.0,
+  "bpm": 108,
+  "ratio_controls": [
+    {
+      "ratio_name": "golden_section_0_618",
+      "target_ratio": 0.61803398875,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.82,
+      "strict": false,
+      "source_observation_ids": [
+        "ratio_plan_climax_anchor"
+      ],
+      "notes": [
+        "strongest_density_peak_should_align_with_golden_section"
+      ]
+    },
+    {
+      "ratio_name": "3:2",
+      "target_ratio": 1.5,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.82,
+      "strict": false,
+      "source_observation_ids": [
+        "ratio_plan_phrase_grid"
+      ],
+      "notes": [
+        "alternating_phrase_lengths_with_explicit_boundaries"
+      ]
+    },
+    {
+      "ratio_name": "5:3",
+      "target_ratio": 1.6666666666666667,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.8,
+      "strict": false,
+      "source_observation_ids": [
+        "ratio_plan_rhythm_cells"
+      ],
+      "notes": [
+        "onset_cells_follow_5_to_3_relation"
+      ]
+    },
+    {
+      "ratio_name": "5:4",
+      "target_ratio": 1.25,
+      "measured_ratio": null,
+      "tolerance": 0.08,
+      "confidence": 0.8,
+      "strict": false,
+      "source_observation_ids": [
+        "ratio_plan_interval_targets"
+      ],
+      "notes": [
+        "step_to_leap_interval_ratio_target"
+      ]
+    },
+    {
+      "ratio_name": "8:5",
+      "target_ratio": 1.6,
+      "measured_ratio": null,
+      "tolerance": 0.1,
+      "confidence": 0.78,
+      "strict": false,
+      "source_observation_ids": [
+        "ratio_plan_density_curve"
+      ],
+      "notes": [
+        "density_peak_to_tail_ratio_target"
+      ]
+    }
+  ],
+  "preserve_battle_appeal_priority": true,
+  "flexibility_priority": 0.72,
+  "ratio_musicality_weight": 0.24,
+  "evidence_based_only": true,
+  "no_cloud_calls": true,
+  "notes": [
+    "Focused v2 compliance repair with explicit ratio planning before note generation.",
+    "Controls remain honest and soft; evaluator integrity remains unchanged."
+  ]
+}

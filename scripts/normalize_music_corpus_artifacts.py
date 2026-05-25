@@ -145,6 +145,8 @@ def _artifact_in_scope(path: Path, rows: list[dict[str, Any]]) -> bool:
             if parsed and DATE_MIN <= parsed <= DATE_MAX:
                 return True
     path_text = path.as_posix()
+    if any(token in path_text for token in ("datasets/review_queue", "datasets/training_exports", "datasets/feedback")):
+        return True
     return any(token in path_text for token in ("20260521", "20260522", "20260523", "20260524"))
 
 
