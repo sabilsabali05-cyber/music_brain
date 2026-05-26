@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-05-26T13:52:47.828622+00:00",
+  "requested_branch": "cursor/real-midi-source-witness-integration-v1",
+  "current_branch": "cursor/real-midi-source-witness-integration-v1",
+  "worktree_root_redacted": "C:\\mb_real_understanding",
+  "git_status_short": "## cursor/real-midi-source-witness-integration-v1...origin/cursor/real-midi-source-witness-integration-v1\n M datasets/source_audio_study/source_audio_study_manifest.jsonl\n M reports/model_witnesses/model_witness_audit.json\n M reports/model_witnesses/model_witness_audit.md\n M reports/model_witnesses/source_audio_witness_consensus_report.json\n M reports/model_witnesses/source_audio_witness_run_report.json\n M reports/privacy/privacy_leak_scan_report.json\n M reports/privacy/privacy_leak_scan_report.md\n M reports/source_audio_study/source_audio_study_manifest_report.json\n M reports/source_taste_understanding/source_database_taste_dossier.json\n?? .tmp_source_audio_auth_audit.py",
+  "local_config": {
+    "exists": true,
+    "path_redacted": "C:\\mb_real_understanding\\config\\source_audio_study_authorization.local.json",
+    "loaded_config_keys": [
+      "allow_cloud",
+      "allow_raw_audio_feature_extraction",
+      "allow_source_separation",
+      "allow_symbolic_midi_analysis",
+      "allow_texture_analysis",
+      "allow_training",
+      "allow_transcription_witnesses",
+      "analysis_allowed_roots",
+      "excluded_roots",
+      "max_items_for_controlled_batch",
+      "notes",
+      "reference_only_roots",
+      "training_allowed_roots"
+    ]
+  },
+  "allowed_root_counts": {
+    "analysis_allowed_roots_count": 2,
+    "analysis_allowed_roots_redacted": [
+      "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/sounds",
+      "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/jaca Project"
+    ]
+  },
+  "allowed_root_existence_and_files": {
+    "allowed_roots_exist": true,
+    "supported_files_found_under_allowed_roots": 5686,
+    "roots": [
+      {
+        "root_redacted": "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/sounds",
+        "exists": true,
+        "is_file": false,
+        "file_count": 6373,
+        "supported_file_count": 4826
+      },
+      {
+        "root_redacted": "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/jaca Project",
+        "exists": true,
+        "is_file": false,
+        "file_count": 16556,
+        "supported_file_count": 860
+      }
+    ]
+  },
+  "considered_manifest_items": {
+    "count": 4,
+    "items": [
+      {
+        "item_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+        "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
+        "trust_audit_path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/training_data_audit.json"
+      },
+      {
+        "item_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+        "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Sunday Service Choir 122621.mp3",
+        "trust_audit_path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/training_data_audit.json"
+      },
+      {
+        "item_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
+        "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+        "trust_audit_path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json"
+      },
+      {
+        "item_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+        "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+        "trust_audit_path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json"
+      }
+    ]
+  },
+  "per_item_authorization_diagnostics": [
+    {
+      "item_id": "20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir",
+      "trust_audit_path": "features/performances/20260521T204653698972_Kanye_West_performs_Ghost_Town_with_070_Shake_and_the_Sunday_Service_Choir/20260521T204750163461_audio_structure_v1/trust/training_data_audit.json",
+      "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
+      "normalized_path_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Kanye West performs Ghost Town with 070 Shake and the Sunday Service Choir.mp3",
+      "root_match": false,
+      "matched_root_redacted": null,
+      "reason": "no_prefix_match",
+      "authorization_flags": {
+        "analysis_allowed": false,
+        "training_allowed": false,
+        "retrieval_allowed": true,
+        "authorization_status": "unknown"
+      }
+    },
+    {
+      "item_id": "20260521T213418203003_Sunday_Service_Choir_122621",
+      "trust_audit_path": "features/performances/20260521T213418203003_Sunday_Service_Choir_122621/20260521T213524641640_audio_structure_v1/trust/training_data_audit.json",
+      "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Sunday Service Choir 122621.mp3",
+      "normalized_path_redacted": "<PRIVATE_LOCAL_PATH>/Downloads/Sunday Service Choir 122621.mp3",
+      "root_match": false,
+      "matched_root_redacted": null,
+      "reason": "no_prefix_match",
+      "authorization_flags": {
+        "analysis_allowed": false,
+        "training_allowed": false,
+        "retrieval_allowed": true,
+        "authorization_status": "unknown"
+      }
+    },
+    {
+      "item_id": "20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_01_Bereft_Send",
+      "trust_audit_path": "features/performances/20260522T150019594510_Pulgas_and_Salami_Rose_Joe_Louis_-_When_dc83c53371/20260522T150054174749_audio_structure_v1/trust/training_data_audit.json",
+      "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+      "normalized_path_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 01 Bereft, Send.mp3",
+      "root_match": false,
+      "matched_root_redacted": null,
+      "reason": "no_prefix_match",
+      "authorization_flags": {
+        "analysis_allowed": false,
+        "training_allowed": false,
+        "retrieval_allowed": true,
+        "authorization_status": "unknown"
+      }
+    },
+    {
+      "item_id": "20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_one_door_closes_another_door_closes_-_02_Gangrenous_Open_Wound",
+      "trust_audit_path": "features/performances/20260522T150238990635_Pulgas_and_Salami_Rose_Joe_Louis_-_When_1f6c273076/20260522T150322987308_audio_structure_v1/trust/training_data_audit.json",
+      "source_audio_ref_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+      "normalized_path_redacted": "<PRIVATE_LOCAL_PATH>/ai-composer/music_brain/performances/inbox/Pulgas and Salami Rose Joe Louis - When one door closes, another door closes - 02 Gangrenous Open Wound.mp3",
+      "root_match": false,
+      "matched_root_redacted": null,
+      "reason": "no_prefix_match",
+      "authorization_flags": {
+        "analysis_allowed": false,
+        "training_allowed": false,
+        "retrieval_allowed": true,
+        "authorization_status": "unknown"
+      }
+    }
+  ],
+  "diagnosis_checks": {
+    "linked_worktree_mismatch": true,
+    "slash_case_path_normalization": true,
+    "stale_placeholder_paths": true,
+    "config_ignored": true,
+    "exact_match_vs_prefix_bug": false
+  },
+  "analysis_allowed_count_before_fix": 0,
+  "source_items_matched_to_allowed_roots_before_fix": 0
+}

@@ -26,6 +26,27 @@ def _write_jsonl(path: Path, rows: list[dict]) -> None:
             handle.write(json.dumps(row, ensure_ascii=True) + "\n")
 
 
+def _patch_source_audio_manifest_paths(monkeypatch, root: Path) -> None:
+    monkeypatch.setattr(build_source_audio_study_manifest, "ROOT_DIR", root)
+    monkeypatch.setattr(build_source_audio_study_manifest, "OUT_DIR", root / "datasets" / "source_audio_study")
+    monkeypatch.setattr(
+        build_source_audio_study_manifest,
+        "OUT_JSONL",
+        build_source_audio_study_manifest.OUT_DIR / "source_audio_study_manifest.jsonl",
+    )
+    monkeypatch.setattr(build_source_audio_study_manifest, "REPORT_DIR", root / "reports" / "source_audio_study")
+    monkeypatch.setattr(
+        build_source_audio_study_manifest,
+        "REPORT_JSON",
+        build_source_audio_study_manifest.REPORT_DIR / "source_audio_study_manifest_report.json",
+    )
+    monkeypatch.setattr(
+        build_source_audio_study_manifest,
+        "REPORT_MD",
+        build_source_audio_study_manifest.REPORT_DIR / "source_audio_study_manifest_report.md",
+    )
+
+
 def test_unavailable_witnesses_reported_honestly(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(audit_model_witnesses, "ROOT_DIR", tmp_path)
     monkeypatch.setattr(audit_model_witnesses, "REPORT_DIR", tmp_path / "reports" / "model_witnesses")
@@ -61,8 +82,10 @@ def test_unauthorized_audio_is_skipped(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(run_source_audio_model_witnesses, "REPORT_DIR", tmp_path / "reports" / "model_witnesses")
     monkeypatch.setattr(run_source_audio_model_witnesses, "REPORT_JSON", run_source_audio_model_witnesses.REPORT_DIR / "source_audio_witness_run_report.json")
     monkeypatch.setattr(run_source_audio_model_witnesses, "REPORT_MD", run_source_audio_model_witnesses.REPORT_DIR / "source_audio_witness_run_report.md")
-    _, report = run_source_audio_model_witnesses.build_observations()
+    observations, report = run_source_audio_model_witnesses.build_observations()
+    assert observations == []
     assert report["skipped_unauthorized_count"] == 1
+    assert report["witness_observations_created"] == 0
 
 
 def test_observations_need_backend_or_heuristic_label(monkeypatch, tmp_path: Path) -> None:
@@ -137,8 +160,102 @@ def test_path_redaction_in_source_audio_manifest(tmp_path: Path) -> None:
         },
     )
     payload = json.loads(trust.read_text(encoding="utf-8"))
-    item = build_source_audio_study_manifest._build_item(trust, payload)
+    item = build_source_audio_study_manifest._build_item(trust, payload, [], None)
     assert "C:/Users/" not in item.source_audio_ref_redacted
+
+
+def test_windows_path_matching_handles_slash_case_and_prefix() -> None:
+    root = build_source_audio_study_manifest._root_spec(Path("C:/Users/IZZYO/OneDrive/Desktop/sounds"))
+    matched, matched_root, reason = build_source_audio_study_manifest._match_root(
+        r"c:\users\izzyo\OneDrive\Desktop\sounds\set1\clip.mp3",
+        [root],
+    )
+    assert matched is True
+    assert matched_root is not None
+    assert reason == "root_folder_prefix_match"
+
+
+def test_file_root_matching_requires_exact_match() -> None:
+    file_root = build_source_audio_study_manifest._root_spec(Path("C:/Users/izzyo/OneDrive/Desktop/sounds/clip.wav"))
+    matched, _, _ = build_source_audio_study_manifest._match_root(
+        r"C:\Users\izzyo\OneDrive\Desktop\sounds\clip.wav",
+        [file_root],
+    )
+    not_matched, _, _ = build_source_audio_study_manifest._match_root(
+        r"C:\Users\izzyo\OneDrive\Desktop\sounds\clip.wav\child.wav",
+        [file_root],
+    )
+    assert matched is True
+    assert not_matched is False
+
+
+def test_missing_local_config_adds_manifest_blocker(monkeypatch, tmp_path: Path) -> None:
+    trust = tmp_path / "features" / "performances" / "p" / "s" / "trust" / "training_data_audit.json"
+    _write_json(
+        trust,
+        {
+            "performance_id": "p",
+            "artifacts": {"source_audio_reference": "D:/audio/clip.wav"},
+            "analysis_allowed": True,
+        },
+    )
+    _patch_source_audio_manifest_paths(monkeypatch, tmp_path)
+    monkeypatch.setattr(
+        build_source_audio_study_manifest,
+        "LOCAL_AUTH_CONFIG",
+        tmp_path / "config" / "source_audio_study_authorization.local.json",
+    )
+    items, report = build_source_audio_study_manifest.build_manifest()
+    assert len(items) == 1
+    assert report["analysis_allowed_count"] == 0
+    assert "missing_local_authorization_config" in report["blockers"]
+
+
+def test_existing_roots_without_supported_files_add_blocker(monkeypatch, tmp_path: Path) -> None:
+    source_root = tmp_path / "authorized_audio"
+    source_root.mkdir(parents=True, exist_ok=True)
+    trust = tmp_path / "features" / "performances" / "p" / "s" / "trust" / "training_data_audit.json"
+    _write_json(
+        trust,
+        {
+            "performance_id": "p",
+            "artifacts": {"source_audio_reference": str(source_root / "clip.mp3")},
+            "analysis_allowed": True,
+        },
+    )
+    local_cfg = tmp_path / "config" / "source_audio_study_authorization.local.json"
+    _write_json(local_cfg, {"analysis_allowed_roots": [str(source_root)], "training_allowed_roots": []})
+    _patch_source_audio_manifest_paths(monkeypatch, tmp_path)
+    monkeypatch.setattr(build_source_audio_study_manifest, "LOCAL_AUTH_CONFIG", local_cfg)
+    _, report = build_source_audio_study_manifest.build_manifest()
+    assert report["source_items_matched_to_allowed_roots"] == 1
+    assert "allowed_roots_exist_but_no_supported_files" in report["blockers"]
+
+
+def test_manifest_report_roots_are_redacted(monkeypatch, tmp_path: Path) -> None:
+    trust = tmp_path / "features" / "performances" / "p" / "s" / "trust" / "training_data_audit.json"
+    _write_json(
+        trust,
+        {
+            "performance_id": "p",
+            "artifacts": {"source_audio_reference": "C:/Users/private/audio/clip.mp3"},
+            "analysis_allowed": True,
+        },
+    )
+    local_cfg = tmp_path / "config" / "source_audio_study_authorization.local.json"
+    _write_json(local_cfg, {"analysis_allowed_roots": ["C:/Users/private/audio"], "training_allowed_roots": []})
+    _patch_source_audio_manifest_paths(monkeypatch, tmp_path)
+    monkeypatch.setattr(build_source_audio_study_manifest, "LOCAL_AUTH_CONFIG", local_cfg)
+    _, report = build_source_audio_study_manifest.build_manifest()
+    report_text = json.dumps(report)
+    assert "C:/Users/" not in report_text
+    assert "<PRIVATE_LOCAL_PATH>" in report_text
+
+
+def test_local_authorization_config_is_gitignored() -> None:
+    gitignore = Path(__file__).resolve().parents[1] / ".gitignore"
+    text = gitignore.read_text(encoding="utf-8")
+    assert "config/source_audio_study_authorization.local.json" in text
 
 
 def test_fixture_draft_not_usable_as_real_draft(tmp_path: Path) -> None:

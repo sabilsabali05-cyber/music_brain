@@ -1,20 +1,14 @@
 {
   "status": "fail",
   "strict_mode": false,
-  "new_public_leak_count": 12,
+  "new_public_leak_count": 7,
   "pre_existing_historical_path_debt_count": 6,
   "new_public_leaks": [
     {
-      "path": "datasets/ratio_understanding/ratio_observations.jsonl",
+      "path": "features/model_witnesses/model_witness_schema.py",
       "marker": "C:/Users/",
       "debt_type": "new_or_changed_public_leak",
-      "line_count": 56
-    },
-    {
-      "path": "datasets/ratio_understanding/ratio_observations.jsonl",
-      "marker": "C:/Users/izzyo",
-      "debt_type": "new_or_changed_public_leak",
-      "line_count": 56
+      "line_count": 2
     },
     {
       "path": "outputs/ratio_controlled_song_v1/generation_report.md",
@@ -27,30 +21,6 @@
       "marker": "C:/Users/izzyo",
       "debt_type": "new_or_changed_public_leak",
       "line_count": 1
-    },
-    {
-      "path": "reports/ratio_understanding/ratio_understanding_report.json",
-      "marker": "C:/Users/",
-      "debt_type": "new_or_changed_public_leak",
-      "line_count": 6
-    },
-    {
-      "path": "reports/ratio_understanding/ratio_understanding_report.json",
-      "marker": "C:/Users/izzyo",
-      "debt_type": "new_or_changed_public_leak",
-      "line_count": 6
-    },
-    {
-      "path": "reports/ratio_understanding/ratio_understanding_report.md",
-      "marker": "C:/Users/",
-      "debt_type": "new_or_changed_public_leak",
-      "line_count": 6
-    },
-    {
-      "path": "reports/ratio_understanding/ratio_understanding_report.md",
-      "marker": "C:/Users/izzyo",
-      "debt_type": "new_or_changed_public_leak",
-      "line_count": 6
     },
     {
       "path": "reports/taste_learning/feedback_ingestion_report.json",
@@ -147,6 +117,7 @@
     "reports/privacy/privacy_leak_scan_report.json",
     "reports/privacy/privacy_leak_scan_report.md",
     "scripts/check_privacy_leaks.py",
+    "tests/_presentable_test_utils.py",
     "tests/test_ableton_project_export.py",
     "tests/test_ableton_render_pack.py",
     "tests/test_analyze_audio_structure.py",
@@ -161,6 +132,8 @@
     "tests/test_benchmark_segments.py",
     "tests/test_benchmark_track.py",
     "tests/test_browser_session_safety.py",
+    "tests/test_build_presentable_composition_from_draft.py",
+    "tests/test_build_presentable_composition_spec.py",
     "tests/test_canonical_music_corpus_schema.py",
     "tests/test_chordpotion_audition.py",
     "tests/test_chordpotion_intent_schema.py",
@@ -172,6 +145,7 @@
     "tests/test_chordpotion_transform_plan.py",
     "tests/test_cli_output.py",
     "tests/test_compare_analyses.py",
+    "tests/test_compare_draft_to_music_database.py",
     "tests/test_compare_segmentations.py",
     "tests/test_complete_song_pipeline.py",
     "tests/test_composition_taste_ranker.py",
@@ -182,6 +156,7 @@
     "tests/test_dataset_quality_yield_audit.py",
     "tests/test_dev_runner_args.py",
     "tests/test_diagnose_boundaries.py",
+    "tests/test_evaluate_presentable_composition.py",
     "tests/test_evaluate_ratio_controlled_generation.py",
     "tests/test_external_analyzers.py",
     "tests/test_failure_report.py",
@@ -192,6 +167,7 @@
     "tests/test_generate_ballad_with_symbolic_backends.py",
     "tests/test_generate_chordpotion_ready_skeleton.py",
     "tests/test_generate_midi_from_examples.py",
+    "tests/test_generate_presentable_composition_candidates.py",
     "tests/test_generate_ranked_midi_candidates.py",
     "tests/test_generate_ratio_controlled_song.py",
     "tests/test_generate_with_chordpotion.py",
@@ -215,6 +191,7 @@
     "tests/test_mass_ingestion_readiness_foundation.py",
     "tests/test_meter_time_features.py",
     "tests/test_microtonal_composition_layer.py",
+    "tests/test_midi_draft_musicality_analysis.py",
     "tests/test_midigpt_vertical_slice.py",
     "tests/test_modal_client.py",
     "tests/test_modal_diagnostics_helpers.py",
@@ -229,7 +206,9 @@
     "tests/test_music_intelligence_schema.py",
     "tests/test_music_intelligence_scoring.py",
     "tests/test_music_theory_understanding_schema.py",
+    "tests/test_musical_understanding_reports.py",
     "tests/test_musicbert_vertical_slice.py",
+    "tests/test_no_raw_audio_committed.py",
     "tests/test_normalize_music_corpus_artifacts.py",
     "tests/test_performance_batch.py",
     "tests/test_performance_runs.py",
@@ -238,6 +217,7 @@
     "tests/test_preflight.py",
     "tests/test_privacy_leak_guard.py",
     "tests/test_promote_reviewed_corpus_splits.py",
+    "tests/test_rank_presentable_composition_candidates.py",
     "tests/test_ratio_in_music_understanding_loop.py",
     "tests/test_ratio_schema.py",
     "tests/test_ratio_to_generation.py",
@@ -245,6 +225,7 @@
     "tests/test_reaper_render_backend.py",
     "tests/test_render_chordpotion_with_reaper.py",
     "tests/test_render_plan_schema.py",
+    "tests/test_repair_presentable_composition.py",
     "tests/test_repair_ratio_controlled_generation.py",
     "tests/test_result_scraper.py",
     "tests/test_review_segments.py",
@@ -256,6 +237,7 @@
     "tests/test_sound_acquisition.py",
     "tests/test_sound_pair_listening_sheet.py",
     "tests/test_sound_pair_record_schema.py",
+    "tests/test_source_audio_witness_pipeline.py",
     "tests/test_source_separation_witness_vertical_slice.py",
     "tests/test_source_to_generation_mapping.py",
     "tests/test_source_understanding_schema.py",

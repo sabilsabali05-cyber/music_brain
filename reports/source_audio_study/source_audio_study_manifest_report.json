@@ -1,24 +1,62 @@
 {
-  "generated_at": "2026-05-26T13:36:44.279846+00:00",
+  "generated_at": "2026-05-26T13:59:33.456994+00:00",
   "manifest_path": "datasets/source_audio_study/source_audio_study_manifest.jsonl",
   "authorization_config_path": "config/source_audio_study_authorization.local.json",
-  "authorization_config_present": false,
+  "authorization_config_present": true,
+  "authorization_config_loaded_keys": [
+    "allow_cloud",
+    "allow_raw_audio_feature_extraction",
+    "allow_source_separation",
+    "allow_symbolic_midi_analysis",
+    "allow_texture_analysis",
+    "allow_training",
+    "allow_transcription_witnesses",
+    "analysis_allowed_roots",
+    "excluded_roots",
+    "max_items_for_controlled_batch",
+    "notes",
+    "reference_only_roots",
+    "training_allowed_roots"
+  ],
+  "analysis_allowed_roots_count": 2,
+  "analysis_allowed_roots_exist": true,
+  "analysis_allowed_roots_supported_files": 5686,
+  "analysis_allowed_roots_redacted": [
+    "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\sounds",
+    "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\jaca Project"
+  ],
+  "analysis_allowed_root_details": [
+    {
+      "root_redacted": "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\sounds",
+      "root_type": "folder",
+      "exists": true,
+      "supported_file_count": 4826
+    },
+    {
+      "root_redacted": "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\jaca Project",
+      "root_type": "folder",
+      "exists": true,
+      "supported_file_count": 860
+    }
+  ],
+  "source_items_matched_to_allowed_roots": 0,
   "source_items_considered": 4,
   "analysis_allowed_count": 0,
   "analysis_blocked_count": 4,
   "training_allowed_count": 0,
   "blockers": [
-    "source_audio_analysis_blocked_until_authorization_configured"
+    "authorization_roots_match_no_items"
   ],
   "authorization_status_counts": {
-    "blocked_missing_local_authorization_config": 4
+    "not_in_analysis_allowed_roots": 4
   },
   "policy_notes": [
     "No source audio files were moved, modified, or deleted.",
     "Manifest rows separate retrieval/training/analysis authorization decisions.",
     "Raw audio analysis is blocked unless analysis_allowed=true per row.",
-    "Missing local authorization config blocks all analysis.",
+    "Missing local authorization config blocks all analysis via missing_local_authorization_config.",
     "Excluded and retrieval-only roots are never analyzed.",
-    "Training is disabled unless explicitly allowed."
+    "Training is disabled unless explicitly allowed.",
+    "Source-to-root authorization matching uses normalized absolute candidates and prefix matching."
   ]
 }

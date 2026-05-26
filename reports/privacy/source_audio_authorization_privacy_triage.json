@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-05-26T13:56:01.860965+00:00",
+  "scope": "source_audio_authorization_fix",
+  "privacy_leaks_before": 8,
+  "privacy_leaks_after": 7,
+  "privacy_result_after": "fail",
+  "findings": [
+    {
+      "path": "features/model_witnesses/model_witness_schema.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 2,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "outputs/ratio_controlled_song_v1/generation_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "outputs/ratio_controlled_song_v1/generation_report.md",
+      "marker": "C:/Users/izzyo",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.json",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.json",
+      "marker": "C:/Users/izzyo",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.md",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "reports/taste_learning/feedback_ingestion_report.md",
+      "marker": "C:/Users/izzyo",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": false,
+      "fixed_in_this_task": false,
+      "status_after_rescan": "open",
+      "resolution_notes": "Leak remains from prior branch scope; not introduced by this source-audio authorization fix task."
+    },
+    {
+      "path": "scripts/build_source_audio_study_manifest.py",
+      "marker": "C:/Users/",
+      "debt_type": "new_or_changed_public_leak",
+      "line_count": 1,
+      "caused_by_this_task": true,
+      "fixed_in_this_task": true,
+      "status_after_rescan": "resolved",
+      "resolution_notes": "Replaced hard-coded private path marker handling with centralized redaction and normalized path matching."
+    }
+  ],
+  "summary": {
+    "fixed_count": 1,
+    "remaining_count": 7,
+    "fixed_only_task_caused_leaks": true
+  }
+}

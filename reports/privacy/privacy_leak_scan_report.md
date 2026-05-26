@@ -2,18 +2,13 @@
 
 - status: `fail`
 - strict_mode: `False`
-- new_public_leak_count: `12`
+- new_public_leak_count: `7`
 - pre_existing_historical_path_debt_count: `6`
 
 ## New Public Leaks
-- `datasets/ratio_understanding/ratio_observations.jsonl` marker=`C:/Users/` count=`56`
-- `datasets/ratio_understanding/ratio_observations.jsonl` marker=`C:/Users/izzyo` count=`56`
+- `features/model_witnesses/model_witness_schema.py` marker=`C:/Users/` count=`2`
 - `outputs/ratio_controlled_song_v1/generation_report.md` marker=`C:/Users/` count=`1`
 - `outputs/ratio_controlled_song_v1/generation_report.md` marker=`C:/Users/izzyo` count=`1`
-- `reports/ratio_understanding/ratio_understanding_report.json` marker=`C:/Users/` count=`6`
-- `reports/ratio_understanding/ratio_understanding_report.json` marker=`C:/Users/izzyo` count=`6`
-- `reports/ratio_understanding/ratio_understanding_report.md` marker=`C:/Users/` count=`6`
-- `reports/ratio_understanding/ratio_understanding_report.md` marker=`C:/Users/izzyo` count=`6`
 - `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/` count=`1`
 - `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/izzyo` count=`1`
 - `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/` count=`1`
