@@ -1,0 +1,29 @@
+{
+  "clip_id": "clip_6587e039bdad",
+  "clip_index": 10,
+  "clip_role_hint": "sparse_texture",
+  "source_redacted_path": "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\sounds\\Vanini's Drum Break Collection\\Edwin Starr - Who Cares If You're Happy Or Not (I Do).wav",
+  "tempo_bpm_estimate": 120.0,
+  "bars_target": 4,
+  "overlay_buddies": {
+    "overlay_drums": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/overlay/overlay_drums.mid",
+    "overlay_bass": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/overlay/overlay_bass.mid",
+    "overlay_chords": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/overlay/overlay_chords.mid",
+    "overlay_texture": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/overlay/overlay_texture.mid"
+  },
+  "continuation_buddy": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/continuation/continuation_buddy.mid",
+  "section_derivation_buddies": {
+    "section_intro": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/section_derivation/section_intro.mid",
+    "section_main": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/section_derivation/section_main.mid",
+    "section_outro": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/section_derivation/section_outro.mid"
+  },
+  "mutation_buddies": {
+    "mutation_groove": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/mutation/mutation_groove.mid",
+    "mutation_harmony": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/mutation/mutation_harmony.mid",
+    "mutation_energy": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/mutation/mutation_energy.mid"
+  },
+  "alignment_notes": [
+    "MIDI buddies align to extracted source loop duration/bars.",
+    "Generation remains transform-based and role-separated."
+  ]
+}

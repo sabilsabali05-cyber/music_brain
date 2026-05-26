@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-05-26T22:33:21.491289+00:00",
+  "selected_actual_loops_count": 12,
+  "midi_buddy_packs_generated": 12,
+  "clip_manifests": [
+    {
+      "clip_id": "clip_378799173d78",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_4bc4997b0d6c",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_002_clip_4bc4997b0d6c/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_002_clip_4bc4997b0d6c",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_002_clip_4bc4997b0d6c/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_002_clip_4bc4997b0d6c/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_002_clip_4bc4997b0d6c/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_e76b449c3a3c",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_003_clip_e76b449c3a3c/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_003_clip_e76b449c3a3c",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_003_clip_e76b449c3a3c/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_003_clip_e76b449c3a3c/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_003_clip_e76b449c3a3c/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_8318e8403dea",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_004_clip_8318e8403dea/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_004_clip_8318e8403dea",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_004_clip_8318e8403dea/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_004_clip_8318e8403dea/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_004_clip_8318e8403dea/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_220a53e08d9f",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_005_clip_220a53e08d9f/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_005_clip_220a53e08d9f",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_005_clip_220a53e08d9f/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_005_clip_220a53e08d9f/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_005_clip_220a53e08d9f/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_73b57399c934",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_006_clip_73b57399c934/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_006_clip_73b57399c934",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_006_clip_73b57399c934/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_006_clip_73b57399c934/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_006_clip_73b57399c934/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_32259afc1ad6",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_007_clip_32259afc1ad6/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_007_clip_32259afc1ad6",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_007_clip_32259afc1ad6/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_007_clip_32259afc1ad6/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_007_clip_32259afc1ad6/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_f4e0df17a32d",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_008_clip_f4e0df17a32d/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_008_clip_f4e0df17a32d",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_008_clip_f4e0df17a32d/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_008_clip_f4e0df17a32d/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_008_clip_f4e0df17a32d/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_2a9afe84977a",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_009_clip_2a9afe84977a/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_009_clip_2a9afe84977a",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_009_clip_2a9afe84977a/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_009_clip_2a9afe84977a/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_009_clip_2a9afe84977a/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_6587e039bdad",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_010_clip_6587e039bdad/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_4346f6a7786c",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_011_clip_4346f6a7786c/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_011_clip_4346f6a7786c",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_011_clip_4346f6a7786c/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_011_clip_4346f6a7786c/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_011_clip_4346f6a7786c/section_derivation/section_main.mid"
+    },
+    {
+      "clip_id": "clip_2c08972fed0d",
+      "clip_manifest_path": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/buddy_pack_manifest.json",
+      "clip_dir": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d",
+      "best_overlay_path": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/overlay/overlay_drums.mid",
+      "continuation_path": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/continuation/continuation_buddy.mid",
+      "best_section_path": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/section_derivation/section_main.mid"
+    }
+  ],
+  "best_pack_dir": "outputs/source_loop_midi_buddies_v1/best_pack",
+  "policy": {
+    "source_loop_wav_kept_local_only": true,
+    "role_separated_midi_written": true,
+    "no_direct_source_audio_commit": true
+  }
+}

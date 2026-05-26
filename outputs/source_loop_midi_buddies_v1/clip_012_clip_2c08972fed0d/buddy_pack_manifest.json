@@ -1,0 +1,29 @@
+{
+  "clip_id": "clip_2c08972fed0d",
+  "clip_index": 12,
+  "clip_role_hint": "sparse_texture",
+  "source_redacted_path": "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\sounds\\The Drum Broker - Erik Jackson Sunday Jazz\\Erik Jackson Presents - Sunday Jazz\\Sunday Jazz 44.1_16\\SJ_11.wav",
+  "tempo_bpm_estimate": 68.75,
+  "bars_target": 4,
+  "overlay_buddies": {
+    "overlay_drums": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/overlay/overlay_drums.mid",
+    "overlay_bass": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/overlay/overlay_bass.mid",
+    "overlay_chords": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/overlay/overlay_chords.mid",
+    "overlay_texture": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/overlay/overlay_texture.mid"
+  },
+  "continuation_buddy": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/continuation/continuation_buddy.mid",
+  "section_derivation_buddies": {
+    "section_intro": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/section_derivation/section_intro.mid",
+    "section_main": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/section_derivation/section_main.mid",
+    "section_outro": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/section_derivation/section_outro.mid"
+  },
+  "mutation_buddies": {
+    "mutation_groove": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/mutation/mutation_groove.mid",
+    "mutation_harmony": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/mutation/mutation_harmony.mid",
+    "mutation_energy": "outputs/source_loop_midi_buddies_v1/clip_012_clip_2c08972fed0d/mutation/mutation_energy.mid"
+  },
+  "alignment_notes": [
+    "MIDI buddies align to extracted source loop duration/bars.",
+    "Generation remains transform-based and role-separated."
+  ]
+}

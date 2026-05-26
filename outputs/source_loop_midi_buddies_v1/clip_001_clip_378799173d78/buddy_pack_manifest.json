@@ -1,0 +1,29 @@
+{
+  "clip_id": "clip_378799173d78",
+  "clip_index": 1,
+  "clip_role_hint": "sparse_texture",
+  "source_redacted_path": "<PRIVATE_LOCAL_PATH>\\izzyo\\OneDrive\\Desktop\\jaca Project\\Samples\\Recorded\\7-Audio 0001 [2025-11-07 001840].wav",
+  "tempo_bpm_estimate": 122.667,
+  "bars_target": 2,
+  "overlay_buddies": {
+    "overlay_drums": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/overlay/overlay_drums.mid",
+    "overlay_bass": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/overlay/overlay_bass.mid",
+    "overlay_chords": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/overlay/overlay_chords.mid",
+    "overlay_texture": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/overlay/overlay_texture.mid"
+  },
+  "continuation_buddy": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/continuation/continuation_buddy.mid",
+  "section_derivation_buddies": {
+    "section_intro": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/section_derivation/section_intro.mid",
+    "section_main": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/section_derivation/section_main.mid",
+    "section_outro": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/section_derivation/section_outro.mid"
+  },
+  "mutation_buddies": {
+    "mutation_groove": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/mutation/mutation_groove.mid",
+    "mutation_harmony": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/mutation/mutation_harmony.mid",
+    "mutation_energy": "outputs/source_loop_midi_buddies_v1/clip_001_clip_378799173d78/mutation/mutation_energy.mid"
+  },
+  "alignment_notes": [
+    "MIDI buddies align to extracted source loop duration/bars.",
+    "Generation remains transform-based and role-separated."
+  ]
+}

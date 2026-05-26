@@ -174,6 +174,54 @@ def build_model_witness_audit() -> ModelWitnessAudit:
             metadata={"witness_policy": separation_setup.get("witness_policy", "weak_evidence_not_truth")},
         ),
         ModelWitnessStatus(
+            witness_id="mt3_basicpitch_omnizart",
+            witness_name="MT3/BasicPitch/Omnizart",
+            witness_type="transcription_and_symbolic_audio",
+            backend="local_policy_gate",
+            required_for_pipeline=False,
+            configured=_bool(transcription_setup.get("yourmt3_configured", False) or transcription_setup.get("basic_pitch_configured", False)),
+            installed=False,
+            smoke_test_passed=False,
+            available=_bool(
+                transcription_setup.get("yourmt3_available", False)
+                or transcription_setup.get("basic_pitch_available", False)
+                or separation_setup.get("demucs_available", False)
+            ),
+            gate_status=(
+                "pass"
+                if _bool(
+                    transcription_setup.get("yourmt3_available", False)
+                    or transcription_setup.get("basic_pitch_available", False)
+                    or separation_setup.get("demucs_available", False)
+                )
+                else "blocked"
+            ),
+            unavailable_reason=(
+                "not_configured_or_unavailable"
+                if not _bool(
+                    transcription_setup.get("yourmt3_available", False)
+                    or transcription_setup.get("basic_pitch_available", False)
+                    or separation_setup.get("demucs_available", False)
+                )
+                else ""
+            ),
+            blockers=(
+                ["no_mt3_basicpitch_omnizart_backend"]
+                if not _bool(
+                    transcription_setup.get("yourmt3_available", False)
+                    or transcription_setup.get("basic_pitch_available", False)
+                    or separation_setup.get("demucs_available", False)
+                )
+                else []
+            ),
+            next_setup_step="Configure at least one local MT3/BasicPitch/Omnizart-compatible witness backend and smoke-test it.",
+            metadata={
+                "yourmt3_available": _bool(transcription_setup.get("yourmt3_available", False)),
+                "basic_pitch_available": _bool(transcription_setup.get("basic_pitch_available", False)),
+                "demucs_available": _bool(separation_setup.get("demucs_available", False)),
+            },
+        ),
+        ModelWitnessStatus(
             witness_id="texture_witness",
             witness_name="Texture witness",
             witness_type="texture_understanding",

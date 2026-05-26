@@ -1,0 +1,322 @@
+{
+  "generated_at": "2026-05-26T22:33:17.876359+00:00",
+  "clips_considered": 19,
+  "clips_with_local_audio": 19,
+  "clip_rollup": [
+    {
+      "clip_id": "clip_4bc4997b0d6c",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_e76b449c3a3c",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_378799173d78",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_f4e0df17a32d",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_2a9afe84977a",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_220a53e08d9f",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_db9bf1014fe8",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_6629ba5c7852",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_32259afc1ad6",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_8318e8403dea",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_16762be249e2",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_5d1abdee24f4",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_6587e039bdad",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_6962813b9b80",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_2c08972fed0d",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_73b57399c934",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_f5a05095646b",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_4346f6a7786c",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    },
+    {
+      "clip_id": "clip_210aeee61668",
+      "available_witnesses": [],
+      "used_witnesses": [],
+      "unavailable_witnesses": [
+        "moonbeam",
+        "musicbert",
+        "midigpt",
+        "text2midi",
+        "transcription_witnesses",
+        "source_separation_witness",
+        "texture_witness"
+      ],
+      "real_backend_observations": 0,
+      "heuristic_observations": 8
+    }
+  ],
+  "real_backend_observations_count": 0,
+  "heuristic_observations_count": 152,
+  "policy": {
+    "no_fake_model_outputs": true,
+    "no_cloud_calls": true,
+    "no_training": true
+  },
+  "availability_notes": [
+    "Only smoke-tested available witnesses are attempted as real backends.",
+    "Unavailable witnesses are recorded honestly with no fabricated outputs."
+  ]
+}

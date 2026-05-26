@@ -179,7 +179,19 @@ function Show-Usage {
     Write-Host "  build-source-audio-witness-consensus"
     Write-Host "  build-source-database-taste-dossier"
     Write-Host "  discover-source-loop-candidates"
+    Write-Host "  extract-source-audio-loops"
+    Write-Host "  run-loop-model-witnesses"
+    Write-Host "  rank-extracted-source-loops"
+    Write-Host "  generate-midi-buddies-for-extracted-loops"
+    Write-Host "  evaluate-source-loop-midi-buddy-fit"
+    Write-Host "  export-source-loop-buddy-reaper-pack"
     Write-Host "  build-source-song-starter-pack"
+    Write-Host "  mine-source-audio-clips"
+    Write-Host "  rank-source-clips"
+    Write-Host "  generate-midi-buddies-for-source-clips"
+    Write-Host "  evaluate-midi-buddy-fit"
+    Write-Host "  build-midi-buddy-reroll"
+    Write-Host "  export-reaper-live-update"
     Write-Host "  export-sample-pack-to-reaper-live-bridge [pack-dir]"
     Write-Host "  export-paired-loop-pack [--input-midi <path>] [--stem-dir <path>] [--pack-id <id>] [--tempo <bpm>] [--key <key>] [--bars <n>] [--renderer <mode>] [--preview]"
     Write-Host "  verify-paired-loop-pack [--manifest <path>] [--duration-tolerance-seconds <float>]"
@@ -1509,9 +1521,69 @@ switch ($Task) {
             "python", "scripts/discover_source_loop_candidates.py"
         )
     }
+    "extract-source-audio-loops" {
+        Invoke-Step -Label "Extracting authorized source audio loops" -Command @(
+            "python", "scripts/extract_source_audio_loops.py"
+        )
+    }
+    "run-loop-model-witnesses" {
+        Invoke-Step -Label "Running loop model witness observations" -Command @(
+            "python", "scripts/run_loop_model_witnesses.py"
+        )
+    }
+    "rank-extracted-source-loops" {
+        Invoke-Step -Label "Ranking extracted source loops" -Command @(
+            "python", "scripts/rank_extracted_source_loops.py"
+        )
+    }
+    "generate-midi-buddies-for-extracted-loops" {
+        Invoke-Step -Label "Generating MIDI buddies for extracted loops" -Command @(
+            "python", "scripts/generate_midi_buddies_for_extracted_loops.py"
+        )
+    }
+    "evaluate-source-loop-midi-buddy-fit" {
+        Invoke-Step -Label "Evaluating source loop MIDI buddy fit" -Command @(
+            "python", "scripts/evaluate_source_loop_midi_buddy_fit.py"
+        )
+    }
+    "export-source-loop-buddy-reaper-pack" {
+        Invoke-Step -Label "Exporting source loop buddy REAPER pack" -Command @(
+            "python", "scripts/export_source_loop_buddy_reaper_pack.py"
+        )
+    }
     "build-source-song-starter-pack" {
         Invoke-Step -Label "Building source song starter pack" -Command @(
             "python", "scripts/build_source_song_starter_pack.py"
+        )
+    }
+    "mine-source-audio-clips" {
+        Invoke-Step -Label "Mining source audio clips" -Command @(
+            "python", "scripts/mine_source_audio_clips.py"
+        )
+    }
+    "rank-source-clips" {
+        Invoke-Step -Label "Ranking source clip candidates" -Command @(
+            "python", "scripts/rank_source_clip_candidates.py"
+        )
+    }
+    "generate-midi-buddies-for-source-clips" {
+        Invoke-Step -Label "Generating MIDI buddies for selected clips" -Command @(
+            "python", "scripts/generate_midi_buddies_for_source_clips.py"
+        )
+    }
+    "evaluate-midi-buddy-fit" {
+        Invoke-Step -Label "Evaluating MIDI buddy fit critiques" -Command @(
+            "python", "scripts/evaluate_midi_buddy_fit.py"
+        )
+    }
+    "build-midi-buddy-reroll" {
+        Invoke-Step -Label "Building MIDI buddy reroll arrangement" -Command @(
+            "python", "scripts/build_midi_buddy_reroll_arrangement.py"
+        )
+    }
+    "export-reaper-live-update" {
+        Invoke-Step -Label "Exporting latest reroll to REAPER bridge" -Command @(
+            "python", "scripts/export_reaper_live_update.py"
         )
     }
     "export-sample-pack-to-reaper-live-bridge" {

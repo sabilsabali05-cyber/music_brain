@@ -1,0 +1,30 @@
+{
+  "considered_controlled_batch_rows": 25,
+  "extracted_clip_rows": 19,
+  "actual_source_audio_snippets_extracted": 19,
+  "eligible_for_buddy_generation_count": 19,
+  "missing_local_path_count": 0,
+  "missing_audio_file_count": 0,
+  "extraction_failures_count": 6,
+  "witnesses_available": [],
+  "witnesses_unavailable": [
+    "midigpt",
+    "moonbeam",
+    "musicbert",
+    "source_separation_witness",
+    "text2midi",
+    "texture_witness",
+    "transcription_witnesses"
+  ],
+  "policy": {
+    "no_training": true,
+    "no_cloud_default": true,
+    "source_audio_modified": false,
+    "source_audio_snippets_committed": false
+  },
+  "hard_gate": "only clips with local_audio_clip_exists=true are eligible for buddy generation",
+  "limitations": [
+    "Tempo/key analysis mixes filename hints with lightweight local waveform proxies.",
+    "No cloud backends were called in extraction."
+  ]
+}
