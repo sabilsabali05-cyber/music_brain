@@ -1,10 +1,14 @@
 # ChordPotion Transform Plan Report
 
-- chordpotion_configured: `true`
-- chordpotion_available: `true`
-- reaper_available: `true`
-- instrument_vst_available: `true`
-- blocked: `false`
-- blocked_reason: `none`
+- chordpotion_configured: `false`
+- chordpotion_available: `false`
+- reaper_available: `false`
+- instrument_vst_available: `false`
+- blocked: `true`
+- blocked_reason: `local_requirements_missing`
 
 ## Missing Config
+- preferred_chordpotion_plugin_id
+- chordpotion_plugin_unavailable
+- reaper_executable_path
+- instrument_vst_unavailable

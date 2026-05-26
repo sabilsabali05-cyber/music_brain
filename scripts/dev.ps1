@@ -203,6 +203,15 @@ function Show-Usage {
     Write-Host "  generate-with-intelligent-chordpotion"
     Write-Host "  verify-local-wav-renders [generation-id]"
     Write-Host "  build-source-understanding-records"
+    Write-Host "  audit-model-witnesses"
+    Write-Host "  build-source-audio-study-manifest"
+    Write-Host "  run-source-audio-model-witnesses"
+    Write-Host "  build-source-audio-witness-consensus"
+    Write-Host "  build-source-database-taste-dossier"
+    Write-Host "  build-drawing-board-composition-brief"
+    Write-Host "  build-essence-composition"
+    Write-Host "  build-source-understood-composition"
+    Write-Host "  evaluate-source-understood-composition"
     Write-Host "  train-composition-taste-ranker"
     Write-Host "  train-beat-battle-site-ranker"
     Write-Host "  evaluate-composition-taste-ranker"
@@ -1715,6 +1724,51 @@ switch ($Task) {
     "build-source-understanding-records" {
         Invoke-Step -Label "Building source understanding records and reports" -Command @(
             "python", "scripts/build_source_understanding_records.py"
+        )
+    }
+    "audit-model-witnesses" {
+        Invoke-Step -Label "Auditing local model witness availability and smoke gates" -Command @(
+            "python", "scripts/audit_model_witnesses.py"
+        )
+    }
+    "build-source-audio-study-manifest" {
+        Invoke-Step -Label "Building source-audio study manifest" -Command @(
+            "python", "scripts/build_source_audio_study_manifest.py"
+        )
+    }
+    "run-source-audio-model-witnesses" {
+        Invoke-Step -Label "Running source-audio model witness pass" -Command @(
+            "python", "scripts/run_source_audio_model_witnesses.py"
+        )
+    }
+    "build-source-audio-witness-consensus" {
+        Invoke-Step -Label "Building source-audio witness consensus records" -Command @(
+            "python", "scripts/build_source_audio_witness_consensus.py"
+        )
+    }
+    "build-source-database-taste-dossier" {
+        Invoke-Step -Label "Building source-database taste dossier" -Command @(
+            "python", "scripts/build_source_database_taste_dossier.py"
+        )
+    }
+    "build-drawing-board-composition-brief" {
+        Invoke-Step -Label "Building drawing-board composition brief" -Command @(
+            "python", "scripts/build_drawing_board_composition_brief.py"
+        )
+    }
+    "build-essence-composition" {
+        Invoke-Step -Label "Building essence composition brief package" -Command @(
+            "python", "scripts/build_essence_composition.py"
+        )
+    }
+    "build-source-understood-composition" {
+        Invoke-Step -Label "Building source-understood composition package" -Command @(
+            "python", "scripts/build_source_understood_composition.py"
+        )
+    }
+    "evaluate-source-understood-composition" {
+        Invoke-Step -Label "Evaluating source-understood composition (critique-first)" -Command @(
+            "python", "scripts/evaluate_source_understood_composition.py"
         )
     }
     "train-composition-taste-ranker" {

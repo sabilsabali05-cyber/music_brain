@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-26T13:00:01.786876+00:00",
+  "status": "generated",
+  "artifact_gate_passed": true,
+  "draft_real_midi_gate_passed": true,
+  "draft_real_midi_gate_reason": "",
+  "source_understood_composition_generated": true,
+  "final_midi_path": "outputs/source_understood_composition_v1/final_source_understood.mid",
+  "source_db_principles_cited": [
+    "principle_05_policy_first_audio",
+    "principle_01_transform_not_copy",
+    "principle_03_preserve_disagreement",
+    "principle_04_weak_evidence_guard",
+    "principle_02_meter_is_guidance"
+  ],
+  "rejected_principles": [
+    "Do not optimize for musicality score-first outputs.",
+    "Do not suppress witness disagreement to produce a single average narrative."
+  ],
+  "witness_influence": [
+    "Heuristic local feature witness influences timing and structure hints.",
+    "Unavailable backend witnesses only contribute blockers and risk annotations."
+  ],
+  "weak_evidence_areas": [
+    "Most consensus rows rely on heuristic/local evidence due to unavailable optional backends.",
+    "No claim of full source-audio understanding is made when witnesses are unavailable.",
+    "Conflicting witness claims remain unresolved without additional validated backends."
+  ],
+  "transformation_vs_copy": "Generate transformed derivatives guided by principles; avoid direct copying of source content."
+}

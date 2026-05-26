@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:02:39.974554+00:00",
+  "generated_at": "2026-05-26T13:01:23.643699+00:00",
   "analysis_type": "ratio_understanding",
   "evidence_based_only": true,
   "source_understanding_rows_considered": 2497,
@@ -37,27 +37,27 @@
   },
   "evidence_sources": [
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/datasets/source_understanding/source_understanding_records.jsonl",
+      "path": "C:/mbsat/datasets/source_understanding/source_understanding_records.jsonl",
       "available": true
     },
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/datasets/music_theory/theory_understanding_records.jsonl",
+      "path": "C:/mbsat/datasets/music_theory/theory_understanding_records.jsonl",
       "available": true
     },
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.json",
+      "path": "C:/mbsat/reports/source_understanding/source_understanding_report.json",
       "available": true
     },
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/reports/taste_learning/ranked_midi_candidates_report.json",
+      "path": "C:/mbsat/reports/taste_learning/ranked_midi_candidates_report.json",
       "available": true
     },
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/outputs/music_understanding_loop_v1",
+      "path": "C:/mbsat/outputs/music_understanding_loop_v1",
       "available": true
     },
     {
-      "path": "C:/Users/izzyo/ai-composer/music_brain/outputs/beat_battle_site",
+      "path": "C:/mbsat/outputs/beat_battle_site",
       "available": false
     }
   ],

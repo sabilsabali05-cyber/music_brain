@@ -9,3 +9,4 @@
 
 ## Blockers
 - preferred_synplant_plugin_id_or_synplant_enabled_missing
+- chordpotion_optional_midi_fx_unavailable

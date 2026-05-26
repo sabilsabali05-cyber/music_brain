@@ -7,5 +7,5 @@
 - vst_render_used: `false`
 - fallback_preview_used: `false`
 - render_plan_only: `true`
-- reason: `render_not_verified`
+- reason: `reaper_or_registry_unavailable`
 - pack_path: `outputs/render_ready_packs/complete_song_v1`

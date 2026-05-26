@@ -3,8 +3,8 @@
   "local_mode_only": true,
   "cloud_called": false,
   "load_local_config": {
-    "local_render_config_present": true,
-    "local_vst_registry_present": true
+    "local_render_config_present": false,
+    "local_vst_registry_present": false
   },
   "profiles_loaded": {
     "corpus_records_count": 2497,
@@ -19,10 +19,10 @@
     "optional_drums": true
   },
   "chordpotion": {
-    "configured": true,
-    "available": true,
-    "attempted": true,
-    "status": "attempted_no_transform_capture",
+    "configured": false,
+    "available": false,
+    "attempted": false,
+    "status": "missing_config",
     "transformed_midi_captured": false
   },
   "synplant": {
@@ -33,8 +33,8 @@
     "is_not_composer": true
   },
   "render": {
-    "reaper_status": "available",
-    "vst_status": "configured",
+    "reaper_status": "missing_config",
+    "vst_status": "missing_config",
     "render_backend_status": "planned_not_executed",
     "wav_rendered": false,
     "final_wav_path": "",
@@ -55,7 +55,9 @@
     "assisted_pack_created": true
   },
   "blockers": [
-    "final_wav_not_verified",
+    "reaper_executable_path_missing_or_unavailable",
+    "vst_registry_missing_or_empty",
+    "preferred_chordpotion_plugin_id",
     "synplant_not_configured"
   ]
 }

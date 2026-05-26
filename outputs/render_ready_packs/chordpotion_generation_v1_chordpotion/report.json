@@ -1,6 +1,6 @@
 {
   "generation_id": "chordpotion_generation_v1",
-  "reason": "render_not_executed",
+  "reason": "preferred_chordpotion_plugin_id",
   "pack_path": "outputs/render_ready_packs/chordpotion_generation_v1_chordpotion",
   "wav_rendered": false,
   "render_plan_only": true

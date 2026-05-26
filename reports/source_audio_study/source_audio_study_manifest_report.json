@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-26T12:59:51.794779+00:00",
+  "manifest_path": "datasets/source_audio_study/source_audio_study_manifest.jsonl",
+  "source_items_considered": 4,
+  "analysis_allowed_count": 0,
+  "analysis_blocked_count": 4,
+  "training_allowed_count": 0,
+  "authorization_status_counts": {
+    "unknown": 4
+  },
+  "policy_notes": [
+    "No source audio files were moved, modified, or deleted.",
+    "Manifest rows separate retrieval/training/analysis authorization decisions.",
+    "Raw audio analysis is blocked unless analysis_allowed=true per row."
+  ]
+}
