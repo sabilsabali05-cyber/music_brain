@@ -1,14 +1,16 @@
 {
   "generation_id": "generated_wav_v1",
   "render_backend_status": "planned_not_executed",
-  "reaper_available": true,
-  "vst_registry_configured": true,
+  "reaper_available": false,
+  "vst_registry_configured": false,
   "wav_rendered": false,
   "vst_render_used": false,
   "fallback_preview_used": false,
   "render_plan_only": true,
   "final_wav_path": "",
   "assisted_render_pack": "outputs/render_ready_packs/generated_wav_v1",
-  "missing_config": [],
+  "missing_config": [
+    "local_vst_registry.local.json"
+  ],
   "wav_status": "vst_config_missing"
 }

@@ -7,8 +7,8 @@
       "track_name": "bass",
       "track_role": "bass",
       "texture_intent": "bass_motion_driven",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "bass",
       "effect_chain": [
         "eq_cleanup",
@@ -18,7 +18,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "bass supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",
@@ -30,8 +30,8 @@
       "track_name": "chords",
       "track_role": "texture",
       "texture_intent": "warm_emotional_chord_bed",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "texture",
       "effect_chain": [
         "eq_cleanup",
@@ -43,7 +43,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "texture supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",
@@ -55,8 +55,8 @@
       "track_name": "drums_optional",
       "track_role": "drums",
       "texture_intent": "machine_pulse",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "instrument",
       "effect_chain": [
         "eq_cleanup",
@@ -67,7 +67,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "drums supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",
@@ -79,8 +79,8 @@
       "track_name": "lead",
       "track_role": "lead",
       "texture_intent": "fragile_human_breath",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "lead",
       "effect_chain": [
         "eq_cleanup",
@@ -92,7 +92,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "lead supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",
@@ -104,8 +104,8 @@
       "track_name": "skeleton",
       "track_role": "texture",
       "texture_intent": "warm_emotional_chord_bed",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "texture",
       "effect_chain": [
         "eq_cleanup",
@@ -117,7 +117,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "texture supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",
@@ -129,8 +129,8 @@
       "track_name": "texture",
       "track_role": "texture",
       "texture_intent": "haunted_noise_tail",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "texture",
       "effect_chain": [
         "eq_cleanup",
@@ -142,7 +142,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "texture supports arrangement balance",
       "render_backend": "reaper_auto_render",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping.",

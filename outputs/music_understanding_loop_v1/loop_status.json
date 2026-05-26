@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:02:41.396775+00:00",
+  "generated_at": "2026-05-26T12:54:02.897286+00:00",
   "loop_id": "music_understanding_loop_v1",
   "music_understanding_completed": true,
   "taste_learning_completed": true,
@@ -31,22 +31,22 @@
     {
       "step": "build_source_understanding_records",
       "exit_code": 0,
-      "output_excerpt": "SOURCE_UNDERSTANDING_RECORDS=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/datasets/source_understanding/source_understanding_records.jsonl\nSOURCE_UNDERSTANDING_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.json\nSOURCE_UNDERSTANDING_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.md\nSOU"
+      "output_excerpt": "SOURCE_UNDERSTANDING_RECORDS=<REPO_ROOT>/datasets/source_understanding/source_understanding_records.jsonl\nSOURCE_UNDERSTANDING_REPORT_JSON=<REPO_ROOT>/reports/source_understanding/source_understanding_report.json\nSOURCE_UNDERSTANDING_REPORT_MD=<REPO_ROOT>/reports/source_understanding/source_understanding_report.md\nSOURCE_UNDERSTANDING_RECORDS_COUNT=2497\nUSABL"
     },
     {
       "step": "analyze_ratio_understanding",
       "exit_code": 0,
-      "output_excerpt": "RATIO_OBSERVATIONS_JSONL=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/datasets/ratio_understanding/ratio_observations.jsonl\nRATIO_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_understanding_report.md\nRATIO_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_understanding_report.json\nRATIO_OBSERVATIONS_COUNT=56\nHIGH_CONFIDENCE_OBSERVAT"
+      "output_excerpt": "RATIO_OBSERVATIONS_JSONL=<REPO_ROOT>/datasets/ratio_understanding/ratio_observations.jsonl\nRATIO_REPORT_MD=<REPO_ROOT>/reports/ratio_understanding/ratio_understanding_report.md\nRATIO_REPORT_JSON=<REPO_ROOT>/reports/ratio_understanding/ratio_understanding_report.json\nRATIO_OBSERVATIONS_COUNT=56\nHIGH_CONFIDENCE_OBSERVATIONS_COUNT=0\nGOLDEN_SECTION_FINDINGS_COUNT"
     },
     {
       "step": "train_composition_taste_ranker",
       "exit_code": 0,
-      "output_excerpt": "TRAINING_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_training_report.json\nTRAINING_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_training_report.md\nTRAINING_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
+      "output_excerpt": "TRAINING_REPORT_JSON=<REPO_ROOT>/reports/taste_learning/composition_ranker_training_report.json\nTRAINING_REPORT_MD=<REPO_ROOT>/reports/taste_learning/composition_ranker_training_report.md\nTRAINING_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
     },
     {
       "step": "evaluate_composition_taste_ranker",
       "exit_code": 0,
-      "output_excerpt": "EVAL_REPORT_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_eval_report.json\nEVAL_REPORT_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/taste_learning/composition_ranker_eval_report.md\nEVAL_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
+      "output_excerpt": "EVAL_REPORT_JSON=<REPO_ROOT>/reports/taste_learning/composition_ranker_eval_report.json\nEVAL_REPORT_MD=<REPO_ROOT>/reports/taste_learning/composition_ranker_eval_report.md\nEVAL_EXAMPLES_COUNT=2\nTRAINED_RANKER_USED=false\nHEURISTIC_RANKER_USED=true"
     },
     {
       "step": "generate_ranked_midi_candidates",
@@ -56,12 +56,12 @@
     {
       "step": "generate_ratio_controlled_song",
       "exit_code": 0,
-      "output_excerpt": "RATIO_CONTROL_SPEC=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/ratio_control_spec.json\nRATIO_PLAN_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/ratio_plan.json\nRATIO_CONTROLLED_SONG_PATH=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_controlled_song_v2/full.mid\nGENERATION_REPORT=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/outputs/ratio_co"
+      "output_excerpt": "RATIO_CONTROL_SPEC=<REPO_ROOT>/outputs/ratio_controlled_song_v2/ratio_control_spec.json\nRATIO_PLAN_JSON=<REPO_ROOT>/outputs/ratio_controlled_song_v2/ratio_plan.json\nRATIO_CONTROLLED_SONG_PATH=<REPO_ROOT>/outputs/ratio_controlled_song_v2/full.mid\nGENERATION_REPORT=<REPO_ROOT>/outputs/ratio_controlled_song_v2/generation_report.md\nGENERATED_AT=2026-"
     },
     {
       "step": "evaluate_ratio_controlled_generation",
       "exit_code": 0,
-      "output_excerpt": "RATIO_EVAL_MD=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_v2_eval.md\nRATIO_EVAL_JSON=<PRIVATE_LOCAL_PATH>/izzyo/ai-composer/music_brain/reports/ratio_understanding/ratio_controlled_generation_v2_eval.json\nRATIO_COMPLIANCE_SCORE=0.547743"
+      "output_excerpt": "RATIO_EVAL_MD=<REPO_ROOT>/reports/ratio_understanding/ratio_controlled_generation_v2_eval.md\nRATIO_EVAL_JSON=<REPO_ROOT>/reports/ratio_understanding/ratio_controlled_generation_v2_eval.json\nRATIO_COMPLIANCE_SCORE=0.547743"
     }
   ],
   "blockers": []

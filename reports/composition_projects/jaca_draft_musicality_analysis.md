@@ -1,25 +1,61 @@
-# Jaca Draft Musicality Analysis
+# Jaca Draft Musical Understanding
 
 - source_path_redacted: `<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid`
+- input_source_class: `real_local_midi`
+- fallback_fixture_used: `false`
 - missing_local_midi_draft: `false`
 - training_allowed: `false`
+- source_file_type: `mid`
+- source_file_size_bytes: `3026`
+- track_count: `1`
+- note_count: `368`
 - duration_seconds: `64.0`
 - tempo_bpm_detected: `unknown`
-- key_detected: `unknown`
-- musicality_score: `0.0`
-- confidence: `0.45`
+- tempo_unknown_reason: `No MIDI set_tempo meta event found.`
+- key_detected: `Bb minor`
+- key_unknown_reason: `none`
+- musicality_score: `0.5422`
+- confidence: `0.82`
+
+## Evidence Limits
+- Interpretation is from MIDI note timing/pitch/velocity only.
+- No articulation, sound design, mixing, or mastering evidence is available.
+- Key/tempo inference depends on explicit MIDI metadata and note distributions.
+
+## Core Gestures
+- Phrase density transitions from early(132) to middle(132) to late(104) regions.
+- Pitch register spans MIDI 56 to 92, suggesting 36 semitone gesture breadth.
+- Average note duration is 0.9905s across 368 note events.
+
+## Motif Memory
+- Found 10 unique pitch classes; repeated classes indicate motif anchors.
+- Recurring onset spacing suggests a reusable rhythmic cell for identity retention.
+- Motif memory is estimated from repeated pitch/onset patterns, not exact melodic semantics.
+
+## Tension Release
+- Tension generally rises when event density increases and pitch range expands.
+- Release moments appear where note density thins and durations lengthen.
+- Arc confidence is moderate and should be validated with human listening in DAW.
+
+## Preserve Transform Discard
+- preserve: Preserve recurring rhythmic cells and the strongest repeating pitch centers.
+- preserve: Preserve macro section timing inferred from event density changes.
+- transform: Transform literal phrases into new contour variants while keeping motif rhythm identity.
+- transform: Transform harmonic pacing to improve contrast without breaking core tension arc.
+- discard: Discard unsupported claims not backed by parsed MIDI note evidence.
+- discard: Discard placeholder or fixture-derived assumptions from prior dossier versions.
 
 ## Top 10 Strengths
-- harmony coherence score 0.00
-- melody/motif continuity score 0.00
-- rhythm/groove score 0.00
-- bass support score 0.00
-- structure arc score 0.00
-- texture/arrangement score 0.00
-- musicality aggregate score 0.00
-- detected key hint undetermined
+- harmony coherence score 1.00
+- melody/motif continuity score 0.37
+- rhythm/groove score 1.00
+- bass support score 0.26
+- structure arc score 0.43
+- texture/arrangement score 0.20
+- musicality aggregate score 0.54
+- detected key hint Bb minor
 - detected tempo unknown BPM
-- note volume 0 events for robust profiling
+- note volume 368 events for robust profiling
 
 ## Top 10 Weaknesses
 - arrangement can improve contrast between sections

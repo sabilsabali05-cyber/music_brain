@@ -7,8 +7,8 @@
       "track_name": "bass",
       "track_role": "bass",
       "texture_intent": "supportive low-end pulse",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "bass",
       "effect_chain": [
         "eq_cleanup",
@@ -18,7 +18,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "bass supports arrangement balance",
       "render_backend": "dry_run_plan_only",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping."
@@ -29,8 +29,8 @@
       "track_name": "drums",
       "track_role": "drums",
       "texture_intent": "punchy rhythmic backbone",
-      "suggested_plugin_id": "chordpotion_midi_fx",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "drum",
       "effect_chain": [
         "eq_cleanup",
@@ -41,7 +41,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "drums supports arrangement balance",
       "render_backend": "dry_run_plan_only",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping."
@@ -52,8 +52,8 @@
       "track_name": "lead",
       "track_role": "lead",
       "texture_intent": "foreground melodic clarity",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "lead",
       "effect_chain": [
         "eq_cleanup",
@@ -65,7 +65,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "lead supports arrangement balance",
       "render_backend": "dry_run_plan_only",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping."
@@ -76,8 +76,8 @@
       "track_name": "pad",
       "track_role": "pad",
       "texture_intent": "wide atmospheric bed",
-      "suggested_plugin_id": "omnisphere_vst3",
-      "suggested_preset": "Default",
+      "suggested_plugin_id": "",
+      "suggested_preset": "",
       "fallback_plugin_category": "pad",
       "effect_chain": [
         "eq_cleanup",
@@ -89,7 +89,7 @@
       "velocity_adjustment": "humanize_light",
       "expected_ear_effect": "pad supports arrangement balance",
       "render_backend": "dry_run_plan_only",
-      "uncertainty": "medium",
+      "uncertainty": "high",
       "manual_notes": [
         "Confirm MIDI octave/register in DAW.",
         "Confirm preset gain staging avoids clipping."

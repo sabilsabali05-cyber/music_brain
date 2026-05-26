@@ -1,5 +1,8 @@
 from .midi_draft_analyzer import (
+    FALLBACK_FIXTURE_USED_STATUS,
     INPUT_PATH_REQUIRED_STATUS,
+    MISSING_LOCAL_MIDI_CONFIG_STATUS,
+    OK_STATUS,
     PROJECT_ID,
     analyze_draft,
     build_composition_control_spec,
@@ -19,6 +22,9 @@ from .midi_draft_analyzer import (
 __all__ = [
     "PROJECT_ID",
     "INPUT_PATH_REQUIRED_STATUS",
+    "MISSING_LOCAL_MIDI_CONFIG_STATUS",
+    "FALLBACK_FIXTURE_USED_STATUS",
+    "OK_STATUS",
     "load_context",
     "write_local_manifest",
     "analyze_draft",

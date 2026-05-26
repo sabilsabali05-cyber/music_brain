@@ -6,7 +6,9 @@
   "wav_rendered": false,
   "final_wav_path": "",
   "exact_blockers": [
-    "final_wav_not_verified",
+    "reaper_executable_path_missing_or_unavailable",
+    "vst_registry_missing_or_empty",
+    "preferred_chordpotion_plugin_id",
     "synplant_not_configured"
   ]
 }
