@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-05-26T01:18:09.609346+00:00",
+  "file_found": true,
+  "parser_bug_found": true,
+  "before": {
+    "note_count": 0,
+    "tempo_detected": null,
+    "key_detected": null,
+    "musicality_score": 0.0
+  },
+  "after": {
+    "note_count": 368,
+    "tempo_detected": 125.217391,
+    "key_detected": "Eb major",
+    "musicality_score": 0.556367589381554
+  },
+  "draft_understanding_usable": true,
+  "usable_summary": "usable for evidence-based composition controls",
+  "blockers": []
+}

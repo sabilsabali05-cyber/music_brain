@@ -1,9 +1,9 @@
 # Presentable Composition Evaluation
 
 - pass: `true`
-- presentability_score: `0.795393`
-- ratio_compliance_score: `0.671692`
-- selected_candidate: `candidate_04`
+- presentability_score: `0.793539`
+- ratio_compliance_score: `0.670152`
+- selected_candidate: `candidate_07`
 
 ## Strongest Moments
 - cohesive harmonic bed with stable low-end support

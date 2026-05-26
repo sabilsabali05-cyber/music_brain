@@ -1,0 +1,8 @@
+<REAPER_PROJECT 0.1 "7.x" 16909060
+  RIPPLE 0
+  NOTES "No fake WAV claims; this is a render-ready symbolic plan only"
+  <TRACK {00000000-0000-0000-0000-000000010001}
+    NAME "Selected Full MIDI"
+    NOTES "source=outputs/presentable_composition_from_draft_v1/selected/full.mid"
+  >
+>

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:01:24.151241+00:00",
+  "generated_at": "2026-05-26T01:17:03.088750+00:00",
   "status": "ok",
   "draft_analysis_id": "jaca_draft_musicality_analysis",
   "source_path_redacted": "<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid",
@@ -7,7 +7,7 @@
   "nearest_records": [
     {
       "record_id": "unknown",
-      "distance": 1.212436,
+      "distance": 0.446945,
       "row": {
         "status": "ok",
         "has_generation_report": true,
@@ -19,11 +19,11 @@
       }
     }
   ],
-  "database_comparison_confidence": 0.15,
+  "database_comparison_confidence": 0.453055,
   "confidence_reason": "distance against available symbolic benchmarks; confidence decreases with sparse database",
   "alignment_summary": {
-    "musicality_gap": 0.0,
-    "rhythm_gap": 0.0,
-    "structure_gap": 0.0
+    "musicality_gap": 0.556368,
+    "rhythm_gap": 1.0,
+    "structure_gap": 0.401455
   }
 }

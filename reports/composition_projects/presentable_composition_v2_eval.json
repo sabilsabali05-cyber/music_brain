@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-05-26T01:18:09.731311+00:00",
+  "regenerated_v2": true,
+  "selected_midi_path": "outputs/presentable_composition_from_draft_v2/selected/full.mid",
+  "v1_reference": {
+    "generated_at": "2026-05-26T01:01:24.438861+00:00",
+    "status": "ok",
+    "pass": true,
+    "presentability_score": 0.795393,
+    "ratio_compliance_score": 0.671692,
+    "selected_candidate": "candidate_04",
+    "strongest_moments": [
+      "cohesive harmonic bed with stable low-end support",
+      "clear motif identity with section-level variation",
+      "density arc peaks near intended structural apex"
+    ],
+    "remaining_issues": [
+      "bridge contrast can be stronger for repeated listens",
+      "outro can provide a longer release tail"
+    ],
+    "next_review_recommendations": [
+      "perform manual DAW audition for groove pocket",
+      "test alternative lead timbres while preserving MIDI",
+      "capture listener notes before final render stage"
+    ]
+  },
+  "v2_candidate": {
+    "selected_candidate": "candidate_07",
+    "presentability_score": 0.793539,
+    "ratio_compliance_score": 0.670152,
+    "database_comparison_confidence": 0.453055
+  },
+  "evidence_impact_summary": [
+    "repaired note parsing changed note_count from 0 to 368",
+    "tempo/key/musicality are now computed from parsed note evidence instead of empty-note fallback",
+    "candidate ranking uses evidence-derived control targets from repaired analysis"
+  ]
+}

@@ -11,6 +11,7 @@ from .midi_draft_analyzer import (
     rank_candidates,
     repair_selected,
     run_full_pipeline,
+    write_midi_parser_diagnostics,
     write_draft_analysis_outputs,
     write_local_manifest,
 )
@@ -21,6 +22,7 @@ __all__ = [
     "load_context",
     "write_local_manifest",
     "analyze_draft",
+    "write_midi_parser_diagnostics",
     "write_draft_analysis_outputs",
     "compare_draft_to_database",
     "build_composition_control_spec",

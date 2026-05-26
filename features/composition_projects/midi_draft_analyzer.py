@@ -5,8 +5,11 @@ import json
 import math
 import random
 import shutil
+import time
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from importlib.util import find_spec
+from statistics import median
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +35,18 @@ class PipelineContext:
     training_allowed: bool
     candidate_count: int
     seed: int
+
+
+@dataclass(frozen=True)
+class NoteEvent:
+    start_seconds: float
+    end_seconds: float
+    note: int
+    velocity: int
+    track_idx: int
+    channel: int
+    start_tick: int
+    end_tick: int
 
 
 def _repo_rel(path: Path) -> str:
@@ -114,56 +129,305 @@ def write_local_manifest(context: PipelineContext) -> Path:
     return manifest_path
 
 
-def _parse_midi(path: Path) -> tuple[list[tuple[float, float, int, int, int]], float, float | None]:
+def _is_note_off(msg: Any) -> bool:
+    if msg.type == "note_off":
+        return True
+    return msg.type == "note_on" and int(getattr(msg, "velocity", 0)) == 0
+
+
+def _tempo_segments(midi: MidiFile) -> tuple[list[tuple[int, int]], list[tuple[int, int, float]], list[dict[str, Any]], int]:
+    raw_events: list[tuple[int, int]] = [(0, 500000)]
+    explicit_event_count = 0
+    for track in midi.tracks:
+        abs_tick = 0
+        for msg in track:
+            abs_tick += int(msg.time)
+            if msg.type == "set_tempo":
+                explicit_event_count += 1
+                raw_events.append((abs_tick, int(msg.tempo)))
+    dedup: dict[int, int] = {}
+    for tick, tempo in raw_events:
+        dedup[tick] = tempo
+    events = sorted(dedup.items(), key=lambda item: item[0])
+    segments: list[tuple[int, int, float]] = []
+    acc = 0.0
+    for idx, (tick, tempo) in enumerate(events):
+        if idx > 0:
+            prev_tick, prev_tempo = events[idx - 1]
+            acc += (tick - prev_tick) * (prev_tempo / 1_000_000.0) / max(1, midi.ticks_per_beat)
+        segments.append((tick, tempo, acc))
+    tempo_rows = [
+        {
+            "tick": int(tick),
+            "tempo_us_per_beat": int(tempo),
+            "bpm": round(60_000_000.0 / max(1, int(tempo)), 6),
+        }
+        for tick, tempo in events
+    ]
+    return events, segments, tempo_rows, explicit_event_count
+
+
+def _tick_to_seconds(abs_tick: int, segments: list[tuple[int, int, float]], ticks_per_beat: int) -> float:
+    if not segments:
+        return abs_tick * (500000.0 / 1_000_000.0) / max(1, ticks_per_beat)
+    idx = 0
+    for seg_idx, (tick, _, _) in enumerate(segments):
+        if tick <= abs_tick:
+            idx = seg_idx
+        else:
+            break
+    start_tick, tempo, base_seconds = segments[idx]
+    return base_seconds + (abs_tick - start_tick) * (tempo / 1_000_000.0) / max(1, ticks_per_beat)
+
+
+def _parse_midi(path: Path) -> tuple[list[NoteEvent], dict[str, Any]]:
     midi = MidiFile(path.as_posix())
     ticks_per_beat = max(1, int(midi.ticks_per_beat))
-    all_notes: list[tuple[float, float, int, int, int]] = []
-    max_end = 0.0
-    tempo_bpm: float | None = None
+    tempo_events, tempo_segments, tempo_rows, explicit_tempo_events = _tempo_segments(midi)
+    all_notes: list[NoteEvent] = []
+    track_abs_ticks: list[int] = []
+    note_on_count = 0
+    note_off_count = 0
+    note_on_zero_velocity_count = 0
+    channels: set[int] = set()
+    pitch_min: int | None = None
+    pitch_max: int | None = None
+    unmatched_note_off = 0
     for track_idx, track in enumerate(midi.tracks):
-        t_sec = 0.0
-        tempo = 500000
-        active: dict[tuple[int, int], list[tuple[float, int, int]]] = {}
+        abs_tick = 0
+        active: dict[tuple[int, int], list[tuple[int, float, int]]] = {}
         for msg in track:
-            t_sec += float(msg.time) * (tempo / 1_000_000.0) / ticks_per_beat
-            if msg.type == "set_tempo":
-                tempo = int(msg.tempo)
-                bpm = 60_000_000.0 / max(1, tempo)
-                if tempo_bpm is None:
-                    tempo_bpm = bpm
-            if msg.type == "note_on" and int(msg.velocity) > 0:
-                key = (int(msg.channel), int(msg.note))
-                active.setdefault(key, []).append((t_sec, int(msg.note), int(msg.velocity)))
-            if msg.type in {"note_off", "note_on"} and int(getattr(msg, "velocity", 0)) == 0:
-                key = (int(msg.channel), int(msg.note))
-                events = active.get(key, [])
-                if events:
-                    start, note, vel = events.pop(0)
-                    if t_sec > start:
-                        all_notes.append((start, t_sec, note, vel, track_idx))
-                        max_end = max(max_end, t_sec)
-        max_end = max(max_end, t_sec)
-    all_notes.sort(key=lambda row: row[0])
-    return all_notes, max_end, tempo_bpm
+            abs_tick += int(msg.time)
+            if msg.type in {"note_on", "note_off"}:
+                channel = int(getattr(msg, "channel", 0))
+                note = int(getattr(msg, "note", 0))
+                channels.add(channel)
+                pitch_min = note if pitch_min is None else min(pitch_min, note)
+                pitch_max = note if pitch_max is None else max(pitch_max, note)
+            if msg.type == "note_on" and int(getattr(msg, "velocity", 0)) > 0:
+                note_on_count += 1
+                channel = int(msg.channel)
+                note = int(msg.note)
+                start_sec = _tick_to_seconds(abs_tick, tempo_segments, ticks_per_beat)
+                active.setdefault((channel, note), []).append((abs_tick, start_sec, int(msg.velocity)))
+            elif _is_note_off(msg):
+                channel = int(getattr(msg, "channel", 0))
+                note = int(getattr(msg, "note", 0))
+                if msg.type == "note_on":
+                    note_on_zero_velocity_count += 1
+                note_off_count += 1
+                key = (channel, note)
+                starts = active.get(key, [])
+                if starts:
+                    start_tick, start_sec, velocity = starts.pop(0)
+                    end_sec = _tick_to_seconds(abs_tick, tempo_segments, ticks_per_beat)
+                    if end_sec > start_sec:
+                        all_notes.append(
+                            NoteEvent(
+                                start_seconds=start_sec,
+                                end_seconds=end_sec,
+                                note=note,
+                                velocity=velocity,
+                                track_idx=track_idx,
+                                channel=channel,
+                                start_tick=start_tick,
+                                end_tick=abs_tick,
+                            )
+                        )
+                else:
+                    unmatched_note_off += 1
+        track_abs_ticks.append(abs_tick)
+    all_notes.sort(key=lambda row: row.start_seconds)
+    total_ticks = max(track_abs_ticks, default=0)
+    duration_seconds = _tick_to_seconds(total_ticks, tempo_segments, ticks_per_beat)
+    open_notes = max(0, note_on_count - note_off_count)
+    stats = {
+        "file_type": int(midi.type),
+        "ticks_per_beat": ticks_per_beat,
+        "track_count": len(midi.tracks),
+        "track_names": [str(track.name or f"Track {idx + 1}") for idx, track in enumerate(midi.tracks)],
+        "tempo_events": tempo_rows,
+        "explicit_tempo_event_count": explicit_tempo_events,
+        "time_signature_events": _extract_time_signature_events(midi),
+        "note_on_velocity_gt_0": note_on_count,
+        "note_off_events": note_off_count,
+        "note_on_zero_velocity": note_on_zero_velocity_count,
+        "channels": sorted(channels),
+        "pitch_range": [pitch_min, pitch_max] if pitch_min is not None and pitch_max is not None else None,
+        "total_ticks": total_ticks,
+        "duration_seconds_estimate": round(duration_seconds, 6),
+        "unmatched_note_off_events": unmatched_note_off,
+        "open_note_events": open_notes,
+        "tempo_detected_bpm": round(60_000_000.0 / max(1, tempo_events[0][1]), 6) if tempo_events else None,
+    }
+    return all_notes, stats
 
 
-def _detect_key(notes: list[tuple[float, float, int, int, int]]) -> str | None:
+def _extract_time_signature_events(midi: MidiFile) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for track_idx, track in enumerate(midi.tracks):
+        abs_tick = 0
+        for msg in track:
+            abs_tick += int(msg.time)
+            if msg.type == "time_signature":
+                rows.append(
+                    {
+                        "track_idx": track_idx,
+                        "tick": abs_tick,
+                        "numerator": int(msg.numerator),
+                        "denominator": int(msg.denominator),
+                    }
+                )
+    rows.sort(key=lambda row: (row["tick"], row["track_idx"]))
+    return rows
+
+
+def _infer_tempo(notes: list[NoteEvent], tempo_events: list[dict[str, Any]], explicit_tempo_event_count: int) -> tuple[float | None, float, str]:
+    if explicit_tempo_event_count > 0 and tempo_events:
+        return float(tempo_events[0]["bpm"]), 0.98, "set_tempo meta event present in MIDI"
+    if len(notes) < 2:
+        return None, 0.0, "insufficient note events to infer tempo"
+    starts = sorted(row.start_seconds for row in notes)
+    ioi = [starts[idx] - starts[idx - 1] for idx in range(1, len(starts)) if (starts[idx] - starts[idx - 1]) > 0.05]
+    if not ioi:
+        return None, 0.0, "note onset intervals were degenerate"
+    median_ioi = median(ioi)
+    if median_ioi <= 0:
+        return None, 0.0, "median onset interval was non-positive"
+    bpm = 60.0 / median_ioi
+    while bpm < 70.0:
+        bpm *= 2.0
+    while bpm > 180.0:
+        bpm /= 2.0
+    return round(bpm, 6), 0.38, "inferred from median note-on interval; no set_tempo meta event"
+
+
+def _detect_key(notes: list[NoteEvent]) -> tuple[str | None, float, str]:
     if not notes:
-        return None
-    counts = [0.0] * 12
-    for _, _, note, vel, _ in notes:
-        counts[note % 12] += max(1.0, vel / 127.0)
-    if max(counts) <= 0:
-        return None
-    tonic = int(max(range(12), key=lambda idx: counts[idx]))
+        return None, 0.0, "no note events available"
+    weights = [0.0] * 12
+    for row in notes:
+        dur = max(0.01, row.end_seconds - row.start_seconds)
+        weights[row.note % 12] += dur * (0.5 + (row.velocity / 127.0))
+    major_profile = [6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88]
+    minor_profile = [6.33, 2.68, 3.52, 5.38, 2.6, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17]
     names = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"]
-    minor_weight = counts[(tonic + 3) % 12]
-    major_weight = counts[(tonic + 4) % 12]
-    mode = "minor" if minor_weight > major_weight else "major"
-    return f"{names[tonic]} {mode}"
+    total = sum(weights)
+    if total <= 0:
+        return None, 0.0, "pitch-class distribution had zero weight"
+    norm = [value / total for value in weights]
+    best_score = -1.0
+    second_best = -1.0
+    best_name: str | None = None
+    for tonic in range(12):
+        rot_major = [major_profile[(i - tonic) % 12] for i in range(12)]
+        rot_minor = [minor_profile[(i - tonic) % 12] for i in range(12)]
+        for mode, profile in (("major", rot_major), ("minor", rot_minor)):
+            prof_total = sum(profile)
+            prof_norm = [p / prof_total for p in profile]
+            score = sum(norm[i] * prof_norm[i] for i in range(12))
+            if score > best_score:
+                second_best = best_score
+                best_score = score
+                best_name = f"{names[tonic]} {mode}"
+            elif score > second_best:
+                second_best = score
+    margin = max(0.0, best_score - max(0.0, second_best))
+    confidence = max(0.2, min(0.95, 0.35 + margin * 8.0))
+    return best_name, round(confidence, 6), "pitch-class profile matching (Krumhansl-style)"
 
 
-def _score_dimensions(notes: list[tuple[float, float, int, int, int]], duration: float) -> dict[str, float]:
+def _extract_musical_evidence(notes: list[NoteEvent], duration: float) -> dict[str, Any]:
+    if not notes or duration <= 0:
+        return {
+            "phrases": [],
+            "motifs": [],
+            "harmony_windows": [],
+            "rhythm_cells": [],
+            "bass_top_relationships": [],
+            "density_windows": [],
+            "register_roles": [],
+        }
+    starts = sorted(row.start_seconds for row in notes)
+    pitches = [row.note for row in notes]
+    inter_onsets = [starts[idx] - starts[idx - 1] for idx in range(1, len(starts))]
+    phrases: list[dict[str, Any]] = []
+    phrase_start = starts[0]
+    for idx, gap in enumerate(inter_onsets, start=1):
+        if gap >= 1.0:
+            phrase_end = starts[idx - 1]
+            phrases.append({"start": round(phrase_start, 6), "end": round(phrase_end, 6), "gap_after": round(gap, 6)})
+            phrase_start = starts[idx]
+    phrases.append({"start": round(phrase_start, 6), "end": round(starts[-1], 6), "gap_after": 0.0})
+    interval_sequence = [pitches[idx] - pitches[idx - 1] for idx in range(1, len(pitches))]
+    motif_counts: dict[tuple[int, ...], int] = {}
+    for idx in range(len(interval_sequence) - 2):
+        cell = tuple(interval_sequence[idx : idx + 3])
+        motif_counts[cell] = motif_counts.get(cell, 0) + 1
+    motifs = [
+        {"interval_pattern": list(pattern), "occurrences": count}
+        for pattern, count in sorted(motif_counts.items(), key=lambda item: item[1], reverse=True)[:5]
+        if count > 1
+    ]
+    window = 2.0
+    harmony_windows: list[dict[str, Any]] = []
+    cursor = 0.0
+    while cursor < duration:
+        active = [row for row in notes if row.start_seconds <= cursor + window and row.end_seconds >= cursor]
+        if active:
+            pcs = sorted({row.note % 12 for row in active})
+            harmony_windows.append({"start": round(cursor, 6), "end": round(min(duration, cursor + window), 6), "pitch_classes": pcs, "active_notes": len(active)})
+        cursor += window
+    rhythm_cells_map: dict[float, int] = {}
+    for gap in inter_onsets:
+        bucket = round(gap, 2)
+        rhythm_cells_map[bucket] = rhythm_cells_map.get(bucket, 0) + 1
+    rhythm_cells = [
+        {"onset_gap_seconds": gap, "count": count}
+        for gap, count in sorted(rhythm_cells_map.items(), key=lambda item: item[1], reverse=True)[:6]
+    ]
+    grouped: dict[float, list[int]] = {}
+    for row in notes:
+        bucket = round(row.start_seconds / 0.5) * 0.5
+        grouped.setdefault(bucket, []).append(row.note)
+    bass_top: list[dict[str, Any]] = []
+    for start, chord in sorted(grouped.items())[:24]:
+        if len(chord) >= 2:
+            bass_top.append(
+                {
+                    "start": round(start, 6),
+                    "bass_note": int(min(chord)),
+                    "top_note": int(max(chord)),
+                    "spread": int(max(chord) - min(chord)),
+                }
+            )
+    density_windows: list[dict[str, Any]] = []
+    density_window = max(2.0, duration / 8.0)
+    cursor = 0.0
+    while cursor < duration:
+        count = sum(1 for row in notes if cursor <= row.start_seconds < (cursor + density_window))
+        density_windows.append({"start": round(cursor, 6), "end": round(min(duration, cursor + density_window), 6), "note_count": count})
+        cursor += density_window
+    low = sum(1 for row in notes if row.note < 48)
+    mid = sum(1 for row in notes if 48 <= row.note <= 72)
+    high = sum(1 for row in notes if row.note > 72)
+    register_roles = [
+        {"register": "low", "note_count": low},
+        {"register": "mid", "note_count": mid},
+        {"register": "high", "note_count": high},
+    ]
+    return {
+        "phrases": phrases[:12],
+        "motifs": motifs,
+        "harmony_windows": harmony_windows[:16],
+        "rhythm_cells": rhythm_cells,
+        "bass_top_relationships": bass_top,
+        "density_windows": density_windows,
+        "register_roles": register_roles,
+    }
+
+
+def _score_dimensions(notes: list[NoteEvent], duration: float, evidence: dict[str, Any]) -> dict[str, float]:
     if not notes or duration <= 0:
         return {
             "harmony_score": 0.0,
@@ -174,9 +438,9 @@ def _score_dimensions(notes: list[tuple[float, float, int, int, int]], duration:
             "texture_arrangement_score": 0.0,
             "musicality_score": 0.0,
         }
-    pitches = [n[2] for n in notes]
-    durations = [max(0.01, n[1] - n[0]) for n in notes]
-    starts = [n[0] for n in notes]
+    pitches = [n.note for n in notes]
+    durations = [max(0.01, n.end_seconds - n.start_seconds) for n in notes]
+    starts = [n.start_seconds for n in notes]
     unique_pc = len({p % 12 for p in pitches}) / 12.0
     unique_notes = len(set(pitches)) / max(1.0, min(50.0, float(len(pitches))))
     leaps = [abs(pitches[i] - pitches[i - 1]) for i in range(1, len(pitches))]
@@ -195,10 +459,13 @@ def _score_dimensions(notes: list[tuple[float, float, int, int, int]], duration:
     dynamic_curve = 0.0
     if section_density:
         dynamic_curve = (max(section_density) - min(section_density)) / max(1.0, float(max(section_density)))
-    track_variety = len({n[4] for n in notes}) / 8.0
-    harmony = max(0.0, min(1.0, 0.55 * unique_pc + 0.25 * (1.0 - leap_ratio) + 0.2 * rhythm_var))
-    melody = max(0.0, min(1.0, 0.45 * step_ratio + 0.3 * unique_notes + 0.25 * (1.0 - leap_ratio)))
-    rhythm = max(0.0, min(1.0, 0.45 * on_grid + 0.4 * rhythm_var + 0.15 * dynamic_curve))
+    track_variety = len({n.track_idx for n in notes}) / 8.0
+    harmony_window_depth = min(1.0, len([w for w in evidence.get("harmony_windows", []) if len(w.get("pitch_classes", [])) >= 3]) / 8.0)
+    motif_repetition = min(1.0, sum(int(m.get("occurrences", 0)) for m in evidence.get("motifs", [])) / 24.0)
+    rhythm_cell_variety = min(1.0, len(evidence.get("rhythm_cells", [])) / 6.0)
+    harmony = max(0.0, min(1.0, 0.4 * unique_pc + 0.25 * harmony_window_depth + 0.2 * (1.0 - leap_ratio) + 0.15 * rhythm_var))
+    melody = max(0.0, min(1.0, 0.35 * step_ratio + 0.25 * unique_notes + 0.2 * motif_repetition + 0.2 * (1.0 - leap_ratio)))
+    rhythm = max(0.0, min(1.0, 0.35 * on_grid + 0.25 * rhythm_var + 0.2 * rhythm_cell_variety + 0.2 * dynamic_curve))
     bass = max(0.0, min(1.0, 0.6 * bass_presence + 0.4 * (1.0 - leap_ratio)))
     structure = max(0.0, min(1.0, 0.6 * dynamic_curve + 0.4 * min(1.0, duration / 100.0)))
     texture = max(0.0, min(1.0, 0.55 * track_variety + 0.45 * dynamic_curve))
@@ -212,6 +479,216 @@ def _score_dimensions(notes: list[tuple[float, float, int, int, int]], duration:
         "texture_arrangement_score": texture,
         "musicality_score": musicality,
     }
+
+
+def _has_dependency(name: str) -> bool:
+    return find_spec(name) is not None
+
+
+def _optional_pretty_midi(path: Path) -> dict[str, Any]:
+    if not _has_dependency("pretty_midi"):
+        return {"installed": False, "status": "missing_dependency"}
+    try:
+        import pretty_midi  # type: ignore
+
+        midi = pretty_midi.PrettyMIDI(path.as_posix())
+        note_count = sum(len(inst.notes) for inst in midi.instruments)
+        tempo_times, tempi = midi.get_tempo_changes()
+        return {
+            "installed": True,
+            "status": "ok",
+            "instrument_count": len(midi.instruments),
+            "note_count": int(note_count),
+            "tempo_change_count": int(len(tempi)),
+            "first_tempo_bpm": round(float(tempi[0]), 6) if len(tempi) > 0 else None,
+            "duration_seconds": round(float(midi.get_end_time()), 6),
+            "tempo_time_markers": [round(float(x), 6) for x in list(tempo_times[:8])],
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"installed": True, "status": "error", "error": str(exc)}
+
+
+def _optional_music21(path: Path) -> dict[str, Any]:
+    if not _has_dependency("music21"):
+        return {"installed": False, "status": "missing_dependency"}
+    try:
+        from music21 import converter  # type: ignore
+
+        score = converter.parse(path.as_posix())
+        flat = score.flatten()
+        notes = flat.notes
+        key_obj = flat.analyze("key")
+        tempos = [element.number for element in flat.getElementsByClass("MetronomeMark") if getattr(element, "number", None)]
+        return {
+            "installed": True,
+            "status": "ok",
+            "note_count": int(len(notes)),
+            "parts": int(len(score.parts)),
+            "duration_quarter_length": float(flat.duration.quarterLength),
+            "analyzed_key": str(key_obj) if key_obj else None,
+            "tempo_marks": [float(x) for x in tempos[:8]],
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"installed": True, "status": "error", "error": str(exc)}
+
+
+def _raw_midi_header(path: Path) -> dict[str, Any]:
+    try:
+        with path.open("rb") as handle:
+            header = handle.read(14)
+        if len(header) < 14 or header[0:4] != b"MThd":
+            return {"status": "invalid_or_unknown_header", "header_hex": header.hex()}
+        header_len = int.from_bytes(header[4:8], byteorder="big", signed=False)
+        fmt = int.from_bytes(header[8:10], byteorder="big", signed=False)
+        tracks = int.from_bytes(header[10:12], byteorder="big", signed=False)
+        division = int.from_bytes(header[12:14], byteorder="big", signed=False)
+        return {
+            "status": "ok",
+            "chunk_length": header_len,
+            "format_type": fmt,
+            "declared_track_count": tracks,
+            "division_raw": division,
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"status": "error", "error": str(exc)}
+
+
+def collect_midi_parser_diagnostics(path: Path, source_path_redacted: str) -> dict[str, Any]:
+    exists = path.exists() and path.is_file()
+    payload: dict[str, Any] = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "source_path_redacted": source_path_redacted,
+        "file_found": bool(exists),
+        "empty_or_malformed": False,
+        "parser_ignore_suspicion": False,
+    }
+    if not exists:
+        payload.update(
+            {
+                "status": "missing_file",
+                "size_bytes": 0,
+                "raw_inspection": _raw_midi_header(path),
+                "parsers": {
+                    "mido": {"status": "missing_file"},
+                    "pretty_midi": _optional_pretty_midi(path),
+                    "music21": _optional_music21(path),
+                },
+            }
+        )
+        return payload
+    payload["size_bytes"] = int(path.stat().st_size)
+    payload["raw_inspection"] = _raw_midi_header(path)
+    try:
+        notes, stats = _parse_midi(path)
+    except Exception as exc:  # noqa: BLE001
+        payload.update(
+            {
+                "status": "mido_parse_error",
+                "empty_or_malformed": True,
+                "mido_error": str(exc),
+                "parsers": {
+                    "mido": {"status": "error", "error": str(exc)},
+                    "pretty_midi": _optional_pretty_midi(path),
+                    "music21": _optional_music21(path),
+                },
+            }
+        )
+        return payload
+    unusual_tracks = [name for name in stats.get("track_names", []) if str(name).strip().lower() in {"", "untitled", "track"}]
+    unusual_channels = [chan for chan in stats.get("channels", []) if chan == 9]
+    parser_ignore_suspicion = bool(stats["note_on_velocity_gt_0"] > 0 and len(notes) == 0)
+    payload.update(
+        {
+            "status": "ok",
+            "file_type": stats["file_type"],
+            "ticks_per_beat": stats["ticks_per_beat"],
+            "track_count": stats["track_count"],
+            "track_names": stats["track_names"],
+            "tempo_events": stats["tempo_events"],
+            "time_signature_events": stats["time_signature_events"],
+            "note_on_velocity_gt_0": stats["note_on_velocity_gt_0"],
+            "note_off_events": stats["note_off_events"],
+            "note_on_zero_velocity": stats["note_on_zero_velocity"],
+            "channels": stats["channels"],
+            "pitch_range": stats["pitch_range"],
+            "total_ticks": stats["total_ticks"],
+            "duration_seconds_estimate": stats["duration_seconds_estimate"],
+            "parsed_note_count": len(notes),
+            "unusual_tracks": unusual_tracks,
+            "unusual_channels": unusual_channels,
+            "zero_velocity_note_on_handled_as_note_off": True,
+            "empty_or_malformed": bool(payload["size_bytes"] == 0 or (stats["track_count"] == 0)),
+            "parser_ignore_suspicion": parser_ignore_suspicion,
+            "unmatched_note_off_events": stats["unmatched_note_off_events"],
+            "open_note_events": stats["open_note_events"],
+            "parsers": {
+                "mido": {"status": "ok", "note_count": len(notes)},
+                "pretty_midi": _optional_pretty_midi(path),
+                "music21": _optional_music21(path),
+            },
+        }
+    )
+    return payload
+
+
+def write_midi_parser_diagnostics(context: PipelineContext) -> dict[str, Path]:
+    json_path = REPORTS_ROOT / "jaca_draft_midi_parser_diagnostics.json"
+    md_path = REPORTS_ROOT / "jaca_draft_midi_parser_diagnostics.md"
+    if context.local_midi_found and context.local_input_midi_path:
+        payload = collect_midi_parser_diagnostics(context.local_input_midi_path, context.local_input_midi_path_redacted)
+    else:
+        payload = {
+            "generated_at": datetime.now(UTC).isoformat(),
+            "source_path_redacted": context.local_input_midi_path_redacted,
+            "file_found": False,
+            "status": INPUT_PATH_REQUIRED_STATUS,
+            "empty_or_malformed": True,
+            "parser_ignore_suspicion": False,
+            "parsers": {
+                "mido": {"status": "missing_file"},
+                "pretty_midi": {"status": "not_checked"},
+                "music21": {"status": "not_checked"},
+            },
+        }
+    _write_json(json_path, payload)
+    _write_md(
+        md_path,
+        [
+            "# Jaca Draft MIDI Parser Diagnostics",
+            "",
+            f"- source_path_redacted: `{payload.get('source_path_redacted', 'unknown')}`",
+            f"- file_found: `{str(payload.get('file_found', False)).lower()}`",
+            f"- size_bytes: `{payload.get('size_bytes', 'unknown')}`",
+            f"- file_type: `{payload.get('file_type', 'unknown')}`",
+            f"- track_count: `{payload.get('track_count', 'unknown')}`",
+            f"- ticks_per_beat: `{payload.get('ticks_per_beat', 'unknown')}`",
+            f"- total_ticks: `{payload.get('total_ticks', 'unknown')}`",
+            f"- duration_seconds_estimate: `{payload.get('duration_seconds_estimate', 'unknown')}`",
+            f"- parser_ignore_suspicion: `{str(payload.get('parser_ignore_suspicion', False)).lower()}`",
+            "",
+            "## Track Names",
+            *[f"- {name}" for name in payload.get("track_names", [])],
+            "",
+            "## Tempo Events",
+            *[
+                f"- tick `{row.get('tick')}` tempo_us_per_beat `{row.get('tempo_us_per_beat')}` bpm `{row.get('bpm')}`"
+                for row in payload.get("tempo_events", [])
+            ],
+            "",
+            "## Time Signature Events",
+            *[
+                f"- track `{row.get('track_idx')}` tick `{row.get('tick')}` meter `{row.get('numerator')}/{row.get('denominator')}`"
+                for row in payload.get("time_signature_events", [])
+            ],
+            "",
+            "## Parser Availability",
+            f"- mido: `{payload.get('parsers', {}).get('mido', {}).get('status', 'unknown')}`",
+            f"- pretty_midi: `{payload.get('parsers', {}).get('pretty_midi', {}).get('status', 'unknown')}`",
+            f"- music21: `{payload.get('parsers', {}).get('music21', {}).get('status', 'unknown')}`",
+            "",
+        ],
+    )
+    return {"json": json_path, "md": md_path}
 
 
 def analyze_draft(context: PipelineContext) -> DraftMusicalityAnalysis:
@@ -242,9 +719,18 @@ def analyze_draft(context: PipelineContext) -> DraftMusicalityAnalysis:
             confidence_reason="no local draft available",
             technical_summary={"status": INPUT_PATH_REQUIRED_STATUS},
         )
-    notes, duration, bpm = _parse_midi(context.local_input_midi_path)
-    scores = _score_dimensions(notes, duration)
-    key = _detect_key(notes)
+    notes, parse_stats = _parse_midi(context.local_input_midi_path)
+    duration = float(parse_stats["duration_seconds_estimate"])
+    tempo_bpm, tempo_confidence, tempo_reason = _infer_tempo(
+        notes,
+        parse_stats["tempo_events"],
+        int(parse_stats.get("explicit_tempo_event_count", 0)),
+    )
+    key, key_confidence, key_reason = _detect_key(notes)
+    evidence = _extract_musical_evidence(notes, duration)
+    scores = _score_dimensions(notes, duration, evidence)
+    no_notes = len(notes) == 0
+    evidence_strength = min(1.0, len(notes) / 120.0)
     strengths = [
         f"harmony coherence score {scores['harmony_score']:.2f}",
         f"melody/motif continuity score {scores['melody_motif_score']:.2f}",
@@ -254,24 +740,33 @@ def analyze_draft(context: PipelineContext) -> DraftMusicalityAnalysis:
         f"texture/arrangement score {scores['texture_arrangement_score']:.2f}",
         f"musicality aggregate score {scores['musicality_score']:.2f}",
         f"detected key hint {key or 'undetermined'}",
-        f"detected tempo {round(bpm, 2) if bpm else 'unknown'} BPM",
+        f"detected tempo {round(tempo_bpm, 2) if tempo_bpm else 'unknown'} BPM",
         f"note volume {len(notes)} events for robust profiling",
     ]
-    weaknesses = [
-        "arrangement can improve contrast between sections",
-        "motif development can include stronger variation pacing",
-        "bass rhythm can lock tighter with transients",
-        "climax placement may need stronger pre-peak setup",
-        "register spacing can avoid occasional midrange crowding",
-        "hook repetition can be made more memorable",
-        "call/response in lead layers can be more explicit",
-        "density transitions can be smoothed in final third",
-        "cadence points can be reinforced harmonically",
-        "ending resolution can sustain listener closure longer",
-    ]
-    roles = ["drums/percussion", "bass foundation", "chord bed", "melodic lead", "texture layer", "transitional effects"]
+    weaknesses = []
+    if no_notes:
+        weaknesses.append("no note events parsed from MIDI; musicality cannot be assessed")
+    else:
+        if scores["structure_score"] < 0.45:
+            weaknesses.append("section density arc is weak across phrase windows")
+        if scores["melody_motif_score"] < 0.45:
+            weaknesses.append("motif recurrence from interval patterns is limited")
+        if scores["bass_score"] < 0.45:
+            weaknesses.append("low-register support is sparse relative to full register")
+        if tempo_bpm is None:
+            weaknesses.append("tempo remained unknown because no trustworthy timing signal was available")
+        if key is None:
+            weaknesses.append("key center remained unknown due weak pitch-class profile")
+    while len(weaknesses) < 10:
+        weaknesses.append("additional evidence needed for deeper arrangement diagnosis")
+    roles = []
+    for row in evidence.get("register_roles", []):
+        if int(row.get("note_count", 0)) > 0:
+            roles.append(f"{row.get('register')} register role ({row.get('note_count')} notes)")
+    if not roles:
+        roles = ["no register roles detected"]
     controls = [
-        "target_tempo_range: +/- 6 BPM from detected draft tempo",
+        f"target_tempo_range: {'+/- 6 BPM from detected draft tempo' if tempo_bpm else 'tempo unknown; keep flexible tempo envelope'}",
         "anchor climax near golden-section while preserving groove",
         "maintain motif identity but refresh every 4 bars",
         "emphasize bass-chord lock ratio around 5:3",
@@ -284,28 +779,36 @@ def analyze_draft(context: PipelineContext) -> DraftMusicalityAnalysis:
         "tighten groove with selective syncopation and pocket-preserving quantization",
         "reinforce ending with cadence and controlled textural taper",
     ]
-    confidence = 0.82 if len(notes) >= 30 else 0.45
+    confidence = max(0.0, min(1.0, (evidence_strength * 0.6) + (tempo_confidence * 0.2) + (key_confidence * 0.2)))
+    confidence_reason = (
+        f"evidence-based symbolic extraction from {len(notes)} notes; tempo_confidence={tempo_confidence:.2f} ({tempo_reason}); "
+        f"key_confidence={key_confidence:.2f} ({key_reason})"
+    )
     return DraftMusicalityAnalysis(
         analysis_id="jaca_draft_musicality_analysis",
         source_path_redacted=context.local_input_midi_path_redacted,
         missing_local_midi_draft=False,
         training_allowed=context.training_allowed,
         duration_seconds=duration,
-        tempo_bpm_detected=bpm,
+        tempo_bpm_detected=tempo_bpm,
         key_detected=key,
         note_count=len(notes),
-        track_count=max(1, len({n[4] for n in notes})),
+        track_count=max(1, len({n.track_idx for n in notes})),
         confidence=confidence,
-        confidence_reason="heuristic symbolic analysis from local MIDI note events",
+        confidence_reason=confidence_reason,
         top_strengths=strengths,
         top_weaknesses=weaknesses,
         arrangement_roles=roles,
         improvement_plan=improvement,
         recommended_controls=controls,
         technical_summary={
-            "mean_note_duration": round(sum(max(0.0, n[1] - n[0]) for n in notes) / max(1, len(notes)), 6),
-            "pitch_range": [min((n[2] for n in notes), default=0), max((n[2] for n in notes), default=0)],
+            "tempo_detection": {"tempo_bpm": tempo_bpm, "confidence": tempo_confidence, "reason": tempo_reason},
+            "key_detection": {"key": key, "confidence": key_confidence, "reason": key_reason},
+            "mean_note_duration": round(sum(max(0.0, n.end_seconds - n.start_seconds) for n in notes) / max(1, len(notes)), 6),
+            "pitch_range": [min((n.note for n in notes), default=0), max((n.note for n in notes), default=0)],
             "polyphony_hint": round(len(notes) / max(1.0, duration), 6),
+            "parser_stats": parse_stats,
+            "musical_evidence": evidence,
         },
         **scores,
     )
@@ -511,6 +1014,25 @@ def _write_midi(path: Path, notes: list[tuple[float, float, int, int]], bpm: int
     midi.save(path.as_posix())
 
 
+def _safe_copy_file(source: Path, destination: Path, retries: int = 3) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        try:
+            destination.unlink()
+        except PermissionError:
+            pass
+    last_error: Exception | None = None
+    for _ in range(max(1, retries)):
+        try:
+            shutil.copyfile(source, destination)
+            return
+        except PermissionError as exc:
+            last_error = exc
+            time.sleep(0.15)
+    if last_error is not None:
+        raise last_error
+
+
 def _build_candidate_notes(seed: int, duration: float, bpm: int, key_hint: str) -> dict[str, list[tuple[float, float, int, int]]]:
     rng = random.Random(seed)
     beat = 60.0 / max(1, bpm)
@@ -642,11 +1164,11 @@ def rank_candidates() -> dict[str, Any]:
     selected_root.mkdir(parents=True, exist_ok=True)
     if selected_id:
         source_root = OUTPUT_ROOT / "candidates" / selected_id
-        shutil.copy2(source_root / "full.mid", selected_root / "full.mid")
+        _safe_copy_file(source_root / "full.mid", selected_root / "full.mid")
         target_stems = selected_root / "stems"
         target_stems.mkdir(parents=True, exist_ok=True)
         for stem in (source_root / "stems").glob("*.mid"):
-            shutil.copy2(stem, target_stems / stem.name)
+            _safe_copy_file(stem, target_stems / stem.name)
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": report.get("status", "ok"),
@@ -828,6 +1350,7 @@ def evaluate_presentable() -> dict[str, Any]:
 def run_full_pipeline(config_path: Path | None = None, include_reaper: bool = False) -> dict[str, Any]:
     context = load_context(config_path)
     manifest_path = write_local_manifest(context)
+    diagnostics_paths = write_midi_parser_diagnostics(context)
     analysis = analyze_draft(context)
     analysis_paths = write_draft_analysis_outputs(analysis)
     comparison = compare_draft_to_database(analysis)
@@ -841,6 +1364,7 @@ def run_full_pipeline(config_path: Path | None = None, include_reaper: bool = Fa
         "generated_at": datetime.now(UTC).isoformat(),
         "status": "ok" if context.local_midi_found else INPUT_PATH_REQUIRED_STATUS,
         "manifest_path": _repo_rel(manifest_path),
+        "midi_diagnostics_path": _repo_rel(diagnostics_paths["json"]),
         "analysis_report_path": _repo_rel(analysis_paths["json"]),
         "comparison_report_path": _repo_rel(REPORTS_ROOT / "jaca_draft_database_comparison.json"),
         "spec_path": _repo_rel(OUTPUT_ROOT / "composition_control_spec.json"),

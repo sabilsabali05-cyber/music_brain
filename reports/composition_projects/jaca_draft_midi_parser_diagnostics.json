@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-05-26T01:17:03.087415+00:00",
+  "source_path_redacted": "<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid",
+  "file_found": true,
+  "empty_or_malformed": false,
+  "parser_ignore_suspicion": false,
+  "size_bytes": 3026,
+  "raw_inspection": {
+    "status": "ok",
+    "chunk_length": 6,
+    "format_type": 0,
+    "declared_track_count": 1,
+    "division_raw": 96
+  },
+  "status": "ok",
+  "file_type": 0,
+  "ticks_per_beat": 96,
+  "track_count": 1,
+  "track_names": [
+    "Samplab_ytmp3free.cc_john-ke"
+  ],
+  "tempo_events": [
+    {
+      "tick": 0,
+      "tempo_us_per_beat": 500000,
+      "bpm": 120.0
+    }
+  ],
+  "time_signature_events": [
+    {
+      "track_idx": 0,
+      "tick": 0,
+      "numerator": 4,
+      "denominator": 4
+    },
+    {
+      "track_idx": 0,
+      "tick": 0,
+      "numerator": 4,
+      "denominator": 4
+    }
+  ],
+  "note_on_velocity_gt_0": 368,
+  "note_off_events": 368,
+  "note_on_zero_velocity": 0,
+  "channels": [
+    0
+  ],
+  "pitch_range": [
+    56,
+    92
+  ],
+  "total_ticks": 12288,
+  "duration_seconds_estimate": 64.0,
+  "parsed_note_count": 368,
+  "unusual_tracks": [],
+  "unusual_channels": [],
+  "zero_velocity_note_on_handled_as_note_off": true,
+  "unmatched_note_off_events": 0,
+  "open_note_events": 0,
+  "parsers": {
+    "mido": {
+      "status": "ok",
+      "note_count": 368
+    },
+    "pretty_midi": {
+      "installed": false,
+      "status": "missing_dependency"
+    },
+    "music21": {
+      "installed": false,
+      "status": "missing_dependency"
+    }
+  }
+}

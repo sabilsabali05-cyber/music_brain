@@ -3,49 +3,45 @@
   "source_path_redacted": "<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid",
   "missing_local_midi_draft": false,
   "training_allowed": false,
-  "duration_seconds": 64.00000000000001,
-  "tempo_bpm_detected": null,
-  "key_detected": null,
-  "note_count": 0,
+  "duration_seconds": 64.0,
+  "tempo_bpm_detected": 125.217391,
+  "key_detected": "Eb major",
+  "note_count": 368,
   "track_count": 1,
-  "harmony_score": 0.0,
-  "melody_motif_score": 0.0,
-  "rhythm_groove_score": 0.0,
-  "bass_score": 0.0,
-  "structure_score": 0.0,
-  "texture_arrangement_score": 0.0,
-  "musicality_score": 0.0,
+  "harmony_score": 1.0,
+  "melody_motif_score": 0.4984196185286104,
+  "rhythm_groove_score": 1.0,
+  "bass_score": 0.26049046321525887,
+  "structure_score": 0.40145454545454545,
+  "texture_arrangement_score": 0.1778409090909091,
+  "musicality_score": 0.556367589381554,
   "top_strengths": [
-    "harmony coherence score 0.00",
-    "melody/motif continuity score 0.00",
-    "rhythm/groove score 0.00",
-    "bass support score 0.00",
-    "structure arc score 0.00",
-    "texture/arrangement score 0.00",
-    "musicality aggregate score 0.00",
-    "detected key hint undetermined",
-    "detected tempo unknown BPM",
-    "note volume 0 events for robust profiling"
+    "harmony coherence score 1.00",
+    "melody/motif continuity score 0.50",
+    "rhythm/groove score 1.00",
+    "bass support score 0.26",
+    "structure arc score 0.40",
+    "texture/arrangement score 0.18",
+    "musicality aggregate score 0.56",
+    "detected key hint Eb major",
+    "detected tempo 125.22 BPM",
+    "note volume 368 events for robust profiling"
   ],
   "top_weaknesses": [
-    "arrangement can improve contrast between sections",
-    "motif development can include stronger variation pacing",
-    "bass rhythm can lock tighter with transients",
-    "climax placement may need stronger pre-peak setup",
-    "register spacing can avoid occasional midrange crowding",
-    "hook repetition can be made more memorable",
-    "call/response in lead layers can be more explicit",
-    "density transitions can be smoothed in final third",
-    "cadence points can be reinforced harmonically",
-    "ending resolution can sustain listener closure longer"
+    "section density arc is weak across phrase windows",
+    "low-register support is sparse relative to full register",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis",
+    "additional evidence needed for deeper arrangement diagnosis"
   ],
   "arrangement_roles": [
-    "drums/percussion",
-    "bass foundation",
-    "chord bed",
-    "melodic lead",
-    "texture layer",
-    "transitional effects"
+    "mid register role (262 notes)",
+    "high register role (106 notes)"
   ],
   "improvement_plan": [
     "add stronger intro identity before full arrangement enters",
@@ -61,14 +57,576 @@
     "emphasize bass-chord lock ratio around 5:3",
     "enforce section-level density curve with clear intro/build/drop/outro"
   ],
-  "confidence": 0.45,
-  "confidence_reason": "heuristic symbolic analysis from local MIDI note events",
+  "confidence": 0.7472831999999999,
+  "confidence_reason": "evidence-based symbolic extraction from 368 notes; tempo_confidence=0.38 (inferred from median note-on interval; no set_tempo meta event); key_confidence=0.36 (pitch-class profile matching (Krumhansl-style))",
   "technical_summary": {
-    "mean_note_duration": 0.0,
+    "tempo_detection": {
+      "tempo_bpm": 125.217391,
+      "confidence": 0.38,
+      "reason": "inferred from median note-on interval; no set_tempo meta event"
+    },
+    "key_detection": {
+      "key": "Eb major",
+      "confidence": 0.356416,
+      "reason": "pitch-class profile matching (Krumhansl-style)"
+    },
+    "mean_note_duration": 0.990546,
     "pitch_range": [
-      0,
-      0
+      56,
+      92
     ],
-    "polyphony_hint": 0.0
+    "polyphony_hint": 5.75,
+    "parser_stats": {
+      "file_type": 0,
+      "ticks_per_beat": 96,
+      "track_count": 1,
+      "track_names": [
+        "Samplab_ytmp3free.cc_john-ke"
+      ],
+      "tempo_events": [
+        {
+          "tick": 0,
+          "tempo_us_per_beat": 500000,
+          "bpm": 120.0
+        }
+      ],
+      "explicit_tempo_event_count": 0,
+      "time_signature_events": [
+        {
+          "track_idx": 0,
+          "tick": 0,
+          "numerator": 4,
+          "denominator": 4
+        },
+        {
+          "track_idx": 0,
+          "tick": 0,
+          "numerator": 4,
+          "denominator": 4
+        }
+      ],
+      "note_on_velocity_gt_0": 368,
+      "note_off_events": 368,
+      "note_on_zero_velocity": 0,
+      "channels": [
+        0
+      ],
+      "pitch_range": [
+        56,
+        92
+      ],
+      "total_ticks": 12288,
+      "duration_seconds_estimate": 64.0,
+      "unmatched_note_off_events": 0,
+      "open_note_events": 0,
+      "tempo_detected_bpm": 120.0
+    },
+    "musical_evidence": {
+      "phrases": [
+        {
+          "start": 0.0,
+          "end": 6.421875,
+          "gap_after": 1.578125
+        },
+        {
+          "start": 8.0,
+          "end": 14.34375,
+          "gap_after": 1.65625
+        },
+        {
+          "start": 16.0,
+          "end": 22.822917,
+          "gap_after": 1.177083
+        },
+        {
+          "start": 24.0,
+          "end": 38.822917,
+          "gap_after": 1.177083
+        },
+        {
+          "start": 40.0,
+          "end": 46.265625,
+          "gap_after": 1.734375
+        },
+        {
+          "start": 48.0,
+          "end": 61.489583,
+          "gap_after": 0.0
+        }
+      ],
+      "motifs": [
+        {
+          "interval_pattern": [
+            -5,
+            3,
+            2
+          ],
+          "occurrences": 8
+        },
+        {
+          "interval_pattern": [
+            -9,
+            5,
+            4
+          ],
+          "occurrences": 5
+        },
+        {
+          "interval_pattern": [
+            -15,
+            3,
+            5
+          ],
+          "occurrences": 4
+        },
+        {
+          "interval_pattern": [
+            2,
+            -5,
+            3
+          ],
+          "occurrences": 4
+        },
+        {
+          "interval_pattern": [
+            3,
+            2,
+            -7
+          ],
+          "occurrences": 4
+        }
+      ],
+      "harmony_windows": [
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 17
+        },
+        {
+          "start": 2.0,
+          "end": 4.0,
+          "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 22
+        },
+        {
+          "start": 4.0,
+          "end": 6.0,
+          "pitch_classes": [
+            0,
+            1,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 17
+        },
+        {
+          "start": 6.0,
+          "end": 8.0,
+          "pitch_classes": [
+            0,
+            1,
+            3,
+            5,
+            7,
+            10
+          ],
+          "active_notes": 12
+        },
+        {
+          "start": 8.0,
+          "end": 10.0,
+          "pitch_classes": [
+            0,
+            1,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 25
+        },
+        {
+          "start": 10.0,
+          "end": 12.0,
+          "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 21
+        },
+        {
+          "start": 12.0,
+          "end": 14.0,
+          "pitch_classes": [
+            0,
+            3,
+            5,
+            6,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 22
+        },
+        {
+          "start": 14.0,
+          "end": 16.0,
+          "pitch_classes": [
+            0,
+            3,
+            5,
+            6,
+            8,
+            10
+          ],
+          "active_notes": 12
+        },
+        {
+          "start": 16.0,
+          "end": 18.0,
+          "pitch_classes": [
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 13
+        },
+        {
+          "start": 18.0,
+          "end": 20.0,
+          "pitch_classes": [
+            0,
+            1,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 13
+        },
+        {
+          "start": 20.0,
+          "end": 22.0,
+          "pitch_classes": [
+            0,
+            1,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 23
+        },
+        {
+          "start": 22.0,
+          "end": 24.0,
+          "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 16
+        },
+        {
+          "start": 24.0,
+          "end": 26.0,
+          "pitch_classes": [
+            2,
+            3,
+            5,
+            7,
+            8,
+            10,
+            11
+          ],
+          "active_notes": 19
+        },
+        {
+          "start": 26.0,
+          "end": 28.0,
+          "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            8,
+            10,
+            11
+          ],
+          "active_notes": 24
+        },
+        {
+          "start": 28.0,
+          "end": 30.0,
+          "pitch_classes": [
+            0,
+            2,
+            3,
+            5,
+            8,
+            10
+          ],
+          "active_notes": 19
+        },
+        {
+          "start": 30.0,
+          "end": 32.0,
+          "pitch_classes": [
+            0,
+            1,
+            5,
+            7,
+            8,
+            10
+          ],
+          "active_notes": 11
+        }
+      ],
+      "rhythm_cells": [
+        {
+          "onset_gap_seconds": 0.0,
+          "count": 81
+        },
+        {
+          "onset_gap_seconds": 0.03,
+          "count": 41
+        },
+        {
+          "onset_gap_seconds": 0.08,
+          "count": 36
+        },
+        {
+          "onset_gap_seconds": 0.05,
+          "count": 25
+        },
+        {
+          "onset_gap_seconds": 0.24,
+          "count": 25
+        },
+        {
+          "onset_gap_seconds": 0.27,
+          "count": 24
+        }
+      ],
+      "bass_top_relationships": [
+        {
+          "start": 0.0,
+          "bass_note": 58,
+          "top_note": 73,
+          "spread": 15
+        },
+        {
+          "start": 0.5,
+          "bass_note": 63,
+          "top_note": 79,
+          "spread": 16
+        },
+        {
+          "start": 1.0,
+          "bass_note": 61,
+          "top_note": 77,
+          "spread": 16
+        },
+        {
+          "start": 1.5,
+          "bass_note": 68,
+          "top_note": 72,
+          "spread": 4
+        },
+        {
+          "start": 2.0,
+          "bass_note": 61,
+          "top_note": 77,
+          "spread": 16
+        },
+        {
+          "start": 2.5,
+          "bass_note": 60,
+          "top_note": 75,
+          "spread": 15
+        },
+        {
+          "start": 3.0,
+          "bass_note": 63,
+          "top_note": 70,
+          "spread": 7
+        },
+        {
+          "start": 3.5,
+          "bass_note": 65,
+          "top_note": 70,
+          "spread": 5
+        },
+        {
+          "start": 4.0,
+          "bass_note": 62,
+          "top_note": 77,
+          "spread": 15
+        },
+        {
+          "start": 4.5,
+          "bass_note": 65,
+          "top_note": 68,
+          "spread": 3
+        },
+        {
+          "start": 5.0,
+          "bass_note": 61,
+          "top_note": 70,
+          "spread": 9
+        },
+        {
+          "start": 5.5,
+          "bass_note": 63,
+          "top_note": 72,
+          "spread": 9
+        },
+        {
+          "start": 6.0,
+          "bass_note": 61,
+          "top_note": 70,
+          "spread": 9
+        },
+        {
+          "start": 8.0,
+          "bass_note": 70,
+          "top_note": 75,
+          "spread": 5
+        },
+        {
+          "start": 8.5,
+          "bass_note": 61,
+          "top_note": 77,
+          "spread": 16
+        },
+        {
+          "start": 9.0,
+          "bass_note": 60,
+          "top_note": 75,
+          "spread": 15
+        },
+        {
+          "start": 9.5,
+          "bass_note": 63,
+          "top_note": 74,
+          "spread": 11
+        },
+        {
+          "start": 10.0,
+          "bass_note": 62,
+          "top_note": 80,
+          "spread": 18
+        },
+        {
+          "start": 11.0,
+          "bass_note": 63,
+          "top_note": 79,
+          "spread": 16
+        },
+        {
+          "start": 11.5,
+          "bass_note": 58,
+          "top_note": 77,
+          "spread": 19
+        },
+        {
+          "start": 12.0,
+          "bass_note": 68,
+          "top_note": 84,
+          "spread": 16
+        }
+      ],
+      "density_windows": [
+        {
+          "start": 0.0,
+          "end": 8.0,
+          "note_count": 49
+        },
+        {
+          "start": 8.0,
+          "end": 16.0,
+          "note_count": 50
+        },
+        {
+          "start": 16.0,
+          "end": 24.0,
+          "note_count": 45
+        },
+        {
+          "start": 24.0,
+          "end": 32.0,
+          "note_count": 53
+        },
+        {
+          "start": 32.0,
+          "end": 40.0,
+          "note_count": 50
+        },
+        {
+          "start": 40.0,
+          "end": 48.0,
+          "note_count": 46
+        },
+        {
+          "start": 48.0,
+          "end": 56.0,
+          "note_count": 39
+        },
+        {
+          "start": 56.0,
+          "end": 64.0,
+          "note_count": 36
+        }
+      ],
+      "register_roles": [
+        {
+          "register": "low",
+          "note_count": 0
+        },
+        {
+          "register": "mid",
+          "note_count": 262
+        },
+        {
+          "register": "high",
+          "note_count": 106
+        }
+      ]
+    }
   }
 }

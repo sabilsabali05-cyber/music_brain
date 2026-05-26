@@ -4,42 +4,38 @@
 - missing_local_midi_draft: `false`
 - training_allowed: `false`
 - duration_seconds: `64.0`
-- tempo_bpm_detected: `unknown`
-- key_detected: `unknown`
-- musicality_score: `0.0`
-- confidence: `0.45`
+- tempo_bpm_detected: `125.217`
+- key_detected: `Eb major`
+- musicality_score: `0.5564`
+- confidence: `0.7473`
 
 ## Top 10 Strengths
-- harmony coherence score 0.00
-- melody/motif continuity score 0.00
-- rhythm/groove score 0.00
-- bass support score 0.00
-- structure arc score 0.00
-- texture/arrangement score 0.00
-- musicality aggregate score 0.00
-- detected key hint undetermined
-- detected tempo unknown BPM
-- note volume 0 events for robust profiling
+- harmony coherence score 1.00
+- melody/motif continuity score 0.50
+- rhythm/groove score 1.00
+- bass support score 0.26
+- structure arc score 0.40
+- texture/arrangement score 0.18
+- musicality aggregate score 0.56
+- detected key hint Eb major
+- detected tempo 125.22 BPM
+- note volume 368 events for robust profiling
 
 ## Top 10 Weaknesses
-- arrangement can improve contrast between sections
-- motif development can include stronger variation pacing
-- bass rhythm can lock tighter with transients
-- climax placement may need stronger pre-peak setup
-- register spacing can avoid occasional midrange crowding
-- hook repetition can be made more memorable
-- call/response in lead layers can be more explicit
-- density transitions can be smoothed in final third
-- cadence points can be reinforced harmonically
-- ending resolution can sustain listener closure longer
+- section density arc is weak across phrase windows
+- low-register support is sparse relative to full register
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
+- additional evidence needed for deeper arrangement diagnosis
 
 ## Arrangement Roles
-- drums/percussion
-- bass foundation
-- chord bed
-- melodic lead
-- texture layer
-- transitional effects
+- mid register role (262 notes)
+- high register role (106 notes)
 
 ## Improvement Plan
 - add stronger intro identity before full arrangement enters
