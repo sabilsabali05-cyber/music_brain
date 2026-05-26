@@ -1,6 +1,6 @@
 # Model Witness Audit
 
-- generated_at: `2026-05-26T13:36:44.309424+00:00`
+- generated_at: `2026-05-26T14:24:03.552480+00:00`
 - gate_rule: `use witness only when configured, installed, and smoke_test_passed are all true`
 - total_witnesses: `7`
 - available: `0`

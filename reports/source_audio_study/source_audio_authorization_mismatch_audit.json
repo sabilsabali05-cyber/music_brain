@@ -26,8 +26,8 @@
   "allowed_root_counts": {
     "analysis_allowed_roots_count": 2,
     "analysis_allowed_roots_redacted": [
-      "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/sounds",
-      "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/jaca Project"
+      "<PRIVATE_LOCAL_PATH>/authorized_root_01",
+      "<PRIVATE_LOCAL_PATH>/authorized_root_02"
     ]
   },
   "allowed_root_existence_and_files": {
@@ -35,14 +35,14 @@
     "supported_files_found_under_allowed_roots": 5686,
     "roots": [
       {
-        "root_redacted": "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/sounds",
+        "root_redacted": "<PRIVATE_LOCAL_PATH>/authorized_root_01",
         "exists": true,
         "is_file": false,
         "file_count": 6373,
         "supported_file_count": 4826
       },
       {
-        "root_redacted": "<PRIVATE_LOCAL_PATH>/izzyo/OneDrive/Desktop/jaca Project",
+        "root_redacted": "<PRIVATE_LOCAL_PATH>/authorized_root_02",
         "exists": true,
         "is_file": false,
         "file_count": 16556,

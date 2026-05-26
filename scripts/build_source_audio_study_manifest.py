@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -14,30 +15,33 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from features.model_witnesses import redact_private_path
-from features.source_audio_study import SourceAudioStudyItem
 
 TRUST_GLOB = "features/performances/*/*/trust/training_data_audit.json"
 LOCAL_AUTH_CONFIG = ROOT_DIR / "config" / "source_audio_study_authorization.local.json"
 OUT_DIR = ROOT_DIR / "datasets" / "source_audio_study"
 OUT_JSONL = OUT_DIR / "source_audio_study_manifest.jsonl"
+CONTROLLED_BATCH_JSONL = OUT_DIR / "source_audio_controlled_batch.jsonl"
+LOCAL_CACHE_DIR = ROOT_DIR / "local_source_audio_study"
+LOCAL_PATH_MAP = LOCAL_CACHE_DIR / "source_audio_path_map.local.json"
 REPORT_DIR = ROOT_DIR / "reports" / "source_audio_study"
 REPORT_JSON = REPORT_DIR / "source_audio_study_manifest_report.json"
 REPORT_MD = REPORT_DIR / "source_audio_study_manifest_report.md"
+CONTROLLED_BATCH_REPORT_JSON = REPORT_DIR / "source_audio_controlled_batch_report.json"
+CONTROLLED_BATCH_REPORT_MD = REPORT_DIR / "source_audio_controlled_batch_report.md"
+AUDIT_JSON = REPORT_DIR / "source_audio_manifest_population_audit.json"
+AUDIT_MD = REPORT_DIR / "source_audio_manifest_population_audit.md"
 SUPPORTED_SOURCE_EXTENSIONS = {".wav", ".mp3", ".flac", ".m4a", ".aif", ".aiff"}
+DEFAULT_CONTROLLED_BATCH_MAX = 25
 
 
 def _read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except Exception:  # noqa: BLE001
         return {}
     return payload if isinstance(payload, dict) else {}
-
-
-def _bool(value: Any, default: bool = False) -> bool:
-    if value is None:
-        return default
-    return bool(value)
 
 
 def _load_local_auth_config() -> dict[str, Any] | None:
@@ -51,10 +55,21 @@ def _normalize_roots(values: Any) -> list[Path]:
     if not isinstance(values, list):
         return []
     roots: list[Path] = []
+    seen: set[str] = set()
     for value in values:
         text = str(value).strip()
-        if text:
-            roots.append(Path(text))
+        if not text:
+            continue
+        path_obj = Path(text)
+        try:
+            resolved = path_obj.resolve(strict=False)
+        except Exception:  # noqa: BLE001
+            resolved = path_obj
+        canonical = _canonical_text(str(resolved))
+        if canonical in seen:
+            continue
+        seen.add(canonical)
+        roots.append(resolved)
     return roots
 
 
@@ -74,51 +89,44 @@ def _canonical_text(value: str) -> str:
     return text
 
 
-def _path_candidates(path_value: str, *, root_dir: Path = ROOT_DIR) -> set[str]:
-    text = str(path_value or "").strip()
-    if not text:
-        return set()
-    candidates: set[str] = {_canonical_text(text)}
-    path_obj = Path(text)
-    try:
-        resolved = path_obj.resolve(strict=False)
-        candidates.add(_canonical_text(str(resolved)))
-    except Exception:  # noqa: BLE001
-        pass
-    if not path_obj.is_absolute():
-        try:
-            resolved_local = (root_dir / path_obj).resolve(strict=False)
-            candidates.add(_canonical_text(str(resolved_local)))
-        except Exception:  # noqa: BLE001
-            pass
-    return {item for item in candidates if item}
-
-
 @dataclass(frozen=True)
 class RootSpec:
     raw: str
+    path: Path
     root_type: str
-    candidates: tuple[str, ...]
+    canonical: str
     exists: bool
     supported_file_count: int
 
 
-def _count_supported_files(root_path: Path) -> int:
-    if not root_path.exists():
-        return 0
-    if root_path.is_file():
-        return 1 if root_path.suffix.lower() in SUPPORTED_SOURCE_EXTENSIONS else 0
-    count = 0
-    for child in root_path.rglob("*"):
+def _media_type_for_extension(extension: str) -> str:
+    if extension in {".wav", ".mp3", ".flac", ".m4a", ".aif", ".aiff"}:
+        return "audio"
+    return "unknown"
+
+
+def _path_hash(path: Path) -> str:
+    return hashlib.sha256(_canonical_text(str(path)).encode("utf-8")).hexdigest()
+
+
+def _discover_supported_files(root: Path) -> list[Path]:
+    if not root.exists():
+        return []
+    if root.is_file():
+        return [root] if root.suffix.lower() in SUPPORTED_SOURCE_EXTENSIONS else []
+    out: list[Path] = []
+    for child in root.rglob("*"):
         if child.is_file() and child.suffix.lower() in SUPPORTED_SOURCE_EXTENSIONS:
-            count += 1
-    return count
+            out.append(child)
+    return out
+
+
+def _count_supported_files(root: Path) -> int:
+    return len(_discover_supported_files(root))
 
 
 def _root_spec(path_obj: Path) -> RootSpec:
-    raw = str(path_obj)
     exists = path_obj.exists()
-    root_type = "unknown"
     if exists and path_obj.is_file():
         root_type = "file"
     elif exists and path_obj.is_dir():
@@ -127,206 +135,388 @@ def _root_spec(path_obj: Path) -> RootSpec:
         root_type = "file"
     else:
         root_type = "folder"
-    candidates = tuple(sorted(_path_candidates(raw)))
     return RootSpec(
-        raw=raw,
+        raw=str(path_obj),
+        path=path_obj,
         root_type=root_type,
-        candidates=candidates,
+        canonical=_canonical_text(str(path_obj)),
         exists=exists,
         supported_file_count=_count_supported_files(path_obj),
     )
 
 
 def _match_root(path_value: str, roots: list[RootSpec]) -> tuple[bool, RootSpec | None, str]:
-    source_candidates = _path_candidates(path_value)
+    source_canonical = _canonical_text(path_value)
     if not roots:
-        return False, None, "no_analysis_allowed_roots_configured"
-    if not source_candidates:
+        return False, None, "no_roots_configured"
+    if not source_canonical:
         return False, None, "empty_source_path"
-
     for spec in roots:
-        for source_value in source_candidates:
-            for root_value in spec.candidates:
-                if spec.root_type == "file":
-                    if source_value == root_value:
-                        return True, spec, "root_file_exact_match"
-                    continue
-                if source_value == root_value or source_value.startswith(root_value + "/"):
-                    return True, spec, "root_folder_prefix_match"
-    return False, None, "no_matching_analysis_allowed_root"
+        root_value = spec.canonical
+        if spec.root_type == "file":
+            if source_canonical == root_value:
+                return True, spec, "root_file_exact_match"
+            continue
+        if source_canonical == root_value or source_canonical.startswith(root_value + "/"):
+            return True, spec, "root_folder_prefix_match"
+    return False, None, "no_matching_root"
 
 
-def _build_item(path: Path, payload: dict[str, Any], root_specs: list[RootSpec], auth_cfg: dict[str, Any] | None = None) -> SourceAudioStudyItem:
-    artifacts = payload.get("artifacts", {}) if isinstance(payload.get("artifacts"), dict) else {}
-    source_ref = str(artifacts.get("source_audio_reference", "<PRIVATE_LOCAL_PATH>/unknown"))
-    source_ref_norm = _canonical_text(source_ref)
-    perf_id = str(payload.get("performance_id", path.parents[2].name))
-    trust_auth = str(payload.get("authorization_status", "unknown")).strip().lower() or "unknown"
-    retrieval_allowed = _bool(payload.get("retrieval_allowed"), default=True)
-    training_allowed = False
-    analysis_allowed = False
-    auth = "blocked_missing_local_authorization_config"
-    policy_notes: list[str] = []
-    if auth_cfg is None:
-        retrieval_allowed = True
+def _build_manifest_row(
+    source_path: Path,
+    *,
+    analysis_specs: list[RootSpec],
+    reference_specs: list[RootSpec],
+    excluded_specs: list[RootSpec],
+    training_specs: list[RootSpec],
+    auth_cfg_present: bool,
+) -> dict[str, Any]:
+    source_abs = source_path.resolve(strict=False)
+    source_abs_str = str(source_abs)
+    extension = source_abs.suffix.lower()
+    path_hash = _path_hash(source_abs)
+    source_id = f"source_{path_hash[:16]}"
+
+    in_excluded, _, _ = _match_root(source_abs_str, excluded_specs)
+    in_analysis, _, _ = _match_root(source_abs_str, analysis_specs)
+    in_reference, _, _ = _match_root(source_abs_str, reference_specs)
+    in_training, _, _ = _match_root(source_abs_str, training_specs)
+
+    blockers: list[str] = []
+    if not auth_cfg_present:
+        authorization_status = "blocked_missing_local_authorization_config"
         analysis_allowed = False
+        retrieval_allowed = False
         training_allowed = False
-        policy_notes.append("analysis blocked: missing local authorization config")
+        source_category = "blocked_no_config"
+        blockers.append("missing_local_authorization_config")
+    elif in_excluded:
+        authorization_status = "excluded_by_local_policy"
+        analysis_allowed = False
+        retrieval_allowed = False
+        training_allowed = False
+        source_category = "excluded"
+        blockers.append("excluded_root")
+    elif in_analysis:
+        authorization_status = "analysis_allowed_by_local_policy"
+        analysis_allowed = True
+        retrieval_allowed = True
+        training_allowed = False
+        source_category = "analysis_allowed_root"
+        if in_training:
+            blockers.append("training_disabled_for_source_audio")
+    elif in_reference:
+        authorization_status = "reference_only_by_local_policy"
+        analysis_allowed = False
+        retrieval_allowed = True
+        training_allowed = False
+        source_category = "reference_only_root"
+        blockers.append("reference_only_root")
     else:
-        excluded_specs = [_root_spec(root) for root in _normalize_roots(auth_cfg.get("excluded_roots"))]
-        retrieval_specs = [_root_spec(root) for root in _normalize_roots(auth_cfg.get("retrieval_only_roots") or auth_cfg.get("reference_only_roots"))]
-        training_specs = [_root_spec(root) for root in _normalize_roots(auth_cfg.get("training_allowed_roots"))]
-        in_excluded, excluded_root, _ = _match_root(source_ref, excluded_specs)
-        in_retrieval_only, retrieval_root, _ = _match_root(source_ref, retrieval_specs)
-        in_analysis, analysis_root, analysis_reason = _match_root(source_ref, root_specs)
-        in_training, training_root, _ = _match_root(source_ref, training_specs)
-        if in_excluded:
-            auth = "excluded_by_local_policy"
-            retrieval_allowed = False
-            policy_notes.append(f"matched excluded root: {excluded_root.raw if excluded_root else 'unknown'}")
-        elif in_retrieval_only:
-            auth = "retrieval_only_by_local_policy"
-            retrieval_allowed = True
-            policy_notes.append(f"matched retrieval-only root: {retrieval_root.raw if retrieval_root else 'unknown'}")
-        elif in_analysis:
-            analysis_allowed = _bool(payload.get("analysis_allowed"), default=True)
-            retrieval_allowed = True
-            auth = trust_auth if trust_auth != "unknown" else "analysis_allowed_by_local_policy"
-            policy_notes.append(f"matched analysis root: {analysis_root.raw if analysis_root else 'unknown'} ({analysis_reason})")
-        else:
-            auth = "not_in_analysis_allowed_roots"
-            retrieval_allowed = True
-            policy_notes.append(analysis_reason)
-        # Training always remains opt-in and requires explicit local root + row opt-in.
-        training_allowed = bool(in_training and _bool(payload.get("training_allowed"), default=False))
-        if training_allowed:
-            policy_notes.append(f"training explicitly authorized by local config + row: {training_root.raw if training_root else 'unknown'}")
-        else:
-            policy_notes.append("training disabled unless explicitly authorized")
+        authorization_status = "outside_authorized_roots"
+        analysis_allowed = False
+        retrieval_allowed = False
+        training_allowed = False
+        source_category = "outside_authorized_roots"
+        blockers.append("outside_authorized_roots")
+
     try:
-        trust_rel = path.relative_to(ROOT_DIR).as_posix()
-    except ValueError:
-        trust_rel = path.as_posix()
-    return SourceAudioStudyItem(
-        item_id=f"source_audio_{perf_id}",
-        source_audio_ref=source_ref,
-        source_audio_ref_redacted=source_ref,
-        authorization_status=auth,
-        retrieval_allowed=retrieval_allowed,
-        training_allowed=training_allowed,
-        analysis_allowed=analysis_allowed,
-        policy_separation={
-            "authorization_scope": auth,
-            "analysis_allowed": analysis_allowed,
-            "training_allowed": training_allowed,
-            "retrieval_allowed": retrieval_allowed,
-            "must_not_train_on_audio": not training_allowed,
-            "must_not_analyze_raw_audio_without_permission": not analysis_allowed,
-            "policy_notes": policy_notes,
-                "normalized_source_path": source_ref_norm,
+        file_size_bytes = int(source_abs.stat().st_size)
+    except OSError:
+        file_size_bytes = None
+
+    return {
+        "source_id": source_id,
+        "path_hash": path_hash,
+        "redacted_path": redact_private_path(source_abs_str),
+        "media_type": _media_type_for_extension(extension),
+        "extension": extension,
+        "file_size_bytes": file_size_bytes,
+        "authorization_status": authorization_status,
+        "analysis_allowed": analysis_allowed,
+        "training_allowed": training_allowed,
+        "retrieval_allowed": retrieval_allowed,
+        "source_category": source_category,
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def _discover_authorized_sources(
+    *,
+    analysis_specs: list[RootSpec],
+    reference_specs: list[RootSpec],
+) -> tuple[list[Path], dict[str, int]]:
+    all_roots = [spec.path for spec in analysis_specs] + [spec.path for spec in reference_specs]
+    seen: set[str] = set()
+    discovered: list[Path] = []
+    for root in all_roots:
+        for source_file in _discover_supported_files(root):
+            canonical = _canonical_text(str(source_file.resolve(strict=False)))
+            if canonical in seen:
+                continue
+            seen.add(canonical)
+            discovered.append(source_file.resolve(strict=False))
+    discovered = sorted(discovered, key=lambda item: _canonical_text(str(item)))
+    return discovered, {
+        "discovered_supported_files_total": len(discovered),
+        "analysis_root_count": len(analysis_specs),
+        "reference_root_count": len(reference_specs),
+    }
+
+
+def _select_controlled_batch(rows: list[dict[str, Any]], max_items: int) -> list[dict[str, Any]]:
+    analysis_first = sorted((row for row in rows if row.get("analysis_allowed")), key=lambda row: str(row.get("source_id", "")))
+    non_analysis = sorted((row for row in rows if not row.get("analysis_allowed")), key=lambda row: str(row.get("source_id", "")))
+    ordered = analysis_first + non_analysis
+    return ordered[:max_items]
+
+
+def build_manifest() -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any], dict[str, Any], dict[str, Any]]:
+    auth_cfg = _load_local_auth_config()
+    auth_cfg_present = auth_cfg is not None
+    loaded_keys = sorted(auth_cfg.keys()) if isinstance(auth_cfg, dict) else []
+    analysis_specs = [_root_spec(path) for path in _normalize_roots((auth_cfg or {}).get("analysis_allowed_roots"))]
+    reference_specs = [
+        _root_spec(path)
+        for path in _normalize_roots((auth_cfg or {}).get("reference_only_roots") or (auth_cfg or {}).get("retrieval_only_roots"))
+    ]
+    excluded_specs = [_root_spec(path) for path in _normalize_roots((auth_cfg or {}).get("excluded_roots"))]
+    training_specs = [_root_spec(path) for path in _normalize_roots((auth_cfg or {}).get("training_allowed_roots"))]
+
+    discovered_sources, discovery_meta = _discover_authorized_sources(analysis_specs=analysis_specs, reference_specs=reference_specs)
+    manifest_rows = [
+        _build_manifest_row(
+            path,
+            analysis_specs=analysis_specs,
+            reference_specs=reference_specs,
+            excluded_specs=excluded_specs,
+            training_specs=training_specs,
+            auth_cfg_present=auth_cfg_present,
+        )
+        for path in discovered_sources
+    ]
+    max_batch = int((auth_cfg or {}).get("max_items_for_controlled_batch", DEFAULT_CONTROLLED_BATCH_MAX))
+    if max_batch < 1:
+        max_batch = DEFAULT_CONTROLLED_BATCH_MAX
+    controlled_batch = _select_controlled_batch(manifest_rows, max_batch)
+
+    old_trust_row_count = len(list(ROOT_DIR.glob(TRUST_GLOB)))
+    blocked_missing_config = not auth_cfg_present
+    blockers: list[str] = []
+    if blocked_missing_config:
+        blockers.append("missing_local_authorization_config")
+    if auth_cfg_present and discovery_meta["discovered_supported_files_total"] == 0:
+        blockers.append("authorized_roots_have_no_supported_files")
+    if auth_cfg_present and analysis_specs and not any(row.get("analysis_allowed") for row in manifest_rows):
+        blockers.append("analysis_allowed_roots_have_no_discovered_files")
+
+    manifest_report = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "manifest_path": OUT_JSONL.relative_to(ROOT_DIR).as_posix(),
+        "controlled_batch_path": CONTROLLED_BATCH_JSONL.relative_to(ROOT_DIR).as_posix(),
+        "authorization_config_path": LOCAL_AUTH_CONFIG.relative_to(ROOT_DIR).as_posix(),
+        "authorization_config_present": auth_cfg_present,
+        "authorization_config_loaded_keys": loaded_keys,
+        "analysis_allowed_roots_count": len(analysis_specs),
+        "reference_only_roots_count": len(reference_specs),
+        "analysis_allowed_roots_exist": bool(analysis_specs) and all(spec.exists for spec in analysis_specs),
+        "analysis_allowed_roots_supported_files": sum(spec.supported_file_count for spec in analysis_specs),
+        "reference_only_roots_supported_files": sum(spec.supported_file_count for spec in reference_specs),
+        "analysis_allowed_roots_redacted": [redact_private_path(spec.raw) for spec in analysis_specs],
+        "reference_only_roots_redacted": [redact_private_path(spec.raw) for spec in reference_specs],
+        "supported_files_found_under_allowed_roots": discovery_meta["discovered_supported_files_total"],
+        "manifest_rows_created_total": len(manifest_rows),
+        "controlled_batch_size": len(controlled_batch),
+        "source_items_considered": len(manifest_rows),
+        "analysis_allowed_count": sum(1 for row in manifest_rows if row.get("analysis_allowed")),
+        "analysis_blocked_count": sum(1 for row in manifest_rows if not row.get("analysis_allowed")),
+        "training_allowed_count": sum(1 for row in manifest_rows if row.get("training_allowed")),
+        "authorization_status_counts": {
+            key: sum(1 for row in manifest_rows if row.get("authorization_status") == key)
+            for key in sorted({str(row.get("authorization_status")) for row in manifest_rows})
         },
-        provenance={
-            "trust_audit_path": trust_rel,
-            "generated_at": datetime.now(UTC).isoformat(),
+        "blockers": blockers,
+        "policy_notes": [
+            "No source audio files were moved, modified, or deleted.",
+            "Manifest rows are discovered from authorized roots, not trust-audit references.",
+            "Committed datasets contain only redacted paths + hashed identifiers.",
+            "Raw absolute source paths are stored only in local ignored cache.",
+            "Training on source audio remains disabled.",
+        ],
+    }
+
+    controlled_batch_report = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "controlled_batch_path": CONTROLLED_BATCH_JSONL.relative_to(ROOT_DIR).as_posix(),
+        "max_items_for_controlled_batch": max_batch,
+        "controlled_batch_size": len(controlled_batch),
+        "analysis_allowed_count": sum(1 for row in controlled_batch if row.get("analysis_allowed")),
+        "retrieval_allowed_count": sum(1 for row in controlled_batch if row.get("retrieval_allowed")),
+        "authorization_status_counts": {
+            key: sum(1 for row in controlled_batch if row.get("authorization_status") == key)
+            for key in sorted({str(row.get("authorization_status")) for row in controlled_batch})
         },
+        "policy_notes": [
+            "Controlled batch prioritizes analysis-allowed rows first.",
+            "Batch is capped by local max_items_for_controlled_batch.",
+            "No raw absolute paths are written to committed outputs.",
+        ],
+    }
+
+    audit_report = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "requested_branch": "cursor/real-midi-source-witness-integration-v1",
+        "current_branch": "cursor/real-midi-source-witness-integration-v1",
+        "authorization_config_path_redacted": redact_private_path(str(LOCAL_AUTH_CONFIG)),
+        "authorization_config_present": auth_cfg_present,
+        "authorization_config_loaded_keys": loaded_keys,
+        "analysis_allowed_roots_count": len(analysis_specs),
+        "reference_only_roots_count": len(reference_specs),
+        "supported_files_found_under_allowed_roots": discovery_meta["discovered_supported_files_total"],
+        "old_manifest_population_path": "scripts/build_source_audio_study_manifest.py::build_manifest -> ROOT_DIR.glob(TRUST_GLOB) -> _build_item(SourceAudioStudyItem)",
+        "new_manifest_population_path": "scripts/build_source_audio_study_manifest.py::build_manifest -> _discover_authorized_sources -> _build_manifest_row -> _select_controlled_batch",
+        "old_source_items_considered_from_trust_glob": old_trust_row_count,
+        "new_manifest_rows_created_from_authorized_roots": len(manifest_rows),
+        "why_only_4_rows_existed": (
+            "Old logic only populated manifest rows from trust-audit JSON files under "
+            "features/performances/*/*/trust/training_data_audit.json. That branch had 4 such files, so only 4 rows were produced."
+        ),
+        "root_cause": "Manifest population source was trust-audit references, not recursive source discovery under authorized roots.",
+        "fixed_behavior_summary": "Manifest rows are now discovered from analysis_allowed_roots/reference_only_roots and committed with redacted/hash-only fields.",
+    }
+    return manifest_rows, controlled_batch, manifest_report, controlled_batch_report, audit_report
+
+
+def _local_path_map_rows(rows: list[dict[str, Any]], discovered_sources: list[Path]) -> dict[str, Any]:
+    index = {row["path_hash"]: row for row in rows}
+    map_rows: list[dict[str, Any]] = []
+    for path in discovered_sources:
+        path_hash = _path_hash(path)
+        row = index.get(path_hash)
+        if not row:
+            continue
+        map_rows.append(
+            {
+                "source_id": row["source_id"],
+                "path_hash": path_hash,
+                "absolute_path": str(path),
+            }
+        )
+    return {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "count": len(map_rows),
+        "path_map": map_rows,
+    }
+
+
+def write_outputs(
+    manifest_rows: list[dict[str, Any]],
+    controlled_batch: list[dict[str, Any]],
+    manifest_report: dict[str, Any],
+    controlled_batch_report: dict[str, Any],
+    audit_report: dict[str, Any],
+) -> tuple[Path, Path, Path, Path, Path, Path, Path]:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    REPORT_DIR.mkdir(parents=True, exist_ok=True)
+    LOCAL_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+
+    with OUT_JSONL.open("w", encoding="utf-8") as handle:
+        for row in manifest_rows:
+            handle.write(json.dumps(row, ensure_ascii=True) + "\n")
+    with CONTROLLED_BATCH_JSONL.open("w", encoding="utf-8") as handle:
+        for row in controlled_batch:
+            handle.write(json.dumps(row, ensure_ascii=True) + "\n")
+
+    REPORT_JSON.write_text(json.dumps(manifest_report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    CONTROLLED_BATCH_REPORT_JSON.write_text(json.dumps(controlled_batch_report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    AUDIT_JSON.write_text(json.dumps(audit_report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+    manifest_lines = [
+        "# Source Audio Study Manifest Report",
+        "",
+        f"- supported_files_found_under_allowed_roots: `{manifest_report['supported_files_found_under_allowed_roots']}`",
+        f"- manifest_rows_created_total: `{manifest_report['manifest_rows_created_total']}`",
+        f"- analysis_allowed_count: `{manifest_report['analysis_allowed_count']}`",
+        f"- controlled_batch_size: `{manifest_report['controlled_batch_size']}`",
+        "",
+        "## Policy notes",
+        *[f"- {line}" for line in manifest_report["policy_notes"]],
+    ]
+    REPORT_MD.write_text("\n".join(manifest_lines).rstrip() + "\n", encoding="utf-8")
+
+    batch_lines = [
+        "# Source Audio Controlled Batch Report",
+        "",
+        f"- max_items_for_controlled_batch: `{controlled_batch_report['max_items_for_controlled_batch']}`",
+        f"- controlled_batch_size: `{controlled_batch_report['controlled_batch_size']}`",
+        f"- analysis_allowed_count: `{controlled_batch_report['analysis_allowed_count']}`",
+        "",
+        "## Policy notes",
+        *[f"- {line}" for line in controlled_batch_report["policy_notes"]],
+    ]
+    CONTROLLED_BATCH_REPORT_MD.write_text("\n".join(batch_lines).rstrip() + "\n", encoding="utf-8")
+
+    audit_lines = [
+        "# Source Audio Manifest Population Audit",
+        "",
+        f"- old_source_items_considered_from_trust_glob: `{audit_report['old_source_items_considered_from_trust_glob']}`",
+        f"- new_manifest_rows_created_from_authorized_roots: `{audit_report['new_manifest_rows_created_from_authorized_roots']}`",
+        f"- supported_files_found_under_allowed_roots: `{audit_report['supported_files_found_under_allowed_roots']}`",
+        "",
+        "## Why only 4 rows existed",
+        f"- {audit_report['why_only_4_rows_existed']}",
+        "",
+        "## Code path change",
+        f"- old: `{audit_report['old_manifest_population_path']}`",
+        f"- new: `{audit_report['new_manifest_population_path']}`",
+    ]
+    AUDIT_MD.write_text("\n".join(audit_lines).rstrip() + "\n", encoding="utf-8")
+
+    return (
+        OUT_JSONL,
+        CONTROLLED_BATCH_JSONL,
+        REPORT_JSON,
+        REPORT_MD,
+        CONTROLLED_BATCH_REPORT_JSON,
+        CONTROLLED_BATCH_REPORT_MD,
+        AUDIT_JSON,
     )
 
 
-def build_manifest() -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    items: list[dict[str, Any]] = []
-    auth_cfg = _load_local_auth_config()
-    loaded_keys = sorted(auth_cfg.keys()) if isinstance(auth_cfg, dict) else []
-    analysis_roots = _normalize_roots((auth_cfg or {}).get("analysis_allowed_roots"))
-    root_specs = [_root_spec(path) for path in analysis_roots]
-    for path in sorted(ROOT_DIR.glob(TRUST_GLOB)):
-        payload = _read_json(path)
-        if not payload:
-            continue
-        item = _build_item(path, payload, root_specs, auth_cfg)
-        items.append(item.to_dict())
-
-    matched_items = sum(1 for row in items if row.get("authorization_status") not in {"not_in_analysis_allowed_roots", "excluded_by_local_policy", "retrieval_only_by_local_policy", "blocked_missing_local_authorization_config"})
-    analysis_allowed_count = sum(1 for row in items if row.get("analysis_allowed"))
-    roots_exist = bool(root_specs) and all(spec.exists for spec in root_specs)
-    supported_files_under_roots = sum(spec.supported_file_count for spec in root_specs)
-    blockers: list[str] = []
-    if auth_cfg is None:
-        blockers.append("missing_local_authorization_config")
-    if auth_cfg is not None and root_specs and matched_items == 0:
-        blockers.append("authorization_roots_match_no_items")
-    if roots_exist and supported_files_under_roots == 0:
-        blockers.append("allowed_roots_exist_but_no_supported_files")
-    report = {
-        "generated_at": datetime.now(UTC).isoformat(),
-        "manifest_path": OUT_JSONL.relative_to(ROOT_DIR).as_posix(),
-        "authorization_config_path": LOCAL_AUTH_CONFIG.relative_to(ROOT_DIR).as_posix(),
-        "authorization_config_present": auth_cfg is not None,
-        "authorization_config_loaded_keys": loaded_keys,
-        "analysis_allowed_roots_count": len(root_specs),
-        "analysis_allowed_roots_exist": roots_exist,
-        "analysis_allowed_roots_supported_files": supported_files_under_roots,
-        "analysis_allowed_roots_redacted": [redact_private_path(spec.raw) for spec in root_specs],
-        "analysis_allowed_root_details": [
-            {
-                "root_redacted": redact_private_path(spec.raw),
-                "root_type": spec.root_type,
-                "exists": spec.exists,
-                "supported_file_count": spec.supported_file_count,
-            }
-            for spec in root_specs
-        ],
-        "source_items_matched_to_allowed_roots": matched_items,
-        "source_items_considered": len(items),
-        "analysis_allowed_count": analysis_allowed_count,
-        "analysis_blocked_count": sum(1 for row in items if not row.get("analysis_allowed")),
-        "training_allowed_count": sum(1 for row in items if row.get("training_allowed")),
-        "blockers": blockers,
-        "authorization_status_counts": {
-            key: sum(1 for row in items if row.get("authorization_status") == key) for key in sorted({str(row.get("authorization_status")) for row in items})
-        },
-        "policy_notes": [
-            "No source audio files were moved, modified, or deleted.",
-            "Manifest rows separate retrieval/training/analysis authorization decisions.",
-            "Raw audio analysis is blocked unless analysis_allowed=true per row.",
-            "Missing local authorization config blocks all analysis via missing_local_authorization_config.",
-            "Excluded and retrieval-only roots are never analyzed.",
-            "Training is disabled unless explicitly allowed.",
-            "Source-to-root authorization matching uses normalized absolute candidates and prefix matching.",
-        ],
-    }
-    return items, report
-
-
-def write_outputs(items: list[dict[str, Any]], report: dict[str, Any]) -> tuple[Path, Path, Path]:
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    with OUT_JSONL.open("w", encoding="utf-8") as handle:
-        for row in items:
-            handle.write(json.dumps(row, ensure_ascii=True) + "\n")
-    REPORT_JSON.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
-    lines = [
-        "# Source Audio Study Manifest Report",
-        "",
-        f"- source_items_considered: `{report['source_items_considered']}`",
-        f"- analysis_allowed_count: `{report['analysis_allowed_count']}`",
-        f"- analysis_blocked_count: `{report['analysis_blocked_count']}`",
-        f"- training_allowed_count: `{report['training_allowed_count']}`",
-        "",
-        "## Policy notes",
-        *[f"- {line}" for line in report["policy_notes"]],
-    ]
-    REPORT_MD.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
-    return OUT_JSONL, REPORT_JSON, REPORT_MD
-
-
 def main() -> int:
-    items, report = build_manifest()
-    manifest_path, json_path, md_path = write_outputs(items, report)
+    auth_cfg = _load_local_auth_config()
+    analysis_specs = [_root_spec(path) for path in _normalize_roots((auth_cfg or {}).get("analysis_allowed_roots"))]
+    reference_specs = [
+        _root_spec(path)
+        for path in _normalize_roots((auth_cfg or {}).get("reference_only_roots") or (auth_cfg or {}).get("retrieval_only_roots"))
+    ]
+    discovered_sources, _ = _discover_authorized_sources(analysis_specs=analysis_specs, reference_specs=reference_specs)
+    manifest_rows, controlled_batch, manifest_report, controlled_batch_report, audit_report = build_manifest()
+    LOCAL_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    LOCAL_PATH_MAP.write_text(
+        json.dumps(_local_path_map_rows(manifest_rows, discovered_sources), indent=2, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
+    (
+        manifest_path,
+        batch_path,
+        report_json_path,
+        report_md_path,
+        batch_report_json_path,
+        batch_report_md_path,
+        audit_json_path,
+    ) = write_outputs(manifest_rows, controlled_batch, manifest_report, controlled_batch_report, audit_report)
     print(f"SOURCE_AUDIO_STUDY_MANIFEST={manifest_path.as_posix()}")
-    print(f"SOURCE_AUDIO_STUDY_REPORT_JSON={json_path.as_posix()}")
-    print(f"SOURCE_AUDIO_STUDY_REPORT_MD={md_path.as_posix()}")
-    print(f"SOURCE_ITEMS_CONSIDERED={report['source_items_considered']}")
-    print(f"SOURCE_ITEMS_ANALYSIS_ALLOWED={report['analysis_allowed_count']}")
+    print(f"SOURCE_AUDIO_CONTROLLED_BATCH={batch_path.as_posix()}")
+    print(f"SOURCE_AUDIO_STUDY_REPORT_JSON={report_json_path.as_posix()}")
+    print(f"SOURCE_AUDIO_STUDY_REPORT_MD={report_md_path.as_posix()}")
+    print(f"SOURCE_AUDIO_CONTROLLED_BATCH_REPORT_JSON={batch_report_json_path.as_posix()}")
+    print(f"SOURCE_AUDIO_CONTROLLED_BATCH_REPORT_MD={batch_report_md_path.as_posix()}")
+    print(f"SOURCE_AUDIO_MANIFEST_AUDIT_JSON={audit_json_path.as_posix()}")
+    print(f"SOURCE_AUDIO_PATH_MAP_LOCAL={LOCAL_PATH_MAP.as_posix()}")
+    print(f"SOURCE_ITEMS_CONSIDERED={manifest_report['source_items_considered']}")
+    print(f"SOURCE_ITEMS_ANALYSIS_ALLOWED={manifest_report['analysis_allowed_count']}")
+    print(f"CONTROLLED_BATCH_SIZE={manifest_report['controlled_batch_size']}")
     return 0
 
 

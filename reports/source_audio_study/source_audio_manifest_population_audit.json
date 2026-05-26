@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-05-26T14:26:49.566692+00:00",
+  "requested_branch": "cursor/real-midi-source-witness-integration-v1",
+  "current_branch": "cursor/real-midi-source-witness-integration-v1",
+  "authorization_config_path_redacted": "C:\\mb_real_understanding\\config\\source_audio_study_authorization.local.json",
+  "authorization_config_present": true,
+  "authorization_config_loaded_keys": [
+    "allow_cloud",
+    "allow_raw_audio_feature_extraction",
+    "allow_source_separation",
+    "allow_symbolic_midi_analysis",
+    "allow_texture_analysis",
+    "allow_training",
+    "allow_transcription_witnesses",
+    "analysis_allowed_roots",
+    "excluded_roots",
+    "max_items_for_controlled_batch",
+    "notes",
+    "reference_only_roots",
+    "training_allowed_roots"
+  ],
+  "analysis_allowed_roots_count": 2,
+  "reference_only_roots_count": 2,
+  "supported_files_found_under_allowed_roots": 5686,
+  "old_manifest_population_path": "scripts/build_source_audio_study_manifest.py::build_manifest -> ROOT_DIR.glob(TRUST_GLOB) -> _build_item(SourceAudioStudyItem)",
+  "new_manifest_population_path": "scripts/build_source_audio_study_manifest.py::build_manifest -> _discover_authorized_sources -> _build_manifest_row -> _select_controlled_batch",
+  "old_source_items_considered_from_trust_glob": 4,
+  "new_manifest_rows_created_from_authorized_roots": 5686,
+  "why_only_4_rows_existed": "Old logic only populated manifest rows from trust-audit JSON files under features/performances/*/*/trust/training_data_audit.json. That branch had 4 such files, so only 4 rows were produced.",
+  "root_cause": "Manifest population source was trust-audit references, not recursive source discovery under authorized roots.",
+  "fixed_behavior_summary": "Manifest rows are now discovered from analysis_allowed_roots/reference_only_roots and committed with redacted/hash-only fields."
+}

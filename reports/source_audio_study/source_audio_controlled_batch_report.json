@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-05-26T14:26:49.566559+00:00",
+  "controlled_batch_path": "datasets/source_audio_study/source_audio_controlled_batch.jsonl",
+  "max_items_for_controlled_batch": 25,
+  "controlled_batch_size": 25,
+  "analysis_allowed_count": 25,
+  "retrieval_allowed_count": 25,
+  "authorization_status_counts": {
+    "analysis_allowed_by_local_policy": 25
+  },
+  "policy_notes": [
+    "Controlled batch prioritizes analysis-allowed rows first.",
+    "Batch is capped by local max_items_for_controlled_batch.",
+    "No raw absolute paths are written to committed outputs."
+  ]
+}

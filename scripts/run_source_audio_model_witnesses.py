@@ -13,7 +13,7 @@ if str(ROOT_DIR) not in sys.path:
 
 from features.model_witnesses import ModelWitnessObservation
 
-MANIFEST_PATH = ROOT_DIR / "datasets" / "source_audio_study" / "source_audio_study_manifest.jsonl"
+MANIFEST_PATH = ROOT_DIR / "datasets" / "source_audio_study" / "source_audio_controlled_batch.jsonl"
 AUDIT_PATH = ROOT_DIR / "reports" / "model_witnesses" / "model_witness_audit.json"
 OUT_DIR = ROOT_DIR / "datasets" / "model_witnesses"
 OUT_JSONL = OUT_DIR / "source_audio_witness_observations.jsonl"
@@ -49,30 +49,30 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def _feature_observation(item: dict[str, Any], trust_payload: dict[str, Any]) -> ModelWitnessObservation:
-    meter = trust_payload.get("meter_time_intelligence", {}) if isinstance(trust_payload.get("meter_time_intelligence"), dict) else {}
-    top_meter = meter.get("top_meter_hypothesis", {}) if isinstance(meter.get("top_meter_hypothesis"), dict) else {}
+def _feature_observation(item: dict[str, Any]) -> ModelWitnessObservation:
+    source_id = str(item.get("source_id", "")).strip() or "unknown_source_id"
+    source_category = str(item.get("source_category", "unknown"))
     evidence_points = [
-        f"meter_hint={top_meter.get('meter', 'unknown')}",
-        f"meter_confidence={top_meter.get('confidence', 0.0)}",
-        f"safe_observations={len((trust_payload.get('field_level_training_usability', {}) or {}).get('safe_fields_for_training', []))}",
+        f"source_category={source_category}",
+        f"media_type={item.get('media_type', 'unknown')}",
+        f"extension={item.get('extension', '')}",
     ]
     return ModelWitnessObservation(
-        observation_id=f"{item['item_id']}__heuristic_local_features",
-        item_id=str(item["item_id"]),
+        observation_id=f"{source_id}__heuristic_local_features",
+        item_id=source_id,
         witness_id="heuristic_local_features",
         witness_type="local_heuristic",
         backend_status="heuristic",
         analysis_allowed=True,
         used_real_backend=False,
         heuristic_witness_label="heuristic_local_features",
-        evidence_summary="local trust-audit feature extraction (non-backend heuristic witness)",
+        evidence_summary="manifest-driven local heuristic witness (controlled batch only)",
         evidence_points=evidence_points,
         confidence=0.35,
         disagreement_tags=[],
         blockers=[],
-        redacted_source_ref=str(item.get("source_audio_ref_redacted", "<PRIVATE_LOCAL_PATH>/unknown")),
-        raw_payload={"top_meter_hypothesis": top_meter},
+        redacted_source_ref=str(item.get("redacted_path", "<PRIVATE_LOCAL_PATH>/unknown")),
+        raw_payload={},
     )
 
 
@@ -100,10 +100,11 @@ def build_observations() -> tuple[list[dict[str, Any]], dict[str, Any]]:
         if not analysis_allowed:
             skipped_unauthorized += 1
             continue
-        provenance = item.get("provenance", {}) if isinstance(item.get("provenance"), dict) else {}
-        trust_rel = str(provenance.get("trust_audit_path", "")).strip()
-        trust_payload = _read_json(ROOT_DIR / trust_rel) if trust_rel else {}
-        observations.append(_feature_observation(item, trust_payload).to_dict())
+        source_id = str(item.get("source_id", "")).strip()
+        if not source_id:
+            skipped_unauthorized += 1
+            continue
+        observations.append(_feature_observation(item).to_dict())
 
         for optional_witness in (
             "transcription_witnesses",
@@ -119,8 +120,8 @@ def build_observations() -> tuple[list[dict[str, Any]], dict[str, Any]]:
                 skipped_unavailable += 1
                 observations.append(
                     ModelWitnessObservation(
-                        observation_id=f"{item['item_id']}__{optional_witness}_skip",
-                        item_id=str(item["item_id"]),
+                        observation_id=f"{source_id}__{optional_witness}_skip",
+                        item_id=source_id,
                         witness_id=optional_witness,
                         witness_type="optional_backend",
                         backend_status="unavailable",
@@ -132,7 +133,7 @@ def build_observations() -> tuple[list[dict[str, Any]], dict[str, Any]]:
                         confidence=0.0,
                         disagreement_tags=[],
                         blockers=["backend_unavailable"],
-                        redacted_source_ref=str(item.get("source_audio_ref_redacted", "<PRIVATE_LOCAL_PATH>/unknown")),
+                        redacted_source_ref=str(item.get("redacted_path", "<PRIVATE_LOCAL_PATH>/unknown")),
                         raw_payload={},
                     ).to_dict()
                 )
@@ -148,6 +149,7 @@ def build_observations() -> tuple[list[dict[str, Any]], dict[str, Any]]:
         "generated_at": datetime.now(UTC).isoformat(),
         "source_items_considered": len(manifest_rows),
         "source_items_analyzed": len({row["item_id"] for row in observations if row.get("analysis_allowed")}),
+        "controlled_batch_path": MANIFEST_PATH.relative_to(ROOT_DIR).as_posix(),
         "witness_observations_created": counter["witness_observations_created"],
         "heuristic_observations": counter["heuristic_observations"],
         "real_backend_observations": counter["real_backend_observations"],

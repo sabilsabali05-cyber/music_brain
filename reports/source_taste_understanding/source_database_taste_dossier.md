@@ -1,8 +1,8 @@
 # Source Database Taste Dossier
 
 - dossier_id: `source_database_taste_dossier_v1`
-- source_items_considered: `4`
-- source_items_analyzed: `0`
+- source_items_considered: `5686`
+- source_items_analyzed: `25`
 - transformation_vs_copy_policy: Generate transformed derivatives guided by principles; avoid direct copying of source content.
 
 ## Strongest Principles

@@ -1,15 +1,13 @@
 # Source Audio Study Manifest Report
 
-- source_items_considered: `4`
-- analysis_allowed_count: `0`
-- analysis_blocked_count: `4`
-- training_allowed_count: `0`
+- supported_files_found_under_allowed_roots: `5686`
+- manifest_rows_created_total: `5686`
+- analysis_allowed_count: `5686`
+- controlled_batch_size: `25`
 
 ## Policy notes
 - No source audio files were moved, modified, or deleted.
-- Manifest rows separate retrieval/training/analysis authorization decisions.
-- Raw audio analysis is blocked unless analysis_allowed=true per row.
-- Missing local authorization config blocks all analysis via missing_local_authorization_config.
-- Excluded and retrieval-only roots are never analyzed.
-- Training is disabled unless explicitly allowed.
-- Source-to-root authorization matching uses normalized absolute candidates and prefix matching.
+- Manifest rows are discovered from authorized roots, not trust-audit references.
+- Committed datasets contain only redacted paths + hashed identifiers.
+- Raw absolute source paths are stored only in local ignored cache.
+- Training on source audio remains disabled.

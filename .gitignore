@@ -52,6 +52,7 @@ config/activation_manifests/*.local.json
 config/local_render_config.local.json
 config/local_vst_registry.local.json
 config/source_audio_study_authorization.local.json
+local_source_audio_study/
 
 # Local rendering artifacts
 renders/
