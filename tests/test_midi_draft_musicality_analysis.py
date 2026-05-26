@@ -11,6 +11,7 @@ def _patch_paths(monkeypatch, root: Path) -> None:
     monkeypatch.setattr(analyzer, "ROOT_DIR", root)
     monkeypatch.setattr(analyzer, "OUTPUT_ROOT", root / "outputs" / analyzer.PROJECT_ID)
     monkeypatch.setattr(analyzer, "REPORTS_ROOT", root / "reports" / "composition_projects")
+    monkeypatch.setattr(analyzer, "DATABASE_REPORTS_ROOT", root / "reports" / "database_musicality")
     monkeypatch.setattr(analyzer, "DATASET_ROOT", root / "datasets" / "composition_projects")
     monkeypatch.setattr(analyzer, "DEFAULT_LOCAL_CONFIG", root / "config" / "presentable_composition_from_draft.local.json")
 
@@ -28,11 +29,16 @@ def test_analyze_midi_draft_outputs_and_redaction(tmp_path: Path, monkeypatch) -
 
     assert analysis.missing_local_midi_draft is False
     assert analysis.training_allowed is False
-    assert len(analysis.top_strengths) == 10
-    assert len(analysis.top_weaknesses) == 10
+    assert len(analysis.core_gestures) >= 1
+    assert len(analysis.generative_principles) >= 1
     payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
-    assert payload["musicality_score"] >= 0.0
-    assert "C:/Users/" not in outputs["md"].read_text(encoding="utf-8")
+    assert "heard_evidence_summary" in payload
+    assert "engineering_diagnostics" in payload
+    assert "musicality_score" not in payload
+    md = outputs["md"].read_text(encoding="utf-8")
+    assert "## 1) Evidence Integrity" in md
+    assert "## 16) Engineering Diagnostics (Secondary)" in md
+    assert "C:/Users/" not in md
     assert outputs["record"].exists()
 
 
@@ -44,4 +50,5 @@ def test_analyze_midi_draft_missing_input_safe(tmp_path: Path, monkeypatch) -> N
     context = analyzer.load_context()
     analysis = analyzer.analyze_draft(context)
     assert analysis.missing_local_midi_draft is True
-    assert analyzer.INPUT_PATH_REQUIRED_STATUS in analysis.top_weaknesses
+    assert analyzer.INPUT_PATH_REQUIRED_STATUS in analysis.what_is_unknown
+    assert analysis.core_gestures == []

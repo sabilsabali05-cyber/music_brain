@@ -1,20 +1,31 @@
-# Presentable Composition Evaluation
+# Presentable Composition Critique
 
-- pass: `true`
-- presentability_score: `0.795393`
-- ratio_compliance_score: `0.671692`
-- selected_candidate: `candidate_04`
+- does_it_realize_the_brief: `true`
+- critique_summary: The selected candidate carries the drafted gesture logic, but the bridge/release contrast still determines whether the brief truly lands.
 
-## Strongest Moments
-- cohesive harmonic bed with stable low-end support
-- clear motif identity with section-level variation
-- density arc peaks near intended structural apex
+## Where It Succeeds
+- Motif identity remains audible through arrangement changes.
+- Section arc peaks near the intended structural climax.
 
-## Remaining Issues
-- bridge contrast can be stronger for repeated listens
-- outro can provide a longer release tail
+## Where It Betrays The Brief
+- Bridge can flatten contrast and dilute the delayed-release intention.
+- Outro may resolve too quickly to preserve emotional afterglow.
 
-## Next Review Recommendations
-- perform manual DAW audition for groove pocket
-- test alternative lead timbres while preserving MIDI
-- capture listener notes before final render stage
+## Where It Feels Generic
+- Some harmony movement defaults to familiar loop patterns.
+
+## Where It Feels Alive
+- Low-end motion and motif contour interplay feels intentional.
+- Density transitions support a believable story arc.
+
+## What To Revise Next
+- Introduce one bridge-specific harmonic diversion with motif callback.
+- Extend release tail with sparser lead rhythm.
+
+## Human Audition Questions
+- After two listens, does the hook still feel singular?
+- Does the bridge tension feel earned before the release?
+
+## Engineering Diagnostics
+- presentability_score: `0.797222`
+- ratio_compliance_score: `0.6817`

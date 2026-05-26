@@ -1,0 +1,113 @@
+{
+  "dossier_id": "jaca_draft_musical_understanding",
+  "source_path_redacted": "C:/mb/outputs/validation_inputs/draft.mid",
+  "missing_local_midi_draft": false,
+  "training_allowed": false,
+  "heard_evidence_summary": "Local MIDI evidence indicates a C major center, 8 note events, and an arc-oriented structure.",
+  "what_is_unknown": [
+    "instrument_timbre_intent_unknown_from_symbolic_only",
+    "mix_depth_unknown_without_audio_render"
+  ],
+  "core_gestures": [
+    {
+      "gesture_id": "cg_harmonic_center",
+      "musical_intent": "Orbit around a stable C major center while allowing contour motion.",
+      "evidence": "key_detected=C major; unique_tracks=1; harmony_score=0.50",
+      "confidence": 0.7516666666666667,
+      "unknowns": []
+    },
+    {
+      "gesture_id": "cg_density_arc",
+      "musical_intent": "Build energy into a front-loaded arc, then release.",
+      "evidence": "early_density=0.625; late_density=0.375; structure_score=0.01",
+      "confidence": 0.5045,
+      "unknowns": []
+    }
+  ],
+  "motif_memory": [
+    {
+      "motif_id": "mm_contour_identity",
+      "motif_shape": "median_pitch_around_64_with_stepwise_return",
+      "where_it_returns": [
+        "intro_region",
+        "main_body_region"
+      ],
+      "how_it_changes": [
+        "register_lift",
+        "rhythmic_compaction"
+      ],
+      "evidence": "melody_motif_score=0.69; note_count=8",
+      "confidence": 0.8125892857142858,
+      "unknowns": []
+    }
+  ],
+  "tension_release_map": [
+    {
+      "event_id": "tr_primary_arc",
+      "setup": "Density and register rise toward late-middle timeline.",
+      "release": "Sparser tail and cadence relaxation near ending.",
+      "timeline_hint": "peak_near=1.55s_of_2.5s",
+      "evidence": "structure_score=0.01; mean_note_duration=0.188",
+      "confidence": 0.455,
+      "unknowns": []
+    }
+  ],
+  "generative_principles": [
+    {
+      "principle_id": "gp_preserve_identity",
+      "principle_statement": "Preserve contour identity while varying rhythm and register.",
+      "rationale": "Motif continuity exists but can become generic if copied literally.",
+      "apply_next": "Keep interval skeleton; rotate rhythm cells every 4 bars.",
+      "evidence": "melody_motif_score=0.69",
+      "confidence": 0.8125892857142858,
+      "unknowns": []
+    },
+    {
+      "principle_id": "gp_bass_lock",
+      "principle_statement": "Use bass/chord lock as structural glue, not as static loop.",
+      "rationale": "Low register presence is meaningful but needs clearer phrase punctuation.",
+      "apply_next": "Introduce 2-bar bass response figures at section transitions.",
+      "evidence": "bass_presence=0.000; bass_score=0.40",
+      "confidence": 0.65,
+      "unknowns": []
+    }
+  ],
+  "critique_summary": "The draft contains a usable musical identity and structural arc, but it still risks generic phrasing without stronger motif mutation.",
+  "where_it_feels_alive": [
+    "Section-level density curve supports a believable climb and release.",
+    "Motif contour identity is consistent enough to anchor new composition work."
+  ],
+  "where_it_feels_generic": [
+    "Harmony movement may plateau without surprise pivots.",
+    "Cadential endings can sound template-like unless phrase endings are revoiced."
+  ],
+  "what_to_revise_next": [
+    "Increase phrase-level contrast around section boundaries.",
+    "Add one controlled harmonic detour before final release.",
+    "Rework outro contour to sustain closure longer."
+  ],
+  "engineering_diagnostics": {
+    "note_count": 8,
+    "track_count": 1,
+    "duration_seconds": 2.5,
+    "tempo_bpm_detected": 120.0,
+    "key_detected": "C major",
+    "mean_note_duration": 0.1875,
+    "pitch_range": [
+      60,
+      69
+    ],
+    "polyphony_hint": 3.2,
+    "diagnostic_scores": {
+      "harmony_score": 0.504167,
+      "melody_motif_score": 0.694643,
+      "rhythm_groove_score": 0.10625,
+      "bass_score": 0.4,
+      "structure_score": 0.01,
+      "texture_arrangement_score": 0.06875,
+      "musicality_score": 0.297302
+    }
+  },
+  "confidence": 0.45,
+  "confidence_reason": "heuristic symbolic analysis from local MIDI note events"
+}

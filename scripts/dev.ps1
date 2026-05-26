@@ -97,16 +97,7 @@ function Show-Usage {
     Write-Host "  export-training-dataset-splits <performance-manifest>"
     Write-Host "  validate-training-export <export-folder>"
     Write-Host "  summarize-training-exports [exports-root]"
-    Write-Host "  normalize-music-corpus"
-    Write-Host "  promote-reviewed-corpus-splits"
-    Write-Host "  build-human-review-batch"
-    Write-Host "  apply-music-intelligence-schema"
-    Write-Host "  build-music-intelligence-review-form"
     Write-Host "  audit-dataset-quality-yield"
-    Write-Host "  analyze-music-theory-understanding"
-    Write-Host "  build-generation-conditioning-profiles"
-    Write-Host "  generate-from-theory-conditioning"
-    Write-Host "  evaluate-theory-conditioned-generation"
     Write-Host "  build-generative-examples <performance-manifest>"
     Write-Host "  validate-generative-examples <generative-dataset-folder>"
     Write-Host "  diagnose-generative-examples <generative-dataset-folder>"
@@ -126,15 +117,6 @@ function Show-Usage {
     Write-Host "  generate-midigpt-variation-scaffold"
     Write-Host "  check-text2midi-setup"
     Write-Host "  run-text2midi-smoke-test"
-    Write-Host "  bootstrap-symbolic-model-local-config"
-    Write-Host "  plan-symbolic-backend-install"
-    Write-Host "  check-symbolic-backend-activation"
-    Write-Host "  discover-symbolic-model-sources"
-    Write-Host "  generate-2min-ballad [--use-symbolic-backends] [--output <folder>]"
-    Write-Host "  regenerate-ballad-from-review <feedback-json>"
-    Write-Host "  plan-microtonal-composition"
-    Write-Host "  validate-microtonal-tuning"
-    Write-Host "  export-microtonal-midi-plan"
     Write-Host "  generate-text2midi-prompt-sketch-scaffold"
     Write-Host "  check-audio-understanding-setup"
     Write-Host "  run-audio-understanding-smoke-tests"
@@ -154,6 +136,9 @@ function Show-Usage {
     Write-Host "  plan-ratio-composition [duration] [ratio] [goal]"
     Write-Host "  generate-midi-with-backend <generative-dataset-folder> [provider] [task]"
     Write-Host "  generate-symbolic-ensemble <prompt>"
+    Write-Host "  create-song-concept-brief"
+    Write-Host "  generate-midi-from-concept"
+    Write-Host "  evaluate-concept-generation"
     Write-Host "  generate-tangible-demo [duration] [ratio] [goal]"
     Write-Host "  validate-tangible-demo [output-folder]"
     Write-Host "  export-ableton-project-v1 <tangible-output-folder> [--copy-local-samples]"
@@ -187,57 +172,10 @@ function Show-Usage {
     Write-Host "  validate-synplant-sessions"
     Write-Host "  build-sound-palette-context <ableton_project_folder>"
     Write-Host "  export-symbolic-ensemble-ableton [source-folder] [target-folder]"
-    Write-Host "  bootstrap-local-render-config"
-    Write-Host "  render-with-reaper [generation-id]"
-    Write-Host "  export-ableton-render-pack [generation-id] [reason]"
-    Write-Host "  generate-and-render-wav"
-    Write-Host "  generate-complete-song-wav"
-    Write-Host "  generate-chordpotion-ready-skeleton"
-    Write-Host "  build-chordpotion-transform-plan [generation-id]"
-    Write-Host "  render-chordpotion-with-reaper [generation-id]"
-    Write-Host "  export-chordpotion-ableton-pack [generation-id] [reason]"
-    Write-Host "  generate-with-chordpotion"
-    Write-Host "  audition-chordpotion-presets [generation-id]"
-    Write-Host "  train-chordpotion-preset-selector"
-    Write-Host "  evaluate-chordpotion-preset-selector"
-    Write-Host "  generate-with-intelligent-chordpotion"
-    Write-Host "  verify-local-wav-renders [generation-id]"
-    Write-Host "  build-source-understanding-records"
-    Write-Host "  train-composition-taste-ranker"
-    Write-Host "  train-beat-battle-site-ranker"
-    Write-Host "  evaluate-composition-taste-ranker"
-    Write-Host "  generate-ranked-midi-candidates"
-    Write-Host "  run-music-understanding-loop"
-    Write-Host "  analyze-ratio-understanding"
-    Write-Host "  generate-ratio-controlled-song"
-    Write-Host "  evaluate-ratio-controlled-generation"
-    Write-Host "  repair-ratio-controlled-generation"
-    Write-Host "  analyze-midi-draft-musicality [--config <path>]"
-    Write-Host "  compare-draft-to-music-database [--config <path>]"
-    Write-Host "  build-presentable-composition-spec [--config <path>]"
-    Write-Host "  generate-presentable-composition-candidates [--config <path>]"
-    Write-Host "  rank-presentable-composition-candidates"
-    Write-Host "  repair-presentable-composition"
-    Write-Host "  create-presentable-reaper-project"
-    Write-Host "  evaluate-presentable-composition"
-    Write-Host "  build-presentable-composition-from-draft [--config <path>] [--include-reaper]"
-    Write-Host "  internal-beat-loop [--interval-seconds N] [--max-iterations N]"
-    Write-Host "  internal-beat-loop-status"
-    Write-Host "  stop-internal-beat-loop"
-    Write-Host "  ingest-output-feedback [--input <path>]"
-    Write-Host "  setup-beat-battle-browser-session"
-    Write-Host "  detect-beat-battle-round"
-    Write-Host "  acquire-beat-battle-round-sounds"
-    Write-Host "  create-battle-sound-pair-record [--manifest <path>]"
-    Write-Host "  ingest-sound-pair-feedback"
-    Write-Host "  analyze-beat-battle-kit [--manifest <path>]"
-    Write-Host "  generate-beat-battle-drafts"
-    Write-Host "  render-beat-battle-submission"
-    Write-Host "  submit-beat-battle-entry [--manual-submit-confirmed]"
-    Write-Host "  check-beat-battle-result"
-    Write-Host "  beat-battle-session-loop [--poll-seconds N] [--wait-for-result-entry] [--max-wait-seconds N]"
-    Write-Host "  beat-battle-session-loop-watch [--poll-seconds N]"
-    Write-Host "  beat-battle-ranked-site-auto"
+    Write-Host "  analyze-midi-draft-musicality"
+    Write-Host "  analyze-audio-database-musicality"
+    Write-Host "  build-drawing-board-composition-brief"
+    Write-Host "  build-essence-composition"
     Write-Host "  commit-checkpoint [commit message]"
 }
 
@@ -1060,54 +998,9 @@ switch ($Task) {
             "python", "scripts/summarize_training_exports.py", $target
         )
     }
-    "normalize-music-corpus" {
-        Invoke-Step -Label "Normalizing DB-like artifacts into canonical corpus" -Command @(
-            "python", "scripts/normalize_music_corpus_artifacts.py"
-        )
-    }
-    "promote-reviewed-corpus-splits" {
-        Invoke-Step -Label "Promoting reviewed corpus rows to deterministic splits" -Command @(
-            "python", "scripts/promote_reviewed_corpus_splits.py"
-        )
-    }
-    "build-human-review-batch" {
-        Invoke-Step -Label "Building curated human review batch" -Command @(
-            "python", "scripts/build_human_review_batch.py"
-        )
-    }
-    "apply-music-intelligence-schema" {
-        Invoke-Step -Label "Applying strict music intelligence schema to corpus" -Command @(
-            "python", "scripts/apply_music_intelligence_schema.py"
-        )
-    }
-    "build-music-intelligence-review-form" {
-        Invoke-Step -Label "Building music intelligence review form batch" -Command @(
-            "python", "scripts/build_music_intelligence_review_form.py"
-        )
-    }
     "audit-dataset-quality-yield" {
         Invoke-Step -Label "Auditing dataset quality and data yield" -Command @(
             "python", "scripts/audit_dataset_quality_yield.py"
-        )
-    }
-    "analyze-music-theory-understanding" {
-        Invoke-Step -Label "Analyzing music theory understanding layer" -Command @(
-            "python", "scripts/analyze_music_theory_understanding.py"
-        )
-    }
-    "build-generation-conditioning-profiles" {
-        Invoke-Step -Label "Building generation conditioning profiles" -Command @(
-            "python", "scripts/build_generation_conditioning_profiles.py"
-        )
-    }
-    "generate-from-theory-conditioning" {
-        Invoke-Step -Label "Generating from theory conditioning profiles" -Command @(
-            "python", "scripts/generate_from_theory_conditioning.py"
-        )
-    }
-    "evaluate-theory-conditioned-generation" {
-        Invoke-Step -Label "Evaluating theory-conditioned generation outputs" -Command @(
-            "python", "scripts/evaluate_theory_conditioned_generation.py"
         )
     }
     "build-generative-examples" {
@@ -1213,67 +1106,6 @@ switch ($Task) {
     "run-text2midi-smoke-test" {
         Invoke-Step -Label "Running Text2MIDI minimal smoke test" -Command @(
             "python", "scripts/run_text2midi_smoke_test.py"
-        )
-    }
-    "bootstrap-symbolic-model-local-config" {
-        Invoke-Step -Label "Bootstrapping symbolic model local config" -Command @(
-            "python", "scripts/bootstrap_symbolic_model_local_config.py"
-        )
-    }
-    "plan-symbolic-backend-install" {
-        Invoke-Step -Label "Writing symbolic backend install plan" -Command @(
-            "python", "scripts/plan_symbolic_backend_install.py"
-        )
-    }
-    "check-symbolic-backend-activation" {
-        Invoke-Step -Label "Checking symbolic backend activation status" -Command @(
-            "python", "scripts/check_symbolic_backend_activation.py"
-        )
-    }
-    "discover-symbolic-model-sources" {
-        Invoke-Step -Label "Discovering official symbolic model sources" -Command @(
-            "python", "scripts/discover_symbolic_model_sources.py"
-        )
-    }
-    "generate-2min-ballad" {
-        $useSymbolic = $false
-        $output = "outputs/ballad_2min_v2"
-        for ($i = 0; $i -lt $TaskArgs.Count; $i++) {
-            $arg = $TaskArgs[$i]
-            if ($arg -eq "--use-symbolic-backends") {
-                $useSymbolic = $true
-            }
-            elseif ($arg -eq "--output") {
-                if (($i + 1) -ge $TaskArgs.Count) { throw "Usage: scripts\dev.cmd generate-2min-ballad [--use-symbolic-backends] [--output <folder>]" }
-                $output = $TaskArgs[$i + 1]
-                $i++
-            }
-        }
-        $command = @("python", "scripts/generate_2min_ballad.py", "--output", $output)
-        if ($useSymbolic) {
-            $command += @("--use-symbolic-backends")
-        }
-        Invoke-Step -Label "Generating 2-minute ballad v2 package" -Command $command
-    }
-    "regenerate-ballad-from-review" {
-        $feedbackPath = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd regenerate-ballad-from-review <feedback-json>"
-        Invoke-Step -Label "Regenerating ballad stems from review feedback" -Command @(
-            "python", "scripts/regenerate_ballad_from_review.py", $feedbackPath
-        )
-    }
-    "plan-microtonal-composition" {
-        Invoke-Step -Label "Planning microtonal composition layer outputs" -Command @(
-            "python", "scripts/plan_microtonal_composition.py"
-        )
-    }
-    "validate-microtonal-tuning" {
-        Invoke-Step -Label "Validating microtonal tuning presets and Scala parsing" -Command @(
-            "python", "scripts/validate_microtonal_tuning.py"
-        )
-    }
-    "export-microtonal-midi-plan" {
-        Invoke-Step -Label "Planning microtonal MIDI export strategies" -Command @(
-            "python", "scripts/export_microtonal_midi_plan.py"
         )
     }
     "generate-text2midi-prompt-sketch-scaffold" {
@@ -1387,6 +1219,21 @@ switch ($Task) {
         $prompt = Get-TaskArgOrThrow -Index 0 -Usage "Usage: scripts\dev.cmd generate-symbolic-ensemble <prompt>"
         Invoke-Step -Label "Generating symbolic output via ensemble orchestrator" -Command @(
             "python", "scripts/generate_with_symbolic_ensemble.py", $prompt
+        )
+    }
+    "create-song-concept-brief" {
+        Invoke-Step -Label "Creating song concept brief from conversation" -Command @(
+            "python", "scripts/create_song_concept_brief.py"
+        )
+    }
+    "generate-midi-from-concept" {
+        Invoke-Step -Label "Generating concept-driven MIDI candidates" -Command @(
+            "python", "scripts/generate_midi_from_concept.py"
+        )
+    }
+    "evaluate-concept-generation" {
+        Invoke-Step -Label "Evaluating concept-to-composition candidates" -Command @(
+            "python", "scripts/evaluate_concept_generation.py"
         )
     }
     "generate-tangible-demo" {
@@ -1615,284 +1462,24 @@ switch ($Task) {
             "python", "scripts/export_symbolic_ensemble_ableton.py", "--source-dir", $source, "--target-dir", $target
         )
     }
-    "bootstrap-local-render-config" {
-        Invoke-Step -Label "Bootstrapping local render config files" -Command @(
-            "python", "scripts/bootstrap_local_render_config.py"
-        )
-    }
-    "render-with-reaper" {
-        $generationId = Get-TaskArg -Index 0
-        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "generated_wav_v1" }
-        Invoke-Step -Label "Planning/running Reaper local render backend" -Command @(
-            "python", "scripts/render_with_reaper.py", $target
-        )
-    }
-    "export-ableton-render-pack" {
-        $generationId = Get-TaskArg -Index 0
-        $reason = Get-TaskArg -Index 1
-        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "generated_wav_v1" }
-        $reasonValue = if (-not [string]::IsNullOrWhiteSpace($reason)) { $reason } else { "automation_unavailable" }
-        Invoke-Step -Label "Creating Ableton assisted render pack" -Command @(
-            "python", "scripts/export_ableton_render_pack.py", $target, "--reason", $reasonValue
-        )
-    }
-    "generate-and-render-wav" {
-        Invoke-Step -Label "Generating MIDI and attempting local WAV render" -Command @(
-            "python", "scripts/generate_and_render_wav.py"
-        )
-    }
-    "generate-complete-song-wav" {
-        Invoke-Step -Label "Running complete local song pipeline" -Command @(
-            "python", "scripts/generate_complete_song_wav.py"
-        )
-    }
-    "generate-chordpotion-ready-skeleton" {
-        Invoke-Step -Label "Generating ChordPotion-ready MIDI skeleton" -Command @(
-            "python", "scripts/generate_chordpotion_ready_skeleton.py"
-        )
-    }
-    "build-chordpotion-transform-plan" {
-        $generationId = Get-TaskArg -Index 0
-        $command = @("python", "scripts/build_chordpotion_transform_plan.py")
-        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
-            $command += @("--generation-id", $generationId)
-        }
-        Invoke-Step -Label "Building ChordPotion transform plan" -Command $command
-    }
-    "render-chordpotion-with-reaper" {
-        $generationId = Get-TaskArg -Index 0
-        $command = @("python", "scripts/render_chordpotion_with_reaper.py")
-        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
-            $command += @("--generation-id", $generationId)
-        }
-        Invoke-Step -Label "Running ChordPotion Reaper backend" -Command $command
-    }
-    "export-chordpotion-ableton-pack" {
-        $generationId = Get-TaskArg -Index 0
-        $reason = Get-TaskArg -Index 1
-        $target = if (-not [string]::IsNullOrWhiteSpace($generationId)) { $generationId } else { "chordpotion_generation_v1" }
-        $reasonValue = if (-not [string]::IsNullOrWhiteSpace($reason)) { $reason } else { "chordpotion_or_reaper_unavailable" }
-        Invoke-Step -Label "Exporting ChordPotion Ableton assisted pack" -Command @(
-            "python", "scripts/export_chordpotion_ableton_pack.py", "--generation-id", $target, "--reason", $reasonValue
-        )
-    }
-    "generate-with-chordpotion" {
-        Invoke-Step -Label "Running ChordPotion one-command generation flow" -Command @(
-            "python", "scripts/generate_with_chordpotion.py"
-        )
-    }
-    "audition-chordpotion-presets" {
-        $generationId = Get-TaskArg -Index 0
-        $command = @("python", "scripts/audition_chordpotion_presets.py")
-        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
-            $command += @("--generation-id", $generationId)
-        }
-        Invoke-Step -Label "Auditioning ChordPotion preset candidates" -Command $command
-    }
-    "train-chordpotion-preset-selector" {
-        Invoke-Step -Label "Training local ChordPotion preset selector" -Command @(
-            "python", "scripts/train_chordpotion_preset_selector.py"
-        )
-    }
-    "evaluate-chordpotion-preset-selector" {
-        Invoke-Step -Label "Evaluating local ChordPotion preset selector" -Command @(
-            "python", "scripts/evaluate_chordpotion_preset_selector.py"
-        )
-    }
-    "generate-with-intelligent-chordpotion" {
-        Invoke-Step -Label "Running intelligent ChordPotion generation flow" -Command @(
-            "python", "scripts/generate_with_intelligent_chordpotion.py"
-        )
-    }
-    "verify-local-wav-renders" {
-        $generationId = Get-TaskArg -Index 0
-        $command = @("python", "scripts/verify_local_wav_renders.py")
-        if (-not [string]::IsNullOrWhiteSpace($generationId)) {
-            $command += @("--generation-id", $generationId)
-        }
-        Invoke-Step -Label "Verifying local WAV render artifacts" -Command $command
-    }
-    "build-source-understanding-records" {
-        Invoke-Step -Label "Building source understanding records and reports" -Command @(
-            "python", "scripts/build_source_understanding_records.py"
-        )
-    }
-    "train-composition-taste-ranker" {
-        Invoke-Step -Label "Training composition taste ranker" -Command @(
-            "python", "scripts/train_composition_taste_ranker.py"
-        )
-    }
-    "train-beat-battle-site-ranker" {
-        Invoke-Step -Label "Training Beat Battle site ranker" -Command @(
-            "python", "scripts/train_beat_battle_site_ranker.py"
-        )
-    }
-    "evaluate-composition-taste-ranker" {
-        Invoke-Step -Label "Evaluating composition taste ranker" -Command @(
-            "python", "scripts/evaluate_composition_taste_ranker.py"
-        )
-    }
-    "generate-ranked-midi-candidates" {
-        Invoke-Step -Label "Generating ranked MIDI candidates" -Command @(
-            "python", "scripts/generate_ranked_midi_candidates.py"
-        )
-    }
-    "analyze-ratio-understanding" {
-        Invoke-Step -Label "Analyzing ratio understanding from existing artifacts" -Command @(
-            "python", "scripts/analyze_ratio_understanding.py"
-        )
-    }
-    "generate-ratio-controlled-song" {
-        Invoke-Step -Label "Generating ratio-controlled demo song" -Command @(
-            "python", "scripts/generate_ratio_controlled_song.py"
-        )
-    }
-    "evaluate-ratio-controlled-generation" {
-        Invoke-Step -Label "Evaluating ratio-controlled generation compliance" -Command @(
-            "python", "scripts/evaluate_ratio_controlled_generation.py"
-        )
-    }
-    "repair-ratio-controlled-generation" {
-        Invoke-Step -Label "Repairing ratio-controlled generation compliance" -Command @(
-            "python", "scripts/repair_ratio_controlled_generation.py"
-        )
-    }
     "analyze-midi-draft-musicality" {
-        $command = @("python", "scripts/analyze_midi_draft_musicality.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Analyzing MIDI draft musicality" -Command $command
-    }
-    "compare-draft-to-music-database" {
-        $command = @("python", "scripts/compare_draft_to_music_database.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Comparing MIDI draft against music database" -Command $command
-    }
-    "build-presentable-composition-spec" {
-        $command = @("python", "scripts/build_presentable_composition_spec.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Building presentable composition control spec" -Command $command
-    }
-    "generate-presentable-composition-candidates" {
-        $command = @("python", "scripts/generate_presentable_composition_candidates.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Generating presentable composition candidates" -Command $command
-    }
-    "rank-presentable-composition-candidates" {
-        Invoke-Step -Label "Ranking presentable composition candidates" -Command @(
-            "python", "scripts/rank_presentable_composition_candidates.py"
+        Invoke-Step -Label "Analyzing draft musical understanding (legacy alias)" -Command @(
+            "python", "scripts/analyze_midi_draft_musicality.py"
         )
     }
-    "repair-presentable-composition" {
-        Invoke-Step -Label "Repairing selected presentable composition" -Command @(
-            "python", "scripts/repair_presentable_composition.py"
+    "analyze-audio-database-musicality" {
+        Invoke-Step -Label "Analyzing database musical understanding (legacy alias)" -Command @(
+            "python", "scripts/compare_draft_to_music_database.py"
         )
     }
-    "create-presentable-reaper-project" {
-        Invoke-Step -Label "Creating presentable Reaper project plan" -Command @(
-            "python", "scripts/create_presentable_reaper_project.py"
+    "build-drawing-board-composition-brief" {
+        Invoke-Step -Label "Building drawing-board composition brief" -Command @(
+            "python", "scripts/build_drawing_board_composition_brief.py"
         )
     }
-    "evaluate-presentable-composition" {
-        Invoke-Step -Label "Evaluating presentable composition package" -Command @(
-            "python", "scripts/evaluate_presentable_composition.py"
-        )
-    }
-    "build-presentable-composition-from-draft" {
-        $command = @("python", "scripts/build_presentable_composition_from_draft.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Running full presentable composition from draft pipeline" -Command $command
-    }
-    "run-music-understanding-loop" {
-        Invoke-Step -Label "Running music understanding taste loop" -Command @(
-            "python", "scripts/run_music_understanding_loop.py"
-        )
-    }
-    "internal-beat-loop" {
-        $command = @("python", "scripts/internal_beat_loop.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Running continuous internal beat generation loop" -Command $command
-    }
-    "internal-beat-loop-status" {
-        Invoke-Step -Label "Inspecting internal beat loop status" -Command @(
-            "python", "scripts/internal_beat_loop_status.py"
-        )
-    }
-    "stop-internal-beat-loop" {
-        Invoke-Step -Label "Stopping internal beat loop" -Command @(
-            "python", "scripts/stop_internal_beat_loop.py"
-        )
-    }
-    "ingest-output-feedback" {
-        $inputPath = Get-TaskArg -Index 0
-        $command = @("python", "scripts/ingest_output_feedback.py")
-        if (-not [string]::IsNullOrWhiteSpace($inputPath)) {
-            $command += @("--input", $inputPath)
-        }
-        Invoke-Step -Label "Ingesting output feedback into taste learning dataset" -Command $command
-    }
-    "setup-beat-battle-browser-session" {
-        Invoke-Step -Label "Setting up Beat Battle browser session" -Command @(
-            "python", "scripts/setup_beat_battle_browser_session.py"
-        )
-    }
-    "detect-beat-battle-round" {
-        Invoke-Step -Label "Detecting Beat Battle active round" -Command @(
-            "python", "scripts/detect_beat_battle_round.py"
-        )
-    }
-    "acquire-beat-battle-round-sounds" {
-        Invoke-Step -Label "Acquiring Beat Battle round sounds" -Command @(
-            "python", "scripts/acquire_beat_battle_round_sounds.py"
-        )
-    }
-    "create-battle-sound-pair-record" {
-        $command = @("python", "scripts/create_battle_sound_pair_record.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Creating Beat Battle sound pair records" -Command $command
-    }
-    "ingest-sound-pair-feedback" {
-        Invoke-Step -Label "Ingesting Beat Battle sound pair feedback" -Command @(
-            "python", "scripts/ingest_sound_pair_feedback.py"
-        )
-    }
-    "analyze-beat-battle-kit" {
-        $command = @("python", "scripts/analyze_beat_battle_kit.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Analyzing Beat Battle round kit" -Command $command
-    }
-    "generate-beat-battle-drafts" {
-        Invoke-Step -Label "Generating Beat Battle draft candidates" -Command @(
-            "python", "scripts/generate_beat_battle_drafts.py"
-        )
-    }
-    "render-beat-battle-submission" {
-        Invoke-Step -Label "Rendering Beat Battle submission" -Command @(
-            "python", "scripts/render_beat_battle_submission.py"
-        )
-    }
-    "submit-beat-battle-entry" {
-        $command = @("python", "scripts/submit_beat_battle_entry.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Submitting Beat Battle entry" -Command $command
-    }
-    "check-beat-battle-result" {
-        Invoke-Step -Label "Checking Beat Battle round result" -Command @(
-            "python", "scripts/check_beat_battle_result.py"
-        )
-    }
-    "beat-battle-session-loop" {
-        $command = @("python", "scripts/beat_battle_session_loop.py")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Running Beat Battle session loop (single launcher)" -Command $command
-    }
-    "beat-battle-session-loop-watch" {
-        $command = @("python", "scripts/beat_battle_session_loop.py", "--watch")
-        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
-        Invoke-Step -Label "Running Beat Battle session loop watcher" -Command $command
-    }
-    "beat-battle-ranked-site-auto" {
-        Invoke-Step -Label "Running Beat Battle ranked site automation" -Command @(
-            "python", "scripts/beat_battle_ranked_site_auto.py"
+    "build-essence-composition" {
+        Invoke-Step -Label "Building full essence composition pipeline" -Command @(
+            "python", "scripts/build_essence_composition.py"
         )
     }
     "commit-checkpoint" {

@@ -10,6 +10,7 @@ def _patch(monkeypatch, root: Path) -> None:
     monkeypatch.setattr(analyzer, "ROOT_DIR", root)
     monkeypatch.setattr(analyzer, "OUTPUT_ROOT", root / "outputs" / analyzer.PROJECT_ID)
     monkeypatch.setattr(analyzer, "REPORTS_ROOT", root / "reports" / "composition_projects")
+    monkeypatch.setattr(analyzer, "DATABASE_REPORTS_ROOT", root / "reports" / "database_musicality")
     monkeypatch.setattr(analyzer, "DATASET_ROOT", root / "datasets" / "composition_projects")
     monkeypatch.setattr(analyzer, "DEFAULT_LOCAL_CONFIG", root / "config" / "presentable_composition_from_draft.local.json")
 

@@ -12,10 +12,9 @@ from features.composition_projects import evaluate_presentable
 
 def main() -> int:
     payload = evaluate_presentable()
-    print(f"PRESENTABLE_PASS={str(payload.get('pass', False)).lower()}")
-    print(f"PRESENTABILITY_SCORE={payload.get('presentability_score', 0.0)}")
-    print(f"RATIO_COMPLIANCE_SCORE={payload.get('ratio_compliance_score', 0.0)}")
-    print(f"SELECTED_CANDIDATE={payload.get('selected_candidate', 'none')}")
+    print(f"DOES_IT_REALIZE_THE_BRIEF={str(payload.get('does_it_realize_the_brief', False)).lower()}")
+    print(f"CRITIQUE_SUMMARY={payload.get('critique_summary', '')}")
+    print(f"WHERE_IT_BETRAYS_THE_BRIEF_COUNT={len(payload.get('where_it_betrays_the_brief', []))}")
     return 0 if payload.get("status") == "ok" else 1
 
 

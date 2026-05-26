@@ -18,7 +18,9 @@ from features.composition_projects import (
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Compare draft analysis to local music database.")
+    parser = argparse.ArgumentParser(
+        description="Build database musical understanding dossier from draft understanding."
+    )
     parser.add_argument("--config", default="", help="Optional local config override path.")
     args = parser.parse_args()
     context = load_context(Path(args.config) if args.config else None)
@@ -26,8 +28,8 @@ def main() -> int:
     analysis = analyze_draft(context)
     write_draft_analysis_outputs(analysis)
     report = compare_draft_to_database(analysis)
-    print(f"DATABASE_COMPARISON_CONFIDENCE={report.get('database_comparison_confidence', 0.0)}")
-    print(f"DATABASE_COMPARISON_STATUS={report.get('status', 'unknown')}")
+    print(f"DATABASE_UNDERSTANDING_CONFIDENCE={report.get('confidence', 0.0)}")
+    print(f"DATABASE_UNDERSTANDING_STATUS={report.get('status', 'unknown')}")
     return 0 if not analysis.missing_local_midi_draft else 1
 
 

@@ -13,7 +13,7 @@ from features.composition_projects import run_full_pipeline
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run full presentable composition pipeline.")
+    parser = argparse.ArgumentParser(description="Run full essence composition pipeline.")
     parser.add_argument("--config", default="", help="Optional local config override path.")
     parser.add_argument("--include-reaper", action="store_true", help="Build optional reaper/render pack plan.")
     args = parser.parse_args()
@@ -23,9 +23,10 @@ def main() -> int:
     print(f"SELECTED_CANDIDATE={summary.get('selected_candidate', 'none')}")
     print(f"SELECTED_FULL_MIDI={summary.get('selected_full_midi_path', '')}")
     print(f"SELECTED_STEMS_PATH={summary.get('selected_stems_path', '')}")
-    print(f"PRESENTABILITY_SCORE={summary.get('presentability_score', 0.0)}")
-    print(f"RATIO_COMPLIANCE_SCORE={summary.get('ratio_compliance_score', 0.0)}")
-    print(f"DATABASE_COMPARISON_CONFIDENCE={summary.get('database_comparison_confidence', 0.0)}")
+    print(f"DRAFT_UNDERSTANDING_DOSSIER={summary.get('draft_understanding_dossier_path', '')}")
+    print(f"DATABASE_UNDERSTANDING_DOSSIER={summary.get('database_understanding_dossier_path', '')}")
+    print(f"COMPOSITION_BRIEF_PATH={summary.get('composition_brief_path', '')}")
+    print(f"FINAL_CRITIQUE_PATH={summary.get('final_critique_path', '')}")
     print(f"SUMMARY_JSON={json.dumps(summary, ensure_ascii=True)}")
     return 0 if summary.get("status") == "ok" else 1
 

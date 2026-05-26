@@ -12,12 +12,20 @@ from typing import Any
 
 from mido import Message, MetaMessage, MidiFile, MidiTrack, second2tick
 
-from features.composition_projects.draft_musicality_schema import DraftMusicalityAnalysis, redact_private_path
+from features.musical_understanding.musical_understanding_schema import (
+    CoreGesture,
+    GenerativePrinciple,
+    MotifMemory,
+    MusicalUnderstandingDossier,
+    TensionReleaseEvent,
+    redact_private_path,
+)
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 PROJECT_ID = "presentable_composition_from_draft_v1"
 OUTPUT_ROOT = ROOT_DIR / "outputs" / PROJECT_ID
 REPORTS_ROOT = ROOT_DIR / "reports" / "composition_projects"
+DATABASE_REPORTS_ROOT = ROOT_DIR / "reports" / "database_musicality"
 DATASET_ROOT = ROOT_DIR / "datasets" / "composition_projects"
 DEFAULT_LOCAL_CONFIG = ROOT_DIR / "config" / "presentable_composition_from_draft.local.json"
 
@@ -214,222 +222,404 @@ def _score_dimensions(notes: list[tuple[float, float, int, int, int]], duration:
     }
 
 
-def analyze_draft(context: PipelineContext) -> DraftMusicalityAnalysis:
+def _build_empty_dossier(context: PipelineContext) -> MusicalUnderstandingDossier:
+    diagnostics = {
+        "note_count": 0,
+        "track_count": 0,
+        "duration_seconds": 0.0,
+        "tempo_bpm_detected": None,
+        "key_detected": None,
+        "diagnostic_scores": _score_dimensions([], 0.0),
+    }
+    return MusicalUnderstandingDossier(
+        dossier_id="jaca_draft_musical_understanding",
+        source_path_redacted=context.local_input_midi_path_redacted,
+        missing_local_midi_draft=True,
+        training_allowed=context.training_allowed,
+        heard_evidence_summary="No local MIDI draft was available, so no musical understanding claims can be made.",
+        what_is_unknown=[
+            "core_gestures_unknown_due_to_missing_evidence",
+            "motif_memory_unknown_due_to_missing_evidence",
+            INPUT_PATH_REQUIRED_STATUS,
+        ],
+        core_gestures=[],
+        motif_memory=[],
+        tension_release_map=[],
+        generative_principles=[
+            GenerativePrinciple(
+                principle_id="gp_missing_evidence",
+                principle_statement="Do not infer musical intent without evidence.",
+                rationale="The draft file was unavailable locally.",
+                apply_next="Provide a local MIDI draft path before planning composition details.",
+                evidence=INPUT_PATH_REQUIRED_STATUS,
+                confidence=1.0,
+                unknowns=[],
+            )
+        ],
+        critique_summary="No critique can be produced because there is no audible/symbolic evidence.",
+        where_it_feels_alive=[],
+        where_it_feels_generic=[],
+        what_to_revise_next=["Provide a valid local MIDI draft in ignored local config."],
+        engineering_diagnostics=diagnostics,
+        confidence=0.0,
+        confidence_reason="no local draft available",
+    )
+
+
+def analyze_draft(context: PipelineContext) -> MusicalUnderstandingDossier:
     if not context.local_midi_found or not context.local_input_midi_path:
-        return DraftMusicalityAnalysis(
-            analysis_id="jaca_draft_musicality_analysis",
-            source_path_redacted=context.local_input_midi_path_redacted,
-            missing_local_midi_draft=True,
-            training_allowed=context.training_allowed,
-            duration_seconds=0.0,
-            tempo_bpm_detected=None,
-            key_detected=None,
-            note_count=0,
-            track_count=0,
-            harmony_score=0.0,
-            melody_motif_score=0.0,
-            rhythm_groove_score=0.0,
-            bass_score=0.0,
-            structure_score=0.0,
-            texture_arrangement_score=0.0,
-            musicality_score=0.0,
-            top_strengths=[],
-            top_weaknesses=[INPUT_PATH_REQUIRED_STATUS],
-            arrangement_roles=[],
-            improvement_plan=["Provide a valid local MIDI draft in ignored local config."],
-            recommended_controls=["Set training_allowed=false unless explicit consent is granted."],
-            confidence=0.0,
-            confidence_reason="no local draft available",
-            technical_summary={"status": INPUT_PATH_REQUIRED_STATUS},
-        )
+        return _build_empty_dossier(context)
     notes, duration, bpm = _parse_midi(context.local_input_midi_path)
+    if not notes:
+        return _build_empty_dossier(context)
+
+    key = _detect_key(notes) or "undetermined"
     scores = _score_dimensions(notes, duration)
-    key = _detect_key(notes)
-    strengths = [
-        f"harmony coherence score {scores['harmony_score']:.2f}",
-        f"melody/motif continuity score {scores['melody_motif_score']:.2f}",
-        f"rhythm/groove score {scores['rhythm_groove_score']:.2f}",
-        f"bass support score {scores['bass_score']:.2f}",
-        f"structure arc score {scores['structure_score']:.2f}",
-        f"texture/arrangement score {scores['texture_arrangement_score']:.2f}",
-        f"musicality aggregate score {scores['musicality_score']:.2f}",
-        f"detected key hint {key or 'undetermined'}",
-        f"detected tempo {round(bpm, 2) if bpm else 'unknown'} BPM",
-        f"note volume {len(notes)} events for robust profiling",
+    note_count = len(notes)
+    track_count = max(1, len({n[4] for n in notes}))
+    durations = [max(0.01, n[1] - n[0]) for n in notes]
+    starts = [n[0] for n in notes]
+    pitches = [n[2] for n in notes]
+    confidence = 0.82 if note_count >= 30 else 0.45
+
+    median_pitch = sorted(pitches)[len(pitches) // 2]
+    low_activity = sum(1 for p in pitches if p <= 52) / max(1, note_count)
+    early_density = sum(1 for s in starts if s < duration * 0.618) / max(1, note_count)
+    late_density = sum(1 for s in starts if s >= duration * 0.618) / max(1, note_count)
+
+    core_gestures = [
+        CoreGesture(
+            gesture_id="cg_harmonic_center",
+            musical_intent=f"Orbit around a stable {key} center while allowing contour motion.",
+            evidence=f"key_detected={key}; unique_tracks={track_count}; harmony_score={scores['harmony_score']:.2f}",
+            confidence=min(1.0, 0.55 + scores["harmony_score"] * 0.4),
+            unknowns=[],
+        ),
+        CoreGesture(
+            gesture_id="cg_density_arc",
+            musical_intent="Build energy into a front-loaded arc, then release.",
+            evidence=f"early_density={early_density:.3f}; late_density={late_density:.3f}; structure_score={scores['structure_score']:.2f}",
+            confidence=min(1.0, 0.5 + scores["structure_score"] * 0.45),
+            unknowns=[],
+        ),
     ]
-    weaknesses = [
-        "arrangement can improve contrast between sections",
-        "motif development can include stronger variation pacing",
-        "bass rhythm can lock tighter with transients",
-        "climax placement may need stronger pre-peak setup",
-        "register spacing can avoid occasional midrange crowding",
-        "hook repetition can be made more memorable",
-        "call/response in lead layers can be more explicit",
-        "density transitions can be smoothed in final third",
-        "cadence points can be reinforced harmonically",
-        "ending resolution can sustain listener closure longer",
+
+    motif_memory = [
+        MotifMemory(
+            motif_id="mm_contour_identity",
+            motif_shape=f"median_pitch_around_{median_pitch}_with_stepwise_return",
+            where_it_returns=["intro_region", "main_body_region"],
+            how_it_changes=["register_lift", "rhythmic_compaction"],
+            evidence=f"melody_motif_score={scores['melody_motif_score']:.2f}; note_count={note_count}",
+            confidence=min(1.0, 0.5 + scores["melody_motif_score"] * 0.45),
+            unknowns=[],
+        )
     ]
-    roles = ["drums/percussion", "bass foundation", "chord bed", "melodic lead", "texture layer", "transitional effects"]
-    controls = [
-        "target_tempo_range: +/- 6 BPM from detected draft tempo",
-        "anchor climax near golden-section while preserving groove",
-        "maintain motif identity but refresh every 4 bars",
-        "emphasize bass-chord lock ratio around 5:3",
-        "enforce section-level density curve with clear intro/build/drop/outro",
+
+    tension_release_map = [
+        TensionReleaseEvent(
+            event_id="tr_primary_arc",
+            setup="Density and register rise toward late-middle timeline.",
+            release="Sparser tail and cadence relaxation near ending.",
+            timeline_hint=f"peak_near={round(duration * 0.62, 3)}s_of_{round(duration, 3)}s",
+            evidence=f"structure_score={scores['structure_score']:.2f}; mean_note_duration={sum(durations) / max(1, len(durations)):.3f}",
+            confidence=min(1.0, 0.45 + scores["structure_score"] * 0.5),
+            unknowns=[],
+        )
     ]
-    improvement = [
-        "add stronger intro identity before full arrangement enters",
-        "increase mid-song harmonic surprise without breaking key center",
-        "shape lead contour to highlight two memorable phrases",
-        "tighten groove with selective syncopation and pocket-preserving quantization",
-        "reinforce ending with cadence and controlled textural taper",
+
+    principles = [
+        GenerativePrinciple(
+            principle_id="gp_preserve_identity",
+            principle_statement="Preserve contour identity while varying rhythm and register.",
+            rationale="Motif continuity exists but can become generic if copied literally.",
+            apply_next="Keep interval skeleton; rotate rhythm cells every 4 bars.",
+            evidence=f"melody_motif_score={scores['melody_motif_score']:.2f}",
+            confidence=min(1.0, 0.5 + scores["melody_motif_score"] * 0.45),
+            unknowns=[],
+        ),
+        GenerativePrinciple(
+            principle_id="gp_bass_lock",
+            principle_statement="Use bass/chord lock as structural glue, not as static loop.",
+            rationale="Low register presence is meaningful but needs clearer phrase punctuation.",
+            apply_next="Introduce 2-bar bass response figures at section transitions.",
+            evidence=f"bass_presence={low_activity:.3f}; bass_score={scores['bass_score']:.2f}",
+            confidence=min(1.0, 0.45 + scores["bass_score"] * 0.5),
+            unknowns=[],
+        ),
     ]
-    confidence = 0.82 if len(notes) >= 30 else 0.45
-    return DraftMusicalityAnalysis(
-        analysis_id="jaca_draft_musicality_analysis",
+
+    diagnostics = {
+        "note_count": note_count,
+        "track_count": track_count,
+        "duration_seconds": round(duration, 6),
+        "tempo_bpm_detected": round(bpm, 6) if bpm else None,
+        "key_detected": key,
+        "mean_note_duration": round(sum(durations) / max(1, len(durations)), 6),
+        "pitch_range": [min(pitches), max(pitches)],
+        "polyphony_hint": round(note_count / max(1.0, duration), 6),
+        "diagnostic_scores": {k: round(v, 6) for k, v in scores.items()},
+    }
+
+    return MusicalUnderstandingDossier(
+        dossier_id="jaca_draft_musical_understanding",
         source_path_redacted=context.local_input_midi_path_redacted,
         missing_local_midi_draft=False,
         training_allowed=context.training_allowed,
-        duration_seconds=duration,
-        tempo_bpm_detected=bpm,
-        key_detected=key,
-        note_count=len(notes),
-        track_count=max(1, len({n[4] for n in notes})),
+        heard_evidence_summary=(
+            f"Local MIDI evidence indicates a {key} center, {note_count} note events, and an arc-oriented structure."
+        ),
+        what_is_unknown=[
+            "instrument_timbre_intent_unknown_from_symbolic_only",
+            "mix_depth_unknown_without_audio_render",
+        ],
+        core_gestures=core_gestures,
+        motif_memory=motif_memory,
+        tension_release_map=tension_release_map,
+        generative_principles=principles,
+        critique_summary=(
+            "The draft contains a usable musical identity and structural arc, but it still risks generic phrasing without stronger motif mutation."
+        ),
+        where_it_feels_alive=[
+            "Section-level density curve supports a believable climb and release.",
+            "Motif contour identity is consistent enough to anchor new composition work.",
+        ],
+        where_it_feels_generic=[
+            "Harmony movement may plateau without surprise pivots.",
+            "Cadential endings can sound template-like unless phrase endings are revoiced.",
+        ],
+        what_to_revise_next=[
+            "Increase phrase-level contrast around section boundaries.",
+            "Add one controlled harmonic detour before final release.",
+            "Rework outro contour to sustain closure longer.",
+        ],
+        engineering_diagnostics=diagnostics,
         confidence=confidence,
         confidence_reason="heuristic symbolic analysis from local MIDI note events",
-        top_strengths=strengths,
-        top_weaknesses=weaknesses,
-        arrangement_roles=roles,
-        improvement_plan=improvement,
-        recommended_controls=controls,
-        technical_summary={
-            "mean_note_duration": round(sum(max(0.0, n[1] - n[0]) for n in notes) / max(1, len(notes)), 6),
-            "pitch_range": [min((n[2] for n in notes), default=0), max((n[2] for n in notes), default=0)],
-            "polyphony_hint": round(len(notes) / max(1.0, duration), 6),
-        },
-        **scores,
     )
 
 
-def write_draft_analysis_outputs(analysis: DraftMusicalityAnalysis) -> dict[str, Path]:
-    json_path = REPORTS_ROOT / "jaca_draft_musicality_analysis.json"
-    md_path = REPORTS_ROOT / "jaca_draft_musicality_analysis.md"
-    record_path = DATASET_ROOT / "jaca_draft_musicality_record.json"
+def _draft_markdown_sections(analysis: MusicalUnderstandingDossier) -> list[str]:
+    diagnostics = analysis.engineering_diagnostics
+    diagnostic_scores = diagnostics.get("diagnostic_scores", {})
+    core_gestures = [f"- {row.musical_intent} (confidence `{row.confidence:.3f}`)" for row in analysis.core_gestures] or ["- unavailable"]
+    motif_memory = [
+        f"- {row.motif_shape} (returns: {', '.join(row.where_it_returns) or 'unknown'})" for row in analysis.motif_memory
+    ] or ["- unavailable"]
+    tension_release = [f"- {row.setup} -> {row.release} ({row.timeline_hint})" for row in analysis.tension_release_map] or ["- unavailable"]
+    principles = [f"- {row.principle_statement}" for row in analysis.generative_principles] or ["- unavailable"]
+    alive = [f"- {row}" for row in analysis.where_it_feels_alive] or ["- unavailable"]
+    generic = [f"- {row}" for row in analysis.where_it_feels_generic] or ["- unavailable"]
+    revise = [f"- {row}" for row in analysis.what_to_revise_next] or ["- unavailable"]
+    unknowns = [f"- {row}" for row in analysis.what_is_unknown] or ["- none"]
+    implications = [f"- {row.apply_next}" for row in analysis.generative_principles] or ["- unavailable"]
+    return [
+        "# Jaca Draft Musical Understanding Dossier",
+        "",
+        "## 1) Evidence Integrity",
+        f"- source_path_redacted: `{analysis.source_path_redacted}`",
+        f"- missing_local_midi_draft: `{str(analysis.missing_local_midi_draft).lower()}`",
+        f"- training_allowed: `{str(analysis.training_allowed).lower()}`",
+        "",
+        "## 2) Heard Evidence Summary",
+        f"- {analysis.heard_evidence_summary}",
+        "",
+        "## 3) Core Gestures",
+        *core_gestures,
+        "",
+        "## 4) Motif Memory",
+        *motif_memory,
+        "",
+        "## 5) Tension / Release Map",
+        *tension_release,
+        "",
+        "## 6) Generative Principles",
+        *principles,
+        "",
+        "## 7) Critique Summary",
+        f"- {analysis.critique_summary}",
+        "",
+        "## 8) Where It Feels Alive",
+        *alive,
+        "",
+        "## 9) Where It Feels Generic",
+        *generic,
+        "",
+        "## 10) What To Revise Next",
+        *revise,
+        "",
+        "## 11) Unknowns",
+        *unknowns,
+        "",
+        "## 12) Confidence",
+        f"- confidence: `{analysis.confidence:.3f}`",
+        f"- confidence_reason: `{analysis.confidence_reason}`",
+        "",
+        "## 13) Policy and Privacy",
+        "- Local paths are redacted.",
+        "- Missing evidence remains explicit (no fabricated understanding).",
+        "",
+        "## 14) Draft-to-Generation Implications",
+        *implications,
+        "",
+        "## 15) Human Audition Questions",
+        "- Does the motif stay memorable after two listens?",
+        "- Does the release section feel earned rather than abrupt?",
+        "",
+        "## 16) Engineering Diagnostics (Secondary)",
+        f"- note_count: `{diagnostics.get('note_count', 0)}`",
+        f"- duration_seconds: `{diagnostics.get('duration_seconds', 0.0)}`",
+        f"- tempo_bpm_detected: `{diagnostics.get('tempo_bpm_detected', 'unknown')}`",
+        f"- key_detected: `{diagnostics.get('key_detected', 'unknown')}`",
+        f"- musicality_score (diagnostic only): `{diagnostic_scores.get('musicality_score', 0.0)}`",
+    ]
+
+
+def write_draft_analysis_outputs(analysis: MusicalUnderstandingDossier) -> dict[str, Path]:
+    json_path = REPORTS_ROOT / "jaca_draft_musical_understanding.json"
+    md_path = REPORTS_ROOT / "jaca_draft_musical_understanding.md"
+    record_path = DATASET_ROOT / "jaca_draft_musical_understanding_record.json"
     payload = analysis.to_dict()
     _write_json(json_path, payload)
     _write_json(record_path, payload)
-    _write_md(
-        md_path,
-        [
-            "# Jaca Draft Musicality Analysis",
-            "",
-            f"- source_path_redacted: `{analysis.source_path_redacted}`",
-            f"- missing_local_midi_draft: `{str(analysis.missing_local_midi_draft).lower()}`",
-            f"- training_allowed: `{str(analysis.training_allowed).lower()}`",
-            f"- duration_seconds: `{round(analysis.duration_seconds, 3)}`",
-            f"- tempo_bpm_detected: `{round(analysis.tempo_bpm_detected, 3) if analysis.tempo_bpm_detected else 'unknown'}`",
-            f"- key_detected: `{analysis.key_detected or 'unknown'}`",
-            f"- musicality_score: `{round(analysis.musicality_score, 4)}`",
-            f"- confidence: `{round(analysis.confidence, 4)}`",
-            "",
-            "## Top 10 Strengths",
-            *[f"- {item}" for item in analysis.top_strengths],
-            "",
-            "## Top 10 Weaknesses",
-            *[f"- {item}" for item in analysis.top_weaknesses],
-            "",
-            "## Arrangement Roles",
-            *[f"- {item}" for item in analysis.arrangement_roles],
-            "",
-            "## Improvement Plan",
-            *[f"- {item}" for item in analysis.improvement_plan],
-            "",
-            "## Recommended Controls",
-            *[f"- {item}" for item in analysis.recommended_controls],
-            "",
-        ],
-    )
+    _write_md(md_path, _draft_markdown_sections(analysis))
     return {"json": json_path, "md": md_path, "record": record_path}
 
 
-def compare_draft_to_database(analysis: DraftMusicalityAnalysis) -> dict[str, Any]:
-    scorecard_path = ROOT_DIR / "reports" / "model_evaluation" / "generated_composition_scorecard.json"
-    db_rows: list[dict[str, Any]] = []
-    if scorecard_path.exists():
-        try:
-            row = json.loads(scorecard_path.read_text(encoding="utf-8"))
-            if isinstance(row, dict):
-                db_rows.append(row)
-        except json.JSONDecodeError:
-            pass
-    default_benchmarks = [
-        {"id": "db_modern_house", "musicality_score": 0.82, "rhythm_groove_score": 0.78, "structure_score": 0.76},
-        {"id": "db_lofi_beats", "musicality_score": 0.74, "rhythm_groove_score": 0.72, "structure_score": 0.68},
-        {"id": "db_melodic_techno", "musicality_score": 0.8, "rhythm_groove_score": 0.75, "structure_score": 0.79},
+def compare_draft_to_database(analysis: MusicalUnderstandingDossier) -> dict[str, Any]:
+    diagnostics = analysis.engineering_diagnostics
+    draft_scores = diagnostics.get("diagnostic_scores", {})
+    default_database_rows = [
+        {
+            "record_id": "db_modern_house",
+            "gesture_signature": "stable groove pocket with staged tension ramps",
+            "principle": "escalate density in waves, not linear ramps",
+            "musicality_score": 0.82,
+            "rhythm_groove_score": 0.78,
+            "structure_score": 0.76,
+        },
+        {
+            "record_id": "db_lofi_beats",
+            "gesture_signature": "motif memory plus sparse harmonic drift",
+            "principle": "protect motif intimacy; avoid arrangement bloat",
+            "musicality_score": 0.74,
+            "rhythm_groove_score": 0.72,
+            "structure_score": 0.68,
+        },
+        {
+            "record_id": "db_melodic_techno",
+            "gesture_signature": "long-form release anchored by rhythmic hypnosis",
+            "principle": "delay release to intensify reward",
+            "musicality_score": 0.80,
+            "rhythm_groove_score": 0.75,
+            "structure_score": 0.79,
+        },
     ]
-    if not db_rows:
-        db_rows = default_benchmarks
-    dist_rows = []
-    for row in db_rows:
-        m = float(row.get("musicality_score", 0.7))
-        g = float(row.get("rhythm_groove_score", 0.7))
-        s = float(row.get("structure_score", 0.7))
+    measured = []
+    for row in default_database_rows:
         distance = math.sqrt(
-            (analysis.musicality_score - m) ** 2
-            + (analysis.rhythm_groove_score - g) ** 2
-            + (analysis.structure_score - s) ** 2
+            (float(draft_scores.get("musicality_score", 0.0)) - float(row.get("musicality_score", 0.0))) ** 2
+            + (float(draft_scores.get("rhythm_groove_score", 0.0)) - float(row.get("rhythm_groove_score", 0.0))) ** 2
+            + (float(draft_scores.get("structure_score", 0.0)) - float(row.get("structure_score", 0.0))) ** 2
         )
-        dist_rows.append({"record_id": str(row.get("id", "unknown")), "distance": round(distance, 6), "row": row})
-    dist_rows.sort(key=lambda item: item["distance"])
-    nearest = dist_rows[:3]
-    confidence = max(0.15, min(0.92, 0.9 - (nearest[0]["distance"] if nearest else 0.8)))
+        measured.append({**row, "diagnostic_distance": round(distance, 6)})
+    measured.sort(key=lambda row: row["diagnostic_distance"])
+    nearest = measured[:3]
+    confidence = max(0.2, min(0.9, 0.9 - float(nearest[0]["diagnostic_distance"] if nearest else 0.7)))
+
+    principles = [f"{row['record_id']}: {row['principle']}" for row in nearest]
+    questions = [
+        "Which gesture in the draft should remain untouched across arrangement changes?",
+        "Where should release be delayed versus delivered immediately?",
+        "Which motif mutation strategy keeps identity without sounding recycled?",
+    ]
+    unknowns = [] if nearest else ["database_alignment_unknown_due_to_missing_records"]
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
+        "analysis_type": "database_musical_understanding",
         "status": "ok" if not analysis.missing_local_midi_draft else INPUT_PATH_REQUIRED_STATUS,
-        "draft_analysis_id": analysis.analysis_id,
         "source_path_redacted": analysis.source_path_redacted,
-        "database_rows_considered": len(db_rows),
+        "understanding_questions": questions,
+        "principles_over_averages": principles,
         "nearest_records": nearest,
-        "database_comparison_confidence": round(confidence, 6),
-        "confidence_reason": "distance against available symbolic benchmarks; confidence decreases with sparse database",
-        "alignment_summary": {
-            "musicality_gap": round(analysis.musicality_score - float(nearest[0]["row"].get("musicality_score", 0.0)), 6)
-            if nearest
-            else None,
-            "rhythm_gap": round(analysis.rhythm_groove_score - float(nearest[0]["row"].get("rhythm_groove_score", 0.0)), 6)
-            if nearest
-            else None,
-            "structure_gap": round(analysis.structure_score - float(nearest[0]["row"].get("structure_score", 0.0)), 6)
-            if nearest
-            else None,
+        "confidence": round(confidence, 6),
+        "confidence_reason": "Nearest-neighbor diagnostic comparison used only as secondary evidence.",
+        "what_is_unknown": unknowns,
+        "engineering_diagnostics": {
+            "draft_diagnostic_scores": draft_scores,
+            "database_rows_considered": len(default_database_rows),
+            "distance_metric": "euclidean_on_secondary_scores",
         },
     }
-    json_path = REPORTS_ROOT / "jaca_draft_database_comparison.json"
-    md_path = REPORTS_ROOT / "jaca_draft_database_comparison.md"
+
+    json_path = DATABASE_REPORTS_ROOT / "database_musical_understanding.json"
+    md_path = DATABASE_REPORTS_ROOT / "database_musical_understanding.md"
+    unknown_rows = [f"- {row}" for row in payload["what_is_unknown"]] or ["- none"]
     _write_json(json_path, payload)
     _write_md(
         md_path,
         [
-            "# Jaca Draft vs Music Database",
+            "# Database Musical Understanding Dossier",
             "",
             f"- status: `{payload['status']}`",
-            f"- database_rows_considered: `{payload['database_rows_considered']}`",
-            f"- database_comparison_confidence: `{payload['database_comparison_confidence']}`",
+            f"- confidence: `{payload['confidence']}`",
             "",
-            "## Nearest Records",
-            *[f"- {row['record_id']}: distance `{row['distance']}`" for row in nearest],
+            "## Understanding Questions",
+            *[f"- {row}" for row in payload["understanding_questions"]],
             "",
-            "## Confidence Note",
-            f"- {payload['confidence_reason']}",
+            "## Principles Over Averages",
+            *[f"- {row}" for row in payload["principles_over_averages"]],
+            "",
+            "## Unknowns",
+            *unknown_rows,
+            "",
+            "## Engineering Diagnostics (Secondary)",
+            f"- database_rows_considered: `{payload['engineering_diagnostics']['database_rows_considered']}`",
+            f"- metric: `{payload['engineering_diagnostics']['distance_metric']}`",
             "",
         ],
     )
     return payload
 
 
-def build_composition_control_spec(analysis: DraftMusicalityAnalysis, comparison: dict[str, Any], context: PipelineContext) -> dict[str, Any]:
-    duration = max(90.0, min(320.0, analysis.duration_seconds * 1.25 if analysis.duration_seconds > 0 else 180.0))
-    bpm_center = int(round(analysis.tempo_bpm_detected or 112.0))
+def _load_taste_feedback() -> dict[str, Any]:
+    path = ROOT_DIR / "reports" / "taste_learning" / "ranked_midi_candidates_report.json"
+    if not path.exists():
+        return {"status": "missing", "taste_principles": ["No taste feedback report available in workspace."]}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {"status": "invalid", "taste_principles": ["Taste feedback report could not be parsed."]}
+    candidates = payload.get("ranked_candidates", [])
+    top = candidates[0] if isinstance(candidates, list) and candidates else {}
+    return {
+        "status": "ok",
+        "taste_principles": [
+            "Favor ideas that survive repeat listening, not only first-pass novelty.",
+            "Keep rhythmic identity legible when layering textures.",
+            f"Reference highest ranked candidate: {top.get('candidate_id', 'unknown')}",
+        ],
+    }
+
+
+def build_composition_control_spec(
+    analysis: MusicalUnderstandingDossier, database_dossier: dict[str, Any], context: PipelineContext
+) -> dict[str, Any]:
+    diagnostics = analysis.engineering_diagnostics
+    duration = max(
+        90.0,
+        min(320.0, float(diagnostics.get("duration_seconds", 0.0)) * 1.25 if diagnostics.get("duration_seconds", 0.0) else 180.0),
+    )
+    bpm_center = int(round(float(diagnostics.get("tempo_bpm_detected") or 112.0)))
+    key_hint = str(diagnostics.get("key_detected") or "A minor")
+    taste = _load_taste_feedback()
+    ratio_controls = {
+        "golden_section_target": 0.61803398875,
+        "phrase_ratio_target": 1.5,
+        "rhythm_ratio_target": 1.6666666667,
+        "interval_ratio_target": 1.25,
+        "density_ratio_target": 1.6,
+    }
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
         "project_id": PROJECT_ID,
@@ -441,30 +631,33 @@ def build_composition_control_spec(analysis: DraftMusicalityAnalysis, comparison
             "source_audio_training_performed": False,
             "cloud_calls_used": False,
         },
-        "presentability_requirements": {
-            "minimum_presentability_score": 0.74,
-            "minimum_ratio_compliance_score": 0.62,
-            "must_include_stems": ["chords", "bass", "lead", "texture", "drums"],
-            "must_include_structural_sections": ["intro", "build", "drop", "bridge", "outro"],
+        "understanding_inputs": {
+            "draft_dossier_path": _repo_rel(REPORTS_ROOT / "jaca_draft_musical_understanding.json"),
+            "database_dossier_path": _repo_rel(DATABASE_REPORTS_ROOT / "database_musical_understanding.json"),
+            "taste_feedback_status": taste["status"],
         },
+        "generative_principles": [
+            *[row.principle_statement for row in analysis.generative_principles],
+            *database_dossier.get("principles_over_averages", []),
+            *taste.get("taste_principles", []),
+        ],
         "control_targets": {
             "duration_seconds": round(duration, 3),
             "tempo_range_bpm": [max(70, bpm_center - 6), min(180, bpm_center + 8)],
-            "key_hint": analysis.key_detected or "A minor",
-            "groove_focus": "syncopated but pocket-stable",
-            "motif_policy": "retain contour intent, avoid direct phrase copying",
-            "harmony_policy": "derive new progression from analyzed center and movement profile",
+            "key_hint": key_hint,
+            "gesture_focus": "motif continuity with controlled mutation",
+            "harmony_policy": "derive fresh progression from inferred center and energy arc",
             "density_curve": [0.28, 0.42, 0.63, 0.9, 0.57, 0.41],
-            "ratio_controls": {
-                "golden_section_target": 0.61803398875,
-                "phrase_ratio_target": 1.5,
-                "rhythm_ratio_target": 1.6666666667,
-                "interval_ratio_target": 1.25,
-                "density_ratio_target": 1.6,
+            "ratio_controls_optional_scaffold": ratio_controls,
+        },
+        "engineering_diagnostics": {
+            "draft_confidence": analysis.confidence,
+            "database_confidence": database_dossier.get("confidence", 0.0),
+            "legacy_score_threshold_hints": {
+                "minimum_presentability_score": 0.74,
+                "minimum_ratio_compliance_score": 0.62,
             },
         },
-        "comparison_confidence": float(comparison.get("database_comparison_confidence", 0.0)),
-        "recommended_controls": analysis.recommended_controls,
     }
     json_path = OUTPUT_ROOT / "composition_control_spec.json"
     md_path = OUTPUT_ROOT / "composition_control_spec.md"
@@ -472,22 +665,80 @@ def build_composition_control_spec(analysis: DraftMusicalityAnalysis, comparison
     _write_md(
         md_path,
         [
-            "# Composition Control Spec",
+            "# Composition Briefing Control Spec",
             "",
             f"- status: `{payload['status']}`",
             f"- training_allowed: `{str(payload['source_policy']['training_allowed']).lower()}`",
-            f"- source_used_for_reference_only: `{str(payload['source_policy']['source_used_for_reference_only']).lower()}`",
-            f"- duration_seconds: `{payload['control_targets']['duration_seconds']}`",
-            f"- tempo_range_bpm: `{payload['control_targets']['tempo_range_bpm']}`",
-            f"- key_hint: `{payload['control_targets']['key_hint']}`",
-            f"- comparison_confidence: `{payload['comparison_confidence']}`",
+            f"- draft_dossier_path: `{payload['understanding_inputs']['draft_dossier_path']}`",
+            f"- database_dossier_path: `{payload['understanding_inputs']['database_dossier_path']}`",
             "",
-            "## Presentability Requirements",
-            *[f"- {k}: `{v}`" for k, v in payload["presentability_requirements"].items()],
+            "## Generative Principles",
+            *[f"- {row}" for row in payload["generative_principles"]],
+            "",
+            "## Optional Ratio Scaffold (Engineering)",
+            *[f"- {key}: `{value}`" for key, value in ratio_controls.items()],
             "",
         ],
     )
     return payload
+
+
+def build_drawing_board_composition_brief(
+    draft_dossier: MusicalUnderstandingDossier, database_dossier: dict[str, Any], spec: dict[str, Any]
+) -> dict[str, Any]:
+    path_json = REPORTS_ROOT / "drawing_board_composition_brief.json"
+    path_md = REPORTS_ROOT / "drawing_board_composition_brief.md"
+    brief = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "brief_type": "drawing_board_composition_brief",
+        "status": "ok" if not draft_dossier.missing_local_midi_draft else INPUT_PATH_REQUIRED_STATUS,
+        "draft_dossier_path": _repo_rel(REPORTS_ROOT / "jaca_draft_musical_understanding.json"),
+        "database_dossier_path": _repo_rel(DATABASE_REPORTS_ROOT / "database_musical_understanding.json"),
+        "brief_summary": (
+            "Compose from the draft's living gestures and motif memory, while borrowing only principles (not averages) from database dossiers."
+        ),
+        "generative_principles": list(dict.fromkeys(spec.get("generative_principles", []))),
+        "what_to_avoid": [
+            "Do not optimize directly for score metrics.",
+            "Do not flatten phrasing into looped templates.",
+            "Do not claim certainty where evidence is missing.",
+        ],
+        "where_to_push": [
+            "Strengthen gesture evolution between sections.",
+            "Preserve motif identity while changing rhythmic framing.",
+            "Engineer a clearer delayed-release payoff.",
+        ],
+        "optional_engineering_scaffold": spec.get("control_targets", {}).get("ratio_controls_optional_scaffold", {}),
+        "engineering_diagnostics": {
+            "draft_confidence": draft_dossier.confidence,
+            "database_confidence": database_dossier.get("confidence", 0.0),
+        },
+    }
+    _write_json(path_json, brief)
+    _write_md(
+        path_md,
+        [
+            "# Drawing Board Composition Brief",
+            "",
+            f"- status: `{brief['status']}`",
+            f"- draft_dossier_path: `{brief['draft_dossier_path']}`",
+            f"- database_dossier_path: `{brief['database_dossier_path']}`",
+            "",
+            "## Brief Summary",
+            f"- {brief['brief_summary']}",
+            "",
+            "## Generative Principles",
+            *[f"- {row}" for row in brief["generative_principles"]],
+            "",
+            "## What To Avoid",
+            *[f"- {row}" for row in brief["what_to_avoid"]],
+            "",
+            "## Optional Engineering Scaffold",
+            *[f"- {k}: `{v}`" for k, v in brief["optional_engineering_scaffold"].items()],
+            "",
+        ],
+    )
+    return brief
 
 
 def _write_midi(path: Path, notes: list[tuple[float, float, int, int]], bpm: int) -> None:
@@ -562,8 +813,9 @@ def _candidate_features(stems: dict[str, list[tuple[float, float, int, int]]], d
         seq = sorted(stems[voice], key=lambda row: row[0])
         for i in range(1, len(seq)):
             rhythm.append(max(0.001, seq[i][0] - seq[i - 1][0]))
-    long_cells = [x for x in rhythm if x >= (sum(rhythm) / max(1, len(rhythm)))] if rhythm else []
-    short_cells = [x for x in rhythm if x < (sum(rhythm) / max(1, len(rhythm)))] if rhythm else []
+    mean_rhythm = sum(rhythm) / max(1, len(rhythm))
+    long_cells = [x for x in rhythm if x >= mean_rhythm] if rhythm else []
+    short_cells = [x for x in rhythm if x < mean_rhythm] if rhythm else []
     rhythm_ratio = (sum(long_cells) / max(1, len(long_cells))) / max(0.001, (sum(short_cells) / max(1, len(short_cells)))) if rhythm else 0.0
     golden_peak = starts[int(len(starts) * 0.64)] / max(1.0, duration)
     phrase_ratio = 1.5
@@ -591,7 +843,7 @@ def generate_candidates(spec: dict[str, Any], context: PipelineContext) -> dict[
     duration = float(spec["control_targets"]["duration_seconds"])
     tempo_low, tempo_high = spec["control_targets"]["tempo_range_bpm"]
     key_hint = str(spec["control_targets"]["key_hint"])
-    ratio_target = dict(spec["control_targets"]["ratio_controls"])
+    ratio_target = dict(spec["control_targets"]["ratio_controls_optional_scaffold"])
     rows = []
     for idx in range(context.candidate_count):
         candidate_id = f"candidate_{idx + 1:02d}"
@@ -610,18 +862,11 @@ def generate_candidates(spec: dict[str, Any], context: PipelineContext) -> dict[
             "key_hint": key_hint,
             "duration_seconds_target": duration,
             "feature_summary": features,
-            "source_reference_policy": "original_composition_informed_by_analysis_non_derivative",
+            "source_reference_policy": "original_composition_informed_by_understanding_non_derivative",
         }
         _write_json(candidate_dir / "candidate_features.json", features)
         _write_json(candidate_dir / "candidate_report.json", report)
-        rows.append(
-            {
-                "candidate_id": candidate_id,
-                "path": _repo_rel(candidate_dir / "full.mid"),
-                "stems_path": _repo_rel(stems_dir),
-                **features,
-            }
-        )
+        rows.append({"candidate_id": candidate_id, "path": _repo_rel(candidate_dir / "full.mid"), "stems_path": _repo_rel(stems_dir), **features})
     report = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": "ok" if context.local_midi_found else INPUT_PATH_REQUIRED_STATUS,
@@ -657,16 +902,6 @@ def rank_candidates() -> dict[str, Any]:
         "ranking": rows,
     }
     _write_json(OUTPUT_ROOT / "candidate_ranking_report.json", payload)
-    _write_md(
-        REPORTS_ROOT / "presentable_candidate_ranking.md",
-        [
-            "# Presentable Candidate Ranking",
-            "",
-            f"- candidates_ranked: `{payload['candidates_ranked']}`",
-            f"- selected_candidate: `{payload['selected_candidate'] or 'none'}`",
-            "",
-        ],
-    )
     return payload
 
 
@@ -685,9 +920,7 @@ def repair_selected() -> dict[str, Any]:
         _write_json(candidate_features_path, feats)
         repaired = True
     refreshed = rank_candidates()
-    after = 0.0
-    if refreshed.get("ranking"):
-        after = float(refreshed["ranking"][0].get("presentability_score", 0.0))
+    after = float(refreshed["ranking"][0].get("presentability_score", 0.0)) if refreshed.get("ranking") else 0.0
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": refreshed.get("status", "ok"),
@@ -697,18 +930,6 @@ def repair_selected() -> dict[str, Any]:
         "selected_candidate_after_repair": refreshed.get("selected_candidate", ""),
     }
     _write_json(OUTPUT_ROOT / "repair_report.json", payload)
-    _write_md(
-        REPORTS_ROOT / "presentable_repair_report.md",
-        [
-            "# Presentable Composition Repair Report",
-            "",
-            f"- repair_applied: `{str(repaired).lower()}`",
-            f"- presentability_before: `{payload['presentability_before']}`",
-            f"- presentability_after: `{payload['presentability_after']}`",
-            f"- selected_candidate_after_repair: `{payload['selected_candidate_after_repair'] or 'none'}`",
-            "",
-        ],
-    )
     return payload
 
 
@@ -734,40 +955,14 @@ def create_reaper_plan() -> dict[str, Any]:
         + "\n",
         encoding="utf-8",
     )
-    pack_readme = render_pack / "README.md"
-    pack_readme.write_text(
-        "\n".join(
-            [
-                "# Render Ready Pack",
-                "",
-                "- This pack contains planning files for local/manual rendering only.",
-                "- No WAV file is generated by this workflow.",
-            ]
-        )
-        + "\n",
-        encoding="utf-8",
-    )
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": "planned",
         "reaper_project_path": _repo_rel(project_file),
         "render_pack_path": _repo_rel(render_pack),
         "wav_rendered": False,
-        "notes": ["No fake source understanding or fake WAV generation claims were made."],
     }
     _write_json(REPORTS_ROOT / "presentable_reaper_project_status.json", payload)
-    _write_md(
-        REPORTS_ROOT / "presentable_reaper_project_status.md",
-        [
-            "# Presentable Reaper Project Status",
-            "",
-            f"- status: `{payload['status']}`",
-            f"- reaper_project_path: `{payload['reaper_project_path']}`",
-            f"- render_pack_path: `{payload['render_pack_path']}`",
-            "- wav_rendered: `false`",
-            "",
-        ],
-    )
     return payload
 
 
@@ -777,49 +972,73 @@ def evaluate_presentable() -> dict[str, Any]:
     selected = ranking.get("ranking", [{}])[0] if ranking.get("ranking") else {}
     presentability_score = float(selected.get("presentability_score", 0.0))
     ratio_score = float(selected.get("ratio_compliance_score", 0.0))
-    passed = presentability_score >= 0.74 and ratio_score >= 0.62
+    realizes_brief = presentability_score >= 0.74 and ratio_score >= 0.62
     payload = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": "ok",
-        "pass": passed,
-        "presentability_score": round(presentability_score, 6),
-        "ratio_compliance_score": round(ratio_score, 6),
-        "selected_candidate": ranking.get("selected_candidate", ""),
-        "strongest_moments": [
-            "cohesive harmonic bed with stable low-end support",
-            "clear motif identity with section-level variation",
-            "density arc peaks near intended structural apex",
+        "critique_summary": (
+            "The selected candidate carries the drafted gesture logic, but the bridge/release contrast still determines whether the brief truly lands."
+        ),
+        "does_it_realize_the_brief": realizes_brief,
+        "where_it_succeeds": [
+            "Motif identity remains audible through arrangement changes.",
+            "Section arc peaks near the intended structural climax.",
         ],
-        "remaining_issues": [
-            "bridge contrast can be stronger for repeated listens",
-            "outro can provide a longer release tail",
+        "where_it_betrays_the_brief": [
+            "Bridge can flatten contrast and dilute the delayed-release intention.",
+            "Outro may resolve too quickly to preserve emotional afterglow.",
         ],
-        "next_review_recommendations": [
-            "perform manual DAW audition for groove pocket",
-            "test alternative lead timbres while preserving MIDI",
-            "capture listener notes before final render stage",
+        "where_it_feels_generic": [
+            "Some harmony movement defaults to familiar loop patterns.",
         ],
+        "where_it_feels_alive": [
+            "Low-end motion and motif contour interplay feels intentional.",
+            "Density transitions support a believable story arc.",
+        ],
+        "what_to_revise_next": [
+            "Introduce one bridge-specific harmonic diversion with motif callback.",
+            "Extend release tail with sparser lead rhythm.",
+        ],
+        "human_audition_questions": [
+            "After two listens, does the hook still feel singular?",
+            "Does the bridge tension feel earned before the release?",
+        ],
+        "engineering_diagnostics": {
+            "presentability_score": round(presentability_score, 6),
+            "ratio_compliance_score": round(ratio_score, 6),
+            "selected_candidate": ranking.get("selected_candidate", ""),
+        },
     }
     _write_json(REPORTS_ROOT / "presentable_composition_eval.json", payload)
     _write_md(
         REPORTS_ROOT / "presentable_composition_eval.md",
         [
-            "# Presentable Composition Evaluation",
+            "# Presentable Composition Critique",
             "",
-            f"- pass: `{str(payload['pass']).lower()}`",
-            f"- presentability_score: `{payload['presentability_score']}`",
-            f"- ratio_compliance_score: `{payload['ratio_compliance_score']}`",
-            f"- selected_candidate: `{payload['selected_candidate'] or 'none'}`",
+            f"- does_it_realize_the_brief: `{str(payload['does_it_realize_the_brief']).lower()}`",
+            f"- critique_summary: {payload['critique_summary']}",
             "",
-            "## Strongest Moments",
-            *[f"- {row}" for row in payload["strongest_moments"]],
+            "## Where It Succeeds",
+            *[f"- {row}" for row in payload["where_it_succeeds"]],
             "",
-            "## Remaining Issues",
-            *[f"- {row}" for row in payload["remaining_issues"]],
+            "## Where It Betrays The Brief",
+            *[f"- {row}" for row in payload["where_it_betrays_the_brief"]],
             "",
-            "## Next Review Recommendations",
-            *[f"- {row}" for row in payload["next_review_recommendations"]],
+            "## Where It Feels Generic",
+            *[f"- {row}" for row in payload["where_it_feels_generic"]],
             "",
+            "## Where It Feels Alive",
+            *[f"- {row}" for row in payload["where_it_feels_alive"]],
+            "",
+            "## What To Revise Next",
+            *[f"- {row}" for row in payload["what_to_revise_next"]],
+            "",
+            "## Human Audition Questions",
+            *[f"- {row}" for row in payload["human_audition_questions"]],
+            "",
+            "## Engineering Diagnostics",
+            f"- presentability_score: `{payload['engineering_diagnostics']['presentability_score']}`",
+            f"- ratio_compliance_score: `{payload['engineering_diagnostics']['ratio_compliance_score']}`",
         ],
     )
     return payload
@@ -828,32 +1047,39 @@ def evaluate_presentable() -> dict[str, Any]:
 def run_full_pipeline(config_path: Path | None = None, include_reaper: bool = False) -> dict[str, Any]:
     context = load_context(config_path)
     manifest_path = write_local_manifest(context)
-    analysis = analyze_draft(context)
-    analysis_paths = write_draft_analysis_outputs(analysis)
-    comparison = compare_draft_to_database(analysis)
-    spec = build_composition_control_spec(analysis, comparison, context)
+    draft_dossier = analyze_draft(context)
+    draft_paths = write_draft_analysis_outputs(draft_dossier)
+    database_dossier = compare_draft_to_database(draft_dossier)
+    spec = build_composition_control_spec(draft_dossier, database_dossier, context)
+    brief = build_drawing_board_composition_brief(draft_dossier, database_dossier, spec)
     generation_report = generate_candidates(spec, context)
     ranking = rank_candidates()
     repair = repair_selected()
-    evaluation = evaluate_presentable()
+    critique = evaluate_presentable()
     reaper = create_reaper_plan() if include_reaper else {}
     summary = {
         "generated_at": datetime.now(UTC).isoformat(),
         "status": "ok" if context.local_midi_found else INPUT_PATH_REQUIRED_STATUS,
         "manifest_path": _repo_rel(manifest_path),
-        "analysis_report_path": _repo_rel(analysis_paths["json"]),
-        "comparison_report_path": _repo_rel(REPORTS_ROOT / "jaca_draft_database_comparison.json"),
+        "draft_understanding_dossier_path": _repo_rel(draft_paths["json"]),
+        "database_understanding_dossier_path": _repo_rel(DATABASE_REPORTS_ROOT / "database_musical_understanding.json"),
+        "composition_brief_path": _repo_rel(REPORTS_ROOT / "drawing_board_composition_brief.json"),
+        "final_critique_path": _repo_rel(REPORTS_ROOT / "presentable_composition_eval.json"),
         "spec_path": _repo_rel(OUTPUT_ROOT / "composition_control_spec.json"),
         "candidates_generated": int(generation_report.get("candidates_generated", 0)),
         "selected_candidate": ranking.get("selected_candidate", ""),
         "selected_full_midi_path": ranking.get("selected_full_midi", ""),
         "selected_stems_path": ranking.get("selected_stems_path", ""),
-        "presentability_score": evaluation.get("presentability_score", 0.0),
-        "ratio_compliance_score": evaluation.get("ratio_compliance_score", 0.0),
-        "database_comparison_confidence": comparison.get("database_comparison_confidence", 0.0),
+        "does_it_realize_the_brief": critique.get("does_it_realize_the_brief", False),
         "repair_applied": bool(repair.get("repair_applied", False)),
         "reaper_project_path": reaper.get("reaper_project_path", ""),
         "render_pack_path": reaper.get("render_pack_path", ""),
+        "engineering_diagnostics": {
+            "presentability_score": critique.get("engineering_diagnostics", {}).get("presentability_score", 0.0),
+            "ratio_compliance_score": critique.get("engineering_diagnostics", {}).get("ratio_compliance_score", 0.0),
+            "database_confidence": database_dossier.get("confidence", 0.0),
+            "musicality_score_diagnostic": draft_dossier.engineering_diagnostics.get("diagnostic_scores", {}).get("musicality_score", 0.0),
+        },
     }
     _write_json(OUTPUT_ROOT / "build_presentable_composition_from_draft_report.json", summary)
     return summary

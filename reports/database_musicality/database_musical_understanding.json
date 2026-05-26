@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-05-26T01:47:55.811327+00:00",
+  "analysis_type": "database_musical_understanding",
+  "status": "ok",
+  "source_path_redacted": "C:/mb/outputs/validation_inputs/draft.mid",
+  "understanding_questions": [
+    "Which gesture in the draft should remain untouched across arrangement changes?",
+    "Where should release be delayed versus delivered immediately?",
+    "Which motif mutation strategy keeps identity without sounding recycled?"
+  ],
+  "principles_over_averages": [
+    "db_lofi_beats: protect motif intimacy; avoid arrangement bloat",
+    "db_melodic_techno: delay release to intensify reward",
+    "db_modern_house: escalate density in waves, not linear ramps"
+  ],
+  "nearest_records": [
+    {
+      "record_id": "db_lofi_beats",
+      "gesture_signature": "motif memory plus sparse harmonic drift",
+      "principle": "protect motif intimacy; avoid arrangement bloat",
+      "musicality_score": 0.74,
+      "rhythm_groove_score": 0.72,
+      "structure_score": 0.68,
+      "diagnostic_distance": 1.010728
+    },
+    {
+      "record_id": "db_melodic_techno",
+      "gesture_signature": "long-form release anchored by rhythmic hypnosis",
+      "principle": "delay release to intensify reward",
+      "musicality_score": 0.8,
+      "rhythm_groove_score": 0.75,
+      "structure_score": 0.79,
+      "diagnostic_distance": 1.129389
+    },
+    {
+      "record_id": "db_modern_house",
+      "gesture_signature": "stable groove pocket with staged tension ramps",
+      "principle": "escalate density in waves, not linear ramps",
+      "musicality_score": 0.82,
+      "rhythm_groove_score": 0.78,
+      "structure_score": 0.76,
+      "diagnostic_distance": 1.135629
+    }
+  ],
+  "confidence": 0.2,
+  "confidence_reason": "Nearest-neighbor diagnostic comparison used only as secondary evidence.",
+  "what_is_unknown": [],
+  "engineering_diagnostics": {
+    "draft_diagnostic_scores": {
+      "harmony_score": 0.504167,
+      "melody_motif_score": 0.694643,
+      "rhythm_groove_score": 0.10625,
+      "bass_score": 0.4,
+      "structure_score": 0.01,
+      "texture_arrangement_score": 0.06875,
+      "musicality_score": 0.297302
+    },
+    "database_rows_considered": 3,
+    "distance_metric": "euclidean_on_secondary_scores"
+  }
+}

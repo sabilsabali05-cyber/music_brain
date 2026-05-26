@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-05-26T01:47:55.813351+00:00",
+  "brief_type": "drawing_board_composition_brief",
+  "status": "ok",
+  "draft_dossier_path": "reports/composition_projects/jaca_draft_musical_understanding.json",
+  "database_dossier_path": "reports/database_musicality/database_musical_understanding.json",
+  "brief_summary": "Compose from the draft's living gestures and motif memory, while borrowing only principles (not averages) from database dossiers.",
+  "generative_principles": [
+    "Preserve contour identity while varying rhythm and register.",
+    "Use bass/chord lock as structural glue, not as static loop.",
+    "db_lofi_beats: protect motif intimacy; avoid arrangement bloat",
+    "db_melodic_techno: delay release to intensify reward",
+    "db_modern_house: escalate density in waves, not linear ramps",
+    "Favor ideas that survive repeat listening, not only first-pass novelty.",
+    "Keep rhythmic identity legible when layering textures.",
+    "Reference highest ranked candidate: candidate_03"
+  ],
+  "what_to_avoid": [
+    "Do not optimize directly for score metrics.",
+    "Do not flatten phrasing into looped templates.",
+    "Do not claim certainty where evidence is missing."
+  ],
+  "where_to_push": [
+    "Strengthen gesture evolution between sections.",
+    "Preserve motif identity while changing rhythmic framing.",
+    "Engineer a clearer delayed-release payoff."
+  ],
+  "optional_engineering_scaffold": {
+    "golden_section_target": 0.61803398875,
+    "phrase_ratio_target": 1.5,
+    "rhythm_ratio_target": 1.6666666667,
+    "interval_ratio_target": 1.25,
+    "density_ratio_target": 1.6
+  },
+  "engineering_diagnostics": {
+    "draft_confidence": 0.45,
+    "database_confidence": 0.2
+  }
+}
