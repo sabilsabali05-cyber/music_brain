@@ -1,0 +1,6 @@
+{
+  "local_input_midi_path": "C:/path/to/local/draft.mid",
+  "training_allowed": false,
+  "candidate_count": 8,
+  "seed": 4117
+}

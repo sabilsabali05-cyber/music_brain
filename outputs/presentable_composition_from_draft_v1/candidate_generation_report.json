@@ -1,0 +1,95 @@
+{
+  "generated_at": "2026-05-26T01:01:24.398454+00:00",
+  "status": "ok",
+  "candidates_generated": 8,
+  "candidates": [
+    {
+      "candidate_id": "candidate_01",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_01/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_01/stems",
+      "presentability_score": 0.784403,
+      "ratio_compliance_score": 0.64725,
+      "golden_peak_ratio_measured": 0.622642,
+      "rhythm_ratio_measured": 2.996182,
+      "interval_ratio_measured": 0.792899,
+      "density_ratio_measured": 1.771689
+    },
+    {
+      "candidate_id": "candidate_02",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_02/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_02/stems",
+      "presentability_score": 0.786066,
+      "ratio_compliance_score": 0.64956,
+      "golden_peak_ratio_measured": 0.623853,
+      "rhythm_ratio_measured": 2.902329,
+      "interval_ratio_measured": 0.783476,
+      "density_ratio_measured": 1.737991
+    },
+    {
+      "candidate_id": "candidate_03",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_03/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_03/stems",
+      "presentability_score": 0.790141,
+      "ratio_compliance_score": 0.648,
+      "golden_peak_ratio_measured": 0.625,
+      "rhythm_ratio_measured": 3.17405,
+      "interval_ratio_measured": 0.789474,
+      "density_ratio_measured": 1.745968
+    },
+    {
+      "candidate_id": "candidate_04",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_04/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_04/stems",
+      "presentability_score": 0.795393,
+      "ratio_compliance_score": 0.671692,
+      "golden_peak_ratio_measured": 0.626087,
+      "rhythm_ratio_measured": 3.171133,
+      "interval_ratio_measured": 0.84127,
+      "density_ratio_measured": 1.680769
+    },
+    {
+      "candidate_id": "candidate_05",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_05/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_05/stems",
+      "presentability_score": 0.790226,
+      "ratio_compliance_score": 0.655067,
+      "golden_peak_ratio_measured": 0.632768,
+      "rhythm_ratio_measured": 3.048267,
+      "interval_ratio_measured": 0.795918,
+      "density_ratio_measured": 1.660377
+    },
+    {
+      "candidate_id": "candidate_06",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_06/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_06/stems",
+      "presentability_score": 0.789736,
+      "ratio_compliance_score": 0.661897,
+      "golden_peak_ratio_measured": 0.638365,
+      "rhythm_ratio_measured": 3.155608,
+      "interval_ratio_measured": 0.841317,
+      "density_ratio_measured": 1.643777
+    },
+    {
+      "candidate_id": "candidate_07",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_07/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_07/stems",
+      "presentability_score": 0.791656,
+      "ratio_compliance_score": 0.65508,
+      "golden_peak_ratio_measured": 0.611621,
+      "rhythm_ratio_measured": 3.178054,
+      "interval_ratio_measured": 0.859195,
+      "density_ratio_measured": 1.805195
+    },
+    {
+      "candidate_id": "candidate_08",
+      "path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_08/full.mid",
+      "stems_path": "outputs/presentable_composition_from_draft_v1/candidates/candidate_08/stems",
+      "presentability_score": 0.787833,
+      "ratio_compliance_score": 0.647165,
+      "golden_peak_ratio_measured": 0.641369,
+      "rhythm_ratio_measured": 3.056583,
+      "interval_ratio_measured": 0.817935,
+      "density_ratio_measured": 1.669323
+    }
+  ]
+}

@@ -245,6 +245,7 @@
     "tests/test_reaper_render_backend.py",
     "tests/test_render_chordpotion_with_reaper.py",
     "tests/test_render_plan_schema.py",
+    "tests/test_repair_ratio_controlled_generation.py",
     "tests/test_result_scraper.py",
     "tests/test_review_segments.py",
     "tests/test_rhythm_analysis.py",

@@ -1,0 +1,64 @@
+{
+  "generated_at": "2026-05-26T01:01:24.152109+00:00",
+  "project_id": "presentable_composition_from_draft_v1",
+  "status": "ok",
+  "source_policy": {
+    "training_allowed": false,
+    "retrieval_allowed": true,
+    "source_used_for_reference_only": true,
+    "source_audio_training_performed": false,
+    "cloud_calls_used": false
+  },
+  "presentability_requirements": {
+    "minimum_presentability_score": 0.74,
+    "minimum_ratio_compliance_score": 0.62,
+    "must_include_stems": [
+      "chords",
+      "bass",
+      "lead",
+      "texture",
+      "drums"
+    ],
+    "must_include_structural_sections": [
+      "intro",
+      "build",
+      "drop",
+      "bridge",
+      "outro"
+    ]
+  },
+  "control_targets": {
+    "duration_seconds": 90.0,
+    "tempo_range_bpm": [
+      106,
+      120
+    ],
+    "key_hint": "A minor",
+    "groove_focus": "syncopated but pocket-stable",
+    "motif_policy": "retain contour intent, avoid direct phrase copying",
+    "harmony_policy": "derive new progression from analyzed center and movement profile",
+    "density_curve": [
+      0.28,
+      0.42,
+      0.63,
+      0.9,
+      0.57,
+      0.41
+    ],
+    "ratio_controls": {
+      "golden_section_target": 0.61803398875,
+      "phrase_ratio_target": 1.5,
+      "rhythm_ratio_target": 1.6666666667,
+      "interval_ratio_target": 1.25,
+      "density_ratio_target": 1.6
+    }
+  },
+  "comparison_confidence": 0.15,
+  "recommended_controls": [
+    "target_tempo_range: +/- 6 BPM from detected draft tempo",
+    "anchor climax near golden-section while preserving groove",
+    "maintain motif identity but refresh every 4 bars",
+    "emphasize bass-chord lock ratio around 5:3",
+    "enforce section-level density curve with clear intro/build/drop/outro"
+  ]
+}

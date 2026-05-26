@@ -1,0 +1,56 @@
+# Jaca Draft Musicality Analysis
+
+- source_path_redacted: `<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid`
+- missing_local_midi_draft: `false`
+- training_allowed: `false`
+- duration_seconds: `64.0`
+- tempo_bpm_detected: `unknown`
+- key_detected: `unknown`
+- musicality_score: `0.0`
+- confidence: `0.45`
+
+## Top 10 Strengths
+- harmony coherence score 0.00
+- melody/motif continuity score 0.00
+- rhythm/groove score 0.00
+- bass support score 0.00
+- structure arc score 0.00
+- texture/arrangement score 0.00
+- musicality aggregate score 0.00
+- detected key hint undetermined
+- detected tempo unknown BPM
+- note volume 0 events for robust profiling
+
+## Top 10 Weaknesses
+- arrangement can improve contrast between sections
+- motif development can include stronger variation pacing
+- bass rhythm can lock tighter with transients
+- climax placement may need stronger pre-peak setup
+- register spacing can avoid occasional midrange crowding
+- hook repetition can be made more memorable
+- call/response in lead layers can be more explicit
+- density transitions can be smoothed in final third
+- cadence points can be reinforced harmonically
+- ending resolution can sustain listener closure longer
+
+## Arrangement Roles
+- drums/percussion
+- bass foundation
+- chord bed
+- melodic lead
+- texture layer
+- transitional effects
+
+## Improvement Plan
+- add stronger intro identity before full arrangement enters
+- increase mid-song harmonic surprise without breaking key center
+- shape lead contour to highlight two memorable phrases
+- tighten groove with selective syncopation and pocket-preserving quantization
+- reinforce ending with cadence and controlled textural taper
+
+## Recommended Controls
+- target_tempo_range: +/- 6 BPM from detected draft tempo
+- anchor climax near golden-section while preserving groove
+- maintain motif identity but refresh every 4 bars
+- emphasize bass-chord lock ratio around 5:3
+- enforce section-level density curve with clear intro/build/drop/outro

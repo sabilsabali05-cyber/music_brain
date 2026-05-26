@@ -212,6 +212,15 @@ function Show-Usage {
     Write-Host "  generate-ratio-controlled-song"
     Write-Host "  evaluate-ratio-controlled-generation"
     Write-Host "  repair-ratio-controlled-generation"
+    Write-Host "  analyze-midi-draft-musicality [--config <path>]"
+    Write-Host "  compare-draft-to-music-database [--config <path>]"
+    Write-Host "  build-presentable-composition-spec [--config <path>]"
+    Write-Host "  generate-presentable-composition-candidates [--config <path>]"
+    Write-Host "  rank-presentable-composition-candidates"
+    Write-Host "  repair-presentable-composition"
+    Write-Host "  create-presentable-reaper-project"
+    Write-Host "  evaluate-presentable-composition"
+    Write-Host "  build-presentable-composition-from-draft [--config <path>] [--include-reaper]"
     Write-Host "  internal-beat-loop [--interval-seconds N] [--max-iterations N]"
     Write-Host "  internal-beat-loop-status"
     Write-Host "  stop-internal-beat-loop"
@@ -1747,6 +1756,51 @@ switch ($Task) {
         Invoke-Step -Label "Repairing ratio-controlled generation compliance" -Command @(
             "python", "scripts/repair_ratio_controlled_generation.py"
         )
+    }
+    "analyze-midi-draft-musicality" {
+        $command = @("python", "scripts/analyze_midi_draft_musicality.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Analyzing MIDI draft musicality" -Command $command
+    }
+    "compare-draft-to-music-database" {
+        $command = @("python", "scripts/compare_draft_to_music_database.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Comparing MIDI draft against music database" -Command $command
+    }
+    "build-presentable-composition-spec" {
+        $command = @("python", "scripts/build_presentable_composition_spec.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Building presentable composition control spec" -Command $command
+    }
+    "generate-presentable-composition-candidates" {
+        $command = @("python", "scripts/generate_presentable_composition_candidates.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Generating presentable composition candidates" -Command $command
+    }
+    "rank-presentable-composition-candidates" {
+        Invoke-Step -Label "Ranking presentable composition candidates" -Command @(
+            "python", "scripts/rank_presentable_composition_candidates.py"
+        )
+    }
+    "repair-presentable-composition" {
+        Invoke-Step -Label "Repairing selected presentable composition" -Command @(
+            "python", "scripts/repair_presentable_composition.py"
+        )
+    }
+    "create-presentable-reaper-project" {
+        Invoke-Step -Label "Creating presentable Reaper project plan" -Command @(
+            "python", "scripts/create_presentable_reaper_project.py"
+        )
+    }
+    "evaluate-presentable-composition" {
+        Invoke-Step -Label "Evaluating presentable composition package" -Command @(
+            "python", "scripts/evaluate_presentable_composition.py"
+        )
+    }
+    "build-presentable-composition-from-draft" {
+        $command = @("python", "scripts/build_presentable_composition_from_draft.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Running full presentable composition from draft pipeline" -Command $command
     }
     "run-music-understanding-loop" {
         Invoke-Step -Label "Running music understanding taste loop" -Command @(

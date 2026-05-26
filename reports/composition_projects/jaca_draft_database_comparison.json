@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-05-26T01:01:24.151241+00:00",
+  "status": "ok",
+  "draft_analysis_id": "jaca_draft_musicality_analysis",
+  "source_path_redacted": "<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid",
+  "database_rows_considered": 1,
+  "nearest_records": [
+    {
+      "record_id": "unknown",
+      "distance": 1.212436,
+      "row": {
+        "status": "ok",
+        "has_generation_report": true,
+        "structured_sections_count": 0,
+        "notes": [
+          "Scorecard is metadata-based and intended for iteration tracking.",
+          "No model training or inference executed in this step."
+        ]
+      }
+    }
+  ],
+  "database_comparison_confidence": 0.15,
+  "confidence_reason": "distance against available symbolic benchmarks; confidence decreases with sparse database",
+  "alignment_summary": {
+    "musicality_gap": 0.0,
+    "rhythm_gap": 0.0,
+    "structure_gap": 0.0
+  }
+}

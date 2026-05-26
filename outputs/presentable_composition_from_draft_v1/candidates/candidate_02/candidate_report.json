@@ -1,0 +1,15 @@
+{
+  "candidate_id": "candidate_02",
+  "tempo_bpm": 109,
+  "key_hint": "A minor",
+  "duration_seconds_target": 90.0,
+  "feature_summary": {
+    "presentability_score": 0.786066,
+    "ratio_compliance_score": 0.64956,
+    "golden_peak_ratio_measured": 0.623853,
+    "rhythm_ratio_measured": 2.902329,
+    "interval_ratio_measured": 0.783476,
+    "density_ratio_measured": 1.737991
+  },
+  "source_reference_policy": "original_composition_informed_by_analysis_non_derivative"
+}

@@ -42,6 +42,7 @@ reports/sample_libraries/**/*_index_report.md
 
 # Local machine sample-library config (use committed example template)
 config/sample_libraries/local_sounds_library.json
+config/presentable_composition_from_draft.local.json
 config/controlled_batches/*.local.json
 config/model_integrations/*.local.json
 config/model_integrations/model_integrations.local.json
@@ -53,6 +54,7 @@ config/local_vst_registry.local.json
 
 # Local rendering artifacts
 renders/
+renders/presentable_composition_from_draft_v1/
 local_renders/
 local_battle_records/
 beat_battle_sound_pairs/
@@ -77,6 +79,7 @@ outputs/tangible_generation_v1/*seed_suggestions*.md
 outputs/generated_midi/**
 outputs/model_backend_runs/**
 outputs/internal_beat_loop/**
+outputs/presentable_composition_from_draft_v1/local_input_cache/
 
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json

@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-26T01:01:24.440149+00:00",
+  "status": "ok",
+  "manifest_path": "outputs/presentable_composition_from_draft_v1/local_input_cache/local_input_manifest.json",
+  "analysis_report_path": "reports/composition_projects/jaca_draft_musicality_analysis.json",
+  "comparison_report_path": "reports/composition_projects/jaca_draft_database_comparison.json",
+  "spec_path": "outputs/presentable_composition_from_draft_v1/composition_control_spec.json",
+  "candidates_generated": 8,
+  "selected_candidate": "candidate_04",
+  "selected_full_midi_path": "outputs/presentable_composition_from_draft_v1/selected/full.mid",
+  "selected_stems_path": "outputs/presentable_composition_from_draft_v1/selected/stems",
+  "presentability_score": 0.795393,
+  "ratio_compliance_score": 0.671692,
+  "database_comparison_confidence": 0.15,
+  "repair_applied": false,
+  "reaper_project_path": "",
+  "render_pack_path": ""
+}
