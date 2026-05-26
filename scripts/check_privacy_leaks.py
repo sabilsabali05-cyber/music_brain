@@ -26,6 +26,7 @@ FORBIDDEN_MARKERS = [
 ENFORCED_PUBLIC_PATH_PREFIXES = [
     "outputs/generated_midi/",
     "outputs/model_backend_runs/",
+    "outputs/paired_loop_packs/",
     "outputs/source_sample_packs/",
     "outputs/symbolic_ensemble_v1/",
     "reports/",

@@ -2,7 +2,7 @@
 
 - status: `fail`
 - strict_mode: `False`
-- new_public_leak_count: `7`
+- new_public_leak_count: `9`
 - pre_existing_historical_path_debt_count: `6`
 
 ## New Public Leaks
@@ -13,6 +13,8 @@
 - `reports/taste_learning/feedback_ingestion_report.json` marker=`C:/Users/izzyo` count=`1`
 - `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/` count=`1`
 - `reports/taste_learning/feedback_ingestion_report.md` marker=`C:/Users/izzyo` count=`1`
+- `scripts/build_source_song_starter_pack.py` marker=`C:/Users/` count=`1`
+- `scripts/discover_source_loop_candidates.py` marker=`C:/Users/` count=`1`
 
 ## Pre-existing Historical Path Debt
 - `docs/ABLETON_EXPORT_WORKFLOW.md` marker=`private_synplant_seed_paths` count=`1`

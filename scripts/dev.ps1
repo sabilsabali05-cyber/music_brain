@@ -181,6 +181,8 @@ function Show-Usage {
     Write-Host "  discover-source-loop-candidates"
     Write-Host "  build-source-song-starter-pack"
     Write-Host "  export-sample-pack-to-reaper-live-bridge [pack-dir]"
+    Write-Host "  export-paired-loop-pack [--input-midi <path>] [--stem-dir <path>] [--pack-id <id>] [--tempo <bpm>] [--key <key>] [--bars <n>] [--renderer <mode>] [--preview]"
+    Write-Host "  verify-paired-loop-pack [--manifest <path>] [--duration-tolerance-seconds <float>]"
     Write-Host "  build-source-understood-composition"
     Write-Host "  evaluate-source-understood-composition"
     Write-Host "  analyze-audio-database-musicality"
@@ -1519,6 +1521,16 @@ switch ($Task) {
             $command += @("--pack-dir", $packDir)
         }
         Invoke-Step -Label "Exporting sample pack to REAPER live bridge manifest" -Command $command
+    }
+    "export-paired-loop-pack" {
+        $command = @("python", "scripts/export_paired_loop_pack.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Exporting paired MIDI/audio loop pack" -Command $command
+    }
+    "verify-paired-loop-pack" {
+        $command = @("python", "scripts/verify_paired_loop_pack.py")
+        if ($TaskArgs.Count -gt 0) { $command += $TaskArgs }
+        Invoke-Step -Label "Verifying paired MIDI/audio loop pack" -Command $command
     }
     "build-source-understood-composition" {
         Invoke-Step -Label "Building source understood composition" -Command @(

@@ -1,0 +1,33 @@
+{
+  "generated_at": "2026-05-26T20:41:27.028161+00:00",
+  "pack_manifest_path": "C:/mb_real_understanding/outputs/paired_loop_packs/paired_loop_pack_20260526T204103Z/pack_manifest.json",
+  "pack_id": "paired_loop_pack_20260526T204103Z",
+  "family_count": 5,
+  "paired_loop_count": 35,
+  "midi_loop_count": 35,
+  "audio_loop_count": 35,
+  "pair_json_count": 35,
+  "audio_orphan_count": 0,
+  "clone_variation_failures": 0,
+  "render_verified_count": 35,
+  "private_paths_detected": false,
+  "strongest_families": [
+    "family_01_bass",
+    "family_02_chords",
+    "family_03_lead",
+    "family_04_texture",
+    "family_05_percussion"
+  ],
+  "weak_families": [],
+  "weirdest_variations": [],
+  "best_standalone_loops": [
+    "family_01_bass__syncopated",
+    "family_02_chords__syncopated",
+    "family_03_lead__syncopated",
+    "family_04_texture__syncopated",
+    "family_05_percussion__syncopated"
+  ],
+  "renderer_used": "python_preview_synth",
+  "pack_verified": true,
+  "issues": []
+}

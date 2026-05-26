@@ -85,6 +85,7 @@ outputs/model_backend_runs/**
 outputs/internal_beat_loop/**
 outputs/presentable_composition_from_draft_v1/local_input_cache/
 outputs/source_sample_packs/
+outputs/paired_loop_packs/
 
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json
