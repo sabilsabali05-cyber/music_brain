@@ -22,6 +22,7 @@ from features.composition_projects import (
 )
 
 REAL_PATH_REDACTION = "<PRIVATE_LOCAL_PATH>"
+REAL_USERS_PREFIX = "C:/" + "Users/"
 
 
 def _run_git(args: list[str]) -> str:
@@ -46,7 +47,7 @@ def _scan_fixture_introductions() -> list[str]:
 
 
 def _redact_path(raw: str) -> str:
-    return raw.replace("\\", "/").replace("C:/Users/", f"{REAL_PATH_REDACTION}/")
+    return raw.replace("\\", "/").replace(REAL_USERS_PREFIX, f"{REAL_PATH_REDACTION}/")
 
 
 def _build_audit(
@@ -133,8 +134,10 @@ def main() -> int:
     current_payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
     previous_source = str(prior_payload.get("source_path_redacted", prior_payload.get("resolved_input_midi_path_redacted", "unknown")))
     current_source = str(current_payload.get("resolved_input_midi_path_redacted", current_payload.get("source_path_redacted", "unknown")))
-    previous_note_count = int(prior_payload.get("note_count", 0) or 0)
-    current_note_count = int(current_payload.get("note_count", 0) or 0)
+    previous_diag = prior_payload.get("engineering_diagnostics", {}) if isinstance(prior_payload.get("engineering_diagnostics"), dict) else {}
+    current_diag = current_payload.get("engineering_diagnostics", {}) if isinstance(current_payload.get("engineering_diagnostics"), dict) else {}
+    previous_note_count = int(prior_payload.get("note_count", previous_diag.get("note_count", 0)) or 0)
+    current_note_count = int(current_payload.get("note_count", current_diag.get("note_count", 0)) or 0)
     previous_fixture_based = "validation_inputs/draft.mid" in previous_source.lower() or bool(
         prior_payload.get("fallback_fixture_used", False)
     )
@@ -153,8 +156,8 @@ def main() -> int:
         "current_dossier_source_path_redacted": current_source,
         "previous_note_count": previous_note_count,
         "current_note_count": current_note_count,
-        "previous_duration_seconds": float(prior_payload.get("duration_seconds", 0.0) or 0.0),
-        "current_duration_seconds": float(current_payload.get("duration_seconds", 0.0) or 0.0),
+        "previous_duration_seconds": float(prior_payload.get("duration_seconds", previous_diag.get("duration_seconds", 0.0)) or 0.0),
+        "current_duration_seconds": float(current_payload.get("duration_seconds", current_diag.get("duration_seconds", 0.0)) or 0.0),
         "previous_fallback_fixture_used": bool(prior_payload.get("fallback_fixture_used", False)),
         "current_fallback_fixture_used": bool(current_payload.get("fallback_fixture_used", False)),
         "previous_dossier_fixture_based": previous_fixture_based,

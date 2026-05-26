@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:01:24.152109+00:00",
+  "generated_at": "2026-05-26T13:39:13.130893+00:00",
   "project_id": "presentable_composition_from_draft_v1",
   "status": "ok",
   "source_policy": {
@@ -9,34 +9,30 @@
     "source_audio_training_performed": false,
     "cloud_calls_used": false
   },
-  "presentability_requirements": {
-    "minimum_presentability_score": 0.74,
-    "minimum_ratio_compliance_score": 0.62,
-    "must_include_stems": [
-      "chords",
-      "bass",
-      "lead",
-      "texture",
-      "drums"
-    ],
-    "must_include_structural_sections": [
-      "intro",
-      "build",
-      "drop",
-      "bridge",
-      "outro"
-    ]
+  "understanding_inputs": {
+    "draft_dossier_path": "reports/composition_projects/jaca_draft_musical_understanding.json",
+    "database_dossier_path": "reports/database_musicality/database_musical_understanding.json",
+    "taste_feedback_status": "ok"
   },
+  "generative_principles": [
+    "Preserve contour identity while varying rhythm and register.",
+    "Use bass/chord lock as structural glue, not as static loop.",
+    "db_lofi_beats: protect motif intimacy; avoid arrangement bloat",
+    "db_modern_house: escalate density in waves, not linear ramps",
+    "db_melodic_techno: delay release to intensify reward",
+    "Favor ideas that survive repeat listening, not only first-pass novelty.",
+    "Keep rhythmic identity legible when layering textures.",
+    "Reference highest ranked candidate: candidate_03"
+  ],
   "control_targets": {
     "duration_seconds": 90.0,
     "tempo_range_bpm": [
       106,
       120
     ],
-    "key_hint": "A minor",
-    "groove_focus": "syncopated but pocket-stable",
-    "motif_policy": "retain contour intent, avoid direct phrase copying",
-    "harmony_policy": "derive new progression from analyzed center and movement profile",
+    "key_hint": "Bb minor",
+    "gesture_focus": "motif continuity with controlled mutation",
+    "harmony_policy": "derive fresh progression from inferred center and energy arc",
     "density_curve": [
       0.28,
       0.42,
@@ -45,7 +41,7 @@
       0.57,
       0.41
     ],
-    "ratio_controls": {
+    "ratio_controls_optional_scaffold": {
       "golden_section_target": 0.61803398875,
       "phrase_ratio_target": 1.5,
       "rhythm_ratio_target": 1.6666666667,
@@ -53,12 +49,12 @@
       "density_ratio_target": 1.6
     }
   },
-  "comparison_confidence": 0.15,
-  "recommended_controls": [
-    "target_tempo_range: +/- 6 BPM from detected draft tempo",
-    "anchor climax near golden-section while preserving groove",
-    "maintain motif identity but refresh every 4 bars",
-    "emphasize bass-chord lock ratio around 5:3",
-    "enforce section-level density curve with clear intro/build/drop/outro"
-  ]
+  "engineering_diagnostics": {
+    "draft_confidence": 0.82,
+    "database_confidence": 0.473701,
+    "legacy_score_threshold_hints": {
+      "minimum_presentability_score": 0.74,
+      "minimum_ratio_compliance_score": 0.62
+    }
+  }
 }

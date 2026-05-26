@@ -1,92 +1,66 @@
-# Jaca Draft Musical Understanding
+# Jaca Draft Musical Understanding Dossier
 
+## 1) Evidence Integrity
 - source_path_redacted: `<PRIVATE_LOCAL_PATH>/OneDrive/Desktop/jaca Project/Samplab_ytmp3free.cc_john-ke 20004.mid`
-- input_source_class: `real_local_midi`
-- fallback_fixture_used: `false`
 - missing_local_midi_draft: `false`
 - training_allowed: `false`
-- source_file_type: `mid`
-- source_file_size_bytes: `3026`
-- track_count: `1`
+
+## 2) Heard Evidence Summary
+- Local MIDI evidence indicates a Bb minor center, 368 note events, and an arc-oriented structure.
+
+## 3) Core Gestures
+- Orbit around a stable Bb minor center while allowing contour motion. (confidence `0.950`)
+- Build energy into a front-loaded arc, then release. (confidence `0.692`)
+
+## 4) Motif Memory
+- median_pitch_around_70_with_stepwise_return (returns: intro_region, main_body_region)
+
+## 5) Tension / Release Map
+- Density and register rise toward late-middle timeline. -> Sparser tail and cadence relaxation near ending. (peak_near=39.68s_of_64.0s)
+
+## 6) Generative Principles
+- Preserve contour identity while varying rhythm and register.
+- Use bass/chord lock as structural glue, not as static loop.
+
+## 7) Critique Summary
+- The draft contains a usable musical identity and structural arc, but it still risks generic phrasing without stronger motif mutation.
+
+## 8) Where It Feels Alive
+- Section-level density curve supports a believable climb and release.
+- Motif contour identity is consistent enough to anchor new composition work.
+
+## 9) Where It Feels Generic
+- Harmony movement may plateau without surprise pivots.
+- Cadential endings can sound template-like unless phrase endings are revoiced.
+
+## 10) What To Revise Next
+- Increase phrase-level contrast around section boundaries.
+- Add one controlled harmonic detour before final release.
+- Rework outro contour to sustain closure longer.
+
+## 11) Unknowns
+- instrument_timbre_intent_unknown_from_symbolic_only
+- mix_depth_unknown_without_audio_render
+
+## 12) Confidence
+- confidence: `0.820`
+- confidence_reason: `heuristic symbolic analysis from local MIDI note events`
+
+## 13) Policy and Privacy
+- Local paths are redacted.
+- Missing evidence remains explicit (no fabricated understanding).
+
+## 14) Draft-to-Generation Implications
+- Keep interval skeleton; rotate rhythm cells every 4 bars.
+- Introduce 2-bar bass response figures at section transitions.
+
+## 15) Human Audition Questions
+- Does the motif stay memorable after two listens?
+- Does the release section feel earned rather than abrupt?
+
+## 16) Engineering Diagnostics (Secondary)
 - note_count: `368`
 - duration_seconds: `64.0`
-- tempo_bpm_detected: `unknown`
-- tempo_unknown_reason: `No MIDI set_tempo meta event found.`
+- tempo_bpm_detected: `None`
 - key_detected: `Bb minor`
-- key_unknown_reason: `none`
-- musicality_score: `0.5422`
-- confidence: `0.82`
-
-## Evidence Limits
-- Interpretation is from MIDI note timing/pitch/velocity only.
-- No articulation, sound design, mixing, or mastering evidence is available.
-- Key/tempo inference depends on explicit MIDI metadata and note distributions.
-
-## Core Gestures
-- Phrase density transitions from early(132) to middle(132) to late(104) regions.
-- Pitch register spans MIDI 56 to 92, suggesting 36 semitone gesture breadth.
-- Average note duration is 0.9905s across 368 note events.
-
-## Motif Memory
-- Found 10 unique pitch classes; repeated classes indicate motif anchors.
-- Recurring onset spacing suggests a reusable rhythmic cell for identity retention.
-- Motif memory is estimated from repeated pitch/onset patterns, not exact melodic semantics.
-
-## Tension Release
-- Tension generally rises when event density increases and pitch range expands.
-- Release moments appear where note density thins and durations lengthen.
-- Arc confidence is moderate and should be validated with human listening in DAW.
-
-## Preserve Transform Discard
-- preserve: Preserve recurring rhythmic cells and the strongest repeating pitch centers.
-- preserve: Preserve macro section timing inferred from event density changes.
-- transform: Transform literal phrases into new contour variants while keeping motif rhythm identity.
-- transform: Transform harmonic pacing to improve contrast without breaking core tension arc.
-- discard: Discard unsupported claims not backed by parsed MIDI note evidence.
-- discard: Discard placeholder or fixture-derived assumptions from prior dossier versions.
-
-## Top 10 Strengths
-- harmony coherence score 1.00
-- melody/motif continuity score 0.37
-- rhythm/groove score 1.00
-- bass support score 0.26
-- structure arc score 0.43
-- texture/arrangement score 0.20
-- musicality aggregate score 0.54
-- detected key hint Bb minor
-- detected tempo unknown BPM
-- note volume 368 events for robust profiling
-
-## Top 10 Weaknesses
-- arrangement can improve contrast between sections
-- motif development can include stronger variation pacing
-- bass rhythm can lock tighter with transients
-- climax placement may need stronger pre-peak setup
-- register spacing can avoid occasional midrange crowding
-- hook repetition can be made more memorable
-- call/response in lead layers can be more explicit
-- density transitions can be smoothed in final third
-- cadence points can be reinforced harmonically
-- ending resolution can sustain listener closure longer
-
-## Arrangement Roles
-- drums/percussion
-- bass foundation
-- chord bed
-- melodic lead
-- texture layer
-- transitional effects
-
-## Improvement Plan
-- add stronger intro identity before full arrangement enters
-- increase mid-song harmonic surprise without breaking key center
-- shape lead contour to highlight two memorable phrases
-- tighten groove with selective syncopation and pocket-preserving quantization
-- reinforce ending with cadence and controlled textural taper
-
-## Recommended Controls
-- target_tempo_range: +/- 6 BPM from detected draft tempo
-- anchor climax near golden-section while preserving groove
-- maintain motif identity but refresh every 4 bars
-- emphasize bass-chord lock ratio around 5:3
-- enforce section-level density curve with clear intro/build/drop/outro
+- musicality_score (diagnostic only): `0.542229`

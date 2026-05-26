@@ -1,0 +1,86 @@
+{
+  "generated_from_audit": "reports/model_witnesses/model_witness_audit.json",
+  "all_witnesses_unavailable": true,
+  "witnesses_total": 7,
+  "witnesses_unavailable": 7,
+  "policy": "no_auto_install_no_fake_smoke_pass",
+  "activation_plan": [
+    {
+      "witness_id": "moonbeam",
+      "witness_name": "Moonbeam",
+      "missing_config": true,
+      "missing_dependencies": false,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.moonbeam.enabled=true.",
+      "unavailable_reason": "disabled"
+    },
+    {
+      "witness_id": "musicbert",
+      "witness_name": "MusicBERT",
+      "missing_config": true,
+      "missing_dependencies": false,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.musicbert.enabled=true.",
+      "unavailable_reason": "disabled"
+    },
+    {
+      "witness_id": "midigpt",
+      "witness_name": "MIDI-GPT",
+      "missing_config": true,
+      "missing_dependencies": false,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.midigpt.enabled=true.",
+      "unavailable_reason": "disabled"
+    },
+    {
+      "witness_id": "text2midi",
+      "witness_name": "Text2MIDI",
+      "missing_config": true,
+      "missing_dependencies": false,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.text2midi.enabled=true.",
+      "unavailable_reason": "disabled"
+    },
+    {
+      "witness_id": "transcription_witnesses",
+      "witness_name": "Transcription witnesses",
+      "missing_config": true,
+      "missing_dependencies": true,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and keep both witnesses disabled by default.",
+      "unavailable_reason": "disabled_or_missing_local_config"
+    },
+    {
+      "witness_id": "source_separation_witness",
+      "witness_name": "Source separation witness",
+      "missing_config": true,
+      "missing_dependencies": true,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.demucs.enabled=true only when explicit witness execution is intentionally enabled.",
+      "unavailable_reason": "disabled_or_missing_local_config"
+    },
+    {
+      "witness_id": "texture_witness",
+      "witness_name": "Texture witness",
+      "missing_config": true,
+      "missing_dependencies": true,
+      "local_only": true,
+      "cloud_required": false,
+      "weights_required": true,
+      "next_action": "Configure a local texture witness backend and smoke-test it before use.",
+      "unavailable_reason": "no_texture_backend_configured"
+    }
+  ]
+}

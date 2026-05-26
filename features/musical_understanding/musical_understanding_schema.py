@@ -111,6 +111,8 @@ class MusicalUnderstandingDossier:
     where_it_feels_alive: list[str]
     where_it_feels_generic: list[str]
     what_to_revise_next: list[str]
+    top_strengths: list[str] = field(default_factory=list)
+    top_weaknesses: list[str] = field(default_factory=list)
     engineering_diagnostics: dict[str, Any] = field(default_factory=dict)
     confidence: float = 0.0
     confidence_reason: str = ""

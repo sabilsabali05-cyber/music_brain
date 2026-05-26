@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-05-26T13:00:07.729822+00:00",
+  "status": "ok",
+  "critique_first_summary": [
+    "The composition framing is understanding-first and cites source-database principles.",
+    "Weak evidence areas are surfaced and not hidden behind aggregate scoring.",
+    "Transformation-over-copy policy is explicit and preserved in output metadata."
+  ],
+  "critical_concerns": [],
+  "recommended_next_actions": [
+    "Increase real backend witness coverage before trusting stylistic claims.",
+    "Keep disagreement records visible during human review.",
+    "Validate transformation boundaries in DAW audition before release."
+  ],
+  "engineering_diagnostics": {
+    "draft_real_midi_gate_passed": true,
+    "source_understood_composition_generated": true,
+    "source_db_principles_cited_count": 5
+  }
+}

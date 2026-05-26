@@ -1,0 +1,12 @@
+{
+  "analysis_allowed_roots": [
+    "C:/path/to/authorized/source_audio"
+  ],
+  "excluded_roots": [
+    "C:/path/to/authorized/source_audio/private_or_restricted"
+  ],
+  "retrieval_only_roots": [
+    "C:/path/to/authorized/source_audio/reference_only"
+  ],
+  "training_allowed_roots": []
+}

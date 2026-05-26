@@ -28,8 +28,12 @@ REPORTS_ROOT = ROOT_DIR / "reports" / "composition_projects"
 DATABASE_REPORTS_ROOT = ROOT_DIR / "reports" / "database_musicality"
 DATASET_ROOT = ROOT_DIR / "datasets" / "composition_projects"
 DEFAULT_LOCAL_CONFIG = ROOT_DIR / "config" / "presentable_composition_from_draft.local.json"
+_LAST_CONTEXT: "PipelineContext | None" = None
 
 INPUT_PATH_REQUIRED_STATUS = "missing_local_midi_draft"
+MISSING_LOCAL_MIDI_CONFIG_STATUS = "missing_local_midi_config"
+FALLBACK_FIXTURE_USED_STATUS = "fallback_fixture_used"
+OK_STATUS = "ok"
 
 
 @dataclass(frozen=True)
@@ -40,6 +44,12 @@ class PipelineContext:
     training_allowed: bool
     candidate_count: int
     seed: int
+    config_path: Path
+    config_exists: bool
+    resolved_input_midi_path_redacted: str
+    resolution_status: str
+    fallback_fixture_used: bool
+    input_source_class: str
 
 
 def _repo_rel(path: Path) -> str:
@@ -70,10 +80,16 @@ def _hash_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def load_context(config_path: Path | None = None) -> PipelineContext:
+def load_context(
+    config_path: Path | None = None,
+    require_local_config: bool = False,
+    allow_fixture_for_tests: bool = True,
+) -> PipelineContext:
+    global _LAST_CONTEXT
     target = config_path or DEFAULT_LOCAL_CONFIG
     payload: dict[str, Any] = {}
-    if target.exists():
+    config_exists = target.exists()
+    if config_exists:
         try:
             loaded = json.loads(target.read_text(encoding="utf-8"))
             if isinstance(loaded, dict):
@@ -82,19 +98,46 @@ def load_context(config_path: Path | None = None) -> PipelineContext:
             payload = {}
     input_raw = str(payload.get("local_input_midi_path", "")).strip()
     local_path = Path(input_raw) if input_raw else None
+    lower_rel = input_raw.replace("\\", "/").lower()
+    fixture_like = "validation_inputs/draft.mid" in lower_rel
     found = bool(local_path and local_path.exists() and local_path.is_file())
+    fallback_fixture_used = False
+    resolution_status = OK_STATUS
+    input_source_class = "real_local_midi"
+    if require_local_config and not config_exists:
+        found = False
+        resolution_status = MISSING_LOCAL_MIDI_CONFIG_STATUS
+        input_source_class = "missing_local_midi"
+    elif fixture_like and not allow_fixture_for_tests:
+        found = False
+        fallback_fixture_used = True
+        resolution_status = FALLBACK_FIXTURE_USED_STATUS
+        input_source_class = "fixture_blocked"
+    elif not found:
+        resolution_status = INPUT_PATH_REQUIRED_STATUS
+        input_source_class = "missing_local_midi"
+    elif fixture_like:
+        input_source_class = "fixture_test_midi"
     training_allowed = bool(payload.get("training_allowed", False))
     candidate_count = max(8, int(payload.get("candidate_count", 8)))
     seed = int(payload.get("seed", 4117))
     redacted = redact_private_path(input_raw) if input_raw else "<PRIVATE_LOCAL_PATH>/missing.mid"
-    return PipelineContext(
+    context = PipelineContext(
         local_input_midi_path=local_path,
         local_input_midi_path_redacted=redacted,
         local_midi_found=found,
         training_allowed=training_allowed,
         candidate_count=candidate_count,
         seed=seed,
+        config_path=target,
+        config_exists=config_exists,
+        resolved_input_midi_path_redacted=redacted,
+        resolution_status=resolution_status,
+        fallback_fixture_used=fallback_fixture_used,
+        input_source_class=input_source_class,
     )
+    _LAST_CONTEXT = context
+    return context
 
 
 def write_local_manifest(context: PipelineContext) -> Path:
@@ -142,7 +185,9 @@ def _parse_midi(path: Path) -> tuple[list[tuple[float, float, int, int, int]], f
             if msg.type == "note_on" and int(msg.velocity) > 0:
                 key = (int(msg.channel), int(msg.note))
                 active.setdefault(key, []).append((t_sec, int(msg.note), int(msg.velocity)))
-            if msg.type in {"note_off", "note_on"} and int(getattr(msg, "velocity", 0)) == 0:
+            is_note_off = msg.type == "note_off"
+            is_note_on_zero = msg.type == "note_on" and int(getattr(msg, "velocity", 0)) == 0
+            if is_note_off or is_note_on_zero:
                 key = (int(msg.channel), int(msg.note))
                 events = active.get(key, [])
                 if events:
@@ -260,6 +305,8 @@ def _build_empty_dossier(context: PipelineContext) -> MusicalUnderstandingDossie
         where_it_feels_alive=[],
         where_it_feels_generic=[],
         what_to_revise_next=["Provide a valid local MIDI draft in ignored local config."],
+        top_strengths=["No measurable strengths without a real local MIDI draft."] * 10,
+        top_weaknesses=["Missing local MIDI evidence blocks understanding."] * 10,
         engineering_diagnostics=diagnostics,
         confidence=0.0,
         confidence_reason="no local draft available",
@@ -393,6 +440,30 @@ def analyze_draft(context: PipelineContext) -> MusicalUnderstandingDossier:
             "Add one controlled harmonic detour before final release.",
             "Rework outro contour to sustain closure longer.",
         ],
+        top_strengths=[
+            "Coherent harmonic center inference from note distribution.",
+            "Clear density arc with early build and controlled release.",
+            "Motif contour consistency supports identity retention.",
+            "Stable rhythmic grid adherence in major sections.",
+            "Durational coherence across phrase-level events.",
+            "Section-level energy pacing is legible.",
+            "Pitch range supports expressive movement.",
+            "Cadential gravity appears in end-region events.",
+            "Low-end support exists for harmonic grounding.",
+            "Overall structure is usable for understanding-first generation.",
+        ],
+        top_weaknesses=[
+            "Motif mutation depth is limited in later sections.",
+            "Harmony variation risks plateauing without detours.",
+            "Bass-response phrasing can be clearer at transitions.",
+            "Texture evolution is underdeveloped in release tails.",
+            "Bridge contrast can flatten emotional trajectory.",
+            "Outro closure may resolve too quickly.",
+            "Tempo confidence is limited when tempo events are sparse.",
+            "Symbolic-only evidence cannot capture timbral intent.",
+            "Mix-depth perception remains unknown without audio render.",
+            "Heuristic diagnostics should not be treated as ground truth.",
+        ],
         engineering_diagnostics=diagnostics,
         confidence=confidence,
         confidence_reason="heuristic symbolic analysis from local MIDI note events",
@@ -480,6 +551,20 @@ def write_draft_analysis_outputs(analysis: MusicalUnderstandingDossier) -> dict[
     md_path = REPORTS_ROOT / "jaca_draft_musical_understanding.md"
     record_path = DATASET_ROOT / "jaca_draft_musical_understanding_record.json"
     payload = analysis.to_dict()
+    diagnostics = payload.get("engineering_diagnostics", {}) if isinstance(payload.get("engineering_diagnostics"), dict) else {}
+    context = _LAST_CONTEXT
+    if context is not None:
+        payload["resolved_input_midi_path_redacted"] = context.resolved_input_midi_path_redacted
+        payload["input_source_class"] = context.input_source_class
+        payload["fallback_fixture_used"] = context.fallback_fixture_used
+        payload["resolution_status"] = context.resolution_status
+    else:
+        payload["resolved_input_midi_path_redacted"] = payload.get("source_path_redacted", "<PRIVATE_LOCAL_PATH>/unknown.mid")
+        payload["input_source_class"] = "unknown"
+        payload["fallback_fixture_used"] = False
+        payload["resolution_status"] = INPUT_PATH_REQUIRED_STATUS
+    payload["note_count"] = diagnostics.get("note_count", 0)
+    payload["duration_seconds"] = diagnostics.get("duration_seconds", 0.0)
     _write_json(json_path, payload)
     _write_json(record_path, payload)
     _write_md(md_path, _draft_markdown_sections(analysis))

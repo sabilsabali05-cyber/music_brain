@@ -1,0 +1,169 @@
+{
+  "generated_at": "2026-05-26T13:36:44.309424+00:00",
+  "gate_rule": "use witness only when configured, installed, and smoke_test_passed are all true",
+  "witnesses": [
+    {
+      "witness_id": "moonbeam",
+      "witness_name": "Moonbeam",
+      "witness_type": "symbolic_generation",
+      "backend": "local_python",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled",
+      "blockers": [
+        "not_configured"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.moonbeam.enabled=true.",
+      "metadata": {
+        "setup_status": "ok",
+        "smoke_status": "disabled"
+      }
+    },
+    {
+      "witness_id": "musicbert",
+      "witness_name": "MusicBERT",
+      "witness_type": "symbolic_understanding",
+      "backend": "local_python",
+      "required_for_pipeline": true,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled",
+      "blockers": [
+        "not_configured"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.musicbert.enabled=true.",
+      "metadata": {
+        "setup_status": "ok",
+        "smoke_status": "disabled"
+      }
+    },
+    {
+      "witness_id": "midigpt",
+      "witness_name": "MIDI-GPT",
+      "witness_type": "symbolic_generation",
+      "backend": "local_python",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled",
+      "blockers": [
+        "not_configured"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.midigpt.enabled=true.",
+      "metadata": {
+        "setup_status": "ok",
+        "smoke_status": "disabled"
+      }
+    },
+    {
+      "witness_id": "text2midi",
+      "witness_name": "Text2MIDI",
+      "witness_type": "symbolic_generation",
+      "backend": "local_python",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled",
+      "blockers": [
+        "not_configured"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.text2midi.enabled=true.",
+      "metadata": {
+        "setup_status": "ok",
+        "smoke_status": "disabled"
+      }
+    },
+    {
+      "witness_id": "transcription_witnesses",
+      "witness_name": "Transcription witnesses",
+      "witness_type": "transcription",
+      "backend": "local_policy_gate",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "blockers": [
+        "no_local_transcription_backend"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json and keep both witnesses disabled by default.",
+      "metadata": {
+        "yourmt3_available": false,
+        "basic_pitch_available": false
+      }
+    },
+    {
+      "witness_id": "source_separation_witness",
+      "witness_name": "Source separation witness",
+      "witness_type": "source_separation",
+      "backend": "local_policy_gate",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "blockers": [
+        "no_local_demucs_backend"
+      ],
+      "next_setup_step": "Copy config/model_integrations/model_integrations.example.json to config/model_integrations/model_integrations.local.json, then set models.demucs.enabled=true only when explicit witness execution is intentionally enabled.",
+      "metadata": {
+        "witness_policy": "weak_evidence_not_truth"
+      }
+    },
+    {
+      "witness_id": "texture_witness",
+      "witness_name": "Texture witness",
+      "witness_type": "texture_understanding",
+      "backend": "local_unconfigured",
+      "required_for_pipeline": false,
+      "configured": false,
+      "installed": false,
+      "smoke_test_passed": false,
+      "available": false,
+      "gate_status": "blocked",
+      "unavailable_reason": "no_texture_backend_configured",
+      "blockers": [
+        "no_texture_backend_configured"
+      ],
+      "next_setup_step": "Configure a local texture witness backend and smoke-test it before use.",
+      "metadata": {}
+    }
+  ],
+  "counters": {
+    "total_witnesses": 7,
+    "available": 0,
+    "blocked": 7,
+    "required_blocked": 1
+  },
+  "blockers": [
+    "midigpt:not_configured",
+    "moonbeam:not_configured",
+    "musicbert:not_configured",
+    "source_separation_witness:no_local_demucs_backend",
+    "text2midi:not_configured",
+    "texture_witness:no_texture_backend_configured",
+    "transcription_witnesses:no_local_transcription_backend"
+  ],
+  "limitations": [
+    "No cloud APIs were called by this audit.",
+    "No model training was performed.",
+    "No source-audio understanding was faked; unavailable systems remain unavailable."
+  ]
+}

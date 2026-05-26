@@ -31,7 +31,7 @@ def test_analyze_midi_draft_outputs_and_redaction(tmp_path: Path, monkeypatch) -
     assert len(analysis.top_strengths) == 10
     assert len(analysis.top_weaknesses) == 10
     payload = json.loads(outputs["json"].read_text(encoding="utf-8"))
-    assert payload["musicality_score"] >= 0.0
+    assert payload["engineering_diagnostics"]["diagnostic_scores"]["musicality_score"] >= 0.0
     assert payload["input_source_class"] == "real_local_midi"
     assert "C:/Users/" not in outputs["md"].read_text(encoding="utf-8")
     assert "resolved_input_midi_path_redacted" in payload

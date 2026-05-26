@@ -51,6 +51,7 @@ config/symbolic_backends/*.local.json
 config/activation_manifests/*.local.json
 config/local_render_config.local.json
 config/local_vst_registry.local.json
+config/source_audio_study_authorization.local.json
 
 # Local rendering artifacts
 renders/

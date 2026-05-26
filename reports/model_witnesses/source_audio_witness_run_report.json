@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-05-26T12:59:52.617840+00:00",
+  "source_items_considered": 4,
+  "source_items_analyzed": 0,
+  "witness_observations_created": 0,
+  "heuristic_observations": 0,
+  "real_backend_observations": 0,
+  "optional_witness_attempts": 0,
+  "skipped_unauthorized_count": 4,
+  "skipped_unavailable_backend_count": 0,
+  "unavailable_backend_skips": 0,
+  "blockers": [
+    "analysis_not_authorized"
+  ],
+  "policy": {
+    "no_fake_model_availability": true,
+    "no_fake_source_audio_understanding": true,
+    "no_cloud_calls": true,
+    "analyze_raw_audio_only_when_analysis_allowed": true
+  }
+}

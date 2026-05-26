@@ -11,8 +11,8 @@
 - Preserve contour identity while varying rhythm and register.
 - Use bass/chord lock as structural glue, not as static loop.
 - db_lofi_beats: protect motif intimacy; avoid arrangement bloat
-- db_melodic_techno: delay release to intensify reward
 - db_modern_house: escalate density in waves, not linear ramps
+- db_melodic_techno: delay release to intensify reward
 - Favor ideas that survive repeat listening, not only first-pass novelty.
 - Keep rhythmic identity legible when layering textures.
 - Reference highest ranked candidate: candidate_03

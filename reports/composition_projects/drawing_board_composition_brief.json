@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-26T01:47:55.813351+00:00",
+  "generated_at": "2026-05-26T13:39:13.134160+00:00",
   "brief_type": "drawing_board_composition_brief",
   "status": "ok",
   "draft_dossier_path": "reports/composition_projects/jaca_draft_musical_understanding.json",
@@ -9,8 +9,8 @@
     "Preserve contour identity while varying rhythm and register.",
     "Use bass/chord lock as structural glue, not as static loop.",
     "db_lofi_beats: protect motif intimacy; avoid arrangement bloat",
-    "db_melodic_techno: delay release to intensify reward",
     "db_modern_house: escalate density in waves, not linear ramps",
+    "db_melodic_techno: delay release to intensify reward",
     "Favor ideas that survive repeat listening, not only first-pass novelty.",
     "Keep rhythmic identity legible when layering textures.",
     "Reference highest ranked candidate: candidate_03"
@@ -33,7 +33,7 @@
     "density_ratio_target": 1.6
   },
   "engineering_diagnostics": {
-    "draft_confidence": 0.45,
-    "database_confidence": 0.2
+    "draft_confidence": 0.82,
+    "database_confidence": 0.473701
   }
 }

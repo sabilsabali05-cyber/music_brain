@@ -1,0 +1,67 @@
+{
+  "dossier_id": "source_database_taste_dossier_v1",
+  "generated_at": "2026-05-26T12:59:54.225117+00:00",
+  "source_items_considered": 4,
+  "source_items_analyzed": 0,
+  "strongest_principles": [
+    {
+      "principle_id": "principle_05_policy_first_audio",
+      "statement": "Only analyze raw audio when manifest analysis_allowed is true.",
+      "rationale": "Study manifest explicitly separates authorization and analysis policies.",
+      "supporting_witnesses": [],
+      "confidence": 0.88,
+      "evidence_quality": "high",
+      "transformation_not_copy_note": "Original generation only; no phrase-level copying from source material."
+    },
+    {
+      "principle_id": "principle_01_transform_not_copy",
+      "statement": "Transform structural intent rather than copying melodic phrases.",
+      "rationale": "Consensus rows repeatedly reject direct source-copy behavior.",
+      "supporting_witnesses": [],
+      "confidence": 0.82,
+      "evidence_quality": "medium",
+      "transformation_not_copy_note": "Original generation only; no phrase-level copying from source material."
+    },
+    {
+      "principle_id": "principle_03_preserve_disagreement",
+      "statement": "When witnesses conflict, carry conflict into composition constraints.",
+      "rationale": "Consensus schema stores qualitative conflicts explicitly.",
+      "supporting_witnesses": [],
+      "confidence": 0.79,
+      "evidence_quality": "medium",
+      "transformation_not_copy_note": "Original generation only; no phrase-level copying from source material."
+    },
+    {
+      "principle_id": "principle_04_weak_evidence_guard",
+      "statement": "Downgrade confidence where no real backend confirms observations.",
+      "rationale": "Many rows mark no_real_backend_confirmation in weak evidence areas.",
+      "supporting_witnesses": [],
+      "confidence": 0.77,
+      "evidence_quality": "medium",
+      "transformation_not_copy_note": "Original generation only; no phrase-level copying from source material."
+    },
+    {
+      "principle_id": "principle_02_meter_is_guidance",
+      "statement": "Use meter and groove hints as guidance with room for reinterpretation.",
+      "rationale": "Witnesses offer probabilistic meter hints with disagreements preserved.",
+      "supporting_witnesses": [],
+      "confidence": 0.74,
+      "evidence_quality": "medium",
+      "transformation_not_copy_note": "Original generation only; no phrase-level copying from source material."
+    }
+  ],
+  "weak_evidence_limits": [
+    "Most consensus rows rely on heuristic/local evidence due to unavailable optional backends.",
+    "No claim of full source-audio understanding is made when witnesses are unavailable.",
+    "Conflicting witness claims remain unresolved without additional validated backends."
+  ],
+  "witness_influence_summary": [
+    "Heuristic local feature witness influences timing and structure hints.",
+    "Unavailable backend witnesses only contribute blockers and risk annotations."
+  ],
+  "rejected_principles": [
+    "Do not optimize for musicality score-first outputs.",
+    "Do not suppress witness disagreement to produce a single average narrative."
+  ],
+  "transformation_vs_copy_policy": "Generate transformed derivatives guided by principles; avoid direct copying of source content."
+}
