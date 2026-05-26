@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-05-26T20:20:23.043936+00:00",
+  "source_items_considered": 25,
+  "loop_candidates_found": 50,
+  "roles": {
+    "bass": 2,
+    "melody": 8,
+    "drums": 32,
+    "unknown": 8
+  },
+  "reference_only_sources_seen": 0,
+  "blocked_for_audio_export_by_policy": 25,
+  "allow_audio_loop_export": false,
+  "allow_reference_to_midi_starters": false,
+  "allowed_loop_lengths_bars": [
+    2,
+    4,
+    8
+  ],
+  "max_sample_pack_source_items": 25,
+  "max_loops_per_source": 2,
+  "missing_local_path_map_sources": 0,
+  "witness_records_available": 25,
+  "taste_dossier_present": true,
+  "policy_checks": {
+    "no_training_performed": true,
+    "no_cloud_calls_performed": true,
+    "no_audio_export_in_discovery": true
+  },
+  "private_paths_detected": false,
+  "limitations": [
+    "Tempo and key are heuristic filename hints only when present.",
+    "No model availability is fabricated; witness data is pass-through only.",
+    "Audio is never exported in discovery."
+  ]
+}

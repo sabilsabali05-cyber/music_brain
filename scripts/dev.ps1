@@ -178,6 +178,9 @@ function Show-Usage {
     Write-Host "  run-source-audio-model-witnesses"
     Write-Host "  build-source-audio-witness-consensus"
     Write-Host "  build-source-database-taste-dossier"
+    Write-Host "  discover-source-loop-candidates"
+    Write-Host "  build-source-song-starter-pack"
+    Write-Host "  export-sample-pack-to-reaper-live-bridge [pack-dir]"
     Write-Host "  build-source-understood-composition"
     Write-Host "  evaluate-source-understood-composition"
     Write-Host "  analyze-audio-database-musicality"
@@ -1498,6 +1501,24 @@ switch ($Task) {
         Invoke-Step -Label "Building source database taste dossier" -Command @(
             "python", "scripts/build_source_database_taste_dossier.py"
         )
+    }
+    "discover-source-loop-candidates" {
+        Invoke-Step -Label "Discovering source loop candidates" -Command @(
+            "python", "scripts/discover_source_loop_candidates.py"
+        )
+    }
+    "build-source-song-starter-pack" {
+        Invoke-Step -Label "Building source song starter pack" -Command @(
+            "python", "scripts/build_source_song_starter_pack.py"
+        )
+    }
+    "export-sample-pack-to-reaper-live-bridge" {
+        $packDir = Get-TaskArg -Index 0
+        $command = @("python", "scripts/export_sample_pack_to_reaper_live_bridge.py")
+        if (-not [string]::IsNullOrWhiteSpace($packDir)) {
+            $command += @("--pack-dir", $packDir)
+        }
+        Invoke-Step -Label "Exporting sample pack to REAPER live bridge manifest" -Command $command
     }
     "build-source-understood-composition" {
         Invoke-Step -Label "Building source understood composition" -Command @(

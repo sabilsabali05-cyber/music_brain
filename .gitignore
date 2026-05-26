@@ -53,6 +53,8 @@ config/local_render_config.local.json
 config/local_vst_registry.local.json
 config/source_audio_study_authorization.local.json
 local_source_audio_study/
+config/source_audio_sample_pack.local.json
+local_source_sample_packs/
 
 # Local rendering artifacts
 renders/
@@ -82,6 +84,7 @@ outputs/generated_midi/**
 outputs/model_backend_runs/**
 outputs/internal_beat_loop/**
 outputs/presentable_composition_from_draft_v1/local_input_cache/
+outputs/source_sample_packs/
 
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json

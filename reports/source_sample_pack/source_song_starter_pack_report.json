@@ -1,0 +1,19 @@
+{
+  "pack_id": "source_song_starter_pack_20260526T202028Z",
+  "generated_at": "2026-05-26T20:20:28.929188+00:00",
+  "source_items_considered": 25,
+  "loop_candidates_found": 50,
+  "audio_loops_exported": 0,
+  "midi_starters_created": 0,
+  "recipe_starters_created": 0,
+  "reference_only_audio_skipped": 0,
+  "export_violations": true,
+  "reaper_bridge_export_supported": true,
+  "private_paths_detected": false,
+  "output_folder": "outputs/source_sample_packs/source_song_starter_pack_20260526T202028Z",
+  "manifest_path": "outputs/source_sample_packs/source_song_starter_pack_20260526T202028Z/manifest.json",
+  "notes": [
+    "Source audio is never modified.",
+    "Reference-only rows never export audio."
+  ]
+}

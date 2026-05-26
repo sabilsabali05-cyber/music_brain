@@ -2,12 +2,6 @@
   "analysis_allowed_roots": [
     "C:/path/to/authorized/source_audio"
   ],
-  "excluded_roots": [
-    "C:/path/to/authorized/source_audio/private_or_restricted"
-  ],
-  "retrieval_only_roots": [
-    "C:/path/to/authorized/source_audio/reference_only"
-  ],
   "export_allowed_roots": [
     "C:/path/to/authorized/source_audio/export_cleared"
   ],
@@ -17,10 +11,18 @@
   "reference_only_roots": [
     "C:/path/to/authorized/source_audio/reference_only"
   ],
+  "excluded_roots": [
+    "C:/path/to/authorized/source_audio/private_or_restricted"
+  ],
   "training_allowed_roots": [],
   "max_sample_pack_source_items": 25,
   "max_loops_per_source": 2,
-  "allowed_loop_lengths_bars": [2, 4, 8],
+  "allowed_loop_lengths_bars": [
+    2,
+    4,
+    8
+  ],
   "allow_audio_loop_export": false,
-  "allow_reference_to_midi_starters": true
+  "allow_reference_to_midi_starters": true,
+  "normalize_audio_loops": false
 }
