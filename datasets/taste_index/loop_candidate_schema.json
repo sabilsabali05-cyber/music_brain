@@ -1,0 +1,77 @@
+{
+  "schema_name": "loop_candidate",
+  "schema_version": "1.0.0",
+  "description": "Retrieval candidate row enriched with witness evidence and feedback-derived ranking context.",
+  "required_fields": [
+    "loop_id",
+    "taste_item_id",
+    "candidate_id",
+    "source_redacted_path",
+    "path_hash",
+    "witness_evidence",
+    "retrieval_rank",
+    "retrieval_eligible"
+  ],
+  "fields": {
+    "loop_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "taste_item_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "candidate_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "source_redacted_path": {
+      "type": "string",
+      "must_include": "<PRIVATE_LOCAL_PATH>",
+      "must_not_include": [
+        "absolute_user_home_path",
+        "absolute_local_profile_path"
+      ]
+    },
+    "path_hash": {
+      "type": "string",
+      "format": "sha256_hex"
+    },
+    "witness_evidence": {
+      "type": "array",
+      "items": {
+        "witness_id": "string",
+        "witness_tool": "string",
+        "evidence_ref_hash": "sha256_hex",
+        "confidence": "float_0_1",
+        "supports_retrieval": true
+      }
+    },
+    "feedback_rollup": {
+      "type": "object",
+      "required": [
+        "decision_counts",
+        "focus_category_weights",
+        "consensus_score"
+      ]
+    },
+    "retrieval_rank": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "retrieval_eligible": {
+      "type": "boolean"
+    },
+    "generation_eligible": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "policy": {
+    "retrieval_first": true,
+    "generation_enabled": false,
+    "reroll_enabled": false,
+    "pattern_box_enabled": false,
+    "training_allowed_default": false
+  }
+}

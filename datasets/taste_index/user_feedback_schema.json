@@ -1,0 +1,88 @@
+{
+  "schema_name": "user_feedback",
+  "schema_version": "1.0.0",
+  "description": "User preference and critique records attached to loop IDs for retrieval-memory updates.",
+  "required_fields": [
+    "feedback_id",
+    "loop_id",
+    "taste_item_id",
+    "decision_label",
+    "focus_category",
+    "reviewer_hash",
+    "training_allowed"
+  ],
+  "fields": {
+    "feedback_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "loop_id": {
+      "type": "string",
+      "format": "stable_id",
+      "required_non_empty": true
+    },
+    "taste_item_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "decision_label": {
+      "type": "string",
+      "allowed_values": [
+        "promote",
+        "keep",
+        "adapt",
+        "archive",
+        "reject"
+      ]
+    },
+    "focus_category": {
+      "type": "string",
+      "allowed_values": [
+        "groove",
+        "harmony",
+        "melody",
+        "rhythm",
+        "texture",
+        "arrangement",
+        "energy",
+        "mix",
+        "emotion",
+        "novelty"
+      ]
+    },
+    "sentiment": {
+      "type": "string",
+      "allowed_values": [
+        "positive",
+        "neutral",
+        "negative"
+      ]
+    },
+    "reviewer_hash": {
+      "type": "string",
+      "format": "sha256_hex"
+    },
+    "comment_text": {
+      "type": "string",
+      "privacy_note": "No private paths in free text."
+    },
+    "source_redacted_path_hint": {
+      "type": "string",
+      "must_include": "<PRIVATE_LOCAL_PATH>",
+      "must_not_include": [
+        "absolute_user_home_path",
+        "absolute_local_profile_path"
+      ]
+    },
+    "training_allowed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "policy": {
+    "feedback_attaches_to_loop_ids": true,
+    "used_for_retrieval_memory_updates": true,
+    "used_for_training_by_default": false,
+    "training_gate_required": true
+  }
+}

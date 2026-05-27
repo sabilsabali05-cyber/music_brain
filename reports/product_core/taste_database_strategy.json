@@ -1,0 +1,73 @@
+{
+  "generated_for_branch": "cursor/music-brain-active",
+  "strategy_name": "taste_database_retrieval_feedback_first",
+  "core_orientation": {
+    "existing_models_as_tools": true,
+    "taste_database_as_proprietary_memory": true,
+    "retrieval_first": true
+  },
+  "model_witnesses": {
+    "required": [
+      "basicpitch",
+      "demucs"
+    ],
+    "optional": [
+      "mt3",
+      "omnizart",
+      "moonbeam",
+      "musicbert",
+      "midigpt",
+      "text2midi"
+    ],
+    "policy": "model_outputs_are_evidence_not_ground_truth"
+  },
+  "taste_database_layers": [
+    "taste_item",
+    "loop_candidate",
+    "user_feedback"
+  ],
+  "feedback_categories": {
+    "decision_labels": [
+      "promote",
+      "keep",
+      "adapt",
+      "archive",
+      "reject"
+    ],
+    "focus_labels": [
+      "groove",
+      "harmony",
+      "melody",
+      "rhythm",
+      "texture",
+      "arrangement",
+      "energy",
+      "mix",
+      "emotion",
+      "novelty"
+    ]
+  },
+  "retrieval_policy": {
+    "retrieval_first": true,
+    "generation_enabled": false,
+    "reroll_enabled": false,
+    "pattern_box_enabled": false
+  },
+  "training_policy": {
+    "training_allowed_default": false,
+    "cloud_training_allowed": false,
+    "gating_conditions": [
+      "explicit_product_owner_approval",
+      "privacy_scan_zero_new_leaks",
+      "authorization_and_provenance_audit_pass",
+      "local_only_execution_plan_documented",
+      "rollback_and_disable_plan_verified"
+    ]
+  },
+  "privacy_policy": {
+    "store_hashed_or_redacted_identifiers_only": true,
+    "allow_private_absolute_paths": false,
+    "allow_raw_audio_in_committed_taste_records": false,
+    "allow_model_weights_or_caches_in_repo": false
+  }
+}

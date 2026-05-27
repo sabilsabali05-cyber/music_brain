@@ -1,0 +1,83 @@
+{
+  "schema_name": "taste_item",
+  "schema_version": "1.0.0",
+  "description": "Canonical proprietary taste memory row derived from indexed loops and witness evidence.",
+  "required_fields": [
+    "taste_item_id",
+    "loop_id",
+    "source_id_hash",
+    "source_redacted_path",
+    "model_witness_refs",
+    "retrieval_profile",
+    "training_allowed"
+  ],
+  "fields": {
+    "taste_item_id": {
+      "type": "string",
+      "format": "hashed_id",
+      "example": "taste_8b6d54f03729d64f"
+    },
+    "loop_id": {
+      "type": "string",
+      "format": "stable_id"
+    },
+    "source_id_hash": {
+      "type": "string",
+      "format": "sha256_hex"
+    },
+    "source_redacted_path": {
+      "type": "string",
+      "must_include": "<PRIVATE_LOCAL_PATH>",
+      "must_not_include": [
+        "absolute_user_home_path",
+        "absolute_local_profile_path"
+      ]
+    },
+    "model_witness_refs": {
+      "type": "array",
+      "items": {
+        "witness_id": "string",
+        "witness_tool": "string",
+        "witness_role": "tool|witness",
+        "derived_output_ref_hash": "sha256_hex",
+        "output_committed_inline": false
+      }
+    },
+    "retrieval_profile": {
+      "type": "object",
+      "required": [
+        "retrieval_tags",
+        "retrieval_score",
+        "confidence"
+      ]
+    },
+    "feedback_summary": {
+      "type": "object",
+      "required": [
+        "positive_count",
+        "neutral_count",
+        "negative_count",
+        "last_feedback_at"
+      ]
+    },
+    "training_allowed": {
+      "type": "boolean",
+      "default": false,
+      "policy": "disabled_by_default"
+    }
+  },
+  "policy": {
+    "existing_models_treated_as_tools": [
+      "basicpitch",
+      "demucs",
+      "mt3_optional",
+      "omnizart_optional",
+      "moonbeam_optional",
+      "musicbert_optional",
+      "midigpt_optional",
+      "text2midi_optional"
+    ],
+    "generation_policy": "retrieval_first_no_generation_no_reroll_no_pattern_box",
+    "training_policy": "disabled_default_gate_required"
+  }
+}
