@@ -1,0 +1,85 @@
+{
+  "generated_for_branch": "cursor/music-brain-active",
+  "latest_commit_hash": "e211c5b84a424d4f2c4959b980c8735148ecbb17",
+  "branchless_state": {
+    "expected_branch": "cursor/music-brain-active",
+    "current_branch": "cursor/music-brain-active",
+    "current_branch_matches_expected": true,
+    "git_status": "dirty",
+    "git_status_clean": false,
+    "git_status_dirty": true,
+    "remote_tracking_branch": "origin/cursor/music-brain-active",
+    "branchless_rule_exists": true,
+    "branchless_rule_path": ".cursor/rules/branchless-development.md",
+    "branchless_policy_exists": true,
+    "branchless_policy_path": "reports/branch_hygiene/branchless_cursor_policy.md"
+  },
+  "core_capability_presence": {
+    "basicpitch_witness_support_present": true,
+    "demucs_witness_support_present": true,
+    "active_witness_registry_support_present": true,
+    "source_loop_extraction_support_present": true,
+    "exact_loop_midi_buddy_generation_support_present": true,
+    "reaper_export_pack_support_present": true,
+    "source_audio_manifest_support_present": true,
+    "privacy_redaction_scan_support_present": true,
+    "evidence": {
+      "basicpitch": "scripts/check_transcription_witnesses_setup.py",
+      "demucs": "scripts/check_source_separation_setup.py",
+      "active_registry": [
+        "reports/model_witnesses/model_witness_audit.json",
+        "reports/model_witnesses/model_witness_activation_plan.json"
+      ],
+      "source_loop_extraction": "scripts/extract_source_audio_loops.py",
+      "midi_buddy_generation": "scripts/generate_midi_buddies_for_extracted_loops.py",
+      "reaper_export": "scripts/export_source_loop_buddy_reaper_pack.py",
+      "source_audio_manifest": "scripts/build_source_audio_study_manifest.py",
+      "privacy_scan": "scripts/check_privacy_leaks.py"
+    }
+  },
+  "local_only_state": {
+    "local_model_witnesses_ignored": true,
+    "local_model_witnesses_cache_ignored": true,
+    "local_source_audio_study_ignored": true,
+    "config_model_witnesses_local_json_ignored": true,
+    "source_loop_wav_ignored": true,
+    "raw_audio_ignored": true
+  },
+  "active_witness_preservation_read_only": {
+    "verified_from_existing_local_state_only": true,
+    "basicpitch_importable_if_env_present": true,
+    "demucs_importable_if_env_present": true,
+    "cached_basicpitch_smoke_artifact_exists": false,
+    "cached_demucs_stems_exist": false,
+    "local_blockers": [
+      "local_model_witnesses_cache directory is missing",
+      "cached BasicPitch smoke artifact not found in local state",
+      "cached Demucs stems not found in local state"
+    ]
+  },
+  "validation_commands": {
+    "check_privacy_leaks": {
+      "command": "scripts\\dev.cmd check-privacy-leaks",
+      "status": "fail",
+      "details": {
+        "new_public_leak_count": 17,
+        "pre_existing_historical_path_debt_count": 6
+      }
+    },
+    "tests": {
+      "command": "scripts\\dev.cmd test",
+      "status": "pass",
+      "details": "534 passed, 2 warnings in 47.79s"
+    }
+  },
+  "product_readiness": {
+    "branchless_core_locked": false,
+    "safe_to_start_pattern_box_prototype": false,
+    "blockers": [
+      "working tree dirty (11 tracked files modified outside this report task)",
+      "privacy scan failed (new_public_leak_count=17, pre_existing_historical_path_debt_count=6)",
+      "missing cached BasicPitch smoke and Demucs stem artifacts in local state"
+    ],
+    "next_recommended_single_task": "Restore local cached witness artifacts (BasicPitch smoke MIDI + Demucs stems) in ignored local cache paths, then rerun core lock status check."
+  }
+}
