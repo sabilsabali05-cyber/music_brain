@@ -1,0 +1,74 @@
+{
+  "generated_at": "2026-05-27T05:05:00Z",
+  "branch": "cursor/music-brain-active",
+  "repo_root": "C:/Users/izzyo/ai-composer/music_brain",
+  "BasicPitch_callable": true,
+  "BasicPitch_real_output": true,
+  "BasicPitch_output_path_redacted": "<LOCAL_MODEL_OUTPUTS>/basicpitch/source_loop_basicpitch.mid",
+  "BasicPitch_note_count": 1,
+  "Demucs_callable": false,
+  "Demucs_exact_blocker": "torchcodec_runtime_error_missing_libtorchcodec_shared_libraries_while_writing_stems",
+  "Moonbeam_exact_blocker": "module_or_weights_or_tokenizer_not_ready",
+  "MT3_exact_blocker": "no_verified_local_checkpoint_and_configured_runtime",
+  "Omnizart_exact_blocker": "local_checkpoint_not_configured",
+  "MusicBERT_exact_blocker": "python_module_missing_transformers",
+  "MIDI-GPT_exact_blocker": "python_module_missing_midigpt",
+  "Text2MIDI_exact_blocker": "python_module_missing_text2midi",
+  "model_orchestrator_added": true,
+  "quality_scorer_added": true,
+  "quality_pack_generated": true,
+  "generated_midi_count": 70,
+  "usable_midi_count": 53,
+  "targeted_test_failure_file": "",
+  "targeted_test_failure_reason": "",
+  "dirty_tree_summary": {
+    "intended_model_stack_files": [
+      "features/model_integrations/locked_model_adapters.py",
+      "features/model_witnesses/model_role_registry.py",
+      "features/model_witnesses/model_stack_orchestrator.py",
+      "features/quality_loop_product/model_integrated_quality_scorer.py",
+      "scripts/build_quality_loop_product_pass.py",
+      "scripts/generate_quality_loop_pack.py",
+      "scripts/run_model_integration_lock_campaign.py",
+      "tests/test_model_integration_lock_campaign.py"
+    ],
+    "intended_reports": [
+      "reports/model_witnesses/current_model_stack_expansion_status.md",
+      "reports/model_witnesses/current_model_stack_expansion_status.json",
+      "reports/model_witnesses/demucs_repair_attempt.md",
+      "reports/model_witnesses/demucs_repair_attempt.json",
+      "reports/model_witnesses/model_stack_gate_after_demucs_repair.md",
+      "reports/model_witnesses/model_stack_gate_after_demucs_repair.json",
+      "reports/quality_loop_product/model_stack_smoke_pack_report.md",
+      "reports/quality_loop_product/model_stack_smoke_pack_report.json"
+    ],
+    "validation_generated_dirt": [
+      "reports/model_integration/*",
+      "reports/model_witnesses/*_product_activation.*",
+      "reports/model_witnesses/baseline_witness_reverification.*",
+      "reports/model_witnesses/model_stack_expansion_plan.*",
+      "reports/quality_loop_product/*"
+    ],
+    "unrelated_dirty_do_not_stage": [
+      "features/model_witnesses/model_witness_schema.py",
+      "scripts/build_source_song_starter_pack.py",
+      "scripts/discover_source_loop_candidates.py",
+      "scripts/export_paired_loop_pack.py",
+      "scripts/verify_paired_loop_pack.py",
+      "reports/integration/music_understanding_loop_status.json",
+      "reports/ratio_understanding/ratio_controlled_generation_v2_eval.json",
+      "reports/ratio_understanding/ratio_understanding_report.json",
+      "reports/source_understanding/source_understanding_report.json",
+      "reports/taste_learning/feedback_ingestion_report.json",
+      "reports/taste_learning/feedback_ingestion_report.md",
+      "reports/taste_learning/ranked_midi_candidates_report.json"
+    ],
+    "unsafe_do_not_stage": [
+      "outputs/music_understanding_loop_v1/generation_report.json",
+      "outputs/music_understanding_loop_v1/loop_status.json",
+      "outputs/ratio_controlled_song_v1/generation_report.md",
+      "reports/privacy/privacy_leak_scan_report.json",
+      "reports/privacy/privacy_leak_scan_report.md"
+    ]
+  }
+}

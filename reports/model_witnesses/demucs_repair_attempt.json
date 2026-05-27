@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-05-27T05:06:00Z",
+  "python_executable_basicpitch_env": "C:/Users/izzyo/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+  "demucs_importable_before": true,
+  "demucs_importable_after": true,
+  "demucs_cli_available": true,
+  "demucs_smoke_test_passed": false,
+  "stems_created": false,
+  "stems_readable": false,
+  "output_path_redacted": "<LOCAL_MODEL_WITNESSES_CACHE>/demucs/htdemucs/source_loop/",
+  "exact_blocker_if_failed": "torchcodec_failed_to_load_libtorchcodec_core_dlls_for_ffmpeg8_in_both_python314_and_local_py311_envs",
+  "failure_root_cause_classification": "torch+ffmpeg+torchcodec_runtime_compatibility",
+  "dependency_checks": {
+    "basicpitch_env_demucs_importable": true,
+    "basicpitch_env_demucs_module_cli": true,
+    "basicpitch_env_demucs_binary_cli": false,
+    "basicpitch_env_torch_importable": true,
+    "basicpitch_env_ffmpeg_present": true,
+    "weights_present": true,
+    "cache_present": true
+  },
+  "repair_attempts": [
+    {
+      "name": "existing_basicpitch_env_cpu_smoke",
+      "result": "failed",
+      "reason": "RuntimeError: Could not load libtorchcodec"
+    },
+    {
+      "name": "local_py311_env_create_and_install_demucs",
+      "result": "failed",
+      "reason": "ImportError then RuntimeError from torchcodec shared library load"
+    }
+  ],
+  "local_cache_committed": false
+}

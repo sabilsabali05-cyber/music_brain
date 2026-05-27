@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-05-27T05:06:30Z",
+  "active_models": [
+    "basicpitch"
+  ],
+  "BasicPitch_active": true,
+  "Demucs_active": false,
+  "symbolic_models_active": [],
+  "can_generate_quality_pack": true,
+  "recommended_pack_mode": "BasicPitch_only",
+  "reason": "BasicPitch is active with real MIDI output; Demucs remains blocked by torchcodec runtime linker failure, so proceed only in BasicPitch-only mode until Demucs stem export is fixed."
+}
