@@ -1,0 +1,98 @@
+{
+  "target_branch": "cursor/music-brain-active",
+  "source_branch": "cursor/activate-model-witnesses-and-reroll-source-loops-v1",
+  "stashes_applied": 0,
+  "stashes_deleted": 0,
+  "safe_restore_by_path": {
+    "performed": true,
+    "restored_files": [],
+    "notes": [
+      "No source-only diffs were found under requested safe functionality paths.",
+      "Recovery by path was a no-op."
+    ]
+  },
+  "model_witness_capability": {
+    "basicpitch_support_present": true,
+    "basicpitch_missing_dependency_behavior": {
+      "check_script": "scripts/check_transcription_witnesses_setup.py",
+      "available_flag_present": true,
+      "available": false,
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "behavior": "clear_non-crashing unavailable state is reported when local config/deps are absent"
+    },
+    "demucs_support_present": true,
+    "demucs_missing_dependency_behavior": {
+      "check_script": "scripts/check_source_separation_setup.py",
+      "available_flag_present": true,
+      "available": false,
+      "unavailable_reason": "disabled_or_missing_local_config",
+      "behavior": "clear_non-crashing unavailable state is reported when local config/deps are absent"
+    },
+    "active_witness_registry_support_present": true,
+    "active_registry_artifacts": [
+      "reports/model_witnesses/model_witness_audit.json",
+      "reports/model_witnesses/model_witness_activation_plan.json"
+    ],
+    "registry_local_path_ignored": true,
+    "cached_smoke_artifacts_expected_local_only": true,
+    "cached_local_only_paths": [
+      "local_model_witnesses/",
+      "local_model_witnesses_cache/",
+      "config/model_integrations/*.local.json"
+    ],
+    "committed_reports_redacted": true
+  },
+  "source_loop_workflow_capability": {
+    "extract_source_loops": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/extract_source_audio_loops.py"
+    },
+    "run_loop_model_witnesses": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/run_loop_model_witnesses.py"
+    },
+    "rank_extracted_loops": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/rank_extracted_source_loops.py"
+    },
+    "generate_midi_buddies": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/generate_midi_buddies_for_extracted_loops.py"
+    },
+    "evaluate_fit": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/evaluate_source_loop_midi_buddy_fit.py"
+    },
+    "export_reaper_pack": {
+      "script_exists": true,
+      "module_importable": true,
+      "path": "scripts/export_source_loop_buddy_reaper_pack.py"
+    },
+    "source_audio_not_committed_check": {
+      "local_audio_extensions_blocked_by_gitignore": true,
+      "local_source_audio_folders_ignored": true
+    }
+  },
+  "privacy_scan": {
+    "command": "scripts/dev.cmd check-privacy-leaks",
+    "status": "fail",
+    "pre_existing_historical_debt_count": 6,
+    "reported_new_public_leak_count": 17,
+    "classification_for_this_consolidation": {
+      "pre_existing_historical_debt": true,
+      "new_leaks_introduced_by_this_consolidation": false,
+      "basis": "No consolidation-changed files are listed in new_public_leaks."
+    }
+  },
+  "tests": {
+    "command": "scripts/dev.cmd test",
+    "status": "pass",
+    "summary": "534 passed, 2 warnings"
+  },
+  "unsafe_artifacts_excluded": true
+}
