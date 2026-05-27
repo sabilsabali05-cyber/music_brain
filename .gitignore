@@ -52,7 +52,10 @@ config/activation_manifests/*.local.json
 config/local_render_config.local.json
 config/local_vst_registry.local.json
 config/source_audio_study_authorization.local.json
+config/model_witnesses.local.json
 local_source_audio_study/
+local_model_witnesses/
+local_model_witnesses_cache/
 config/source_audio_sample_pack.local.json
 local_source_sample_packs/
 

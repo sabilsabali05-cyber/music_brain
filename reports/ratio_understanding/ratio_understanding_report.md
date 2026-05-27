@@ -9,12 +9,12 @@
 - domains_covered: `['density', 'harmonic', 'interval', 'motif', 'phrase', 'rhythm', 'section']`
 
 ## Evidence Sources
-- `C:/mb_real_understanding/datasets/source_understanding/source_understanding_records.jsonl` -> `available`
-- `C:/mb_real_understanding/datasets/music_theory/theory_understanding_records.jsonl` -> `available`
-- `C:/mb_real_understanding/reports/source_understanding/source_understanding_report.json` -> `available`
-- `C:/mb_real_understanding/reports/taste_learning/ranked_midi_candidates_report.json` -> `available`
-- `C:/mb_real_understanding/outputs/music_understanding_loop_v1` -> `available`
-- `C:/mb_real_understanding/outputs/beat_battle_site` -> `missing`
+- `C:/Users/izzyo/ai-composer/music_brain/datasets/source_understanding/source_understanding_records.jsonl` -> `available`
+- `C:/Users/izzyo/ai-composer/music_brain/datasets/music_theory/theory_understanding_records.jsonl` -> `available`
+- `C:/Users/izzyo/ai-composer/music_brain/reports/source_understanding/source_understanding_report.json` -> `available`
+- `C:/Users/izzyo/ai-composer/music_brain/reports/taste_learning/ranked_midi_candidates_report.json` -> `available`
+- `C:/Users/izzyo/ai-composer/music_brain/outputs/music_understanding_loop_v1` -> `available`
+- `C:/Users/izzyo/ai-composer/music_brain/outputs/beat_battle_site` -> `missing`
 
 ## Notes
 - Analysis uses only local symbolic/features artifacts where available.

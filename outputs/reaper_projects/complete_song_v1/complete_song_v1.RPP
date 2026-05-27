@@ -13,7 +13,7 @@
   <TRACK {00000000-0000-0000-0000-000000000102}
     NAME "Chords"
     NOTES "midi=outputs/complete_song_v1/stems/skeleton.mid"
-    NOTES "midi_fx=none"
+    NOTES "midi_fx=chordpotion_midi_fx"
     NOTES "instrument=fallback_keys"
   >
   <TRACK {00000000-0000-0000-0000-000000000103}

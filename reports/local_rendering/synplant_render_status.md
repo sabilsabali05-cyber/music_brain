@@ -8,7 +8,5 @@
 - final_wav_path: `none`
 
 ## Exact Blockers
-- reaper_executable_path_missing_or_unavailable
-- vst_registry_missing_or_empty
-- preferred_chordpotion_plugin_id
+- final_wav_not_verified
 - synplant_not_configured

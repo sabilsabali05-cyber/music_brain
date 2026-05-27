@@ -1,0 +1,500 @@
+{
+  "branch": "cursor/music-brain-active",
+  "generated_at": "2026-05-26",
+  "stashes": [
+    {
+      "stash": "stash@{0}",
+      "message": "On cursor/music-brain-active: temp-generated-report-changes-from-commit-checkpoint",
+      "files_changed": [
+        ".cursor/rules/branchless-development.md",
+        "datasets/ratio_understanding/ratio_observations.jsonl",
+        "outputs/chordpotion_generation_v1/chordpotion_transform_plan.json",
+        "outputs/chordpotion_generation_v1/chordpotion_transform_plan.md",
+        "outputs/chordpotion_generation_v1/chordpotion_transform_plan_report.json",
+        "outputs/chordpotion_generation_v1/render_result.json",
+        "outputs/complete_song_v1/pipeline_execution_log.json",
+        "outputs/complete_song_v1/render_plan.json",
+        "outputs/complete_song_v1/render_plan.md",
+        "outputs/generated_wav_v1/render_plan.json",
+        "outputs/generated_wav_v1/render_plan.md",
+        "outputs/generated_wav_v1/render_result.json",
+        "outputs/music_understanding_loop_v1/generation_report.json",
+        "outputs/music_understanding_loop_v1/loop_status.json",
+        "outputs/reaper_projects/complete_song_v1/complete_song_v1.RPP",
+        "outputs/render_ready_packs/chordpotion_generation_v1_chordpotion/report.json",
+        "outputs/render_ready_packs/complete_song_v1/render_plan.md",
+        "outputs/render_ready_packs/complete_song_v1/report.json",
+        "outputs/render_ready_packs/complete_song_v1/vst_assignment.md",
+        "outputs/render_ready_packs/generated_wav_v1/render_plan.md",
+        "outputs/render_ready_packs/generated_wav_v1/vst_assignment.md",
+        "reports/branch_hygiene/branchless_cursor_policy.md",
+        "reports/integration/complete_song_pipeline_status.json",
+        "reports/integration/complete_song_pipeline_status.md",
+        "reports/integration/music_understanding_loop_status.json",
+        "reports/local_rendering/ableton_render_report.md",
+        "reports/local_rendering/chordpotion_reaper_render_report.json",
+        "reports/local_rendering/chordpotion_reaper_render_report.md",
+        "reports/local_rendering/chordpotion_transform_plan_report.md",
+        "reports/local_rendering/reaper_project_creation.json",
+        "reports/local_rendering/reaper_project_creation.md",
+        "reports/local_rendering/reaper_render_report.json",
+        "reports/local_rendering/reaper_render_report.md",
+        "reports/local_rendering/synplant_render_status.json",
+        "reports/local_rendering/synplant_render_status.md",
+        "reports/ratio_understanding/ratio_controlled_generation_v2_eval.json",
+        "reports/ratio_understanding/ratio_understanding_report.json",
+        "reports/ratio_understanding/ratio_understanding_report.md",
+        "reports/source_understanding/source_understanding_report.json",
+        "reports/taste_learning/feedback_ingestion_report.json",
+        "reports/taste_learning/feedback_ingestion_report.md",
+        "reports/taste_learning/ranked_midi_candidates_report.json"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{1}",
+      "message": "On cursor/music-brain-active: temp-unintended-commit-content",
+      "files_changed": "same tracked path set as stash@{0}",
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{2}",
+      "message": "On cursor/music-brain-active: temp-policy-only-commit",
+      "files_changed": [
+        ".cursor/rules/branchless-development.md",
+        "reports/branch_hygiene/branchless_cursor_policy.md",
+        "reports/privacy/privacy_leak_scan_report.json",
+        "reports/privacy/privacy_leak_scan_report.md"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{3}",
+      "message": "On cursor/tmp-activate-model-witnesses-handoff-v1: pre-branchless-migration",
+      "files_changed": [
+        "outputs/music_understanding_loop_v1/generation_report.json",
+        "outputs/music_understanding_loop_v1/loop_status.json",
+        "reports/integration/music_understanding_loop_status.json",
+        "reports/ratio_understanding/ratio_controlled_generation_v2_eval.json",
+        "reports/ratio_understanding/ratio_understanding_report.json",
+        "reports/source_understanding/source_understanding_report.json",
+        "reports/taste_learning/feedback_ingestion_report.json",
+        "reports/taste_learning/feedback_ingestion_report.md",
+        "reports/taste_learning/ranked_midi_candidates_report.json",
+        "plus 18 untracked files including generated MIDI reroll artifacts"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": true,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{4}",
+      "message": "On cursor/presentable-draft-midi-understanding-repair-v1: pre-music-understanding-loop-branch-switch",
+      "files_changed": [
+        "outputs/music_understanding_loop_v1/generation_report.json",
+        "outputs/music_understanding_loop_v1/loop_status.json",
+        "reports/integration/music_understanding_loop_status.json",
+        "reports/ratio_understanding/ratio_controlled_generation_v2_eval.json",
+        "reports/ratio_understanding/ratio_understanding_report.json",
+        "reports/source_understanding/source_understanding_report.json",
+        "reports/taste_learning/ranked_midi_candidates_report.json"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{5}",
+      "message": "On cursor/beat-battle-sound-pair-records-v1: temp-privacy-report-artifacts",
+      "files_changed": [
+        "reports/privacy/privacy_leak_scan_report.json",
+        "reports/privacy/privacy_leak_scan_report.md"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{6}",
+      "message": "On cursor/beat-battle-sound-pair-records-v1: temp-unrelated-before-commit",
+      "files_changed": [
+        "outputs/music_understanding_loop_v1/generation_report.json",
+        "outputs/music_understanding_loop_v1/loop_status.json",
+        "reports/integration/music_understanding_loop_status.json",
+        "reports/privacy/privacy_leak_scan_report.json",
+        "reports/privacy/privacy_leak_scan_report.md",
+        "reports/source_understanding/source_understanding_report.json",
+        "reports/taste_learning/feedback_ingestion_report.json",
+        "reports/taste_learning/feedback_ingestion_report.md",
+        "reports/taste_learning/ranked_midi_candidates_report.json"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{7}",
+      "message": "On cursor/beat-battle-sound-pair-records-v1: temp-unrelated-generated-files",
+      "files_changed": [
+        "outputs/music_understanding_loop_v1/generation_report.json",
+        "outputs/music_understanding_loop_v1/loop_status.json",
+        "reports/integration/music_understanding_loop_status.json",
+        "reports/privacy/privacy_leak_scan_report.json",
+        "reports/privacy/privacy_leak_scan_report.md",
+        "reports/source_understanding/source_understanding_report.json",
+        "reports/taste_learning/feedback_ingestion_report.json",
+        "reports/taste_learning/feedback_ingestion_report.md",
+        "reports/taste_learning/ranked_midi_candidates_report.json"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{8}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: post-audit-microtonal-test",
+      "files_changed": [
+        "untracked-only stash (1 file)"
+      ],
+      "contains": {
+        "code": true,
+        "reports": false,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{9}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: post-audit-reviews-untracked",
+      "files_changed": [
+        "untracked-only stash (1 file)"
+      ],
+      "contains": {
+        "code": false,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{10}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: post-audit-preserve-unrelated",
+      "files_changed": [
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/dev.ps1",
+        "plus 37 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{11}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: temp-pre-checkpoint-all",
+      "files_changed": [
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md",
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "features/symbolic_model_ensemble/ensemble_orchestrator.py",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "reports/readiness/project_consolidation_status.json",
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/dev.ps1",
+        "scripts/run_text2midi_smoke_test.py",
+        "plus 1,195 additional untracked files including local config, library audio, and model cache paths"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": true,
+        "source_loop_wav": false,
+        "local_configs": true,
+        "model_caches": true,
+        "private_paths": true
+      },
+      "recommended_action": "unsafe_do_not_apply"
+    },
+    {
+      "stash": "stash@{12}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: temp-explicit-unrelated",
+      "files_changed": [
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md",
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "features/symbolic_model_ensemble/ensemble_orchestrator.py",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "reports/readiness/project_consolidation_status.json",
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/dev.ps1",
+        "scripts/run_text2midi_smoke_test.py",
+        "plus 37 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{13}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: temp-live-performance-untracked",
+      "files_changed": [
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md",
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "features/symbolic_model_ensemble/ensemble_orchestrator.py",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "reports/readiness/project_consolidation_status.json",
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/run_text2midi_smoke_test.py",
+        "plus 3 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{14}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: temp-pre-checkpoint-unrelated-2",
+      "files_changed": [
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md",
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "features/symbolic_model_ensemble/ensemble_orchestrator.py",
+        "outputs/symbolic_ensemble_v1/backend_availability_report.json",
+        "outputs/symbolic_ensemble_v1/backend_availability_report.md",
+        "outputs/symbolic_ensemble_v1/ensemble_generation_report.json",
+        "outputs/symbolic_ensemble_v1/ensemble_generation_report.md",
+        "outputs/symbolic_ensemble_v1/selected_candidate.mid",
+        "outputs/symbolic_ensemble_v1/selected_candidate_ir.json",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "reports/readiness/project_consolidation_status.json",
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/dev.ps1",
+        "scripts/run_text2midi_smoke_test.py",
+        "plus 6 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": true,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{15}",
+      "message": "On cursor/actually-activate-moonbeam-hf-v1: temp-pre-checkpoint-unrelated",
+      "files_changed": [
+        "docs/PROJECT_STATUS_AND_NEXT_STEPS.md",
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "reports/readiness/project_consolidation_status.json",
+        "reports/readiness/project_consolidation_status.md",
+        "scripts/dev.ps1",
+        "plus 68 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": true,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{16}",
+      "message": "On cursor/better-composition-outputs-v1: temp-safe-commit-isolation",
+      "files_changed": [
+        "docs/SYMBOLIC_BACKEND_ACTIVATION_RUNBOOK.md",
+        "features/symbolic_model_ensemble/ensemble_orchestrator.py",
+        "reports/model_integrations/model_integration_availability.json",
+        "reports/model_integrations/model_integration_availability.md",
+        "reports/model_integrations/symbolic_backend_activation_status.json",
+        "reports/model_integrations/symbolic_backend_activation_status.md",
+        "reports/model_integrations/text2midi_setup_status.json",
+        "reports/model_integrations/text2midi_setup_status.md",
+        "reports/model_integrations/text2midi_smoke_artifact.json",
+        "reports/model_integrations/text2midi_smoke_provenance.json",
+        "reports/model_integrations/text2midi_smoke_result.json",
+        "reports/model_integrations/text2midi_smoke_result.md",
+        "scripts/dev.ps1",
+        "scripts/run_text2midi_smoke_test.py",
+        "plus 58 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": true,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "keep_for_manual_review"
+    },
+    {
+      "stash": "stash@{17}",
+      "message": "On cursor/local-sounds-sample-library-index: pre-cleanup-unrelated-architecture-work-before-sample-library-merge",
+      "files_changed": [
+        "reports/agent_handoffs/latest_handoff.json",
+        "reports/agent_handoffs/latest_handoff.md",
+        "reports/agent_handoffs/pr_handoff_body.md",
+        "plus 11 untracked files"
+      ],
+      "contains": {
+        "code": true,
+        "reports": true,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    },
+    {
+      "stash": "stash@{18}",
+      "message": "On cursor/mass-ingestion-synplant-puredata-architecture: temp-before-local-sounds-index",
+      "files_changed": [
+        "untracked-only stash (7 files)"
+      ],
+      "contains": {
+        "code": true,
+        "reports": false,
+        "generated_midi": false,
+        "source_loop_wav": false,
+        "local_configs": false,
+        "model_caches": false,
+        "private_paths": false
+      },
+      "recommended_action": "ignore_for_now"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "branch": "cursor/music-brain-active",
+  "recovery_mode": "branchless_no_generation_no_activation_rerun",
+  "stash_recovery": {
+    "stashes_found": 19,
+    "stashes_applied": [],
+    "stashes_left_untouched": [
+      "stash@{0}",
+      "stash@{1}",
+      "stash@{2}",
+      "stash@{3}",
+      "stash@{4}",
+      "stash@{5}",
+      "stash@{6}",
+      "stash@{7}",
+      "stash@{8}",
+      "stash@{9}",
+      "stash@{10}",
+      "stash@{11}",
+      "stash@{12}",
+      "stash@{13}",
+      "stash@{14}",
+      "stash@{15}",
+      "stash@{16}",
+      "stash@{17}",
+      "stash@{18}"
+    ],
+    "unsafe_not_applied": [
+      "stash@{11}"
+    ],
+    "selective_apply_notes": [
+      "No stash was auto-applied because target functionality is already present on cursor/music-brain-active.",
+      "Mixed stashes with generated MIDI or broad untracked sets were preserved intact for manual review.",
+      "Unsafe stash@{11} includes local config/audio/model-cache content and was explicitly excluded."
+    ]
+  },
+  "must_preserve_targets": {
+    "basicpitch_persistent_active_witness_registry_report": "present via reports/model_witnesses/model_witness_audit.json and model_witness_activation_plan.json",
+    "demucs_persistent_active_witness_registry_report": "present via reports/model_witnesses/model_witness_audit.json and source_separation witness reports",
+    "model_activation_matrix": "present via reports/activation/full_model_activation_plan.json and run report",
+    "source_loop_extraction_pipeline": "present via features/source_loop_extraction and scripts/extract_source_audio_loops.py",
+    "exact_source_loop_midi_buddy_generation": "present via scripts/generate_midi_buddies_for_extracted_loops.py and outputs/source_loop_midi_buddies_v1",
+    "reaper_pack_export_reports": "present via scripts/export_source_loop_buddy_reaper_pack.py and reports/source_loop_midi_buddies/reaper_pack_report.*",
+    "gitignore_local_path_protection": "updated in this recovery to include local_model_witnesses/, local_model_witnesses_cache/, config/model_witnesses.local.json"
+  },
+  "local_validation": {
+    "basicpitch_import_works": true,
+    "basicpitch_cached_smoke_midi_exists": false,
+    "basicpitch_cached_smoke_midi_parses": false,
+    "demucs_import_works": true,
+    "demucs_cached_stems_exist": false,
+    "local_active_witness_registry_exists": true,
+    "registry_evidence": [
+      "reports/model_witnesses/model_witness_audit.json",
+      "reports/model_witnesses/model_witness_activation_plan.json"
+    ],
+    "committed_reports_redacted_from_absolute_paths": false,
+    "redaction_notes": [
+      "Privacy scan reports existing report-path leak debt; see scripts/dev.cmd check-privacy-leaks result.",
+      "No new private local paths were introduced in the recovery files added by this task."
+    ]
+  },
+  "command_results": {
+    "tests": {
+      "command": "scripts/dev.cmd test",
+      "status": "pass",
+      "detail": "534 passed, 2 warnings"
+    },
+    "privacy": {
+      "command": "scripts/dev.cmd check-privacy-leaks",
+      "status": "fail",
+      "detail": "NEW_PUBLIC_LEAK_COUNT=11, PRE_EXISTING_HISTORICAL_PATH_DEBT_COUNT=6"
+    }
+  }
+}
