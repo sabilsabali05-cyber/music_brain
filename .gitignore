@@ -43,6 +43,7 @@ reports/sample_libraries/**/*_index_report.md
 # Local machine sample-library config (use committed example template)
 config/sample_libraries/local_sounds_library.json
 config/presentable_composition_from_draft.local.json
+config/*.local.json
 config/controlled_batches/*.local.json
 config/model_integrations/*.local.json
 config/model_integrations/model_integrations.local.json
@@ -58,6 +59,8 @@ local_model_witnesses/
 local_model_witnesses_cache/
 config/source_audio_sample_pack.local.json
 local_source_sample_packs/
+local_run_reports/
+local_product_cache/
 
 # Local rendering artifacts
 renders/
@@ -77,6 +80,11 @@ external_models/
 model_weights/
 model_cache/
 third_party_models/
+.local_model_envs/
+local_model_weights/
+local_model_cache/
+local_model_outputs/
+local_model_integration/
 
 # Tangible demo seed suggestions may include private local paths
 outputs/tangible_generation_v1/*seed_suggestions*.json
@@ -89,6 +97,7 @@ outputs/internal_beat_loop/**
 outputs/presentable_composition_from_draft_v1/local_input_cache/
 outputs/source_sample_packs/
 outputs/paired_loop_packs/
+local_quality_loop_packs/
 
 # Ableton export private/local-only files
 outputs/ableton_project_v1/**/private_synplant_*_paths.json

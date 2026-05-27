@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-05-27T04:30:00Z",
+  "mode": "product_efficiency",
+  "privacy_scan_blocks_normal_dev": false,
+  "privacy_scan_blocks_release": true,
+  "historical_path_debt_blocks_dev": false,
+  "local_ignored_reports_can_include_private_paths": true,
+  "raw_audio_commit_blocked": true,
+  "credentials_commit_blocked": true,
+  "local_configs_commit_blocked": true,
+  "model_caches_commit_blocked": true,
+  "generated_quality_packs_commit_blocked": true,
+  "priority": "quality_loop_generation"
+}

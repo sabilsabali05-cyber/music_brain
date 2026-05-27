@@ -40,6 +40,10 @@ def _collect_dataset_signals() -> tuple[dict[str, Any], Path]:
     return payload, report_json
 
 
+def _load_efficiency_mode_policy() -> dict[str, Any]:
+    return _read_json_if_exists(ROOT_DIR / "reports" / "product_core" / "efficiency_mode_policy.json") or {}
+
+
 def build_readiness_report() -> MassIngestionReadinessReport:
     dataset_quality, dataset_quality_path = _collect_dataset_signals()
     review_count = int(dataset_quality.get("split_review", 320) or 320)
@@ -60,6 +64,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
     feedback_report = _read_json_if_exists(ROOT_DIR / "reports" / "feedback" / "feedback_summary.json") or {}
     puredata_report = _read_json_if_exists(ROOT_DIR / "reports" / "puredata" / "template_library_report.json") or {}
     routing_report = _read_json_if_exists(ROOT_DIR / "reports" / "ableton_routing" / "routing_records_report.json") or {}
+    efficiency_policy = _load_efficiency_mode_policy()
 
     sample_records_local = (ROOT_DIR / "datasets" / "sample_libraries" / "local_sounds_desktop" / "sample_seed_records.jsonl").exists()
     sample_indexer_available = (ROOT_DIR / "scripts" / "index_sample_library.py").exists()
@@ -74,6 +79,9 @@ def build_readiness_report() -> MassIngestionReadinessReport:
 
     privacy_status_ok = privacy_report.get("status") in {"ok", None}
     has_new_privacy_leaks = int(privacy_report.get("new_public_leak_count", 0) or 0) > 0
+    privacy_blocks_normal_dev = bool(efficiency_policy.get("privacy_scan_blocks_normal_dev", True))
+    historical_debt_blocks_dev = bool(efficiency_policy.get("historical_path_debt_blocks_dev", True))
+    privacy_blocks_release = bool(efficiency_policy.get("privacy_scan_blocks_release", True))
     historical_scrub_ready = bool(historical_scrub_plan)
     source_authorization_valid = (controlled_plan.get("source_authorization", {}).get("status") in {"valid", None})
     controlled_plan_valid = controlled_plan.get("status", "valid") == "valid"
@@ -86,7 +94,8 @@ def build_readiness_report() -> MassIngestionReadinessReport:
     routing_ready = max_routing_schema_ready and routing_report.get("status") == "ok"
     model_evaluation_ready = evaluation_report.get("status") in {"ok", "warning"}
 
-    ready_for_controlled_batch = bool(privacy_status_ok and not has_new_privacy_leaks and controlled_plan_valid)
+    privacy_gate_for_dev = bool((not privacy_blocks_normal_dev) or (privacy_status_ok and not has_new_privacy_leaks))
+    ready_for_controlled_batch = bool(privacy_gate_for_dev and controlled_plan_valid)
     ready_for_model_training = bool(
         ready_for_controlled_batch
         and source_authorization_valid
@@ -96,14 +105,14 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         and feedback_ready
         and model_evaluation_ready
     )
+    historical_debt_zero = int(privacy_report.get("pre_existing_historical_path_debt_count", 1) or 1) == 0
+    historical_gate_for_dev = bool((not historical_debt_blocks_dev) or historical_debt_zero)
     ready_for_mass_ingestion = bool(
-        ready_for_model_training
-        and historical_scrub_ready
-        and int(privacy_report.get("pre_existing_historical_path_debt_count", 1) or 1) == 0
+        ready_for_model_training and historical_scrub_ready and historical_gate_for_dev and (not privacy_blocks_release or not has_new_privacy_leaks)
     )
 
     blockers: list[str] = []
-    if has_new_privacy_leaks:
+    if has_new_privacy_leaks and privacy_blocks_normal_dev:
         blockers.append("privacy leak scan reports new public leaks")
     if not source_authorization_valid:
         blockers.append("source authorization validation failed")
@@ -123,7 +132,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         blockers.append("pure data template library artifacts are missing")
     if not routing_ready:
         blockers.append("max/ableton routing records are missing")
-    if not ready_for_mass_ingestion:
+    if not ready_for_mass_ingestion and historical_debt_blocks_dev:
         blockers.append("historical privacy debt remains above zero")
     if not blockers:
         blockers.append("none")
@@ -312,6 +321,7 @@ def build_readiness_report() -> MassIngestionReadinessReport:
         limitations=[
             "Readiness is inferred from available local artifacts and may include unknowns.",
             f"Dataset quality signal source: {dataset_quality_path.as_posix()} (if present).",
+            "Efficiency mode can allow local development to proceed even while privacy debt remains for release gates.",
             "No model training, transcription, modal calls, or audio processing performed.",
         ],
     )
