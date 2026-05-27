@@ -1,6 +1,6 @@
 {
   "generated_for_branch": "cursor/music-brain-active",
-  "latest_commit_hash": "e211c5b84a424d4f2c4959b980c8735148ecbb17",
+  "latest_commit_hash": "c037d4c5ec66d830da5c65099a324184ba69b91e",
   "branchless_state": {
     "expected_branch": "cursor/music-brain-active",
     "current_branch": "cursor/music-brain-active",
@@ -27,6 +27,7 @@
       "basicpitch": "scripts/check_transcription_witnesses_setup.py",
       "demucs": "scripts/check_source_separation_setup.py",
       "active_registry": [
+        "features/model_integrations/model_registry.py",
         "reports/model_witnesses/model_witness_audit.json",
         "reports/model_witnesses/model_witness_activation_plan.json"
       ],
@@ -47,14 +48,13 @@
   },
   "active_witness_preservation_read_only": {
     "verified_from_existing_local_state_only": true,
-    "basicpitch_importable_if_env_present": true,
-    "demucs_importable_if_env_present": true,
+    "basicpitch_available_importable": true,
+    "demucs_available_importable": true,
     "cached_basicpitch_smoke_artifact_exists": false,
     "cached_demucs_stems_exist": false,
     "local_blockers": [
-      "local_model_witnesses_cache directory is missing",
-      "cached BasicPitch smoke artifact not found in local state",
-      "cached Demucs stems not found in local state"
+      "local_model_witnesses_cache has no cached BasicPitch smoke artifact",
+      "local_model_witnesses_cache has no cached Demucs stems"
     ]
   },
   "validation_commands": {
@@ -69,17 +69,17 @@
     "tests": {
       "command": "scripts\\dev.cmd test",
       "status": "pass",
-      "details": "534 passed, 2 warnings in 47.79s"
+      "details": "534 passed, 2 warnings in 53.42s"
     }
   },
   "product_readiness": {
     "branchless_core_locked": false,
     "safe_to_start_pattern_box_prototype": false,
     "blockers": [
-      "working tree dirty (11 tracked files modified outside this report task)",
+      "working tree dirty (tracked files modified outside this report task)",
       "privacy scan failed (new_public_leak_count=17, pre_existing_historical_path_debt_count=6)",
       "missing cached BasicPitch smoke and Demucs stem artifacts in local state"
     ],
-    "next_recommended_single_task": "Restore local cached witness artifacts (BasicPitch smoke MIDI + Demucs stems) in ignored local cache paths, then rerun core lock status check."
+    "next_recommended_single_task": "Fix new public privacy leaks reported by scripts/dev.cmd check-privacy-leaks, then rerun this core lock status check."
   }
 }
